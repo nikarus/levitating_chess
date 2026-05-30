@@ -2,7 +2,7 @@ from math import pi, sqrt, exp, ceil, floor
 
 
 class Inputs:
-    magnet_cube_edge = 3
+    magnet_cube_edge = 4
     magnets_per_period = 4
     periods_per_side = 2
     magnet_to_coil_distance = 3
@@ -11,6 +11,9 @@ class Inputs:
     move_pulse_duration = 10
     allowed_wire_temp_rise = 40
     force_safety_factor = 1.3
+    ambient_temperature = 35
+    max_surface_temperature = 50
+    levitation_duty_cycle = 0.5
     control_loop_bandwidth_margin = 5
     pieces_levitating_simultaneously = 32
     sense_look_ahead_factor = 1.5
@@ -30,6 +33,8 @@ class Fixed:
     coil_aspect_ratio_target = 2.5
     winding_radial_width_factor = 0.35
     force_straight_length_efficiency = 0.65
+    surface_heat_transfer_coefficient = 12
+    heat_spread_area_factor = 16
     sink_channels_per_chip = 16
     usable_bus_voltage_fraction = 0.9
     ldc_sample_rate_per_channel = 4000
@@ -195,15 +200,21 @@ class CoilConfiguration:
         self.resistance = Constants.copper_resistivity * self.length_per_winding / self.cross_section_area
         self.voltage_limited_current = bus_voltage * Fixed.usable_bus_voltage_fraction / self.resistance
         self.thermal_limited_current = self.cross_section_area * sqrt(Inputs.allowed_wire_temp_rise * Constants.copper_density * Constants.copper_heat_capacity / (Constants.copper_resistivity * Inputs.move_pulse_duration))
-        self.operating_current = min(self.voltage_limited_current, self.thermal_limited_current)
+        self.current_limit = min(self.voltage_limited_current, self.thermal_limited_current)
         self.averaging_factor = self.field_averaging_factor(halbach.decay_constant, self.coil_height)
         self.average_b = halbach.b_at_coils * self.averaging_factor
+        self.force_per_amp = self.turns * self.average_b * (self.straight_length / 1000) * coil.bodies_under_platform
+        self.available_force = self.current_limit * self.force_per_amp
+        self.available_margin = self.available_force / piece.weight
+        self.required_current = piece.weight * Inputs.force_safety_factor / self.force_per_amp
+        self.operating_current = self.required_current
         self.force_per_body = self.operating_current * self.turns * self.average_b * (self.straight_length / 1000)
         self.total_force = self.force_per_body * coil.bodies_under_platform
         self.margin = self.total_force / piece.weight
         self.voltage_per_winding = self.operating_current * self.resistance
         self.power_per_winding = self.operating_current ** 2 * self.resistance
         self.temp_rise = self.operating_current ** 2 * self.resistance * Inputs.move_pulse_duration / (Constants.copper_density * self.length_per_winding * self.cross_section_area * Constants.copper_heat_capacity)
+        self.surface_temperature = Inputs.ambient_temperature + self.temp_rise
 
     def cells(self):
         return [
@@ -220,13 +231,17 @@ class CoilConfiguration:
             Cell("Resistance per winding", self.resistance, "ohm"),
             Cell("Voltage-limited current", self.voltage_limited_current, "A"),
             Cell("Thermal-limited current", self.thermal_limited_current, "A"),
-            Cell("Operating current per winding", self.operating_current, "A"),
+            Cell("Wire current limit", self.current_limit, "A"),
             Cell("Field averaging factor over coil", self.averaging_factor),
             Cell("Average B over coil height", self.average_b, "T"),
+            Cell("Available lift force (at limit)", self.available_force, "N"),
+            Cell("Available lift margin", self.available_margin, "x"),
+            Cell("Operating current per winding", self.operating_current, "A"),
             Cell("Lift force per coil body", self.force_per_body, "N"),
             Cell("Total lift force", self.total_force, "N"),
-            Cell("Lift margin", self.margin, "x"),
+            Cell("Lift margin (with safety)", self.margin, "x"),
             Cell("Pulse temp rise at operating current", self.temp_rise, "C"),
+            Cell("Surface temp after one pulse", self.surface_temperature, "C"),
         ]
 
 
@@ -237,11 +252,13 @@ class ConfigurationSweep:
             for bus_voltage in Constants.standard_bus_voltages
             for wire_diameter in Constants.standard_wire_diameters
         ]
-        self.selected = max(self.configurations, key=lambda c: c.margin)
-        self.best_per_voltage = [
-            max((c for c in self.configurations if c.bus_voltage == bus_voltage), key=lambda c: c.margin)
-            for bus_voltage in Constants.standard_bus_voltages
-        ]
+        self.feasible = [c for c in self.configurations if c.available_margin >= Inputs.force_safety_factor]
+        self.selected = min(self.feasible, key=lambda c: c.power_per_winding)
+        self.best_per_voltage = []
+        for bus_voltage in Constants.standard_bus_voltages:
+            candidates = [c for c in self.feasible if c.bus_voltage == bus_voltage]
+            if candidates:
+                self.best_per_voltage.append(min(candidates, key=lambda c: c.power_per_winding))
 
 
 class WireThermal:
@@ -261,6 +278,33 @@ class WireThermal:
             Cell("One-piece active coil power", self.one_piece_power, "W"),
             Cell("All board pieces simultaneous power", self.all_pieces_power, "W"),
             Cell("PSU current at bus", self.psu_current, "A"),
+        ]
+
+
+class SurfaceThermal:
+    def __init__(self, board, coil, config):
+        self.active_copper_mass = Constants.copper_density * config.length_per_winding * config.cross_section_area * coil.bodies_under_platform
+        self.thermal_capacitance = self.active_copper_mass * Constants.copper_heat_capacity
+        self.dissipation_area = board.platform_side ** 2 * Fixed.heat_spread_area_factor / 1000000
+        self.thermal_conductance = Fixed.surface_heat_transfer_coefficient * self.dissipation_area
+        self.thermal_time_constant = self.thermal_capacitance / self.thermal_conductance
+        self.one_piece_power = config.power_per_winding * coil.bodies_under_platform
+        self.pulse_surface_temp = Inputs.ambient_temperature + config.temp_rise
+        self.max_pulse_duration = self.thermal_capacitance * (Inputs.max_surface_temperature - Inputs.ambient_temperature) / self.one_piece_power
+        self.duty_average_power = self.one_piece_power * Inputs.levitation_duty_cycle
+        self.steady_state_rise = self.duty_average_power / self.thermal_conductance
+        self.steady_state_surface_temp = Inputs.ambient_temperature + self.steady_state_rise
+
+    def cells(self):
+        return [
+            Cell("Active copper mass (one piece)", self.active_copper_mass * 1000, "g"),
+            Cell("Lumped thermal capacitance", self.thermal_capacitance, "J/K"),
+            Cell("Heat-spread dissipation area", self.dissipation_area * 10000, "cm2"),
+            Cell("Thermal conductance to ambient", self.thermal_conductance, "W/K"),
+            Cell("Thermal time constant", self.thermal_time_constant, "s"),
+            Cell("Max pulse duration to cap", self.max_pulse_duration, "s"),
+            Cell("Duty-cycle average power", self.duty_average_power, "W"),
+            Cell("Steady-state surface temp at duty", self.steady_state_surface_temp, "C"),
         ]
 
 
@@ -313,11 +357,13 @@ class StatusChecks:
     def passes(self, condition, ok_text, fail_text):
         return ok_text if condition else fail_text
 
-    def __init__(self, board, coil, piece, config, control, sensing):
-        self.force = self.passes(config.margin >= 1, "OK", "not enough force")
-        self.safety = self.passes(config.margin >= Inputs.force_safety_factor, "OK", "below safety margin")
+    def __init__(self, board, coil, piece, config, control, sensing, thermal):
+        self.force = self.passes(config.available_margin >= 1, "OK", "not enough force")
+        self.safety = self.passes(config.available_margin >= Inputs.force_safety_factor, "OK", "below safety margin")
         self.voltage = self.passes(config.voltage_per_winding <= config.bus_voltage * Fixed.usable_bus_voltage_fraction, "OK", "voltage too high")
-        self.thermal = self.passes(config.temp_rise <= Inputs.allowed_wire_temp_rise, "OK", "too hot")
+        self.wire_thermal = self.passes(config.temp_rise <= Inputs.allowed_wire_temp_rise, "OK", "wire too hot")
+        self.pulse_surface = self.passes(thermal.pulse_surface_temp <= Inputs.max_surface_temperature, "OK", "pulse surface too hot")
+        self.duty_surface = self.passes(thermal.steady_state_surface_temp <= Inputs.max_surface_temperature, "OK", "duty surface too hot")
         self.per_orientation = self.passes(coil.bodies_per_orientation >= 6, "OK", "few coils per orientation")
         self.shell_validity = self.passes((piece.diameter - 2 * Inputs.plastic_wall_thickness) > 0, "OK", "wall too thick")
         self.coil_height = self.passes(config.coil_height <= 12, "OK", "coil too tall")
@@ -332,7 +378,9 @@ class StatusChecks:
             Cell("Force check", self.force),
             Cell("Safety-margin check", self.safety),
             Cell("Voltage check", self.voltage),
-            Cell("Thermal check", self.thermal),
+            Cell("Wire thermal check", self.wire_thermal),
+            Cell("Pulse surface temp check", self.pulse_surface),
+            Cell("Duty surface temp check", self.duty_surface),
             Cell("Per-orientation check", self.per_orientation),
             Cell("Shell-validity check", self.shell_validity),
             Cell("Coil-height buildable check", self.coil_height),
@@ -363,6 +411,7 @@ class BillOfMaterials:
             BomItem("MCU", "STM32G474RET6", 1, 10.5),
             BomItem("Bus power supply", f"{config.bus_voltage}V regulated supply", 1, 30.0),
             BomItem("PCB main board", "custom 4-layer FR4", round(board.motor_area / 100), 0.02),
+            BomItem("Heat-spreader plane", "aluminum baseplate", round(board.motor_area / 100), 0.03),
             BomItem("Coil-sense AFE", "LDC1614RGHR", ceil(coil.total_bodies / (4 * Fixed.coils_per_sense_channel)), 2.92),
             BomItem("Sense analog mux", "CD74HC4067M96", ceil(coil.total_bodies / Fixed.coils_per_sense_channel), 0.78),
             BomItem("Piece ID LC tag", "LQM18FN100M00D + C0G cap", Inputs.pieces_levitating_simultaneously, 0.15),
@@ -378,9 +427,10 @@ piece = Piece(board, halbach)
 sweep = ConfigurationSweep(coil, halbach, piece)
 config = sweep.selected
 wire = WireThermal(coil, config)
+thermal = SurfaceThermal(board, coil, config)
 control = Control(coil, config, halbach)
 sensing = Sensing(coil, control)
-checks = StatusChecks(board, coil, piece, config, control, sensing)
+checks = StatusChecks(board, coil, piece, config, control, sensing, thermal)
 bom = BillOfMaterials(board, coil, halbach, wire, config)
 
 
@@ -406,13 +456,13 @@ def print_section(title, cells):
 
 def print_sweep(sweep):
     print()
-    title = "Configuration sweep (best wire per bus voltage)"
+    title = "Configuration sweep (coolest feasible wire per bus voltage)"
     print(title)
     print("-" * len(title))
-    print(f"  {'bus V':>6}{'wire mm':>9}{'turns':>7}{'op A':>8}{'temp C':>8}{'margin':>9}")
+    print(f"  {'bus V':>6}{'wire mm':>9}{'turns':>7}{'op mA':>8}{'surf C':>8}{'avail x':>9}")
     for entry in sweep.best_per_voltage:
         marker = "  <- selected" if entry is sweep.selected else ""
-        print(f"  {entry.bus_voltage:>6}{entry.wire_diameter:>9}{entry.turns:>7}{entry.operating_current:>8.3f}{entry.temp_rise:>8.1f}{entry.margin:>9.3f}{marker}")
+        print(f"  {entry.bus_voltage:>6}{entry.wire_diameter:>9}{entry.turns:>7}{entry.operating_current*1000:>8.1f}{entry.surface_temperature:>8.1f}{entry.available_margin:>9.2f}{marker}")
 
 
 def print_bom(bill):
@@ -424,16 +474,17 @@ def print_bom(bill):
         print(f"  {item.category:<22}{item.spec:<28}qty {format_value(item.quantity):>6}  ${item.unit_cost:>7.3f}  ${item.subtotal:>9.2f}")
     print(f"  {'BOM TOTAL':<22}{'':<28}{'':>10}  {'':>8}  ${bill.total:>9.2f}")
 
-sweep = ConfigurationSweep(coil, halbach, piece)
-config = sweep.selected
-wire = WireThermal(coil, config)
-thermal = SurfaceThermal(board, coil, config)
-control = Control(coil, config, halbach)
-sensing = Sensing(coil, control)
+
+def print_report():
+    print("LEVITATING CHESS COIL-DENSITY MODEL")
+    print_section("Platform and board geometry", board.cells())
+    print_section("Coil geometry", coil.cells())
+    print_section("Magnet array", halbach.cells())
     print_section("Piece mass", piece.cells())
     print_section("Selected coil configuration", config.cells())
     print_sweep(sweep)
     print_section("Wire and thermal", wire.cells())
+    print_section("Surface temperature (passive cooling)", thermal.cells())
     print_section("Control feasibility", control.cells())
     print_section("Sensing throughput", sensing.cells())
     print_section("Status checks", checks.cells())
