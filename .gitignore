@@ -1,0 +1,10 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# LibreOffice lock files
+.~lock.*#
+
+# OS
+.DS_Store
