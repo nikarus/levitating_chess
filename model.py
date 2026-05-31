@@ -539,8 +539,8 @@ class BillOfMaterials:
             BomItem("Coil driver IC", "TLC5947DAP 24ch 12b PWM 30V/30mA", coil.chips, 3.041, "https://www.digikey.com/en/products/detail/texas-instruments/TLC5947DAP/1894117"),
             BomItem("Coil select switch", "BSS138-7-F N-FET, 1/coil body", coil.total_bodies, Fixed.matrix_switch_cost, "https://www.digikey.com/en/products/detail/diodes-incorporated/BSS138-7-F/717723"),
             BomItem("Flyback diode", "1N4148WS-7-F", coil.windings, 0.04, "https://www.digikey.com/en/products/detail/diodes-incorporated/1N4148WS-7-F/815127"),
-            BomItem("Magnet wire", "QA-1-155, 1 kg roll", ceil(wire.copper_mass), 43.0),
-            BomItem("NdFeB magnet block", "N52 4mm cube", halbach.blocks_per_platform * Inputs.pieces_levitating_simultaneously, 0.028),
+            BomItem("Magnet wire", "QA-1-155, 0.04mm, 1kg roll", ceil(wire.copper_mass), 37.14, "https://fr.aliexpress.com/item/4000274595791.html"),
+            BomItem("NdFeB magnet block", "N52 4mm cube, 10k+ MOQ", halbach.blocks_per_platform * Inputs.pieces_levitating_simultaneously, 0.0375, "https://www.alibaba.com/product-detail/Customized-Rare-Earth-Neodymium-Magnets-N52_1601519228921.html"),
             BomItem("MCU", "STM32G474RET6", 1, 10.5, "https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G474RET6/10326780"),
             BomItem("Bus power supply", f"{config.bus_voltage}V regulated supply", 1, 30.0),
             BomItem("PCB main board", "custom 4-layer FR4", round(board.motor_area / 100), 0.02),
@@ -606,9 +606,8 @@ def print_bom(bill):
     print(title)
     print("-" * len(title))
     for item in bill.items:
-        print(f"  {item.category:<22}{item.spec:<30}qty {format_value(item.quantity):>6}  ${item.unit_cost:>7.3f}  ${item.subtotal:>9.2f}")
-        if item.link:
-            print(f"      {item.link}")
+        link = f"  {item.link}" if item.link else ""
+        print(f"  {item.category:<22}{item.spec:<30}qty {format_value(item.quantity):>6}  ${item.unit_cost:>7.3f}  ${item.subtotal:>9.2f}{link}")
     print(f"  {'BOM TOTAL':<22}{'':<30}{'':>10}  {'':>8}  ${bill.total:>9.2f}")
 
 
