@@ -1,4 +1,4 @@
-from math import pi, sqrt, exp, ceil, floor
+from math import pi, sqrt, exp, ceil, floor, sin, radians
 
 
 class Inputs:
@@ -14,6 +14,10 @@ class Inputs:
     allowed_wire_temp_rise = 40
     force_safety_factor = 1.3
     min_maneuver_accel_g = 0.3
+    target_tilt_angle_deg = 15
+    target_tilt_time = 0.3
+    target_yaw_angle_deg = 90
+    target_yaw_time = 0.5
     position_sense_resolution_um = 5
     ambient_temperature = 35
     max_surface_temperature = 50
@@ -34,6 +38,7 @@ class Fixed:
     herringbone_orientation_families = 2
     commutation_phases_per_axis = 3
     maneuvering_pieces_per_tile = 1
+    com_height_fraction = 0.4
     halbach_first_harmonic_coefficient = 0.65
     reference_king_height = 95
     reference_king_base_diameter = 44
@@ -397,6 +402,46 @@ class Propulsion:
         ]
 
 
+class AttitudeAuthority:
+    def __init__(self, board, piece, config, propulsion):
+        self.mass = piece.mass / 1000
+        self.radius = piece.diameter / 2 / 1000
+        self.height = piece.box_height / 1000
+        self.com_height = Fixed.com_height_fraction * self.height
+        self.lever_arm = board.platform_side / 4 / 1000
+        self.tilt_couple_force = max(config.available_force - config.total_force, 0)
+        self.tilt_torque_max = self.tilt_couple_force * self.lever_arm
+        self.tilt_angle = radians(Inputs.target_tilt_angle_deg)
+        self.tilt_inertia = self.mass * (3 * self.radius ** 2 + self.height ** 2) / 12
+        self.tilt_accel = 4 * self.tilt_angle / Inputs.target_tilt_time ** 2
+        self.tilt_static_torque = self.mass * Constants.gravity * self.com_height * sin(self.tilt_angle)
+        self.tilt_dynamic_torque = self.tilt_inertia * self.tilt_accel
+        self.tilt_required_torque = self.tilt_static_torque + self.tilt_dynamic_torque
+        self.tilt_margin = self.tilt_torque_max / self.tilt_required_torque
+        self.yaw_torque_max = propulsion.max_thrust * self.lever_arm
+        self.yaw_angle = radians(Inputs.target_yaw_angle_deg)
+        self.yaw_inertia = self.mass * self.radius ** 2 / 2
+        self.yaw_accel = 4 * self.yaw_angle / Inputs.target_yaw_time ** 2
+        self.yaw_required_torque = self.yaw_inertia * self.yaw_accel
+        self.yaw_margin = self.yaw_torque_max / self.yaw_required_torque
+
+    def cells(self):
+        return [
+            Cell("Tilt lever arm (footprint)", self.lever_arm * 1000, "mm"),
+            Cell("Tilt couple force (spare lift)", self.tilt_couple_force, "N"),
+            Cell("Max tilt torque available", self.tilt_torque_max, "N.m"),
+            Cell("Tilt inertia about diameter", self.tilt_inertia, "kg.m2"),
+            Cell("Static torque to hold target tilt", self.tilt_static_torque, "N.m"),
+            Cell("Dynamic torque to reach tilt in time", self.tilt_dynamic_torque, "N.m"),
+            Cell("Tilt torque required (hold+slew)", self.tilt_required_torque, "N.m"),
+            Cell("Tilt authority margin", self.tilt_margin, "x"),
+            Cell("Max yaw torque available", self.yaw_torque_max, "N.m"),
+            Cell("Yaw inertia about vertical", self.yaw_inertia, "kg.m2"),
+            Cell("Yaw torque required for 90deg slew", self.yaw_required_torque, "N.m"),
+            Cell("Yaw authority margin", self.yaw_margin, "x"),
+        ]
+
+
 class Control:
     def coil_inductance(self, turns, footprint_area, height):
         return Constants.vacuum_permeability * turns ** 2 * (footprint_area / 1000000) / (height / 1000) * 1000
@@ -561,7 +606,7 @@ class StatusChecks:
     def passes(self, condition, ok_text, fail_text):
         return ok_text if condition else fail_text
 
-    def __init__(self, board, coil, piece, config, control, sensing, thermal, propulsion, stability, drive, tiles, psu):
+    def __init__(self, board, coil, piece, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu):
         self.force = self.passes(config.available_margin >= 1, "OK", "not enough force")
         self.safety = self.passes(config.available_margin >= Inputs.force_safety_factor, "OK", "below safety margin")
         self.voltage = self.passes(config.voltage_per_winding <= config.bus_voltage * Fixed.usable_bus_voltage_fraction, "OK", "voltage too high")
@@ -570,6 +615,8 @@ class StatusChecks:
         self.duty_surface = self.passes(thermal.steady_state_surface_temp <= Inputs.max_surface_temperature, "OK", "duty surface too hot")
         self.hover_surface = self.passes(thermal.cyclic_peak_surface_temp <= Inputs.max_surface_temperature, "OK", "cyclic hover too hot")
         self.maneuvering = self.passes(propulsion.acceleration_in_g >= Inputs.min_maneuver_accel_g, "OK", "lateral thrust too weak")
+        self.tilt_authority = self.passes(attitude.tilt_margin >= 1, "OK", "not enough tilt torque")
+        self.yaw_authority = self.passes(attitude.yaw_margin >= 1, "OK", "not enough yaw torque")
         self.rock_controllable = self.passes(stability.control_margin_over_rock >= Inputs.control_loop_bandwidth_margin, "OK", "rock mode too fast for loop")
         self.tilt_observable = self.passes(stability.tip_sense_resolution <= 0.001, "OK", "tilt sensing too coarse")
         self.driver_voltage = self.passes(config.bus_voltage <= Fixed.driver_output_voltage_rating, "OK", "bus exceeds driver Vout rating")
@@ -597,6 +644,8 @@ class StatusChecks:
             Cell("Duty surface temp check", self.duty_surface),
             Cell("Cyclic-hover surface temp check", self.hover_surface),
             Cell("Maneuvering check", self.maneuvering),
+            Cell("Tilt-authority check", self.tilt_authority),
+            Cell("Yaw-authority check", self.yaw_authority),
             Cell("Rock-mode controllable check", self.rock_controllable),
             Cell("Tilt-observable check", self.tilt_observable),
             Cell("Driver-voltage-rating check", self.driver_voltage),
@@ -708,13 +757,14 @@ config = sweep.selected
 wire = WireThermal(coil, config)
 thermal = SurfaceThermal(board, coil, config)
 propulsion = Propulsion(board, coil, piece, config, halbach)
+attitude = AttitudeAuthority(board, piece, config, propulsion)
 control = Control(coil, config, halbach)
 drive = DriveMatrix(coil, control, config)
 sensing = Sensing(coil, control)
 tiles = TileControl(board, coil, control)
 psu = PowerSupply(coil, wire, tiles, config)
 stability = Stability(board, piece, halbach, config, control)
-checks = StatusChecks(board, coil, piece, config, control, sensing, thermal, propulsion, stability, drive, tiles, psu)
+checks = StatusChecks(board, coil, piece, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu)
 bom = BillOfMaterials(board, coil, halbach, wire, config, tiles)
 mass = MassBudget(board, wire, piece)
 
@@ -796,6 +846,7 @@ def print_report():
     print_section("Wire and thermal", wire.cells())
     print_section("Surface temperature (passive cooling)", thermal.cells())
     print_section("Propulsion / flight", propulsion.cells())
+    print_section("Attitude authority (tilt / yaw)", attitude.cells())
     print_section("Control feasibility", control.cells())
     print_section("Drive matrix (position-addressed)", drive.cells())
     print_section("Sensing throughput", sensing.cells())
