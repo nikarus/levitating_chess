@@ -668,7 +668,7 @@ class BillOfMaterials:
             BomItem("piece", "Piece plastic / misc", "3D print PLA + connectors", 1, 1.4),
         ]
         self.board_items = [
-            BomItem("board", "Compute module", "RPi CM5 2GB Lite (planner, chess.com; MSRP est.)", 1, 50.0),
+            BomItem("board", "Compute module", "RPi CM5 2GB Lite, SC1556 (57.37 EUR)", 1, 61.96, "https://www.digikey.com/en/products/detail/raspberry-pi/SC1556/25805567"),
             BomItem("board", "Mainboard", "Custom 4-layer carrier (CM5 + power + tile links)", 1, 25.0),
             BomItem("board", "Tile interconnect", "B2B header, mainboard side", tiles.tile_count, 0.45),
             BomItem("board", "Bus power supply", "Mean Well LRS-450-24, 24V 451W", 1, 45.40, "https://www.digikey.com/en/products/detail/mean-well-usa-inc/LRS-450-24/16394243"),
