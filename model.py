@@ -54,6 +54,11 @@ class Fixed:
     control_tile_side = 100
     piece_control_flops = 20000
     node_mcu_throughput_mflops = 170
+    tile_mcu_power = 0.4
+    host_power = 8
+    driver_quiescent_power = 0.05
+    psu_sizing_margin = 1.25
+    psu_rated_power = 451
 
 
 class Constants:
@@ -477,6 +482,34 @@ class TileControl:
         ]
 
 
+class PowerSupply:
+    def __init__(self, coil, wire, tiles, config):
+        self.bus_voltage = config.bus_voltage
+        self.coil_lift_power = wire.all_pieces_power
+        self.thrust_factor = coil.peak_driven_windings / coil.active_windings
+        self.coil_peak_power = self.coil_lift_power * self.thrust_factor
+        self.electronics_power = (tiles.tile_count * Fixed.tile_mcu_power
+                                  + Fixed.host_power
+                                  + coil.chips * Fixed.driver_quiescent_power)
+        self.total_load = self.coil_peak_power + self.electronics_power
+        self.required_rating = self.total_load * Fixed.psu_sizing_margin
+        self.supply_rating = Fixed.psu_rated_power
+        self.rated_current = self.supply_rating / self.bus_voltage
+        self.load_fraction = self.required_rating / self.supply_rating
+
+    def cells(self):
+        return [
+            Cell("Coil lift power (32 pieces)", self.coil_lift_power, "W"),
+            Cell("Coil peak power (+thrust)", self.coil_peak_power, "W"),
+            Cell("Electronics overhead", self.electronics_power, "W"),
+            Cell("Total peak load", self.total_load, "W"),
+            Cell("Required PSU rating (+margin)", self.required_rating, "W"),
+            Cell("Selected PSU rating (LRS-450-24)", self.supply_rating, "W"),
+            Cell("PSU output current", self.rated_current, "A"),
+            Cell("PSU load fraction", self.load_fraction, "x"),
+        ]
+
+
 class Stability:
     def __init__(self, board, piece, halbach, config, control):
         self.decay_constant_m = halbach.decay_constant * 1000
@@ -513,7 +546,7 @@ class StatusChecks:
     def passes(self, condition, ok_text, fail_text):
         return ok_text if condition else fail_text
 
-    def __init__(self, board, coil, piece, config, control, sensing, thermal, propulsion, stability, drive, tiles):
+    def __init__(self, board, coil, piece, config, control, sensing, thermal, propulsion, stability, drive, tiles, psu):
         self.force = self.passes(config.available_margin >= 1, "OK", "not enough force")
         self.safety = self.passes(config.available_margin >= Inputs.force_safety_factor, "OK", "below safety margin")
         self.voltage = self.passes(config.voltage_per_winding <= config.bus_voltage * Fixed.usable_bus_voltage_fraction, "OK", "voltage too high")
@@ -537,6 +570,7 @@ class StatusChecks:
         self.driver_pool = self.passes(drive.pool_headroom >= 1, "OK", "driver pool too small for active set")
         self.drive_slew = self.passes(drive.slew_over_update <= 1, "OK", "current too slow for update period")
         self.tile_compute = self.passes(tiles.tile_headroom >= 1, "OK", "tile MCU overloaded")
+        self.psu_adequate = self.passes(psu.required_rating <= psu.supply_rating, "OK", "PSU undersized")
 
     def cells(self):
         return [
@@ -563,18 +597,19 @@ class StatusChecks:
             Cell("Driver-pool-size check", self.driver_pool),
             Cell("Drive-slew check", self.drive_slew),
             Cell("Per-tile-compute check", self.tile_compute),
+            Cell("PSU-adequate check", self.psu_adequate),
         ]
 
 
 class BomItem:
-    def __init__(self, category, spec, quantity, unit_cost, link=""):
+    def __init__(self, scope, category, spec, qty_per_unit, unit_cost, link=""):
+        self.scope = scope
         self.category = category
         self.spec = spec
-        self.per_board = quantity
-        self.quantity = quantity * Inputs.production_volume
+        self.qty_per_unit = qty_per_unit
         self.unit_cost = unit_cost
         self.link = link
-        self.subtotal = self.quantity * unit_cost
+        self.line_cost = qty_per_unit * unit_cost
 
 
 class MassBudget:
@@ -603,22 +638,45 @@ class MassBudget:
 
 class BillOfMaterials:
     def __init__(self, board, coil, halbach, wire, config, tiles):
-        self.items = [
-            BomItem("Coil driver IC", "TLC5947DAP 24ch 12b PWM 30V/30mA", coil.chips, 2.799, "https://www.digikey.com/en/products/detail/texas-instruments/TLC5947DAP/1894117"),
-            BomItem("Coil select switch", "BSS138-7-F N-FET, 1/coil body", coil.total_bodies, 0.028, "https://www.digikey.com/en/products/detail/diodes-incorporated/BSS138-7-F/717723"),
-            BomItem("Flyback diode", "1N4148WS-7-F", coil.windings, 0.0213, "https://www.digikey.com/en/products/detail/diodes-incorporated/1N4148WS-7-F/815127"),
-            BomItem("Magnet wire", "UEW 0.04mm solid copper, bulk kg", ceil(wire.copper_mass), 18.74, "https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html"),
-            BomItem("NdFeB magnet block", "N52 4mm cube", halbach.blocks_per_platform * Inputs.pieces_levitating_simultaneously, 0.0375, "https://www.alibaba.com/product-detail/Customized-Rare-Earth-Neodymium-Magnets-N52_1601519228921.html"),
-            BomItem("Tile control MCU", "STM32G431KBT6 32-pin, 1/tile", tiles.tile_count, 3.13, "https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G431KBT6/10231564"),
-            BomItem("Host computer + UI", "SBC + touchscreen: path planner, game logic, chess.com", 1, 75.0),
-            BomItem("Bus power supply", f"{config.bus_voltage}V regulated supply", 1, 30.0),
-            BomItem("PCB main board", "custom 4-layer FR4", round(board.motor_area / 100), 0.02),
-            BomItem("Coil-sense AFE", "LDC1614RGHR", ceil(coil.total_bodies / (4 * Fixed.coils_per_sense_channel)), 2.249, "https://www.digikey.com/en/products/detail/texas-instruments/LDC1614RGHR/5481860"),
-            BomItem("Sense analog mux", "CD74HC4067M96", ceil(coil.total_bodies / Fixed.coils_per_sense_channel), 0.3405, "https://www.digikey.com/en/products/detail/texas-instruments/CD74HC4067M96/1507236"),
-            BomItem("Piece ID LC tag", "LQM18FN100M00D + C0G cap", Inputs.pieces_levitating_simultaneously, 0.15, "https://www.digikey.com/en/products/detail/murata-electronics/LQM18FN100M00D/1016184"),
-            BomItem("Piece plastic / misc", "3D print PLA + connectors", 1, 45.0),
+        coils_per_tile = ceil(coil.total_bodies / tiles.tile_count)
+        windings_per_tile = coils_per_tile * Fixed.windings_per_coil_body
+        tile_active_windings = tiles.max_pieces_per_tile * coil.bodies_under_platform * Fixed.windings_per_coil_body
+        tile_driver_chips = ceil(tile_active_windings * Inputs.drive_look_ahead_factor / Fixed.sink_channels_per_chip)
+        tile_sense_afe = ceil(coils_per_tile / (4 * Fixed.coils_per_sense_channel))
+        tile_sense_mux = ceil(coils_per_tile / Fixed.coils_per_sense_channel)
+        tile_wire_kg = wire.copper_mass / tiles.tile_count
+        tile_pcb_area_cm2 = (tiles.tile_side ** 2) / 100
+
+        self.tile_count = tiles.tile_count
+        self.piece_count = Inputs.pieces_levitating_simultaneously
+        self.coils_per_tile = coils_per_tile
+
+        self.tile_items = [
+            BomItem("tile", "Coil driver IC", "TLC5947DAP 24ch 12b PWM", tile_driver_chips, 2.799, "https://www.digikey.com/en/products/detail/texas-instruments/TLC5947DAP/1894117"),
+            BomItem("tile", "Coil select switch", "BSS138-7-F N-FET, 1/coil", coils_per_tile, 0.028, "https://www.digikey.com/en/products/detail/diodes-incorporated/BSS138-7-F/717723"),
+            BomItem("tile", "Flyback diode", "1N4148WS-7-F, 1/winding", windings_per_tile, 0.0213, "https://www.digikey.com/en/products/detail/diodes-incorporated/1N4148WS-7-F/815127"),
+            BomItem("tile", "Magnet wire", "UEW 0.04mm Cu (kg share)", tile_wire_kg, 18.74, "https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html"),
+            BomItem("tile", "Coil-sense AFE", "LDC1614RGHR", tile_sense_afe, 2.249, "https://www.digikey.com/en/products/detail/texas-instruments/LDC1614RGHR/5481860"),
+            BomItem("tile", "Sense analog mux", "CD74HC4067M96", tile_sense_mux, 0.3405, "https://www.digikey.com/en/products/detail/texas-instruments/CD74HC4067M96/1507236"),
+            BomItem("tile", "Tile PCB", "4-layer FR4 10x10cm", tile_pcb_area_cm2, 0.02),
+            BomItem("tile", "Tile control MCU", "STM32G431KBT6 32-pin", 1, 3.13, "https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G431KBT6/10231564"),
         ]
-        self.total = sum(item.subtotal for item in self.items)
+        self.piece_items = [
+            BomItem("piece", "NdFeB magnet block", "N52 4mm cube", halbach.blocks_per_platform, 0.0375, "https://www.alibaba.com/product-detail/Customized-Rare-Earth-Neodymium-Magnets-N52_1601519228921.html"),
+            BomItem("piece", "Piece ID LC tag", "LQM18FN100M00D + C0G cap", 1, 0.15, "https://www.digikey.com/en/products/detail/murata-electronics/LQM18FN100M00D/1016184"),
+            BomItem("piece", "Piece plastic / misc", "3D print PLA + connectors", 1, 1.4),
+        ]
+        self.board_items = [
+            BomItem("board", "Host computer", "Raspberry Pi 5 4GB (path planner, chess.com, no display)", 1, 60.0, "https://www.digikey.com/en/products/detail/raspberry-pi/SC1431/21658261"),
+            BomItem("board", "Bus power supply", "Mean Well LRS-450-24, 24V 451W", 1, 45.40, "https://www.digikey.com/en/products/detail/mean-well-usa-inc/LRS-450-24/16394243"),
+        ]
+
+        self.per_tile_cost = sum(i.line_cost for i in self.tile_items)
+        self.per_piece_cost = sum(i.line_cost for i in self.piece_items)
+        self.board_shared_cost = sum(i.line_cost for i in self.board_items)
+        self.tiles_cost = self.per_tile_cost * self.tile_count
+        self.pieces_cost = self.per_piece_cost * self.piece_count
+        self.total = self.tiles_cost + self.pieces_cost + self.board_shared_cost
 
 
 board = BoardGeometry()
@@ -634,8 +692,9 @@ control = Control(coil, config, halbach)
 drive = DriveMatrix(coil, control, config)
 sensing = Sensing(coil, control)
 tiles = TileControl(board, coil, control)
+psu = PowerSupply(coil, wire, tiles, config)
 stability = Stability(board, piece, halbach, config, control)
-checks = StatusChecks(board, coil, piece, config, control, sensing, thermal, propulsion, stability, drive, tiles)
+checks = StatusChecks(board, coil, piece, config, control, sensing, thermal, propulsion, stability, drive, tiles, psu)
 bom = BillOfMaterials(board, coil, halbach, wire, config, tiles)
 mass = MassBudget(board, wire, piece)
 
@@ -671,16 +730,39 @@ def print_sweep(sweep):
         print(f"  {entry.bus_voltage:>6}{entry.wire_diameter:>9}{entry.turns:>7}{entry.operating_current*1000:>8.1f}{entry.surface_temperature:>8.1f}{entry.available_margin:>9.2f}{marker}")
 
 
+def print_bom_group(items):
+    for item in items:
+        link = f"  {item.link}" if item.link else ""
+        print(f"  {item.category:<21}{item.spec:<46}qty {format_value(item.qty_per_unit):>8}  ${item.unit_cost:>7.3f}  ${item.line_cost:>9.2f}{link}")
+
+
 def print_bom(bill):
     print()
-    title = "BOM (per board; unit prices are volume pricing for a 100-board order)"
+    title = "BOM (per board; DigiKey/Alibaba volume pricing, 100-board order)"
     print(title)
     print("-" * len(title))
-    for item in bill.items:
-        link = f"  {item.link}" if item.link else ""
-        line_cost = item.per_board * item.unit_cost
-        print(f"  {item.category:<22}{item.spec:<40}qty {format_value(item.per_board):>8}  ${item.unit_cost:>7.3f}  ${line_cost:>9.2f}{link}")
-    print(f"  {'BOARD TOTAL':<22}{'':<40}{'':>12}  {'':>8}  ${bill.total / Inputs.production_volume:>9.2f}")
+
+    print()
+    print("  [A] Per tile (one 10x10cm coil-array module)")
+    print_bom_group(bill.tile_items)
+    print(f"  {'PER-TILE SUBTOTAL':<21}{'':<46}{'':>12}  {'':>8}  ${bill.per_tile_cost:>9.2f}")
+
+    print()
+    print("  [B] Per piece (chess piece)")
+    print_bom_group(bill.piece_items)
+    print(f"  {'PER-PIECE SUBTOTAL':<21}{'':<46}{'':>12}  {'':>8}  ${bill.per_piece_cost:>9.2f}")
+
+    print()
+    print("  [C] Board-shared (one per board)")
+    print_bom_group(bill.board_items)
+    print(f"  {'SHARED SUBTOTAL':<21}{'':<46}{'':>12}  {'':>8}  ${bill.board_shared_cost:>9.2f}")
+
+    print()
+    print("  Board roll-up")
+    print(f"  {'Tiles':<21}{f'{bill.tile_count} x ${bill.per_tile_cost:.2f}':<46}{'':>12}  {'':>8}  ${bill.tiles_cost:>9.2f}")
+    print(f"  {'Pieces':<21}{f'{bill.piece_count} x ${bill.per_piece_cost:.2f}':<46}{'':>12}  {'':>8}  ${bill.pieces_cost:>9.2f}")
+    print(f"  {'Board-shared':<21}{'':<46}{'':>12}  {'':>8}  ${bill.board_shared_cost:>9.2f}")
+    print(f"  {'BOARD TOTAL':<21}{'':<46}{'':>12}  {'':>8}  ${bill.total:>9.2f}")
 
 
 def print_report():
@@ -698,6 +780,7 @@ def print_report():
     print_section("Drive matrix (position-addressed)", drive.cells())
     print_section("Sensing throughput", sensing.cells())
     print_section("Tiled control architecture", tiles.cells())
+    print_section("Power supply", psu.cells())
     print_section("Stability and vibration", stability.cells())
     print_section("Mass budget (whole set)", mass.cells())
     print_section("Status checks", checks.cells())
