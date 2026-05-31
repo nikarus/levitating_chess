@@ -660,6 +660,7 @@ class BillOfMaterials:
             BomItem("tile", "Sense analog mux", "CD74HC4067M96", tile_sense_mux, 0.3405, "https://www.digikey.com/en/products/detail/texas-instruments/CD74HC4067M96/1507236"),
             BomItem("tile", "Tile PCB", "4-layer FR4 10x10cm", tile_pcb_area_cm2, 0.02),
             BomItem("tile", "Tile control MCU", "STM32G431KBT6 32-pin", 1, 3.13, "https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G431KBT6/10231564"),
+            BomItem("tile", "Backplane connector", "B2B header, tile->mainboard", 1, 0.45),
         ]
         self.piece_items = [
             BomItem("piece", "NdFeB magnet block", "N52 4mm cube", halbach.blocks_per_platform, 0.0375, "https://www.alibaba.com/product-detail/Customized-Rare-Earth-Neodymium-Magnets-N52_1601519228921.html"),
@@ -667,7 +668,9 @@ class BillOfMaterials:
             BomItem("piece", "Piece plastic / misc", "3D print PLA + connectors", 1, 1.4),
         ]
         self.board_items = [
-            BomItem("board", "Host computer", "Raspberry Pi 5 4GB (path planner, chess.com, no display)", 1, 60.0, "https://www.digikey.com/en/products/detail/raspberry-pi/SC1431/21658261"),
+            BomItem("board", "Compute module", "RPi CM5 2GB Lite (planner, chess.com; MSRP est.)", 1, 50.0),
+            BomItem("board", "Mainboard", "Custom 4-layer carrier (CM5 + power + tile links)", 1, 25.0),
+            BomItem("board", "Tile interconnect", "B2B header, mainboard side", tiles.tile_count, 0.45),
             BomItem("board", "Bus power supply", "Mean Well LRS-450-24, 24V 451W", 1, 45.40, "https://www.digikey.com/en/products/detail/mean-well-usa-inc/LRS-450-24/16394243"),
         ]
 
