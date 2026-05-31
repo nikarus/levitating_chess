@@ -37,12 +37,15 @@ class Fixed:
     force_straight_length_efficiency = 0.65
     surface_heat_transfer_coefficient = 12
     heat_spread_area_factor = 16
-    sink_channels_per_chip = 16
+    sink_channels_per_chip = 24
+    driver_output_voltage_rating = 30
+    driver_channel_current = 0.03
     usable_bus_voltage_fraction = 0.9
     ldc_sample_rate_per_channel = 4000
     coils_per_sense_channel = 16
     windings_per_coil_body = 2
     bifilar_wires_per_turn = 2
+    matrix_switch_cost = 0.045
 
 
 class Constants:
@@ -108,7 +111,9 @@ class CoilBed:
         self.coil_spacing = sqrt(1 / self.body_density)
         self.total_bodies = ceil(board.motor_area * self.body_density)
         self.windings = self.total_bodies * Fixed.windings_per_coil_body
-        self.chips = ceil(self.windings / Fixed.sink_channels_per_chip)
+        self.active_bodies = self.bodies_under_platform * Inputs.pieces_levitating_simultaneously
+        self.active_windings = self.active_bodies * Fixed.windings_per_coil_body
+        self.chips = ceil(self.active_windings / Fixed.sink_channels_per_chip)
 
     def cells(self):
         return [
@@ -123,8 +128,10 @@ class CoilBed:
             Cell("Coil body density", self.body_density, "1/mm2"),
             Cell("Equivalent coil spacing", self.coil_spacing, "mm"),
             Cell("Total bifilar coil bodies", self.total_bodies),
-            Cell("Total windings / driver outputs", self.windings),
-            Cell("16-channel driver chips", self.chips),
+            Cell("Total windings (full board)", self.windings),
+            Cell("Active bodies (all pieces at once)", self.active_bodies),
+            Cell("Active windings driven at once", self.active_windings),
+            Cell("24-channel driver chips (active)", self.chips),
         ]
 
 
@@ -372,6 +379,30 @@ class Control:
         ]
 
 
+class DriveMatrix:
+    def __init__(self, coil, control, config):
+        self.scheme = "direct active-select (continuous hold)"
+        self.coil_switches = coil.total_bodies
+        self.active_windings = coil.active_windings
+        self.driver_channels = coil.chips * Fixed.sink_channels_per_chip
+        self.pool_headroom = self.driver_channels / self.active_windings
+        self.slew_time = control.slew_time
+        self.update_period = 1000 / control.pose_update_rate
+        self.slew_over_update = self.slew_time / self.update_period
+
+    def cells(self):
+        return [
+            Cell("Drive scheme", self.scheme),
+            Cell("Per-coil select switches", self.coil_switches),
+            Cell("Active windings driven at once", self.active_windings),
+            Cell("Driver output channels (pool)", self.driver_channels),
+            Cell("Driver pool headroom", self.pool_headroom, "x"),
+            Cell("Current slew time to Imax", self.slew_time, "ms"),
+            Cell("Control update period", self.update_period, "ms"),
+            Cell("Slew / update-period ratio", self.slew_over_update, "x"),
+        ]
+
+
 class Sensing:
     def __init__(self, coil, control):
         self.per_coil_update_rate = control.pose_update_rate
@@ -428,7 +459,7 @@ class StatusChecks:
     def passes(self, condition, ok_text, fail_text):
         return ok_text if condition else fail_text
 
-    def __init__(self, board, coil, piece, config, control, sensing, thermal, propulsion, stability):
+    def __init__(self, board, coil, piece, config, control, sensing, thermal, propulsion, stability, drive):
         self.force = self.passes(config.available_margin >= 1, "OK", "not enough force")
         self.safety = self.passes(config.available_margin >= Inputs.force_safety_factor, "OK", "below safety margin")
         self.voltage = self.passes(config.voltage_per_winding <= config.bus_voltage * Fixed.usable_bus_voltage_fraction, "OK", "voltage too high")
@@ -438,6 +469,8 @@ class StatusChecks:
         self.maneuvering = self.passes(propulsion.acceleration_in_g >= Inputs.min_maneuver_accel_g, "OK", "lateral thrust too weak")
         self.rock_controllable = self.passes(stability.control_margin_over_rock >= Inputs.control_loop_bandwidth_margin, "OK", "rock mode too fast for loop")
         self.tilt_observable = self.passes(stability.tip_sense_resolution <= 0.001, "OK", "tilt sensing too coarse")
+        self.driver_voltage = self.passes(config.bus_voltage <= Fixed.driver_output_voltage_rating, "OK", "bus exceeds driver Vout rating")
+        self.driver_current = self.passes(config.current_limit <= Fixed.driver_channel_current, "OK", "coil current exceeds channel rating")
         self.per_orientation = self.passes(coil.bodies_per_orientation >= 6, "OK", "few coils per orientation")
         self.shell_validity = self.passes((piece.diameter - 2 * Inputs.plastic_wall_thickness) > 0, "OK", "wall too thick")
         self.coil_height = self.passes(config.coil_height <= 12, "OK", "coil too tall")
@@ -446,6 +479,8 @@ class StatusChecks:
         self.control_bandwidth = self.passes(control.actuator_bandwidth >= control.required_bandwidth, "OK", "actuator bandwidth too low")
         self.current_slew = self.passes(control.slew_time <= control.instability_time / Inputs.control_loop_bandwidth_margin, "OK", "current cannot react in time")
         self.active_region_sensing = self.passes(sensing.capacity >= sensing.demand, "OK", "sensing too slow for control")
+        self.driver_pool = self.passes(drive.pool_headroom >= 1, "OK", "driver pool too small for active set")
+        self.drive_slew = self.passes(drive.slew_over_update <= 1, "OK", "current too slow for update period")
 
     def cells(self):
         return [
@@ -458,6 +493,8 @@ class StatusChecks:
             Cell("Maneuvering check", self.maneuvering),
             Cell("Rock-mode controllable check", self.rock_controllable),
             Cell("Tilt-observable check", self.tilt_observable),
+            Cell("Driver-voltage-rating check", self.driver_voltage),
+            Cell("Driver-channel-current check", self.driver_current),
             Cell("Per-orientation check", self.per_orientation),
             Cell("Shell-validity check", self.shell_validity),
             Cell("Coil-height buildable check", self.coil_height),
@@ -466,25 +503,29 @@ class StatusChecks:
             Cell("Control-bandwidth check", self.control_bandwidth),
             Cell("Current-slew check", self.current_slew),
             Cell("Active-region sensing check", self.active_region_sensing),
+            Cell("Driver-pool-size check", self.driver_pool),
+            Cell("Drive-slew check", self.drive_slew),
         ]
 
 
 class BomItem:
-    def __init__(self, category, spec, quantity, unit_cost):
+    def __init__(self, category, spec, quantity, unit_cost, link=""):
         self.category = category
         self.spec = spec
         self.quantity = quantity
         self.unit_cost = unit_cost
+        self.link = link
         self.subtotal = quantity * unit_cost
 
 
 class BillOfMaterials:
     def __init__(self, board, coil, halbach, wire, config):
         self.items = [
-            BomItem("Coil driver IC", "TLC59283DBQR", coil.chips, 0.373),
+            BomItem("Coil driver IC", "TLC5947DAP 24ch 12b PWM sink", coil.chips, 3.041, "https://www.digikey.com/en/products/detail/texas-instruments/TLC5947DAP/1894117"),
+            BomItem("Coil select switch", "matrix FET, 1 per coil body", coil.total_bodies, Fixed.matrix_switch_cost),
             BomItem("Flyback diode", "1N4148WS-7-F", coil.windings, 0.04),
             BomItem("Magnet wire", "QA-1-155, 1 kg roll", ceil(wire.copper_mass), 43.0),
-            BomItem("NdFeB magnet block", "N52 cube", halbach.blocks_per_platform * Inputs.pieces_levitating_simultaneously, 0.028),
+            BomItem("NdFeB magnet block", "N52 4mm cube", halbach.blocks_per_platform * Inputs.pieces_levitating_simultaneously, 0.028),
             BomItem("MCU", "STM32G474RET6", 1, 10.5),
             BomItem("Bus power supply", f"{config.bus_voltage}V regulated supply", 1, 30.0),
             BomItem("PCB main board", "custom 4-layer FR4", round(board.motor_area / 100), 0.02),
@@ -507,9 +548,10 @@ wire = WireThermal(coil, config)
 thermal = SurfaceThermal(board, coil, config)
 propulsion = Propulsion(board, coil, piece, config, halbach)
 control = Control(coil, config, halbach)
+drive = DriveMatrix(coil, control, config)
 sensing = Sensing(coil, control)
 stability = Stability(board, piece, halbach, config, control)
-checks = StatusChecks(board, coil, piece, config, control, sensing, thermal, propulsion, stability)
+checks = StatusChecks(board, coil, piece, config, control, sensing, thermal, propulsion, stability, drive)
 bom = BillOfMaterials(board, coil, halbach, wire, config)
 
 
@@ -550,8 +592,10 @@ def print_bom(bill):
     print(title)
     print("-" * len(title))
     for item in bill.items:
-        print(f"  {item.category:<22}{item.spec:<28}qty {format_value(item.quantity):>6}  ${item.unit_cost:>7.3f}  ${item.subtotal:>9.2f}")
-    print(f"  {'BOM TOTAL':<22}{'':<28}{'':>10}  {'':>8}  ${bill.total:>9.2f}")
+        print(f"  {item.category:<22}{item.spec:<30}qty {format_value(item.quantity):>6}  ${item.unit_cost:>7.3f}  ${item.subtotal:>9.2f}")
+        if item.link:
+            print(f"      {item.link}")
+    print(f"  {'BOM TOTAL':<22}{'':<30}{'':>10}  {'':>8}  ${bill.total:>9.2f}")
 
 
 def print_report():
@@ -566,6 +610,7 @@ def print_report():
     print_section("Surface temperature (passive cooling)", thermal.cells())
     print_section("Propulsion / flight", propulsion.cells())
     print_section("Control feasibility", control.cells())
+    print_section("Drive matrix (position-addressed)", drive.cells())
     print_section("Sensing throughput", sensing.cells())
     print_section("Stability and vibration", stability.cells())
     print_section("Status checks", checks.cells())
