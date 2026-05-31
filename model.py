@@ -108,6 +108,7 @@ class CoilBed:
         self.columns = 2 * Inputs.periods_per_side
         self.rows = max(1, round(board.platform_side / (Fixed.coil_aspect_ratio_target * self.outer_width)))
         self.outer_length = board.platform_side / self.rows
+        self.outer_height = Inputs.coil_winding_height
         self.aspect_ratio = self.outer_length / self.outer_width
         self.bodies_per_orientation = self.columns * self.rows
         self.bodies_under_platform = Fixed.herringbone_orientation_families * self.bodies_per_orientation
@@ -123,13 +124,14 @@ class CoilBed:
     def cells(self):
         return [
             Cell("Coil outer width", self.outer_width, "mm"),
+            Cell("Coil outer length", self.outer_length, "mm"),
+            Cell("Coil outer height", self.outer_height, "mm"),
+            Cell("Coil aspect ratio (actual)", self.aspect_ratio),
+            Cell("Coil body footprint area", self.footprint_area, "mm2"),
             Cell("Coil columns across width", self.columns),
             Cell("Coil rows along length", self.rows),
-            Cell("Coil outer length", self.outer_length, "mm"),
-            Cell("Coil aspect ratio (actual)", self.aspect_ratio),
             Cell("Coil bodies per orientation", self.bodies_per_orientation),
             Cell("Coil bodies under platform", self.bodies_under_platform),
-            Cell("Coil body footprint area", self.footprint_area, "mm2"),
             Cell("Coil body density", self.body_density, "1/mm2"),
             Cell("Equivalent coil spacing", self.coil_spacing, "mm"),
             Cell("Total bifilar coil bodies", self.total_bodies),
