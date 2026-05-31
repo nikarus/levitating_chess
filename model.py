@@ -11,6 +11,7 @@ class Inputs:
     move_pulse_duration = 10
     allowed_wire_temp_rise = 40
     force_safety_factor = 1.3
+    min_maneuver_accel_g = 0.3
     ambient_temperature = 35
     max_surface_temperature = 50
     levitation_duty_cycle = 0.5
@@ -308,6 +309,43 @@ class SurfaceThermal:
         ]
 
 
+class Propulsion:
+    def __init__(self, board, coil, piece, config, halbach):
+        self.mass = piece.mass / 1000
+        self.weight = piece.weight
+        self.available_force = config.available_force
+        self.lateral_force_per_amp = config.force_per_amp
+        self.max_thrust = sqrt(max(self.available_force ** 2 - self.weight ** 2, 0))
+        self.max_acceleration = self.max_thrust / self.mass
+        self.acceleration_in_g = self.max_acceleration / Constants.gravity
+        self.thrust_current = self.max_thrust / self.lateral_force_per_amp
+        self.flight_power = config.current_limit ** 2 * config.resistance * coil.bodies_under_platform
+        self.square_pitch = board.square_size / 1000
+        self.hop_time = 2 * sqrt(self.square_pitch / self.max_acceleration)
+        self.hop_peak_speed = sqrt(self.max_acceleration * self.square_pitch)
+        self.traverse_distance = (Constants.board_squares_per_side - 1) * self.square_pitch
+        self.traverse_time = 2 * sqrt(self.traverse_distance / self.max_acceleration)
+        self.magnet_span = board.platform_side / 1000
+        self.yaw_inertia = halbach.magnet_mass / 1000 * self.magnet_span ** 2 / 6
+        self.yaw_torque = self.max_thrust * self.magnet_span / 4
+        self.yaw_acceleration = self.yaw_torque / self.yaw_inertia
+
+    def cells(self):
+        return [
+            Cell("Max lateral thrust", self.max_thrust, "N"),
+            Cell("Max lateral acceleration", self.max_acceleration, "m/s2"),
+            Cell("Max lateral acceleration", self.acceleration_in_g, "g"),
+            Cell("Thrust current per winding", self.thrust_current, "A"),
+            Cell("In-flight coil power (one piece)", self.flight_power, "W"),
+            Cell("One-square hop time (bang-bang)", self.hop_time, "s"),
+            Cell("One-square peak speed", self.hop_peak_speed, "m/s"),
+            Cell("Full-rank traverse time", self.traverse_time, "s"),
+            Cell("Yaw moment of inertia", self.yaw_inertia, "kg.m2"),
+            Cell("Max yaw torque", self.yaw_torque, "N.m"),
+            Cell("Max yaw angular acceleration", self.yaw_acceleration, "rad/s2"),
+        ]
+
+
 class Control:
     def coil_inductance(self, turns, footprint_area, height):
         return Constants.vacuum_permeability * turns ** 2 * (footprint_area / 1000000) / (height / 1000) * 1000
@@ -357,13 +395,14 @@ class StatusChecks:
     def passes(self, condition, ok_text, fail_text):
         return ok_text if condition else fail_text
 
-    def __init__(self, board, coil, piece, config, control, sensing, thermal):
+    def __init__(self, board, coil, piece, config, control, sensing, thermal, propulsion):
         self.force = self.passes(config.available_margin >= 1, "OK", "not enough force")
         self.safety = self.passes(config.available_margin >= Inputs.force_safety_factor, "OK", "below safety margin")
         self.voltage = self.passes(config.voltage_per_winding <= config.bus_voltage * Fixed.usable_bus_voltage_fraction, "OK", "voltage too high")
         self.wire_thermal = self.passes(config.temp_rise <= Inputs.allowed_wire_temp_rise, "OK", "wire too hot")
         self.pulse_surface = self.passes(thermal.pulse_surface_temp <= Inputs.max_surface_temperature, "OK", "pulse surface too hot")
         self.duty_surface = self.passes(thermal.steady_state_surface_temp <= Inputs.max_surface_temperature, "OK", "duty surface too hot")
+        self.maneuvering = self.passes(propulsion.acceleration_in_g >= Inputs.min_maneuver_accel_g, "OK", "lateral thrust too weak")
         self.per_orientation = self.passes(coil.bodies_per_orientation >= 6, "OK", "few coils per orientation")
         self.shell_validity = self.passes((piece.diameter - 2 * Inputs.plastic_wall_thickness) > 0, "OK", "wall too thick")
         self.coil_height = self.passes(config.coil_height <= 12, "OK", "coil too tall")
@@ -381,6 +420,7 @@ class StatusChecks:
             Cell("Wire thermal check", self.wire_thermal),
             Cell("Pulse surface temp check", self.pulse_surface),
             Cell("Duty surface temp check", self.duty_surface),
+            Cell("Maneuvering check", self.maneuvering),
             Cell("Per-orientation check", self.per_orientation),
             Cell("Shell-validity check", self.shell_validity),
             Cell("Coil-height buildable check", self.coil_height),
@@ -428,9 +468,10 @@ sweep = ConfigurationSweep(coil, halbach, piece)
 config = sweep.selected
 wire = WireThermal(coil, config)
 thermal = SurfaceThermal(board, coil, config)
+propulsion = Propulsion(board, coil, piece, config, halbach)
 control = Control(coil, config, halbach)
 sensing = Sensing(coil, control)
-checks = StatusChecks(board, coil, piece, config, control, sensing, thermal)
+checks = StatusChecks(board, coil, piece, config, control, sensing, thermal, propulsion)
 bom = BillOfMaterials(board, coil, halbach, wire, config)
 
 
@@ -485,6 +526,7 @@ def print_report():
     print_sweep(sweep)
     print_section("Wire and thermal", wire.cells())
     print_section("Surface temperature (passive cooling)", thermal.cells())
+    print_section("Propulsion / flight", propulsion.cells())
     print_section("Control feasibility", control.cells())
     print_section("Sensing throughput", sensing.cells())
     print_section("Status checks", checks.cells())
