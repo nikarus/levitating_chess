@@ -48,6 +48,8 @@ class Fixed:
     windings_per_coil_body = 2
     bifilar_wires_per_turn = 2
     matrix_switch_cost = 0.045
+    pcb_thickness = 1.6
+    unmodeled_mass_factor = 1.3
 
 
 class Constants:
@@ -62,6 +64,7 @@ class Constants:
     standard_bus_voltages = [5, 9, 12, 15, 19, 24, 36, 48]
     gravity = 9.80665
     vacuum_permeability = 1.25663706e-6
+    fr4_density = 0.00185
 
 
 class Cell:
@@ -535,6 +538,30 @@ class BomItem:
         self.subtotal = self.quantity * unit_cost
 
 
+class MassBudget:
+    def __init__(self, board, wire, piece):
+        self.board_copper_mass = wire.copper_mass
+        self.board_pcb_mass = board.motor_area * Fixed.pcb_thickness * Constants.fr4_density / 1000
+        self.board_known_mass = self.board_copper_mass + self.board_pcb_mass
+        self.board_total_mass = self.board_known_mass * Fixed.unmodeled_mass_factor
+        self.piece_mass = piece.mass / 1000
+        self.pieces_total = Fixed.captured_pieces_total
+        self.all_pieces_mass = self.piece_mass * self.pieces_total
+        self.set_total_mass = self.board_total_mass + self.all_pieces_mass
+
+    def cells(self):
+        return [
+            Cell("Board copper (coils)", self.board_copper_mass, "kg"),
+            Cell("Board PCB (FR4)", self.board_pcb_mass, "kg"),
+            Cell("Board electronics/PSU/frame factor", Fixed.unmodeled_mass_factor, "x"),
+            Cell("Board total (est.)", self.board_total_mass, "kg"),
+            Cell("Mass per piece", self.piece_mass * 1000, "g"),
+            Cell("Pieces total", self.pieces_total),
+            Cell("All pieces mass", self.all_pieces_mass, "kg"),
+            Cell("WHOLE SET mass (est.)", self.set_total_mass, "kg"),
+        ]
+
+
 class BillOfMaterials:
     def __init__(self, board, coil, halbach, wire, config):
         self.items = [
@@ -569,6 +596,7 @@ sensing = Sensing(coil, control)
 stability = Stability(board, piece, halbach, config, control)
 checks = StatusChecks(board, coil, piece, config, control, sensing, thermal, propulsion, stability, drive)
 bom = BillOfMaterials(board, coil, halbach, wire, config)
+mass = MassBudget(board, wire, piece)
 
 
 def format_value(value):
@@ -629,6 +657,7 @@ def print_report():
     print_section("Drive matrix (position-addressed)", drive.cells())
     print_section("Sensing throughput", sensing.cells())
     print_section("Stability and vibration", stability.cells())
+    print_section("Mass budget (whole set)", mass.cells())
     print_section("Status checks", checks.cells())
     print_bom(bom)
 
