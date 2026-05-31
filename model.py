@@ -12,6 +12,7 @@ class Inputs:
     allowed_wire_temp_rise = 40
     force_safety_factor = 1.3
     min_maneuver_accel_g = 0.3
+    position_sense_resolution_um = 5
     ambient_temperature = 35
     max_surface_temperature = 50
     levitation_duty_cycle = 0.5
@@ -391,11 +392,43 @@ class Sensing:
         ]
 
 
+class Stability:
+    def __init__(self, board, piece, halbach, config, control):
+        self.decay_constant_m = halbach.decay_constant * 1000
+        self.mass = piece.mass / 1000
+        self.height = piece.box_height / 1000
+        self.half_width = board.platform_side / 2 / 1000
+        self.vertical_stiffness = self.decay_constant_m * piece.weight
+        self.bounce_frequency = sqrt(self.vertical_stiffness / self.mass) / (2 * pi)
+        self.tilt_stiffness = self.vertical_stiffness * self.half_width ** 2
+        self.tilt_inertia = self.mass * self.height ** 2 / 3
+        self.rock_frequency = sqrt(self.tilt_stiffness / self.tilt_inertia) / (2 * pi)
+        self.control_margin_over_rock = control.required_bandwidth / self.rock_frequency
+        self.sense_resolution = Inputs.position_sense_resolution_um / 1e6
+        self.sense_baseline = board.platform_side / 1000
+        self.tilt_sense_resolution = self.sense_resolution / self.sense_baseline
+        self.tip_sense_resolution = self.tilt_sense_resolution * self.height
+
+    def cells(self):
+        return [
+            Cell("Vertical magnetic stiffness", self.vertical_stiffness, "N/m"),
+            Cell("Vertical bounce frequency", self.bounce_frequency, "Hz"),
+            Cell("Tilt (rock) stiffness", self.tilt_stiffness, "N.m/rad"),
+            Cell("Tip moment of inertia", self.tilt_inertia, "kg.m2"),
+            Cell("King rocking frequency", self.rock_frequency, "Hz"),
+            Cell("Control bandwidth over rock mode", self.control_margin_over_rock, "x"),
+            Cell("Position sense resolution", Inputs.position_sense_resolution_um, "um"),
+            Cell("Tilt sense baseline", self.sense_baseline * 1000, "mm"),
+            Cell("Tilt sense resolution", self.tilt_sense_resolution * 1000, "mrad"),
+            Cell("Tip position sense resolution", self.tip_sense_resolution * 1e6, "um"),
+        ]
+
+
 class StatusChecks:
     def passes(self, condition, ok_text, fail_text):
         return ok_text if condition else fail_text
 
-    def __init__(self, board, coil, piece, config, control, sensing, thermal, propulsion):
+    def __init__(self, board, coil, piece, config, control, sensing, thermal, propulsion, stability):
         self.force = self.passes(config.available_margin >= 1, "OK", "not enough force")
         self.safety = self.passes(config.available_margin >= Inputs.force_safety_factor, "OK", "below safety margin")
         self.voltage = self.passes(config.voltage_per_winding <= config.bus_voltage * Fixed.usable_bus_voltage_fraction, "OK", "voltage too high")
@@ -403,6 +436,8 @@ class StatusChecks:
         self.pulse_surface = self.passes(thermal.pulse_surface_temp <= Inputs.max_surface_temperature, "OK", "pulse surface too hot")
         self.duty_surface = self.passes(thermal.steady_state_surface_temp <= Inputs.max_surface_temperature, "OK", "duty surface too hot")
         self.maneuvering = self.passes(propulsion.acceleration_in_g >= Inputs.min_maneuver_accel_g, "OK", "lateral thrust too weak")
+        self.rock_controllable = self.passes(stability.control_margin_over_rock >= Inputs.control_loop_bandwidth_margin, "OK", "rock mode too fast for loop")
+        self.tilt_observable = self.passes(stability.tip_sense_resolution <= 0.001, "OK", "tilt sensing too coarse")
         self.per_orientation = self.passes(coil.bodies_per_orientation >= 6, "OK", "few coils per orientation")
         self.shell_validity = self.passes((piece.diameter - 2 * Inputs.plastic_wall_thickness) > 0, "OK", "wall too thick")
         self.coil_height = self.passes(config.coil_height <= 12, "OK", "coil too tall")
@@ -421,6 +456,8 @@ class StatusChecks:
             Cell("Pulse surface temp check", self.pulse_surface),
             Cell("Duty surface temp check", self.duty_surface),
             Cell("Maneuvering check", self.maneuvering),
+            Cell("Rock-mode controllable check", self.rock_controllable),
+            Cell("Tilt-observable check", self.tilt_observable),
             Cell("Per-orientation check", self.per_orientation),
             Cell("Shell-validity check", self.shell_validity),
             Cell("Coil-height buildable check", self.coil_height),
@@ -471,7 +508,8 @@ thermal = SurfaceThermal(board, coil, config)
 propulsion = Propulsion(board, coil, piece, config, halbach)
 control = Control(coil, config, halbach)
 sensing = Sensing(coil, control)
-checks = StatusChecks(board, coil, piece, config, control, sensing, thermal, propulsion)
+stability = Stability(board, piece, halbach, config, control)
+checks = StatusChecks(board, coil, piece, config, control, sensing, thermal, propulsion, stability)
 bom = BillOfMaterials(board, coil, halbach, wire, config)
 
 
@@ -529,6 +567,7 @@ def print_report():
     print_section("Propulsion / flight", propulsion.cells())
     print_section("Control feasibility", control.cells())
     print_section("Sensing throughput", sensing.cells())
+    print_section("Stability and vibration", stability.cells())
     print_section("Status checks", checks.cells())
     print_bom(bom)
 
