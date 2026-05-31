@@ -541,7 +541,7 @@ class BillOfMaterials:
             BomItem("Coil driver IC", "TLC5947DAP 24ch 12b PWM 30V/30mA", coil.chips, 2.799, "https://www.digikey.com/en/products/detail/texas-instruments/TLC5947DAP/1894117"),
             BomItem("Coil select switch", "BSS138-7-F N-FET, 1/coil body", coil.total_bodies, 0.028, "https://www.digikey.com/en/products/detail/diodes-incorporated/BSS138-7-F/717723"),
             BomItem("Flyback diode", "1N4148WS-7-F", coil.windings, 0.0213, "https://www.digikey.com/en/products/detail/diodes-incorporated/1N4148WS-7-F/815127"),
-            BomItem("Magnet wire", "QA-1-155, 0.04mm, 1kg roll", ceil(wire.copper_mass), 37.14, "https://fr.aliexpress.com/item/4000274595791.html"),
+            BomItem("Magnet wire", "UEW 0.04mm solid copper, bulk kg", ceil(wire.copper_mass), 18.74, "https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html"),
             BomItem("NdFeB magnet block", "N52 4mm cube", halbach.blocks_per_platform * Inputs.pieces_levitating_simultaneously, 0.0375, "https://www.alibaba.com/product-detail/Customized-Rare-Earth-Neodymium-Magnets-N52_1601519228921.html"),
             BomItem("MCU", "STM32G474RET6", 1, 8.66, "https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G474RET6/10326780"),
             BomItem("Bus power supply", f"{config.bus_voltage}V regulated supply", 1, 30.0),
