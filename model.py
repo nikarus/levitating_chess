@@ -538,16 +538,16 @@ class BomItem:
 class BillOfMaterials:
     def __init__(self, board, coil, halbach, wire, config):
         self.items = [
-            BomItem("Coil driver IC", "TLC5947DAP 24ch 12b PWM 30V/30mA", coil.chips, 3.041, "https://www.digikey.com/en/products/detail/texas-instruments/TLC5947DAP/1894117"),
-            BomItem("Coil select switch", "BSS138-7-F N-FET, 1/coil body", coil.total_bodies, Fixed.matrix_switch_cost, "https://www.digikey.com/en/products/detail/diodes-incorporated/BSS138-7-F/717723"),
-            BomItem("Flyback diode", "1N4148WS-7-F", coil.windings, 0.04, "https://www.digikey.com/en/products/detail/diodes-incorporated/1N4148WS-7-F/815127"),
+            BomItem("Coil driver IC", "TLC5947DAP 24ch 12b PWM 30V/30mA", coil.chips, 2.799, "https://www.digikey.com/en/products/detail/texas-instruments/TLC5947DAP/1894117"),
+            BomItem("Coil select switch", "BSS138-7-F N-FET, 1/coil body", coil.total_bodies, 0.028, "https://www.digikey.com/en/products/detail/diodes-incorporated/BSS138-7-F/717723"),
+            BomItem("Flyback diode", "1N4148WS-7-F", coil.windings, 0.0213, "https://www.digikey.com/en/products/detail/diodes-incorporated/1N4148WS-7-F/815127"),
             BomItem("Magnet wire", "QA-1-155, 0.04mm, 1kg roll", ceil(wire.copper_mass), 37.14, "https://fr.aliexpress.com/item/4000274595791.html"),
             BomItem("NdFeB magnet block", "N52 4mm cube", halbach.blocks_per_platform * Inputs.pieces_levitating_simultaneously, 0.0375, "https://www.alibaba.com/product-detail/Customized-Rare-Earth-Neodymium-Magnets-N52_1601519228921.html"),
-            BomItem("MCU", "STM32G474RET6", 1, 10.5, "https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G474RET6/10326780"),
+            BomItem("MCU", "STM32G474RET6", 1, 8.66, "https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G474RET6/10326780"),
             BomItem("Bus power supply", f"{config.bus_voltage}V regulated supply", 1, 30.0),
             BomItem("PCB main board", "custom 4-layer FR4", round(board.motor_area / 100), 0.02),
-            BomItem("Coil-sense AFE", "LDC1614RGHR", ceil(coil.total_bodies / (4 * Fixed.coils_per_sense_channel)), 2.92, "https://www.digikey.com/en/products/detail/texas-instruments/LDC1614RGHR/5481860"),
-            BomItem("Sense analog mux", "CD74HC4067M96", ceil(coil.total_bodies / Fixed.coils_per_sense_channel), 0.78, "https://www.digikey.com/en/products/detail/texas-instruments/CD74HC4067M96/1507236"),
+            BomItem("Coil-sense AFE", "LDC1614RGHR", ceil(coil.total_bodies / (4 * Fixed.coils_per_sense_channel)), 2.249, "https://www.digikey.com/en/products/detail/texas-instruments/LDC1614RGHR/5481860"),
+            BomItem("Sense analog mux", "CD74HC4067M96", ceil(coil.total_bodies / Fixed.coils_per_sense_channel), 0.3405, "https://www.digikey.com/en/products/detail/texas-instruments/CD74HC4067M96/1507236"),
             BomItem("Piece ID LC tag", "LQM18FN100M00D + C0G cap", Inputs.pieces_levitating_simultaneously, 0.15, "https://www.digikey.com/en/products/detail/murata-electronics/LQM18FN100M00D/1016184"),
             BomItem("Piece plastic / misc", "3D print PLA + connectors", 1, 45.0),
         ]
