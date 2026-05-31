@@ -19,6 +19,7 @@ class Inputs:
     max_surface_temperature = 50
     control_loop_bandwidth_margin = 5
     pieces_levitating_simultaneously = 32
+    maneuvering_pieces_at_once = 1
     sense_look_ahead_factor = 1.5
     drive_look_ahead_factor = 1.5
     production_volume = 100
@@ -32,6 +33,7 @@ class Fixed:
     captured_packing_efficiency = 0.9
     herringbone_orientation_families = 2
     commutation_phases_per_axis = 3
+    maneuvering_pieces_per_tile = 1
     halbach_first_harmonic_coefficient = 0.65
     reference_king_height = 95
     reference_king_base_diameter = 44
@@ -131,8 +133,11 @@ class CoilBed:
         self.active_windings = self.active_bodies * Fixed.windings_per_coil_body
         self.peak_driven_windings = ceil(self.active_windings * Inputs.drive_look_ahead_factor)
         self.phases_per_piece = Fixed.commutation_phases_per_axis * Fixed.herringbone_orientation_families
-        self.drives_per_piece = self.bodies_under_platform
-        self.active_phase_drives = self.drives_per_piece * Inputs.pieces_levitating_simultaneously
+        self.baseline_drives_per_piece = self.phases_per_piece
+        self.maneuver_drives_per_piece = self.bodies_under_platform
+        self.active_phase_drives = (
+            self.baseline_drives_per_piece * Inputs.pieces_levitating_simultaneously
+            + Inputs.maneuvering_pieces_at_once * (self.maneuver_drives_per_piece - self.baseline_drives_per_piece))
         self.peak_driven_phases = ceil(self.active_phase_drives * Inputs.drive_look_ahead_factor)
         self.chips = ceil(self.peak_driven_phases / Fixed.sink_channels_per_chip)
 
@@ -154,9 +159,9 @@ class CoilBed:
             Cell("Active bodies (all pieces at once)", self.active_bodies),
             Cell("Lift windings (pieces at once)", self.active_windings),
             Cell("Peak driven windings (+thrust look-ahead)", self.peak_driven_windings),
-            Cell("Min commutation phases per piece (translation)", self.phases_per_piece),
-            Cell("Independent drives per piece (full 6-DOF)", self.drives_per_piece),
-            Cell("Peak independent drives (+thrust look-ahead)", self.peak_driven_phases),
+            Cell("Glide-baseline drives per piece", self.baseline_drives_per_piece),
+            Cell("Maneuver drives per piece (full 6-DOF)", self.maneuver_drives_per_piece),
+            Cell("Peak active drives (baseline + 6-DOF allowance)", self.peak_driven_phases),
             Cell("H-bridge driver chips (active)", self.chips),
         ]
 
@@ -651,7 +656,9 @@ class BillOfMaterials:
         coils_per_tile = ceil(coil.total_bodies / tiles.tile_count)
         windings_per_tile = coils_per_tile * Fixed.windings_per_coil_body
         tile_active_windings = tiles.max_pieces_per_tile * coil.bodies_under_platform * Fixed.windings_per_coil_body
-        tile_phase_drives = tiles.max_pieces_per_tile * coil.drives_per_piece
+        tile_maneuver_pieces = min(Fixed.maneuvering_pieces_per_tile, tiles.max_pieces_per_tile)
+        tile_phase_drives = (tile_maneuver_pieces * coil.maneuver_drives_per_piece
+                             + (tiles.max_pieces_per_tile - tile_maneuver_pieces) * coil.baseline_drives_per_piece)
         tile_driver_chips = ceil(tile_phase_drives * Inputs.drive_look_ahead_factor / Fixed.sink_channels_per_chip)
         tile_sense_afe = ceil(coils_per_tile / (4 * Fixed.coils_per_sense_channel))
         tile_sense_mux = ceil(coils_per_tile / Fixed.coils_per_sense_channel)
