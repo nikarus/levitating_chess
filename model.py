@@ -466,8 +466,8 @@ class TileControl:
 
     def cells(self):
         return [
-            Cell("Control tile side", self.tile_side, "mm"),
-            Cell("Control tiles (width x height)", self.tile_count),
+            Cell("Control tile side (square)", self.tile_side, "mm"),
+            Cell("Control tiles (count)", self.tile_count),
             Cell("Coils per tile", self.coils_per_tile),
             Cell("Max pieces over one tile", self.max_pieces_per_tile),
             Cell("Per-tile compute load", self.tile_compute / 1e6, "Mflop/s"),
@@ -609,8 +609,8 @@ class BillOfMaterials:
             BomItem("Flyback diode", "1N4148WS-7-F", coil.windings, 0.0213, "https://www.digikey.com/en/products/detail/diodes-incorporated/1N4148WS-7-F/815127"),
             BomItem("Magnet wire", "UEW 0.04mm solid copper, bulk kg", ceil(wire.copper_mass), 18.74, "https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html"),
             BomItem("NdFeB magnet block", "N52 4mm cube", halbach.blocks_per_platform * Inputs.pieces_levitating_simultaneously, 0.0375, "https://www.alibaba.com/product-detail/Customized-Rare-Earth-Neodymium-Magnets-N52_1601519228921.html"),
-            BomItem("Tile control MCU", "STM32G431KB motor-ctrl, 1/tile (est.)", tiles.tile_count, 3.5, "https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G431KBT6/10380302"),
-            BomItem("Host controller", "SBC global path planner (est.)", 1, 45.0),
+            BomItem("Tile control MCU", "STM32G431KBT6 32-pin, 1/tile", tiles.tile_count, 3.13, "https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G431KBT6/10231564"),
+            BomItem("Host computer + UI", "SBC + touchscreen: path planner, game logic, chess.com", 1, 75.0),
             BomItem("Bus power supply", f"{config.bus_voltage}V regulated supply", 1, 30.0),
             BomItem("PCB main board", "custom 4-layer FR4", round(board.motor_area / 100), 0.02),
             BomItem("Coil-sense AFE", "LDC1614RGHR", ceil(coil.total_bodies / (4 * Fixed.coils_per_sense_channel)), 2.249, "https://www.digikey.com/en/products/detail/texas-instruments/LDC1614RGHR/5481860"),
