@@ -20,6 +20,7 @@ class Inputs:
     control_loop_bandwidth_margin = 5
     pieces_levitating_simultaneously = 32
     sense_look_ahead_factor = 1.5
+    simultaneous_active_winding_factor = 1
     production_volume = 100
 
 
@@ -287,7 +288,7 @@ class WireThermal:
         self.mass_per_winding = Constants.copper_density * config.length_per_winding * config.cross_section_area * 1000
         self.wire_length = config.length_per_winding * coil.windings
         self.copper_mass = self.mass_per_winding * coil.windings / 1000
-        self.one_piece_power = config.power_per_winding * coil.bodies_under_platform
+        self.one_piece_power = config.power_per_winding * coil.bodies_under_platform * Inputs.simultaneous_active_winding_factor
         self.all_pieces_power = self.one_piece_power * Inputs.pieces_levitating_simultaneously
         self.psu_current = self.all_pieces_power / config.bus_voltage
 
@@ -309,7 +310,7 @@ class SurfaceThermal:
         self.dissipation_area = board.platform_side ** 2 * Fixed.heat_spread_area_factor / 1000000
         self.thermal_conductance = Fixed.surface_heat_transfer_coefficient * self.dissipation_area
         self.thermal_time_constant = self.thermal_capacitance / self.thermal_conductance
-        self.one_piece_power = config.power_per_winding * coil.bodies_under_platform
+        self.one_piece_power = config.power_per_winding * coil.bodies_under_platform * Inputs.simultaneous_active_winding_factor
         self.pulse_surface_temp = Inputs.ambient_temperature + config.temp_rise
         self.max_pulse_duration = self.thermal_capacitance * (Inputs.max_surface_temperature - Inputs.ambient_temperature) / self.one_piece_power
         self.spot_period = Inputs.max_hover_duration + Inputs.spot_cooldown_duration
