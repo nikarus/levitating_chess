@@ -40,14 +40,14 @@ class Fixed:
     force_straight_length_efficiency = 0.65
     surface_heat_transfer_coefficient = 12
     heat_spread_area_factor = 1
-    sink_channels_per_chip = 24
-    driver_output_voltage_rating = 30
-    driver_channel_current = 0.03
+    sink_channels_per_chip = 6
+    driver_output_voltage_rating = 40
+    driver_channel_current = 1.0
     usable_bus_voltage_fraction = 0.9
     ldc_sample_rate_per_channel = 4000
     coils_per_sense_channel = 16
-    windings_per_coil_body = 2
-    bifilar_wires_per_turn = 2
+    windings_per_coil_body = 1
+    bifilar_wires_per_turn = 1
     matrix_switch_cost = 0.045
     pcb_thickness = 1.6
     unmodeled_mass_factor = 1.3
@@ -144,12 +144,12 @@ class CoilBed:
             Cell("Coil bodies under platform", self.bodies_under_platform),
             Cell("Coil body density", self.body_density, "1/mm2"),
             Cell("Equivalent coil spacing", self.coil_spacing, "mm"),
-            Cell("Total bifilar coil bodies", self.total_bodies),
+            Cell("Total coil bodies", self.total_bodies),
             Cell("Total windings (full board)", self.windings),
             Cell("Active bodies (all pieces at once)", self.active_bodies),
             Cell("Lift windings (pieces at once)", self.active_windings),
             Cell("Peak driven windings (+thrust look-ahead)", self.peak_driven_windings),
-            Cell("24-channel driver chips (active)", self.chips),
+            Cell("H-bridge driver chips (active)", self.chips),
         ]
 
 
@@ -652,9 +652,8 @@ class BillOfMaterials:
         self.coils_per_tile = coils_per_tile
 
         self.tile_items = [
-            BomItem("tile", "Coil driver IC", "TLC5947DAP 24ch 12b PWM", tile_driver_chips, 2.799, "https://www.digikey.com/en/products/detail/texas-instruments/TLC5947DAP/1894117"),
-            BomItem("tile", "Coil select switch", "BSS138-7-F N-FET, 1/coil", coils_per_tile, 0.028, "https://www.digikey.com/en/products/detail/diodes-incorporated/BSS138-7-F/717723"),
-            BomItem("tile", "Flyback diode", "1N4148WS-7-F, 1/winding", windings_per_tile, 0.0213, "https://www.digikey.com/en/products/detail/diodes-incorporated/1N4148WS-7-F/815127"),
+            BomItem("tile", "Coil driver IC", "DRV8912QPWPRQ1 12 half-bridge", tile_driver_chips, 3.5797, "https://www.digikey.com/en/products/detail/texas-instruments/DRV8912QPWPRQ1/11502248"),
+            BomItem("tile", "Coil select switch", "BSS138-7-F N-FET, 2/coil (H-bridge route)", 2 * coils_per_tile, 0.028, "https://www.digikey.com/en/products/detail/diodes-incorporated/BSS138-7-F/717723"),
             BomItem("tile", "Magnet wire", "UEW 0.04mm Cu (kg share)", tile_wire_kg, 18.74, "https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html"),
             BomItem("tile", "Coil-sense AFE", "LDC1614RGHR", tile_sense_afe, 2.249, "https://www.digikey.com/en/products/detail/texas-instruments/LDC1614RGHR/5481860"),
             BomItem("tile", "Sense analog mux", "CD74HC4067M96", tile_sense_mux, 0.3405, "https://www.digikey.com/en/products/detail/texas-instruments/CD74HC4067M96/1507236"),
