@@ -20,6 +20,7 @@ class Inputs:
     control_loop_bandwidth_margin = 5
     pieces_levitating_simultaneously = 32
     sense_look_ahead_factor = 1.5
+    drive_look_ahead_factor = 1.5
     production_volume = 100
 
 
@@ -50,6 +51,9 @@ class Fixed:
     matrix_switch_cost = 0.045
     pcb_thickness = 1.6
     unmodeled_mass_factor = 1.3
+    control_tile_side = 100
+    piece_control_flops = 20000
+    node_mcu_throughput_mflops = 170
 
 
 class Constants:
@@ -119,7 +123,8 @@ class CoilBed:
         self.windings = self.total_bodies * Fixed.windings_per_coil_body
         self.active_bodies = self.bodies_under_platform * Inputs.pieces_levitating_simultaneously
         self.active_windings = self.active_bodies * Fixed.windings_per_coil_body
-        self.chips = ceil(self.active_windings / Fixed.sink_channels_per_chip)
+        self.peak_driven_windings = ceil(self.active_windings * Inputs.drive_look_ahead_factor)
+        self.chips = ceil(self.peak_driven_windings / Fixed.sink_channels_per_chip)
 
     def cells(self):
         return [
@@ -137,7 +142,8 @@ class CoilBed:
             Cell("Total bifilar coil bodies", self.total_bodies),
             Cell("Total windings (full board)", self.windings),
             Cell("Active bodies (all pieces at once)", self.active_bodies),
-            Cell("Active windings driven at once", self.active_windings),
+            Cell("Lift windings (pieces at once)", self.active_windings),
+            Cell("Peak driven windings (+thrust look-ahead)", self.peak_driven_windings),
             Cell("24-channel driver chips (active)", self.chips),
         ]
 
@@ -402,7 +408,7 @@ class DriveMatrix:
     def __init__(self, coil, control, config):
         self.scheme = "direct active-select (continuous hold)"
         self.coil_switches = coil.total_bodies
-        self.active_windings = coil.active_windings
+        self.active_windings = coil.peak_driven_windings
         self.driver_channels = coil.chips * Fixed.sink_channels_per_chip
         self.pool_headroom = self.driver_channels / self.active_windings
         self.slew_time = control.slew_time
@@ -413,7 +419,7 @@ class DriveMatrix:
         return [
             Cell("Drive scheme", self.scheme),
             Cell("Per-coil select switches", self.coil_switches),
-            Cell("Active windings driven at once", self.active_windings),
+            Cell("Peak windings driven at once", self.active_windings),
             Cell("Driver output channels (pool)", self.driver_channels),
             Cell("Driver pool headroom", self.pool_headroom, "x"),
             Cell("Current slew time to Imax", self.slew_time, "ms"),
@@ -439,6 +445,35 @@ class Sensing:
             Cell("Total sense channels", self.channels),
             Cell("Total sensing capacity", self.capacity, "reads/s"),
             Cell("Sensing headroom", self.headroom, "x"),
+        ]
+
+
+class TileControl:
+    def __init__(self, board, coil, control):
+        self.tile_side = Fixed.control_tile_side
+        self.tiles_per_width = ceil(board.motor_width / self.tile_side)
+        self.tiles_per_height = ceil(board.motor_height / self.tile_side)
+        self.tile_count = self.tiles_per_width * self.tiles_per_height
+        self.coils_per_tile = ceil(coil.total_bodies / self.tile_count)
+        self.square_area = board.square_size ** 2
+        self.max_pieces_per_tile = max(1, ceil(self.tile_side ** 2 / self.square_area))
+        self.pose_rate = control.pose_update_rate
+        self.node_capacity = Fixed.node_mcu_throughput_mflops * 1e6
+        self.tile_compute = self.max_pieces_per_tile * Fixed.piece_control_flops * self.pose_rate
+        self.central_compute = Inputs.pieces_levitating_simultaneously * Fixed.piece_control_flops * self.pose_rate
+        self.tile_headroom = self.node_capacity / self.tile_compute
+        self.central_headroom = self.node_capacity / self.central_compute
+
+    def cells(self):
+        return [
+            Cell("Control tile side", self.tile_side, "mm"),
+            Cell("Control tiles (width x height)", self.tile_count),
+            Cell("Coils per tile", self.coils_per_tile),
+            Cell("Max pieces over one tile", self.max_pieces_per_tile),
+            Cell("Per-tile compute load", self.tile_compute / 1e6, "Mflop/s"),
+            Cell("Per-tile MCU capacity", self.node_capacity / 1e6, "Mflop/s"),
+            Cell("Per-tile compute headroom", self.tile_headroom, "x"),
+            Cell("Single-MCU compute headroom (rejected)", self.central_headroom, "x"),
         ]
 
 
@@ -478,7 +513,7 @@ class StatusChecks:
     def passes(self, condition, ok_text, fail_text):
         return ok_text if condition else fail_text
 
-    def __init__(self, board, coil, piece, config, control, sensing, thermal, propulsion, stability, drive):
+    def __init__(self, board, coil, piece, config, control, sensing, thermal, propulsion, stability, drive, tiles):
         self.force = self.passes(config.available_margin >= 1, "OK", "not enough force")
         self.safety = self.passes(config.available_margin >= Inputs.force_safety_factor, "OK", "below safety margin")
         self.voltage = self.passes(config.voltage_per_winding <= config.bus_voltage * Fixed.usable_bus_voltage_fraction, "OK", "voltage too high")
@@ -501,6 +536,7 @@ class StatusChecks:
         self.active_region_sensing = self.passes(sensing.capacity >= sensing.demand, "OK", "sensing too slow for control")
         self.driver_pool = self.passes(drive.pool_headroom >= 1, "OK", "driver pool too small for active set")
         self.drive_slew = self.passes(drive.slew_over_update <= 1, "OK", "current too slow for update period")
+        self.tile_compute = self.passes(tiles.tile_headroom >= 1, "OK", "tile MCU overloaded")
 
     def cells(self):
         return [
@@ -526,6 +562,7 @@ class StatusChecks:
             Cell("Active-region sensing check", self.active_region_sensing),
             Cell("Driver-pool-size check", self.driver_pool),
             Cell("Drive-slew check", self.drive_slew),
+            Cell("Per-tile-compute check", self.tile_compute),
         ]
 
 
@@ -565,14 +602,15 @@ class MassBudget:
 
 
 class BillOfMaterials:
-    def __init__(self, board, coil, halbach, wire, config):
+    def __init__(self, board, coil, halbach, wire, config, tiles):
         self.items = [
             BomItem("Coil driver IC", "TLC5947DAP 24ch 12b PWM 30V/30mA", coil.chips, 2.799, "https://www.digikey.com/en/products/detail/texas-instruments/TLC5947DAP/1894117"),
             BomItem("Coil select switch", "BSS138-7-F N-FET, 1/coil body", coil.total_bodies, 0.028, "https://www.digikey.com/en/products/detail/diodes-incorporated/BSS138-7-F/717723"),
             BomItem("Flyback diode", "1N4148WS-7-F", coil.windings, 0.0213, "https://www.digikey.com/en/products/detail/diodes-incorporated/1N4148WS-7-F/815127"),
             BomItem("Magnet wire", "UEW 0.04mm solid copper, bulk kg", ceil(wire.copper_mass), 18.74, "https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html"),
             BomItem("NdFeB magnet block", "N52 4mm cube", halbach.blocks_per_platform * Inputs.pieces_levitating_simultaneously, 0.0375, "https://www.alibaba.com/product-detail/Customized-Rare-Earth-Neodymium-Magnets-N52_1601519228921.html"),
-            BomItem("MCU", "STM32G474RET6", 1, 8.66, "https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G474RET6/10326780"),
+            BomItem("Tile control MCU", "STM32G431KB motor-ctrl, 1/tile (est.)", tiles.tile_count, 3.5, "https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G431KBT6/10380302"),
+            BomItem("Host controller", "SBC global path planner (est.)", 1, 45.0),
             BomItem("Bus power supply", f"{config.bus_voltage}V regulated supply", 1, 30.0),
             BomItem("PCB main board", "custom 4-layer FR4", round(board.motor_area / 100), 0.02),
             BomItem("Coil-sense AFE", "LDC1614RGHR", ceil(coil.total_bodies / (4 * Fixed.coils_per_sense_channel)), 2.249, "https://www.digikey.com/en/products/detail/texas-instruments/LDC1614RGHR/5481860"),
@@ -595,9 +633,10 @@ propulsion = Propulsion(board, coil, piece, config, halbach)
 control = Control(coil, config, halbach)
 drive = DriveMatrix(coil, control, config)
 sensing = Sensing(coil, control)
+tiles = TileControl(board, coil, control)
 stability = Stability(board, piece, halbach, config, control)
-checks = StatusChecks(board, coil, piece, config, control, sensing, thermal, propulsion, stability, drive)
-bom = BillOfMaterials(board, coil, halbach, wire, config)
+checks = StatusChecks(board, coil, piece, config, control, sensing, thermal, propulsion, stability, drive, tiles)
+bom = BillOfMaterials(board, coil, halbach, wire, config, tiles)
 mass = MassBudget(board, wire, piece)
 
 
@@ -634,14 +673,14 @@ def print_sweep(sweep):
 
 def print_bom(bill):
     print()
-    title = f"BOM (production run of {Inputs.production_volume} boards)"
+    title = "BOM (per board; unit prices are volume pricing for a 100-board order)"
     print(title)
     print("-" * len(title))
     for item in bill.items:
         link = f"  {item.link}" if item.link else ""
-        print(f"  {item.category:<22}{item.spec:<28}qty {format_value(item.quantity):>8}  ${item.unit_cost:>7.3f}  ${item.subtotal:>10.2f}{link}")
-    print(f"  {'BOM TOTAL':<22}{'':<28}{'':>12}  {'':>8}  ${bill.total:>10.2f}")
-    print(f"  {'PER-BOARD COST':<22}{'':<28}{'':>12}  {'':>8}  ${bill.total / Inputs.production_volume:>10.2f}")
+        line_cost = item.per_board * item.unit_cost
+        print(f"  {item.category:<22}{item.spec:<40}qty {format_value(item.per_board):>8}  ${item.unit_cost:>7.3f}  ${line_cost:>9.2f}{link}")
+    print(f"  {'BOARD TOTAL':<22}{'':<40}{'':>12}  {'':>8}  ${bill.total / Inputs.production_volume:>9.2f}")
 
 
 def print_report():
@@ -658,6 +697,7 @@ def print_report():
     print_section("Control feasibility", control.cells())
     print_section("Drive matrix (position-addressed)", drive.cells())
     print_section("Sensing throughput", sensing.cells())
+    print_section("Tiled control architecture", tiles.cells())
     print_section("Stability and vibration", stability.cells())
     print_section("Mass budget (whole set)", mass.cells())
     print_section("Status checks", checks.cells())
