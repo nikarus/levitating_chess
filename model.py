@@ -14,7 +14,7 @@ class Inputs:
     allowed_wire_temp_rise = 40
     force_safety_factor = 1.3
     min_maneuver_accel_g = 0.3
-    target_tilt_angle_deg = 15
+    target_tilt_angle_deg = 10
     target_tilt_time = 0.3
     target_yaw_angle_deg = 90
     target_yaw_time = 0.5
