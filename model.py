@@ -10,13 +10,13 @@ class Inputs:
     coil_winding_height = 3.5
     move_pulse_duration = 10
     max_hover_duration = 2
+    spot_cooldown_duration = 60
     allowed_wire_temp_rise = 40
     force_safety_factor = 1.3
     min_maneuver_accel_g = 0.3
     position_sense_resolution_um = 5
     ambient_temperature = 35
     max_surface_temperature = 50
-    levitation_duty_cycle = 0.1
     control_loop_bandwidth_margin = 5
     pieces_levitating_simultaneously = 32
     sense_look_ahead_factor = 1.5
@@ -37,7 +37,7 @@ class Fixed:
     winding_radial_width_factor = 0.35
     force_straight_length_efficiency = 0.65
     surface_heat_transfer_coefficient = 12
-    heat_spread_area_factor = 16
+    heat_spread_area_factor = 1
     sink_channels_per_chip = 24
     driver_output_voltage_rating = 30
     driver_channel_current = 0.03
@@ -306,12 +306,14 @@ class SurfaceThermal:
         self.one_piece_power = config.power_per_winding * coil.bodies_under_platform
         self.pulse_surface_temp = Inputs.ambient_temperature + config.temp_rise
         self.max_pulse_duration = self.thermal_capacitance * (Inputs.max_surface_temperature - Inputs.ambient_temperature) / self.one_piece_power
-        self.duty_average_power = self.one_piece_power * Inputs.levitation_duty_cycle
+        self.spot_period = Inputs.max_hover_duration + Inputs.spot_cooldown_duration
+        self.spot_duty_cycle = Inputs.max_hover_duration / self.spot_period
+        self.duty_average_power = self.one_piece_power * self.spot_duty_cycle
         self.steady_state_rise = self.duty_average_power / self.thermal_conductance
         self.steady_state_surface_temp = Inputs.ambient_temperature + self.steady_state_rise
-        self.hover_fraction = 1 - exp(-Inputs.max_hover_duration / self.thermal_time_constant)
-        self.hover_rise = self.steady_state_rise / Inputs.levitation_duty_cycle * self.hover_fraction
-        self.hover_surface_temp = Inputs.ambient_temperature + self.hover_rise
+        self.full_hover_rise = self.one_piece_power / self.thermal_conductance
+        self.cyclic_peak_rise = self.full_hover_rise * (1 - exp(-Inputs.max_hover_duration / self.thermal_time_constant)) / (1 - exp(-self.spot_period / self.thermal_time_constant))
+        self.cyclic_peak_surface_temp = Inputs.ambient_temperature + self.cyclic_peak_rise
 
     def cells(self):
         return [
@@ -321,9 +323,10 @@ class SurfaceThermal:
             Cell("Thermal conductance to ambient", self.thermal_conductance, "W/K"),
             Cell("Thermal time constant", self.thermal_time_constant, "s"),
             Cell("Max pulse duration to cap", self.max_pulse_duration, "s"),
+            Cell("Per-spot duty cycle (2s/60s)", self.spot_duty_cycle),
             Cell("Duty-cycle average power", self.duty_average_power, "W"),
             Cell("Steady-state surface temp at duty", self.steady_state_surface_temp, "C"),
-            Cell("Bounded-hover surface temp (real use)", self.hover_surface_temp, "C"),
+            Cell("Cyclic peak surface temp (2s hover/60s)", self.cyclic_peak_surface_temp, "C"),
         ]
 
 
@@ -476,7 +479,7 @@ class StatusChecks:
         self.wire_thermal = self.passes(config.temp_rise <= Inputs.allowed_wire_temp_rise, "OK", "wire too hot")
         self.pulse_surface = self.passes(thermal.pulse_surface_temp <= Inputs.max_surface_temperature, "OK", "pulse surface too hot")
         self.duty_surface = self.passes(thermal.steady_state_surface_temp <= Inputs.max_surface_temperature, "OK", "duty surface too hot")
-        self.hover_surface = self.passes(thermal.hover_surface_temp <= Inputs.max_surface_temperature, "OK", "bounded hover too hot")
+        self.hover_surface = self.passes(thermal.cyclic_peak_surface_temp <= Inputs.max_surface_temperature, "OK", "cyclic hover too hot")
         self.maneuvering = self.passes(propulsion.acceleration_in_g >= Inputs.min_maneuver_accel_g, "OK", "lateral thrust too weak")
         self.rock_controllable = self.passes(stability.control_margin_over_rock >= Inputs.control_loop_bandwidth_margin, "OK", "rock mode too fast for loop")
         self.tilt_observable = self.passes(stability.tip_sense_resolution <= 0.001, "OK", "tilt sensing too coarse")
@@ -501,7 +504,7 @@ class StatusChecks:
             Cell("Wire thermal check", self.wire_thermal),
             Cell("Pulse surface temp check", self.pulse_surface),
             Cell("Duty surface temp check", self.duty_surface),
-            Cell("Bounded-hover surface temp check", self.hover_surface),
+            Cell("Cyclic-hover surface temp check", self.hover_surface),
             Cell("Maneuvering check", self.maneuvering),
             Cell("Rock-mode controllable check", self.rock_controllable),
             Cell("Tilt-observable check", self.tilt_observable),
@@ -541,7 +544,6 @@ class BillOfMaterials:
             BomItem("MCU", "STM32G474RET6", 1, 10.5),
             BomItem("Bus power supply", f"{config.bus_voltage}V regulated supply", 1, 30.0),
             BomItem("PCB main board", "custom 4-layer FR4", round(board.motor_area / 100), 0.02),
-            BomItem("Heat-spreader plane", "aluminum baseplate", round(board.motor_area / 100), 0.03),
             BomItem("Coil-sense AFE", "LDC1614RGHR", ceil(coil.total_bodies / (4 * Fixed.coils_per_sense_channel)), 2.92),
             BomItem("Sense analog mux", "CD74HC4067M96", ceil(coil.total_bodies / Fixed.coils_per_sense_channel), 0.78),
             BomItem("Piece ID LC tag", "LQM18FN100M00D + C0G cap", Inputs.pieces_levitating_simultaneously, 0.15),
