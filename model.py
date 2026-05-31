@@ -31,6 +31,7 @@ class Fixed:
     captured_side_areas = 2
     captured_packing_efficiency = 0.9
     herringbone_orientation_families = 2
+    commutation_phases_per_axis = 3
     halbach_first_harmonic_coefficient = 0.65
     reference_king_height = 95
     reference_king_base_diameter = 44
@@ -129,7 +130,10 @@ class CoilBed:
         self.active_bodies = self.bodies_under_platform * Inputs.pieces_levitating_simultaneously
         self.active_windings = self.active_bodies * Fixed.windings_per_coil_body
         self.peak_driven_windings = ceil(self.active_windings * Inputs.drive_look_ahead_factor)
-        self.chips = ceil(self.peak_driven_windings / Fixed.sink_channels_per_chip)
+        self.phases_per_piece = Fixed.commutation_phases_per_axis * Fixed.herringbone_orientation_families
+        self.active_phase_drives = self.phases_per_piece * Inputs.pieces_levitating_simultaneously
+        self.peak_driven_phases = ceil(self.active_phase_drives * Inputs.drive_look_ahead_factor)
+        self.chips = ceil(self.peak_driven_phases / Fixed.sink_channels_per_chip)
 
     def cells(self):
         return [
@@ -149,6 +153,8 @@ class CoilBed:
             Cell("Active bodies (all pieces at once)", self.active_bodies),
             Cell("Lift windings (pieces at once)", self.active_windings),
             Cell("Peak driven windings (+thrust look-ahead)", self.peak_driven_windings),
+            Cell("Commutation phase drives per piece", self.phases_per_piece),
+            Cell("Peak phase drives (+thrust look-ahead)", self.peak_driven_phases),
             Cell("H-bridge driver chips (active)", self.chips),
         ]
 
@@ -411,11 +417,12 @@ class Control:
 
 class DriveMatrix:
     def __init__(self, coil, control, config):
-        self.scheme = "direct active-select (continuous hold)"
+        self.scheme = "phase-grouped commutation (3-phase x 2 axes)"
         self.coil_switches = coil.total_bodies
-        self.active_windings = coil.peak_driven_windings
+        self.coils_energized = coil.peak_driven_windings
+        self.active_phase_drives = coil.peak_driven_phases
         self.driver_channels = coil.chips * Fixed.sink_channels_per_chip
-        self.pool_headroom = self.driver_channels / self.active_windings
+        self.pool_headroom = self.driver_channels / self.active_phase_drives
         self.slew_time = control.slew_time
         self.update_period = 1000 / control.pose_update_rate
         self.slew_over_update = self.slew_time / self.update_period
@@ -424,7 +431,8 @@ class DriveMatrix:
         return [
             Cell("Drive scheme", self.scheme),
             Cell("Per-coil select switches", self.coil_switches),
-            Cell("Peak windings driven at once", self.active_windings),
+            Cell("Coils energized at once", self.coils_energized),
+            Cell("Peak phase drives at once", self.active_phase_drives),
             Cell("Driver output channels (pool)", self.driver_channels),
             Cell("Driver pool headroom", self.pool_headroom, "x"),
             Cell("Current slew time to Imax", self.slew_time, "ms"),
@@ -641,7 +649,9 @@ class BillOfMaterials:
         coils_per_tile = ceil(coil.total_bodies / tiles.tile_count)
         windings_per_tile = coils_per_tile * Fixed.windings_per_coil_body
         tile_active_windings = tiles.max_pieces_per_tile * coil.bodies_under_platform * Fixed.windings_per_coil_body
-        tile_driver_chips = ceil(tile_active_windings * Inputs.drive_look_ahead_factor / Fixed.sink_channels_per_chip)
+        tile_phase_drives = tiles.max_pieces_per_tile * coil.phases_per_piece
+        tile_driver_chips = ceil(tile_phase_drivee * coil.phases_per_piece
+        tile_driver_chips = ceil(tile_phase_drives * Inputs.drive_look_ahead_factor / Fixed.sink_channels_per_chip)
         tile_sense_afe = ceil(coils_per_tile / (4 * Fixed.coils_per_sense_channel))
         tile_sense_mux = ceil(coils_per_tile / Fixed.coils_per_sense_channel)
         tile_wire_kg = wire.copper_mass / tiles.tile_count
