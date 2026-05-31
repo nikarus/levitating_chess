@@ -9,13 +9,14 @@ class Inputs:
     plastic_wall_thickness = 1.5
     coil_winding_height = 3.5
     move_pulse_duration = 10
+    max_hover_duration = 2
     allowed_wire_temp_rise = 40
     force_safety_factor = 1.3
     min_maneuver_accel_g = 0.3
     position_sense_resolution_um = 5
     ambient_temperature = 35
     max_surface_temperature = 50
-    levitation_duty_cycle = 0.5
+    levitation_duty_cycle = 0.1
     control_loop_bandwidth_margin = 5
     pieces_levitating_simultaneously = 32
     sense_look_ahead_factor = 1.5
@@ -308,6 +309,9 @@ class SurfaceThermal:
         self.duty_average_power = self.one_piece_power * Inputs.levitation_duty_cycle
         self.steady_state_rise = self.duty_average_power / self.thermal_conductance
         self.steady_state_surface_temp = Inputs.ambient_temperature + self.steady_state_rise
+        self.hover_fraction = 1 - exp(-Inputs.max_hover_duration / self.thermal_time_constant)
+        self.hover_rise = self.steady_state_rise / Inputs.levitation_duty_cycle * self.hover_fraction
+        self.hover_surface_temp = Inputs.ambient_temperature + self.hover_rise
 
     def cells(self):
         return [
@@ -319,6 +323,7 @@ class SurfaceThermal:
             Cell("Max pulse duration to cap", self.max_pulse_duration, "s"),
             Cell("Duty-cycle average power", self.duty_average_power, "W"),
             Cell("Steady-state surface temp at duty", self.steady_state_surface_temp, "C"),
+            Cell("Bounded-hover surface temp (real use)", self.hover_surface_temp, "C"),
         ]
 
 
@@ -471,6 +476,7 @@ class StatusChecks:
         self.wire_thermal = self.passes(config.temp_rise <= Inputs.allowed_wire_temp_rise, "OK", "wire too hot")
         self.pulse_surface = self.passes(thermal.pulse_surface_temp <= Inputs.max_surface_temperature, "OK", "pulse surface too hot")
         self.duty_surface = self.passes(thermal.steady_state_surface_temp <= Inputs.max_surface_temperature, "OK", "duty surface too hot")
+        self.hover_surface = self.passes(thermal.hover_surface_temp <= Inputs.max_surface_temperature, "OK", "bounded hover too hot")
         self.maneuvering = self.passes(propulsion.acceleration_in_g >= Inputs.min_maneuver_accel_g, "OK", "lateral thrust too weak")
         self.rock_controllable = self.passes(stability.control_margin_over_rock >= Inputs.control_loop_bandwidth_margin, "OK", "rock mode too fast for loop")
         self.tilt_observable = self.passes(stability.tip_sense_resolution <= 0.001, "OK", "tilt sensing too coarse")
@@ -495,6 +501,7 @@ class StatusChecks:
             Cell("Wire thermal check", self.wire_thermal),
             Cell("Pulse surface temp check", self.pulse_surface),
             Cell("Duty surface temp check", self.duty_surface),
+            Cell("Bounded-hover surface temp check", self.hover_surface),
             Cell("Maneuvering check", self.maneuvering),
             Cell("Rock-mode controllable check", self.rock_controllable),
             Cell("Tilt-observable check", self.tilt_observable),
