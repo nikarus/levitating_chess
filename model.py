@@ -37,9 +37,9 @@ class Fixed:
     force_straight_length_efficiency = 0.65
     surface_heat_transfer_coefficient = 12
     heat_spread_area_factor = 16
-    sink_channels_per_chip = 24
-    driver_output_voltage_rating = 30
-    driver_channel_current = 0.03
+    sink_channels_per_chip = 12
+    driver_output_voltage_rating = 40
+    driver_channel_current = 0.05
     usable_bus_voltage_fraction = 0.9
     ldc_sample_rate_per_channel = 4000
     coils_per_sense_channel = 16
@@ -131,7 +131,7 @@ class CoilBed:
             Cell("Total windings (full board)", self.windings),
             Cell("Active bodies (all pieces at once)", self.active_bodies),
             Cell("Active windings driven at once", self.active_windings),
-            Cell("24-channel driver chips (active)", self.chips),
+            Cell("12-channel driver chips (active)", self.chips),
         ]
 
 
@@ -261,7 +261,12 @@ class ConfigurationSweep:
             for bus_voltage in Constants.standard_bus_voltages
             for wire_diameter in Constants.standard_wire_diameters
         ]
-        self.feasible = [c for c in self.configurations if c.available_margin >= Inputs.force_safety_factor]
+        self.feasible = [
+            c for c in self.configurations
+            if c.available_margin >= Inputs.force_safety_factor
+            and c.bus_voltage <= Fixed.driver_output_voltage_rating
+            and c.current_limit <= Fixed.driver_channel_current
+        ]
         self.selected = min(self.feasible, key=lambda c: c.power_per_winding)
         self.best_per_voltage = []
         for bus_voltage in Constants.standard_bus_voltages:
@@ -521,7 +526,7 @@ class BomItem:
 class BillOfMaterials:
     def __init__(self, board, coil, halbach, wire, config):
         self.items = [
-            BomItem("Coil driver IC", "TLC5947DAP 24ch 12b PWM sink", coil.chips, 3.041, "https://www.digikey.com/en/products/detail/texas-instruments/TLC5947DAP/1894117"),
+            BomItem("Coil driver IC", "TLC6C5912QPWRQ1 12ch 40V 50mA CC", coil.chips, 1.66, "https://www.digikey.com/en/products/result?keywords=TLC6C5912"),
             BomItem("Coil select switch", "matrix FET, 1 per coil body", coil.total_bodies, Fixed.matrix_switch_cost),
             BomItem("Flyback diode", "1N4148WS-7-F", coil.windings, 0.04),
             BomItem("Magnet wire", "QA-1-155, 1 kg roll", ceil(wire.copper_mass), 43.0),
