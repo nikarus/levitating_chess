@@ -58,7 +58,9 @@ class Fixed:
     bifilar_wires_per_turn = 1
     matrix_switch_cost = 0.045
     pcb_thickness = 1.6
-    unmodeled_mass_factor = 1.3
+    psu_mass_kg = 0.7
+    frame_enclosure_mass_kg = 2.5
+    board_electronics_mass_kg = 0.6
     control_tile_side = 100
     piece_control_flops = 20000
     node_mcu_throughput_mflops = 170
@@ -680,8 +682,8 @@ class MassBudget:
     def __init__(self, board, wire, piece):
         self.board_copper_mass = wire.copper_mass
         self.board_pcb_mass = board.motor_area * Fixed.pcb_thickness * Constants.fr4_density / 1000
-        self.board_known_mass = self.board_copper_mass + self.board_pcb_mass
-        self.board_total_mass = self.board_known_mass * Fixed.unmodeled_mass_factor
+        self.board_added_mass = Fixed.psu_mass_kg + Fixed.frame_enclosure_mass_kg + Fixed.board_electronics_mass_kg
+        self.board_total_mass = self.board_copper_mass + self.board_pcb_mass + self.board_added_mass
         self.piece_mass = piece.mass / 1000
         self.pieces_total = Fixed.captured_pieces_total
         self.all_pieces_mass = self.piece_mass * self.pieces_total
@@ -691,7 +693,7 @@ class MassBudget:
         return [
             Cell("Board copper (coils)", self.board_copper_mass, "kg"),
             Cell("Board PCB (FR4)", self.board_pcb_mass, "kg"),
-            Cell("Board electronics/PSU/frame factor", Fixed.unmodeled_mass_factor, "x"),
+            Cell("PSU + frame + electronics (est.)", self.board_added_mass, "kg"),
             Cell("Board total (est.)", self.board_total_mass, "kg"),
             Cell("Mass per piece", self.piece_mass * 1000, "g"),
             Cell("Pieces total", self.pieces_total),
