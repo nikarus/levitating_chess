@@ -6,8 +6,8 @@ class Inputs:
     magnets_per_period = 4
     periods_per_side = 2
     magnet_to_coil_distance = 3
-    plastic_wall_thickness = 1.5
-    coil_winding_height = 3.5
+    plastic_wall_thickness = 1.0
+    max_coil_height = 12
     move_pulse_duration = 10
     max_hover_duration = 2
     spot_cooldown_duration = 60
@@ -127,7 +127,7 @@ class CoilBed:
         self.columns = 2 * Inputs.periods_per_side
         self.rows = max(1, round(board.platform_side / (Fixed.coil_aspect_ratio_target * self.outer_width)))
         self.outer_length = board.platform_side / self.rows
-        self.outer_height = Inputs.coil_winding_height
+        self.outer_height = None
         self.aspect_ratio = self.outer_length / self.outer_width
         self.bodies_per_orientation = self.columns * self.rows
         self.bodies_under_platform = Fixed.herringbone_orientation_families * self.bodies_per_orientation
@@ -231,13 +231,13 @@ class CoilConfiguration:
         decay_over_height = decay_constant * stack_height
         return (1 - exp(-decay_over_height)) / decay_over_height
 
-    def __init__(self, coil, halbach, piece, wire_diameter, bus_voltage):
+    def __init__(self, coil, halbach, piece, wire_diameter, bus_voltage, layers):
         self.wire_diameter = wire_diameter
         self.bus_voltage = bus_voltage
         self.outside_diameter = wire_diameter * Fixed.wire_enamel_outside_factor
         self.radial_width = coil.outer_width * Fixed.winding_radial_width_factor
         self.turns_per_layer = max(1, floor(self.radial_width / (Fixed.bifilar_wires_per_turn * self.outside_diameter)))
-        self.layers = max(1, floor(Inputs.coil_winding_height / self.outside_diameter))
+        self.layers = layers
         self.turns = self.turns_per_layer * self.layers
         self.coil_height = self.layers * self.outside_diameter
         self.straight_length = 2 * (coil.outer_length - self.radial_width) * Fixed.force_straight_length_efficiency
@@ -293,24 +293,42 @@ class CoilConfiguration:
 
 
 class ConfigurationSweep:
-    def __init__(self, coil, halbach, piece):
+    def copper_proxy(self, c):
+        return c.length_per_winding * c.cross_section_area
+
+    def is_feasible(self, board, coil, halbach, piece, c):
+        if c.available_margin < Inputs.force_safety_factor:
+            return False
+        if c.bus_voltage > Fixed.driver_output_voltage_rating:
+            return False
+        if c.current_limit > Fixed.driver_channel_current:
+            return False
+        if Inputs.ambient_temperature + c.temp_rise > Inputs.max_surface_temperature:
+            return False
+        if SurfaceThermal(board, coil, c).cyclic_peak_surface_temp > Inputs.max_surface_temperature:
+            return False
+        prop = Propulsion(board, coil, piece, c, halbach)
+        if prop.acceleration_in_g < Inputs.min_maneuver_accel_g:
+            return False
+        att = AttitudeAuthority(board, piece, c, prop)
+        if att.tilt_margin < 1 or att.yaw_margin < 1:
+            return False
+        return True
+
+    def __init__(self, board, coil, halbach, piece):
         self.configurations = [
-            CoilConfiguration(coil, halbach, piece, wire_diameter, bus_voltage)
+            CoilConfiguration(coil, halbach, piece, wire_diameter, bus_voltage, layers)
             for bus_voltage in Constants.standard_bus_voltages
             for wire_diameter in Constants.standard_wire_diameters
+            for layers in range(1, floor(Inputs.max_coil_height / (wire_diameter * Fixed.wire_enamel_outside_factor)) + 1)
         ]
-        self.feasible = [
-            c for c in self.configurations
-            if c.available_margin >= Inputs.force_safety_factor
-            and c.bus_voltage <= Fixed.driver_output_voltage_rating
-            and c.current_limit <= Fixed.driver_channel_current
-        ]
-        self.selected = min(self.feasible, key=lambda c: c.power_per_winding)
+        self.feasible = [c for c in self.configurations if self.is_feasible(board, coil, halbach, piece, c)]
+        self.selected = min(self.feasible, key=self.copper_proxy)
         self.best_per_voltage = []
         for bus_voltage in Constants.standard_bus_voltages:
             candidates = [c for c in self.feasible if c.bus_voltage == bus_voltage]
             if candidates:
-                self.best_per_voltage.append(min(candidates, key=lambda c: c.power_per_winding))
+                self.best_per_voltage.append(min(candidates, key=self.copper_proxy))
 
 
 class WireThermal:
@@ -625,7 +643,7 @@ class StatusChecks:
         self.driver_current = self.passes(config.current_limit <= Fixed.driver_channel_current, "OK", "coil current exceeds channel rating")
         self.per_orientation = self.passes(coil.bodies_per_orientation >= 6, "OK", "few coils per orientation")
         self.shell_validity = self.passes((piece.diameter - 2 * Inputs.plastic_wall_thickness) > 0, "OK", "wall too thick")
-        self.coil_height = self.passes(config.coil_height <= 12, "OK", "coil too tall")
+        self.coil_height = self.passes(config.coil_height <= Inputs.max_coil_height, "OK", "coil too tall")
         self.platform_size = self.passes(20 <= board.platform_side <= 50, "OK", "platform out of range")
         self.magnet_fits_base = self.passes(board.platform_side <= board.base_diameter, "OK", "magnet array wider than base")
         self.control_bandwidth = self.passes(control.actuator_bandwidth >= control.required_bandwidth, "OK", "actuator bandwidth too low")
@@ -754,8 +772,9 @@ board = BoardGeometry()
 coil = CoilBed(board)
 halbach = HalbachArray(board)
 piece = Piece(board, halbach)
-sweep = ConfigurationSweep(coil, halbach, piece)
+sweep = ConfigurationSweep(board, coil, halbach, piece)
 config = sweep.selected
+coil.outer_height = config.coil_height
 wire = WireThermal(coil, config)
 thermal = SurfaceThermal(board, coil, config)
 propulsion = Propulsion(board, coil, piece, config, halbach)
@@ -793,13 +812,13 @@ def print_section(title, cells):
 
 def print_sweep(sweep):
     print()
-    title = "Configuration sweep (coolest feasible wire per bus voltage)"
+    title = "Configuration sweep (lightest feasible coil per bus voltage)"
     print(title)
     print("-" * len(title))
-    print(f"  {'bus V':>6}{'wire mm':>9}{'turns':>7}{'op mA':>8}{'surf C':>8}{'avail x':>9}")
+    print(f"  {'bus V':>6}{'wire mm':>9}{'layers':>7}{'turns':>7}{'op mA':>8}{'surf C':>8}{'avail x':>9}")
     for entry in sweep.best_per_voltage:
         marker = "  <- selected" if entry is sweep.selected else ""
-        print(f"  {entry.bus_voltage:>6}{entry.wire_diameter:>9}{entry.turns:>7}{entry.operating_current*1000:>8.1f}{entry.surface_temperature:>8.1f}{entry.available_margin:>9.2f}{marker}")
+        print(f"  {entry.bus_voltage:>6}{entry.wire_diameter:>9}{entry.layers:>7}{entry.turns:>7}{entry.operating_current*1000:>8.1f}{entry.surface_temperature:>8.1f}{entry.available_margin:>9.2f}{marker}")
 
 
 def print_bom_group(items):
