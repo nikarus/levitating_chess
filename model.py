@@ -7,7 +7,6 @@ class Inputs:
     periods_per_side = 2
     magnet_to_coil_distance = 3
     plastic_wall_thickness = 1.0
-    max_coil_height = 12
     move_pulse_duration = 10
     max_hover_duration = 2
     spot_cooldown_duration = 60
@@ -59,8 +58,8 @@ class Fixed:
     matrix_switch_cost = 0.045
     pcb_thickness = 1.6
     psu_mass_kg = 0.7
-    frame_enclosure_mass_kg = 2.5
-    board_electronics_mass_kg = 0.6
+    frame_enclosure_mass_kg = 1.0
+    board_electronics_mass_kg = 0.3
     control_tile_side = 100
     piece_control_flops = 20000
     node_mcu_throughput_mflops = 170
@@ -320,7 +319,7 @@ class ConfigurationSweep:
             CoilConfiguration(coil, halbach, piece, wire_diameter, bus_voltage, layers)
             for bus_voltage in Constants.standard_bus_voltages
             for wire_diameter in Constants.standard_wire_diameters
-            for layers in range(1, floor(Inputs.max_coil_height / (wire_diameter * Fixed.wire_enamel_outside_factor)) + 1)
+            for layers in range(1, floor(coil.outer_width / (wire_diameter * Fixed.wire_enamel_outside_factor)) + 1)
         ]
         self.feasible = [c for c in self.configurations if self.is_feasible(board, coil, halbach, piece, c)]
         self.selected = min(self.feasible, key=self.copper_proxy)
@@ -643,7 +642,7 @@ class StatusChecks:
         self.driver_current = self.passes(config.current_limit <= Fixed.driver_channel_current, "OK", "coil current exceeds channel rating")
         self.per_orientation = self.passes(coil.bodies_per_orientation >= 6, "OK", "few coils per orientation")
         self.shell_validity = self.passes((piece.diameter - 2 * Inputs.plastic_wall_thickness) > 0, "OK", "wall too thick")
-        self.coil_height = self.passes(config.coil_height <= Inputs.max_coil_height, "OK", "coil too tall")
+        self.coil_height = self.passes(config.coil_height <= coil.outer_width, "OK", "coil too tall")
         self.platform_size = self.passes(20 <= board.platform_side <= 50, "OK", "platform out of range")
         self.magnet_fits_base = self.passes(board.platform_side <= board.base_diameter, "OK", "magnet array wider than base")
         self.control_bandwidth = self.passes(control.actuator_bandwidth >= control.required_bandwidth, "OK", "actuator bandwidth too low")
