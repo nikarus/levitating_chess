@@ -750,7 +750,7 @@ class BillOfMaterials:
         self.coils_per_tile = coils_per_tile
 
         self.tile_items = [
-            BomItem("tile", "Coil driver IC", "DRV8912QPWPRQ1 12 half-bridge (dedicated per-coil)", tile_driver_chips, 3.5797, "https://www.digikey.com/en/products/detail/texas-instruments/DRV8912QPWPRQ1/11502248"),
+            BomItem("tile", "Coil driver IC", "DRV8912QPWPRQ1 12 half-bridge (dedicated per-coil)", tile_driver_chips, 3.417, "https://www.digikey.com/en/products/detail/texas-instruments/DRV8912QPWPRQ1/11502248"),
             BomItem("tile", "Magnet wire", "UEW 0.04mm Cu (kg share)", tile_wire_kg, 18.74, "https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html"),
             BomItem("tile", "Coil-sense AFE", "LDC1614RGHR", tile_sense_afe, 2.249, "https://www.digikey.com/en/products/detail/texas-instruments/LDC1614RGHR/5481860"),
             BomItem("tile", "Sense analog mux", "CD74HC4067M96 16ch (low-voltage sense side)", tile_sense_mux, 0.3405, "https://www.digikey.com/en/products/detail/texas-instruments/CD74HC4067M96/1507236"),
