@@ -51,6 +51,8 @@ class Fixed:
     usable_bus_voltage_fraction = 0.9
     ldc_sample_rate_per_channel = 4000
     coils_per_sense_channel = 16
+    sense_mux_on_resistance = 70      # CD74HC4067 typical Ron at low supply (ohm)
+    sense_max_mux_q_loss = 0.5        # mux must stay a minority of tank series R (coil R dominates)
     windings_per_coil_body = 1
     bifilar_wires_per_turn = 1
     pcb_thickness = 1.6
@@ -510,13 +512,20 @@ class DriveMatrix:
 
 
 class Sensing:
-    def __init__(self, coil, control):
+    def __init__(self, coil, control, config):
         self.per_coil_update_rate = control.pose_update_rate
         self.active_coils = Inputs.pieces_levitating_simultaneously * coil.bodies_under_platform * Inputs.sense_look_ahead_factor
         self.demand = self.active_coils * self.per_coil_update_rate
         self.channels = ceil(coil.total_bodies / (4 * Fixed.coils_per_sense_channel)) * 4
         self.capacity = self.channels * Fixed.ldc_sample_rate_per_channel
         self.headroom = self.capacity / self.demand
+        # LDC1614 resonant-tank sensitivity to the analog mux's series resistance.
+        # The mux's fractional Q loss = Rmux / (Rcoil + Rmux) is independent of inductance
+        # and frequency. Because the thin sense coil's own resistance (hundreds of ohms)
+        # dominates the 70R mux, the mux only costs ~28% of Q and cannot blind the LDC.
+        self.coil_resistance = config.resistance
+        self.mux_q_loss = (Fixed.sense_mux_on_resistance
+                           / (self.coil_resistance + Fixed.sense_mux_on_resistance))
 
     def cells(self):
         return [
@@ -526,6 +535,9 @@ class Sensing:
             Cell("Total sense channels", self.channels),
             Cell("Total sensing capacity", self.capacity, "reads/s"),
             Cell("Sensing headroom", self.headroom, "x"),
+            Cell("Sense coil series R", self.coil_resistance, "ohm"),
+            Cell("Sense mux on-resistance", Fixed.sense_mux_on_resistance, "ohm"),
+            Cell("Tank Q loss from mux", self.mux_q_loss * 100, "%"),
         ]
 
 
@@ -645,6 +657,7 @@ class StatusChecks:
         self.control_bandwidth = self.passes(control.actuator_bandwidth >= control.required_bandwidth, "OK", "actuator bandwidth too low")
         self.current_slew = self.passes(control.slew_time <= control.instability_time / Inputs.control_loop_bandwidth_margin, "OK", "current cannot react in time")
         self.active_region_sensing = self.passes(sensing.capacity >= sensing.demand, "OK", "sensing too slow for control")
+        self.sense_q = self.passes(sensing.mux_q_loss <= Fixed.sense_max_mux_q_loss, "OK", "mux dominates tank R, damps Q")
         self.driver_coverage = self.passes(drive.driver_half_bridges >= coil.total_bodies * coil.half_bridges_per_coil, "OK", "not enough driver half-bridges per coil")
         self.drive_slew = self.passes(drive.slew_over_update <= 1, "OK", "current too slow for update period")
         self.tile_compute = self.passes(tiles.tile_headroom >= 1, "OK", "tile MCU overloaded")
@@ -674,6 +687,7 @@ class StatusChecks:
             Cell("Control-bandwidth check", self.control_bandwidth),
             Cell("Current-slew check", self.current_slew),
             Cell("Active-region sensing check", self.active_region_sensing),
+            Cell("Sense-Q-with-mux check", self.sense_q),
             Cell("Driver-coverage check", self.driver_coverage),
             Cell("Drive-slew check", self.drive_slew),
             Cell("Per-tile-compute check", self.tile_compute),
@@ -772,7 +786,7 @@ propulsion = Propulsion(board, coil, piece, config, halbach)
 attitude = AttitudeAuthority(board, piece, config, propulsion)
 control = Control(coil, config, halbach)
 drive = DriveMatrix(coil, control, config)
-sensing = Sensing(coil, control)
+sensing = Sensing(coil, control, config)
 tiles = TileControl(board, coil, control)
 psu = PowerSupply(coil, wire, tiles, config)
 stability = Stability(board, piece, halbach, config, control)
