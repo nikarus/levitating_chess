@@ -48,7 +48,7 @@ class Fixed:
     surface_heat_transfer_coefficient = 12
     heat_spread_area_factor = 1
     sink_channels_per_chip = 6
-    driver_output_voltage_rating = 40
+    driver_output_voltage_rating = 32
     driver_channel_current = 1.0
     usable_bus_voltage_fraction = 0.9
     ldc_sample_rate_per_channel = 4000
@@ -67,7 +67,12 @@ class Fixed:
     host_power = 8
     driver_quiescent_power = 0.05
     psu_sizing_margin = 1.25
-    psu_rated_power = 451
+    psu_options = {
+        5:  ("Mean Well LRS-350-5, 5V 350W", 350, 39.00, None),
+        12: ("Mean Well LRS-450-12, 12V 450W", 450, 42.00, None),
+        15: ("Mean Well LRS-450-15, 15V 450W", 450, 43.00, None),
+        24: ("Mean Well LRS-450-24, 24V 451W", 451, 45.40, "https://www.digikey.com/en/products/detail/mean-well-usa-inc/LRS-450-24/16394243"),
+    }
 
 
 class Constants:
@@ -79,7 +84,7 @@ class Constants:
     copper_density = 8960
     copper_heat_capacity = 385
     standard_wire_diameters = [0.03, 0.04, 0.05, 0.063, 0.071, 0.08, 0.09, 0.1, 0.112, 0.125, 0.14, 0.16]
-    standard_bus_voltages = [5, 9, 12, 15, 19, 24, 36, 48]
+    standard_bus_voltages = [5, 12, 15, 24]
     gravity = 9.80665
     vacuum_permeability = 1.25663706e-6
     fr4_density = 0.00185
@@ -572,7 +577,7 @@ class PowerSupply:
                                   + coil.chips * Fixed.driver_quiescent_power)
         self.total_load = self.coil_peak_power + self.electronics_power
         self.required_rating = self.total_load * Fixed.psu_sizing_margin
-        self.supply_rating = Fixed.psu_rated_power
+        self.psu_part, self.supply_rating, self.psu_price, self.psu_url = Fixed.psu_options[config.bus_voltage]
         self.rated_current = self.supply_rating / self.bus_voltage
         self.load_fraction = self.required_rating / self.supply_rating
 
@@ -583,7 +588,7 @@ class PowerSupply:
             Cell("Electronics overhead", self.electronics_power, "W"),
             Cell("Total peak load", self.total_load, "W"),
             Cell("Required PSU rating (+margin)", self.required_rating, "W"),
-            Cell("Selected PSU rating (LRS-450-24)", self.supply_rating, "W"),
+            Cell(f"Selected PSU ({self.psu_part})", self.supply_rating, "W"),
             Cell("PSU output current", self.rated_current, "A"),
             Cell("PSU load fraction", self.load_fraction, "x"),
         ]
@@ -752,11 +757,12 @@ class BillOfMaterials:
             BomItem("piece", "Piece ID LC tag", "LQM18FN100M00D + C0G cap", 1, 0.15, "https://www.digikey.com/en/products/detail/murata-electronics/LQM18FN100M00D/1016184"),
             BomItem("piece", "Piece plastic / misc", "3D print PLA + connectors", 1, 1.4),
         ]
+        psu_part, _psu_rating, psu_price, psu_url = Fixed.psu_options[config.bus_voltage]
         self.board_items = [
             BomItem("board", "Compute module", "RPi CM5 2GB Lite, SC1556 (57.37 EUR)", 1, 61.96, "https://www.digikey.com/en/products/detail/raspberry-pi/SC1556/25805567"),
             BomItem("board", "Mainboard", "Custom 4-layer carrier (CM5 + power + tile links)", 1, 25.0),
             BomItem("board", "Tile interconnect", "B2B header, mainboard side", tiles.tile_count, 0.45),
-            BomItem("board", "Bus power supply", "Mean Well LRS-450-24, 24V 451W", 1, 45.40, "https://www.digikey.com/en/products/detail/mean-well-usa-inc/LRS-450-24/16394243"),
+            BomItem("board", "Bus power supply", psu_part, 1, psu_price, psu_url or ""),
         ]
 
         self.per_tile_cost = sum(i.line_cost for i in self.tile_items)
