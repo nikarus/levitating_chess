@@ -746,7 +746,7 @@ class BillOfMaterials:
             BomItem("tile", "Coil driver IC", "DRV8912QPWPRQ1 12 half-bridge (dedicated per-coil)", tile_driver_chips, 3.5797, "https://www.digikey.com/en/products/detail/texas-instruments/DRV8912QPWPRQ1/11502248"),
             BomItem("tile", "Magnet wire", "UEW 0.04mm Cu (kg share)", tile_wire_kg, 18.74, "https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html"),
             BomItem("tile", "Coil-sense AFE", "LDC1614RGHR", tile_sense_afe, 2.249, "https://www.digikey.com/en/products/detail/texas-instruments/LDC1614RGHR/5481860"),
-            BomItem("tile", "Sense analog mux", "CD4067BM96 16ch (18V-rated, est.)", tile_sense_mux, 0.80, "https://www.digikey.com/en/products/detail/texas-instruments/CD4067BM96/1690490"),
+            BomItem("tile", "Sense analog mux", "CD4067BM96 16ch (18V-rated)", tile_sense_mux, 0.36825, "https://www.digikey.com/en/products/detail/texas-instruments/CD4067BM96/1691267"),
             BomItem("tile", "Tile PCB", "4-layer FR4 10x10cm", tile_pcb_area_cm2, 0.02),
             BomItem("tile", "Tile control MCU", "STM32G431KBT6 32-pin", 1, 3.13, "https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G431KBT6/10231564"),
             BomItem("tile", "Backplane connector", "B2B header, tile->mainboard", 1, 0.45),
