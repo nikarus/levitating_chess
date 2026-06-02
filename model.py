@@ -51,8 +51,8 @@ class Fixed:
     usable_bus_voltage_fraction = 0.9          # ratio
     ldc_sample_rate_per_channel = 4000         # reads/s
     coils_per_sense_channel = 16               # count
-    sense_mux_on_resistance = 120              # ohm
-    sense_mux_abs_max_voltage = 12             # V
+    sense_mux_on_resistance = 125              # ohm
+    sense_mux_abs_max_voltage = 18             # V
     sense_max_mux_q_loss = 0.5                 # ratio
     windings_per_coil_body = 1                 # count
     bifilar_wires_per_turn = 1                 # count
@@ -485,7 +485,7 @@ class Control:
 
 
 class DriveMatrix:
-    def __init__(self, coil, control, config):
+    def __init__(self, coil, control):
         topology_labels = {
             "wye": "dedicated half-bridge per coil, wye-connected (bipolar, BLDC-style)",
             "hbridge": "dedicated full H-bridge per coil (bipolar, independent)",
@@ -746,7 +746,7 @@ class BillOfMaterials:
             BomItem("tile", "Coil driver IC", "DRV8912QPWPRQ1 12 half-bridge (dedicated per-coil)", tile_driver_chips, 3.5797, "https://www.digikey.com/en/products/detail/texas-instruments/DRV8912QPWPRQ1/11502248"),
             BomItem("tile", "Magnet wire", "UEW 0.04mm Cu (kg share)", tile_wire_kg, 18.74, "https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html"),
             BomItem("tile", "Coil-sense AFE", "LDC1614RGHR", tile_sense_afe, 2.249, "https://www.digikey.com/en/products/detail/texas-instruments/LDC1614RGHR/5481860"),
-            BomItem("tile", "Sense analog mux", "ADG1206YRUZ-REEL7 16ch (12V-rated)", tile_sense_mux, 8.52313, "https://www.digikey.com/en/products/detail/analog-devices-inc/adg1206yruz-reel7/1240262"),
+            BomItem("tile", "Sense analog mux", "CD4067BM96 16ch (18V-rated, est.)", tile_sense_mux, 0.80, "https://www.digikey.com/en/products/detail/texas-instruments/CD4067BM96/1690490"),
             BomItem("tile", "Tile PCB", "4-layer FR4 10x10cm", tile_pcb_area_cm2, 0.02),
             BomItem("tile", "Tile control MCU", "STM32G431KBT6 32-pin", 1, 3.13, "https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G431KBT6/10231564"),
             BomItem("tile", "Backplane connector", "B2B header, tile->mainboard", 1, 0.45),
@@ -784,7 +784,7 @@ thermal = SurfaceThermal(board, coil, config)
 propulsion = Propulsion(board, coil, piece, config, halbach)
 attitude = AttitudeAuthority(board, piece, config, propulsion)
 control = Control(coil, config, halbach)
-drive = DriveMatrix(coil, control, config)
+drive = DriveMatrix(coil, control)
 sensing = Sensing(coil, control, config)
 tiles = TileControl(board, coil, control)
 psu = PowerSupply(coil, wire, tiles, config)
