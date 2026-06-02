@@ -54,7 +54,7 @@ class Fixed:
     windings_per_coil_body = 1
     bifilar_wires_per_turn = 1
     pcb_thickness = 1.6
-    psu_mass_kg = 0.7
+    psu_mass_kg = 0.62
     frame_enclosure_mass_kg = 1.0
     board_electronics_mass_kg = 0.3
     control_tile_side = 100
@@ -65,10 +65,10 @@ class Fixed:
     driver_quiescent_power = 0.05
     psu_sizing_margin = 1.25
     psu_options = {
-        5:  ("Mean Well LRS-350-5, 5V 350W", 350, 39.00, None),
-        12: ("Mean Well LRS-450-12, 12V 450W", 450, 42.00, None),
-        15: ("Mean Well LRS-450-15, 15V 450W", 450, 43.00, None),
-        24: ("Mean Well LRS-450-24, 24V 451W", 451, 45.40, "https://www.digikey.com/en/products/detail/mean-well-usa-inc/LRS-450-24/16394243"),
+        5:  ("Mean Well UHP-350-5, 5V 350W (fanless, est.)", 350, 52.00, None),
+        12: ("Mean Well UHP-350-12, 12V 350W (fanless, est.)", 350, 50.00, None),
+        15: ("Mean Well UHP-350-15, 15V 350W (fanless, est.)", 350, 50.00, None),
+        24: ("Mean Well UHP-350-24, 24V 350W (fanless, est.)", 350, 52.00, None),
     }
 
 
