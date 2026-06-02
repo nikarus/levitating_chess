@@ -2,70 +2,70 @@ from math import pi, sqrt, exp, ceil, floor, sin, radians
 
 
 class Inputs:
-    magnet_cube_edge = 4
-    magnets_per_period = 4
-    periods_per_side = 2
-    magnet_to_coil_distance = 3
-    plastic_wall_thickness = 1.0
-    move_pulse_duration = 10
-    max_hover_duration = 2
-    spot_cooldown_duration = 60
-    allowed_wire_temp_rise = 40
-    force_safety_factor = 1.3
-    min_maneuver_accel_g = 0.3
-    target_tilt_angle_deg = 10
-    target_tilt_time = 0.3
-    target_yaw_angle_deg = 90
-    target_yaw_time = 0.5
-    position_sense_resolution_um = 5
-    ambient_temperature = 35
-    max_surface_temperature = 50
-    control_loop_bandwidth_margin = 5
-    pieces_levitating_simultaneously = 32
-    sense_look_ahead_factor = 1.5
-    drive_look_ahead_factor = 1.5
-    production_volume = 100
+    magnet_cube_edge = 4                       # mm
+    magnets_per_period = 4                     # count
+    periods_per_side = 2                       # count
+    magnet_to_coil_distance = 3                # mm
+    plastic_wall_thickness = 1.0               # mm
+    move_pulse_duration = 10                   # s
+    max_hover_duration = 2                     # s
+    spot_cooldown_duration = 60                # s
+    allowed_wire_temp_rise = 40                # K
+    force_safety_factor = 1.3                  # ratio
+    min_maneuver_accel_g = 0.3                 # g
+    target_tilt_angle_deg = 10                 # deg
+    target_tilt_time = 0.3                     # s
+    target_yaw_angle_deg = 90                  # deg
+    target_yaw_time = 0.5                      # s
+    position_sense_resolution_um = 5           # um
+    ambient_temperature = 35                   # C
+    max_surface_temperature = 50               # C
+    control_loop_bandwidth_margin = 5          # ratio
+    pieces_levitating_simultaneously = 32      # count
+    sense_look_ahead_factor = 1.5              # ratio
+    drive_look_ahead_factor = 1.5              # ratio
+    production_volume = 100                    # boards
 
 
 class Fixed:
-    base_material_clearance = 1
-    square_fill_ratio = 0.8
-    captured_pieces_total = 32
-    captured_side_areas = 2
-    captured_packing_efficiency = 0.9
-    herringbone_orientation_families = 2
-    com_height_fraction = 0.4
-    halbach_first_harmonic_coefficient = 0.65
-    reference_king_height = 95
-    reference_king_base_diameter = 44
-    wire_enamel_outside_factor = 1.08
-    coil_aspect_ratio_target = 2.5
-    winding_radial_width_factor = 0.35
-    force_straight_length_efficiency = 0.65
-    surface_heat_transfer_coefficient = 12
-    heat_spread_area_factor = 1
-    drive_topology = "wye"             # "wye": 1 half-bridge/coil (BLDC-style); "hbridge": 2 half-bridges/coil
-    driver_half_bridges_per_chip = 12  # DRV8912 provides 12 half-bridges
-    driver_output_voltage_rating = 32
-    driver_channel_current = 1.0
-    usable_bus_voltage_fraction = 0.9
-    ldc_sample_rate_per_channel = 4000
-    coils_per_sense_channel = 16
-    sense_mux_on_resistance = 70      # CD74HC4067 typical Ron at low supply (ohm)
-    sense_max_mux_q_loss = 0.5        # mux must stay a minority of tank series R (coil R dominates)
-    windings_per_coil_body = 1
-    bifilar_wires_per_turn = 1
-    pcb_thickness = 1.6
-    psu_mass_kg = 0.62
-    frame_enclosure_mass_kg = 1.0
-    board_electronics_mass_kg = 0.3
-    control_tile_side = 100
-    piece_control_flops = 20000
-    node_mcu_throughput_mflops = 170
-    tile_mcu_power = 0.4
-    host_power = 8
-    driver_quiescent_power = 0.05
-    psu_sizing_margin = 1.25
+    base_material_clearance = 1                # mm
+    square_fill_ratio = 0.8                    # ratio
+    captured_pieces_total = 32                 # count
+    captured_side_areas = 2                    # count
+    captured_packing_efficiency = 0.9          # ratio
+    herringbone_orientation_families = 2       # count
+    com_height_fraction = 0.4                  # ratio
+    halbach_first_harmonic_coefficient = 0.65  # ratio
+    reference_king_height = 95                 # mm
+    reference_king_base_diameter = 44          # mm
+    wire_enamel_outside_factor = 1.08          # ratio
+    coil_aspect_ratio_target = 2.5             # ratio
+    winding_radial_width_factor = 0.35         # ratio
+    force_straight_length_efficiency = 0.65    # ratio
+    surface_heat_transfer_coefficient = 12     # W/(m2.K)
+    heat_spread_area_factor = 1                # ratio
+    drive_topology = "wye"
+    driver_half_bridges_per_chip = 12          # count
+    driver_output_voltage_rating = 32          # V
+    driver_channel_current = 1.0               # A
+    usable_bus_voltage_fraction = 0.9          # ratio
+    ldc_sample_rate_per_channel = 4000         # reads/s
+    coils_per_sense_channel = 16               # count
+    sense_mux_on_resistance = 70               # ohm
+    sense_max_mux_q_loss = 0.5                 # ratio
+    windings_per_coil_body = 1                 # count
+    bifilar_wires_per_turn = 1                 # count
+    pcb_thickness = 1.6                        # mm
+    psu_mass_kg = 0.62                         # kg
+    frame_enclosure_mass_kg = 1.0              # kg
+    board_electronics_mass_kg = 0.3            # kg
+    control_tile_side = 100                    # mm
+    piece_control_flops = 20000                # flop/update
+    node_mcu_throughput_mflops = 170           # Mflop/s
+    tile_mcu_power = 0.4                       # W
+    host_power = 8                             # W
+    driver_quiescent_power = 0.05              # W
+    psu_sizing_margin = 1.25                   # ratio
     psu_options = {
         5:  ("Mean Well UHP-350-5, 5V 350W (fanless, est.)", 350, 52.00, None),
         12: ("Mean Well UHP-350-12, 12V 350W (fanless, est.)", 350, 50.00, None),
@@ -519,10 +519,6 @@ class Sensing:
         self.channels = ceil(coil.total_bodies / (4 * Fixed.coils_per_sense_channel)) * 4
         self.capacity = self.channels * Fixed.ldc_sample_rate_per_channel
         self.headroom = self.capacity / self.demand
-        # LDC1614 resonant-tank sensitivity to the analog mux's series resistance.
-        # The mux's fractional Q loss = Rmux / (Rcoil + Rmux) is independent of inductance
-        # and frequency. Because the thin sense coil's own resistance (hundreds of ohms)
-        # dominates the 70R mux, the mux only costs ~28% of Q and cannot blind the LDC.
         self.coil_resistance = config.resistance
         self.mux_q_loss = (Fixed.sense_mux_on_resistance
                            / (self.coil_resistance + Fixed.sense_mux_on_resistance))
