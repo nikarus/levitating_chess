@@ -51,7 +51,8 @@ class Fixed:
     usable_bus_voltage_fraction = 0.9          # ratio
     ldc_sample_rate_per_channel = 4000         # reads/s
     coils_per_sense_channel = 16               # count
-    sense_mux_on_resistance = 70               # ohm
+    sense_mux_on_resistance = 120              # ohm
+    sense_mux_abs_max_voltage = 12             # V
     sense_max_mux_q_loss = 0.5                 # ratio
     windings_per_coil_body = 1                 # count
     bifilar_wires_per_turn = 1                 # count
@@ -654,6 +655,7 @@ class StatusChecks:
         self.current_slew = self.passes(control.slew_time <= control.instability_time / Inputs.control_loop_bandwidth_margin, "OK", "current cannot react in time")
         self.active_region_sensing = self.passes(sensing.capacity >= sensing.demand, "OK", "sensing too slow for control")
         self.sense_q = self.passes(sensing.mux_q_loss <= Fixed.sense_max_mux_q_loss, "OK", "mux dominates tank R, damps Q")
+        self.sense_mux_voltage = self.passes(config.bus_voltage <= Fixed.sense_mux_abs_max_voltage, "OK", "bus exceeds sense mux voltage rating")
         self.driver_coverage = self.passes(drive.driver_half_bridges >= coil.total_bodies * coil.half_bridges_per_coil, "OK", "not enough driver half-bridges per coil")
         self.drive_slew = self.passes(drive.slew_over_update <= 1, "OK", "current too slow for update period")
         self.tile_compute = self.passes(tiles.tile_headroom >= 1, "OK", "tile MCU overloaded")
@@ -684,6 +686,7 @@ class StatusChecks:
             Cell("Current-slew check", self.current_slew),
             Cell("Active-region sensing check", self.active_region_sensing),
             Cell("Sense-Q-with-mux check", self.sense_q),
+            Cell("Sense-mux-voltage-rating check", self.sense_mux_voltage),
             Cell("Driver-coverage check", self.driver_coverage),
             Cell("Drive-slew check", self.drive_slew),
             Cell("Per-tile-compute check", self.tile_compute),
@@ -743,7 +746,7 @@ class BillOfMaterials:
             BomItem("tile", "Coil driver IC", "DRV8912QPWPRQ1 12 half-bridge (dedicated per-coil)", tile_driver_chips, 3.5797, "https://www.digikey.com/en/products/detail/texas-instruments/DRV8912QPWPRQ1/11502248"),
             BomItem("tile", "Magnet wire", "UEW 0.04mm Cu (kg share)", tile_wire_kg, 18.74, "https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html"),
             BomItem("tile", "Coil-sense AFE", "LDC1614RGHR", tile_sense_afe, 2.249, "https://www.digikey.com/en/products/detail/texas-instruments/LDC1614RGHR/5481860"),
-            BomItem("tile", "Sense analog mux", "CD74HC4067M96", tile_sense_mux, 0.3405, "https://www.digikey.com/en/products/detail/texas-instruments/CD74HC4067M96/1507236"),
+            BomItem("tile", "Sense analog mux", "ADG1206YRUZ-REEL7 16ch (12V-rated)", tile_sense_mux, 8.52313, "https://www.digikey.com/en/products/detail/analog-devices-inc/adg1206yruz-reel7/1240262"),
             BomItem("tile", "Tile PCB", "4-layer FR4 10x10cm", tile_pcb_area_cm2, 0.02),
             BomItem("tile", "Tile control MCU", "STM32G431KBT6 32-pin", 1, 3.13, "https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G431KBT6/10231564"),
             BomItem("tile", "Backplane connector", "B2B header, tile->mainboard", 1, 0.45),
