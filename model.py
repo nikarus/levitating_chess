@@ -68,7 +68,7 @@ class Fixed:
     psu_sizing_margin = 1.25                   # ratio
     psu_options = {
         5:  ("Mean Well UHP-350-5, 5V 350W (fanless, est.)", 350, 52.00, None),
-        12: ("Mean Well UHP-350-12, 12V 350W (fanless, est.)", 350, 50.00, None),
+        12: ("Mean Well UHP-350-12, 12V 350W (fanless)", 350, 60.80, "https://www.digikey.com/en/products/detail/mean-well-usa-inc/UHP-350-12/7707252"),
         15: ("Mean Well UHP-350-15, 15V 350W (fanless, est.)", 350, 50.00, None),
         24: ("Mean Well UHP-350-24, 24V 350W (fanless, est.)", 350, 52.00, None),
     }
