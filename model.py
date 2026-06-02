@@ -22,7 +22,6 @@ class Inputs:
     max_surface_temperature = 50
     control_loop_bandwidth_margin = 5
     pieces_levitating_simultaneously = 32
-    maneuvering_pieces_at_once = 1
     sense_look_ahead_factor = 1.5
     drive_look_ahead_factor = 1.5
     production_volume = 100
@@ -35,8 +34,6 @@ class Fixed:
     captured_side_areas = 2
     captured_packing_efficiency = 0.9
     herringbone_orientation_families = 2
-    commutation_phases_per_axis = 3
-    maneuvering_pieces_per_tile = 1
     com_height_fraction = 0.4
     halbach_first_harmonic_coefficient = 0.65
     reference_king_height = 95
@@ -47,7 +44,8 @@ class Fixed:
     force_straight_length_efficiency = 0.65
     surface_heat_transfer_coefficient = 12
     heat_spread_area_factor = 1
-    sink_channels_per_chip = 6
+    drive_topology = "wye"             # "wye": 1 half-bridge/coil (BLDC-style); "hbridge": 2 half-bridges/coil
+    driver_half_bridges_per_chip = 12  # DRV8912 provides 12 half-bridges
     driver_output_voltage_rating = 32
     driver_channel_current = 1.0
     usable_bus_voltage_fraction = 0.9
@@ -55,7 +53,6 @@ class Fixed:
     coils_per_sense_channel = 16
     windings_per_coil_body = 1
     bifilar_wires_per_turn = 1
-    matrix_switch_cost = 0.045
     pcb_thickness = 1.6
     psu_mass_kg = 0.7
     frame_enclosure_mass_kg = 1.0
@@ -143,14 +140,9 @@ class CoilBed:
         self.active_bodies = self.bodies_under_platform * Inputs.pieces_levitating_simultaneously
         self.active_windings = self.active_bodies * Fixed.windings_per_coil_body
         self.peak_driven_windings = ceil(self.active_windings * Inputs.drive_look_ahead_factor)
-        self.phases_per_piece = Fixed.commutation_phases_per_axis * Fixed.herringbone_orientation_families
-        self.baseline_drives_per_piece = self.phases_per_piece
-        self.maneuver_drives_per_piece = self.bodies_under_platform
-        self.active_phase_drives = (
-            self.baseline_drives_per_piece * Inputs.pieces_levitating_simultaneously
-            + Inputs.maneuvering_pieces_at_once * (self.maneuver_drives_per_piece - self.baseline_drives_per_piece))
-        self.peak_driven_phases = ceil(self.active_phase_drives * Inputs.drive_look_ahead_factor)
-        self.chips = ceil(self.peak_driven_phases / Fixed.sink_channels_per_chip)
+        self.half_bridges_per_coil = 1 if Fixed.drive_topology == "wye" else 2
+        self.coils_per_chip = Fixed.driver_half_bridges_per_chip // self.half_bridges_per_coil
+        self.chips = ceil(self.total_bodies / self.coils_per_chip)
 
     def cells(self):
         return [
@@ -170,10 +162,8 @@ class CoilBed:
             Cell("Active bodies (all pieces at once)", self.active_bodies),
             Cell("Lift windings (pieces at once)", self.active_windings),
             Cell("Peak driven windings (+thrust look-ahead)", self.peak_driven_windings),
-            Cell("Glide-baseline drives per piece", self.baseline_drives_per_piece),
-            Cell("Maneuver drives per piece (full 6-DOF)", self.maneuver_drives_per_piece),
-            Cell("Peak active drives (baseline + 6-DOF allowance)", self.peak_driven_phases),
-            Cell("H-bridge driver chips (active)", self.chips),
+            Cell("Coils per driver chip", self.coils_per_chip),
+            Cell("Dedicated driver chips (whole board)", self.chips),
         ]
 
 
@@ -493,12 +483,15 @@ class Control:
 
 class DriveMatrix:
     def __init__(self, coil, control, config):
-        self.scheme = "independent per-coil drive (full 6-DOF attitude control)"
-        self.coil_switches = coil.total_bodies
+        topology_labels = {
+            "wye": "dedicated half-bridge per coil, wye-connected (bipolar, BLDC-style)",
+            "hbridge": "dedicated full H-bridge per coil (bipolar, independent)",
+        }
+        self.scheme = topology_labels[Fixed.drive_topology]
+        self.half_bridges_per_coil = coil.half_bridges_per_coil
+        self.total_drivers = coil.chips
+        self.driver_half_bridges = self.total_drivers * Fixed.driver_half_bridges_per_chip
         self.coils_energized = coil.peak_driven_windings
-        self.active_phase_drives = coil.peak_driven_phases
-        self.driver_channels = coil.chips * Fixed.sink_channels_per_chip
-        self.pool_headroom = self.driver_channels / self.active_phase_drives
         self.slew_time = control.slew_time
         self.update_period = 1000 / control.pose_update_rate
         self.slew_over_update = self.slew_time / self.update_period
@@ -506,11 +499,10 @@ class DriveMatrix:
     def cells(self):
         return [
             Cell("Drive scheme", self.scheme),
-            Cell("Per-coil select switches", self.coil_switches),
+            Cell("Half-bridges per coil", self.half_bridges_per_coil),
+            Cell("Dedicated driver chips", self.total_drivers),
+            Cell("Driver half-bridges provided", self.driver_half_bridges),
             Cell("Coils energized at once", self.coils_energized),
-            Cell("Peak independent drives at once", self.active_phase_drives),
-            Cell("Driver output channels (pool)", self.driver_channels),
-            Cell("Driver pool headroom", self.pool_headroom, "x"),
             Cell("Current slew time to Imax", self.slew_time, "ms"),
             Cell("Control update period", self.update_period, "ms"),
             Cell("Slew / update-period ratio", self.slew_over_update, "x"),
@@ -653,7 +645,7 @@ class StatusChecks:
         self.control_bandwidth = self.passes(control.actuator_bandwidth >= control.required_bandwidth, "OK", "actuator bandwidth too low")
         self.current_slew = self.passes(control.slew_time <= control.instability_time / Inputs.control_loop_bandwidth_margin, "OK", "current cannot react in time")
         self.active_region_sensing = self.passes(sensing.capacity >= sensing.demand, "OK", "sensing too slow for control")
-        self.driver_pool = self.passes(drive.pool_headroom >= 1, "OK", "driver pool too small for active set")
+        self.driver_coverage = self.passes(drive.driver_half_bridges >= coil.total_bodies * coil.half_bridges_per_coil, "OK", "not enough driver half-bridges per coil")
         self.drive_slew = self.passes(drive.slew_over_update <= 1, "OK", "current too slow for update period")
         self.tile_compute = self.passes(tiles.tile_headroom >= 1, "OK", "tile MCU overloaded")
         self.psu_adequate = self.passes(psu.required_rating <= psu.supply_rating, "OK", "PSU undersized")
@@ -682,7 +674,7 @@ class StatusChecks:
             Cell("Control-bandwidth check", self.control_bandwidth),
             Cell("Current-slew check", self.current_slew),
             Cell("Active-region sensing check", self.active_region_sensing),
-            Cell("Driver-pool-size check", self.driver_pool),
+            Cell("Driver-coverage check", self.driver_coverage),
             Cell("Drive-slew check", self.drive_slew),
             Cell("Per-tile-compute check", self.tile_compute),
             Cell("PSU-adequate check", self.psu_adequate),
@@ -727,12 +719,7 @@ class MassBudget:
 class BillOfMaterials:
     def __init__(self, board, coil, halbach, wire, config, tiles):
         coils_per_tile = ceil(coil.total_bodies / tiles.tile_count)
-        windings_per_tile = coils_per_tile * Fixed.windings_per_coil_body
-        tile_active_windings = tiles.max_pieces_per_tile * coil.bodies_under_platform * Fixed.windings_per_coil_body
-        tile_maneuver_pieces = min(Fixed.maneuvering_pieces_per_tile, tiles.max_pieces_per_tile)
-        tile_phase_drives = (tile_maneuver_pieces * coil.maneuver_drives_per_piece
-                             + (tiles.max_pieces_per_tile - tile_maneuver_pieces) * coil.baseline_drives_per_piece)
-        tile_driver_chips = ceil(tile_phase_drives * Inputs.drive_look_ahead_factor / Fixed.sink_channels_per_chip)
+        tile_driver_chips = ceil(coils_per_tile / coil.coils_per_chip)
         tile_sense_afe = ceil(coils_per_tile / (4 * Fixed.coils_per_sense_channel))
         tile_sense_mux = ceil(coils_per_tile / Fixed.coils_per_sense_channel)
         tile_wire_kg = wire.copper_mass / tiles.tile_count
@@ -743,8 +730,7 @@ class BillOfMaterials:
         self.coils_per_tile = coils_per_tile
 
         self.tile_items = [
-            BomItem("tile", "Coil driver IC", "DRV8912QPWPRQ1 12 half-bridge", tile_driver_chips, 3.5797, "https://www.digikey.com/en/products/detail/texas-instruments/DRV8912QPWPRQ1/11502248"),
-            BomItem("tile", "Coil select switch", "BSS138-7-F N-FET, 2/coil (H-bridge route)", 2 * coils_per_tile, 0.028, "https://www.digikey.com/en/products/detail/diodes-incorporated/BSS138-7-F/717723"),
+            BomItem("tile", "Coil driver IC", "DRV8912QPWPRQ1 12 half-bridge (dedicated per-coil)", tile_driver_chips, 3.5797, "https://www.digikey.com/en/products/detail/texas-instruments/DRV8912QPWPRQ1/11502248"),
             BomItem("tile", "Magnet wire", "UEW 0.04mm Cu (kg share)", tile_wire_kg, 18.74, "https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html"),
             BomItem("tile", "Coil-sense AFE", "LDC1614RGHR", tile_sense_afe, 2.249, "https://www.digikey.com/en/products/detail/texas-instruments/LDC1614RGHR/5481860"),
             BomItem("tile", "Sense analog mux", "CD74HC4067M96", tile_sense_mux, 0.3405, "https://www.digikey.com/en/products/detail/texas-instruments/CD74HC4067M96/1507236"),
