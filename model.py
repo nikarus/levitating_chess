@@ -44,16 +44,20 @@ class Fixed:
     force_straight_length_efficiency = 0.65    # ratio
     surface_heat_transfer_coefficient = 12     # W/(m2.K)
     heat_spread_area_factor = 1                # ratio
-    drive_topology = "wye"
+    drive_topology = "centertap"
     driver_half_bridges_per_chip = 12          # count
     driver_output_voltage_rating = 32          # V
     driver_channel_current = 1.0               # A
     usable_bus_voltage_fraction = 0.9          # ratio
     ldc_sample_rate_per_channel = 4000         # reads/s
     coils_per_sense_channel = 16               # count
-    sense_mux_on_resistance = 125              # ohm
-    sense_mux_abs_max_voltage = 18             # V
-    sense_max_mux_q_loss = 0.5                 # ratio
+    sense_coil_inductance_uh = 18              # uH
+    sense_coil_resistance = 4                  # ohm
+    sense_resonant_frequency_mhz = 5           # MHz
+    ldc_sensor_drive_voltage = 1.8             # V
+    sense_mux_on_resistance = 70               # ohm
+    sense_mux_abs_max_voltage = 7              # V
+    sense_min_tank_q = 5                       # ratio
     windings_per_coil_body = 1                 # count
     bifilar_wires_per_turn = 1                 # count
     pcb_thickness = 1.6                        # mm
@@ -143,7 +147,8 @@ class CoilBed:
         self.active_bodies = self.bodies_under_platform * Inputs.pieces_levitating_simultaneously
         self.active_windings = self.active_bodies * Fixed.windings_per_coil_body
         self.peak_driven_windings = ceil(self.active_windings * Inputs.drive_look_ahead_factor)
-        self.half_bridges_per_coil = 1 if Fixed.drive_topology == "wye" else 2
+        self.half_bridges_per_coil = 1 if Fixed.drive_topology == "centertap" else 2
+        self.drive_voltage_fraction = 0.5 if Fixed.drive_topology == "centertap" else 1.0
         self.coils_per_chip = Fixed.driver_half_bridges_per_chip // self.half_bridges_per_coil
         self.chips = ceil(self.total_bodies / self.coils_per_chip)
 
@@ -242,7 +247,8 @@ class CoilConfiguration:
         self.length_per_winding = self.turns * self.average_length_per_turn / 1000
         self.cross_section_area = pi * (wire_diameter / 1000) ** 2 / 4
         self.resistance = Constants.copper_resistivity * self.length_per_winding / self.cross_section_area
-        self.voltage_limited_current = bus_voltage * Fixed.usable_bus_voltage_fraction / self.resistance
+        self.usable_drive_voltage = bus_voltage * coil.drive_voltage_fraction * Fixed.usable_bus_voltage_fraction
+        self.voltage_limited_current = self.usable_drive_voltage / self.resistance
         self.thermal_limited_current = self.cross_section_area * sqrt(Inputs.allowed_wire_temp_rise * Constants.copper_density * Constants.copper_heat_capacity / (Constants.copper_resistivity * Inputs.move_pulse_duration))
         self.current_limit = min(self.voltage_limited_current, self.thermal_limited_current)
         self.averaging_factor = self.field_averaging_factor(halbach.decay_constant, self.coil_height)
@@ -265,6 +271,7 @@ class CoilConfiguration:
             Cell("Selected standard wire dia", self.wire_diameter, "mm"),
             Cell("Wire outside diameter", self.outside_diameter, "mm"),
             Cell("Selected bus voltage", self.bus_voltage, "V"),
+            Cell("Usable drive voltage (per coil)", self.usable_drive_voltage, "V"),
             Cell("Winding radial width", self.radial_width, "mm"),
             Cell("Turns per radial layer", self.turns_per_layer),
             Cell("Vertical wire layers", self.layers),
@@ -467,7 +474,7 @@ class Control:
         self.inductance = self.coil_inductance(config.turns, coil.footprint_area, config.coil_height)
         self.time_constant = (self.inductance / 1000) / config.resistance * 1000
         self.actuator_bandwidth = 1 / (2 * pi * (self.time_constant / 1000))
-        self.slew_time = (self.inductance / 1000) * config.operating_current / (config.bus_voltage * Fixed.usable_bus_voltage_fraction) * 1000
+        self.slew_time = (self.inductance / 1000) * config.operating_current / config.usable_drive_voltage * 1000
         self.instability_time = 1 / sqrt(halbach.decay_constant * 1000 * Constants.gravity) * 1000
         self.required_bandwidth = Inputs.control_loop_bandwidth_margin / (2 * pi * (self.instability_time / 1000))
         self.pose_update_rate = Inputs.control_loop_bandwidth_margin / (self.instability_time / 1000)
@@ -487,8 +494,8 @@ class Control:
 class DriveMatrix:
     def __init__(self, coil, control):
         topology_labels = {
-            "wye": "dedicated half-bridge per coil, wye-connected (bipolar, BLDC-style)",
-            "hbridge": "dedicated full H-bridge per coil (bipolar, independent)",
+            "centertap": "one half-bridge per coil, far end tied to Vbus/2 mid-rail (bipolar +/-Vbus/2)",
+            "hbridge": "dedicated full H-bridge per coil (bipolar, full Vbus swing)",
         }
         self.scheme = topology_labels[Fixed.drive_topology]
         self.half_bridges_per_coil = coil.half_bridges_per_coil
@@ -513,16 +520,16 @@ class DriveMatrix:
 
 
 class Sensing:
-    def __init__(self, coil, control, config):
+    def __init__(self, coil, control):
         self.per_coil_update_rate = control.pose_update_rate
         self.active_coils = Inputs.pieces_levitating_simultaneously * coil.bodies_under_platform * Inputs.sense_look_ahead_factor
         self.demand = self.active_coils * self.per_coil_update_rate
         self.channels = ceil(coil.total_bodies / (4 * Fixed.coils_per_sense_channel)) * 4
         self.capacity = self.channels * Fixed.ldc_sample_rate_per_channel
         self.headroom = self.capacity / self.demand
-        self.coil_resistance = config.resistance
-        self.mux_q_loss = (Fixed.sense_mux_on_resistance
-                           / (self.coil_resistance + Fixed.sense_mux_on_resistance))
+        self.sense_reactance = 2 * pi * Fixed.sense_resonant_frequency_mhz * 1e6 * Fixed.sense_coil_inductance_uh * 1e-6
+        self.tank_series_resistance = Fixed.sense_coil_resistance + Fixed.sense_mux_on_resistance
+        self.tank_q = self.sense_reactance / self.tank_series_resistance
 
     def cells(self):
         return [
@@ -532,9 +539,9 @@ class Sensing:
             Cell("Total sense channels", self.channels),
             Cell("Total sensing capacity", self.capacity, "reads/s"),
             Cell("Sensing headroom", self.headroom, "x"),
-            Cell("Sense coil series R", self.coil_resistance, "ohm"),
-            Cell("Sense mux on-resistance", Fixed.sense_mux_on_resistance, "ohm"),
-            Cell("Tank Q loss from mux", self.mux_q_loss * 100, "%"),
+            Cell("Sense coil reactance at resonance", self.sense_reactance, "ohm"),
+            Cell("Sense tank series R (spiral+mux)", self.tank_series_resistance, "ohm"),
+            Cell("Sense tank Q", self.tank_q),
         ]
 
 
@@ -634,7 +641,7 @@ class StatusChecks:
     def __init__(self, board, coil, piece, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu):
         self.force = self.passes(config.available_margin >= 1, "OK", "not enough force")
         self.safety = self.passes(config.available_margin >= Inputs.force_safety_factor, "OK", "below safety margin")
-        self.voltage = self.passes(config.voltage_per_winding <= config.bus_voltage * Fixed.usable_bus_voltage_fraction, "OK", "voltage too high")
+        self.voltage = self.passes(config.voltage_per_winding <= config.usable_drive_voltage, "OK", "voltage too high")
         self.wire_thermal = self.passes(config.temp_rise <= Inputs.allowed_wire_temp_rise, "OK", "wire too hot")
         self.pulse_surface = self.passes(thermal.pulse_surface_temp <= Inputs.max_surface_temperature, "OK", "pulse surface too hot")
         self.duty_surface = self.passes(thermal.steady_state_surface_temp <= Inputs.max_surface_temperature, "OK", "duty surface too hot")
@@ -654,8 +661,8 @@ class StatusChecks:
         self.control_bandwidth = self.passes(control.actuator_bandwidth >= control.required_bandwidth, "OK", "actuator bandwidth too low")
         self.current_slew = self.passes(control.slew_time <= control.instability_time / Inputs.control_loop_bandwidth_margin, "OK", "current cannot react in time")
         self.active_region_sensing = self.passes(sensing.capacity >= sensing.demand, "OK", "sensing too slow for control")
-        self.sense_q = self.passes(sensing.mux_q_loss <= Fixed.sense_max_mux_q_loss, "OK", "mux dominates tank R, damps Q")
-        self.sense_mux_voltage = self.passes(config.bus_voltage <= Fixed.sense_mux_abs_max_voltage, "OK", "bus exceeds sense mux voltage rating")
+        self.sense_tank_q = self.passes(sensing.tank_q >= Fixed.sense_min_tank_q, "OK", "sense tank Q too low for LDC")
+        self.sense_mux_voltage = self.passes(Fixed.ldc_sensor_drive_voltage <= Fixed.sense_mux_abs_max_voltage, "OK", "sense rail exceeds mux voltage rating")
         self.driver_coverage = self.passes(drive.driver_half_bridges >= coil.total_bodies * coil.half_bridges_per_coil, "OK", "not enough driver half-bridges per coil")
         self.drive_slew = self.passes(drive.slew_over_update <= 1, "OK", "current too slow for update period")
         self.tile_compute = self.passes(tiles.tile_headroom >= 1, "OK", "tile MCU overloaded")
@@ -685,7 +692,7 @@ class StatusChecks:
             Cell("Control-bandwidth check", self.control_bandwidth),
             Cell("Current-slew check", self.current_slew),
             Cell("Active-region sensing check", self.active_region_sensing),
-            Cell("Sense-Q-with-mux check", self.sense_q),
+            Cell("Sense-tank-Q check", self.sense_tank_q),
             Cell("Sense-mux-voltage-rating check", self.sense_mux_voltage),
             Cell("Driver-coverage check", self.driver_coverage),
             Cell("Drive-slew check", self.drive_slew),
@@ -746,7 +753,7 @@ class BillOfMaterials:
             BomItem("tile", "Coil driver IC", "DRV8912QPWPRQ1 12 half-bridge (dedicated per-coil)", tile_driver_chips, 3.5797, "https://www.digikey.com/en/products/detail/texas-instruments/DRV8912QPWPRQ1/11502248"),
             BomItem("tile", "Magnet wire", "UEW 0.04mm Cu (kg share)", tile_wire_kg, 18.74, "https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html"),
             BomItem("tile", "Coil-sense AFE", "LDC1614RGHR", tile_sense_afe, 2.249, "https://www.digikey.com/en/products/detail/texas-instruments/LDC1614RGHR/5481860"),
-            BomItem("tile", "Sense analog mux", "CD4067BM96 16ch (18V-rated)", tile_sense_mux, 0.36825, "https://www.digikey.com/en/products/detail/texas-instruments/CD4067BM96/1691267"),
+            BomItem("tile", "Sense analog mux", "CD74HC4067M96 16ch (low-voltage sense side)", tile_sense_mux, 0.3405, "https://www.digikey.com/en/products/detail/texas-instruments/CD74HC4067M96/1507236"),
             BomItem("tile", "Tile PCB", "4-layer FR4 10x10cm", tile_pcb_area_cm2, 0.02),
             BomItem("tile", "Tile control MCU", "STM32G431KBT6 32-pin", 1, 3.13, "https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G431KBT6/10231564"),
             BomItem("tile", "Backplane connector", "B2B header, tile->mainboard", 1, 0.45),
@@ -785,7 +792,7 @@ propulsion = Propulsion(board, coil, piece, config, halbach)
 attitude = AttitudeAuthority(board, piece, config, propulsion)
 control = Control(coil, config, halbach)
 drive = DriveMatrix(coil, control)
-sensing = Sensing(coil, control, config)
+sensing = Sensing(coil, control)
 tiles = TileControl(board, coil, control)
 psu = PowerSupply(coil, wire, tiles, config)
 stability = Stability(board, piece, halbach, config, control)
