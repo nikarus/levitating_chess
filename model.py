@@ -50,7 +50,9 @@ class Fixed:
     driver_output_voltage_rating = 32          # V
     driver_channel_current = 1.0               # A
     usable_bus_voltage_fraction = 0.9          # ratio
-    ldc_sample_rate_per_channel = 4000         # reads/s
+    sense_reference_clock_mhz = 40             # MHz
+    sense_conversion_count = 1024              # ref cycles per read (resolution)
+    sense_settle_cycle_factor = 5              # settle periods per unit Q
     coils_per_sense_channel = 16               # count
     sense_coil_inductance_uh = 90              # uH
     sense_coil_resistance = 4                  # ohm
@@ -528,13 +530,17 @@ class Sensing:
         self.active_coils = Inputs.pieces_levitating_simultaneously * coil.bodies_under_platform * Inputs.sense_look_ahead_factor
         self.demand = self.active_coils * self.per_coil_update_rate
         self.channels = ceil(coil.total_bodies / (4 * Fixed.coils_per_sense_channel)) * 4
-        self.capacity = self.channels * Fixed.ldc_sample_rate_per_channel
-        self.headroom = self.capacity / self.demand
         self.sense_reactance = 2 * pi * Fixed.sense_resonant_frequency_mhz * 1e6 * Fixed.sense_coil_inductance_uh * 1e-6
         self.tank_series_resistance = Fixed.sense_coil_resistance + Fixed.sense_mux_on_resistance
         self.tank_q = self.sense_reactance / self.tank_series_resistance
         self.tank_capacitance_pf = 1e12 / ((2 * pi * Fixed.sense_resonant_frequency_mhz * 1e6) ** 2 * Fixed.sense_coil_inductance_uh * 1e-6)
         self.parasitic_fraction = Fixed.sense_mux_parasitic_capacitance_pf / self.tank_capacitance_pf
+        self.settle_time = Fixed.sense_settle_cycle_factor * self.tank_q / (Fixed.sense_resonant_frequency_mhz * 1e6)
+        self.conversion_time = Fixed.sense_conversion_count * 16 / (Fixed.sense_reference_clock_mhz * 1e6)
+        self.read_time = self.settle_time + self.conversion_time
+        self.reads_per_channel = 1 / self.read_time
+        self.capacity = self.channels * self.reads_per_channel
+        self.headroom = self.capacity / self.demand
 
     def cells(self):
         return [
@@ -542,6 +548,9 @@ class Sensing:
             Cell("Active coils sensed (worst case)", self.active_coils, "coils"),
             Cell("Reads needed", self.demand, "reads/s"),
             Cell("Total sense channels", self.channels),
+            Cell("Settle time per read", self.settle_time * 1e6, "us"),
+            Cell("Conversion time per read", self.conversion_time * 1e6, "us"),
+            Cell("Achievable reads per channel", self.reads_per_channel, "reads/s"),
             Cell("Total sensing capacity", self.capacity, "reads/s"),
             Cell("Sensing headroom", self.headroom, "x"),
             Cell("Sense coil reactance at resonance", self.sense_reactance, "ohm"),
