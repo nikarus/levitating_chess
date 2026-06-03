@@ -42,6 +42,7 @@ class Fixed:
     coil_aspect_ratio_target = 2.5             # ratio
     winding_radial_width_factor = 0.35         # ratio
     force_straight_length_efficiency = 0.65    # ratio
+    halbach_force_form_factor = 0.6366         # ratio
     surface_heat_transfer_coefficient = 12     # W/(m2.K)
     heat_spread_area_factor = 1                # ratio
     drive_topology = "centertap"
@@ -253,7 +254,7 @@ class CoilConfiguration:
         self.current_limit = min(self.voltage_limited_current, self.thermal_limited_current)
         self.averaging_factor = self.field_averaging_factor(halbach.decay_constant, self.coil_height)
         self.average_b = halbach.b_at_coils * self.averaging_factor
-        self.force_per_amp = self.turns * self.average_b * (self.straight_length / 1000) * coil.bodies_under_platform
+        self.force_per_amp = self.turns * self.average_b * (self.straight_length / 1000) * coil.bodies_under_platform * Fixed.halbach_force_form_factor
         self.available_force = self.current_limit * self.force_per_amp
         self.available_margin = self.available_force / piece.weight
         self.required_current = piece.weight * Inputs.force_safety_factor / self.force_per_amp
