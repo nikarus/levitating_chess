@@ -29,6 +29,8 @@ class Inputs:
 
 class Fixed:
     base_material_clearance = 1                # mm
+    magnet_corner_chamfer = 3                  # mm
+    min_resting_magnet_gap = 4                 # mm
     square_fill_ratio = 0.8                    # ratio
     captured_pieces_total = 32                 # count
     captured_side_areas = 2                    # count
@@ -186,7 +188,10 @@ class HalbachArray:
         self.block_volume = Inputs.magnet_cube_edge ** 3
         self.blocks_per_platform = self.blocks_per_side ** 2
         self.block_mass = self.block_volume * Constants.ndfeb_density
-        self.magnet_mass = self.blocks_per_platform * self.block_mass
+        self.footprint_factor = 1 - 2 * (Fixed.magnet_corner_chamfer / board.platform_side) ** 2
+        self.magnet_mass = self.blocks_per_platform * self.block_mass * self.footprint_factor
+        self.circumradius = sqrt((board.platform_side / 2) ** 2 + (board.platform_side / 2 - Fixed.magnet_corner_chamfer) ** 2)
+        self.resting_magnet_gap = board.base_diameter - 2 * self.circumradius
         self.decay_constant = sqrt(2) * 2 * pi / board.period_length
         self.thickness_factor = 1 - exp(-self.decay_constant * Inputs.magnet_cube_edge)
         self.decay_factor = exp(-self.decay_constant * Inputs.magnet_to_coil_distance)
@@ -199,6 +204,9 @@ class HalbachArray:
             Cell("Magnet blocks per platform", self.blocks_per_platform),
             Cell("Magnet block mass", self.block_mass, "g"),
             Cell("Magnet mass total", self.magnet_mass, "g"),
+            Cell("Octagon footprint factor", self.footprint_factor),
+            Cell("Magnet corner reach (circumradius)", self.circumradius, "mm"),
+            Cell("Resting magnet gap (bases touching)", self.resting_magnet_gap, "mm"),
             Cell("Halbach decay constant (2-D)", self.decay_constant, "1/mm"),
             Cell("Magnet thickness factor", self.thickness_factor),
             Cell("Distance decay factor", self.decay_factor),
@@ -258,13 +266,13 @@ class CoilConfiguration:
         self.current_limit = min(self.voltage_limited_current, self.thermal_limited_current)
         self.averaging_factor = self.field_averaging_factor(halbach.decay_constant, self.coil_height)
         self.average_b = halbach.b_at_coils * self.averaging_factor
-        self.force_per_amp = self.turns * self.average_b * (self.straight_length / 1000) * coil.bodies_under_platform * Fixed.halbach_force_form_factor
+        self.force_per_amp = self.turns * self.average_b * (self.straight_length / 1000) * coil.bodies_under_platform * Fixed.halbach_force_form_factor * halbach.footprint_factor
         self.available_force = self.current_limit * self.force_per_amp
         self.available_margin = self.available_force / piece.weight
         self.required_current = piece.weight * Inputs.force_safety_factor / self.force_per_amp
         self.operating_current = self.required_current
-        self.force_per_body = self.operating_current * self.turns * self.average_b * (self.straight_length / 1000)
-        self.total_force = self.force_per_body * coil.bodies_under_platform
+        self.total_force = self.operating_current * self.force_per_amp
+        self.force_per_body = self.total_force / coil.bodies_under_platform
         self.margin = self.total_force / piece.weight
         self.voltage_per_winding = self.operating_current * self.resistance
         self.power_per_winding = self.operating_current ** 2 * self.resistance
@@ -321,6 +329,9 @@ class ConfigurationSweep:
             return False
         att = AttitudeAuthority(board, piece, c, prop)
         if att.tilt_margin < 1 or att.yaw_margin < 1:
+            return False
+        psu = PowerSupply(coil, WireThermal(coil, c), TileControl(board, coil, Control(coil, c, halbach)), c)
+        if psu.required_rating > psu.supply_rating:
             return False
         return True
 
@@ -654,7 +665,7 @@ class StatusChecks:
     def passes(self, condition, ok_text, fail_text):
         return ok_text if condition else fail_text
 
-    def __init__(self, board, coil, piece, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu):
+    def __init__(self, board, coil, halbach, piece, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu):
         self.force = self.passes(config.available_margin >= 1, "OK", "not enough force")
         self.safety = self.passes(config.available_margin >= Inputs.force_safety_factor, "OK", "below safety margin")
         self.voltage = self.passes(config.voltage_per_winding <= config.usable_drive_voltage, "OK", "voltage too high")
@@ -674,6 +685,7 @@ class StatusChecks:
         self.coil_height = self.passes(config.coil_height <= coil.outer_width, "OK", "coil too tall")
         self.platform_size = self.passes(20 <= board.platform_side <= 50, "OK", "platform out of range")
         self.magnet_fits_base = self.passes(board.platform_side <= board.base_diameter, "OK", "magnet array wider than base")
+        self.resting_snap = self.passes(halbach.resting_magnet_gap >= Fixed.min_resting_magnet_gap, "OK", "resting pieces magnetically snap")
         self.control_bandwidth = self.passes(control.actuator_bandwidth >= control.required_bandwidth, "OK", "actuator bandwidth too low")
         self.current_slew = self.passes(control.slew_time <= control.instability_time / Inputs.control_loop_bandwidth_margin, "OK", "current cannot react in time")
         self.active_region_sensing = self.passes(sensing.capacity >= sensing.demand, "OK", "sensing too slow for control")
@@ -706,6 +718,7 @@ class StatusChecks:
             Cell("Coil-height buildable check", self.coil_height),
             Cell("Platform-size check", self.platform_size),
             Cell("Magnet-array-fits-base check", self.magnet_fits_base),
+            Cell("Resting-snap clearance check", self.resting_snap),
             Cell("Control-bandwidth check", self.control_bandwidth),
             Cell("Current-slew check", self.current_slew),
             Cell("Active-region sensing check", self.active_region_sensing),
@@ -814,7 +827,7 @@ sensing = Sensing(coil, control)
 tiles = TileControl(board, coil, control)
 psu = PowerSupply(coil, wire, tiles, config)
 stability = Stability(board, piece, halbach, config, control)
-checks = StatusChecks(board, coil, piece, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu)
+checks = StatusChecks(board, coil, halbach, piece, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu)
 bom = BillOfMaterials(board, coil, halbach, wire, config, tiles)
 mass = MassBudget(board, wire, piece)
 
