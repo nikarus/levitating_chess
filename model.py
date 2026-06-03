@@ -52,13 +52,15 @@ class Fixed:
     usable_bus_voltage_fraction = 0.9          # ratio
     ldc_sample_rate_per_channel = 4000         # reads/s
     coils_per_sense_channel = 16               # count
-    sense_coil_inductance_uh = 18              # uH
+    sense_coil_inductance_uh = 90              # uH
     sense_coil_resistance = 4                  # ohm
-    sense_resonant_frequency_mhz = 5           # MHz
+    sense_resonant_frequency_mhz = 0.7         # MHz
     ldc_sensor_drive_voltage = 1.8             # V
     sense_mux_on_resistance = 70               # ohm
+    sense_mux_parasitic_capacitance_pf = 50    # pF
     sense_mux_abs_max_voltage = 7              # V
     sense_min_tank_q = 5                       # ratio
+    sense_max_parasitic_fraction = 0.1         # ratio
     windings_per_coil_body = 1                 # count
     bifilar_wires_per_turn = 1                 # count
     pcb_thickness = 1.6                        # mm
@@ -531,6 +533,8 @@ class Sensing:
         self.sense_reactance = 2 * pi * Fixed.sense_resonant_frequency_mhz * 1e6 * Fixed.sense_coil_inductance_uh * 1e-6
         self.tank_series_resistance = Fixed.sense_coil_resistance + Fixed.sense_mux_on_resistance
         self.tank_q = self.sense_reactance / self.tank_series_resistance
+        self.tank_capacitance_pf = 1e12 / ((2 * pi * Fixed.sense_resonant_frequency_mhz * 1e6) ** 2 * Fixed.sense_coil_inductance_uh * 1e-6)
+        self.parasitic_fraction = Fixed.sense_mux_parasitic_capacitance_pf / self.tank_capacitance_pf
 
     def cells(self):
         return [
@@ -543,6 +547,8 @@ class Sensing:
             Cell("Sense coil reactance at resonance", self.sense_reactance, "ohm"),
             Cell("Sense tank series R (spiral+mux)", self.tank_series_resistance, "ohm"),
             Cell("Sense tank Q", self.tank_q),
+            Cell("Sense tank capacitance", self.tank_capacitance_pf, "pF"),
+            Cell("Mux parasitic / tank C", self.parasitic_fraction * 100, "%"),
         ]
 
 
@@ -663,6 +669,7 @@ class StatusChecks:
         self.current_slew = self.passes(control.slew_time <= control.instability_time / Inputs.control_loop_bandwidth_margin, "OK", "current cannot react in time")
         self.active_region_sensing = self.passes(sensing.capacity >= sensing.demand, "OK", "sensing too slow for control")
         self.sense_tank_q = self.passes(sensing.tank_q >= Fixed.sense_min_tank_q, "OK", "sense tank Q too low for LDC")
+        self.sense_parasitic = self.passes(sensing.parasitic_fraction <= Fixed.sense_max_parasitic_fraction, "OK", "mux parasitic C corrupts tank resonance")
         self.sense_mux_voltage = self.passes(Fixed.ldc_sensor_drive_voltage <= Fixed.sense_mux_abs_max_voltage, "OK", "sense rail exceeds mux voltage rating")
         self.driver_coverage = self.passes(drive.driver_half_bridges >= coil.total_bodies * coil.half_bridges_per_coil, "OK", "not enough driver half-bridges per coil")
         self.drive_slew = self.passes(drive.slew_over_update <= 1, "OK", "current too slow for update period")
@@ -694,6 +701,7 @@ class StatusChecks:
             Cell("Current-slew check", self.current_slew),
             Cell("Active-region sensing check", self.active_region_sensing),
             Cell("Sense-tank-Q check", self.sense_tank_q),
+            Cell("Sense-parasitic-C check", self.sense_parasitic),
             Cell("Sense-mux-voltage-rating check", self.sense_mux_voltage),
             Cell("Driver-coverage check", self.driver_coverage),
             Cell("Drive-slew check", self.drive_slew),
