@@ -2,9 +2,9 @@ from math import pi, sqrt, exp, ceil, floor, sin, radians
 
 
 class Inputs:
-    magnet_cube_edge = 4                       # mm
+    magnet_cube_edge = 5                       # mm
     magnets_per_period = 4                     # count
-    periods_per_side = 2                       # count
+    periods_per_side = 1                       # count
     magnet_to_coil_distance = 3                # mm
     plastic_wall_thickness = 1.0               # mm
     move_pulse_duration = 10                   # s
