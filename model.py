@@ -22,7 +22,6 @@ class Inputs:
     max_surface_temperature = 50               # C
     control_loop_bandwidth_margin = 5          # ratio
     pieces_levitating_simultaneously = 32      # count
-    sense_look_ahead_factor = 1.5              # ratio
     drive_look_ahead_factor = 1.5              # ratio
     production_volume = 100                    # boards
 
@@ -52,19 +51,10 @@ class Fixed:
     driver_output_voltage_rating = 32          # V
     driver_channel_current = 1.0               # A
     usable_bus_voltage_fraction = 0.9          # ratio
-    sense_reference_clock_mhz = 40             # MHz
-    sense_conversion_count = 1024              # ref cycles per read (resolution)
-    sense_settle_cycle_factor = 5              # settle periods per unit Q
-    coils_per_sense_channel = 16               # count
-    sense_coil_inductance_uh = 90              # uH
-    sense_coil_resistance = 4                  # ohm
-    sense_resonant_frequency_mhz = 0.7         # MHz
-    ldc_sensor_drive_voltage = 1.8             # V
-    sense_mux_on_resistance = 70               # ohm
-    sense_mux_parasitic_capacitance_pf = 50    # pF
-    sense_mux_abs_max_voltage = 7              # V
-    sense_min_tank_q = 5                       # ratio
-    sense_max_parasitic_fraction = 0.1         # ratio
+    hall_sensors_per_array_side = 2            # count
+    hall_sensor_mux_channels = 16              # count
+    hall_adc_sample_rate = 500000              # samples/s
+    hall_interpolation_bits = 12               # bits
     windings_per_coil_body = 1                 # count
     bifilar_wires_per_turn = 1                 # count
     pcb_thickness = 1.6                        # mm
@@ -535,40 +525,32 @@ class DriveMatrix:
         ]
 
 
-class Sensing:
-    def __init__(self, coil, control):
-        self.per_coil_update_rate = control.pose_update_rate
-        self.active_coils = Inputs.pieces_levitating_simultaneously * coil.bodies_under_platform * Inputs.sense_look_ahead_factor
-        self.demand = self.active_coils * self.per_coil_update_rate
-        self.channels = ceil(coil.total_bodies / (4 * Fixed.coils_per_sense_channel)) * 4
-        self.sense_reactance = 2 * pi * Fixed.sense_resonant_frequency_mhz * 1e6 * Fixed.sense_coil_inductance_uh * 1e-6
-        self.tank_series_resistance = Fixed.sense_coil_resistance + Fixed.sense_mux_on_resistance
-        self.tank_q = self.sense_reactance / self.tank_series_resistance
-        self.tank_capacitance_pf = 1e12 / ((2 * pi * Fixed.sense_resonant_frequency_mhz * 1e6) ** 2 * Fixed.sense_coil_inductance_uh * 1e-6)
-        self.parasitic_fraction = Fixed.sense_mux_parasitic_capacitance_pf / self.tank_capacitance_pf
-        self.settle_time = Fixed.sense_settle_cycle_factor * self.tank_q / (Fixed.sense_resonant_frequency_mhz * 1e6)
-        self.conversion_time = Fixed.sense_conversion_count * 16 / (Fixed.sense_reference_clock_mhz * 1e6)
-        self.read_time = self.settle_time + self.conversion_time
-        self.reads_per_channel = 1 / self.read_time
-        self.capacity = self.channels * self.reads_per_channel
-        self.headroom = self.capacity / self.demand
+class HallSensing:
+    def __init__(self, board, control, tiles):
+        self.update_rate = control.pose_update_rate
+        self.sensor_pitch = board.platform_side / Fixed.hall_sensors_per_array_side
+        self.sensors_per_piece = Fixed.hall_sensors_per_array_side ** 2
+        self.sensors_per_tile_side = ceil(Fixed.control_tile_side / self.sensor_pitch)
+        self.sensors_per_tile = self.sensors_per_tile_side ** 2
+        self.total_sensors = self.sensors_per_tile * tiles.tile_count
+        self.muxes_per_tile = ceil(self.sensors_per_tile / Fixed.hall_sensor_mux_channels)
+        self.reads_per_tile = self.sensors_per_tile * self.update_rate
+        self.tile_capacity = Fixed.hall_adc_sample_rate
+        self.headroom = self.tile_capacity / self.reads_per_tile
+        self.position_resolution_um = self.sensor_pitch * 1000 / (2 ** Fixed.hall_interpolation_bits)
 
     def cells(self):
         return [
-            Cell("Required per-coil update rate", self.per_coil_update_rate, "Hz"),
-            Cell("Active coils sensed (worst case)", self.active_coils, "coils"),
-            Cell("Reads needed", self.demand, "reads/s"),
-            Cell("Total sense channels", self.channels),
-            Cell("Settle time per read", self.settle_time * 1e6, "us"),
-            Cell("Conversion time per read", self.conversion_time * 1e6, "us"),
-            Cell("Achievable reads per channel", self.reads_per_channel, "reads/s"),
-            Cell("Total sensing capacity", self.capacity, "reads/s"),
+            Cell("Required update rate", self.update_rate, "Hz"),
+            Cell("Hall sensor pitch", self.sensor_pitch, "mm"),
+            Cell("Sensors under one piece", self.sensors_per_piece),
+            Cell("Sensors per tile", self.sensors_per_tile),
+            Cell("Total Hall sensors (board)", self.total_sensors),
+            Cell("Readout muxes per tile", self.muxes_per_tile),
+            Cell("Reads needed per tile", self.reads_per_tile, "reads/s"),
+            Cell("Per-tile ADC capacity", self.tile_capacity, "samples/s"),
             Cell("Sensing headroom", self.headroom, "x"),
-            Cell("Sense coil reactance at resonance", self.sense_reactance, "ohm"),
-            Cell("Sense tank series R (spiral+mux)", self.tank_series_resistance, "ohm"),
-            Cell("Sense tank Q", self.tank_q),
-            Cell("Sense tank capacitance", self.tank_capacitance_pf, "pF"),
-            Cell("Mux parasitic / tank C", self.parasitic_fraction * 100, "%"),
+            Cell("Interpolated position resolution", self.position_resolution_um, "um"),
         ]
 
 
@@ -688,10 +670,8 @@ class StatusChecks:
         self.resting_snap = self.passes(halbach.resting_magnet_gap >= Fixed.min_resting_magnet_gap, "OK", "resting pieces magnetically snap")
         self.control_bandwidth = self.passes(control.actuator_bandwidth >= control.required_bandwidth, "OK", "actuator bandwidth too low")
         self.current_slew = self.passes(control.slew_time <= control.instability_time / Inputs.control_loop_bandwidth_margin, "OK", "current cannot react in time")
-        self.active_region_sensing = self.passes(sensing.capacity >= sensing.demand, "OK", "sensing too slow for control")
-        self.sense_tank_q = self.passes(sensing.tank_q >= Fixed.sense_min_tank_q, "OK", "sense tank Q too low for LDC")
-        self.sense_parasitic = self.passes(sensing.parasitic_fraction <= Fixed.sense_max_parasitic_fraction, "OK", "mux parasitic C corrupts tank resonance")
-        self.sense_mux_voltage = self.passes(Fixed.ldc_sensor_drive_voltage <= Fixed.sense_mux_abs_max_voltage, "OK", "sense rail exceeds mux voltage rating")
+        self.hall_throughput = self.passes(sensing.headroom >= 1, "OK", "tile ADC too slow to scan Hall grid")
+        self.hall_resolution = self.passes(sensing.position_resolution_um <= Inputs.position_sense_resolution_um, "OK", "Hall grid too coarse for position resolution")
         self.driver_coverage = self.passes(drive.driver_half_bridges >= coil.total_bodies * coil.half_bridges_per_coil, "OK", "not enough driver half-bridges per coil")
         self.drive_slew = self.passes(drive.slew_over_update <= 1, "OK", "current too slow for update period")
         self.tile_compute = self.passes(tiles.tile_headroom >= 1, "OK", "tile MCU overloaded")
@@ -721,10 +701,8 @@ class StatusChecks:
             Cell("Resting-snap clearance check", self.resting_snap),
             Cell("Control-bandwidth check", self.control_bandwidth),
             Cell("Current-slew check", self.current_slew),
-            Cell("Active-region sensing check", self.active_region_sensing),
-            Cell("Sense-tank-Q check", self.sense_tank_q),
-            Cell("Sense-parasitic-C check", self.sense_parasitic),
-            Cell("Sense-mux-voltage-rating check", self.sense_mux_voltage),
+            Cell("Hall-throughput check", self.hall_throughput),
+            Cell("Hall-grid-resolution check", self.hall_resolution),
             Cell("Driver-coverage check", self.driver_coverage),
             Cell("Drive-slew check", self.drive_slew),
             Cell("Per-tile-compute check", self.tile_compute),
@@ -768,11 +746,11 @@ class MassBudget:
 
 
 class BillOfMaterials:
-    def __init__(self, board, coil, halbach, wire, config, tiles):
+    def __init__(self, board, coil, halbach, wire, config, tiles, sensing):
         coils_per_tile = ceil(coil.total_bodies / tiles.tile_count)
         tile_driver_chips = ceil(coils_per_tile / coil.coils_per_chip)
-        tile_sense_afe = ceil(coils_per_tile / (4 * Fixed.coils_per_sense_channel))
-        tile_sense_mux = ceil(coils_per_tile / Fixed.coils_per_sense_channel)
+        tile_hall_sensors = sensing.sensors_per_tile
+        tile_hall_muxes = sensing.muxes_per_tile
         tile_wire_kg = wire.copper_mass / tiles.tile_count
         tile_pcb_area_cm2 = (tiles.tile_side ** 2) / 100
 
@@ -783,15 +761,14 @@ class BillOfMaterials:
         self.tile_items = [
             BomItem("tile", "Coil driver IC", "DRV8912QPWPRQ1 12 half-bridge (dedicated per-coil)", tile_driver_chips, 3.417, "https://www.digikey.com/en/products/detail/texas-instruments/DRV8912QPWPRQ1/11502248"),
             BomItem("tile", "Magnet wire", "UEW 0.04mm Cu (kg share)", tile_wire_kg, 18.74, "https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html"),
-            BomItem("tile", "Coil-sense AFE", "LDC1614RGHR", tile_sense_afe, 2.249, "https://www.digikey.com/en/products/detail/texas-instruments/LDC1614RGHR/5481860"),
-            BomItem("tile", "Sense analog mux", "CD74HC4067M96 16ch (low-voltage sense side)", tile_sense_mux, 0.3405, "https://www.digikey.com/en/products/detail/texas-instruments/CD74HC4067M96/1507236"),
+            BomItem("tile", "Hall position sensor", "Diodes AH49ENTR-G1 linear Hall (LCSC C314698)", tile_hall_sensors, 0.2067, "https://www.lcsc.com/product-detail/C314698.html"),
+            BomItem("tile", "Hall readout mux", "CD74HC4067M96 16ch analog", tile_hall_muxes, 0.3405, "https://www.digikey.com/en/products/detail/texas-instruments/CD74HC4067M96/1507236"),
             BomItem("tile", "Tile PCB", "4-layer FR4 10x10cm", tile_pcb_area_cm2, 0.02),
             BomItem("tile", "Tile control MCU", "STM32G431KBT6 32-pin", 1, 3.13, "https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G431KBT6/10231564"),
             BomItem("tile", "Backplane connector", "B2B header, tile->mainboard", 1, 0.45),
         ]
         self.piece_items = [
             BomItem("piece", "NdFeB magnet block", "N52 4mm cube", halbach.blocks_per_platform, 0.0375, "https://www.alibaba.com/product-detail/Customized-Rare-Earth-Neodymium-Magnets-N52_1601519228921.html"),
-            BomItem("piece", "Piece ID LC tag", "LQM18FN100M00D + C0G cap", 1, 0.15, "https://www.digikey.com/en/products/detail/murata-electronics/LQM18FN100M00D/1016184"),
             BomItem("piece", "Piece plastic / misc", "3D print PLA + connectors", 1, 1.4),
         ]
         psu_part, _psu_rating, psu_price, psu_url = Fixed.psu_options[config.bus_voltage]
@@ -823,12 +800,12 @@ propulsion = Propulsion(board, coil, piece, config, halbach)
 attitude = AttitudeAuthority(board, piece, config, propulsion)
 control = Control(coil, config, halbach)
 drive = DriveMatrix(coil, control)
-sensing = Sensing(coil, control)
 tiles = TileControl(board, coil, control)
+sensing = HallSensing(board, control, tiles)
 psu = PowerSupply(coil, wire, tiles, config)
 stability = Stability(board, piece, halbach, config, control)
 checks = StatusChecks(board, coil, halbach, piece, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu)
-bom = BillOfMaterials(board, coil, halbach, wire, config, tiles)
+bom = BillOfMaterials(board, coil, halbach, wire, config, tiles, sensing)
 mass = MassBudget(board, wire, piece)
 
 
@@ -912,7 +889,7 @@ def print_report():
     print_section("Attitude authority (tilt / yaw)", attitude.cells())
     print_section("Control feasibility", control.cells())
     print_section("Drive matrix (position-addressed)", drive.cells())
-    print_section("Sensing throughput", sensing.cells())
+    print_section("Hall position sensing", sensing.cells())
     print_section("Tiled control architecture", tiles.cells())
     print_section("Power supply", psu.cells())
     print_section("Stability and vibration", stability.cells())
