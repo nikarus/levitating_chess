@@ -2,6 +2,11 @@ import numpy as np
 import magpylib as magpy
 from magpylib_force import getFT
 
+# NOTE: This file estimates peak lift only. For the full controllability
+# analysis (signed 6-DOF wrench, actuator matrix rank/condition, worst-case
+# pose sweep, Hall observability and neighbour disturbance) see
+# levitation_sim.py, which supersedes the lift-only view used here.
+
 
 class Inputs:
     magnet_cube_edge = 0.005
