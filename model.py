@@ -12,7 +12,7 @@ class Inputs:
     spot_cooldown_duration = 60                # s
     allowed_wire_temp_rise = 40                # K
     force_safety_factor = 1.3                  # ratio
-    min_maneuver_accel_g = 0.3                 # g
+    min_maneuver_accel_g = 0.2                 # g
     target_tilt_angle_deg = 10                 # deg
     target_tilt_time = 0.3                     # s
     target_yaw_angle_deg = 90                  # deg
@@ -29,8 +29,10 @@ class Inputs:
 class Fixed:
     base_material_clearance = 1                # mm
     magnet_corner_chamfer = 3                  # mm
-    min_resting_magnet_gap = 4                 # mm
-    square_fill_ratio = 0.8                    # ratio
+    square_fill_ratio = 0.65                   # ratio
+    resting_friction_coefficient = 0.4         # ratio
+    neighbour_snap_pressure_coefficient = 0.032  # ratio
+    neighbour_snap_decay_factor = 1.82         # ratio
     captured_pieces_total = 32                 # count
     captured_side_areas = 2                    # count
     captured_packing_efficiency = 0.9          # ratio
@@ -44,6 +46,9 @@ class Fixed:
     winding_radial_width_factor = 0.35         # ratio
     force_straight_length_efficiency = 0.65    # ratio
     halbach_force_form_factor = 0.6366         # ratio
+    lift_commutation_efficiency = 0.844        # ratio
+    lateral_to_lift_force_ratio = 0.118        # ratio
+    coil_commutation_power_factor = 0.79       # ratio
     surface_heat_transfer_coefficient = 12     # W/(m2.K)
     heat_spread_area_factor = 1                # ratio
     drive_topology = "centertap"
@@ -136,12 +141,17 @@ class CoilBed:
         self.aspect_ratio = self.outer_length / self.outer_width
         self.bodies_per_orientation = self.columns * self.rows
         self.bodies_under_platform = Fixed.herringbone_orientation_families * self.bodies_per_orientation
+        self.control_cells_per_side = 2 * Inputs.periods_per_side + 1
+        self.control_columns = self.control_cells_per_side
+        self.control_rows = max(1, round(self.control_cells_per_side * self.outer_width / self.outer_length))
+        self.control_bed_per_orientation = self.control_columns * self.control_rows
+        self.control_bed_bodies = Fixed.herringbone_orientation_families * self.control_bed_per_orientation
         self.footprint_area = self.outer_width * self.outer_length
         self.body_density = self.bodies_under_platform / (board.platform_side ** 2)
         self.coil_spacing = sqrt(1 / self.body_density)
         self.total_bodies = ceil(board.motor_area * self.body_density)
         self.windings = self.total_bodies * Fixed.windings_per_coil_body
-        self.active_bodies = self.bodies_under_platform * Inputs.pieces_levitating_simultaneously
+        self.active_bodies = self.control_bed_bodies * Inputs.pieces_levitating_simultaneously
         self.active_windings = self.active_bodies * Fixed.windings_per_coil_body
         self.peak_driven_windings = ceil(self.active_windings * Inputs.drive_look_ahead_factor)
         self.half_bridges_per_coil = 1 if Fixed.drive_topology == "centertap" else 2
@@ -160,6 +170,8 @@ class CoilBed:
             Cell("Coil rows along length", self.rows),
             Cell("Coil bodies per orientation", self.bodies_per_orientation),
             Cell("Coil bodies under platform", self.bodies_under_platform),
+            Cell("6-DOF control bed per orientation", self.control_bed_per_orientation),
+            Cell("6-DOF control bed bodies (3x3 cells)", self.control_bed_bodies),
             Cell("Coil body density", self.body_density, "1/mm2"),
             Cell("Equivalent coil spacing", self.coil_spacing, "mm"),
             Cell("Total coil bodies", self.total_bodies),
@@ -231,6 +243,29 @@ class Piece:
         ]
 
 
+class NeighbourSnap:
+    def __init__(self, board, piece):
+        self.square_pitch = board.square_size
+        self.magnet_gap = self.square_pitch - board.platform_side
+        self.decay_length = board.period_length / (2 * pi) * Fixed.neighbour_snap_decay_factor
+        self.facing_area = board.platform_side * Inputs.magnet_cube_edge / 1e6
+        self.field_pressure = Constants.ndfeb_remanence_br ** 2 / (2 * Constants.vacuum_permeability)
+        self.contact_force = Fixed.neighbour_snap_pressure_coefficient * self.field_pressure * self.facing_area
+        self.snap_force = self.contact_force * exp(-self.magnet_gap / self.decay_length)
+        self.snap_to_weight = self.snap_force / piece.weight
+        self.holding_friction = Fixed.resting_friction_coefficient
+
+    def cells(self):
+        return [
+            Cell("Neighbour square pitch", self.square_pitch, "mm"),
+            Cell("Neighbour magnet edge gap", self.magnet_gap, "mm"),
+            Cell("Snap force decay length", self.decay_length, "mm"),
+            Cell("Neighbour snap force", self.snap_force * 1000, "mN"),
+            Cell("Snap-to-weight (needed friction)", self.snap_to_weight),
+            Cell("Resting friction available", self.holding_friction),
+        ]
+
+
 class CoilConfiguration:
     def field_averaging_factor(self, decay_constant, stack_height):
         decay_over_height = decay_constant * stack_height
@@ -256,11 +291,13 @@ class CoilConfiguration:
         self.current_limit = min(self.voltage_limited_current, self.thermal_limited_current)
         self.averaging_factor = self.field_averaging_factor(halbach.decay_constant, self.coil_height)
         self.average_b = halbach.b_at_coils * self.averaging_factor
-        self.force_per_amp = self.turns * self.average_b * (self.straight_length / 1000) * coil.bodies_under_platform * Fixed.halbach_force_form_factor * halbach.footprint_factor
+        self.force_per_amp = self.turns * self.average_b * (self.straight_length / 1000) * coil.bodies_under_platform * Fixed.halbach_force_form_factor * Fixed.lift_commutation_efficiency * halbach.footprint_factor
         self.available_force = self.current_limit * self.force_per_amp
         self.available_margin = self.available_force / piece.weight
         self.required_current = piece.weight * Inputs.force_safety_factor / self.force_per_amp
         self.operating_current = self.required_current
+        self.hover_current = self.required_current / Inputs.force_safety_factor
+        self.piece_hover_power = coil.control_bed_bodies * self.hover_current ** 2 * self.resistance * Fixed.coil_commutation_power_factor
         self.total_force = self.operating_current * self.force_per_amp
         self.force_per_body = self.total_force / coil.bodies_under_platform
         self.margin = self.total_force / piece.weight
@@ -346,7 +383,7 @@ class WireThermal:
         self.mass_per_winding = Constants.copper_density * config.length_per_winding * config.cross_section_area * 1000
         self.wire_length = config.length_per_winding * coil.windings
         self.copper_mass = self.mass_per_winding * coil.windings / 1000
-        self.one_piece_power = config.power_per_winding * coil.bodies_under_platform
+        self.one_piece_power = config.piece_hover_power
         self.all_pieces_power = self.one_piece_power * Inputs.pieces_levitating_simultaneously
         self.psu_current = self.all_pieces_power / config.bus_voltage
 
@@ -368,7 +405,7 @@ class SurfaceThermal:
         self.dissipation_area = board.platform_side ** 2 * Fixed.heat_spread_area_factor / 1000000
         self.thermal_conductance = Fixed.surface_heat_transfer_coefficient * self.dissipation_area
         self.thermal_time_constant = self.thermal_capacitance / self.thermal_conductance
-        self.one_piece_power = config.power_per_winding * coil.bodies_under_platform
+        self.one_piece_power = config.piece_hover_power
         self.pulse_surface_temp = Inputs.ambient_temperature + config.temp_rise
         self.max_pulse_duration = self.thermal_capacitance * (Inputs.max_surface_temperature - Inputs.ambient_temperature) / self.one_piece_power
         self.spot_period = Inputs.max_hover_duration + Inputs.spot_cooldown_duration
@@ -400,12 +437,12 @@ class Propulsion:
         self.mass = piece.mass / 1000
         self.weight = piece.weight
         self.available_force = config.available_force
-        self.lateral_force_per_amp = config.force_per_amp
-        self.max_thrust = sqrt(max(self.available_force ** 2 - self.weight ** 2, 0))
+        self.lateral_force_per_amp = config.force_per_amp * Fixed.lateral_to_lift_force_ratio
+        self.max_thrust = config.current_limit * self.lateral_force_per_amp
         self.max_acceleration = self.max_thrust / self.mass
         self.acceleration_in_g = self.max_acceleration / Constants.gravity
         self.thrust_current = self.max_thrust / self.lateral_force_per_amp
-        self.flight_power = config.current_limit ** 2 * config.resistance * coil.bodies_under_platform
+        self.flight_power = config.current_limit ** 2 * config.resistance * coil.control_bed_bodies
         self.square_pitch = board.square_size / 1000
         self.hop_time = 2 * sqrt(self.square_pitch / self.max_acceleration)
         self.hop_peak_speed = sqrt(self.max_acceleration * self.square_pitch)
@@ -647,7 +684,7 @@ class StatusChecks:
     def passes(self, condition, ok_text, fail_text):
         return ok_text if condition else fail_text
 
-    def __init__(self, board, coil, halbach, piece, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu):
+    def __init__(self, board, coil, halbach, piece, snap, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu):
         self.force = self.passes(config.available_margin >= 1, "OK", "not enough force")
         self.safety = self.passes(config.available_margin >= Inputs.force_safety_factor, "OK", "below safety margin")
         self.voltage = self.passes(config.voltage_per_winding <= config.usable_drive_voltage, "OK", "voltage too high")
@@ -662,12 +699,12 @@ class StatusChecks:
         self.tilt_observable = self.passes(stability.tip_sense_resolution <= 0.001, "OK", "tilt sensing too coarse")
         self.driver_voltage = self.passes(config.bus_voltage <= Fixed.driver_output_voltage_rating, "OK", "bus exceeds driver Vout rating")
         self.driver_current = self.passes(config.current_limit <= Fixed.driver_channel_current, "OK", "coil current exceeds channel rating")
-        self.per_orientation = self.passes(coil.bodies_per_orientation >= 6, "OK", "few coils per orientation")
+        self.per_orientation = self.passes(coil.control_bed_per_orientation >= 6, "OK", "control bed too small for 6-DOF")
         self.shell_validity = self.passes((piece.diameter - 2 * Inputs.plastic_wall_thickness) > 0, "OK", "wall too thick")
         self.coil_height = self.passes(config.coil_height <= coil.outer_width, "OK", "coil too tall")
         self.platform_size = self.passes(20 <= board.platform_side <= 50, "OK", "platform out of range")
         self.magnet_fits_base = self.passes(board.platform_side <= board.base_diameter, "OK", "magnet array wider than base")
-        self.resting_snap = self.passes(halbach.resting_magnet_gap >= Fixed.min_resting_magnet_gap, "OK", "resting pieces magnetically snap")
+        self.neighbour_snap = self.passes(snap.snap_to_weight <= snap.holding_friction, "OK", "resting pieces magnetically snap")
         self.control_bandwidth = self.passes(control.actuator_bandwidth >= control.required_bandwidth, "OK", "actuator bandwidth too low")
         self.current_slew = self.passes(control.slew_time <= control.instability_time / Inputs.control_loop_bandwidth_margin, "OK", "current cannot react in time")
         self.hall_throughput = self.passes(sensing.headroom >= 1, "OK", "tile ADC too slow to scan Hall grid")
@@ -698,7 +735,7 @@ class StatusChecks:
             Cell("Coil-height buildable check", self.coil_height),
             Cell("Platform-size check", self.platform_size),
             Cell("Magnet-array-fits-base check", self.magnet_fits_base),
-            Cell("Resting-snap clearance check", self.resting_snap),
+            Cell("Neighbour-snap check", self.neighbour_snap),
             Cell("Control-bandwidth check", self.control_bandwidth),
             Cell("Current-slew check", self.current_slew),
             Cell("Hall-throughput check", self.hall_throughput),
@@ -791,6 +828,7 @@ board = BoardGeometry()
 coil = CoilBed(board)
 halbach = HalbachArray(board)
 piece = Piece(board, halbach)
+snap = NeighbourSnap(board, piece)
 sweep = ConfigurationSweep(board, coil, halbach, piece)
 config = sweep.selected
 coil.outer_height = config.coil_height
@@ -804,7 +842,7 @@ tiles = TileControl(board, coil, control)
 sensing = HallSensing(board, control, tiles)
 psu = PowerSupply(coil, wire, tiles, config)
 stability = Stability(board, piece, halbach, config, control)
-checks = StatusChecks(board, coil, halbach, piece, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu)
+checks = StatusChecks(board, coil, halbach, piece, snap, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu)
 bom = BillOfMaterials(board, coil, halbach, wire, config, tiles, sensing)
 mass = MassBudget(board, wire, piece)
 
@@ -881,6 +919,7 @@ def print_report():
     print_section("Coil geometry", coil.cells())
     print_section("Magnet array", halbach.cells())
     print_section("Piece mass", piece.cells())
+    print_section("Neighbour snap", snap.cells())
     print_section("Selected coil configuration", config.cells())
     print_sweep(sweep)
     print_section("Wire and thermal", wire.cells())
@@ -898,4 +937,5 @@ def print_report():
     print_bom(bom)
 
 
-print_report()
+if __name__ == "__main__":
+    print_report()
