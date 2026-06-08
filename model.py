@@ -1,10 +1,14 @@
 from math import pi, sqrt, exp, ceil, floor, sin, radians
 
+import levitation_sim
+
 
 class Inputs:
     magnet_cube_edge = 5                       # mm
     magnets_per_period = 4                     # count
     periods_per_side = 1                       # count
+    coils_per_period = 4                       # count
+    control_cells_per_side = 8                 # count
     magnet_to_coil_distance = 3                # mm
     plastic_wall_thickness = 1.0               # mm
     move_pulse_duration = 10                   # s
@@ -27,34 +31,27 @@ class Inputs:
 
 
 class Fixed:
-    base_material_clearance = 1                # mm
-    magnet_corner_chamfer = 3                  # mm
-    square_fill_ratio = 0.65                   # ratio
+    base_corner_standoff = 8                   # mm
+    square_fill_ratio = 0.8                    # ratio
     resting_friction_coefficient = 0.4         # ratio
-    neighbour_snap_pressure_coefficient = 0.032  # ratio
-    neighbour_snap_decay_factor = 1.82         # ratio
     captured_pieces_total = 32                 # count
     captured_side_areas = 2                    # count
-    captured_packing_efficiency = 0.9          # ratio
+    captured_board_gap = 10                    # mm
     herringbone_orientation_families = 2       # count
     com_height_fraction = 0.4                  # ratio
-    halbach_first_harmonic_coefficient = 0.65  # ratio
     reference_king_height = 95                 # mm
     reference_king_base_diameter = 44          # mm
     wire_enamel_outside_factor = 1.08          # ratio
+    rectangular_wire_film = 0.012              # mm per side
     coil_aspect_ratio_target = 2.5             # ratio
     winding_radial_width_factor = 0.35         # ratio
-    force_straight_length_efficiency = 0.65    # ratio
-    halbach_force_form_factor = 0.6366         # ratio
-    lift_commutation_efficiency = 0.844        # ratio
-    lateral_to_lift_force_ratio = 0.118        # ratio
-    coil_commutation_power_factor = 0.79       # ratio
+    nominal_coil_height_for_field = 1.0        # mm
     surface_heat_transfer_coefficient = 12     # W/(m2.K)
     heat_spread_area_factor = 1                # ratio
     drive_topology = "centertap"
     driver_half_bridges_per_chip = 12          # count
     driver_output_voltage_rating = 32          # V
-    driver_channel_current = 1.0               # A
+    driver_channel_current = 10.0              # A
     usable_bus_voltage_fraction = 0.9          # ratio
     hall_sensors_per_array_side = 2            # count
     hall_sensor_mux_channels = 16              # count
@@ -75,9 +72,13 @@ class Fixed:
     psu_sizing_margin = 1.25                   # ratio
     psu_options = {
         5:  ("Mean Well UHP-350-5, 5V 350W (fanless, est.)", 350, 52.00, None),
+        9:  ("[TO BE SOURCED] 9V ~350W fanless PSU", 350, 55.00, None),
         12: ("Mean Well UHP-350-12, 12V 350W (fanless)", 350, 60.80, "https://www.digikey.com/en/products/detail/mean-well-usa-inc/UHP-350-12/7707252"),
         15: ("Mean Well UHP-350-15, 15V 350W (fanless, est.)", 350, 50.00, None),
+        19: ("[TO BE SOURCED] 19V ~350W fanless PSU", 350, 55.00, None),
         24: ("Mean Well UHP-350-24, 24V 350W (fanless, est.)", 350, 52.00, None),
+        28: ("[TO BE SOURCED] 28V ~350W fanless PSU", 350, 55.00, None),
+        32: ("[TO BE SOURCED] 32V ~350W fanless PSU", 350, 55.00, None),
     }
 
 
@@ -89,11 +90,31 @@ class Constants:
     copper_resistivity = 1.724e-08
     copper_density = 8960
     copper_heat_capacity = 385
-    standard_wire_diameters = [0.03, 0.04, 0.05, 0.063, 0.071, 0.08, 0.09, 0.1, 0.112, 0.125, 0.14, 0.16]
-    standard_bus_voltages = [5, 12, 15, 24]
+    standard_wire_diameters = [0.03, 0.04, 0.05, 0.063, 0.071, 0.08, 0.09, 0.1, 0.112, 0.125, 0.14, 0.16, 0.18, 0.2, 0.224, 0.25, 0.28, 0.315, 0.355, 0.4, 0.45, 0.5]
+    standard_rectangular_wire_sizes = [
+        (width, thickness)
+        for width in [0.2, 0.3, 0.5, 0.8, 1.0, 1.5]
+        for thickness in [0.05, 0.07, 0.1, 0.15, 0.2, 0.3]
+        if width >= thickness
+    ]
+    standard_bus_voltages = [5, 9, 12, 15, 19, 24, 28, 32]
     gravity = 9.80665
     vacuum_permeability = 1.25663706e-6
     fr4_density = 0.00185
+
+
+def interpolate_height_coupling(sim, coil_height_mm):
+    heights = sim["coil_height_coupling_heights_mm"]
+    factors = sim["coil_height_coupling_factors"]
+    if coil_height_mm <= heights[0]:
+        return factors[0]
+    if coil_height_mm >= heights[-1]:
+        return factors[-1]
+    for index in range(1, len(heights)):
+        if coil_height_mm <= heights[index]:
+            span = heights[index] - heights[index - 1]
+            weight = (coil_height_mm - heights[index - 1]) / span
+            return factors[index - 1] + weight * (factors[index] - factors[index - 1])
 
 
 class Cell:
@@ -103,17 +124,40 @@ class Cell:
         self.unit = unit
 
 
+class Wire:
+    def __init__(self, label, radial_pitch, axial_pitch, copper_area):
+        self.label = label
+        self.radial_pitch = radial_pitch
+        self.axial_pitch = axial_pitch
+        self.copper_area = copper_area
+
+
+def round_wire(diameter):
+    pitch = diameter * Fixed.wire_enamel_outside_factor
+    return Wire(f"{diameter:g}mm round", pitch, pitch, pi * (diameter / 1000) ** 2 / 4)
+
+
+def rectangular_wire(width, thickness):
+    film = 2 * Fixed.rectangular_wire_film
+    return Wire(f"{width:g}x{thickness:g}mm flat", width + film, thickness + film, width * thickness / 1000000)
+
+
+def build_wire_catalogue():
+    return ([round_wire(diameter) for diameter in Constants.standard_wire_diameters]
+            + [rectangular_wire(width, thickness) for width, thickness in Constants.standard_rectangular_wire_sizes])
+
+
 class BoardGeometry:
     def __init__(self):
         self.period_length = Inputs.magnets_per_period * Inputs.magnet_cube_edge
         self.platform_side = Inputs.periods_per_side * self.period_length
-        self.base_diameter = self.platform_side * sqrt(2) + Fixed.base_material_clearance
+        self.base_diameter = self.platform_side * sqrt(2) + 2 * Fixed.base_corner_standoff
         self.square_size = self.base_diameter / Fixed.square_fill_ratio
         self.board_side = Constants.board_squares_per_side * self.square_size
         self.captured_per_side = ceil(Fixed.captured_pieces_total / Fixed.captured_side_areas)
         self.captured_rows = max(1, floor(self.board_side / self.base_diameter))
         self.captured_columns = ceil(self.captured_per_side / self.captured_rows)
-        self.storage_width_each = self.captured_columns * self.base_diameter / Fixed.captured_packing_efficiency + self.base_diameter * 0.15
+        self.storage_width_each = Fixed.captured_board_gap + self.captured_columns * self.base_diameter
         self.motor_width = self.board_side + Fixed.captured_side_areas * self.storage_width_each
         self.motor_height = self.board_side
         self.motor_area = self.motor_width * self.motor_height
@@ -125,6 +169,9 @@ class BoardGeometry:
             Cell("Round base diameter", self.base_diameter, "mm"),
             Cell("Chess square size", self.square_size, "mm"),
             Cell("Active board side", self.board_side, "mm"),
+            Cell("Captured-zone rows (touching)", self.captured_rows),
+            Cell("Captured-zone columns (touching)", self.captured_columns),
+            Cell("Captured-zone width each side", self.storage_width_each, "mm"),
             Cell("Total motor width", self.motor_width, "mm"),
             Cell("Total motor height", self.motor_height, "mm"),
             Cell("Total motor area", self.motor_area, "mm2"),
@@ -133,15 +180,15 @@ class BoardGeometry:
 
 class CoilBed:
     def __init__(self, board):
-        self.outer_width = board.period_length / 2
-        self.columns = 2 * Inputs.periods_per_side
+        self.outer_width = board.period_length / Inputs.coils_per_period
+        self.columns = Inputs.coils_per_period * Inputs.periods_per_side
         self.rows = max(1, round(board.platform_side / (Fixed.coil_aspect_ratio_target * self.outer_width)))
         self.outer_length = board.platform_side / self.rows
         self.outer_height = None
         self.aspect_ratio = self.outer_length / self.outer_width
         self.bodies_per_orientation = self.columns * self.rows
         self.bodies_under_platform = Fixed.herringbone_orientation_families * self.bodies_per_orientation
-        self.control_cells_per_side = 2 * Inputs.periods_per_side + 1
+        self.control_cells_per_side = Inputs.control_cells_per_side
         self.control_columns = self.control_cells_per_side
         self.control_rows = max(1, round(self.control_cells_per_side * self.outer_width / self.outer_length))
         self.control_bed_per_orientation = self.control_columns * self.control_rows
@@ -171,7 +218,7 @@ class CoilBed:
             Cell("Coil bodies per orientation", self.bodies_per_orientation),
             Cell("Coil bodies under platform", self.bodies_under_platform),
             Cell("6-DOF control bed per orientation", self.control_bed_per_orientation),
-            Cell("6-DOF control bed bodies (3x3 cells)", self.control_bed_bodies),
+            Cell("6-DOF control bed bodies", self.control_bed_bodies),
             Cell("Coil body density", self.body_density, "1/mm2"),
             Cell("Equivalent coil spacing", self.coil_spacing, "mm"),
             Cell("Total coil bodies", self.total_bodies),
@@ -185,19 +232,15 @@ class CoilBed:
 
 
 class HalbachArray:
-    def __init__(self, board):
+    def __init__(self, board, sim):
         self.blocks_per_side = Inputs.periods_per_side * Inputs.magnets_per_period
         self.block_volume = Inputs.magnet_cube_edge ** 3
         self.blocks_per_platform = self.blocks_per_side ** 2
         self.block_mass = self.block_volume * Constants.ndfeb_density
-        self.footprint_factor = 1 - 2 * (Fixed.magnet_corner_chamfer / board.platform_side) ** 2
-        self.magnet_mass = self.blocks_per_platform * self.block_mass * self.footprint_factor
-        self.circumradius = sqrt((board.platform_side / 2) ** 2 + (board.platform_side / 2 - Fixed.magnet_corner_chamfer) ** 2)
+        self.magnet_mass = self.blocks_per_platform * self.block_mass
+        self.circumradius = board.platform_side / 2 * sqrt(2)
         self.resting_magnet_gap = board.base_diameter - 2 * self.circumradius
-        self.decay_constant = sqrt(2) * 2 * pi / board.period_length
-        self.thickness_factor = 1 - exp(-self.decay_constant * Inputs.magnet_cube_edge)
-        self.decay_factor = exp(-self.decay_constant * Inputs.magnet_to_coil_distance)
-        self.b_at_coils = Constants.ndfeb_remanence_br * Fixed.halbach_first_harmonic_coefficient * self.thickness_factor * self.decay_factor
+        self.b_at_coils = sim["peak_bz"]
 
     def cells(self):
         return [
@@ -206,13 +249,9 @@ class HalbachArray:
             Cell("Magnet blocks per platform", self.blocks_per_platform),
             Cell("Magnet block mass", self.block_mass, "g"),
             Cell("Magnet mass total", self.magnet_mass, "g"),
-            Cell("Octagon footprint factor", self.footprint_factor),
             Cell("Magnet corner reach (circumradius)", self.circumradius, "mm"),
             Cell("Resting magnet gap (bases touching)", self.resting_magnet_gap, "mm"),
-            Cell("Halbach decay constant (2-D)", self.decay_constant, "1/mm"),
-            Cell("Magnet thickness factor", self.thickness_factor),
-            Cell("Distance decay factor", self.decay_factor),
-            Cell("Estimated effective B at coils", self.b_at_coils, "T"),
+            Cell("Simulated peak Bz at coil plane", self.b_at_coils, "T"),
         ]
 
 
@@ -244,60 +283,54 @@ class Piece:
 
 
 class NeighbourSnap:
-    def __init__(self, board, piece):
-        self.square_pitch = board.square_size
-        self.magnet_gap = self.square_pitch - board.platform_side
-        self.decay_length = board.period_length / (2 * pi) * Fixed.neighbour_snap_decay_factor
-        self.facing_area = board.platform_side * Inputs.magnet_cube_edge / 1e6
-        self.field_pressure = Constants.ndfeb_remanence_br ** 2 / (2 * Constants.vacuum_permeability)
-        self.contact_force = Fixed.neighbour_snap_pressure_coefficient * self.field_pressure * self.facing_area
-        self.snap_force = self.contact_force * exp(-self.magnet_gap / self.decay_length)
+    def __init__(self, board, piece, halbach, sim):
+        self.center_distance = board.base_diameter
+        self.corner_gap = board.base_diameter - 2 * halbach.circumradius
+        self.snap_force = sim["neighbour_snap_force"]
         self.snap_to_weight = self.snap_force / piece.weight
         self.holding_friction = Fixed.resting_friction_coefficient
 
     def cells(self):
         return [
-            Cell("Neighbour square pitch", self.square_pitch, "mm"),
-            Cell("Neighbour magnet edge gap", self.magnet_gap, "mm"),
-            Cell("Snap force decay length", self.decay_length, "mm"),
-            Cell("Neighbour snap force", self.snap_force * 1000, "mN"),
+            Cell("Bases-touching center distance", self.center_distance, "mm"),
+            Cell("Worst-orientation magnet corner gap", self.corner_gap, "mm"),
+            Cell("Neighbour snap force (worst orientation)", self.snap_force * 1000, "mN"),
             Cell("Snap-to-weight (needed friction)", self.snap_to_weight),
             Cell("Resting friction available", self.holding_friction),
         ]
 
 
 class CoilConfiguration:
-    def field_averaging_factor(self, decay_constant, stack_height):
-        decay_over_height = decay_constant * stack_height
-        return (1 - exp(-decay_over_height)) / decay_over_height
-
-    def __init__(self, coil, halbach, piece, wire_diameter, bus_voltage, layers):
-        self.wire_diameter = wire_diameter
+    def __init__(self, coil, halbach, piece, sim, wire, bus_voltage, layers):
+        self.wire = wire
         self.bus_voltage = bus_voltage
-        self.outside_diameter = wire_diameter * Fixed.wire_enamel_outside_factor
         self.radial_width = coil.outer_width * Fixed.winding_radial_width_factor
-        self.turns_per_layer = max(1, floor(self.radial_width / (Fixed.bifilar_wires_per_turn * self.outside_diameter)))
+        self.turns_per_layer = max(1, floor(self.radial_width / (Fixed.bifilar_wires_per_turn * wire.radial_pitch)))
         self.layers = layers
         self.turns = self.turns_per_layer * self.layers
-        self.coil_height = self.layers * self.outside_diameter
-        self.straight_length = 2 * (coil.outer_length - self.radial_width) * Fixed.force_straight_length_efficiency
+        self.coil_height = self.layers * wire.axial_pitch
+        self.height_coupling = interpolate_height_coupling(sim, self.coil_height)
         self.average_length_per_turn = 2 * ((coil.outer_length - self.radial_width) + (coil.outer_width - self.radial_width))
         self.length_per_winding = self.turns * self.average_length_per_turn / 1000
-        self.cross_section_area = pi * (wire_diameter / 1000) ** 2 / 4
+        self.cross_section_area = wire.copper_area
         self.resistance = Constants.copper_resistivity * self.length_per_winding / self.cross_section_area
         self.usable_drive_voltage = bus_voltage * coil.drive_voltage_fraction * Fixed.usable_bus_voltage_fraction
         self.voltage_limited_current = self.usable_drive_voltage / self.resistance
         self.thermal_limited_current = self.cross_section_area * sqrt(Inputs.allowed_wire_temp_rise * Constants.copper_density * Constants.copper_heat_capacity / (Constants.copper_resistivity * Inputs.move_pulse_duration))
         self.current_limit = min(self.voltage_limited_current, self.thermal_limited_current)
-        self.averaging_factor = self.field_averaging_factor(halbach.decay_constant, self.coil_height)
-        self.average_b = halbach.b_at_coils * self.averaging_factor
-        self.force_per_amp = self.turns * self.average_b * (self.straight_length / 1000) * coil.bodies_under_platform * Fixed.halbach_force_form_factor * Fixed.lift_commutation_efficiency * halbach.footprint_factor
+        self.force_per_amp = self.turns * sim["lift_force_per_ampere_turn"] * self.height_coupling
         self.available_force = self.current_limit * self.force_per_amp
         self.available_margin = self.available_force / piece.weight
         self.required_current = piece.weight * Inputs.force_safety_factor / self.force_per_amp
         self.operating_current = self.required_current
         self.hover_current = self.required_current / Inputs.force_safety_factor
-        self.piece_hover_power = coil.control_bed_bodies * self.hover_current ** 2 * self.resistance * Fixed.coil_commutation_power_factor
+        self.piece_hover_power = self.resistance * sim["hover_ampere_turns_squared_sum"] / self.turns ** 2 / self.height_coupling ** 2
+        self.worst_force_per_amp = self.turns * sim["worst_lift_force_per_ampere_turn"] * self.height_coupling
+        self.worst_available_force = self.current_limit * self.worst_force_per_amp
+        self.worst_available_margin = self.worst_available_force / piece.weight
+        self.worst_piece_hover_power = self.resistance * sim["worst_hover_ampere_turns_squared_sum"] / self.turns ** 2 / self.height_coupling ** 2
+        self.worst_case_poses = sim["worst_case_poses"]
+        self.worst_case_max_tilt_deg = sim["worst_case_max_tilt_deg"]
         self.total_force = self.operating_current * self.force_per_amp
         self.force_per_body = self.total_force / coil.bodies_under_platform
         self.margin = self.total_force / piece.weight
@@ -308,8 +341,10 @@ class CoilConfiguration:
 
     def cells(self):
         return [
-            Cell("Selected standard wire dia", self.wire_diameter, "mm"),
-            Cell("Wire outside diameter", self.outside_diameter, "mm"),
+            Cell("Selected wire", self.wire.label),
+            Cell("Winding radial pitch", self.wire.radial_pitch, "mm"),
+            Cell("Winding axial pitch", self.wire.axial_pitch, "mm"),
+            Cell("Copper cross-section area", self.cross_section_area * 1000000, "mm2"),
             Cell("Selected bus voltage", self.bus_voltage, "V"),
             Cell("Usable drive voltage (per coil)", self.usable_drive_voltage, "V"),
             Cell("Winding radial width", self.radial_width, "mm"),
@@ -317,16 +352,20 @@ class CoilConfiguration:
             Cell("Vertical wire layers", self.layers),
             Cell("Turns per winding (fits window)", self.turns),
             Cell("Coil height", self.coil_height, "mm"),
-            Cell("Useful straight length per turn", self.straight_length, "mm"),
+            Cell("Coil-height field coupling", self.height_coupling, "x"),
             Cell("Wire length per winding", self.length_per_winding, "m"),
             Cell("Resistance per winding", self.resistance, "ohm"),
             Cell("Voltage-limited current", self.voltage_limited_current, "A"),
             Cell("Thermal-limited current", self.thermal_limited_current, "A"),
             Cell("Wire current limit", self.current_limit, "A"),
-            Cell("Field averaging factor over coil", self.averaging_factor),
-            Cell("Average B over coil height", self.average_b, "T"),
+            Cell("Lift force per amp (sim)", self.force_per_amp, "N/A"),
             Cell("Available lift force (at limit)", self.available_force, "N"),
             Cell("Available lift margin", self.available_margin, "x"),
+            Cell("Worst-case poses swept", self.worst_case_poses),
+            Cell("Worst-case max tilt swept", self.worst_case_max_tilt_deg, "deg"),
+            Cell("Worst-case lift force per amp (sim)", self.worst_force_per_amp, "N/A"),
+            Cell("Worst-case available lift margin", self.worst_available_margin, "x"),
+            Cell("Worst-case hover power (one piece)", self.worst_piece_hover_power, "W"),
             Cell("Operating current per winding", self.operating_current, "A"),
             Cell("Lift force per coil body", self.force_per_body, "N"),
             Cell("Total lift force", self.total_force, "N"),
@@ -340,7 +379,7 @@ class ConfigurationSweep:
     def copper_proxy(self, c):
         return c.length_per_winding * c.cross_section_area
 
-    def is_feasible(self, board, coil, halbach, piece, c):
+    def is_feasible(self, board, coil, halbach, piece, sim, c):
         if c.available_margin < Inputs.force_safety_factor:
             return False
         if c.bus_voltage > Fixed.driver_output_voltage_rating:
@@ -351,26 +390,35 @@ class ConfigurationSweep:
             return False
         if SurfaceThermal(board, coil, c).cyclic_peak_surface_temp > Inputs.max_surface_temperature:
             return False
-        prop = Propulsion(board, coil, piece, c, halbach)
+        prop = Propulsion(board, coil, piece, c, halbach, sim)
         if prop.acceleration_in_g < Inputs.min_maneuver_accel_g:
             return False
-        att = AttitudeAuthority(board, piece, c, prop)
+        att = AttitudeAuthority(board, piece, c, sim)
         if att.tilt_margin < 1 or att.yaw_margin < 1:
             return False
-        psu = PowerSupply(coil, WireThermal(coil, c), TileControl(board, coil, Control(coil, c, halbach)), c)
+        if c.worst_available_margin < Inputs.force_safety_factor:
+            return False
+        if prop.worst_acceleration_in_g < Inputs.min_maneuver_accel_g:
+            return False
+        if att.worst_tilt_margin < 1 or att.worst_yaw_margin < 1:
+            return False
+        psu = PowerSupply(coil, WireThermal(coil, c), TileControl(board, coil, Control(coil, c, sim)), c)
         if psu.required_rating > psu.supply_rating:
             return False
         return True
 
-    def __init__(self, board, coil, halbach, piece):
+    def __init__(self, board, coil, halbach, piece, sim):
         self.configurations = [
-            CoilConfiguration(coil, halbach, piece, wire_diameter, bus_voltage, layers)
+            CoilConfiguration(coil, halbach, piece, sim, wire, bus_voltage, layers)
             for bus_voltage in Constants.standard_bus_voltages
-            for wire_diameter in Constants.standard_wire_diameters
-            for layers in range(1, floor(coil.outer_width / (wire_diameter * Fixed.wire_enamel_outside_factor)) + 1)
+            for wire in build_wire_catalogue()
+            for layers in range(1, floor(coil.outer_width / wire.axial_pitch) + 1)
         ]
-        self.feasible = [c for c in self.configurations if self.is_feasible(board, coil, halbach, piece, c)]
-        self.selected = min(self.feasible, key=self.copper_proxy)
+        self.feasible = [c for c in self.configurations if self.is_feasible(board, coil, halbach, piece, sim, c)]
+        if self.feasible:
+            self.selected = min(self.feasible, key=self.copper_proxy)
+        else:
+            self.selected = max(self.configurations, key=lambda c: c.worst_available_margin)
         self.best_per_voltage = []
         for bus_voltage in Constants.standard_bus_voltages:
             candidates = [c for c in self.feasible if c.bus_voltage == bus_voltage]
@@ -405,7 +453,7 @@ class SurfaceThermal:
         self.dissipation_area = board.platform_side ** 2 * Fixed.heat_spread_area_factor / 1000000
         self.thermal_conductance = Fixed.surface_heat_transfer_coefficient * self.dissipation_area
         self.thermal_time_constant = self.thermal_capacitance / self.thermal_conductance
-        self.one_piece_power = config.piece_hover_power
+        self.one_piece_power = config.power_per_winding * coil.bodies_under_platform
         self.pulse_surface_temp = Inputs.ambient_temperature + config.temp_rise
         self.max_pulse_duration = self.thermal_capacitance * (Inputs.max_surface_temperature - Inputs.ambient_temperature) / self.one_piece_power
         self.spot_period = Inputs.max_hover_duration + Inputs.spot_cooldown_duration
@@ -433,14 +481,17 @@ class SurfaceThermal:
 
 
 class Propulsion:
-    def __init__(self, board, coil, piece, config, halbach):
+    def __init__(self, board, coil, piece, config, halbach, sim):
         self.mass = piece.mass / 1000
         self.weight = piece.weight
         self.available_force = config.available_force
-        self.lateral_force_per_amp = config.force_per_amp * Fixed.lateral_to_lift_force_ratio
+        self.lateral_force_per_amp = config.force_per_amp * sim["lateral_to_lift_ratio"]
         self.max_thrust = config.current_limit * self.lateral_force_per_amp
         self.max_acceleration = self.max_thrust / self.mass
         self.acceleration_in_g = self.max_acceleration / Constants.gravity
+        self.worst_lateral_force_per_amp = config.turns * sim["worst_lateral_force_per_ampere_turn"] * config.height_coupling
+        self.worst_max_thrust = config.current_limit * self.worst_lateral_force_per_amp
+        self.worst_acceleration_in_g = self.worst_max_thrust / self.mass / Constants.gravity
         self.thrust_current = self.max_thrust / self.lateral_force_per_amp
         self.flight_power = config.current_limit ** 2 * config.resistance * coil.control_bed_bodies
         self.square_pitch = board.square_size / 1000
@@ -458,6 +509,7 @@ class Propulsion:
             Cell("Max lateral thrust", self.max_thrust, "N"),
             Cell("Max lateral acceleration", self.max_acceleration, "m/s2"),
             Cell("Max lateral acceleration", self.acceleration_in_g, "g"),
+            Cell("Worst-case max lateral acceleration", self.worst_acceleration_in_g, "g"),
             Cell("Thrust current per winding", self.thrust_current, "A"),
             Cell("In-flight coil power (one piece)", self.flight_power, "W"),
             Cell("One-square hop time (bang-bang)", self.hop_time, "s"),
@@ -470,14 +522,13 @@ class Propulsion:
 
 
 class AttitudeAuthority:
-    def __init__(self, board, piece, config, propulsion):
+    def __init__(self, board, piece, config, sim):
         self.mass = piece.mass / 1000
         self.radius = piece.diameter / 2 / 1000
         self.height = piece.box_height / 1000
         self.com_height = Fixed.com_height_fraction * self.height
         self.lever_arm = board.platform_side / 4 / 1000
-        self.tilt_couple_force = max(config.available_force - config.total_force, 0)
-        self.tilt_torque_max = self.tilt_couple_force * self.lever_arm
+        self.tilt_torque_max = sim["tilt_torque_per_ampere_turn"] * config.turns * config.current_limit * config.height_coupling
         self.tilt_angle = radians(Inputs.target_tilt_angle_deg)
         self.tilt_inertia = self.mass * (3 * self.radius ** 2 + self.height ** 2) / 12
         self.tilt_accel = 4 * self.tilt_angle / Inputs.target_tilt_time ** 2
@@ -485,27 +536,32 @@ class AttitudeAuthority:
         self.tilt_dynamic_torque = self.tilt_inertia * self.tilt_accel
         self.tilt_required_torque = self.tilt_static_torque + self.tilt_dynamic_torque
         self.tilt_margin = self.tilt_torque_max / self.tilt_required_torque
-        self.yaw_torque_max = propulsion.max_thrust * self.lever_arm
+        self.worst_tilt_torque_max = sim["worst_tilt_torque_per_ampere_turn"] * config.turns * config.current_limit * config.height_coupling
+        self.worst_tilt_margin = self.worst_tilt_torque_max / self.tilt_required_torque
+        self.yaw_torque_max = sim["yaw_torque_per_ampere_turn"] * config.turns * config.current_limit * config.height_coupling
         self.yaw_angle = radians(Inputs.target_yaw_angle_deg)
         self.yaw_inertia = self.mass * self.radius ** 2 / 2
         self.yaw_accel = 4 * self.yaw_angle / Inputs.target_yaw_time ** 2
         self.yaw_required_torque = self.yaw_inertia * self.yaw_accel
         self.yaw_margin = self.yaw_torque_max / self.yaw_required_torque
+        self.worst_yaw_torque_max = sim["worst_yaw_torque_per_ampere_turn"] * config.turns * config.current_limit * config.height_coupling
+        self.worst_yaw_margin = self.worst_yaw_torque_max / self.yaw_required_torque
 
     def cells(self):
         return [
             Cell("Tilt lever arm (footprint)", self.lever_arm * 1000, "mm"),
-            Cell("Tilt couple force (spare lift)", self.tilt_couple_force, "N"),
-            Cell("Max tilt torque available", self.tilt_torque_max, "N.m"),
+            Cell("Max tilt torque available (sim)", self.tilt_torque_max, "N.m"),
             Cell("Tilt inertia about diameter", self.tilt_inertia, "kg.m2"),
             Cell("Static torque to hold target tilt", self.tilt_static_torque, "N.m"),
             Cell("Dynamic torque to reach tilt in time", self.tilt_dynamic_torque, "N.m"),
             Cell("Tilt torque required (hold+slew)", self.tilt_required_torque, "N.m"),
             Cell("Tilt authority margin", self.tilt_margin, "x"),
-            Cell("Max yaw torque available", self.yaw_torque_max, "N.m"),
+            Cell("Worst-case tilt authority margin", self.worst_tilt_margin, "x"),
+            Cell("Max yaw torque available (sim)", self.yaw_torque_max, "N.m"),
             Cell("Yaw inertia about vertical", self.yaw_inertia, "kg.m2"),
             Cell("Yaw torque required for 90deg slew", self.yaw_required_torque, "N.m"),
             Cell("Yaw authority margin", self.yaw_margin, "x"),
+            Cell("Worst-case yaw authority margin", self.worst_yaw_margin, "x"),
         ]
 
 
@@ -513,12 +569,12 @@ class Control:
     def coil_inductance(self, turns, footprint_area, height):
         return Constants.vacuum_permeability * turns ** 2 * (footprint_area / 1000000) / (height / 1000) * 1000
 
-    def __init__(self, coil, config, halbach):
+    def __init__(self, coil, config, sim):
         self.inductance = self.coil_inductance(config.turns, coil.footprint_area, config.coil_height)
         self.time_constant = (self.inductance / 1000) / config.resistance * 1000
         self.actuator_bandwidth = 1 / (2 * pi * (self.time_constant / 1000))
         self.slew_time = (self.inductance / 1000) * config.operating_current / config.usable_drive_voltage * 1000
-        self.instability_time = 1 / sqrt(halbach.decay_constant * 1000 * Constants.gravity) * 1000
+        self.instability_time = sim["instability_growth_time"] * 1000
         self.required_bandwidth = Inputs.control_loop_bandwidth_margin / (2 * pi * (self.instability_time / 1000))
         self.pose_update_rate = Inputs.control_loop_bandwidth_margin / (self.instability_time / 1000)
 
@@ -649,12 +705,11 @@ class PowerSupply:
 
 
 class Stability:
-    def __init__(self, board, piece, halbach, config, control):
-        self.decay_constant_m = halbach.decay_constant * 1000
+    def __init__(self, board, piece, control, sim):
         self.mass = piece.mass / 1000
         self.height = piece.box_height / 1000
         self.half_width = board.platform_side / 2 / 1000
-        self.vertical_stiffness = self.decay_constant_m * piece.weight
+        self.vertical_stiffness = sim["vertical_stiffness"]
         self.bounce_frequency = sqrt(self.vertical_stiffness / self.mass) / (2 * pi)
         self.tilt_stiffness = self.vertical_stiffness * self.half_width ** 2
         self.tilt_inertia = self.mass * self.height ** 2 / 3
@@ -684,7 +739,7 @@ class StatusChecks:
     def passes(self, condition, ok_text, fail_text):
         return ok_text if condition else fail_text
 
-    def __init__(self, board, coil, halbach, piece, snap, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu):
+    def __init__(self, board, coil, halbach, piece, snap, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu, sim):
         self.force = self.passes(config.available_margin >= 1, "OK", "not enough force")
         self.safety = self.passes(config.available_margin >= Inputs.force_safety_factor, "OK", "below safety margin")
         self.voltage = self.passes(config.voltage_per_winding <= config.usable_drive_voltage, "OK", "voltage too high")
@@ -695,11 +750,16 @@ class StatusChecks:
         self.maneuvering = self.passes(propulsion.acceleration_in_g >= Inputs.min_maneuver_accel_g, "OK", "lateral thrust too weak")
         self.tilt_authority = self.passes(attitude.tilt_margin >= 1, "OK", "not enough tilt torque")
         self.yaw_authority = self.passes(attitude.yaw_margin >= 1, "OK", "not enough yaw torque")
+        self.worst_force = self.passes(config.worst_available_margin >= Inputs.force_safety_factor, "OK", "worst-case pose lift below safety margin")
+        self.worst_maneuvering = self.passes(propulsion.worst_acceleration_in_g >= Inputs.min_maneuver_accel_g, "OK", "worst-case lateral thrust too weak")
+        self.worst_tilt_authority = self.passes(attitude.worst_tilt_margin >= 1, "OK", "worst-case tilt torque too weak")
+        self.worst_yaw_authority = self.passes(attitude.worst_yaw_margin >= 1, "OK", "worst-case yaw torque too weak")
         self.rock_controllable = self.passes(stability.control_margin_over_rock >= Inputs.control_loop_bandwidth_margin, "OK", "rock mode too fast for loop")
         self.tilt_observable = self.passes(stability.tip_sense_resolution <= 0.001, "OK", "tilt sensing too coarse")
         self.driver_voltage = self.passes(config.bus_voltage <= Fixed.driver_output_voltage_rating, "OK", "bus exceeds driver Vout rating")
         self.driver_current = self.passes(config.current_limit <= Fixed.driver_channel_current, "OK", "coil current exceeds channel rating")
-        self.per_orientation = self.passes(coil.control_bed_per_orientation >= 6, "OK", "control bed too small for 6-DOF")
+        self.actuator_rank = self.passes(sim["actuator_rank6"] >= 6, "OK", "actuator matrix not full 6-DOF rank")
+        self.hall_observable = self.passes(sim["hall_rank6"] >= 6, "OK", "Hall array cannot observe all 6 DOF")
         self.shell_validity = self.passes((piece.diameter - 2 * Inputs.plastic_wall_thickness) > 0, "OK", "wall too thick")
         self.coil_height = self.passes(config.coil_height <= coil.outer_width, "OK", "coil too tall")
         self.platform_size = self.passes(20 <= board.platform_side <= 50, "OK", "platform out of range")
@@ -726,11 +786,16 @@ class StatusChecks:
             Cell("Maneuvering check", self.maneuvering),
             Cell("Tilt-authority check", self.tilt_authority),
             Cell("Yaw-authority check", self.yaw_authority),
+            Cell("Worst-case-pose lift check", self.worst_force),
+            Cell("Worst-case maneuvering check", self.worst_maneuvering),
+            Cell("Worst-case tilt-authority check", self.worst_tilt_authority),
+            Cell("Worst-case yaw-authority check", self.worst_yaw_authority),
             Cell("Rock-mode controllable check", self.rock_controllable),
             Cell("Tilt-observable check", self.tilt_observable),
             Cell("Driver-voltage-rating check", self.driver_voltage),
             Cell("Driver-channel-current check", self.driver_current),
-            Cell("Per-orientation check", self.per_orientation),
+            Cell("Actuator 6-DOF rank check", self.actuator_rank),
+            Cell("Hall 6-DOF observability check", self.hall_observable),
             Cell("Shell-validity check", self.shell_validity),
             Cell("Coil-height buildable check", self.coil_height),
             Cell("Platform-size check", self.platform_size),
@@ -826,23 +891,47 @@ class BillOfMaterials:
 
 board = BoardGeometry()
 coil = CoilBed(board)
-halbach = HalbachArray(board)
+sim = levitation_sim.measure(levitation_sim.SimGeometry(
+    magnet_cube_edge_mm=Inputs.magnet_cube_edge,
+    magnets_per_period=Inputs.magnets_per_period,
+    periods_per_side=Inputs.periods_per_side,
+    magnet_to_coil_distance_mm=Inputs.magnet_to_coil_distance,
+    plastic_wall_thickness_mm=Inputs.plastic_wall_thickness,
+    base_corner_standoff_mm=Fixed.base_corner_standoff,
+    square_fill_ratio=Fixed.square_fill_ratio,
+    remanence=Constants.ndfeb_remanence_br,
+    ndfeb_density_g_per_mm3=Constants.ndfeb_density,
+    plastic_density_g_per_mm3=Constants.plastic_density,
+    gravity=Constants.gravity,
+    reference_king_height_mm=Fixed.reference_king_height,
+    reference_king_base_diameter_mm=Fixed.reference_king_base_diameter,
+    com_height_fraction=Fixed.com_height_fraction,
+    coil_outer_width_mm=coil.outer_width,
+    coil_outer_length_mm=coil.outer_length,
+    coil_radial_width_mm=coil.outer_width * Fixed.winding_radial_width_factor,
+    coil_height_mm=Fixed.nominal_coil_height_for_field,
+    control_cells_per_side=coil.control_cells_per_side,
+    driver_channel_current=Fixed.driver_channel_current,
+    control_loop_bandwidth_margin=Inputs.control_loop_bandwidth_margin,
+    target_tilt_deg=Inputs.target_tilt_angle_deg,
+))
+halbach = HalbachArray(board, sim)
 piece = Piece(board, halbach)
-snap = NeighbourSnap(board, piece)
-sweep = ConfigurationSweep(board, coil, halbach, piece)
+snap = NeighbourSnap(board, piece, halbach, sim)
+sweep = ConfigurationSweep(board, coil, halbach, piece, sim)
 config = sweep.selected
 coil.outer_height = config.coil_height
 wire = WireThermal(coil, config)
 thermal = SurfaceThermal(board, coil, config)
-propulsion = Propulsion(board, coil, piece, config, halbach)
-attitude = AttitudeAuthority(board, piece, config, propulsion)
-control = Control(coil, config, halbach)
+propulsion = Propulsion(board, coil, piece, config, halbach, sim)
+attitude = AttitudeAuthority(board, piece, config, sim)
+control = Control(coil, config, sim)
 drive = DriveMatrix(coil, control)
 tiles = TileControl(board, coil, control)
 sensing = HallSensing(board, control, tiles)
 psu = PowerSupply(coil, wire, tiles, config)
-stability = Stability(board, piece, halbach, config, control)
-checks = StatusChecks(board, coil, halbach, piece, snap, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu)
+stability = Stability(board, piece, control, sim)
+checks = StatusChecks(board, coil, halbach, piece, snap, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu, sim)
 bom = BillOfMaterials(board, coil, halbach, wire, config, tiles, sensing)
 mass = MassBudget(board, wire, piece)
 
@@ -872,10 +961,10 @@ def print_sweep(sweep):
     title = "Configuration sweep (lightest feasible coil per bus voltage)"
     print(title)
     print("-" * len(title))
-    print(f"  {'bus V':>6}{'wire mm':>9}{'layers':>7}{'turns':>7}{'op mA':>8}{'surf C':>8}{'avail x':>9}")
+    print(f"  {'bus V':>6}{'wire':>16}{'layers':>7}{'turns':>7}{'op mA':>8}{'surf C':>8}{'avail x':>9}")
     for entry in sweep.best_per_voltage:
         marker = "  <- selected" if entry is sweep.selected else ""
-        print(f"  {entry.bus_voltage:>6}{entry.wire_diameter:>9}{entry.layers:>7}{entry.turns:>7}{entry.operating_current*1000:>8.1f}{entry.surface_temperature:>8.1f}{entry.available_margin:>9.2f}{marker}")
+        print(f"  {entry.bus_voltage:>6}{entry.wire.label:>16}{entry.layers:>7}{entry.turns:>7}{entry.operating_current*1000:>8.1f}{entry.surface_temperature:>8.1f}{entry.available_margin:>9.2f}{marker}")
 
 
 def print_bom_group(items):
