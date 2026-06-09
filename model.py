@@ -41,9 +41,9 @@ class Fixed:
     com_height_fraction = 0.4                  # ratio
     reference_king_height = 95                 # mm
     reference_king_base_diameter = 44          # mm
-    wire_enamel_outside_factor = 1.08          # ratio
     rectangular_wire_film = 0.012              # mm per side
     coil_aspect_ratio_target = 2.5             # ratio
+    turns_per_radial_layer = 1                 # count
     winding_radial_width_factor = 0.35         # ratio
     nominal_coil_height_for_field = 1.0        # mm
     surface_heat_transfer_coefficient = 12     # W/(m2.K)
@@ -58,7 +58,6 @@ class Fixed:
     hall_adc_sample_rate = 500000              # samples/s
     hall_interpolation_bits = 12               # bits
     windings_per_coil_body = 1                 # count
-    bifilar_wires_per_turn = 1                 # count
     pcb_thickness = 1.6                        # mm
     psu_mass_kg = 0.62                         # kg
     frame_enclosure_mass_kg = 1.0              # kg
@@ -90,13 +89,7 @@ class Constants:
     copper_resistivity = 1.724e-08
     copper_density = 8960
     copper_heat_capacity = 385
-    standard_wire_diameters = [0.03, 0.04, 0.05, 0.063, 0.071, 0.08, 0.09, 0.1, 0.112, 0.125, 0.14, 0.16, 0.18, 0.2, 0.224, 0.25, 0.28, 0.315, 0.355, 0.4, 0.45, 0.5]
-    standard_rectangular_wire_sizes = [
-        (width, thickness)
-        for width in [0.2, 0.3, 0.5, 0.8, 1.0, 1.5]
-        for thickness in [0.05, 0.07, 0.1, 0.15, 0.2, 0.3]
-        if width >= thickness
-    ]
+    winding_conductor_thicknesses = [0.05, 0.07, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5]
     standard_bus_voltages = [5, 9, 12, 15, 19, 24, 28, 32]
     gravity = 9.80665
     vacuum_permeability = 1.25663706e-6
@@ -132,19 +125,9 @@ class Wire:
         self.copper_area = copper_area
 
 
-def round_wire(diameter):
-    pitch = diameter * Fixed.wire_enamel_outside_factor
-    return Wire(f"{diameter:g}mm round", pitch, pitch, pi * (diameter / 1000) ** 2 / 4)
-
-
 def rectangular_wire(width, thickness):
     film = 2 * Fixed.rectangular_wire_film
     return Wire(f"{width:g}x{thickness:g}mm flat", width + film, thickness + film, width * thickness / 1000000)
-
-
-def build_wire_catalogue():
-    return ([round_wire(diameter) for diameter in Constants.standard_wire_diameters]
-            + [rectangular_wire(width, thickness) for width, thickness in Constants.standard_rectangular_wire_sizes])
 
 
 class BoardGeometry:
@@ -194,6 +177,8 @@ class CoilBed:
         self.control_bed_per_orientation = self.control_columns * self.control_rows
         self.control_bed_bodies = Fixed.herringbone_orientation_families * self.control_bed_per_orientation
         self.footprint_area = self.outer_width * self.outer_length
+        self.winding_radial_width = self.outer_width * Fixed.winding_radial_width_factor
+        self.conductor_radial_width = self.winding_radial_width / Fixed.turns_per_radial_layer
         self.body_density = self.bodies_under_platform / (board.platform_side ** 2)
         self.coil_spacing = sqrt(1 / self.body_density)
         self.total_bodies = ceil(board.motor_area * self.body_density)
@@ -213,6 +198,8 @@ class CoilBed:
             Cell("Coil outer height", self.outer_height, "mm"),
             Cell("Coil aspect ratio (actual)", self.aspect_ratio),
             Cell("Coil body footprint area", self.footprint_area, "mm2"),
+            Cell("Winding radial width (wall)", self.winding_radial_width, "mm"),
+            Cell("Conductor radial width", self.conductor_radial_width, "mm"),
             Cell("Coil columns across width", self.columns),
             Cell("Coil rows along length", self.rows),
             Cell("Coil bodies per orientation", self.bodies_per_orientation),
@@ -301,18 +288,20 @@ class NeighbourSnap:
 
 
 class CoilConfiguration:
-    def __init__(self, coil, halbach, piece, sim, wire, bus_voltage, layers):
-        self.wire = wire
+    def __init__(self, coil, halbach, piece, sim, conductor_thickness, bus_voltage, layers):
+        self.wire = rectangular_wire(coil.conductor_radial_width, conductor_thickness)
         self.bus_voltage = bus_voltage
-        self.radial_width = coil.outer_width * Fixed.winding_radial_width_factor
-        self.turns_per_layer = max(1, floor(self.radial_width / (Fixed.bifilar_wires_per_turn * wire.radial_pitch)))
+        self.turns_per_layer = Fixed.turns_per_radial_layer
+        self.radial_width = coil.winding_radial_width
         self.layers = layers
         self.turns = self.turns_per_layer * self.layers
-        self.coil_height = self.layers * wire.axial_pitch
+        self.inner_window_width = coil.outer_width - 2 * self.radial_width
+        self.inner_window_length = coil.outer_length - 2 * self.radial_width
+        self.coil_height = self.layers * self.wire.axial_pitch
         self.height_coupling = interpolate_height_coupling(sim, self.coil_height)
         self.average_length_per_turn = 2 * ((coil.outer_length - self.radial_width) + (coil.outer_width - self.radial_width))
         self.length_per_winding = self.turns * self.average_length_per_turn / 1000
-        self.cross_section_area = wire.copper_area
+        self.cross_section_area = self.wire.copper_area
         self.resistance = Constants.copper_resistivity * self.length_per_winding / self.cross_section_area
         self.usable_drive_voltage = bus_voltage * coil.drive_voltage_fraction * Fixed.usable_bus_voltage_fraction
         self.voltage_limited_current = self.usable_drive_voltage / self.resistance
@@ -380,6 +369,8 @@ class ConfigurationSweep:
         return c.length_per_winding * c.cross_section_area
 
     def is_feasible(self, board, coil, halbach, piece, sim, c):
+        if c.inner_window_width <= 0 or c.inner_window_length <= 0:
+            return False
         if c.available_margin < Inputs.force_safety_factor:
             return False
         if c.bus_voltage > Fixed.driver_output_voltage_rating:
@@ -409,10 +400,10 @@ class ConfigurationSweep:
 
     def __init__(self, board, coil, halbach, piece, sim):
         self.configurations = [
-            CoilConfiguration(coil, halbach, piece, sim, wire, bus_voltage, layers)
+            CoilConfiguration(coil, halbach, piece, sim, conductor_thickness, bus_voltage, layers)
             for bus_voltage in Constants.standard_bus_voltages
-            for wire in build_wire_catalogue()
-            for layers in range(1, floor(coil.outer_width / wire.axial_pitch) + 1)
+            for conductor_thickness in Constants.winding_conductor_thicknesses
+            for layers in range(1, floor(coil.outer_width / (conductor_thickness + 2 * Fixed.rectangular_wire_film)) + 1)
         ]
         self.feasible = [c for c in self.configurations if self.is_feasible(board, coil, halbach, piece, sim, c)]
         if self.feasible:
@@ -450,7 +441,8 @@ class SurfaceThermal:
     def __init__(self, board, coil, config):
         self.active_copper_mass = Constants.copper_density * config.length_per_winding * config.cross_section_area * coil.bodies_under_platform
         self.thermal_capacitance = self.active_copper_mass * Constants.copper_heat_capacity
-        self.dissipation_area = board.platform_side ** 2 * Fixed.heat_spread_area_factor / 1000000
+        self.heated_footprint_area = pi / 4 * board.base_diameter ** 2
+        self.dissipation_area = self.heated_footprint_area * Fixed.heat_spread_area_factor / 1000000
         self.thermal_conductance = Fixed.surface_heat_transfer_coefficient * self.dissipation_area
         self.thermal_time_constant = self.thermal_capacitance / self.thermal_conductance
         self.one_piece_power = config.power_per_winding * coil.bodies_under_platform
@@ -469,6 +461,7 @@ class SurfaceThermal:
         return [
             Cell("Active copper mass (one piece)", self.active_copper_mass * 1000, "g"),
             Cell("Lumped thermal capacitance", self.thermal_capacitance, "J/K"),
+            Cell("Heated footprint area (piece base)", self.heated_footprint_area / 100, "cm2"),
             Cell("Heat-spread dissipation area", self.dissipation_area * 10000, "cm2"),
             Cell("Thermal conductance to ambient", self.thermal_conductance, "W/K"),
             Cell("Thermal time constant", self.thermal_time_constant, "s"),
@@ -762,6 +755,7 @@ class StatusChecks:
         self.hall_observable = self.passes(sim["hall_rank6"] >= 6, "OK", "Hall array cannot observe all 6 DOF")
         self.shell_validity = self.passes((piece.diameter - 2 * Inputs.plastic_wall_thickness) > 0, "OK", "wall too thick")
         self.coil_height = self.passes(config.coil_height <= coil.outer_width, "OK", "coil too tall")
+        self.coil_window = self.passes(config.inner_window_width > 0 and config.inner_window_length > 0, "OK", "winding walls overlap, no coil opening")
         self.platform_size = self.passes(20 <= board.platform_side <= 50, "OK", "platform out of range")
         self.magnet_fits_base = self.passes(board.platform_side <= board.base_diameter, "OK", "magnet array wider than base")
         self.neighbour_snap = self.passes(snap.snap_to_weight <= snap.holding_friction, "OK", "resting pieces magnetically snap")
@@ -798,6 +792,7 @@ class StatusChecks:
             Cell("Hall 6-DOF observability check", self.hall_observable),
             Cell("Shell-validity check", self.shell_validity),
             Cell("Coil-height buildable check", self.coil_height),
+            Cell("Coil-window non-degenerate check", self.coil_window),
             Cell("Platform-size check", self.platform_size),
             Cell("Magnet-array-fits-base check", self.magnet_fits_base),
             Cell("Neighbour-snap check", self.neighbour_snap),
@@ -908,7 +903,7 @@ sim = levitation_sim.measure(levitation_sim.SimGeometry(
     com_height_fraction=Fixed.com_height_fraction,
     coil_outer_width_mm=coil.outer_width,
     coil_outer_length_mm=coil.outer_length,
-    coil_radial_width_mm=coil.outer_width * Fixed.winding_radial_width_factor,
+    coil_radial_width_mm=coil.winding_radial_width,
     coil_height_mm=Fixed.nominal_coil_height_for_field,
     control_cells_per_side=coil.control_cells_per_side,
     driver_channel_current=Fixed.driver_channel_current,
