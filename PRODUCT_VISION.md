@@ -8,9 +8,9 @@ On the sides of the board there should be a buffer space for eaten pieces. It sh
 Constraints:
 C1: The chess do not levitate constantly - in the normal game a figure only levitates when it moves: it lifts off it flies to the target place, it lands.
 
-C2: The most power consuming action required is when all chess figures must go to their places at once, from whereever they are on the board. For this use-case at least 5 Degrees Of Freedom is enough for every piece.
+C2: The most power consuming action required is when all chess figures must go to their places at once, from whereever they are on the board.
 
-C3: When single piece is controlled, 6 DoF should be supported.
+C3: 6 DoF should be supported for all pieces in all cases.
 
 C4: There should be no fans - to create the "magical feeling" everything should happen in silence.
 
