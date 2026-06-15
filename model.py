@@ -1,4 +1,4 @@
-from math import pi, sqrt, exp, ceil, floor, sin, radians
+from math import pi, sqrt, exp, ceil, floor, sin, radians, log10
 
 import levitation_sim
 
@@ -27,6 +27,7 @@ class Inputs:
     pieces_levitating_simultaneously = 32      # count
     drive_look_ahead_factor = 1.5              # ratio
     production_volume = 100                    # boards
+    active_cooling_fans = 3                    # count
 
 
 class Fixed:
@@ -59,6 +60,18 @@ class Fixed:
     fin_thickness = 2                          # mm
     fin_channel_width = 8                      # mm
     natural_convection_coefficient = 3         # W/(m2.K)
+    forced_convection_coefficient = 8          # W/(m2.K)
+    cooling_fan_size = 200                     # mm
+    cooling_fan_speed = 550                    # rpm
+    cooling_fan_airflow = 100.8                # m3/h
+    cooling_fan_static_pressure = 0.51         # mm H2O
+    cooling_fan_noise = 10.7                   # dB(A)
+    cooling_fan_installation_noise = 3         # dB(A)
+    cooling_fan_airflow_fraction = 0.25        # ratio
+    cooling_fan_power = 0.96                   # W
+    cooling_fan_mass = 0.370                   # kg
+    cooling_fan_price = 39.95                  # USD
+    cooling_fan_url = "https://www.coolerguys.com/products/noctua-nf-a20-pwm-200mm-cooling-fan"
     drive_topology = "centertap"
     driver_half_bridges_per_chip = 12          # count
     driver_output_voltage_rating = 32          # V
@@ -379,7 +392,7 @@ class ConfigurationSweep:
             return False
         if c.bus_voltage > Fixed.driver_output_voltage_rating:
             return False
-        cooling = PassiveCooling(board, c)
+        cooling = RadiatorCooling(board, c, Inputs.active_cooling_fans)
         if cooling.cyclic_peak_baseplate_temp > Inputs.max_surface_temperature:
             return False
         if cooling.cyclic_peak_source_temp > Inputs.ambient_temperature + Inputs.allowed_wire_temp_rise:
@@ -396,7 +409,7 @@ class ConfigurationSweep:
             return False
         if att.worst_tilt_margin < 1 or att.worst_yaw_margin < 1:
             return False
-        psu = PowerSupply(coil, WireThermal(coil, c), TileControl(board, coil, Control(coil, c, sim)), c)
+        psu = PowerSupply(coil, WireThermal(coil, c), TileControl(board, coil, Control(coil, c, sim)), c, cooling)
         if psu.required_rating > psu.supply_rating:
             return False
         return True
@@ -440,8 +453,10 @@ class WireThermal:
         ]
 
 
-class PassiveCooling:
-    def __init__(self, board, config):
+class RadiatorCooling:
+    def __init__(self, board, config, fan_count):
+        self.fan_count = fan_count
+        self.mode = "fan-assisted" if fan_count else "passive"
         self.board_area = board.motor_area / 1000000
         self.source_area = min(self.board_area, pi / 4 * (board.base_diameter / 1000) ** 2 * Inputs.pieces_levitating_simultaneously)
         self.source_to_baseplate_resistance = (
@@ -457,7 +472,8 @@ class PassiveCooling:
         self.fin_thickness = Fixed.fin_thickness / 1000
         self.fin_footprint_area = self.fin_count * self.fin_thickness * self.fin_length
         self.convection_area = self.board_area + 2 * self.fin_count * self.fin_height * self.fin_length
-        self.thermal_conductance = Fixed.natural_convection_coefficient * self.convection_area
+        self.convection_coefficient = Fixed.forced_convection_coefficient if fan_count else Fixed.natural_convection_coefficient
+        self.thermal_conductance = self.convection_coefficient * self.convection_area
         self.baseplate_volume = self.board_area * Fixed.baseplate_thickness / 1000
         self.fin_volume = self.fin_footprint_area * self.fin_height
         self.aluminium_mass = (self.baseplate_volume + self.fin_volume) * Fixed.aluminium_density
@@ -468,13 +484,31 @@ class PassiveCooling:
         self.pulse_power = self.coil_power + self.mosfet_power
         self.period = Inputs.max_hover_duration + Inputs.spot_cooldown_duration
         self.duty_cycle = Inputs.max_hover_duration / self.period
-        self.full_power_rise = self.pulse_power / self.thermal_conductance
-        self.cyclic_peak_baseplate_rise = self.full_power_rise * (1 - exp(-Inputs.max_hover_duration / self.thermal_time_constant)) / (1 - exp(-self.period / self.thermal_time_constant))
+        self.baseplate_rise_per_watt = (
+            1 / self.thermal_conductance
+            * (1 - exp(-Inputs.max_hover_duration / self.thermal_time_constant))
+            / (1 - exp(-self.period / self.thermal_time_constant))
+        )
+        self.cyclic_peak_baseplate_rise = self.pulse_power * self.baseplate_rise_per_watt
         self.cyclic_peak_baseplate_temp = Inputs.ambient_temperature + self.cyclic_peak_baseplate_rise
         self.cyclic_peak_source_temp = self.cyclic_peak_baseplate_temp + self.pulse_power * self.source_to_baseplate_resistance
+        self.source_rise_per_watt = self.baseplate_rise_per_watt + self.source_to_baseplate_resistance
+        self.baseplate_power_capacity = (Inputs.max_surface_temperature - Inputs.ambient_temperature) / self.baseplate_rise_per_watt
+        self.source_power_capacity = Inputs.allowed_wire_temp_rise / self.source_rise_per_watt
+        self.thermal_power_capacity = min(self.baseplate_power_capacity, self.source_power_capacity)
+        self.mosfet_heat_capacity = max(0, self.thermal_power_capacity - self.coil_power)
+        self.thermal_power_margin = self.thermal_power_capacity / self.pulse_power
+        self.fan_bank_width = fan_count * Fixed.cooling_fan_size
+        self.fan_bank_fits = self.fan_bank_width <= board.motor_width and Fixed.cooling_fan_size <= board.motor_height
+        self.rated_airflow = fan_count * Fixed.cooling_fan_airflow
+        self.effective_airflow = self.rated_airflow * Fixed.cooling_fan_airflow_fraction
+        self.fan_power = fan_count * Fixed.cooling_fan_power
+        self.fan_mass = fan_count * Fixed.cooling_fan_mass
+        self.fan_noise = 0 if not fan_count else Fixed.cooling_fan_noise + 10 * log10(fan_count) + Fixed.cooling_fan_installation_noise
 
     def cells(self):
-        return [
+        cells = [
+            Cell("Cooling mode", self.mode),
             Cell("Coil heat (all pieces)", self.coil_power, "W"),
             Cell("MOSFET heat allowance", self.mosfet_power, "W"),
             Cell("Total pulse heat", self.pulse_power, "W"),
@@ -484,12 +518,30 @@ class PassiveCooling:
             Cell("Fin height", self.fin_height * 1000, "mm"),
             Cell("Fin channel width", Fixed.fin_channel_width, "mm"),
             Cell("Effective convection area", self.convection_area, "m2"),
+            Cell("Convection coefficient", self.convection_coefficient, "W/(m2.K)"),
             Cell("Radiator aluminium mass", self.aluminium_mass, "kg"),
             Cell("Thermal time constant", self.thermal_time_constant, "s"),
             Cell("All-piece duty cycle (2s/60s)", self.duty_cycle),
             Cell("Cyclic peak baseplate temp", self.cyclic_peak_baseplate_temp, "C"),
             Cell("Cyclic peak coil/MOSFET temp", self.cyclic_peak_source_temp, "C"),
+            Cell("Maximum total pulse heat", self.thermal_power_capacity, "W"),
+            Cell("Maximum MOSFET heat after coils", self.mosfet_heat_capacity, "W"),
+            Cell("Thermal power margin", self.thermal_power_margin, "x"),
         ]
+        if self.fan_count:
+            cells.extend([
+                Cell("Cooling fans", self.fan_count),
+                Cell("Fan size", Fixed.cooling_fan_size, "mm"),
+                Cell("Fan speed", Fixed.cooling_fan_speed, "rpm"),
+                Cell("Fan row width", self.fan_bank_width, "mm"),
+                Cell("Fan row fits radiator", "yes" if self.fan_bank_fits else "no"),
+                Cell("Rated fan airflow", self.rated_airflow, "m3/h"),
+                Cell("Assumed effective airflow", self.effective_airflow, "m3/h"),
+                Cell("Low-noise static pressure", Fixed.cooling_fan_static_pressure, "mm H2O"),
+                Cell("Fan electrical power", self.fan_power, "W"),
+                Cell("Installed fan-noise estimate", self.fan_noise, "dB(A)"),
+            ])
+        return cells
 
 
 class Propulsion:
@@ -689,14 +741,15 @@ class TileControl:
 
 
 class PowerSupply:
-    def __init__(self, coil, wire, tiles, config):
+    def __init__(self, coil, wire, tiles, config, thermal):
         self.bus_voltage = config.bus_voltage
         self.coil_lift_power = wire.all_pieces_power
         self.thrust_factor = coil.peak_driven_windings / coil.active_windings
         self.coil_peak_power = self.coil_lift_power * self.thrust_factor
         self.electronics_power = (tiles.tile_count * Fixed.tile_mcu_power
                                   + Fixed.host_power
-                                  + coil.chips * Fixed.driver_quiescent_power)
+                                  + coil.chips * Fixed.driver_quiescent_power
+                                  + thermal.fan_power)
         self.total_load = self.coil_peak_power + self.electronics_power
         self.required_rating = self.total_load * Fixed.psu_sizing_margin
         self.psu_part, self.supply_rating, self.psu_price, self.psu_url = Fixed.psu_options[config.bus_voltage]
@@ -783,6 +836,7 @@ class StatusChecks:
         self.driver_coverage = self.passes(drive.driver_half_bridges >= coil.total_bodies * coil.half_bridges_per_coil, "OK", "not enough driver half-bridges per coil")
         self.drive_slew = self.passes(drive.slew_over_update <= 1, "OK", "current too slow for update period")
         self.tile_compute = self.passes(tiles.tile_headroom >= 1, "OK", "tile MCU overloaded")
+        self.cooling_fans_fit = self.passes(thermal.fan_bank_fits, "OK", "cooling fan row does not fit radiator")
         self.psu_adequate = self.passes(psu.required_rating <= psu.supply_rating, "OK", "PSU undersized")
 
     def cells(self):
@@ -818,6 +872,7 @@ class StatusChecks:
             Cell("Driver-coverage check", self.driver_coverage),
             Cell("Drive-slew check", self.drive_slew),
             Cell("Per-tile-compute check", self.tile_compute),
+            Cell("Cooling-fan-fit check", self.cooling_fans_fit),
             Cell("PSU-adequate check", self.psu_adequate),
         ]
 
@@ -838,8 +893,9 @@ class MassBudget:
         self.board_copper_mass = wire.copper_mass
         self.board_pcb_mass = board.motor_area * Fixed.pcb_thickness * Constants.fr4_density / 1000
         self.radiator_mass = thermal.aluminium_mass
+        self.cooling_fan_mass = thermal.fan_mass
         self.board_added_mass = Fixed.psu_mass_kg + Fixed.frame_enclosure_mass_kg + Fixed.board_electronics_mass_kg
-        self.board_total_mass = self.board_copper_mass + self.board_pcb_mass + self.radiator_mass + self.board_added_mass
+        self.board_total_mass = self.board_copper_mass + self.board_pcb_mass + self.radiator_mass + self.cooling_fan_mass + self.board_added_mass
         self.piece_mass = piece.mass / 1000
         self.pieces_total = Fixed.captured_pieces_total
         self.all_pieces_mass = self.piece_mass * self.pieces_total
@@ -850,6 +906,7 @@ class MassBudget:
             Cell("Board copper (coils)", self.board_copper_mass, "kg"),
             Cell("Board PCB (FR4)", self.board_pcb_mass, "kg"),
             Cell("Aluminium baseplate + fins", self.radiator_mass, "kg"),
+            Cell("Cooling fans", self.cooling_fan_mass, "kg"),
             Cell("PSU + frame + electronics (est.)", self.board_added_mass, "kg"),
             Cell("Board total (est.)", self.board_total_mass, "kg"),
             Cell("Mass per piece", self.piece_mass * 1000, "g"),
@@ -860,7 +917,7 @@ class MassBudget:
 
 
 class BillOfMaterials:
-    def __init__(self, board, coil, halbach, wire, config, tiles, sensing):
+    def __init__(self, board, coil, halbach, wire, config, tiles, sensing, thermal):
         coils_per_tile = ceil(coil.total_bodies / tiles.tile_count)
         tile_driver_chips = ceil(coils_per_tile / coil.coils_per_chip)
         tile_hall_sensors = sensing.sensors_per_tile
@@ -892,6 +949,15 @@ class BillOfMaterials:
             BomItem("board", "Tile interconnect", "B2B header, mainboard side", tiles.tile_count, 0.45),
             BomItem("board", "Bus power supply", psu_part, 1, psu_price, psu_url or ""),
         ]
+        if thermal.fan_count:
+            self.board_items.append(BomItem(
+                "board",
+                "Radiator fan",
+                "Noctua NF-A20 PWM 200mm at 550rpm low-noise setting",
+                thermal.fan_count,
+                Fixed.cooling_fan_price,
+                Fixed.cooling_fan_url,
+            ))
 
         self.per_tile_cost = sum(i.line_cost for i in self.tile_items)
         self.per_piece_cost = sum(i.line_cost for i in self.piece_items)
@@ -934,17 +1000,18 @@ sweep = ConfigurationSweep(board, coil, halbach, piece, sim)
 config = sweep.selected
 coil.outer_height = config.coil_height
 wire = WireThermal(coil, config)
-thermal = PassiveCooling(board, config)
+passive_thermal = RadiatorCooling(board, config, 0)
+thermal = RadiatorCooling(board, config, Inputs.active_cooling_fans)
 propulsion = Propulsion(board, coil, piece, config, halbach, sim)
 attitude = AttitudeAuthority(board, piece, config, sim)
 control = Control(coil, config, sim)
 drive = DriveMatrix(coil, control)
 tiles = TileControl(board, coil, control)
 sensing = HallSensing(board, control, tiles)
-psu = PowerSupply(coil, wire, tiles, config)
+psu = PowerSupply(coil, wire, tiles, config, thermal)
 stability = Stability(board, piece, control, sim)
 checks = StatusChecks(board, coil, halbach, piece, snap, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu, sim)
-bom = BillOfMaterials(board, coil, halbach, wire, config, tiles, sensing)
+bom = BillOfMaterials(board, coil, halbach, wire, config, tiles, sensing, thermal)
 mass = MassBudget(board, wire, piece, thermal)
 
 
@@ -976,7 +1043,7 @@ def print_sweep(sweep):
     print(f"  {'bus V':>6}{'wire':>16}{'layers':>7}{'turns':>7}{'op mA':>8}{'source C':>9}{'avail x':>9}")
     for entry in sweep.best_per_voltage:
         marker = "  <- selected" if entry is sweep.selected else ""
-        source_temp = PassiveCooling(board, entry).cyclic_peak_source_temp
+        source_temp = RadiatorCooling(board, entry, Inputs.active_cooling_fans).cyclic_peak_source_temp
         print(f"  {entry.bus_voltage:>6}{entry.wire.label:>16}{entry.layers:>7}{entry.turns:>7}{entry.operating_current*1000:>8.1f}{source_temp:>9.1f}{entry.available_margin:>9.2f}{marker}")
 
 
@@ -1025,7 +1092,8 @@ def print_report():
     print_section("Selected coil configuration", config.cells())
     print_sweep(sweep)
     print_section("Wire and thermal", wire.cells())
-    print_section("Passive baseplate and radiator cooling", thermal.cells())
+    print_section("Passive baseplate and radiator cooling", passive_thermal.cells())
+    print_section("Low-noise active radiator cooling", thermal.cells())
     print_section("Propulsion / flight", propulsion.cells())
     print_section("Attitude authority (tilt / yaw)", attitude.cells())
     print_section("Control feasibility", control.cells())
