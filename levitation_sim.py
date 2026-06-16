@@ -12,6 +12,7 @@ class SimGeometry:
                  gravity, reference_king_height_mm, reference_king_base_diameter_mm,
                  com_height_fraction, coil_outer_width_mm, coil_outer_length_mm,
                  coil_radial_width_mm, coil_height_mm, control_cells_per_side,
+                 hall_sensor_pitch_mm, hall_observation_window_side,
                  driver_channel_current, control_loop_bandwidth_margin, target_tilt_deg):
         self.edge = magnet_cube_edge_mm / 1000
         self.magnets_per_period = magnets_per_period
@@ -32,6 +33,8 @@ class SimGeometry:
         self.coil_radial_width = coil_radial_width_mm / 1000
         self.coil_height = coil_height_mm / 1000
         self.control_cells_per_side = control_cells_per_side
+        self.hall_sensor_pitch = hall_sensor_pitch_mm / 1000
+        self.hall_observation_window_side = hall_observation_window_side
         self.driver_current = driver_channel_current
         self.control_bandwidth_margin = control_loop_bandwidth_margin
         self.target_tilt_deg = target_tilt_deg
@@ -330,23 +333,27 @@ def open_loop_stiffness(layout, array, weight, step=2e-5):
     return stiffness, eigenvalues
 
 
-def hall_jacobian(layout, sensors_per_side, span=None, plane_z=None):
-    span = span if span is not None else layout.platform_side
-    plane_z = plane_z if plane_z is not None else -G.gap
-    axis = np.linspace(-span / 2, span / 2, sensors_per_side)
-    points = np.array([[x, y, plane_z] for x in axis for y in axis])
+def local_hall_points(sensor_pitch, window_side, plane_z=None):
+    offsets = np.array([(index + 0.5 - window_side / 2) * sensor_pitch
+                        for index in range(window_side)])
+    z = -G.gap if plane_z is None else plane_z
+    return np.array([[x, y, z] for x in offsets for y in offsets])
+
+
+def hall_jacobian(layout, points, pose):
+    sensor_axis = np.array([0.0, 0.0, 1.0])
 
     def field_at_pose(dx, dy, dz, droll, dpitch, dyaw):
         place_piece(layout, x=dx, y=dy, z=dz, roll=droll, pitch=dpitch, yaw=dyaw)
-        return layout.collection.getB(points).reshape(-1)
+        return layout.collection.getB(points) @ sensor_axis
 
-    baseline = field_at_pose(0, 0, 0, 0, 0, 0)
+    baseline = field_at_pose(*pose)
     position_step, angle_step = 1e-5, 1e-4
     columns = []
     for axis_index, step in enumerate([position_step, position_step, position_step,
                                        angle_step, angle_step, angle_step]):
-        offsets = [0.0] * 6
-        offsets[axis_index] = step
+        offsets = list(pose)
+        offsets[axis_index] += step
         columns.append((field_at_pose(*offsets) - baseline) / step)
     place_piece(layout)
     return np.array(columns).T
@@ -354,8 +361,42 @@ def hall_jacobian(layout, sensors_per_side, span=None, plane_z=None):
 
 def hall_metrics(jacobian):
     return {
-        "rank6": int(np.linalg.matrix_rank(jacobian, tol=jacobian.max() * 1e-6)),
+        "rank6": int(np.linalg.matrix_rank(jacobian, tol=np.abs(jacobian).max() * 1e-6)),
         "cond6": condition_number(jacobian),
+    }
+
+
+def hall_observability(layout, target_tilt_deg):
+    sensor_pitch = G.hall_sensor_pitch
+    window_side = G.hall_observation_window_side
+    points = local_hall_points(sensor_pitch, window_side)
+    phase = (0.0, sensor_pitch / 4, sensor_pitch / 2)
+    circumradius = layout.platform_side / 2 * np.sqrt(2)
+    nominal = hall_metrics(hall_jacobian(layout, points, [0, 0, 0, 0, 0, 0]))
+    worst = {"min_rank6": 6, "max_cond6": 0.0, "poses": 0}
+    for target_gap in (0.003, 0.004):
+        z = target_gap - G.gap
+        geometric_limit = float(np.arcsin(min(0.95, 0.9 * target_gap / circumradius)))
+        tilt = min(np.radians(target_tilt_deg), geometric_limit)
+        for yaw in np.radians((0, 45, 90)):
+            for roll, pitch in ((0.0, 0.0), (tilt, 0.0), (0.0, tilt), (tilt, tilt)):
+                for dx in phase:
+                    for dy in phase:
+                        metrics = hall_metrics(hall_jacobian(layout, points, [dx, dy, z, roll, pitch, yaw]))
+                        worst["min_rank6"] = min(worst["min_rank6"], metrics["rank6"])
+                        if metrics["rank6"] >= 6:
+                            worst["max_cond6"] = max(worst["max_cond6"], metrics["cond6"])
+                        worst["poses"] += 1
+    place_piece(layout)
+    return {
+        "sensors_per_piece": window_side ** 2,
+        "sensor_pitch": sensor_pitch,
+        "observation_window_side": window_side,
+        "rank6": nominal["rank6"],
+        "condition6": nominal["cond6"],
+        "worst_rank6": worst["min_rank6"],
+        "worst_condition6": worst["max_cond6"],
+        "worst_poses": worst["poses"],
     }
 
 
@@ -494,7 +535,7 @@ def measure(geometry):
     base_diameter = magnet.platform_side * np.sqrt(2) + 2 * G.base_corner_standoff
     neighbour_snap_force = worst_touching_snap(geometry.edge, geometry.periods_per_side, base_diameter)
 
-    hall = hall_metrics(hall_jacobian(magnet, control_cells))
+    hall = hall_observability(magnet, geometry.target_tilt_deg)
 
     return {
         "peak_bz": magnet.peak_bz(),
@@ -509,7 +550,13 @@ def measure(geometry):
         "actuator_rank6": worst["min_rank6"],
         "actuator_condition6": worst["max_cond6"],
         "hall_rank6": hall["rank6"],
-        "hall_condition6": hall["cond6"],
+        "hall_condition6": hall["condition6"],
+        "hall_worst_rank6": hall["worst_rank6"],
+        "hall_worst_condition6": hall["worst_condition6"],
+        "hall_worst_case_poses": hall["worst_poses"],
+        "hall_sensors_per_piece": hall["sensors_per_piece"],
+        "hall_sensor_pitch": hall["sensor_pitch"],
+        "hall_observation_window_side": hall["observation_window_side"],
         "worst_case_poses": worst["poses"],
         "worst_case_max_tilt_deg": worst["max_tilt_deg"],
         "worst_lift_force_per_ampere_turn": worst["min_lift_per_at"],

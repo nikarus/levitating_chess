@@ -90,7 +90,8 @@ class Fixed:
     driver_serial_clock = 40000000             # bits/s
     smt_assembly_cost_per_joint = 0.0017       # USD
     usable_bus_voltage_fraction = 0.9          # ratio
-    hall_sensors_per_array_side = 2            # count
+    hall_sensor_pitch = 6.667                  # mm
+    hall_observation_window_side = 4           # count
     hall_sensor_mux_channels = 16              # count
     hall_adc_sample_rate = 500000              # samples/s
     hall_interpolation_bits = 12               # bits
@@ -762,10 +763,10 @@ class DriveMatrix:
 
 
 class HallSensing:
-    def __init__(self, board, control, tiles):
+    def __init__(self, board, control, tiles, sim):
         self.update_rate = control.pose_update_rate
-        self.sensor_pitch = board.platform_side / Fixed.hall_sensors_per_array_side
-        self.sensors_per_piece = Fixed.hall_sensors_per_array_side ** 2
+        self.sensor_pitch = Fixed.hall_sensor_pitch
+        self.sensors_per_piece = Fixed.hall_observation_window_side ** 2
         self.sensors_per_tile_side = ceil(Fixed.control_tile_side / self.sensor_pitch)
         self.sensors_per_tile = self.sensors_per_tile_side ** 2
         self.total_sensors = self.sensors_per_tile * tiles.tile_count
@@ -774,12 +775,24 @@ class HallSensing:
         self.tile_capacity = Fixed.hall_adc_sample_rate
         self.headroom = self.tile_capacity / self.reads_per_tile
         self.position_resolution_um = self.sensor_pitch * 1000 / (2 ** Fixed.hall_interpolation_bits)
+        self.nominal_rank = sim["hall_rank6"]
+        self.nominal_condition = sim["hall_condition6"]
+        self.worst_rank = sim["hall_worst_rank6"]
+        self.worst_condition = sim["hall_worst_condition6"]
+        self.worst_poses = sim["hall_worst_case_poses"]
+        self.observation_window_side = sim["hall_observation_window_side"]
 
     def cells(self):
         return [
             Cell("Required update rate", self.update_rate, "Hz"),
             Cell("Hall sensor pitch", self.sensor_pitch, "mm"),
-            Cell("Sensors under one piece", self.sensors_per_piece),
+            Cell("Estimator observation window", f"{self.observation_window_side}x{self.observation_window_side}"),
+            Cell("Sensors used per piece estimate", self.sensors_per_piece),
+            Cell("Fixed-grid worst-case poses", self.worst_poses),
+            Cell("Nominal Hall observability rank", self.nominal_rank),
+            Cell("Nominal Hall condition", self.nominal_condition, "x"),
+            Cell("Worst fixed-grid Hall rank", self.worst_rank),
+            Cell("Worst fixed-grid Hall condition", self.worst_condition, "x"),
             Cell("Sensors per tile", self.sensors_per_tile),
             Cell("Total Hall sensors (board)", self.total_sensors),
             Cell("Readout muxes per tile", self.muxes_per_tile),
@@ -902,7 +915,7 @@ class StatusChecks:
         self.driver_voltage = self.passes(config.bus_voltage <= Fixed.driver_max_bus_voltage, "OK", "bus exceeds direct-gate driver limit")
         self.driver_current = self.passes(config.worst_required_current <= Fixed.driver_channel_current, "OK", "required coil current exceeds channel rating")
         self.actuator_rank = self.passes(sim["actuator_rank6"] >= 6, "OK", "actuator matrix not full 6-DOF rank")
-        self.hall_observable = self.passes(sim["hall_rank6"] >= 6, "OK", "Hall array cannot observe all 6 DOF")
+        self.hall_observable = self.passes(sim["hall_worst_rank6"] >= 6, "OK", "Hall array cannot observe all 6 DOF across fixed-grid phases")
         self.shell_validity = self.passes((piece.diameter - 2 * Inputs.plastic_wall_thickness) > 0, "OK", "wall too thick")
         self.coil_height = self.passes(config.coil_height <= coil.outer_width, "OK", "coil too tall")
         self.coil_window = self.passes(config.inner_window_width > 0 and config.inner_window_length > 0, "OK", "winding walls overlap, no coil opening")
@@ -1084,6 +1097,8 @@ sim = levitation_sim.measure(levitation_sim.SimGeometry(
     coil_radial_width_mm=coil.winding_radial_width,
     coil_height_mm=Fixed.nominal_coil_height_for_field,
     control_cells_per_side=coil.control_cells_per_side,
+    hall_sensor_pitch_mm=Fixed.hall_sensor_pitch,
+    hall_observation_window_side=Fixed.hall_observation_window_side,
     driver_channel_current=Fixed.driver_channel_current,
     control_loop_bandwidth_margin=Inputs.control_loop_bandwidth_margin,
     target_tilt_deg=Inputs.target_tilt_angle_deg,
@@ -1103,7 +1118,7 @@ attitude = AttitudeAuthority(board, piece, config, sim)
 control = Control(coil, config, sim)
 tiles = TileControl(board, coil, control)
 drive = DriveMatrix(coil, control, driver, tiles)
-sensing = HallSensing(board, control, tiles)
+sensing = HallSensing(board, control, tiles, sim)
 psu = PowerSupply(coil, wire, tiles, config, driver, thermal)
 stability = Stability(board, piece, control, sim)
 checks = StatusChecks(board, coil, halbach, piece, snap, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu, sim)
