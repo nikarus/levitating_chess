@@ -1,4 +1,7 @@
+from contextlib import redirect_stdout
+from io import StringIO
 from math import pi, sqrt, exp, ceil, floor, sin, radians, log10
+from pathlib import Path
 
 import levitation_sim
 
@@ -46,7 +49,6 @@ class Fixed:
     turns_per_radial_layer = 1                 # count
     winding_radial_width_factor = 0.35         # ratio
     nominal_coil_height_for_field = 1.0        # mm
-    mosfet_loss_fraction = 0.5                 # ratio
     potting_thickness = 1.0                    # mm
     potting_thermal_conductivity = 1.0         # W/(m.K)
     pcb_via_effective_thermal_conductivity = 5 # W/(m.K)
@@ -72,10 +74,21 @@ class Fixed:
     cooling_fan_mass = 0.370                   # kg
     cooling_fan_price = 39.95                  # USD
     cooling_fan_url = "https://www.coolerguys.com/products/noctua-nf-a20-pwm-200mm-cooling-fan"
-    drive_topology = "centertap"
-    driver_half_bridges_per_chip = 12          # count
-    driver_output_voltage_rating = 32          # V
-    driver_channel_current = 10.0              # A
+    mosfet_voltage_rating = 30                 # V
+    driver_max_bus_voltage = 5                 # V
+    driver_channel_current = 2.5               # A
+    driver_pwm_frequency = 20000               # Hz
+    driver_switching_time = 300e-9             # s
+    driver_hot_resistance = 0.13               # ohm
+    driver_mosfet_gate_charge = 4.8e-9         # C
+    logic_gate_voltage = 5                     # V
+    driver_control_bits_per_channel = 4        # count
+    shift_register_outputs = 8                 # count
+    shift_register_clock_rating = 90000000     # bits/s
+    shift_register_power_capacitance = 42e-12   # F
+    shift_register_price = 0.1302              # USD
+    driver_serial_clock = 40000000             # bits/s
+    smt_assembly_cost_per_joint = 0.0017       # USD
     usable_bus_voltage_fraction = 0.9          # ratio
     hall_sensors_per_array_side = 2            # count
     hall_sensor_mux_channels = 16              # count
@@ -91,7 +104,6 @@ class Fixed:
     node_mcu_throughput_mflops = 170           # Mflop/s
     tile_mcu_power = 0.4                       # W
     host_power = 8                             # W
-    driver_quiescent_power = 0.05              # W
     psu_sizing_margin = 1.25                   # ratio
     psu_options = {
         5:  ("Mean Well UHP-350-5, 5V 350W (fanless, est.)", 350, 52.00, None),
@@ -209,10 +221,8 @@ class CoilBed:
         self.active_bodies = self.control_bed_bodies * Inputs.pieces_levitating_simultaneously
         self.active_windings = self.active_bodies * Fixed.windings_per_coil_body
         self.peak_driven_windings = ceil(self.active_windings * Inputs.drive_look_ahead_factor)
-        self.half_bridges_per_coil = 1 if Fixed.drive_topology == "centertap" else 2
-        self.drive_voltage_fraction = 0.5 if Fixed.drive_topology == "centertap" else 1.0
-        self.coils_per_chip = Fixed.driver_half_bridges_per_chip // self.half_bridges_per_coil
-        self.chips = ceil(self.total_bodies / self.coils_per_chip)
+        self.half_bridges_per_coil = 2
+        self.drive_voltage_fraction = 1.0
 
     def cells(self):
         return [
@@ -236,8 +246,7 @@ class CoilBed:
             Cell("Active bodies (all pieces at once)", self.active_bodies),
             Cell("Lift windings (pieces at once)", self.active_windings),
             Cell("Peak driven windings (+thrust look-ahead)", self.peak_driven_windings),
-            Cell("Coils per driver chip", self.coils_per_chip),
-            Cell("Dedicated driver chips (whole board)", self.chips),
+            Cell("Dedicated coil driver channels", self.total_bodies),
         ]
 
 
@@ -339,6 +348,7 @@ class CoilConfiguration:
         self.worst_force_per_amp = self.turns * sim["worst_lift_force_per_ampere_turn"] * self.height_coupling
         self.worst_available_force = self.current_limit * self.worst_force_per_amp
         self.worst_available_margin = self.worst_available_force / piece.weight
+        self.worst_required_current = piece.weight * Inputs.force_safety_factor / self.worst_force_per_amp
         self.worst_piece_hover_power = self.resistance * sim["worst_hover_ampere_turns_squared_sum"] / self.turns ** 2 / self.height_coupling ** 2
         self.worst_case_poses = sim["worst_case_poses"]
         self.worst_case_max_tilt_deg = sim["worst_case_max_tilt_deg"]
@@ -372,6 +382,7 @@ class CoilConfiguration:
             Cell("Worst-case poses swept", self.worst_case_poses),
             Cell("Worst-case max tilt swept", self.worst_case_max_tilt_deg, "deg"),
             Cell("Worst-case lift force per amp (sim)", self.worst_force_per_amp, "N/A"),
+            Cell("Worst-case required lift current", self.worst_required_current, "A"),
             Cell("Worst-case available lift margin", self.worst_available_margin, "x"),
             Cell("Worst-case hover power (one piece)", self.worst_piece_hover_power, "W"),
             Cell("Operating current per winding", self.operating_current, "A"),
@@ -390,9 +401,10 @@ class ConfigurationSweep:
             return False
         if c.available_margin < Inputs.force_safety_factor:
             return False
-        if c.bus_voltage > Fixed.driver_output_voltage_rating:
+        if c.bus_voltage > Fixed.driver_max_bus_voltage:
             return False
-        cooling = RadiatorCooling(board, c, Inputs.active_cooling_fans)
+        driver = DiscreteDriver(board, coil, c)
+        cooling = RadiatorCooling(board, c, driver, Inputs.active_cooling_fans)
         if cooling.cyclic_peak_baseplate_temp > Inputs.max_surface_temperature:
             return False
         if cooling.cyclic_peak_source_temp > Inputs.ambient_temperature + Inputs.allowed_wire_temp_rise:
@@ -409,7 +421,7 @@ class ConfigurationSweep:
             return False
         if att.worst_tilt_margin < 1 or att.worst_yaw_margin < 1:
             return False
-        psu = PowerSupply(coil, WireThermal(coil, c), TileControl(board, coil, Control(coil, c, sim)), c, cooling)
+        psu = PowerSupply(coil, WireThermal(coil, c), TileControl(board, coil, Control(coil, c, sim)), c, driver, cooling)
         if psu.required_rating > psu.supply_rating:
             return False
         return True
@@ -453,8 +465,70 @@ class WireThermal:
         ]
 
 
+class DiscreteDriver:
+    def __init__(self, board, coil, config):
+        self.channels = coil.total_bodies
+        self.half_bridges = self.channels * coil.half_bridges_per_coil
+        self.active_channels = coil.active_windings
+        self.control_bits = self.channels * Fixed.driver_control_bits_per_channel
+        self.tile_count = ceil(board.motor_width / Fixed.control_tile_side) * ceil(board.motor_height / Fixed.control_tile_side)
+        self.channels_per_tile = ceil(self.channels / self.tile_count)
+        self.control_bits_per_tile = self.channels_per_tile * Fixed.driver_control_bits_per_channel
+        self.shift_registers_per_tile = ceil(self.control_bits_per_tile / Fixed.shift_register_outputs)
+        self.shift_registers = self.shift_registers_per_tile * self.tile_count
+        self.serial_data_rate = self.control_bits_per_tile * Fixed.driver_pwm_frequency
+        self.serial_clock = min(Fixed.driver_serial_clock, Fixed.shift_register_clock_rating)
+        self.serial_headroom = self.serial_clock / self.serial_data_rate
+        self.current_squared_sum = config.piece_hover_power * Inputs.pieces_levitating_simultaneously / config.resistance
+        self.current_sum_upper_bound = sqrt(self.active_channels * self.current_squared_sum)
+        self.conduction_power = self.current_squared_sum * Fixed.driver_hot_resistance
+        self.switching_power = (
+            config.bus_voltage
+            * self.current_sum_upper_bound
+            * Fixed.driver_switching_time
+            * Fixed.driver_pwm_frequency
+        )
+        self.gate_power = (
+            self.active_channels
+            * Fixed.driver_pwm_frequency
+            * 2
+            * Fixed.driver_mosfet_gate_charge
+            * Fixed.logic_gate_voltage
+        )
+        self.control_power = (
+            self.shift_registers
+            * Fixed.shift_register_power_capacitance
+            * Fixed.logic_gate_voltage ** 2
+            * self.serial_data_rate
+        )
+        self.total_power = self.conduction_power + self.switching_power + self.gate_power + self.control_power
+
+    def cells(self):
+        return [
+            Cell("Driver implementation", "two AP3003 complementary MOSFET packages per coil"),
+            Cell("Driver control implementation", "Diodes 74AHCT595 shift registers"),
+            Cell("Dedicated driver channels", self.channels),
+            Cell("Discrete half-bridge legs", self.half_bridges),
+            Cell("Driver current limit", Fixed.driver_channel_current, "A"),
+            Cell("MOSFET voltage rating", Fixed.mosfet_voltage_rating, "V"),
+            Cell("Maximum bus for direct gate drive", Fixed.driver_max_bus_voltage, "V"),
+            Cell("PWM frequency", Fixed.driver_pwm_frequency / 1000, "kHz"),
+            Cell("Per-tile control stream", self.serial_data_rate / 1000000, "Mbit/s"),
+            Cell("Control clock rating used", self.serial_clock / 1000000, "Mbit/s"),
+            Cell("Control clock headroom", self.serial_headroom, "x"),
+            Cell("Pessimistic hot path resistance", Fixed.driver_hot_resistance, "ohm"),
+            Cell("MOSFET conduction loss", self.conduction_power, "W"),
+            Cell("MOSFET switching loss", self.switching_power, "W"),
+            Cell("MOSFET gate-drive loss", self.gate_power, "W"),
+            Cell("Shift-register dynamic loss", self.control_power, "W"),
+            Cell("Total driver/control loss", self.total_power, "W"),
+            Cell("Serialized control bits", self.control_bits),
+            Cell("74AHCT595 shift registers", self.shift_registers),
+        ]
+
+
 class RadiatorCooling:
-    def __init__(self, board, config, fan_count):
+    def __init__(self, board, config, driver, fan_count):
         self.fan_count = fan_count
         self.mode = "fan-assisted" if fan_count else "passive"
         self.board_area = board.motor_area / 1000000
@@ -480,8 +554,8 @@ class RadiatorCooling:
         self.thermal_capacitance = self.aluminium_mass * Fixed.aluminium_heat_capacity
         self.thermal_time_constant = self.thermal_capacitance / self.thermal_conductance
         self.coil_power = config.piece_hover_power * Inputs.pieces_levitating_simultaneously
-        self.mosfet_power = self.coil_power * Fixed.mosfet_loss_fraction
-        self.pulse_power = self.coil_power + self.mosfet_power
+        self.driver_power = driver.total_power
+        self.pulse_power = self.coil_power + self.driver_power
         self.period = Inputs.max_hover_duration + Inputs.spot_cooldown_duration
         self.duty_cycle = Inputs.max_hover_duration / self.period
         self.baseplate_rise_per_watt = (
@@ -496,7 +570,7 @@ class RadiatorCooling:
         self.baseplate_power_capacity = (Inputs.max_surface_temperature - Inputs.ambient_temperature) / self.baseplate_rise_per_watt
         self.source_power_capacity = Inputs.allowed_wire_temp_rise / self.source_rise_per_watt
         self.thermal_power_capacity = min(self.baseplate_power_capacity, self.source_power_capacity)
-        self.mosfet_heat_capacity = max(0, self.thermal_power_capacity - self.coil_power)
+        self.driver_heat_capacity = max(0, self.thermal_power_capacity - self.coil_power)
         self.thermal_power_margin = self.thermal_power_capacity / self.pulse_power
         self.fan_bank_width = fan_count * Fixed.cooling_fan_size
         self.fan_bank_fits = self.fan_bank_width <= board.motor_width and Fixed.cooling_fan_size <= board.motor_height
@@ -510,7 +584,7 @@ class RadiatorCooling:
         cells = [
             Cell("Cooling mode", self.mode),
             Cell("Coil heat (all pieces)", self.coil_power, "W"),
-            Cell("MOSFET heat allowance", self.mosfet_power, "W"),
+            Cell("Driver/control heat", self.driver_power, "W"),
             Cell("Total pulse heat", self.pulse_power, "W"),
             Cell("Source area (32 piece footprints)", self.source_area * 10000, "cm2"),
             Cell("Source-to-baseplate resistance", self.source_to_baseplate_resistance, "K/W"),
@@ -525,7 +599,7 @@ class RadiatorCooling:
             Cell("Cyclic peak baseplate temp", self.cyclic_peak_baseplate_temp, "C"),
             Cell("Cyclic peak coil/MOSFET temp", self.cyclic_peak_source_temp, "C"),
             Cell("Maximum total pulse heat", self.thermal_power_capacity, "W"),
-            Cell("Maximum MOSFET heat after coils", self.mosfet_heat_capacity, "W"),
+            Cell("Maximum driver/control heat after coils", self.driver_heat_capacity, "W"),
             Cell("Thermal power margin", self.thermal_power_margin, "x"),
         ]
         if self.fan_count:
@@ -655,15 +729,16 @@ class Control:
 
 
 class DriveMatrix:
-    def __init__(self, coil, control):
-        topology_labels = {
-            "centertap": "one half-bridge per coil, far end tied to Vbus/2 mid-rail (bipolar +/-Vbus/2)",
-            "hbridge": "dedicated full H-bridge per coil (bipolar, full Vbus swing)",
-        }
-        self.scheme = topology_labels[Fixed.drive_topology]
+    def __init__(self, coil, control, driver, tiles):
+        self.scheme = "dedicated full H-bridge per coil (bipolar, full Vbus swing)"
         self.half_bridges_per_coil = coil.half_bridges_per_coil
-        self.total_drivers = coil.chips
-        self.driver_half_bridges = self.total_drivers * Fixed.driver_half_bridges_per_chip
+        self.driver_half_bridges = driver.half_bridges
+        self.control_bits = driver.control_bits
+        self.shift_registers = driver.shift_registers
+        self.control_bits_per_tile = driver.control_bits_per_tile
+        self.serial_data_rate = driver.serial_data_rate
+        self.serial_clock = driver.serial_clock
+        self.serial_headroom = driver.serial_headroom
         self.coils_energized = coil.peak_driven_windings
         self.slew_time = control.slew_time
         self.update_period = 1000 / control.pose_update_rate
@@ -673,8 +748,12 @@ class DriveMatrix:
         return [
             Cell("Drive scheme", self.scheme),
             Cell("Half-bridges per coil", self.half_bridges_per_coil),
-            Cell("Dedicated driver chips", self.total_drivers),
             Cell("Driver half-bridges provided", self.driver_half_bridges),
+            Cell("Serialized control bits", self.control_bits),
+            Cell("74AHCT595 shift registers", self.shift_registers),
+            Cell("Per-tile PWM serial data", self.serial_data_rate / 1000000, "Mbit/s"),
+            Cell("Per-tile SPI clock", self.serial_clock / 1000000, "Mbit/s"),
+            Cell("PWM serial headroom", self.serial_headroom, "x"),
             Cell("Coils energized at once", self.coils_energized),
             Cell("Current slew time to Imax", self.slew_time, "ms"),
             Cell("Control update period", self.update_period, "ms"),
@@ -741,16 +820,16 @@ class TileControl:
 
 
 class PowerSupply:
-    def __init__(self, coil, wire, tiles, config, thermal):
+    def __init__(self, coil, wire, tiles, config, driver, thermal):
         self.bus_voltage = config.bus_voltage
         self.coil_lift_power = wire.all_pieces_power
         self.thrust_factor = coil.peak_driven_windings / coil.active_windings
         self.coil_peak_power = self.coil_lift_power * self.thrust_factor
+        self.driver_peak_power = driver.total_power * self.thrust_factor
         self.electronics_power = (tiles.tile_count * Fixed.tile_mcu_power
                                   + Fixed.host_power
-                                  + coil.chips * Fixed.driver_quiescent_power
                                   + thermal.fan_power)
-        self.total_load = self.coil_peak_power + self.electronics_power
+        self.total_load = self.coil_peak_power + self.driver_peak_power + self.electronics_power
         self.required_rating = self.total_load * Fixed.psu_sizing_margin
         self.psu_part, self.supply_rating, self.psu_price, self.psu_url = Fixed.psu_options[config.bus_voltage]
         self.rated_current = self.supply_rating / self.bus_voltage
@@ -760,6 +839,7 @@ class PowerSupply:
         return [
             Cell("Coil lift power (32 pieces)", self.coil_lift_power, "W"),
             Cell("Coil peak power (+thrust)", self.coil_peak_power, "W"),
+            Cell("Discrete driver peak loss", self.driver_peak_power, "W"),
             Cell("Electronics overhead", self.electronics_power, "W"),
             Cell("Total peak load", self.total_load, "W"),
             Cell("Required PSU rating (+margin)", self.required_rating, "W"),
@@ -819,8 +899,8 @@ class StatusChecks:
         self.worst_yaw_authority = self.passes(attitude.worst_yaw_margin >= 1, "OK", "worst-case yaw torque too weak")
         self.rock_controllable = self.passes(stability.control_margin_over_rock >= Inputs.control_loop_bandwidth_margin, "OK", "rock mode too fast for loop")
         self.tilt_observable = self.passes(stability.tip_sense_resolution <= 0.001, "OK", "tilt sensing too coarse")
-        self.driver_voltage = self.passes(config.bus_voltage <= Fixed.driver_output_voltage_rating, "OK", "bus exceeds driver Vout rating")
-        self.driver_current = self.passes(config.current_limit <= Fixed.driver_channel_current, "OK", "coil current exceeds channel rating")
+        self.driver_voltage = self.passes(config.bus_voltage <= Fixed.driver_max_bus_voltage, "OK", "bus exceeds direct-gate driver limit")
+        self.driver_current = self.passes(config.worst_required_current <= Fixed.driver_channel_current, "OK", "required coil current exceeds channel rating")
         self.actuator_rank = self.passes(sim["actuator_rank6"] >= 6, "OK", "actuator matrix not full 6-DOF rank")
         self.hall_observable = self.passes(sim["hall_rank6"] >= 6, "OK", "Hall array cannot observe all 6 DOF")
         self.shell_validity = self.passes((piece.diameter - 2 * Inputs.plastic_wall_thickness) > 0, "OK", "wall too thick")
@@ -834,6 +914,7 @@ class StatusChecks:
         self.hall_throughput = self.passes(sensing.headroom >= 1, "OK", "tile ADC too slow to scan Hall grid")
         self.hall_resolution = self.passes(sensing.position_resolution_um <= Inputs.position_sense_resolution_um, "OK", "Hall grid too coarse for position resolution")
         self.driver_coverage = self.passes(drive.driver_half_bridges >= coil.total_bodies * coil.half_bridges_per_coil, "OK", "not enough driver half-bridges per coil")
+        self.driver_serial = self.passes(drive.serial_headroom >= 1, "OK", "driver control stream exceeds SPI clock")
         self.drive_slew = self.passes(drive.slew_over_update <= 1, "OK", "current too slow for update period")
         self.tile_compute = self.passes(tiles.tile_headroom >= 1, "OK", "tile MCU overloaded")
         self.cooling_fans_fit = self.passes(thermal.fan_bank_fits, "OK", "cooling fan row does not fit radiator")
@@ -855,7 +936,7 @@ class StatusChecks:
             Cell("Worst-case yaw-authority check", self.worst_yaw_authority),
             Cell("Rock-mode controllable check", self.rock_controllable),
             Cell("Tilt-observable check", self.tilt_observable),
-            Cell("Driver-voltage-rating check", self.driver_voltage),
+            Cell("Driver-bus-voltage check", self.driver_voltage),
             Cell("Driver-channel-current check", self.driver_current),
             Cell("Actuator 6-DOF rank check", self.actuator_rank),
             Cell("Hall 6-DOF observability check", self.hall_observable),
@@ -870,6 +951,7 @@ class StatusChecks:
             Cell("Hall-throughput check", self.hall_throughput),
             Cell("Hall-grid-resolution check", self.hall_resolution),
             Cell("Driver-coverage check", self.driver_coverage),
+            Cell("Driver-serial-throughput check", self.driver_serial),
             Cell("Drive-slew check", self.drive_slew),
             Cell("Per-tile-compute check", self.tile_compute),
             Cell("Cooling-fan-fit check", self.cooling_fans_fit),
@@ -919,7 +1001,16 @@ class MassBudget:
 class BillOfMaterials:
     def __init__(self, board, coil, halbach, wire, config, tiles, sensing, thermal):
         coils_per_tile = ceil(coil.total_bodies / tiles.tile_count)
-        tile_driver_chips = ceil(coils_per_tile / coil.coils_per_chip)
+        half_bridges_per_tile = coils_per_tile * coil.half_bridges_per_coil
+        tile_shift_registers = ceil(coils_per_tile * Fixed.driver_control_bits_per_channel / Fixed.shift_register_outputs)
+        tile_driver_passives = half_bridges_per_tile * 2
+        tile_driver_decoupling = tile_shift_registers
+        tile_driver_solder_joints = (
+            half_bridges_per_tile * 6
+            + tile_shift_registers * 16
+            + tile_driver_passives * 2
+            + tile_driver_decoupling * 2
+        )
         tile_hall_sensors = sensing.sensors_per_tile
         tile_hall_muxes = sensing.muxes_per_tile
         tile_wire_kg = wire.copper_mass / tiles.tile_count
@@ -930,7 +1021,11 @@ class BillOfMaterials:
         self.coils_per_tile = coils_per_tile
 
         self.tile_items = [
-            BomItem("tile", "Coil driver IC", "DRV8912QPWPRQ1 12 half-bridge (dedicated per-coil)", tile_driver_chips, 3.417, "https://www.digikey.com/en/products/detail/texas-instruments/DRV8912QPWPRQ1/11502248"),
+            BomItem("tile", "Driver MOSFET pair", "ALLPOWER AP3003 N+P 30V MOSFET (JLC C2936847)", half_bridges_per_tile, 0.0354, "https://jlcpcb.com/partdetail/3289837-AP3003/C2936847"),
+            BomItem("tile", "Driver control", "Diodes 74AHCT595T16-13 8-bit shift register", tile_shift_registers, Fixed.shift_register_price, "https://www.digikey.com/en/products/detail/diodes-incorporated/74AHCT595T16-13/7724637"),
+            BomItem("tile", "Driver gate passives", "Gate pull resistors", tile_driver_passives, 0.0010),
+            BomItem("tile", "Driver decoupling", "100nF logic bypass capacitors", tile_driver_decoupling, 0.0030),
+            BomItem("tile", "Driver SMT assembly", "JLCPCB automated assembly joints", tile_driver_solder_joints, Fixed.smt_assembly_cost_per_joint, "https://jlcpcb.com/help/article/pcb-assembly-faqs"),
             BomItem("tile", "Magnet wire", "UEW 0.04mm Cu (kg share)", tile_wire_kg, 18.74, "https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html"),
             BomItem("tile", "Hall position sensor", "Diodes AH49ENTR-G1 linear Hall (LCSC C314698)", tile_hall_sensors, 0.2067, "https://www.lcsc.com/product-detail/C314698.html"),
             BomItem("tile", "Hall readout mux", "CD74HC4067M96 16ch analog", tile_hall_muxes, 0.3405, "https://www.digikey.com/en/products/detail/texas-instruments/CD74HC4067M96/1507236"),
@@ -1000,15 +1095,16 @@ sweep = ConfigurationSweep(board, coil, halbach, piece, sim)
 config = sweep.selected
 coil.outer_height = config.coil_height
 wire = WireThermal(coil, config)
-passive_thermal = RadiatorCooling(board, config, 0)
-thermal = RadiatorCooling(board, config, Inputs.active_cooling_fans)
+driver = DiscreteDriver(board, coil, config)
+passive_thermal = RadiatorCooling(board, config, driver, 0)
+thermal = RadiatorCooling(board, config, driver, Inputs.active_cooling_fans)
 propulsion = Propulsion(board, coil, piece, config, halbach, sim)
 attitude = AttitudeAuthority(board, piece, config, sim)
 control = Control(coil, config, sim)
-drive = DriveMatrix(coil, control)
 tiles = TileControl(board, coil, control)
+drive = DriveMatrix(coil, control, driver, tiles)
 sensing = HallSensing(board, control, tiles)
-psu = PowerSupply(coil, wire, tiles, config, thermal)
+psu = PowerSupply(coil, wire, tiles, config, driver, thermal)
 stability = Stability(board, piece, control, sim)
 checks = StatusChecks(board, coil, halbach, piece, snap, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu, sim)
 bom = BillOfMaterials(board, coil, halbach, wire, config, tiles, sensing, thermal)
@@ -1043,7 +1139,8 @@ def print_sweep(sweep):
     print(f"  {'bus V':>6}{'wire':>16}{'layers':>7}{'turns':>7}{'op mA':>8}{'source C':>9}{'avail x':>9}")
     for entry in sweep.best_per_voltage:
         marker = "  <- selected" if entry is sweep.selected else ""
-        source_temp = RadiatorCooling(board, entry, Inputs.active_cooling_fans).cyclic_peak_source_temp
+        entry_driver = DiscreteDriver(board, coil, entry)
+        source_temp = RadiatorCooling(board, entry, entry_driver, Inputs.active_cooling_fans).cyclic_peak_source_temp
         print(f"  {entry.bus_voltage:>6}{entry.wire.label:>16}{entry.layers:>7}{entry.turns:>7}{entry.operating_current*1000:>8.1f}{source_temp:>9.1f}{entry.available_margin:>9.2f}{marker}")
 
 
@@ -1055,7 +1152,7 @@ def print_bom_group(items):
 
 def print_bom(bill):
     print()
-    title = "BOM (per board; DigiKey/Alibaba volume pricing, 100-board order)"
+    title = "BOM (per board; listed volume pricing, 100-board order)"
     print(title)
     print("-" * len(title))
 
@@ -1092,6 +1189,7 @@ def print_report():
     print_section("Selected coil configuration", config.cells())
     print_sweep(sweep)
     print_section("Wire and thermal", wire.cells())
+    print_section("Discrete coil drivers", driver.cells())
     print_section("Passive baseplate and radiator cooling", passive_thermal.cells())
     print_section("Low-noise active radiator cooling", thermal.cells())
     print_section("Propulsion / flight", propulsion.cells())
@@ -1107,5 +1205,14 @@ def print_report():
     print_bom(bom)
 
 
+def run_report():
+    output = StringIO()
+    with redirect_stdout(output):
+        print_report()
+    report = output.getvalue()
+    Path(__file__).with_name("last_run.txt").write_text(report)
+    print(report, end="")
+
+
 if __name__ == "__main__":
-    print_report()
+    run_report()
