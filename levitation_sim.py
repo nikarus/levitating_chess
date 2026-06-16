@@ -45,9 +45,6 @@ AXIS_DIRECTIONS = np.array(
     dtype=float,
 )
 
-G = None
-
-
 def use_geometry(geometry):
     global G
     G = geometry
@@ -73,11 +70,11 @@ def condition_number(matrix):
 
 
 class MagnetLayout:
-    def __init__(self, edge=None, periods=None, per_period=None, remanence=None):
-        self.edge = G.edge if edge is None else edge
-        self.periods = G.periods_per_side if periods is None else periods
-        self.per_period = G.magnets_per_period if per_period is None else per_period
-        self.remanence = G.remanence if remanence is None else remanence
+    def __init__(self, edge, periods, per_period, remanence):
+        self.edge = edge
+        self.periods = periods
+        self.per_period = per_period
+        self.remanence = remanence
 
         self.blocks_per_side = self.periods * self.per_period
         self.period = self.per_period * self.edge
@@ -135,19 +132,21 @@ class MagnetLayout:
         return float(np.max(np.abs(self.plane_field(samples)[:, 2])))
 
 
+def magnet_layout_from_geometry():
+    return MagnetLayout(G.edge, G.periods_per_side, G.magnets_per_period, G.remanence)
+
+
 class CoilArray:
-    def __init__(self, cells_per_side, short=None, long=None,
-                 radial_width=None, height=None, turns=1,
-                 gap=None, layer_gap=None, meshing=16,
-                 filaments_radial=2, filaments_axial=1):
+    def __init__(self, cells_per_side, short, long, radial_width, height, turns,
+                 gap, layer_gap, meshing, filaments_radial, filaments_axial):
         self.cells_per_side = cells_per_side
-        self.short = G.coil_short if short is None else short
-        self.long = G.coil_long if long is None else long
-        self.radial_width = G.coil_radial_width if radial_width is None else radial_width
-        self.height = G.coil_height if height is None else height
+        self.short = short
+        self.long = long
+        self.radial_width = radial_width
+        self.height = height
         self.turns = turns
-        self.gap = G.gap if gap is None else gap
-        self.layer_gap = self.height if layer_gap is None else layer_gap
+        self.gap = gap
+        self.layer_gap = layer_gap
         self.meshing = meshing
         self.filaments_radial = filaments_radial
         self.filaments_axial = filaments_axial
@@ -196,6 +195,12 @@ class CoilArray:
             self.add("x", center_x, center_y, z_top_x)
         for center_x, center_y in self.lattice(long_count, self.long, self.cells_per_side, self.short):
             self.add("y", center_x, center_y, z_top_y)
+
+
+def coil_array_from_geometry(cells_per_side, height, turns, meshing, filaments_radial, filaments_axial):
+    return CoilArray(cells_per_side, G.coil_short, G.coil_long, G.coil_radial_width,
+                     height, turns, G.gap, height, meshing, filaments_radial,
+                     filaments_axial)
 
 
 def place_piece(layout, x=0.0, y=0.0, z=0.0, roll=0.0, pitch=0.0, yaw=0.0):
@@ -252,9 +257,9 @@ def min_peak_current(matrix, target):
         bounds=[(None, None)] * coil_count + [(0, None)],
         method="highs",
     )
-    if result.success:
-        return result.x[-1], result.x[:coil_count]
-    return np.inf, None
+    if not result.success:
+        raise RuntimeError(result.message)
+    return result.x[-1], result.x[:coil_count]
 
 
 def max_generalized_force(wrench_matrix, objective_row, constrained_rows,
@@ -267,7 +272,9 @@ def max_generalized_force(wrench_matrix, objective_row, constrained_rows,
         b_eq=constrained_values,
         method="highs",
     )
-    return -result.fun if result.success else np.nan
+    if not result.success:
+        raise RuntimeError(result.message)
+    return -result.fun
 
 
 class Controllability:
@@ -282,19 +289,16 @@ class Controllability:
         self.rank6 = matrix_rank(self.scaled_wrench_matrix)
         self.cond6 = condition_number(self.scaled_wrench_matrix)
 
-        if self.rank6 >= 6:
-            self.i_hover6, self.current6 = min_peak_current(wrench_matrix, [0, 0, weight, 0, 0, 0])
-        else:
-            self.i_hover6, self.current6 = np.inf, None
+        if self.rank6 < 6:
+            raise RuntimeError("actuator matrix is not full 6-DOF rank")
+        self.i_hover6, self.current6 = min_peak_current(wrench_matrix, [0, 0, weight, 0, 0, 0])
 
 
-def analyze(layout, cells_per_side, weight=None, characteristic_length=None,
-            meshing=16, filaments_radial=2, filaments_axial=1, turns=1):
-    weight = piece_weight(layout) if weight is None else weight
-    characteristic_length = layout.platform_side / 2 if characteristic_length is None else characteristic_length
+def analyze(layout, cells_per_side, weight, characteristic_length,
+            meshing, filaments_radial, filaments_axial, turns):
     place_piece(layout)
-    array = CoilArray(cells_per_side, meshing=meshing, turns=turns,
-                      filaments_radial=filaments_radial, filaments_axial=filaments_axial)
+    array = coil_array_from_geometry(cells_per_side, G.coil_height, turns,
+                                     meshing, filaments_radial, filaments_axial)
     wrench_matrix = actuator_matrix(layout, array, np.array([0, 0, layout.center_of_mass_height]))
     return array, Controllability(wrench_matrix, weight, characteristic_length)
 
@@ -305,10 +309,9 @@ def hover_current_vector(layout, array, weight):
     wrench_matrix = actuator_matrix(layout, array, center_of_mass)
     scaled = wrench_matrix.copy()
     scaled[3:] = wrench_matrix[3:] / (layout.platform_side / 2)
-    if matrix_rank(scaled) >= 6:
-        _, currents = min_peak_current(wrench_matrix, [0, 0, weight, 0, 0, 0])
-        return currents
-    _, currents = min_peak_current(wrench_matrix[:3], [0, 0, weight])
+    if matrix_rank(scaled) < 6:
+        raise RuntimeError("actuator matrix is not full 6-DOF rank")
+    _, currents = min_peak_current(wrench_matrix, [0, 0, weight, 0, 0, 0])
     return currents
 
 
@@ -333,11 +336,10 @@ def open_loop_stiffness(layout, array, weight, step=2e-5):
     return stiffness, eigenvalues
 
 
-def local_hall_points(sensor_pitch, window_side, plane_z=None):
+def local_hall_points(sensor_pitch, window_side, plane_z):
     offsets = np.array([(index + 0.5 - window_side / 2) * sensor_pitch
                         for index in range(window_side)])
-    z = -G.gap if plane_z is None else plane_z
-    return np.array([[x, y, z] for x in offsets for y in offsets])
+    return np.array([[x, y, plane_z] for x in offsets for y in offsets])
 
 
 def hall_jacobian(layout, points, pose):
@@ -369,7 +371,7 @@ def hall_metrics(jacobian):
 def hall_observability(layout, target_tilt_deg):
     sensor_pitch = G.hall_sensor_pitch
     window_side = G.hall_observation_window_side
-    points = local_hall_points(sensor_pitch, window_side)
+    points = local_hall_points(sensor_pitch, window_side, -G.gap)
     phase = (0.0, sensor_pitch / 4, sensor_pitch / 2)
     circumradius = layout.platform_side / 2 * np.sqrt(2)
     nominal = hall_metrics(hall_jacobian(layout, points, [0, 0, 0, 0, 0, 0]))
@@ -401,11 +403,11 @@ def hall_observability(layout, target_tilt_deg):
 
 
 def neighbour_force(edge, periods, distance, controlled_yaw=0.0, neighbour_yaw=0.0, mesh=(4, 4, 4)):
-    controlled = MagnetLayout(edge=edge, periods=periods)
+    controlled = MagnetLayout(edge, periods, G.magnets_per_period, G.remanence)
     if controlled_yaw:
         controlled.collection.rotate(Rotation.from_euler("z", controlled_yaw),
                                      anchor=(0.0, 0.0, controlled.center_of_mass_height))
-    neighbour = MagnetLayout(edge=edge, periods=periods)
+    neighbour = MagnetLayout(edge, periods, G.magnets_per_period, G.remanence)
     if neighbour_yaw:
         neighbour.collection.rotate(Rotation.from_euler("z", neighbour_yaw),
                                     anchor=(0.0, 0.0, neighbour.center_of_mass_height))
@@ -434,8 +436,6 @@ def worst_touching_snap(edge, periods, distance):
 
 def pose_coefficients(wrench, weight, characteristic_length):
     controllability = Controllability(wrench, weight, characteristic_length)
-    if controllability.rank6 < 6:
-        return controllability.rank6, None
     return controllability.rank6, {
         "cond6": controllability.cond6,
         "lift_per_at": weight / controllability.i_hover6,
@@ -450,14 +450,14 @@ def pose_coefficients(wrench, weight, characteristic_length):
 
 def flight_worst_case(control_cells, weight, characteristic_length, target_tilt_deg,
                       gaps=(0.003, 0.004), yaws_deg=(0, 45, 90), meshing=12):
-    magnet = MagnetLayout()
-    array = CoilArray(control_cells, meshing=meshing, filaments_radial=2, filaments_axial=1)
+    magnet = magnet_layout_from_geometry()
+    array = coil_array_from_geometry(control_cells, G.coil_height, 1, meshing, 2, 1)
     circumradius = magnet.platform_side / 2 * np.sqrt(2)
     phase = (0.0, G.coil_short / 4, G.coil_short / 2)
     worst = {
         "min_rank6": 6, "max_cond6": 0.0,
-        "min_lift_per_at": np.inf, "min_lateral_per_at": np.inf,
-        "min_tilt_torque_per_at": np.inf, "min_yaw_torque_per_at": np.inf,
+        "min_lift_per_at": 0.0, "min_lateral_per_at": 0.0,
+        "min_tilt_torque_per_at": 0.0, "min_yaw_torque_per_at": 0.0,
         "max_hover_sumsq": 0.0, "max_tilt_deg": 0.0, "poses": 0,
     }
     for target_gap in gaps:
@@ -474,10 +474,13 @@ def flight_worst_case(control_cells, weight, characteristic_length, target_tilt_
                                                         roll=roll, pitch=pitch, yaw=yaw)
                         wrench = actuator_matrix(magnet, array, center_of_mass)
                         rank6, coeffs = pose_coefficients(wrench, weight, characteristic_length)
+                        if worst["poses"] == 0:
+                            worst["min_lift_per_at"] = coeffs["lift_per_at"]
+                            worst["min_lateral_per_at"] = coeffs["lateral_per_at"]
+                            worst["min_tilt_torque_per_at"] = coeffs["tilt_torque_per_at"]
+                            worst["min_yaw_torque_per_at"] = coeffs["yaw_torque_per_at"]
                         worst["min_rank6"] = min(worst["min_rank6"], rank6)
                         worst["poses"] += 1
-                        if coeffs is None:
-                            continue
                         worst["max_cond6"] = max(worst["max_cond6"], coeffs["cond6"])
                         worst["min_lift_per_at"] = min(worst["min_lift_per_at"], coeffs["lift_per_at"])
                         worst["min_lateral_per_at"] = min(worst["min_lateral_per_at"], coeffs["lateral_per_at"])
@@ -495,8 +498,7 @@ def coil_height_coupling(magnet, control_cells, heights_m, reference_height_m, m
     center_of_mass = np.array([0, 0, magnet.center_of_mass_height])
 
     def lift_at_height(height, axial):
-        array = CoilArray(control_cells, height=height, meshing=meshing,
-                          filaments_radial=2, filaments_axial=axial)
+        array = coil_array_from_geometry(control_cells, height, 1, meshing, 2, axial)
         wrench = actuator_matrix(magnet, array, center_of_mass)
         _, coeffs = pose_coefficients(wrench, weight, characteristic_length)
         return coeffs["lift_per_at"]
@@ -514,11 +516,11 @@ def measure(geometry):
     use_geometry(geometry)
     control_cells = geometry.control_cells_per_side
 
-    magnet = MagnetLayout()
+    magnet = magnet_layout_from_geometry()
     weight = piece_weight(magnet)
     characteristic_length = magnet.platform_side / 2
-    array, controllability = analyze(magnet, control_cells, weight=weight,
-                                     characteristic_length=characteristic_length)
+    array, controllability = analyze(magnet, control_cells, weight,
+                                     characteristic_length, 16, 2, 1, 1)
     _, nominal = pose_coefficients(controllability.wrench_matrix, weight, characteristic_length)
 
     worst = flight_worst_case(control_cells, weight, characteristic_length, geometry.target_tilt_deg)

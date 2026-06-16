@@ -18,7 +18,7 @@ Coil geometry
 -------------
   Coil outer width                          5 mm
   Coil outer length                         10 mm
-  Coil outer height                         4.958 mm
+  Coil outer height                         3.034 mm
   Coil aspect ratio (actual)                2
   Coil body footprint area                  50 mm2
   Winding radial width (wall)               1.75 mm
@@ -74,28 +74,28 @@ Selected coil configuration
   Winding radial pitch                      1.774 mm
   Winding axial pitch                       0.074 mm
   Copper cross-section area                 0.0875 mm2
-  Selected bus voltage                      5 V
-  Usable drive voltage (per coil)           4.5 V
+  Selected bus voltage                      24 V
+  Usable drive voltage (per coil)           21.6 V
   Winding radial width                      1.75 mm
   Turns per radial layer                    1
-  Vertical wire layers                      67
-  Turns per winding (fits window)           67
-  Coil height                               4.958 mm
-  Coil-height field coupling                0.4914 x
-  Wire length per winding                   1.541 m
-  Resistance per winding                    0.3036 ohm
-  Voltage-limited current                   14.8211 A
+  Vertical wire layers                      41
+  Turns per winding (fits window)           41
+  Coil height                               3.034 mm
+  Coil-height field coupling                0.6747 x
+  Wire length per winding                   0.943 m
+  Resistance per winding                    0.1858 ohm
+  Voltage-limited current                   116.2553 A
   Driver-limited current                    2.5 A
-  Lift force per amp (sim)                  0.3811 N/A
-  Available lift force (at limit)           0.9528 N
-  Available lift margin                     2.8599 x
+  Lift force per amp (sim)                  0.3202 N/A
+  Available lift force (at limit)           0.8006 N
+  Available lift margin                     2.403 x
   Worst-case poses swept                    216
   Worst-case max tilt swept                 10 deg
-  Worst-case lift force per amp (sim)       0.207 N/A
-  Worst-case required lift current          2.0918 A
-  Worst-case available lift margin          1.5537 x
-  Worst-case hover power (one piece)        48.3346 W
-  Operating current per winding             1.1364 A
+  Worst-case lift force per amp (sim)       0.174 N/A
+  Worst-case required lift current          2.4896 A
+  Worst-case available lift margin          1.3054 x
+  Worst-case hover power (one piece)        41.8955 W
+  Operating current per winding             1.3525 A
   Lift force per coil body                  0.0271 N
   Total lift force                          0.4331 N
   Lift margin (with safety)                 1.3 x
@@ -103,44 +103,46 @@ Selected coil configuration
 Configuration sweep (lightest feasible coil per bus voltage)
 ------------------------------------------------------------
    bus V            wire layers  turns   op mA source C  avail x
+      241.75x0.05mm flat     41     41  1352.5     62.8     2.40  <- selected
 
 Wire and thermal
 ----------------
-  Copper mass per winding                   1.2081 g
-  Total wire length                         17470.317 m
-  Total copper mass                         13.6967 kg
-  One-piece active coil power               14.135 W
-  All board pieces simultaneous power       452.3185 W
-  PSU current at bus                        90.4637 A
+  Copper mass per winding                   0.7393 g
+  Total wire length                         10690.791 m
+  Total copper mass                         8.3816 kg
+  One-piece active coil power               12.2519 W
+  All board pieces simultaneous power       392.0609 W
+  PSU current at bus                        16.3359 A
 
 Discrete coil drivers
 ---------------------
-  Driver implementation                     two AP3003 complementary MOSFET packages per coil
-  Driver control implementation             Diodes 74AHCT595 shift registers
+  Driver implementation                     24V N-MOSFET full bridges with gate drivers
+  Driver control implementation             74AHCT595 logic into 3-half-bridge gate drivers
   Dedicated driver channels                 11337
   Discrete half-bridge legs                 22674
+  Gate-driver ICs                           7558
   Driver current limit                      2.5 A
-  MOSFET voltage rating                     30 V
-  Maximum bus for direct gate drive         5 V
+  MOSFET voltage rating                     60 V
+  MOSFET gate drive                         10 V
   PWM frequency                             20 kHz
   Per-tile control stream                   25.92 Mbit/s
   Control clock rating used                 40 Mbit/s
   Control clock headroom                    1.5432 x
-  Pessimistic hot path resistance           0.13 ohm
-  MOSFET conduction loss                    193.6671 W
-  MOSFET switching loss                     52.4014 W
-  MOSFET gate-drive loss                    1.9661 W
+  Pessimistic hot path resistance           0.08 ohm
+  MOSFET conduction loss                    168.8117 W
+  MOSFET switching loss                     99.7844 W
+  MOSFET gate-drive loss                    24.576 W
   Shift-register dynamic loss               154.3147 W
-  Total driver/control loss                 402.3493 W
+  Total driver/control loss                 447.4868 W
   Serialized control bits                   45348
   74AHCT595 shift registers                 5670
 
 Passive baseplate and radiator cooling
 --------------------------------------
   Cooling mode                              passive
-  Coil heat (all pieces)                    452.3185 W
-  Driver/control heat                       402.3493 W
-  Total pulse heat                          854.6678 W
+  Coil heat (all pieces)                    392.0609 W
+  Driver/control heat                       447.4868 W
+  Total pulse heat                          839.5477 W
   Source area (32 piece footprints)         492.8774 cm2
   Source-to-baseplate resistance            0.0293 K/W
   Bottom fins                               64
@@ -151,18 +153,18 @@ Passive baseplate and radiator cooling
   Radiator aluminium mass                   5.3565 kg
   Thermal time constant                     1417.4856 s
   All-piece duty cycle (2s/60s)             0.0323
-  Cyclic peak baseplate temp                43.2791 C
-  Cyclic peak coil/MOSFET temp              68.3178 C
+  Cyclic peak baseplate temp                43.1327 C
+  Cyclic peak coil/MOSFET temp              67.7284 C
   Maximum total pulse heat                  1026.0792 W
-  Maximum driver/control heat after coils   573.7606 W
-  Thermal power margin                      1.2006 x
+  Maximum driver/control heat after coils   634.0183 W
+  Thermal power margin                      1.2222 x
 
 Low-noise active radiator cooling
 ---------------------------------
   Cooling mode                              fan-assisted
-  Coil heat (all pieces)                    452.3185 W
-  Driver/control heat                       402.3493 W
-  Total pulse heat                          854.6678 W
+  Coil heat (all pieces)                    392.0609 W
+  Driver/control heat                       447.4868 W
+  Total pulse heat                          839.5477 W
   Source area (32 piece footprints)         492.8774 cm2
   Source-to-baseplate resistance            0.0293 K/W
   Bottom fins                               64
@@ -173,11 +175,11 @@ Low-noise active radiator cooling
   Radiator aluminium mass                   5.3565 kg
   Thermal time constant                     531.5571 s
   All-piece duty cycle (2s/60s)             0.0323
-  Cyclic peak baseplate temp                38.2146 C
-  Cyclic peak coil/MOSFET temp              63.2533 C
+  Cyclic peak baseplate temp                38.1577 C
+  Cyclic peak coil/MOSFET temp              62.7534 C
   Maximum total pulse heat                  1210.0098 W
-  Maximum driver/control heat after coils   757.6913 W
-  Thermal power margin                      1.4158 x
+  Maximum driver/control heat after coils   817.9489 W
+  Thermal power margin                      1.4413 x
   Cooling fans                              3
   Fan size                                  200 mm
   Fan speed                                 550 rpm
@@ -191,41 +193,41 @@ Low-noise active radiator cooling
 
 Propulsion / flight
 -------------------
-  Max lateral thrust                        0.8823 N
-  Max lateral acceleration                  25.9702 m/s2
-  Max lateral acceleration                  2.6482 g
-  Worst-case max lateral acceleration       1.4152 g
+  Max lateral thrust                        0.7413 N
+  Max lateral acceleration                  21.821 m/s2
+  Max lateral acceleration                  2.2251 g
+  Worst-case max lateral acceleration       1.1891 g
   Thrust current per winding                2.5 A
-  In-flight coil power (one piece)          121.4484 W
-  One-square hop time (bang-bang)           0.0923 s
-  One-square peak speed                     1.199 m/s
-  Full-rank traverse time                   0.2443 s
+  In-flight coil power (one piece)          74.3192 W
+  One-square hop time (bang-bang)           0.1007 s
+  One-square peak speed                     1.099 m/s
+  Full-rank traverse time                   0.2665 s
   Yaw moment of inertia                     1e-06 kg.m2
-  Max yaw torque                            0.0044 N.m
-  Max yaw angular acceleration              4411.3295 rad/s2
+  Max yaw torque                            0.0037 N.m
+  Max yaw angular acceleration              3706.5466 rad/s2
 
 Attitude authority (tilt / yaw)
 -------------------------------
   Tilt lever arm (footprint)                5 mm
-  Max tilt torque available (sim)           0.005 N.m
+  Max tilt torque available (sim)           0.0042 N.m
   Tilt inertia about diameter               3.005e-05 kg.m2
   Static torque to hold target tilt         0.0022 N.m
   Dynamic torque to reach tilt in time      0.0002331 N.m
   Tilt torque required (hold+slew)          0.0024 N.m
-  Tilt authority margin                     2.0565 x
-  Worst-case tilt authority margin          1.2891 x
-  Max yaw torque available (sim)            0.0058 N.m
+  Tilt authority margin                     1.7279 x
+  Worst-case tilt authority margin          1.0831 x
+  Max yaw torque available (sim)            0.0049 N.m
   Yaw inertia about vertical                8.328e-06 kg.m2
   Yaw torque required for 90deg slew        0.0002093 N.m
-  Yaw authority margin                      27.7797 x
-  Worst-case yaw authority margin           17.4556 x
+  Yaw authority margin                      23.3414 x
+  Worst-case yaw authority margin           14.6668 x
 
 Control feasibility
 -------------------
-  Coil inductance (estimate)                0.0569 mH
+  Coil inductance (estimate)                0.0348 mH
   Electrical time constant L/R              0.1874 ms
   Actuator current-loop bandwidth           849.4328 Hz
-  Current slew time to Imax                 0.0144 ms
+  Current slew time to Imax                 0.0022 ms
   Open-loop instability growth time         27.8801 ms
   Required control loop bandwidth           28.5427 Hz
   Required pose update rate                 179.3392 Hz
@@ -241,9 +243,9 @@ Drive matrix (position-addressed)
   Per-tile SPI clock                        40 Mbit/s
   PWM serial headroom                       1.5432 x
   Coils energized at once                   3072
-  Current slew time to Imax                 0.0144 ms
+  Current slew time to Imax                 0.0022 ms
   Control update period                     5.576 ms
-  Slew / update-period ratio                0.0026 x
+  Slew / update-period ratio                0.0003909 x
 
 Hall position sensing
 ---------------------
@@ -277,15 +279,17 @@ Tiled control architecture
 
 Power supply
 ------------
-  Coil lift power (32 pieces)               452.3185 W
-  Coil peak power (+thrust)                 678.4778 W
-  Discrete driver peak loss                 603.5239 W
+  Coil lift power (32 pieces)               392.0609 W
+  Coil peak power (+thrust)                 588.0913 W
+  Discrete driver peak loss                 671.2302 W
   Electronics overhead                      24.88 W
-  Total peak load                           1306.8817 W
-  Required PSU rating (+margin)             1633.6021 W
-  Selected PSU (Mean Well UHP-350-5, 5V 350W (fanless, est.))350 W
-  PSU output current                        70 A
-  PSU load fraction                         4.6674 x
+  Total peak load                           1284.2015 W
+  Required PSU rating (+margin)             1605.2519 W
+  Selected PSU (4x Mean Well UHP-500-24, 24V 2006W fanless PSU bank)2006.4 W
+  Peak bus current                          53.5084 A
+  Required bus current (+margin)            66.8855 A
+  PSU output current                        83.6 A
+  PSU load fraction                         0.8001 x
 
 Stability and vibration
 -----------------------
@@ -302,16 +306,16 @@ Stability and vibration
 
 Mass budget (whole set)
 -----------------------
-  Board copper (coils)                      13.6967 kg
+  Board copper (coils)                      8.3816 kg
   Board PCB (FR4)                           0.8389 kg
   Aluminium baseplate + fins                5.3565 kg
   Cooling fans                              1.11 kg
   PSU + frame + electronics (est.)          1.92 kg
-  Board total (est.)                        22.9222 kg
+  Board total (est.)                        17.607 kg
   Mass per piece                            33.9723 g
   Pieces total                              32
   All pieces mass                           1.0871 kg
-  WHOLE SET mass (est.)                     24.0093 kg
+  WHOLE SET mass (est.)                     18.6941 kg
 
 Status checks
 -------------
@@ -348,24 +352,26 @@ Status checks
   Drive-slew check                          OK
   Per-tile-compute check                    OK
   Cooling-fan-fit check                     OK
-  PSU-adequate check                        PSU undersized
+  PSU-adequate check                        OK
+  Bus-current check                         OK
 
 BOM (per board; listed volume pricing, 100-board order)
 -------------------------------------------------------
 
   [A] Per tile (one 10x10cm coil-array module)
-  Driver MOSFET pair   ALLPOWER AP3003 N+P 30V MOSFET (JLC C2936847) qty      648  $  0.035  $    22.94  https://jlcpcb.com/partdetail/3289837-AP3003/C2936847
+  Driver power MOSFET  TECH PUBLIC 20N06 60V N-MOSFET (LCSC C5350878)qty     1296  $  0.070  $    90.20  https://www.lcsc.com/product-detail/mosfets_tech-public-20n06_C5350878.html
+  Driver gate driver   EG Micro EG2134 3 half-bridge MOSFET driver (LCSC C480661)qty      216  $  0.225  $    48.69  https://www.lcsc.com/product-detail/C480661.html
   Driver control       Diodes 74AHCT595T16-13 8-bit shift register   qty      162  $  0.130  $    21.09  https://www.digikey.com/en/products/detail/diodes-incorporated/74AHCT595T16-13/7724637
   Driver gate passives Gate pull resistors                           qty     1296  $  0.001  $     1.30
-  Driver decoupling    100nF logic bypass capacitors                 qty      162  $  0.003  $     0.49
-  Driver SMT assembly  JLCPCB automated assembly joints              qty     9396  $  0.002  $    15.97  https://jlcpcb.com/help/article/pcb-assembly-faqs
-  Magnet wire          UEW 0.04mm Cu (kg share)                      qty   0.3913  $ 18.740  $     7.33  https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html
+  Driver decoupling    100nF logic bypass capacitors                 qty      378  $  0.003  $     1.13
+  Driver SMT assembly  JLCPCB automated assembly joints              qty    14148  $  0.002  $    24.05  https://jlcpcb.com/help/article/pcb-assembly-faqs
+  Magnet wire          UEW 0.04mm Cu (kg share)                      qty   0.2395  $ 18.740  $     4.49  https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html
   Hall position sensor Diodes AH49ENTR-G1 linear Hall (LCSC C314698) qty      225  $  0.207  $    46.51  https://www.lcsc.com/product-detail/C314698.html
   Hall readout mux     CD74HC4067M96 16ch analog                     qty       15  $  0.341  $     5.11  https://www.digikey.com/en/products/detail/texas-instruments/CD74HC4067M96/1507236
   Tile PCB             4-layer FR4 10x10cm                           qty      100  $  0.020  $     2.00
   Tile control MCU     STM32G431KBT6 32-pin                          qty        1  $  3.130  $     3.13  https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G431KBT6/10231564
   Backplane connector  B2B header, tile->mainboard                   qty        1  $  0.450  $     0.45
-  PER-TILE SUBTOTAL                                                                          $   126.32
+  PER-TILE SUBTOTAL                                                                          $   248.14
 
   [B] Per piece (chess piece)
   NdFeB magnet block   N52 4mm cube                                  qty       16  $  0.037  $     0.60  https://www.alibaba.com/product-detail/Customized-Rare-Earth-Neodymium-Magnets-N52_1601519228921.html
@@ -376,12 +382,12 @@ BOM (per board; listed volume pricing, 100-board order)
   Compute module       RPi CM5 2GB Lite, SC1556 (57.37 EUR)          qty        1  $ 61.960  $    61.96  https://www.digikey.com/en/products/detail/raspberry-pi/SC1556/25805567
   Mainboard            Custom 4-layer carrier (CM5 + power + tile links)qty        1  $ 25.000  $    25.00
   Tile interconnect    B2B header, mainboard side                    qty       35  $  0.450  $    15.75
-  Bus power supply     Mean Well UHP-350-5, 5V 350W (fanless, est.)  qty        1  $ 52.000  $    52.00
+  Bus power supply     4x Mean Well UHP-500-24, 24V 2006W fanless PSU bankqty        1  $376.800  $   376.80  https://www.digikey.com/en/products/detail/mean-well-usa-inc/UHP-500-24/8324036
   Radiator fan         Noctua NF-A20 PWM 200mm at 550rpm low-noise settingqty        3  $ 39.950  $   119.85  https://www.coolerguys.com/products/noctua-nf-a20-pwm-200mm-cooling-fan
-  SHARED SUBTOTAL                                                                            $   274.56
+  SHARED SUBTOTAL                                                                            $   599.36
 
   Board roll-up
-  Tiles                35 x $126.32                                                          $  4421.04
+  Tiles                35 x $248.14                                                          $  8685.07
   Pieces               32 x $2.00                                                            $    64.00
-  Board-shared                                                                               $   274.56
-  BOARD TOTAL                                                                                $  4759.60
+  Board-shared                                                                               $   599.36
+  BOARD TOTAL                                                                                $  9348.43

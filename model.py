@@ -74,21 +74,25 @@ class Fixed:
     cooling_fan_mass = 0.370                   # kg
     cooling_fan_price = 39.95                  # USD
     cooling_fan_url = "https://www.coolerguys.com/products/noctua-nf-a20-pwm-200mm-cooling-fan"
-    mosfet_voltage_rating = 30                 # V
-    driver_max_bus_voltage = 5                 # V
+    mosfet_voltage_rating = 60                 # V
     driver_channel_current = 2.5               # A
     driver_pwm_frequency = 20000               # Hz
-    driver_switching_time = 300e-9             # s
-    driver_hot_resistance = 0.13               # ohm
-    driver_mosfet_gate_charge = 4.8e-9         # C
+    driver_switching_time = 100e-9             # s
+    driver_hot_resistance = 0.08               # ohm
+    driver_mosfet_gate_charge = 30e-9          # C
+    gate_drive_voltage = 10                    # V
     logic_gate_voltage = 5                     # V
     driver_control_bits_per_channel = 4        # count
     shift_register_outputs = 8                 # count
+    gate_driver_half_bridges = 3               # count
+    gate_driver_price = 0.2254                 # USD
+    power_mosfet_price = 0.0696                # USD
     shift_register_clock_rating = 90000000     # bits/s
     shift_register_power_capacitance = 42e-12   # F
     shift_register_price = 0.1302              # USD
     driver_serial_clock = 40000000             # bits/s
     smt_assembly_cost_per_joint = 0.0017       # USD
+    max_bus_current = 80                       # A
     usable_bus_voltage_fraction = 0.9          # ratio
     hall_sensor_pitch = 6.667                  # mm
     hall_observation_window_side = 4           # count
@@ -107,14 +111,7 @@ class Fixed:
     host_power = 8                             # W
     psu_sizing_margin = 1.25                   # ratio
     psu_options = {
-        5:  ("Mean Well UHP-350-5, 5V 350W (fanless, est.)", 350, 52.00, None),
-        9:  ("[TO BE SOURCED] 9V ~350W fanless PSU", 350, 55.00, None),
-        12: ("Mean Well UHP-350-12, 12V 350W (fanless)", 350, 60.80, "https://www.digikey.com/en/products/detail/mean-well-usa-inc/UHP-350-12/7707252"),
-        15: ("Mean Well UHP-350-15, 15V 350W (fanless, est.)", 350, 50.00, None),
-        19: ("[TO BE SOURCED] 19V ~350W fanless PSU", 350, 55.00, None),
-        24: ("Mean Well UHP-350-24, 24V 350W (fanless, est.)", 350, 52.00, None),
-        28: ("[TO BE SOURCED] 28V ~350W fanless PSU", 350, 55.00, None),
-        32: ("[TO BE SOURCED] 32V ~350W fanless PSU", 350, 55.00, None),
+        24: ("4x Mean Well UHP-500-24, 24V 2006W fanless PSU bank", 2006.4, 376.80, "https://www.digikey.com/en/products/detail/mean-well-usa-inc/UHP-500-24/8324036"),
     }
 
 
@@ -126,7 +123,7 @@ class Constants:
     copper_resistivity = 1.724e-08
     copper_density = 8960
     winding_conductor_thicknesses = [0.05, 0.07, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5]
-    standard_bus_voltages = [5, 9, 12, 15, 19, 24, 28, 32]
+    standard_bus_voltages = [24]
     gravity = 9.80665
     vacuum_permeability = 1.25663706e-6
     fr4_density = 0.00185
@@ -203,7 +200,7 @@ class CoilBed:
         self.columns = Inputs.coils_per_period * Inputs.periods_per_side
         self.rows = max(1, round(board.platform_side / (Fixed.coil_aspect_ratio_target * self.outer_width)))
         self.outer_length = board.platform_side / self.rows
-        self.outer_height = None
+        self.outer_height = 0.0
         self.aspect_ratio = self.outer_length / self.outer_width
         self.bodies_per_orientation = self.columns * self.rows
         self.bodies_under_platform = Fixed.herringbone_orientation_families * self.bodies_per_orientation
@@ -402,7 +399,7 @@ class ConfigurationSweep:
             return False
         if c.available_margin < Inputs.force_safety_factor:
             return False
-        if c.bus_voltage > Fixed.driver_max_bus_voltage:
+        if c.bus_voltage > Fixed.mosfet_voltage_rating:
             return False
         driver = DiscreteDriver(board, coil, c)
         cooling = RadiatorCooling(board, c, driver, Inputs.active_cooling_fans)
@@ -425,6 +422,8 @@ class ConfigurationSweep:
         psu = PowerSupply(coil, WireThermal(coil, c), TileControl(board, coil, Control(coil, c, sim)), c, driver, cooling)
         if psu.required_rating > psu.supply_rating:
             return False
+        if psu.required_current > Fixed.max_bus_current:
+            return False
         return True
 
     def __init__(self, board, coil, halbach, piece, sim):
@@ -435,10 +434,9 @@ class ConfigurationSweep:
             for layers in range(1, floor(coil.outer_width / (conductor_thickness + 2 * Fixed.rectangular_wire_film)) + 1)
         ]
         self.feasible = [c for c in self.configurations if self.is_feasible(board, coil, halbach, piece, sim, c)]
-        if self.feasible:
-            self.selected = min(self.feasible, key=self.copper_proxy)
-        else:
-            self.selected = max(self.configurations, key=lambda c: c.worst_available_margin)
+        if not self.feasible:
+            raise RuntimeError("NO FEASIBLE CONFIGURATION FOUND - no selected coil configuration")
+        self.selected = min(self.feasible, key=self.copper_proxy)
         self.best_per_voltage = []
         for bus_voltage in Constants.standard_bus_voltages:
             candidates = [c for c in self.feasible if c.bus_voltage == bus_voltage]
@@ -472,6 +470,7 @@ class DiscreteDriver:
         self.half_bridges = self.channels * coil.half_bridges_per_coil
         self.active_channels = coil.active_windings
         self.control_bits = self.channels * Fixed.driver_control_bits_per_channel
+        self.gate_drivers = ceil(self.half_bridges / Fixed.gate_driver_half_bridges)
         self.tile_count = ceil(board.motor_width / Fixed.control_tile_side) * ceil(board.motor_height / Fixed.control_tile_side)
         self.channels_per_tile = ceil(self.channels / self.tile_count)
         self.control_bits_per_tile = self.channels_per_tile * Fixed.driver_control_bits_per_channel
@@ -494,7 +493,7 @@ class DiscreteDriver:
             * Fixed.driver_pwm_frequency
             * 2
             * Fixed.driver_mosfet_gate_charge
-            * Fixed.logic_gate_voltage
+            * Fixed.gate_drive_voltage
         )
         self.control_power = (
             self.shift_registers
@@ -506,13 +505,14 @@ class DiscreteDriver:
 
     def cells(self):
         return [
-            Cell("Driver implementation", "two AP3003 complementary MOSFET packages per coil"),
-            Cell("Driver control implementation", "Diodes 74AHCT595 shift registers"),
+            Cell("Driver implementation", "24V N-MOSFET full bridges with gate drivers"),
+            Cell("Driver control implementation", "74AHCT595 logic into 3-half-bridge gate drivers"),
             Cell("Dedicated driver channels", self.channels),
             Cell("Discrete half-bridge legs", self.half_bridges),
+            Cell("Gate-driver ICs", self.gate_drivers),
             Cell("Driver current limit", Fixed.driver_channel_current, "A"),
             Cell("MOSFET voltage rating", Fixed.mosfet_voltage_rating, "V"),
-            Cell("Maximum bus for direct gate drive", Fixed.driver_max_bus_voltage, "V"),
+            Cell("MOSFET gate drive", Fixed.gate_drive_voltage, "V"),
             Cell("PWM frequency", Fixed.driver_pwm_frequency / 1000, "kHz"),
             Cell("Per-tile control stream", self.serial_data_rate / 1000000, "Mbit/s"),
             Cell("Control clock rating used", self.serial_clock / 1000000, "Mbit/s"),
@@ -845,6 +845,8 @@ class PowerSupply:
         self.total_load = self.coil_peak_power + self.driver_peak_power + self.electronics_power
         self.required_rating = self.total_load * Fixed.psu_sizing_margin
         self.psu_part, self.supply_rating, self.psu_price, self.psu_url = Fixed.psu_options[config.bus_voltage]
+        self.peak_current = self.total_load / self.bus_voltage
+        self.required_current = self.required_rating / self.bus_voltage
         self.rated_current = self.supply_rating / self.bus_voltage
         self.load_fraction = self.required_rating / self.supply_rating
 
@@ -857,6 +859,8 @@ class PowerSupply:
             Cell("Total peak load", self.total_load, "W"),
             Cell("Required PSU rating (+margin)", self.required_rating, "W"),
             Cell(f"Selected PSU ({self.psu_part})", self.supply_rating, "W"),
+            Cell("Peak bus current", self.peak_current, "A"),
+            Cell("Required bus current (+margin)", self.required_current, "A"),
             Cell("PSU output current", self.rated_current, "A"),
             Cell("PSU load fraction", self.load_fraction, "x"),
         ]
@@ -912,7 +916,7 @@ class StatusChecks:
         self.worst_yaw_authority = self.passes(attitude.worst_yaw_margin >= 1, "OK", "worst-case yaw torque too weak")
         self.rock_controllable = self.passes(stability.control_margin_over_rock >= Inputs.control_loop_bandwidth_margin, "OK", "rock mode too fast for loop")
         self.tilt_observable = self.passes(stability.tip_sense_resolution <= 0.001, "OK", "tilt sensing too coarse")
-        self.driver_voltage = self.passes(config.bus_voltage <= Fixed.driver_max_bus_voltage, "OK", "bus exceeds direct-gate driver limit")
+        self.driver_voltage = self.passes(config.bus_voltage <= Fixed.mosfet_voltage_rating, "OK", "bus exceeds MOSFET voltage rating")
         self.driver_current = self.passes(config.worst_required_current <= Fixed.driver_channel_current, "OK", "required coil current exceeds channel rating")
         self.actuator_rank = self.passes(sim["actuator_rank6"] >= 6, "OK", "actuator matrix not full 6-DOF rank")
         self.hall_observable = self.passes(sim["hall_worst_rank6"] >= 6, "OK", "Hall array cannot observe all 6 DOF across fixed-grid phases")
@@ -932,6 +936,7 @@ class StatusChecks:
         self.tile_compute = self.passes(tiles.tile_headroom >= 1, "OK", "tile MCU overloaded")
         self.cooling_fans_fit = self.passes(thermal.fan_bank_fits, "OK", "cooling fan row does not fit radiator")
         self.psu_adequate = self.passes(psu.required_rating <= psu.supply_rating, "OK", "PSU undersized")
+        self.bus_current = self.passes(psu.required_current <= Fixed.max_bus_current, "OK", "bus current too high")
 
     def cells(self):
         return [
@@ -969,6 +974,7 @@ class StatusChecks:
             Cell("Per-tile-compute check", self.tile_compute),
             Cell("Cooling-fan-fit check", self.cooling_fans_fit),
             Cell("PSU-adequate check", self.psu_adequate),
+            Cell("Bus-current check", self.bus_current),
         ]
 
 
@@ -1015,11 +1021,14 @@ class BillOfMaterials:
     def __init__(self, board, coil, halbach, wire, config, tiles, sensing, thermal):
         coils_per_tile = ceil(coil.total_bodies / tiles.tile_count)
         half_bridges_per_tile = coils_per_tile * coil.half_bridges_per_coil
+        tile_power_mosfets = half_bridges_per_tile * 2
+        tile_gate_drivers = ceil(half_bridges_per_tile / Fixed.gate_driver_half_bridges)
         tile_shift_registers = ceil(coils_per_tile * Fixed.driver_control_bits_per_channel / Fixed.shift_register_outputs)
         tile_driver_passives = half_bridges_per_tile * 2
-        tile_driver_decoupling = tile_shift_registers
+        tile_driver_decoupling = tile_shift_registers + tile_gate_drivers
         tile_driver_solder_joints = (
-            half_bridges_per_tile * 6
+            tile_power_mosfets * 3
+            + tile_gate_drivers * 20
             + tile_shift_registers * 16
             + tile_driver_passives * 2
             + tile_driver_decoupling * 2
@@ -1034,7 +1043,8 @@ class BillOfMaterials:
         self.coils_per_tile = coils_per_tile
 
         self.tile_items = [
-            BomItem("tile", "Driver MOSFET pair", "ALLPOWER AP3003 N+P 30V MOSFET (JLC C2936847)", half_bridges_per_tile, 0.0354, "https://jlcpcb.com/partdetail/3289837-AP3003/C2936847"),
+            BomItem("tile", "Driver power MOSFET", "TECH PUBLIC 20N06 60V N-MOSFET (LCSC C5350878)", tile_power_mosfets, Fixed.power_mosfet_price, "https://www.lcsc.com/product-detail/mosfets_tech-public-20n06_C5350878.html"),
+            BomItem("tile", "Driver gate driver", "EG Micro EG2134 3 half-bridge MOSFET driver (LCSC C480661)", tile_gate_drivers, Fixed.gate_driver_price, "https://www.lcsc.com/product-detail/C480661.html"),
             BomItem("tile", "Driver control", "Diodes 74AHCT595T16-13 8-bit shift register", tile_shift_registers, Fixed.shift_register_price, "https://www.digikey.com/en/products/detail/diodes-incorporated/74AHCT595T16-13/7724637"),
             BomItem("tile", "Driver gate passives", "Gate pull resistors", tile_driver_passives, 0.0010),
             BomItem("tile", "Driver decoupling", "100nF logic bypass capacitors", tile_driver_decoupling, 0.0030),
@@ -1055,7 +1065,7 @@ class BillOfMaterials:
             BomItem("board", "Compute module", "RPi CM5 2GB Lite, SC1556 (57.37 EUR)", 1, 61.96, "https://www.digikey.com/en/products/detail/raspberry-pi/SC1556/25805567"),
             BomItem("board", "Mainboard", "Custom 4-layer carrier (CM5 + power + tile links)", 1, 25.0),
             BomItem("board", "Tile interconnect", "B2B header, mainboard side", tiles.tile_count, 0.45),
-            BomItem("board", "Bus power supply", psu_part, 1, psu_price, psu_url or ""),
+            BomItem("board", "Bus power supply", psu_part, 1, psu_price, psu_url),
         ]
         if thermal.fan_count:
             self.board_items.append(BomItem(
