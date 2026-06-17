@@ -82,7 +82,22 @@ class Fixed:
     driver_mosfet_gate_charge = 30e-9          # C
     gate_drive_voltage = 10                    # V
     logic_gate_voltage = 5                     # V
-    driver_control_bits_per_channel = 4        # count
+    current_command_bits_per_channel = 12      # count
+    current_command_rate = 500                 # Hz
+    current_pwm_resolution_bits = 10           # count
+    current_setpoint_dac_passives_per_channel = current_command_bits_per_channel + 1
+    max_current_command_error = 0.005          # A
+    current_loop_bandwidth = 2000              # Hz
+    min_current_loop_pwm_cycles = 8            # count
+    current_monitor_adc_sample_rate = 500000   # samples/s
+    current_sense_resistance = 0.02            # ohm
+    current_sense_common_mode_voltage = 26     # V
+    current_shunt_price = 0.0438               # USD
+    current_sense_amp_price = 0.1327           # USD
+    current_comparator_channels_per_ic = 2     # count
+    current_comparator_price = 0.0198          # USD
+    current_frontend_passives_per_channel = 2  # count
+    current_frontend_passive_price = 0.0010    # USD
     shift_register_outputs = 8                 # count
     gate_driver_half_bridges = 3               # count
     gate_driver_price = 0.2254                 # USD
@@ -401,6 +416,8 @@ class ConfigurationSweep:
             return False
         if c.bus_voltage > Fixed.mosfet_voltage_rating:
             return False
+        if c.bus_voltage > Fixed.current_sense_common_mode_voltage:
+            return False
         driver = DiscreteDriver(board, coil, c)
         cooling = RadiatorCooling(board, c, driver, Inputs.active_cooling_fans)
         if cooling.cyclic_peak_baseplate_temp > Inputs.max_surface_temperature:
@@ -469,19 +486,21 @@ class DiscreteDriver:
         self.channels = coil.total_bodies
         self.half_bridges = self.channels * coil.half_bridges_per_coil
         self.active_channels = coil.active_windings
-        self.control_bits = self.channels * Fixed.driver_control_bits_per_channel
+        self.current_feedback_channels = self.channels
+        self.control_bits = self.channels * Fixed.current_command_bits_per_channel
         self.gate_drivers = ceil(self.half_bridges / Fixed.gate_driver_half_bridges)
         self.tile_count = ceil(board.motor_width / Fixed.control_tile_side) * ceil(board.motor_height / Fixed.control_tile_side)
         self.channels_per_tile = ceil(self.channels / self.tile_count)
-        self.control_bits_per_tile = self.channels_per_tile * Fixed.driver_control_bits_per_channel
+        self.control_bits_per_tile = self.channels_per_tile * Fixed.current_command_bits_per_channel
         self.shift_registers_per_tile = ceil(self.control_bits_per_tile / Fixed.shift_register_outputs)
         self.shift_registers = self.shift_registers_per_tile * self.tile_count
-        self.serial_data_rate = self.control_bits_per_tile * Fixed.driver_pwm_frequency
+        self.serial_data_rate = self.control_bits_per_tile * Fixed.current_command_rate
         self.serial_clock = min(Fixed.driver_serial_clock, Fixed.shift_register_clock_rating)
         self.serial_headroom = self.serial_clock / self.serial_data_rate
         self.current_squared_sum = config.piece_hover_power * Inputs.pieces_levitating_simultaneously / config.resistance
         self.current_sum_upper_bound = sqrt(self.active_channels * self.current_squared_sum)
         self.conduction_power = self.current_squared_sum * Fixed.driver_hot_resistance
+        self.current_sense_power = self.current_squared_sum * Fixed.current_sense_resistance
         self.switching_power = (
             config.bus_voltage
             * self.current_sum_upper_bound
@@ -501,24 +520,31 @@ class DiscreteDriver:
             * Fixed.logic_gate_voltage ** 2
             * self.serial_data_rate
         )
-        self.total_power = self.conduction_power + self.switching_power + self.gate_power + self.control_power
+        self.total_power = self.conduction_power + self.current_sense_power + self.switching_power + self.gate_power + self.control_power
 
     def cells(self):
         return [
-            Cell("Driver implementation", "24V N-MOSFET full bridges with gate drivers"),
-            Cell("Driver control implementation", "74AHCT595 logic into 3-half-bridge gate drivers"),
+            Cell("Driver implementation", "current-regulated 24V N-MOSFET full bridges"),
+            Cell("Driver control implementation", "setpoint latch + resistor DAC + comparator current loop"),
             Cell("Dedicated driver channels", self.channels),
+            Cell("Current feedback channels", self.current_feedback_channels),
             Cell("Discrete half-bridge legs", self.half_bridges),
             Cell("Gate-driver ICs", self.gate_drivers),
             Cell("Driver current limit", Fixed.driver_channel_current, "A"),
             Cell("MOSFET voltage rating", Fixed.mosfet_voltage_rating, "V"),
+            Cell("Current-sense common-mode limit", Fixed.current_sense_common_mode_voltage, "V"),
             Cell("MOSFET gate drive", Fixed.gate_drive_voltage, "V"),
             Cell("PWM frequency", Fixed.driver_pwm_frequency / 1000, "kHz"),
-            Cell("Per-tile control stream", self.serial_data_rate / 1000000, "Mbit/s"),
+            Cell("Current command bits/channel", Fixed.current_command_bits_per_channel),
+            Cell("Current command refresh", Fixed.current_command_rate, "Hz"),
+            Cell("Current loop bandwidth limit", Fixed.current_loop_bandwidth, "Hz"),
+            Cell("Per-tile current-command stream", self.serial_data_rate / 1000000, "Mbit/s"),
             Cell("Control clock rating used", self.serial_clock / 1000000, "Mbit/s"),
             Cell("Control clock headroom", self.serial_headroom, "x"),
             Cell("Pessimistic hot path resistance", Fixed.driver_hot_resistance, "ohm"),
+            Cell("Current shunt resistance", Fixed.current_sense_resistance, "ohm"),
             Cell("MOSFET conduction loss", self.conduction_power, "W"),
+            Cell("Current-sense shunt loss", self.current_sense_power, "W"),
             Cell("MOSFET switching loss", self.switching_power, "W"),
             Cell("MOSFET gate-drive loss", self.gate_power, "W"),
             Cell("Shift-register dynamic loss", self.control_power, "W"),
@@ -711,7 +737,8 @@ class Control:
     def __init__(self, coil, config, sim):
         self.inductance = self.coil_inductance(config.turns, coil.footprint_area, config.coil_height)
         self.time_constant = (self.inductance / 1000) / config.resistance * 1000
-        self.actuator_bandwidth = 1 / (2 * pi * (self.time_constant / 1000))
+        self.electrical_bandwidth = 1 / (2 * pi * (self.time_constant / 1000))
+        self.actuator_bandwidth = min(self.electrical_bandwidth, Fixed.current_loop_bandwidth)
         self.slew_time = (self.inductance / 1000) * config.operating_current / config.usable_drive_voltage * 1000
         self.instability_time = sim["instability_growth_time"] * 1000
         self.required_bandwidth = Inputs.control_loop_bandwidth_margin / (2 * pi * (self.instability_time / 1000))
@@ -721,7 +748,8 @@ class Control:
         return [
             Cell("Coil inductance (estimate)", self.inductance, "mH"),
             Cell("Electrical time constant L/R", self.time_constant, "ms"),
-            Cell("Actuator current-loop bandwidth", self.actuator_bandwidth, "Hz"),
+            Cell("Electrical L/R bandwidth", self.electrical_bandwidth, "Hz"),
+            Cell("Closed-loop current bandwidth", self.actuator_bandwidth, "Hz"),
             Cell("Current slew time to Imax", self.slew_time, "ms"),
             Cell("Open-loop instability growth time", self.instability_time, "ms"),
             Cell("Required control loop bandwidth", self.required_bandwidth, "Hz"),
@@ -736,10 +764,17 @@ class DriveMatrix:
         self.driver_half_bridges = driver.half_bridges
         self.control_bits = driver.control_bits
         self.shift_registers = driver.shift_registers
+        self.current_feedback_channels = driver.current_feedback_channels
         self.control_bits_per_tile = driver.control_bits_per_tile
         self.serial_data_rate = driver.serial_data_rate
         self.serial_clock = driver.serial_clock
         self.serial_headroom = driver.serial_headroom
+        self.current_command_rate_headroom = Fixed.current_command_rate / control.pose_update_rate
+        self.current_loop_headroom = control.actuator_bandwidth / control.required_bandwidth
+        self.current_pwm_loop_cycles = Fixed.driver_pwm_frequency / Fixed.current_loop_bandwidth
+        self.current_command_resolution = Fixed.driver_channel_current / (2 ** Fixed.current_pwm_resolution_bits)
+        self.current_monitor_reads_per_tile = driver.channels_per_tile * control.pose_update_rate
+        self.current_monitor_headroom = Fixed.current_monitor_adc_sample_rate / self.current_monitor_reads_per_tile
         self.coils_energized = coil.peak_driven_windings
         self.slew_time = control.slew_time
         self.update_period = 1000 / control.pose_update_rate
@@ -751,10 +786,17 @@ class DriveMatrix:
             Cell("Half-bridges per coil", self.half_bridges_per_coil),
             Cell("Driver half-bridges provided", self.driver_half_bridges),
             Cell("Serialized control bits", self.control_bits),
+            Cell("Current feedback channels", self.current_feedback_channels),
             Cell("74AHCT595 shift registers", self.shift_registers),
-            Cell("Per-tile PWM serial data", self.serial_data_rate / 1000000, "Mbit/s"),
+            Cell("Per-tile current-command data", self.serial_data_rate / 1000000, "Mbit/s"),
             Cell("Per-tile SPI clock", self.serial_clock / 1000000, "Mbit/s"),
-            Cell("PWM serial headroom", self.serial_headroom, "x"),
+            Cell("Current-command serial headroom", self.serial_headroom, "x"),
+            Cell("Current command-rate headroom", self.current_command_rate_headroom, "x"),
+            Cell("Current-loop bandwidth headroom", self.current_loop_headroom, "x"),
+            Cell("PWM cycles per current-loop bandwidth", self.current_pwm_loop_cycles),
+            Cell("Current command resolution", self.current_command_resolution * 1000, "mA"),
+            Cell("Current-monitor reads per tile", self.current_monitor_reads_per_tile, "samples/s"),
+            Cell("Current-monitor ADC headroom", self.current_monitor_headroom, "x"),
             Cell("Coils energized at once", self.coils_energized),
             Cell("Current slew time to Imax", self.slew_time, "ms"),
             Cell("Control update period", self.update_period, "ms"),
@@ -917,6 +959,7 @@ class StatusChecks:
         self.rock_controllable = self.passes(stability.control_margin_over_rock >= Inputs.control_loop_bandwidth_margin, "OK", "rock mode too fast for loop")
         self.tilt_observable = self.passes(stability.tip_sense_resolution <= 0.001, "OK", "tilt sensing too coarse")
         self.driver_voltage = self.passes(config.bus_voltage <= Fixed.mosfet_voltage_rating, "OK", "bus exceeds MOSFET voltage rating")
+        self.current_sense_voltage = self.passes(config.bus_voltage <= Fixed.current_sense_common_mode_voltage, "OK", "bus exceeds current-sense common-mode rating")
         self.driver_current = self.passes(config.worst_required_current <= Fixed.driver_channel_current, "OK", "required coil current exceeds channel rating")
         self.actuator_rank = self.passes(sim["actuator_rank6"] >= 6, "OK", "actuator matrix not full 6-DOF rank")
         self.hall_observable = self.passes(sim["hall_worst_rank6"] >= 6, "OK", "Hall array cannot observe all 6 DOF across fixed-grid phases")
@@ -931,7 +974,13 @@ class StatusChecks:
         self.hall_throughput = self.passes(sensing.headroom >= 1, "OK", "tile ADC too slow to scan Hall grid")
         self.hall_resolution = self.passes(sensing.position_resolution_um <= Inputs.position_sense_resolution_um, "OK", "Hall grid too coarse for position resolution")
         self.driver_coverage = self.passes(drive.driver_half_bridges >= coil.total_bodies * coil.half_bridges_per_coil, "OK", "not enough driver half-bridges per coil")
-        self.driver_serial = self.passes(drive.serial_headroom >= 1, "OK", "driver control stream exceeds SPI clock")
+        self.current_feedback = self.passes(drive.current_feedback_channels >= coil.total_bodies, "OK", "not every coil has current feedback")
+        self.current_command_rate = self.passes(drive.current_command_rate_headroom >= 1, "OK", "current command update too slow")
+        self.current_loop = self.passes(drive.current_loop_headroom >= 1, "OK", "current loop too slow")
+        self.current_pwm_loop = self.passes(drive.current_pwm_loop_cycles >= Fixed.min_current_loop_pwm_cycles, "OK", "PWM frequency too low for current loop")
+        self.current_resolution = self.passes(drive.current_command_resolution <= Fixed.max_current_command_error, "OK", "current command resolution too coarse")
+        self.current_monitor = self.passes(drive.current_monitor_headroom >= 1, "OK", "current monitor ADC too slow")
+        self.driver_serial = self.passes(drive.serial_headroom >= 1, "OK", "current-command stream exceeds SPI clock")
         self.drive_slew = self.passes(drive.slew_over_update <= 1, "OK", "current too slow for update period")
         self.tile_compute = self.passes(tiles.tile_headroom >= 1, "OK", "tile MCU overloaded")
         self.cooling_fans_fit = self.passes(thermal.fan_bank_fits, "OK", "cooling fan row does not fit radiator")
@@ -955,6 +1004,7 @@ class StatusChecks:
             Cell("Rock-mode controllable check", self.rock_controllable),
             Cell("Tilt-observable check", self.tilt_observable),
             Cell("Driver-bus-voltage check", self.driver_voltage),
+            Cell("Current-sense-voltage check", self.current_sense_voltage),
             Cell("Driver-channel-current check", self.driver_current),
             Cell("Actuator 6-DOF rank check", self.actuator_rank),
             Cell("Hall 6-DOF observability check", self.hall_observable),
@@ -969,6 +1019,12 @@ class StatusChecks:
             Cell("Hall-throughput check", self.hall_throughput),
             Cell("Hall-grid-resolution check", self.hall_resolution),
             Cell("Driver-coverage check", self.driver_coverage),
+            Cell("Current-feedback-coverage check", self.current_feedback),
+            Cell("Current-command-rate check", self.current_command_rate),
+            Cell("Current-loop-bandwidth check", self.current_loop),
+            Cell("Current-loop-PWM check", self.current_pwm_loop),
+            Cell("Current-command-resolution check", self.current_resolution),
+            Cell("Current-monitor-throughput check", self.current_monitor),
             Cell("Driver-serial-throughput check", self.driver_serial),
             Cell("Drive-slew check", self.drive_slew),
             Cell("Per-tile-compute check", self.tile_compute),
@@ -1023,13 +1079,23 @@ class BillOfMaterials:
         half_bridges_per_tile = coils_per_tile * coil.half_bridges_per_coil
         tile_power_mosfets = half_bridges_per_tile * 2
         tile_gate_drivers = ceil(half_bridges_per_tile / Fixed.gate_driver_half_bridges)
-        tile_shift_registers = ceil(coils_per_tile * Fixed.driver_control_bits_per_channel / Fixed.shift_register_outputs)
+        tile_shift_registers = ceil(coils_per_tile * Fixed.current_command_bits_per_channel / Fixed.shift_register_outputs)
+        tile_current_setpoint_passives = coils_per_tile * Fixed.current_setpoint_dac_passives_per_channel
+        tile_current_shunts = coils_per_tile
+        tile_current_sense_amps = coils_per_tile
+        tile_current_comparators = ceil(coils_per_tile / Fixed.current_comparator_channels_per_ic)
+        tile_current_frontend_passives = coils_per_tile * Fixed.current_frontend_passives_per_channel
         tile_driver_passives = half_bridges_per_tile * 2
-        tile_driver_decoupling = tile_shift_registers + tile_gate_drivers
+        tile_driver_decoupling = tile_shift_registers + tile_gate_drivers + tile_current_sense_amps + tile_current_comparators
         tile_driver_solder_joints = (
             tile_power_mosfets * 3
             + tile_gate_drivers * 20
             + tile_shift_registers * 16
+            + tile_current_setpoint_passives * 2
+            + tile_current_shunts * 2
+            + tile_current_sense_amps * 6
+            + tile_current_comparators * 8
+            + tile_current_frontend_passives * 2
             + tile_driver_passives * 2
             + tile_driver_decoupling * 2
         )
@@ -1045,7 +1111,12 @@ class BillOfMaterials:
         self.tile_items = [
             BomItem("tile", "Driver power MOSFET", "TECH PUBLIC 20N06 60V N-MOSFET (LCSC C5350878)", tile_power_mosfets, Fixed.power_mosfet_price, "https://www.lcsc.com/product-detail/mosfets_tech-public-20n06_C5350878.html"),
             BomItem("tile", "Driver gate driver", "EG Micro EG2134 3 half-bridge MOSFET driver (LCSC C480661)", tile_gate_drivers, Fixed.gate_driver_price, "https://www.lcsc.com/product-detail/C480661.html"),
-            BomItem("tile", "Driver control", "Diodes 74AHCT595T16-13 8-bit shift register", tile_shift_registers, Fixed.shift_register_price, "https://www.digikey.com/en/products/detail/diodes-incorporated/74AHCT595T16-13/7724637"),
+            BomItem("tile", "Current setpoint latch", "Diodes 74AHCT595T16-13 8-bit shift register", tile_shift_registers, Fixed.shift_register_price, "https://www.digikey.com/en/products/detail/diodes-incorporated/74AHCT595T16-13/7724637"),
+            BomItem("tile", "Current setpoint DAC", "12-bit resistor DAC reference network", tile_current_setpoint_passives, Fixed.current_frontend_passive_price),
+            BomItem("tile", "Current shunt", "LR2512D-3W-20mR-1% current sense resistor (LCSC C500741)", tile_current_shunts, Fixed.current_shunt_price, "https://www.lcsc.com/product-detail/C500741.html"),
+            BomItem("tile", "Current sense amp", "TI INA181A2IDBVR bidirectional current-sense amp (LCSC C2058784)", tile_current_sense_amps, Fixed.current_sense_amp_price, "https://www.lcsc.com/product-detail/C2058784.html"),
+            BomItem("tile", "Current comparator", "MSKSEMI LM393 dual comparator (LCSC C5252905)", tile_current_comparators, Fixed.current_comparator_price, "https://www.lcsc.com/product-detail/C5252905.html"),
+            BomItem("tile", "Current front-end passives", "Sense filters and dividers", tile_current_frontend_passives, Fixed.current_frontend_passive_price),
             BomItem("tile", "Driver gate passives", "Gate pull resistors", tile_driver_passives, 0.0010),
             BomItem("tile", "Driver decoupling", "100nF logic bypass capacitors", tile_driver_decoupling, 0.0030),
             BomItem("tile", "Driver SMT assembly", "JLCPCB automated assembly joints", tile_driver_solder_joints, Fixed.smt_assembly_cost_per_joint, "https://jlcpcb.com/help/article/pcb-assembly-faqs"),

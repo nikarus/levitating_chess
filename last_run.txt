@@ -103,7 +103,7 @@ Selected coil configuration
 Configuration sweep (lightest feasible coil per bus voltage)
 ------------------------------------------------------------
    bus V            wire layers  turns   op mA source C  avail x
-      241.75x0.05mm flat     41     41  1352.5     62.8     2.40  <- selected
+      241.75x0.05mm flat     41     41  1352.5     60.2     2.40  <- selected
 
 Wire and thermal
 ----------------
@@ -116,33 +116,40 @@ Wire and thermal
 
 Discrete coil drivers
 ---------------------
-  Driver implementation                     24V N-MOSFET full bridges with gate drivers
-  Driver control implementation             74AHCT595 logic into 3-half-bridge gate drivers
+  Driver implementation                     current-regulated 24V N-MOSFET full bridges
+  Driver control implementation             setpoint latch + resistor DAC + comparator current loop
   Dedicated driver channels                 11337
+  Current feedback channels                 11337
   Discrete half-bridge legs                 22674
   Gate-driver ICs                           7558
   Driver current limit                      2.5 A
   MOSFET voltage rating                     60 V
+  Current-sense common-mode limit           26 V
   MOSFET gate drive                         10 V
   PWM frequency                             20 kHz
-  Per-tile control stream                   25.92 Mbit/s
+  Current command bits/channel              12
+  Current command refresh                   500 Hz
+  Current loop bandwidth limit              2000 Hz
+  Per-tile current-command stream           1.944 Mbit/s
   Control clock rating used                 40 Mbit/s
-  Control clock headroom                    1.5432 x
+  Control clock headroom                    20.5761 x
   Pessimistic hot path resistance           0.08 ohm
+  Current shunt resistance                  0.02 ohm
   MOSFET conduction loss                    168.8117 W
+  Current-sense shunt loss                  42.2029 W
   MOSFET switching loss                     99.7844 W
   MOSFET gate-drive loss                    24.576 W
-  Shift-register dynamic loss               154.3147 W
-  Total driver/control loss                 447.4868 W
-  Serialized control bits                   45348
-  74AHCT595 shift registers                 5670
+  Shift-register dynamic loss               34.7208 W
+  Total driver/control loss                 370.0958 W
+  Serialized control bits                   136044
+  74AHCT595 shift registers                 17010
 
 Passive baseplate and radiator cooling
 --------------------------------------
   Cooling mode                              passive
   Coil heat (all pieces)                    392.0609 W
-  Driver/control heat                       447.4868 W
-  Total pulse heat                          839.5477 W
+  Driver/control heat                       370.0958 W
+  Total pulse heat                          762.1567 W
   Source area (32 piece footprints)         492.8774 cm2
   Source-to-baseplate resistance            0.0293 K/W
   Bottom fins                               64
@@ -153,18 +160,18 @@ Passive baseplate and radiator cooling
   Radiator aluminium mass                   5.3565 kg
   Thermal time constant                     1417.4856 s
   All-piece duty cycle (2s/60s)             0.0323
-  Cyclic peak baseplate temp                43.1327 C
-  Cyclic peak coil/MOSFET temp              67.7284 C
+  Cyclic peak baseplate temp                42.383 C
+  Cyclic peak coil/MOSFET temp              64.7114 C
   Maximum total pulse heat                  1026.0792 W
   Maximum driver/control heat after coils   634.0183 W
-  Thermal power margin                      1.2222 x
+  Thermal power margin                      1.3463 x
 
 Low-noise active radiator cooling
 ---------------------------------
   Cooling mode                              fan-assisted
   Coil heat (all pieces)                    392.0609 W
-  Driver/control heat                       447.4868 W
-  Total pulse heat                          839.5477 W
+  Driver/control heat                       370.0958 W
+  Total pulse heat                          762.1567 W
   Source area (32 piece footprints)         492.8774 cm2
   Source-to-baseplate resistance            0.0293 K/W
   Bottom fins                               64
@@ -175,11 +182,11 @@ Low-noise active radiator cooling
   Radiator aluminium mass                   5.3565 kg
   Thermal time constant                     531.5571 s
   All-piece duty cycle (2s/60s)             0.0323
-  Cyclic peak baseplate temp                38.1577 C
-  Cyclic peak coil/MOSFET temp              62.7534 C
+  Cyclic peak baseplate temp                37.8666 C
+  Cyclic peak coil/MOSFET temp              60.1951 C
   Maximum total pulse heat                  1210.0098 W
   Maximum driver/control heat after coils   817.9489 W
-  Thermal power margin                      1.4413 x
+  Thermal power margin                      1.5876 x
   Cooling fans                              3
   Fan size                                  200 mm
   Fan speed                                 550 rpm
@@ -226,7 +233,8 @@ Control feasibility
 -------------------
   Coil inductance (estimate)                0.0348 mH
   Electrical time constant L/R              0.1874 ms
-  Actuator current-loop bandwidth           849.4328 Hz
+  Electrical L/R bandwidth                  849.4328 Hz
+  Closed-loop current bandwidth             849.4328 Hz
   Current slew time to Imax                 0.0022 ms
   Open-loop instability growth time         27.8801 ms
   Required control loop bandwidth           28.5427 Hz
@@ -237,11 +245,18 @@ Drive matrix (position-addressed)
   Drive scheme                              dedicated full H-bridge per coil (bipolar, full Vbus swing)
   Half-bridges per coil                     2
   Driver half-bridges provided              22674
-  Serialized control bits                   45348
-  74AHCT595 shift registers                 5670
-  Per-tile PWM serial data                  25.92 Mbit/s
+  Serialized control bits                   136044
+  Current feedback channels                 11337
+  74AHCT595 shift registers                 17010
+  Per-tile current-command data             1.944 Mbit/s
   Per-tile SPI clock                        40 Mbit/s
-  PWM serial headroom                       1.5432 x
+  Current-command serial headroom           20.5761 x
+  Current command-rate headroom             2.788 x
+  Current-loop bandwidth headroom           29.7601 x
+  PWM cycles per current-loop bandwidth     10
+  Current command resolution                2.4414 mA
+  Current-monitor reads per tile            58105.8861 samples/s
+  Current-monitor ADC headroom              8.605 x
   Coils energized at once                   3072
   Current slew time to Imax                 0.0022 ms
   Control update period                     5.576 ms
@@ -281,15 +296,15 @@ Power supply
 ------------
   Coil lift power (32 pieces)               392.0609 W
   Coil peak power (+thrust)                 588.0913 W
-  Discrete driver peak loss                 671.2302 W
+  Discrete driver peak loss                 555.1437 W
   Electronics overhead                      24.88 W
-  Total peak load                           1284.2015 W
-  Required PSU rating (+margin)             1605.2519 W
+  Total peak load                           1168.1151 W
+  Required PSU rating (+margin)             1460.1438 W
   Selected PSU (4x Mean Well UHP-500-24, 24V 2006W fanless PSU bank)2006.4 W
-  Peak bus current                          53.5084 A
-  Required bus current (+margin)            66.8855 A
+  Peak bus current                          48.6715 A
+  Required bus current (+margin)            60.8393 A
   PSU output current                        83.6 A
-  PSU load fraction                         0.8001 x
+  PSU load fraction                         0.7277 x
 
 Stability and vibration
 -----------------------
@@ -334,6 +349,7 @@ Status checks
   Rock-mode controllable check              OK
   Tilt-observable check                     OK
   Driver-bus-voltage check                  OK
+  Current-sense-voltage check               OK
   Driver-channel-current check              OK
   Actuator 6-DOF rank check                 OK
   Hall 6-DOF observability check            OK
@@ -348,6 +364,12 @@ Status checks
   Hall-throughput check                     OK
   Hall-grid-resolution check                OK
   Driver-coverage check                     OK
+  Current-feedback-coverage check           OK
+  Current-command-rate check                OK
+  Current-loop-bandwidth check              OK
+  Current-loop-PWM check                    OK
+  Current-command-resolution check          OK
+  Current-monitor-throughput check          OK
   Driver-serial-throughput check            OK
   Drive-slew check                          OK
   Per-tile-compute check                    OK
@@ -361,17 +383,22 @@ BOM (per board; listed volume pricing, 100-board order)
   [A] Per tile (one 10x10cm coil-array module)
   Driver power MOSFET  TECH PUBLIC 20N06 60V N-MOSFET (LCSC C5350878)qty     1296  $  0.070  $    90.20  https://www.lcsc.com/product-detail/mosfets_tech-public-20n06_C5350878.html
   Driver gate driver   EG Micro EG2134 3 half-bridge MOSFET driver (LCSC C480661)qty      216  $  0.225  $    48.69  https://www.lcsc.com/product-detail/C480661.html
-  Driver control       Diodes 74AHCT595T16-13 8-bit shift register   qty      162  $  0.130  $    21.09  https://www.digikey.com/en/products/detail/diodes-incorporated/74AHCT595T16-13/7724637
+  Current setpoint latchDiodes 74AHCT595T16-13 8-bit shift register   qty      486  $  0.130  $    63.28  https://www.digikey.com/en/products/detail/diodes-incorporated/74AHCT595T16-13/7724637
+  Current setpoint DAC 12-bit resistor DAC reference network         qty     4212  $  0.001  $     4.21
+  Current shunt        LR2512D-3W-20mR-1% current sense resistor (LCSC C500741)qty      324  $  0.044  $    14.19  https://www.lcsc.com/product-detail/C500741.html
+  Current sense amp    TI INA181A2IDBVR bidirectional current-sense amp (LCSC C2058784)qty      324  $  0.133  $    42.99  https://www.lcsc.com/product-detail/C2058784.html
+  Current comparator   MSKSEMI LM393 dual comparator (LCSC C5252905) qty      162  $  0.020  $     3.21  https://www.lcsc.com/product-detail/C5252905.html
+  Current front-end passivesSense filters and dividers                    qty      648  $  0.001  $     0.65
   Driver gate passives Gate pull resistors                           qty     1296  $  0.001  $     1.30
-  Driver decoupling    100nF logic bypass capacitors                 qty      378  $  0.003  $     1.13
-  Driver SMT assembly  JLCPCB automated assembly joints              qty    14148  $  0.002  $    24.05  https://jlcpcb.com/help/article/pcb-assembly-faqs
+  Driver decoupling    100nF logic bypass capacitors                 qty     1188  $  0.003  $     3.56
+  Driver SMT assembly  JLCPCB automated assembly joints              qty    34560  $  0.002  $    58.75  https://jlcpcb.com/help/article/pcb-assembly-faqs
   Magnet wire          UEW 0.04mm Cu (kg share)                      qty   0.2395  $ 18.740  $     4.49  https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html
   Hall position sensor Diodes AH49ENTR-G1 linear Hall (LCSC C314698) qty      225  $  0.207  $    46.51  https://www.lcsc.com/product-detail/C314698.html
   Hall readout mux     CD74HC4067M96 16ch analog                     qty       15  $  0.341  $     5.11  https://www.digikey.com/en/products/detail/texas-instruments/CD74HC4067M96/1507236
   Tile PCB             4-layer FR4 10x10cm                           qty      100  $  0.020  $     2.00
   Tile control MCU     STM32G431KBT6 32-pin                          qty        1  $  3.130  $     3.13  https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G431KBT6/10231564
   Backplane connector  B2B header, tile->mainboard                   qty        1  $  0.450  $     0.45
-  PER-TILE SUBTOTAL                                                                          $   248.14
+  PER-TILE SUBTOTAL                                                                          $   392.71
 
   [B] Per piece (chess piece)
   NdFeB magnet block   N52 4mm cube                                  qty       16  $  0.037  $     0.60  https://www.alibaba.com/product-detail/Customized-Rare-Earth-Neodymium-Magnets-N52_1601519228921.html
@@ -387,7 +414,7 @@ BOM (per board; listed volume pricing, 100-board order)
   SHARED SUBTOTAL                                                                            $   599.36
 
   Board roll-up
-  Tiles                35 x $248.14                                                          $  8685.07
+  Tiles                35 x $392.71                                                          $ 13744.97
   Pieces               32 x $2.00                                                            $    64.00
   Board-shared                                                                               $   599.36
-  BOARD TOTAL                                                                                $  9348.43
+  BOARD TOTAL                                                                                $ 14408.33
