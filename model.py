@@ -92,7 +92,7 @@ class Fixed:
     current_monitor_adc_sample_rate = 500000   # samples/s
     current_sense_resistance = 0.02            # ohm
     current_sense_common_mode_voltage = 26     # V
-    current_shunt_price = 0.0438               # USD
+    current_shunt_price = 0.0343               # USD
     current_sense_amp_price = 0.1327           # USD
     current_comparator_channels_per_ic = 2     # count
     current_comparator_price = 0.0198          # USD
@@ -102,9 +102,9 @@ class Fixed:
     gate_driver_half_bridges = 3               # count
     gate_driver_price = 0.2254                 # USD
     power_mosfet_price = 0.0696                # USD
-    shift_register_clock_rating = 90000000     # bits/s
+    shift_register_clock_rating = 25000000     # bits/s
     shift_register_power_capacitance = 42e-12   # F
-    shift_register_price = 0.1302              # USD
+    shift_register_price = 0.0280              # USD
     driver_serial_clock = 40000000             # bits/s
     smt_assembly_cost_per_joint = 0.0017       # USD
     max_bus_current = 80                       # A
@@ -112,6 +112,8 @@ class Fixed:
     hall_sensor_pitch = 6.667                  # mm
     hall_observation_window_side = 4           # count
     hall_sensor_mux_channels = 16              # count
+    hall_sensor_price = 0.2067                 # USD
+    hall_sensor_mux_price = 0.2527             # USD
     hall_adc_sample_rate = 500000              # samples/s
     hall_interpolation_bits = 12               # bits
     windings_per_coil_body = 1                 # count
@@ -550,7 +552,7 @@ class DiscreteDriver:
             Cell("Shift-register dynamic loss", self.control_power, "W"),
             Cell("Total driver/control loss", self.total_power, "W"),
             Cell("Serialized control bits", self.control_bits),
-            Cell("74AHCT595 shift registers", self.shift_registers),
+            Cell("74HC595 shift registers", self.shift_registers),
         ]
 
 
@@ -787,7 +789,7 @@ class DriveMatrix:
             Cell("Driver half-bridges provided", self.driver_half_bridges),
             Cell("Serialized control bits", self.control_bits),
             Cell("Current feedback channels", self.current_feedback_channels),
-            Cell("74AHCT595 shift registers", self.shift_registers),
+            Cell("74HC595 shift registers", self.shift_registers),
             Cell("Per-tile current-command data", self.serial_data_rate / 1000000, "Mbit/s"),
             Cell("Per-tile SPI clock", self.serial_clock / 1000000, "Mbit/s"),
             Cell("Current-command serial headroom", self.serial_headroom, "x"),
@@ -1111,9 +1113,9 @@ class BillOfMaterials:
         self.tile_items = [
             BomItem("tile", "Driver power MOSFET", "TECH PUBLIC 20N06 60V N-MOSFET (LCSC C5350878)", tile_power_mosfets, Fixed.power_mosfet_price, "https://www.lcsc.com/product-detail/mosfets_tech-public-20n06_C5350878.html"),
             BomItem("tile", "Driver gate driver", "EG Micro EG2134 3 half-bridge MOSFET driver (LCSC C480661)", tile_gate_drivers, Fixed.gate_driver_price, "https://www.lcsc.com/product-detail/C480661.html"),
-            BomItem("tile", "Current setpoint latch", "Diodes 74AHCT595T16-13 8-bit shift register", tile_shift_registers, Fixed.shift_register_price, "https://www.digikey.com/en/products/detail/diodes-incorporated/74AHCT595T16-13/7724637"),
+            BomItem("tile", "Current setpoint latch", "Gcore GR74HC595 8-bit shift register (LCSC C18164493)", tile_shift_registers, Fixed.shift_register_price, "https://www.lcsc.com/product-detail/C18164493.html"),
             BomItem("tile", "Current setpoint DAC", "12-bit resistor DAC reference network", tile_current_setpoint_passives, Fixed.current_frontend_passive_price),
-            BomItem("tile", "Current shunt", "LR2512D-3W-20mR-1% current sense resistor (LCSC C500741)", tile_current_shunts, Fixed.current_shunt_price, "https://www.lcsc.com/product-detail/C500741.html"),
+            BomItem("tile", "Current shunt", "20mohm 2512 current sense resistor (LCSC C2985717)", tile_current_shunts, Fixed.current_shunt_price, "https://www.lcsc.com/product-detail/C2985717.html"),
             BomItem("tile", "Current sense amp", "TI INA181A2IDBVR bidirectional current-sense amp (LCSC C2058784)", tile_current_sense_amps, Fixed.current_sense_amp_price, "https://www.lcsc.com/product-detail/C2058784.html"),
             BomItem("tile", "Current comparator", "MSKSEMI LM393 dual comparator (LCSC C5252905)", tile_current_comparators, Fixed.current_comparator_price, "https://www.lcsc.com/product-detail/C5252905.html"),
             BomItem("tile", "Current front-end passives", "Sense filters and dividers", tile_current_frontend_passives, Fixed.current_frontend_passive_price),
@@ -1121,8 +1123,8 @@ class BillOfMaterials:
             BomItem("tile", "Driver decoupling", "100nF logic bypass capacitors", tile_driver_decoupling, 0.0030),
             BomItem("tile", "Driver SMT assembly", "JLCPCB automated assembly joints", tile_driver_solder_joints, Fixed.smt_assembly_cost_per_joint, "https://jlcpcb.com/help/article/pcb-assembly-faqs"),
             BomItem("tile", "Magnet wire", "UEW 0.04mm Cu (kg share)", tile_wire_kg, 18.74, "https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html"),
-            BomItem("tile", "Hall position sensor", "Diodes AH49ENTR-G1 linear Hall (LCSC C314698)", tile_hall_sensors, 0.2067, "https://www.lcsc.com/product-detail/C314698.html"),
-            BomItem("tile", "Hall readout mux", "CD74HC4067M96 16ch analog", tile_hall_muxes, 0.3405, "https://www.digikey.com/en/products/detail/texas-instruments/CD74HC4067M96/1507236"),
+            BomItem("tile", "Hall position sensor", "Diodes AH49ENTR-G1 linear Hall (LCSC C314698)", tile_hall_sensors, Fixed.hall_sensor_price, "https://www.lcsc.com/product-detail/C314698.html"),
+            BomItem("tile", "Hall readout mux", "TI CD74HC4067SM96 16ch analog mux (LCSC C98457)", tile_hall_muxes, Fixed.hall_sensor_mux_price, "https://www.lcsc.com/product-detail/C98457.html"),
             BomItem("tile", "Tile PCB", "4-layer FR4 10x10cm", tile_pcb_area_cm2, 0.02),
             BomItem("tile", "Tile control MCU", "STM32G431KBT6 32-pin", 1, 3.13, "https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G431KBT6/10231564"),
             BomItem("tile", "Backplane connector", "B2B header, tile->mainboard", 1, 0.45),

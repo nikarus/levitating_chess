@@ -131,8 +131,8 @@ Discrete coil drivers
   Current command refresh                   500 Hz
   Current loop bandwidth limit              2000 Hz
   Per-tile current-command stream           1.944 Mbit/s
-  Control clock rating used                 40 Mbit/s
-  Control clock headroom                    20.5761 x
+  Control clock rating used                 25 Mbit/s
+  Control clock headroom                    12.8601 x
   Pessimistic hot path resistance           0.08 ohm
   Current shunt resistance                  0.02 ohm
   MOSFET conduction loss                    168.8117 W
@@ -142,7 +142,7 @@ Discrete coil drivers
   Shift-register dynamic loss               34.7208 W
   Total driver/control loss                 370.0958 W
   Serialized control bits                   136044
-  74AHCT595 shift registers                 17010
+  74HC595 shift registers                   17010
 
 Passive baseplate and radiator cooling
 --------------------------------------
@@ -247,10 +247,10 @@ Drive matrix (position-addressed)
   Driver half-bridges provided              22674
   Serialized control bits                   136044
   Current feedback channels                 11337
-  74AHCT595 shift registers                 17010
+  74HC595 shift registers                   17010
   Per-tile current-command data             1.944 Mbit/s
-  Per-tile SPI clock                        40 Mbit/s
-  Current-command serial headroom           20.5761 x
+  Per-tile SPI clock                        25 Mbit/s
+  Current-command serial headroom           12.8601 x
   Current command-rate headroom             2.788 x
   Current-loop bandwidth headroom           29.7601 x
   PWM cycles per current-loop bandwidth     10
@@ -383,9 +383,9 @@ BOM (per board; listed volume pricing, 100-board order)
   [A] Per tile (one 10x10cm coil-array module)
   Driver power MOSFET  TECH PUBLIC 20N06 60V N-MOSFET (LCSC C5350878)qty     1296  $  0.070  $    90.20  https://www.lcsc.com/product-detail/mosfets_tech-public-20n06_C5350878.html
   Driver gate driver   EG Micro EG2134 3 half-bridge MOSFET driver (LCSC C480661)qty      216  $  0.225  $    48.69  https://www.lcsc.com/product-detail/C480661.html
-  Current setpoint latchDiodes 74AHCT595T16-13 8-bit shift register   qty      486  $  0.130  $    63.28  https://www.digikey.com/en/products/detail/diodes-incorporated/74AHCT595T16-13/7724637
+  Current setpoint latchGcore GR74HC595 8-bit shift register (LCSC C18164493)qty      486  $  0.028  $    13.61  https://www.lcsc.com/product-detail/C18164493.html
   Current setpoint DAC 12-bit resistor DAC reference network         qty     4212  $  0.001  $     4.21
-  Current shunt        LR2512D-3W-20mR-1% current sense resistor (LCSC C500741)qty      324  $  0.044  $    14.19  https://www.lcsc.com/product-detail/C500741.html
+  Current shunt        20mohm 2512 current sense resistor (LCSC C2985717)qty      324  $  0.034  $    11.11  https://www.lcsc.com/product-detail/C2985717.html
   Current sense amp    TI INA181A2IDBVR bidirectional current-sense amp (LCSC C2058784)qty      324  $  0.133  $    42.99  https://www.lcsc.com/product-detail/C2058784.html
   Current comparator   MSKSEMI LM393 dual comparator (LCSC C5252905) qty      162  $  0.020  $     3.21  https://www.lcsc.com/product-detail/C5252905.html
   Current front-end passivesSense filters and dividers                    qty      648  $  0.001  $     0.65
@@ -394,11 +394,11 @@ BOM (per board; listed volume pricing, 100-board order)
   Driver SMT assembly  JLCPCB automated assembly joints              qty    34560  $  0.002  $    58.75  https://jlcpcb.com/help/article/pcb-assembly-faqs
   Magnet wire          UEW 0.04mm Cu (kg share)                      qty   0.2395  $ 18.740  $     4.49  https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html
   Hall position sensor Diodes AH49ENTR-G1 linear Hall (LCSC C314698) qty      225  $  0.207  $    46.51  https://www.lcsc.com/product-detail/C314698.html
-  Hall readout mux     CD74HC4067M96 16ch analog                     qty       15  $  0.341  $     5.11  https://www.digikey.com/en/products/detail/texas-instruments/CD74HC4067M96/1507236
+  Hall readout mux     TI CD74HC4067SM96 16ch analog mux (LCSC C98457)qty       15  $  0.253  $     3.79  https://www.lcsc.com/product-detail/C98457.html
   Tile PCB             4-layer FR4 10x10cm                           qty      100  $  0.020  $     2.00
   Tile control MCU     STM32G431KBT6 32-pin                          qty        1  $  3.130  $     3.13  https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G431KBT6/10231564
   Backplane connector  B2B header, tile->mainboard                   qty        1  $  0.450  $     0.45
-  PER-TILE SUBTOTAL                                                                          $   392.71
+  PER-TILE SUBTOTAL                                                                          $   338.65
 
   [B] Per piece (chess piece)
   NdFeB magnet block   N52 4mm cube                                  qty       16  $  0.037  $     0.60  https://www.alibaba.com/product-detail/Customized-Rare-Earth-Neodymium-Magnets-N52_1601519228921.html
@@ -414,7 +414,7 @@ BOM (per board; listed volume pricing, 100-board order)
   SHARED SUBTOTAL                                                                            $   599.36
 
   Board roll-up
-  Tiles                35 x $392.71                                                          $ 13744.97
+  Tiles                35 x $338.65                                                          $ 11852.73
   Pieces               32 x $2.00                                                            $    64.00
   Board-shared                                                                               $   599.36
-  BOARD TOTAL                                                                                $ 14408.33
+  BOARD TOTAL                                                                                $ 12516.09
