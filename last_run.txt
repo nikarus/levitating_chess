@@ -41,6 +41,8 @@ Coil geometry
 Magnet array
 ------------
   Magnet blocks per side                    4
+  Magnet block lateral edge                 5 mm
+  Magnet block thickness                    5 mm
   Magnet block volume                       125 mm3
   Magnet blocks per platform                16
   Magnet block mass                         0.9375 g
@@ -90,6 +92,7 @@ Selected coil configuration
   Available lift force (at limit)           0.8006 N
   Available lift margin                     2.403 x
   Worst-case poses swept                    216
+  Worst-case maximum flight gap             4 mm
   Worst-case max tilt swept                 10 deg
   Worst-case lift force per amp (sim)       0.174 N/A
   Worst-case required lift current          2.4896 A
@@ -354,9 +357,11 @@ Status checks
   Actuator 6-DOF rank check                 OK
   Hall 6-DOF observability check            OK
   Shell-validity check                      OK
+  Flight-gap-range check                    OK
   Coil-height buildable check               OK
   Coil-window non-degenerate check          OK
   Platform-size check                       OK
+  Chess-square-size check                   OK
   Magnet-array-fits-base check              OK
   Neighbour-snap check                      OK
   Control-bandwidth check                   OK
@@ -401,9 +406,9 @@ BOM (per board; listed volume pricing, 100-board order)
   PER-TILE SUBTOTAL                                                                          $   338.65
 
   [B] Per piece (chess piece)
-  NdFeB magnet block   N52 4mm cube                                  qty       16  $  0.037  $     0.60  https://www.alibaba.com/product-detail/Customized-Rare-Earth-Neodymium-Magnets-N52_1601519228921.html
+  NdFeB magnet block   Custom N52 5x5x5mm                            qty       16  $  0.073  $     1.17  https://www.alibaba.com/product-detail/Customized-Rare-Earth-Neodymium-Magnets-N52_1601519228921.html
   Piece plastic / misc 3D print PLA + connectors                     qty        1  $  1.400  $     1.40
-  PER-PIECE SUBTOTAL                                                                         $     2.00
+  PER-PIECE SUBTOTAL                                                                         $     2.57
 
   [C] Board-shared (one per board)
   Compute module       RPi CM5 2GB Lite, SC1556 (57.37 EUR)          qty        1  $ 61.960  $    61.96  https://www.digikey.com/en/products/detail/raspberry-pi/SC1556/25805567
@@ -415,6 +420,6 @@ BOM (per board; listed volume pricing, 100-board order)
 
   Board roll-up
   Tiles                35 x $338.65                                                          $ 11852.73
-  Pieces               32 x $2.00                                                            $    64.00
+  Pieces               32 x $2.57                                                            $    82.30
   Board-shared                                                                               $   599.36
-  BOARD TOTAL                                                                                $ 12516.09
+  BOARD TOTAL                                                                                $ 12534.39

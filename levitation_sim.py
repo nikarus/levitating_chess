@@ -6,21 +6,21 @@ from scipy.optimize import linprog
 
 
 class SimGeometry:
-    def __init__(self, magnet_cube_edge_mm, magnets_per_period, periods_per_side,
-                 magnet_to_coil_distance_mm, plastic_wall_thickness_mm, base_corner_standoff_mm,
-                 square_fill_ratio, remanence, ndfeb_density_g_per_mm3, plastic_density_g_per_mm3,
+    def __init__(self, magnet_lateral_edge_mm, magnet_thickness_mm, magnets_per_period, periods_per_side,
+                 magnet_to_coil_distance_mm, max_flight_gap_mm, plastic_wall_thickness_mm, base_corner_standoff_mm,
+                 remanence, ndfeb_density_g_per_mm3, plastic_density_g_per_mm3,
                  gravity, reference_king_height_mm, reference_king_base_diameter_mm,
                  com_height_fraction, coil_outer_width_mm, coil_outer_length_mm,
                  coil_radial_width_mm, coil_height_mm, control_cells_per_side,
-                 hall_sensor_pitch_mm, hall_observation_window_side,
-                 driver_channel_current, control_loop_bandwidth_margin, target_tilt_deg):
-        self.edge = magnet_cube_edge_mm / 1000
+                 hall_sensor_pitch_mm, hall_observation_window_side, target_tilt_deg):
+        self.magnet_lateral_edge = magnet_lateral_edge_mm / 1000
+        self.magnet_thickness = magnet_thickness_mm / 1000
         self.magnets_per_period = magnets_per_period
         self.periods_per_side = periods_per_side
         self.gap = magnet_to_coil_distance_mm / 1000
+        self.max_flight_gap = max_flight_gap_mm / 1000
         self.wall_thickness = plastic_wall_thickness_mm / 1000
         self.base_corner_standoff = base_corner_standoff_mm / 1000
-        self.square_fill_ratio = square_fill_ratio
         self.remanence = remanence
         self.ndfeb_density = ndfeb_density_g_per_mm3 * 1e6
         self.plastic_density = plastic_density_g_per_mm3 * 1e6
@@ -35,8 +35,6 @@ class SimGeometry:
         self.control_cells_per_side = control_cells_per_side
         self.hall_sensor_pitch = hall_sensor_pitch_mm / 1000
         self.hall_observation_window_side = hall_observation_window_side
-        self.driver_current = driver_channel_current
-        self.control_bandwidth_margin = control_loop_bandwidth_margin
         self.target_tilt_deg = target_tilt_deg
 
 
@@ -70,23 +68,24 @@ def condition_number(matrix):
 
 
 class MagnetLayout:
-    def __init__(self, edge, periods, per_period, remanence):
-        self.edge = edge
+    def __init__(self, lateral_edge, thickness, periods, per_period, remanence):
+        self.lateral_edge = lateral_edge
+        self.thickness = thickness
         self.periods = periods
         self.per_period = per_period
         self.remanence = remanence
 
         self.blocks_per_side = self.periods * self.per_period
-        self.period = self.per_period * self.edge
+        self.period = self.per_period * self.lateral_edge
         self.wavenumber = 2 * np.pi / self.period
-        self.platform_side = self.blocks_per_side * self.edge
+        self.platform_side = self.blocks_per_side * self.lateral_edge
 
-        self.cube_count = 0
+        self.block_count = 0
         self.collection = self.build()
         self.center_of_mass_height = self.compute_center_of_mass_height()
 
     def block_center(self, index):
-        return (index + 0.5 - self.blocks_per_side / 2) * self.edge
+        return (index + 0.5 - self.blocks_per_side / 2) * self.lateral_edge
 
     def block_polarization(self, column_index, row_index):
         x = self.block_center(column_index)
@@ -99,19 +98,19 @@ class MagnetLayout:
         return np.array([0.0, remanence * np.sin(angle), -remanence * np.cos(angle)])
 
     def build(self):
-        cubes = []
+        blocks = []
         for column_index in range(self.blocks_per_side):
             x = self.block_center(column_index)
             for row_index in range(self.blocks_per_side):
                 y = self.block_center(row_index)
                 polarization = snap_to_axis(self.block_polarization(column_index, row_index), self.remanence)
-                cubes.append(magpy.magnet.Cuboid(
-                    dimension=(self.edge, self.edge, self.edge),
+                blocks.append(magpy.magnet.Cuboid(
+                    dimension=(self.lateral_edge, self.lateral_edge, self.thickness),
                     polarization=tuple(polarization),
-                    position=(x, y, self.edge / 2),
+                    position=(x, y, self.thickness / 2),
                 ))
-        self.cube_count = len(cubes)
-        return magpy.Collection(cubes)
+        self.block_count = len(blocks)
+        return magpy.Collection(blocks)
 
     def compute_center_of_mass_height(self):
         base_diameter = self.platform_side * np.sqrt(2)
@@ -120,7 +119,7 @@ class MagnetLayout:
 
     @property
     def magnet_mass(self):
-        return self.cube_count * self.edge ** 3 * G.ndfeb_density
+        return self.block_count * self.lateral_edge ** 2 * self.thickness * G.ndfeb_density
 
     def plane_field(self, samples=41):
         half = self.platform_side / 2
@@ -133,7 +132,7 @@ class MagnetLayout:
 
 
 def magnet_layout_from_geometry():
-    return MagnetLayout(G.edge, G.periods_per_side, G.magnets_per_period, G.remanence)
+    return MagnetLayout(G.magnet_lateral_edge, G.magnet_thickness, G.periods_per_side, G.magnets_per_period, G.remanence)
 
 
 class CoilArray:
@@ -214,18 +213,11 @@ def place_piece(layout, x=0.0, y=0.0, z=0.0, roll=0.0, pitch=0.0, yaw=0.0):
     return collection, center_of_mass
 
 
-def coil_wrench(layout, coil, center_of_mass):
-    force = np.zeros(3)
-    torque = np.zeros(3)
-    for filament in coil:
-        filament_force, filament_torque = getFT(layout.collection, filament, anchor=center_of_mass)
-        force += filament_force
-        torque += filament_torque
-    return -np.concatenate([force, torque])
-
-
 def actuator_matrix(layout, array, center_of_mass):
-    return np.array([coil_wrench(layout, coil, center_of_mass) for coil in array.coils]).T
+    filaments = [filament for coil in array.coils for filament in coil]
+    force_torque = np.asarray(getFT(layout.collection, filaments, anchor=center_of_mass))
+    per_coil = force_torque.reshape(len(array.coils), -1, 6).sum(axis=1)
+    return -per_coil.T
 
 
 def piece_weight(layout):
@@ -303,21 +295,7 @@ def analyze(layout, cells_per_side, weight, characteristic_length,
     return array, Controllability(wrench_matrix, weight, characteristic_length)
 
 
-def hover_current_vector(layout, array, weight):
-    place_piece(layout)
-    center_of_mass = np.array([0, 0, layout.center_of_mass_height])
-    wrench_matrix = actuator_matrix(layout, array, center_of_mass)
-    scaled = wrench_matrix.copy()
-    scaled[3:] = wrench_matrix[3:] / (layout.platform_side / 2)
-    if matrix_rank(scaled) < 6:
-        raise RuntimeError("actuator matrix is not full 6-DOF rank")
-    _, currents = min_peak_current(wrench_matrix, [0, 0, weight, 0, 0, 0])
-    return currents
-
-
-def open_loop_stiffness(layout, array, weight, step=2e-5):
-    currents = hover_current_vector(layout, array, weight)
-
+def open_loop_stiffness(layout, array, currents, step=2e-5):
     def coil_force(dx, dy, dz):
         _, center_of_mass = place_piece(layout, x=dx, y=dy, z=dz)
         wrench_matrix = actuator_matrix(layout, array, center_of_mass)
@@ -376,7 +354,7 @@ def hall_observability(layout, target_tilt_deg):
     circumradius = layout.platform_side / 2 * np.sqrt(2)
     nominal = hall_metrics(hall_jacobian(layout, points, [0, 0, 0, 0, 0, 0]))
     worst = {"min_rank6": 6, "max_cond6": 0.0, "poses": 0}
-    for target_gap in (0.003, 0.004):
+    for target_gap in (G.gap, G.max_flight_gap):
         z = target_gap - G.gap
         geometric_limit = float(np.arcsin(min(0.95, 0.9 * target_gap / circumradius)))
         tilt = min(np.radians(target_tilt_deg), geometric_limit)
@@ -402,12 +380,12 @@ def hall_observability(layout, target_tilt_deg):
     }
 
 
-def neighbour_force(edge, periods, distance, controlled_yaw=0.0, neighbour_yaw=0.0, mesh=(4, 4, 4)):
-    controlled = MagnetLayout(edge, periods, G.magnets_per_period, G.remanence)
+def neighbour_force(lateral_edge, thickness, periods, distance, controlled_yaw=0.0, neighbour_yaw=0.0, mesh=(4, 4, 4)):
+    controlled = MagnetLayout(lateral_edge, thickness, periods, G.magnets_per_period, G.remanence)
     if controlled_yaw:
         controlled.collection.rotate(Rotation.from_euler("z", controlled_yaw),
                                      anchor=(0.0, 0.0, controlled.center_of_mass_height))
-    neighbour = MagnetLayout(edge, periods, G.magnets_per_period, G.remanence)
+    neighbour = MagnetLayout(lateral_edge, thickness, periods, G.magnets_per_period, G.remanence)
     if neighbour_yaw:
         neighbour.collection.rotate(Rotation.from_euler("z", neighbour_yaw),
                                     anchor=(0.0, 0.0, neighbour.center_of_mass_height))
@@ -422,12 +400,12 @@ def neighbour_force(edge, periods, distance, controlled_yaw=0.0, neighbour_yaw=0
     return force_torque[0]
 
 
-def worst_touching_snap(edge, periods, distance):
+def worst_touching_snap(lateral_edge, thickness, periods, distance):
     angles = np.radians(np.arange(0.0, 91.0, 15.0))
     worst_lateral = 0.0
     for controlled_yaw in angles:
         for neighbour_yaw in angles:
-            force = neighbour_force(edge, periods, distance,
+            force = neighbour_force(lateral_edge, thickness, periods, distance,
                                     controlled_yaw=controlled_yaw,
                                     neighbour_yaw=neighbour_yaw)
             worst_lateral = max(worst_lateral, float(np.hypot(force[0], force[1])))
@@ -449,7 +427,7 @@ def pose_coefficients(wrench, weight, characteristic_length):
 
 
 def flight_worst_case(control_cells, weight, characteristic_length, target_tilt_deg,
-                      gaps=(0.003, 0.004), yaws_deg=(0, 45, 90), meshing=12):
+                      gaps, yaws_deg=(0, 45, 90), meshing=12):
     magnet = magnet_layout_from_geometry()
     array = coil_array_from_geometry(control_cells, G.coil_height, 1, meshing, 2, 1)
     circumradius = magnet.platform_side / 2 * np.sqrt(2)
@@ -506,8 +484,11 @@ def coil_height_coupling(magnet, control_cells, heights_m, reference_height_m, m
     reference_lift = lift_at_height(reference_height_m, 1)
     factors = []
     for height in heights_m:
-        axial = min(4, max(1, int(round(height / 0.001))))
-        factors.append(lift_at_height(height, axial) / reference_lift)
+        if height == reference_height_m:
+            factors.append(1.0)
+        else:
+            axial = min(4, max(1, int(round(height / 0.001))))
+            factors.append(lift_at_height(height, axial) / reference_lift)
     place_piece(magnet)
     return factors
 
@@ -523,19 +504,20 @@ def measure(geometry):
                                      characteristic_length, 16, 2, 1, 1)
     _, nominal = pose_coefficients(controllability.wrench_matrix, weight, characteristic_length)
 
-    worst = flight_worst_case(control_cells, weight, characteristic_length, geometry.target_tilt_deg)
+    flight_gaps = (geometry.gap, geometry.max_flight_gap)
+    worst = flight_worst_case(control_cells, weight, characteristic_length, geometry.target_tilt_deg, flight_gaps)
 
-    coupling_heights_mm = [0.5, 1.0, 2.0, 3.0, 4.0, 6.0, 8.0, 10.0, 12.0]
+    coupling_heights_mm = [0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
     coupling_factors = coil_height_coupling(magnet, control_cells,
                                             [h / 1000 for h in coupling_heights_mm],
                                             G.coil_height)
 
-    stiffness, eigenvalues = open_loop_stiffness(magnet, array, weight)
+    stiffness, eigenvalues = open_loop_stiffness(magnet, array, controllability.current6)
     unstable = eigenvalues[eigenvalues < 0]
     instability_growth_time = 1.0 / np.sqrt(np.abs(unstable).max() / (weight / geometry.gravity))
 
     base_diameter = magnet.platform_side * np.sqrt(2) + 2 * G.base_corner_standoff
-    neighbour_snap_force = worst_touching_snap(geometry.edge, geometry.periods_per_side, base_diameter)
+    neighbour_snap_force = worst_touching_snap(geometry.magnet_lateral_edge, geometry.magnet_thickness, geometry.periods_per_side, base_diameter)
 
     hall = hall_observability(magnet, geometry.target_tilt_deg)
 
@@ -560,6 +542,7 @@ def measure(geometry):
         "hall_sensor_pitch": hall["sensor_pitch"],
         "hall_observation_window_side": hall["observation_window_side"],
         "worst_case_poses": worst["poses"],
+        "worst_case_max_gap": max(flight_gaps),
         "worst_case_max_tilt_deg": worst["max_tilt_deg"],
         "worst_lift_force_per_ampere_turn": worst["min_lift_per_at"],
         "worst_lateral_force_per_ampere_turn": worst["min_lateral_per_at"],

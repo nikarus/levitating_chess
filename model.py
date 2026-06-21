@@ -7,12 +7,14 @@ import levitation_sim
 
 
 class Inputs:
-    magnet_cube_edge = 5                       # mm
+    magnet_lateral_edge = 5                    # mm
+    magnet_thickness = 5                       # mm
     magnets_per_period = 4                     # count
     periods_per_side = 1                       # count
     coils_per_period = 4                       # count
     control_cells_per_side = 8                 # count
     magnet_to_coil_distance = 3                # mm
+    max_flight_gap = 4                         # mm
     plastic_wall_thickness = 1.0               # mm
     max_hover_duration = 2                     # s
     spot_cooldown_duration = 60                # s
@@ -36,6 +38,7 @@ class Inputs:
 class Fixed:
     base_corner_standoff = 8                   # mm
     square_fill_ratio = 0.8                    # ratio
+    max_chess_square_size = 60                 # mm
     resting_friction_coefficient = 0.4         # ratio
     captured_pieces_total = 32                 # count
     captured_side_areas = 2                    # count
@@ -114,6 +117,7 @@ class Fixed:
     hall_sensor_mux_channels = 16              # count
     hall_sensor_price = 0.2067                 # USD
     hall_sensor_mux_price = 0.2527             # USD
+    magnet_cost_per_kg = 78.125                # USD
     hall_adc_sample_rate = 500000              # samples/s
     hall_interpolation_bits = 12               # bits
     windings_per_coil_body = 1                 # count
@@ -182,7 +186,7 @@ def rectangular_wire(width, thickness):
 
 class BoardGeometry:
     def __init__(self):
-        self.period_length = Inputs.magnets_per_period * Inputs.magnet_cube_edge
+        self.period_length = Inputs.magnets_per_period * Inputs.magnet_lateral_edge
         self.platform_side = Inputs.periods_per_side * self.period_length
         self.base_diameter = self.platform_side * sqrt(2) + 2 * Fixed.base_corner_standoff
         self.square_size = self.base_diameter / Fixed.square_fill_ratio
@@ -268,7 +272,7 @@ class CoilBed:
 class HalbachArray:
     def __init__(self, board, sim):
         self.blocks_per_side = Inputs.periods_per_side * Inputs.magnets_per_period
-        self.block_volume = Inputs.magnet_cube_edge ** 3
+        self.block_volume = Inputs.magnet_lateral_edge ** 2 * Inputs.magnet_thickness
         self.blocks_per_platform = self.blocks_per_side ** 2
         self.block_mass = self.block_volume * Constants.ndfeb_density
         self.magnet_mass = self.blocks_per_platform * self.block_mass
@@ -279,6 +283,8 @@ class HalbachArray:
     def cells(self):
         return [
             Cell("Magnet blocks per side", self.blocks_per_side),
+            Cell("Magnet block lateral edge", Inputs.magnet_lateral_edge, "mm"),
+            Cell("Magnet block thickness", Inputs.magnet_thickness, "mm"),
             Cell("Magnet block volume", self.block_volume, "mm3"),
             Cell("Magnet blocks per platform", self.blocks_per_platform),
             Cell("Magnet block mass", self.block_mass, "g"),
@@ -366,6 +372,7 @@ class CoilConfiguration:
         self.worst_required_current = piece.weight * Inputs.force_safety_factor / self.worst_force_per_amp
         self.worst_piece_hover_power = self.resistance * sim["worst_hover_ampere_turns_squared_sum"] / self.turns ** 2 / self.height_coupling ** 2
         self.worst_case_poses = sim["worst_case_poses"]
+        self.worst_case_max_gap = sim["worst_case_max_gap"] * 1000
         self.worst_case_max_tilt_deg = sim["worst_case_max_tilt_deg"]
         self.total_force = self.operating_current * self.force_per_amp
         self.force_per_body = self.total_force / coil.bodies_under_platform
@@ -395,6 +402,7 @@ class CoilConfiguration:
             Cell("Available lift force (at limit)", self.available_force, "N"),
             Cell("Available lift margin", self.available_margin, "x"),
             Cell("Worst-case poses swept", self.worst_case_poses),
+            Cell("Worst-case maximum flight gap", self.worst_case_max_gap, "mm"),
             Cell("Worst-case max tilt swept", self.worst_case_max_tilt_deg, "deg"),
             Cell("Worst-case lift force per amp (sim)", self.worst_force_per_amp, "N/A"),
             Cell("Worst-case required lift current", self.worst_required_current, "A"),
@@ -966,9 +974,11 @@ class StatusChecks:
         self.actuator_rank = self.passes(sim["actuator_rank6"] >= 6, "OK", "actuator matrix not full 6-DOF rank")
         self.hall_observable = self.passes(sim["hall_worst_rank6"] >= 6, "OK", "Hall array cannot observe all 6 DOF across fixed-grid phases")
         self.shell_validity = self.passes((piece.diameter - 2 * Inputs.plastic_wall_thickness) > 0, "OK", "wall too thick")
+        self.flight_gap = self.passes(Inputs.max_flight_gap >= Inputs.magnet_to_coil_distance, "OK", "maximum flight gap below resting gap")
         self.coil_height = self.passes(config.coil_height <= coil.outer_width, "OK", "coil too tall")
         self.coil_window = self.passes(config.inner_window_width > 0 and config.inner_window_length > 0, "OK", "winding walls overlap, no coil opening")
         self.platform_size = self.passes(20 <= board.platform_side <= 50, "OK", "platform out of range")
+        self.chess_square_size = self.passes(board.square_size <= Fixed.max_chess_square_size, "OK", "chess square too large")
         self.magnet_fits_base = self.passes(board.platform_side <= board.base_diameter, "OK", "magnet array wider than base")
         self.neighbour_snap = self.passes(snap.snap_to_weight <= snap.holding_friction, "OK", "resting pieces magnetically snap")
         self.control_bandwidth = self.passes(control.actuator_bandwidth >= control.required_bandwidth, "OK", "actuator bandwidth too low")
@@ -1011,9 +1021,11 @@ class StatusChecks:
             Cell("Actuator 6-DOF rank check", self.actuator_rank),
             Cell("Hall 6-DOF observability check", self.hall_observable),
             Cell("Shell-validity check", self.shell_validity),
+            Cell("Flight-gap-range check", self.flight_gap),
             Cell("Coil-height buildable check", self.coil_height),
             Cell("Coil-window non-degenerate check", self.coil_window),
             Cell("Platform-size check", self.platform_size),
+            Cell("Chess-square-size check", self.chess_square_size),
             Cell("Magnet-array-fits-base check", self.magnet_fits_base),
             Cell("Neighbour-snap check", self.neighbour_snap),
             Cell("Control-bandwidth check", self.control_bandwidth),
@@ -1130,7 +1142,7 @@ class BillOfMaterials:
             BomItem("tile", "Backplane connector", "B2B header, tile->mainboard", 1, 0.45),
         ]
         self.piece_items = [
-            BomItem("piece", "NdFeB magnet block", "N52 4mm cube", halbach.blocks_per_platform, 0.0375, "https://www.alibaba.com/product-detail/Customized-Rare-Earth-Neodymium-Magnets-N52_1601519228921.html"),
+            BomItem("piece", "NdFeB magnet block", f"Custom N52 {Inputs.magnet_lateral_edge:g}x{Inputs.magnet_lateral_edge:g}x{Inputs.magnet_thickness:g}mm", halbach.blocks_per_platform, halbach.block_mass / 1000 * Fixed.magnet_cost_per_kg, "https://www.alibaba.com/product-detail/Customized-Rare-Earth-Neodymium-Magnets-N52_1601519228921.html"),
             BomItem("piece", "Piece plastic / misc", "3D print PLA + connectors", 1, 1.4),
         ]
         psu_part, _psu_rating, psu_price, psu_url = Fixed.psu_options[config.bus_voltage]
@@ -1161,13 +1173,14 @@ class BillOfMaterials:
 board = BoardGeometry()
 coil = CoilBed(board)
 sim = levitation_sim.measure(levitation_sim.SimGeometry(
-    magnet_cube_edge_mm=Inputs.magnet_cube_edge,
+    magnet_lateral_edge_mm=Inputs.magnet_lateral_edge,
+    magnet_thickness_mm=Inputs.magnet_thickness,
     magnets_per_period=Inputs.magnets_per_period,
     periods_per_side=Inputs.periods_per_side,
     magnet_to_coil_distance_mm=Inputs.magnet_to_coil_distance,
+    max_flight_gap_mm=Inputs.max_flight_gap,
     plastic_wall_thickness_mm=Inputs.plastic_wall_thickness,
     base_corner_standoff_mm=Fixed.base_corner_standoff,
-    square_fill_ratio=Fixed.square_fill_ratio,
     remanence=Constants.ndfeb_remanence_br,
     ndfeb_density_g_per_mm3=Constants.ndfeb_density,
     plastic_density_g_per_mm3=Constants.plastic_density,
@@ -1182,8 +1195,6 @@ sim = levitation_sim.measure(levitation_sim.SimGeometry(
     control_cells_per_side=coil.control_cells_per_side,
     hall_sensor_pitch_mm=Fixed.hall_sensor_pitch,
     hall_observation_window_side=Fixed.hall_observation_window_side,
-    driver_channel_current=Fixed.driver_channel_current,
-    control_loop_bandwidth_margin=Inputs.control_loop_bandwidth_margin,
     target_tilt_deg=Inputs.target_tilt_angle_deg,
 ))
 halbach = HalbachArray(board, sim)
