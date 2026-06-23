@@ -431,7 +431,7 @@ def flight_worst_case(control_cells, weight, characteristic_length, target_tilt_
     magnet = magnet_layout_from_geometry()
     array = coil_array_from_geometry(control_cells, G.coil_height, 1, meshing, 2, 1)
     circumradius = magnet.platform_side / 2 * np.sqrt(2)
-    phase = (0.0, G.coil_short / 4, G.coil_short / 2)
+    phase = (0.0, G.coil_long / 4, G.coil_long / 2)
     worst = {
         "min_rank6": 6, "max_cond6": 0.0,
         "min_lift_per_at": 0.0, "min_lateral_per_at": 0.0,

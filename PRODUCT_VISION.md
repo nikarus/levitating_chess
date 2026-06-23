@@ -12,6 +12,6 @@ C2: The most power consuming action required is when all chess figures must go t
 
 C3: 6 DoF should be supported for all pieces in all cases.
 
-C4: There should be no fans - to create the "magical feeling" everything should happen in silence.
+C4: To create the "magical feeling" everything should happen in silence. If we must have fans they should be very very silent.
 
 C5: Figures must not snap together. We want to make sure that if we put two figures on the powered-off board in the way that bases of these figures touch, then if we move one figure, another figure do not move.

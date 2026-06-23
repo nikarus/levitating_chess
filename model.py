@@ -12,6 +12,8 @@ class Inputs:
     magnets_per_period = 4                     # count
     periods_per_side = 1                       # count
     coils_per_period = 4                       # count
+    coil_outer_length = 15                     # mm
+    winding_radial_width = 1.0                 # mm
     control_cells_per_side = 8                 # count
     magnet_to_coil_distance = 3                # mm
     max_flight_gap = 4                         # mm
@@ -48,9 +50,7 @@ class Fixed:
     reference_king_height = 95                 # mm
     reference_king_base_diameter = 44          # mm
     rectangular_wire_film = 0.012              # mm per side
-    coil_aspect_ratio_target = 2.5             # ratio
     turns_per_radial_layer = 1                 # count
-    winding_radial_width_factor = 0.35         # ratio
     nominal_coil_height_for_field = 1.0        # mm
     potting_thickness = 1.0                    # mm
     potting_thermal_conductivity = 1.0         # W/(m.K)
@@ -132,7 +132,7 @@ class Fixed:
     host_power = 8                             # W
     psu_sizing_margin = 1.25                   # ratio
     psu_options = {
-        24: ("4x Mean Well UHP-500-24, 24V 2006W fanless PSU bank", 2006.4, 376.80, "https://www.digikey.com/en/products/detail/mean-well-usa-inc/UHP-500-24/8324036"),
+        24: ("3x Mean Well UHP-500-24, 24V 1505W fanless PSU bank", 1504.8, 282.60, "https://www.digikey.com/en/products/detail/mean-well-usa-inc/UHP-500-24/8324036"),
     }
 
 
@@ -218,12 +218,12 @@ class BoardGeometry:
 class CoilBed:
     def __init__(self, board):
         self.outer_width = board.period_length / Inputs.coils_per_period
+        self.outer_length = Inputs.coil_outer_length
         self.columns = Inputs.coils_per_period * Inputs.periods_per_side
-        self.rows = max(1, round(board.platform_side / (Fixed.coil_aspect_ratio_target * self.outer_width)))
-        self.outer_length = board.platform_side / self.rows
+        self.rows = ceil(board.platform_side / self.outer_length)
         self.outer_height = 0.0
         self.aspect_ratio = self.outer_length / self.outer_width
-        self.bodies_per_orientation = self.columns * self.rows
+        self.bodies_per_orientation = ceil(board.platform_side ** 2 / (self.outer_width * self.outer_length))
         self.bodies_under_platform = Fixed.herringbone_orientation_families * self.bodies_per_orientation
         self.control_cells_per_side = Inputs.control_cells_per_side
         self.control_columns = self.control_cells_per_side
@@ -231,9 +231,9 @@ class CoilBed:
         self.control_bed_per_orientation = self.control_columns * self.control_rows
         self.control_bed_bodies = Fixed.herringbone_orientation_families * self.control_bed_per_orientation
         self.footprint_area = self.outer_width * self.outer_length
-        self.winding_radial_width = self.outer_width * Fixed.winding_radial_width_factor
+        self.winding_radial_width = Inputs.winding_radial_width
         self.conductor_radial_width = self.winding_radial_width / Fixed.turns_per_radial_layer
-        self.body_density = self.bodies_under_platform / (board.platform_side ** 2)
+        self.body_density = Fixed.herringbone_orientation_families / (self.outer_width * self.outer_length)
         self.coil_spacing = sqrt(1 / self.body_density)
         self.total_bodies = ceil(board.motor_area * self.body_density)
         self.windings = self.total_bodies * Fixed.windings_per_coil_body
@@ -416,8 +416,8 @@ class CoilConfiguration:
 
 
 class ConfigurationSweep:
-    def copper_proxy(self, c):
-        return c.length_per_winding * c.cross_section_area
+    def electrical_power_proxy(self, board, coil, c):
+        return WireThermal(coil, c).all_pieces_power + DiscreteDriver(board, coil, c).total_power
 
     def is_feasible(self, board, coil, halbach, piece, sim, c):
         if c.inner_window_width <= 0 or c.inner_window_length <= 0:
@@ -463,12 +463,12 @@ class ConfigurationSweep:
         self.feasible = [c for c in self.configurations if self.is_feasible(board, coil, halbach, piece, sim, c)]
         if not self.feasible:
             raise RuntimeError("NO FEASIBLE CONFIGURATION FOUND - no selected coil configuration")
-        self.selected = min(self.feasible, key=self.copper_proxy)
+        self.selected = min(self.feasible, key=lambda c: self.electrical_power_proxy(board, coil, c))
         self.best_per_voltage = []
         for bus_voltage in Constants.standard_bus_voltages:
             candidates = [c for c in self.feasible if c.bus_voltage == bus_voltage]
             if candidates:
-                self.best_per_voltage.append(min(candidates, key=self.copper_proxy))
+                self.best_per_voltage.append(min(candidates, key=lambda c: self.electrical_power_proxy(board, coil, c)))
 
 
 class WireThermal:
@@ -1172,7 +1172,7 @@ class BillOfMaterials:
 
 board = BoardGeometry()
 coil = CoilBed(board)
-sim = levitation_sim.measure(levitation_sim.SimGeometry(
+sim_geometry = levitation_sim.SimGeometry(
     magnet_lateral_edge_mm=Inputs.magnet_lateral_edge,
     magnet_thickness_mm=Inputs.magnet_thickness,
     magnets_per_period=Inputs.magnets_per_period,
@@ -1196,7 +1196,8 @@ sim = levitation_sim.measure(levitation_sim.SimGeometry(
     hall_sensor_pitch_mm=Fixed.hall_sensor_pitch,
     hall_observation_window_side=Fixed.hall_observation_window_side,
     target_tilt_deg=Inputs.target_tilt_angle_deg,
-))
+)
+sim = levitation_sim.measure(sim_geometry)
 halbach = HalbachArray(board, sim)
 piece = Piece(board, halbach)
 snap = NeighbourSnap(board, piece, halbach, sim)
@@ -1242,7 +1243,7 @@ def print_section(title, cells):
 
 def print_sweep(sweep):
     print()
-    title = "Configuration sweep (lightest feasible coil per bus voltage)"
+    title = "Configuration sweep (lowest-power feasible coil per bus voltage)"
     print(title)
     print("-" * len(title))
     print(f"  {'bus V':>6}{'wire':>16}{'layers':>7}{'turns':>7}{'op mA':>8}{'source C':>9}{'avail x':>9}")
