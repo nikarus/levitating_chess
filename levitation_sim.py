@@ -12,7 +12,8 @@ class SimGeometry:
                  gravity, reference_king_height_mm, reference_king_base_diameter_mm,
                  com_height_fraction, coil_outer_width_mm, coil_outer_length_mm,
                  coil_radial_width_mm, coil_height_mm, control_cells_per_side,
-                 hall_sensor_pitch_mm, hall_observation_window_side, target_tilt_deg):
+                 hall_sensor_pitch_mm, hall_observation_window_side, target_tilt_deg,
+                 pcb_thickness_mm, hall_package_standoff_mm):
         self.magnet_lateral_edge = magnet_lateral_edge_mm / 1000
         self.magnet_thickness = magnet_thickness_mm / 1000
         self.magnets_per_period = magnets_per_period
@@ -36,6 +37,8 @@ class SimGeometry:
         self.hall_sensor_pitch = hall_sensor_pitch_mm / 1000
         self.hall_observation_window_side = hall_observation_window_side
         self.target_tilt_deg = target_tilt_deg
+        self.pcb_thickness = pcb_thickness_mm / 1000
+        self.hall_standoff = hall_package_standoff_mm / 1000
 
 
 AXIS_DIRECTIONS = np.array(
@@ -113,7 +116,7 @@ class MagnetLayout:
         return magpy.Collection(blocks)
 
     def compute_center_of_mass_height(self):
-        base_diameter = self.platform_side * np.sqrt(2)
+        base_diameter = self.platform_side * np.sqrt(2) + 2 * G.base_corner_standoff
         scale = base_diameter / G.king_base_diameter
         return G.com_height_fraction * G.king_height * scale
 
@@ -242,10 +245,11 @@ def min_peak_current(matrix, target):
     inequality[coil_count:, :coil_count] = -np.eye(coil_count)
     inequality[coil_count:, -1] = -1.0
     equality = np.hstack([np.array(matrix), np.zeros((matrix.shape[0], 1))])
+    equality = np.vstack([equality, np.append(np.ones(coil_count), 0.0)])
     result = linprog(
         objective,
         A_ub=inequality, b_ub=np.zeros(2 * coil_count),
-        A_eq=equality, b_eq=np.array(target),
+        A_eq=equality, b_eq=np.append(np.array(target), 0.0),
         bounds=[(None, None)] * coil_count + [(0, None)],
         method="highs",
     )
@@ -260,8 +264,8 @@ def max_generalized_force(wrench_matrix, objective_row, constrained_rows,
     result = linprog(
         c=-wrench_matrix[objective_row],
         bounds=[(-current_limit, current_limit)] * coil_count,
-        A_eq=wrench_matrix[constrained_rows],
-        b_eq=constrained_values,
+        A_eq=np.vstack([wrench_matrix[constrained_rows], np.ones((1, coil_count))]),
+        b_eq=np.append(np.array(constrained_values, dtype=float), 0.0),
         method="highs",
     )
     if not result.success:
@@ -340,24 +344,32 @@ def hall_jacobian(layout, points, pose):
 
 
 def hall_metrics(jacobian):
-    return {
-        "rank6": int(np.linalg.matrix_rank(jacobian, tol=np.abs(jacobian).max() * 1e-6)),
-        "cond6": condition_number(jacobian),
-    }
+    rank6 = int(np.linalg.matrix_rank(jacobian, tol=np.abs(jacobian).max() * 1e-6))
+    metrics = {"rank6": rank6, "cond6": condition_number(jacobian)}
+    if rank6 >= 6:
+        covariance = np.linalg.inv(jacobian.T @ jacobian)
+        metrics["position_noise_gain"] = float(np.sqrt(np.max(np.diag(covariance)[:3])))
+        metrics["tilt_noise_gain"] = float(np.sqrt(np.max(np.diag(covariance)[3:5])))
+    return metrics
 
 
-def hall_observability(layout, target_tilt_deg):
+def rim_tilt_limit(layout, target_gap):
+    base_radius = layout.platform_side / 2 * np.sqrt(2) + G.base_corner_standoff
+    surface_clearance = target_gap - G.gap
+    return float(np.arcsin(min(0.95, max(0.0, surface_clearance) / base_radius)))
+
+
+def hall_observability(layout, target_tilt_deg, plane_z):
     sensor_pitch = G.hall_sensor_pitch
     window_side = G.hall_observation_window_side
-    points = local_hall_points(sensor_pitch, window_side, -G.gap)
+    points = local_hall_points(sensor_pitch, window_side, plane_z)
     phase = (0.0, sensor_pitch / 4, sensor_pitch / 2)
-    circumradius = layout.platform_side / 2 * np.sqrt(2)
     nominal = hall_metrics(hall_jacobian(layout, points, [0, 0, 0, 0, 0, 0]))
-    worst = {"min_rank6": 6, "max_cond6": 0.0, "poses": 0}
+    worst = {"min_rank6": 6, "max_cond6": 0.0, "poses": 0,
+             "max_position_noise_gain": 0.0, "max_tilt_noise_gain": 0.0}
     for target_gap in (G.gap, G.max_flight_gap):
         z = target_gap - G.gap
-        geometric_limit = float(np.arcsin(min(0.95, 0.9 * target_gap / circumradius)))
-        tilt = min(np.radians(target_tilt_deg), geometric_limit)
+        tilt = min(np.radians(target_tilt_deg), rim_tilt_limit(layout, target_gap))
         for yaw in np.radians((0, 45, 90)):
             for roll, pitch in ((0.0, 0.0), (tilt, 0.0), (0.0, tilt), (tilt, tilt)):
                 for dx in phase:
@@ -366,6 +378,8 @@ def hall_observability(layout, target_tilt_deg):
                         worst["min_rank6"] = min(worst["min_rank6"], metrics["rank6"])
                         if metrics["rank6"] >= 6:
                             worst["max_cond6"] = max(worst["max_cond6"], metrics["cond6"])
+                            worst["max_position_noise_gain"] = max(worst["max_position_noise_gain"], metrics["position_noise_gain"])
+                            worst["max_tilt_noise_gain"] = max(worst["max_tilt_noise_gain"], metrics["tilt_noise_gain"])
                         worst["poses"] += 1
     place_piece(layout)
     return {
@@ -376,8 +390,68 @@ def hall_observability(layout, target_tilt_deg):
         "condition6": nominal["cond6"],
         "worst_rank6": worst["min_rank6"],
         "worst_condition6": worst["max_cond6"],
+        "worst_position_noise_gain": worst["max_position_noise_gain"],
+        "worst_tilt_noise_gain": worst["max_tilt_noise_gain"],
         "worst_poses": worst["poses"],
     }
+
+
+def verified_hall_sensing(control_cells, coil_height_m, ampere_turn_budget):
+    magnet = magnet_layout_from_geometry()
+    weight = piece_weight(magnet)
+    plane_z = -(G.gap + 2 * coil_height_m + G.pcb_thickness + G.hall_standoff)
+    hall = hall_observability(magnet, G.target_tilt_deg, plane_z)
+    points = local_hall_points(G.hall_sensor_pitch, G.hall_observation_window_side, plane_z)
+    place_piece(magnet)
+    signal_peak = float(np.max(np.abs(magnet.collection.getB(points)[:, 2])))
+    axial = min(4, max(1, int(round(coil_height_m / 0.001))))
+    array = coil_array_from_geometry(control_cells, coil_height_m, 1, 8, 2, axial)
+    per_coil_field = np.array([np.sum([filament.getB(points) for filament in coil], axis=0)[:, 2]
+                               for coil in array.coils])
+    _, center_of_mass = place_piece(magnet)
+    wrench = actuator_matrix(magnet, array, center_of_mass)
+    _, hover_currents = min_peak_current(wrench, [0, 0, weight, 0, 0, 0])
+    coil_field_hover = float(np.max(np.abs(per_coil_field.T @ hover_currents)))
+    absolute_column_sum = np.sum(np.abs(per_coil_field), axis=0)
+    coil_field_hover_bound = float(np.max(absolute_column_sum) * np.max(np.abs(hover_currents)))
+    coil_field_budget_bound = float(np.max(absolute_column_sum) * ampere_turn_budget)
+    base_diameter = magnet.platform_side * np.sqrt(2) + 2 * G.base_corner_standoff
+    neighbour = magnet_layout_from_geometry()
+    neighbour.collection.move((base_diameter, 0.0, 0.0))
+    neighbour_field = float(np.max(np.abs(neighbour.collection.getB(points)[:, 2])))
+    place_piece(magnet)
+    return {
+        **hall,
+        "plane_depth_below_magnets": -plane_z,
+        "signal_peak": signal_peak,
+        "coil_field_hover": coil_field_hover,
+        "coil_field_hover_bound": coil_field_hover_bound,
+        "coil_field_budget_bound": coil_field_budget_bound,
+        "neighbour_field": neighbour_field,
+    }
+
+
+def eddy_image_force(plane_z, mesh=(3, 3, 3)):
+    magnet = magnet_layout_from_geometry()
+    place_piece(magnet)
+    image_blocks = []
+    for cube in magnet.collection:
+        px, py, pz = cube.polarization
+        x, y, z = cube.position
+        image_blocks.append(magpy.magnet.Cuboid(
+            dimension=tuple(cube.dimension),
+            polarization=(-px, -py, pz),
+            position=(x, y, 2 * plane_z - z),
+        ))
+    image = magpy.Collection(image_blocks)
+    anchor = np.array([0.0, 0.0, magnet.center_of_mass_height])
+    targets = list(magnet.collection)
+    for cube in targets:
+        cube.meshing = mesh
+    force_torque = np.atleast_2d(getFT(image, targets, anchor=anchor))
+    if force_torque.ndim == 3:
+        return float(force_torque[:, 0, :].sum(axis=0)[2])
+    return float(force_torque[0][2])
 
 
 def neighbour_force(lateral_edge, thickness, periods, distance, controlled_yaw=0.0, neighbour_yaw=0.0, mesh=(4, 4, 4)):
@@ -427,23 +501,24 @@ def pose_coefficients(wrench, weight, characteristic_length):
 
 
 def flight_worst_case(control_cells, weight, characteristic_length, target_tilt_deg,
-                      gaps, yaws_deg=(0, 45, 90), meshing=12):
+                      gaps, yaws_deg=(0, 45, 90), meshing=12, coil_height=None, filaments_axial=1):
     magnet = magnet_layout_from_geometry()
-    array = coil_array_from_geometry(control_cells, G.coil_height, 1, meshing, 2, 1)
-    circumradius = magnet.platform_side / 2 * np.sqrt(2)
+    height = G.coil_height if coil_height is None else coil_height
+    array = coil_array_from_geometry(control_cells, height, 1, meshing, 2, filaments_axial)
     phase = (0.0, G.coil_long / 4, G.coil_long / 2)
     worst = {
         "min_rank6": 6, "max_cond6": 0.0,
         "min_lift_per_at": 0.0, "min_lateral_per_at": 0.0,
         "min_tilt_torque_per_at": 0.0, "min_yaw_torque_per_at": 0.0,
-        "max_hover_sumsq": 0.0, "max_tilt_deg": 0.0, "poses": 0,
+        "max_hover_sumsq": 0.0, "max_tilt_deg": 0.0, "poses": 0, "wrenches": [],
     }
+    level_sumsq_by_gap = []
     for target_gap in gaps:
         z = target_gap - G.gap
-        geometric_limit = float(np.arcsin(min(0.95, 0.9 * target_gap / circumradius)))
-        tilt = min(np.radians(target_tilt_deg), geometric_limit)
+        tilt = min(np.radians(target_tilt_deg), rim_tilt_limit(magnet, target_gap))
         worst["max_tilt_deg"] = max(worst["max_tilt_deg"], np.degrees(tilt))
         tilts = ((0.0, 0.0), (tilt, 0.0), (0.0, tilt), (tilt, tilt))
+        level_sumsq = []
         for yaw in np.radians(yaws_deg):
             for roll, pitch in tilts:
                 for dx in phase:
@@ -451,6 +526,7 @@ def flight_worst_case(control_cells, weight, characteristic_length, target_tilt_
                         _, center_of_mass = place_piece(magnet, x=dx, y=dy, z=z,
                                                         roll=roll, pitch=pitch, yaw=yaw)
                         wrench = actuator_matrix(magnet, array, center_of_mass)
+                        worst["wrenches"].append(wrench)
                         rank6, coeffs = pose_coefficients(wrench, weight, characteristic_length)
                         if worst["poses"] == 0:
                             worst["min_lift_per_at"] = coeffs["lift_per_at"]
@@ -465,8 +541,43 @@ def flight_worst_case(control_cells, weight, characteristic_length, target_tilt_
                         worst["min_tilt_torque_per_at"] = min(worst["min_tilt_torque_per_at"], coeffs["tilt_torque_per_at"])
                         worst["min_yaw_torque_per_at"] = min(worst["min_yaw_torque_per_at"], coeffs["yaw_torque_per_at"])
                         worst["max_hover_sumsq"] = max(worst["max_hover_sumsq"], coeffs["hover_sumsq"])
+                        if roll == 0.0 and pitch == 0.0:
+                            level_sumsq.append(coeffs["hover_sumsq"])
+        level_sumsq_by_gap.append(float(np.mean(level_sumsq)))
+    worst["avg_level_hover_sumsq"] = max(level_sumsq_by_gap)
     place_piece(magnet)
     return worst
+
+
+def coupled_worst_authority(wrenches, weight, ampere_turn_budget):
+    worst = {"lateral": None, "tilt": None, "yaw": None}
+    for wrench in wrenches:
+        lateral = min(
+            max_generalized_force(wrench, 0, [1, 2, 3, 4, 5], [0, weight, 0, 0, 0], ampere_turn_budget),
+            max_generalized_force(wrench, 1, [0, 2, 3, 4, 5], [0, weight, 0, 0, 0], ampere_turn_budget))
+        tilt = min(
+            max_generalized_force(wrench, 3, [0, 1, 2, 4, 5], [0, 0, weight, 0, 0], ampere_turn_budget),
+            max_generalized_force(wrench, 4, [0, 1, 2, 3, 5], [0, 0, weight, 0, 0], ampere_turn_budget))
+        yaw = max_generalized_force(wrench, 5, [0, 1, 2, 3, 4], [0, 0, weight, 0, 0], ampere_turn_budget)
+        for key, value in (("lateral", lateral), ("tilt", tilt), ("yaw", yaw)):
+            if worst[key] is None or value < worst[key]:
+                worst[key] = value
+    return worst
+
+
+def verified_worst_authority(control_cells, coil_height_m, ampere_turn_budget):
+    magnet = magnet_layout_from_geometry()
+    weight = piece_weight(magnet)
+    axial = min(4, max(1, int(round(coil_height_m / 0.001))))
+    worst = flight_worst_case(control_cells, weight, magnet.platform_side / 2, G.target_tilt_deg,
+                              (G.gap, G.max_flight_gap), coil_height=coil_height_m, filaments_axial=axial)
+    coupled = coupled_worst_authority(worst["wrenches"], weight, ampere_turn_budget)
+    return {
+        "lift_margin": worst["min_lift_per_at"] * ampere_turn_budget / weight,
+        "lateral": coupled["lateral"],
+        "tilt": coupled["tilt"],
+        "yaw": coupled["yaw"],
+    }
 
 
 def coil_height_coupling(magnet, control_cells, heights_m, reference_height_m, meshing=8):
@@ -507,7 +618,7 @@ def measure(geometry):
     flight_gaps = (geometry.gap, geometry.max_flight_gap)
     worst = flight_worst_case(control_cells, weight, characteristic_length, geometry.target_tilt_deg, flight_gaps)
 
-    coupling_heights_mm = [0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+    coupling_heights_mm = [0.5, 1.0, 2.0, 3.0, 4.0, 5.0, 7.0, 10.0]
     coupling_factors = coil_height_coupling(magnet, control_cells,
                                             [h / 1000 for h in coupling_heights_mm],
                                             G.coil_height)
@@ -518,8 +629,6 @@ def measure(geometry):
 
     base_diameter = magnet.platform_side * np.sqrt(2) + 2 * G.base_corner_standoff
     neighbour_snap_force = worst_touching_snap(geometry.magnet_lateral_edge, geometry.magnet_thickness, geometry.periods_per_side, base_diameter)
-
-    hall = hall_observability(magnet, geometry.target_tilt_deg)
 
     return {
         "peak_bz": magnet.peak_bz(),
@@ -533,14 +642,6 @@ def measure(geometry):
         "neighbour_snap_force": neighbour_snap_force,
         "actuator_rank6": worst["min_rank6"],
         "actuator_condition6": worst["max_cond6"],
-        "hall_rank6": hall["rank6"],
-        "hall_condition6": hall["condition6"],
-        "hall_worst_rank6": hall["worst_rank6"],
-        "hall_worst_condition6": hall["worst_condition6"],
-        "hall_worst_case_poses": hall["worst_poses"],
-        "hall_sensors_per_piece": hall["sensors_per_piece"],
-        "hall_sensor_pitch": hall["sensor_pitch"],
-        "hall_observation_window_side": hall["observation_window_side"],
         "worst_case_poses": worst["poses"],
         "worst_case_max_gap": max(flight_gaps),
         "worst_case_max_tilt_deg": worst["max_tilt_deg"],
@@ -549,6 +650,7 @@ def measure(geometry):
         "worst_tilt_torque_per_ampere_turn": worst["min_tilt_torque_per_at"],
         "worst_yaw_torque_per_ampere_turn": worst["min_yaw_torque_per_at"],
         "worst_hover_ampere_turns_squared_sum": worst["max_hover_sumsq"],
+        "average_hover_ampere_turns_squared_sum": worst["avg_level_hover_sumsq"],
         "coil_height_coupling_heights_mm": coupling_heights_mm,
         "coil_height_coupling_factors": coupling_factors,
     }

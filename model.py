@@ -1,6 +1,6 @@
 from contextlib import redirect_stdout
 from io import StringIO
-from math import pi, sqrt, exp, ceil, floor, sin, radians, log10
+from math import pi, sqrt, exp, ceil, floor, sin, asin, radians, degrees, log10, log2
 from pathlib import Path
 
 import levitation_sim
@@ -11,30 +11,30 @@ class Inputs:
     magnet_thickness = 5                       # mm
     magnets_per_period = 4                     # count
     periods_per_side = 1                       # count
-    coils_per_period = 4                       # count
+    coils_per_period = 2                       # count
     coil_outer_length = 15                     # mm
     winding_radial_width = 1.0                 # mm
-    control_cells_per_side = 8                 # count
-    magnet_to_coil_distance = 3                # mm
-    max_flight_gap = 4                         # mm
+    control_cells_per_side = 4                 # count
+    magnet_to_coil_distance = 3.5              # mm
+    max_flight_gap = 4.5                       # mm
     plastic_wall_thickness = 1.0               # mm
     max_hover_duration = 2                     # s
     spot_cooldown_duration = 60                # s
     allowed_wire_temp_rise = 40                # K
     force_safety_factor = 1.3                  # ratio
     min_maneuver_accel_g = 0.2                 # g
+    min_visible_hover_height = 3               # mm (piece bottom to playing surface at nominal hover)
     target_tilt_angle_deg = 10                 # deg
     target_tilt_time = 0.3                     # s
     target_yaw_angle_deg = 90                  # deg
     target_yaw_time = 0.5                      # s
-    position_sense_resolution_um = 5           # um
     ambient_temperature = 35                   # C
     max_surface_temperature = 50               # C
     control_loop_bandwidth_margin = 5          # ratio
     pieces_levitating_simultaneously = 32      # count
     drive_look_ahead_factor = 1.5              # ratio
     production_volume = 100                    # boards
-    active_cooling_fans = 3                    # count
+    active_cooling_fans = 0                    # count
 
 
 class Fixed:
@@ -53,15 +53,21 @@ class Fixed:
     turns_per_radial_layer = 1                 # count
     nominal_coil_height_for_field = 1.0        # mm
     potting_thickness = 1.0                    # mm
-    potting_thermal_conductivity = 1.0         # W/(m.K)
-    pcb_via_effective_thermal_conductivity = 5 # W/(m.K)
-    thermal_pad_thickness = 0.5                # mm
-    thermal_pad_conductivity = 5.0             # W/(m.K)
+    potting_thermal_conductivity = 2.5         # W/(m.K) Appli-Thane 7300 class thermal potting
+    potting_cover_thickness = 0.2              # mm (self-leveling skim over coil tops)
+    playing_surface_thickness = 0.1            # mm (UV-printed graphics + clear wear topcoat directly on the potting; no separate sheet)
+    playing_surface_conductivity = 0.2         # W/(m.K) epoxy topcoat
+    piece_bottom_skin = 0.1                    # mm (plated magnets flush, thin conformal coat)
+    surface_flatness_budget = 0.3              # mm (over full board span)
+    max_touch_temperature = 77                 # C (IEC 62368-1 plastic 1-10s brief contact; hotspot is covered by the hovering piece, touchable only during post-departure cooldown)
+    prolonged_touch_temperature = 48           # C (IEC 62368-1 prolonged-contact plastic; idle regions)
+    pcb_via_effective_thermal_conductivity = 10 # W/(m.K) (dense 0.3mm thermal-via array under the coil bed, ~1mm pitch)
+    thermal_pad_conductivity = 5.0             # W/(m.K) premium dispensed gap filler
     baseplate_thickness = 4.0                  # mm
     aluminium_thermal_conductivity = 167       # W/(m.K)
     aluminium_density = 2700                   # kg/m3
     aluminium_heat_capacity = 900              # J/(kg.K)
-    fin_height = 15                            # mm
+    fin_height = 30                            # mm (sized for fanless dissipation at 3.5mm hover gap)
     fin_thickness = 2                          # mm
     fin_channel_width = 8                      # mm
     natural_convection_coefficient = 3         # W/(m2.K)
@@ -77,52 +83,81 @@ class Fixed:
     cooling_fan_mass = 0.370                   # kg
     cooling_fan_price = 39.95                  # USD
     cooling_fan_url = "https://www.coolerguys.com/products/noctua-nf-a20-pwm-200mm-cooling-fan"
-    mosfet_voltage_rating = 60                 # V
-    driver_channel_current = 2.5               # A
+    mosfet_voltage_rating = 40                 # V (right-sized: 24V split rail + switching margin)
+    driver_channel_current = 5.5               # A
     driver_pwm_frequency = 20000               # Hz
     driver_switching_time = 100e-9             # s
     driver_hot_resistance = 0.08               # ohm
     driver_mosfet_gate_charge = 30e-9          # C
     gate_drive_voltage = 10                    # V
     logic_gate_voltage = 5                     # V
-    current_command_bits_per_channel = 12      # count
     current_command_rate = 500                 # Hz
-    current_pwm_resolution_bits = 10           # count
-    current_setpoint_dac_passives_per_channel = current_command_bits_per_channel + 1
+    setpoint_filter_passive_price = 0.0030     # USD per 15.8k + 10nF pair (catalog target; production RFQ needed)
+    setpoint_filter_cutoff = 1000              # Hz
+    max_setpoint_bits = 12                     # count
     max_current_command_error = 0.005          # A
     current_loop_bandwidth = 2000              # Hz
     min_current_loop_pwm_cycles = 8            # count
     current_monitor_adc_sample_rate = 500000   # samples/s
-    current_sense_resistance = 0.02            # ohm
-    current_sense_common_mode_voltage = 26     # V
-    current_shunt_price = 0.0343               # USD
-    current_sense_amp_price = 0.1327           # USD
+    current_sense_resistance = 0.05            # ohm
+    comparator_input_offset = 0.005            # V
+    max_current_offset_fraction = 0.05         # ratio of driver limit
+    current_shunt_price = 0.025                # USD (2W 2512 50mR 1%) [TO BE SOURCED]
+    current_shunt_power_rating = 2             # W
     current_comparator_channels_per_ic = 2     # count
     current_comparator_price = 0.0198          # USD
     current_frontend_passives_per_channel = 2  # count
-    current_frontend_passive_price = 0.0010    # USD
+    current_frontend_passive_price = 0.0012    # USD
+    driver_gate_passive_price = 0.0012         # USD
+    driver_decoupling_price = 0.0197           # USD
     shift_register_outputs = 8                 # count
     gate_driver_half_bridges = 3               # count
     gate_driver_price = 0.2254                 # USD
-    power_mosfet_price = 0.0696                # USD
+    power_mosfet_price = 0.055                 # USD RFQ target (40V dual N-MOSFET SOP-8/PDFN; see BOM_SOURCING.md)
     shift_register_clock_rating = 25000000     # bits/s
     shift_register_power_capacitance = 42e-12   # F
     shift_register_price = 0.0280              # USD
     driver_serial_clock = 40000000             # bits/s
     smt_assembly_cost_per_joint = 0.0017       # USD
-    max_bus_current = 80                       # A
+    max_bus_current = 120                      # A
+    bus_distribution_price = 36.96             # USD
+    rail_clamp_price = 5.0                     # USD (TVS + dump resistor per rail per zone, regen clamp) [TO BE SOURCED]
+    rail_bulk_capacitor_price = 4.0            # USD (low-ESR bulk electrolytic per rail per zone) [TO BE SOURCED]
+    radiator_aluminium_price_per_kg = 12.0     # USD (extruded integral-fin heatsink, RFQ budget)
+    playing_surface_price = 12.0               # USD
+    tile_pcb_price_per_cm2 = 0.01063           # USD
+    tile_connector_header_price = 0.0724       # USD
+    tile_connector_socket_price = 0.1125       # USD
     usable_bus_voltage_fraction = 0.9          # ratio
-    hall_sensor_pitch = 6.667                  # mm
+    hall_sensor_pitch = 12.5                   # mm
     hall_observation_window_side = 4           # count
     hall_sensor_mux_channels = 16              # count
-    hall_sensor_price = 0.2067                 # USD
+    hall_sensor_price = 0.34758                # USD (TI DRV5055A4QDBZR catalog tier; production RFQ needed)
     hall_sensor_mux_price = 0.2527             # USD
-    magnet_cost_per_kg = 78.125                # USD
+    magnet_cost_per_kg = 277.333333333          # USD/kg equivalent of $0.26 per 5mm N52 cube
     hall_adc_sample_rate = 500000              # samples/s
-    hall_interpolation_bits = 12               # bits
+    hall_adc_native_bits = 12                  # bits (MCU SAR ADC native resolution)
+    hall_interpolation_bits = 14               # bits (effective, via oversampling above native)
+    hall_package_standoff = 0.6                # mm (SOT-23 sensing element below PCB underside)
+    hall_power_settle_time = 0.0001            # s (gated sensor group power-up + RC settle before burst)
+    hall_gate_switch_price = 0.0206            # USD (GOODWORK AO3401A catalog tier; production RFQ needed)
+    hall_supply_voltage = 5                    # V
+    hall_supply_current = 0.005                # A max (TI DRV5055A4 at 5V)
+    hall_sensitivity = 12.5                    # V/T (TI DRV5055A4 nominal at 5V)
+    hall_output_noise = 0.0000184              # T rms typical (130nT/sqrtHz * sqrt(20kHz)); not a guaranteed maximum
+    hall_linear_range = 0.169                  # T (TI DRV5055A4 at 5V)
+    coil_field_subtraction_error = 0.005       # ratio (residual after Hall-array self-calibration of coil map + channel offsets, idle-board recalibration)
+    position_error_gap_fraction = 0.1          # ratio (position error budget as fraction of flight gap)
+    pcb_copper_plane_thickness = 0.07          # mm (two 1oz solid planes in the 4-layer tile PCB)
+    radiator_standoff_below_pcb = 1.5          # mm (gap-filler pad thickness; clears SOT-23 Hall bodies under the PCB)
+    max_eddy_drag_fraction = 0.1               # ratio (eddy drag budget vs coupled lateral thrust)
+    radiator_slot_pitch = 5                    # mm (crosshatch eddy-break kerfs, island size)
+    radiator_slot_web_thickness = 0.5          # mm (solid web left at plate bottom under the kerfs)
+    radiator_slotting_price = 200.0            # USD (gang-saw crosshatch kerf pass on extrusion base, mid RFQ budget)
+    potting_epoxy_price = 45.0                 # USD (alumina-filled 2.5 W/mK, coil bed allowance, RFQ budget)
+    gap_filler_pad_price = 150.0               # USD (premium dispensed 5 W/mK gap filler, board area, RFQ budget)
     windings_per_coil_body = 1                 # count
     pcb_thickness = 1.6                        # mm
-    psu_mass_kg = 0.62                         # kg
     frame_enclosure_mass_kg = 1.0              # kg
     board_electronics_mass_kg = 0.3            # kg
     control_tile_side = 100                    # mm
@@ -130,9 +165,12 @@ class Fixed:
     node_mcu_throughput_mflops = 170           # Mflop/s
     tile_mcu_power = 0.4                       # W
     host_power = 8                             # W
-    psu_sizing_margin = 1.25                   # ratio
+    psu_sizing_margin = 1.1                    # ratio (line/aging only: load is already governed worst-case peak with fleet-wide look-ahead)
+    psu_unit_mass_kg = 0.98                    # kg
     psu_options = {
-        24: ("3x Mean Well UHP-500-24, 24V 1505W fanless PSU bank", 1504.8, 282.60, "https://www.digikey.com/en/products/detail/mean-well-usa-inc/UHP-500-24/8324036"),
+        24: ("Mean Well UHP-500-12, provisional isolated +/-12V zones", 500.4, 83.3004, "https://www.digikey.com/en/products/detail/mean-well-usa-inc/UHP-500-12/8324034"),
+        30: ("Mean Well UHP-500-15, series pair = +/-15V split rail", 501.0, 94.20, "https://www.digikey.com/en/products/detail/mean-well-usa-inc/UHP-500-15/8324035"),
+        48: ("Mean Well UHP-500-24, series pair = +/-24V split rail", 501.6, 94.20, "https://www.digikey.com/en/products/detail/mean-well-usa-inc/UHP-500-24/8324036"),
     }
 
 
@@ -142,9 +180,10 @@ class Constants:
     ndfeb_density = 0.0075
     plastic_density = 0.0012
     copper_resistivity = 1.724e-08
+    aluminium_resistivity = 2.82e-08
     copper_density = 8960
     winding_conductor_thicknesses = [0.05, 0.07, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5]
-    standard_bus_voltages = [24]
+    standard_bus_voltages = [24, 30, 48]
     gravity = 9.80665
     vacuum_permeability = 1.25663706e-6
     fr4_density = 0.00185
@@ -240,8 +279,8 @@ class CoilBed:
         self.active_bodies = self.control_bed_bodies * Inputs.pieces_levitating_simultaneously
         self.active_windings = self.active_bodies * Fixed.windings_per_coil_body
         self.peak_driven_windings = ceil(self.active_windings * Inputs.drive_look_ahead_factor)
-        self.half_bridges_per_coil = 2
-        self.drive_voltage_fraction = 1.0
+        self.half_bridges_per_coil = 1
+        self.drive_voltage_fraction = 0.5
 
     def cells(self):
         return [
@@ -365,7 +404,8 @@ class CoilConfiguration:
         self.required_current = piece.weight * Inputs.force_safety_factor / self.force_per_amp
         self.operating_current = self.required_current
         self.hover_current = self.required_current / Inputs.force_safety_factor
-        self.piece_hover_power = self.resistance * sim["hover_ampere_turns_squared_sum"] / self.turns ** 2 / self.height_coupling ** 2
+        self.best_phase_hover_power = self.resistance * sim["hover_ampere_turns_squared_sum"] / self.turns ** 2 / self.height_coupling ** 2
+        self.piece_hover_power = self.resistance * sim["average_hover_ampere_turns_squared_sum"] / self.turns ** 2 / self.height_coupling ** 2
         self.worst_force_per_amp = self.turns * sim["worst_lift_force_per_ampere_turn"] * self.height_coupling
         self.worst_available_force = self.current_limit * self.worst_force_per_amp
         self.worst_available_margin = self.worst_available_force / piece.weight
@@ -408,6 +448,8 @@ class CoilConfiguration:
             Cell("Worst-case required lift current", self.worst_required_current, "A"),
             Cell("Worst-case available lift margin", self.worst_available_margin, "x"),
             Cell("Worst-case hover power (one piece)", self.worst_piece_hover_power, "W"),
+            Cell("Best-phase hover power (one piece)", self.best_phase_hover_power, "W"),
+            Cell("Phase-averaged hover power (one piece)", self.piece_hover_power, "W"),
             Cell("Operating current per winding", self.operating_current, "A"),
             Cell("Lift force per coil body", self.force_per_body, "N"),
             Cell("Total lift force", self.total_force, "N"),
@@ -419,39 +461,42 @@ class ConfigurationSweep:
     def electrical_power_proxy(self, board, coil, c):
         return WireThermal(coil, c).all_pieces_power + DiscreteDriver(board, coil, c).total_power
 
-    def is_feasible(self, board, coil, halbach, piece, sim, c):
+    def first_failed_gate(self, board, coil, halbach, piece, sim, c):
         if c.inner_window_width <= 0 or c.inner_window_length <= 0:
-            return False
+            return "window"
         if c.available_margin < Inputs.force_safety_factor:
-            return False
+            return "lift"
         if c.bus_voltage > Fixed.mosfet_voltage_rating:
-            return False
-        if c.bus_voltage > Fixed.current_sense_common_mode_voltage:
-            return False
+            return "mosfet_voltage"
         driver = DiscreteDriver(board, coil, c)
         cooling = RadiatorCooling(board, c, driver, Inputs.active_cooling_fans)
         if cooling.cyclic_peak_baseplate_temp > Inputs.max_surface_temperature:
-            return False
+            return "baseplate_temp"
         if cooling.cyclic_peak_source_temp > Inputs.ambient_temperature + Inputs.allowed_wire_temp_rise:
-            return False
+            return "source_temp"
+        if SurfaceStack(cooling).hotspot_touch_temperature > Fixed.max_touch_temperature:
+            return "touch_temp"
         prop = Propulsion(board, coil, piece, c, halbach, sim)
         if prop.acceleration_in_g < Inputs.min_maneuver_accel_g:
-            return False
+            return "maneuvering"
         att = AttitudeAuthority(board, piece, c, sim)
         if att.tilt_margin < 1 or att.yaw_margin < 1:
-            return False
+            return "attitude"
         if c.worst_available_margin < Inputs.force_safety_factor:
-            return False
+            return "worst_lift"
         if prop.worst_acceleration_in_g < Inputs.min_maneuver_accel_g:
-            return False
+            return "worst_maneuvering"
         if att.worst_tilt_margin < 1 or att.worst_yaw_margin < 1:
-            return False
+            return "worst_attitude"
         psu = PowerSupply(coil, WireThermal(coil, c), TileControl(board, coil, Control(coil, c, sim)), c, driver, cooling)
         if psu.required_rating > psu.supply_rating:
-            return False
+            return "psu_rating"
         if psu.required_current > Fixed.max_bus_current:
-            return False
-        return True
+            return "bus_current"
+        return None
+
+    def is_feasible(self, board, coil, halbach, piece, sim, c):
+        return self.first_failed_gate(board, coil, halbach, piece, sim, c) is None
 
     def __init__(self, board, coil, halbach, piece, sim):
         self.configurations = [
@@ -462,7 +507,11 @@ class ConfigurationSweep:
         ]
         self.feasible = [c for c in self.configurations if self.is_feasible(board, coil, halbach, piece, sim, c)]
         if not self.feasible:
-            raise RuntimeError("NO FEASIBLE CONFIGURATION FOUND - no selected coil configuration")
+            gates = {}
+            for c in self.configurations:
+                gate = self.first_failed_gate(board, coil, halbach, piece, sim, c)
+                gates[gate] = gates.get(gate, 0) + 1
+            raise RuntimeError(f"NO FEASIBLE CONFIGURATION FOUND - first failed gate tally: {gates}")
         self.selected = min(self.feasible, key=lambda c: self.electrical_power_proxy(board, coil, c))
         self.best_per_voltage = []
         for bus_voltage in Constants.standard_bus_voltages:
@@ -497,18 +546,23 @@ class DiscreteDriver:
         self.half_bridges = self.channels * coil.half_bridges_per_coil
         self.active_channels = coil.active_windings
         self.current_feedback_channels = self.channels
-        self.control_bits = self.channels * Fixed.current_command_bits_per_channel
+        self.control_bits = self.channels
         self.gate_drivers = ceil(self.half_bridges / Fixed.gate_driver_half_bridges)
         self.tile_count = ceil(board.motor_width / Fixed.control_tile_side) * ceil(board.motor_height / Fixed.control_tile_side)
         self.channels_per_tile = ceil(self.channels / self.tile_count)
-        self.control_bits_per_tile = self.channels_per_tile * Fixed.current_command_bits_per_channel
+        self.control_bits_per_tile = self.channels_per_tile
         self.shift_registers_per_tile = ceil(self.control_bits_per_tile / Fixed.shift_register_outputs)
         self.shift_registers = self.shift_registers_per_tile * self.tile_count
-        self.serial_data_rate = self.control_bits_per_tile * Fixed.current_command_rate
         self.serial_clock = min(Fixed.driver_serial_clock, Fixed.shift_register_clock_rating)
+        self.serial_data_rate = self.serial_clock
         self.serial_headroom = self.serial_clock / self.serial_data_rate
+        self.setpoint_frame_rate = self.serial_clock / self.control_bits_per_tile
+        self.setpoint_oversampling_ratio = self.setpoint_frame_rate / (2 * Fixed.setpoint_filter_cutoff)
+        self.effective_setpoint_bits = min(Fixed.max_setpoint_bits, (15 * log2(self.setpoint_oversampling_ratio) - 13) / 6.02)
+        self.setpoint_resolution = Fixed.driver_channel_current / 2 ** self.effective_setpoint_bits
         self.current_squared_sum = config.piece_hover_power * Inputs.pieces_levitating_simultaneously / config.resistance
         self.current_sum_upper_bound = sqrt(self.active_channels * self.current_squared_sum)
+        self.current_offset_error = Fixed.comparator_input_offset / Fixed.current_sense_resistance
         self.conduction_power = self.current_squared_sum * Fixed.driver_hot_resistance
         self.current_sense_power = self.current_squared_sum * Fixed.current_sense_resistance
         self.switching_power = (
@@ -534,18 +588,20 @@ class DiscreteDriver:
 
     def cells(self):
         return [
-            Cell("Driver implementation", "current-regulated 24V N-MOSFET full bridges"),
-            Cell("Driver control implementation", "setpoint latch + resistor DAC + comparator current loop"),
+            Cell("Driver implementation", "current-regulated N-MOSFET half-bridges, split rail"),
+            Cell("Driver control implementation", "delta-sigma PWM-DAC setpoint + low-side comparator current loop"),
             Cell("Dedicated driver channels", self.channels),
             Cell("Current feedback channels", self.current_feedback_channels),
             Cell("Discrete half-bridge legs", self.half_bridges),
             Cell("Gate-driver ICs", self.gate_drivers),
             Cell("Driver current limit", Fixed.driver_channel_current, "A"),
             Cell("MOSFET voltage rating", Fixed.mosfet_voltage_rating, "V"),
-            Cell("Current-sense common-mode limit", Fixed.current_sense_common_mode_voltage, "V"),
+            Cell("Comparator current-offset error", self.current_offset_error * 1000, "mA"),
             Cell("MOSFET gate drive", Fixed.gate_drive_voltage, "V"),
             Cell("PWM frequency", Fixed.driver_pwm_frequency / 1000, "kHz"),
-            Cell("Current command bits/channel", Fixed.current_command_bits_per_channel),
+            Cell("Setpoint frame rate (delta-sigma)", self.setpoint_frame_rate / 1000, "kHz"),
+            Cell("Setpoint oversampling ratio", self.setpoint_oversampling_ratio, "x"),
+            Cell("Effective setpoint bits (delta-sigma)", self.effective_setpoint_bits),
             Cell("Current command refresh", Fixed.current_command_rate, "Hz"),
             Cell("Current loop bandwidth limit", Fixed.current_loop_bandwidth, "Hz"),
             Cell("Per-tile current-command stream", self.serial_data_rate / 1000000, "Mbit/s"),
@@ -573,7 +629,7 @@ class RadiatorCooling:
         self.source_to_baseplate_resistance = (
             Fixed.potting_thickness / 1000 / Fixed.potting_thermal_conductivity
             + Fixed.pcb_thickness / 1000 / Fixed.pcb_via_effective_thermal_conductivity
-            + Fixed.thermal_pad_thickness / 1000 / Fixed.thermal_pad_conductivity
+            + Fixed.radiator_standoff_below_pcb / 1000 / Fixed.thermal_pad_conductivity
             + Fixed.baseplate_thickness / 1000 / Fixed.aluminium_thermal_conductivity
         ) / self.source_area
         self.fin_pitch = (Fixed.fin_thickness + Fixed.fin_channel_width) / 1000
@@ -655,6 +711,39 @@ class RadiatorCooling:
         return cells
 
 
+class SurfaceStack:
+    def __init__(self, thermal):
+        self.cover = Fixed.potting_cover_thickness
+        self.surface = Fixed.playing_surface_thickness
+        self.skin = Fixed.piece_bottom_skin
+        self.stack = self.cover + self.surface + self.skin
+        self.visible_hover = Inputs.magnet_to_coil_distance - self.stack
+        self.visible_flight = Inputs.max_flight_gap - self.stack
+        self.flatness_fraction = Fixed.surface_flatness_budget / self.visible_hover
+        conduction_resistance = (self.cover / 1000 / Fixed.potting_thermal_conductivity
+                                 + self.surface / 1000 / Fixed.playing_surface_conductivity)
+        convection_resistance = 1 / Fixed.natural_convection_coefficient
+        self.hotspot_touch_temperature = Inputs.ambient_temperature + (
+            (thermal.cyclic_peak_source_temp - Inputs.ambient_temperature)
+            * convection_resistance / (conduction_resistance + convection_resistance))
+        self.idle_touch_temperature = thermal.cyclic_peak_baseplate_temp
+
+    def cells(self):
+        return [
+            Cell("Potting cover over coils", self.cover, "mm"),
+            Cell("Playing surface thickness", self.surface, "mm"),
+            Cell("Piece bottom skin", self.skin, "mm"),
+            Cell("Total top stack", self.stack, "mm"),
+            Cell("Visible hover height (nominal)", self.visible_hover, "mm"),
+            Cell("Visible hover height (max flight)", self.visible_flight, "mm"),
+            Cell("Surface flatness budget", Fixed.surface_flatness_budget, "mm"),
+            Cell("Flatness fraction of visible hover", self.flatness_fraction, "x"),
+            Cell("Hotspot surface temp (under levitating piece)", self.hotspot_touch_temperature, "C"),
+            Cell("Idle-region surface temp (prolonged touch)", self.idle_touch_temperature, "C"),
+            Cell("Touch policy", "hotspot is covered by the hovering piece; brief-contact limit applies to post-departure cooldown"),
+        ]
+
+
 class Propulsion:
     def __init__(self, board, coil, piece, config, halbach, sim):
         self.mass = piece.mass / 1000
@@ -704,7 +793,8 @@ class AttitudeAuthority:
         self.com_height = Fixed.com_height_fraction * self.height
         self.lever_arm = board.platform_side / 4 / 1000
         self.tilt_torque_max = sim["tilt_torque_per_ampere_turn"] * config.turns * config.current_limit * config.height_coupling
-        self.tilt_angle = radians(Inputs.target_tilt_angle_deg)
+        self.rim_tilt_limit = asin((Inputs.max_flight_gap - Inputs.magnet_to_coil_distance) / (piece.diameter / 2))
+        self.tilt_angle = min(radians(Inputs.target_tilt_angle_deg), self.rim_tilt_limit)
         self.tilt_inertia = self.mass * (3 * self.radius ** 2 + self.height ** 2) / 12
         self.tilt_accel = 4 * self.tilt_angle / Inputs.target_tilt_time ** 2
         self.tilt_static_torque = self.mass * Constants.gravity * self.com_height * sin(self.tilt_angle)
@@ -726,6 +816,8 @@ class AttitudeAuthority:
         return [
             Cell("Tilt lever arm (footprint)", self.lever_arm * 1000, "mm"),
             Cell("Max tilt torque available (sim)", self.tilt_torque_max, "N.m"),
+            Cell("Rim-touch tilt limit (base vs surface)", degrees(self.rim_tilt_limit), "deg"),
+            Cell("Design tilt angle (capped by rim)", degrees(self.tilt_angle), "deg"),
             Cell("Tilt inertia about diameter", self.tilt_inertia, "kg.m2"),
             Cell("Static torque to hold target tilt", self.tilt_static_torque, "N.m"),
             Cell("Dynamic torque to reach tilt in time", self.tilt_dynamic_torque, "N.m"),
@@ -738,6 +830,82 @@ class AttitudeAuthority:
             Cell("Yaw authority margin", self.yaw_margin, "x"),
             Cell("Worst-case yaw authority margin", self.worst_yaw_margin, "x"),
         ]
+
+
+class CoupledAuthority:
+    def __init__(self, coil, piece, config, attitude):
+        self.ampere_turn_budget = config.turns * config.current_limit
+        authority = levitation_sim.verified_worst_authority(coil.control_cells_per_side, config.coil_height / 1000, self.ampere_turn_budget)
+        self.lift_margin = authority["lift_margin"]
+        self.lateral_force = authority["lateral"]
+        self.acceleration_in_g = self.lateral_force / (piece.mass / 1000) / Constants.gravity
+        self.tilt_torque = authority["tilt"]
+        self.tilt_margin = self.tilt_torque / attitude.tilt_required_torque
+        self.yaw_torque = authority["yaw"]
+        self.yaw_margin = self.yaw_torque / attitude.yaw_required_torque
+
+    def cells(self):
+        return [
+            Cell("Ampere-turn budget per coil (driver limit)", self.ampere_turn_budget, "A.t"),
+            Cell("Verified worst-case lift margin", self.lift_margin, "x"),
+            Cell("Coupled worst lateral force (hover held)", self.lateral_force, "N"),
+            Cell("Coupled worst lateral acceleration", self.acceleration_in_g, "g"),
+            Cell("Coupled worst tilt torque (hover held)", self.tilt_torque, "N.m"),
+            Cell("Coupled worst tilt margin", self.tilt_margin, "x"),
+            Cell("Coupled worst yaw torque (hover held)", self.yaw_torque, "N.m"),
+            Cell("Coupled worst yaw margin", self.yaw_margin, "x"),
+        ]
+
+
+class EddyDrag:
+    def sheet(self, name, depth_mm, resistivity, thickness_mm, speed, loop_factor):
+        characteristic_velocity = 2 * resistivity / (Constants.vacuum_permeability * thickness_mm / 1000)
+        image_force = levitation_sim.eddy_image_force(-depth_mm / 1000)
+        drag = abs(image_force) * speed * characteristic_velocity / (speed ** 2 + characteristic_velocity ** 2) * loop_factor
+        damping = abs(image_force) / characteristic_velocity * loop_factor
+        return name, depth_mm, characteristic_velocity, abs(image_force), drag, damping
+
+    def __init__(self, board, config, piece, coupled):
+        self.mass = piece.mass / 1000
+        self.coupled_acceleration = coupled.lateral_force / self.mass
+        self.traverse_distance = (Constants.board_squares_per_side - 1) * board.square_size / 1000
+        self.design_speed = sqrt(self.coupled_acceleration * self.traverse_distance)
+        self.slot_factor = min(1.0, (Fixed.radiator_slot_pitch / (board.period_length / 2)) ** 2)
+        pcb_plane_depth = Inputs.magnet_to_coil_distance + 2 * config.coil_height + Fixed.pcb_thickness / 2
+        plate_depth = (Inputs.magnet_to_coil_distance + 2 * config.coil_height + Fixed.pcb_thickness
+                       + Fixed.radiator_standoff_below_pcb)
+        slotted_thickness = Fixed.baseplate_thickness - Fixed.radiator_slot_web_thickness
+        web_depth = plate_depth + slotted_thickness
+        self.sheets = [
+            self.sheet("PCB copper planes", pcb_plane_depth, Constants.copper_resistivity, Fixed.pcb_copper_plane_thickness, self.design_speed, 1.0),
+            self.sheet("Radiator plate (crosshatch-slotted)", plate_depth, Constants.aluminium_resistivity, slotted_thickness, self.design_speed, self.slot_factor),
+            self.sheet("Radiator solid bottom web", web_depth, Constants.aluminium_resistivity, Fixed.radiator_slot_web_thickness, self.design_speed, 1.0),
+        ]
+        self.total_drag = sum(s[4] for s in self.sheets)
+        self.total_damping = sum(s[5] for s in self.sheets)
+        self.drag_to_thrust = self.total_drag / coupled.lateral_force
+        self.eddy_heating = self.total_drag * self.design_speed
+        self.damping_rate = self.total_damping / self.mass
+
+    def cells(self):
+        rows = [
+            Cell("Design traverse speed (coupled accel)", self.design_speed, "m/s"),
+            Cell("Crosshatch slot pitch (island size)", Fixed.radiator_slot_pitch, "mm"),
+            Cell("Eddy loop-area slot factor", self.slot_factor, "x"),
+        ]
+        for name, depth, velocity, image_force, drag, damping in self.sheets:
+            rows.append(Cell(f"{name}: depth below magnets", depth, "mm"))
+            rows.append(Cell(f"{name}: characteristic velocity", velocity, "m/s"))
+            rows.append(Cell(f"{name}: image (superconductor) force", image_force * 1000, "mN"))
+            rows.append(Cell(f"{name}: drag at design speed", drag * 1000, "mN"))
+        rows.extend([
+            Cell("Total eddy drag at design speed", self.total_drag * 1000, "mN"),
+            Cell("Drag fraction of coupled lateral thrust", self.drag_to_thrust, "x"),
+            Cell("Total eddy damping coefficient", self.total_damping, "N.s/m"),
+            Cell("Eddy damping rate (c/m)", self.damping_rate, "1/s"),
+            Cell("Eddy heating at design speed", self.eddy_heating * 1000, "mW"),
+        ])
+        return rows
 
 
 class Control:
@@ -769,7 +937,7 @@ class Control:
 
 class DriveMatrix:
     def __init__(self, coil, control, driver, tiles):
-        self.scheme = "dedicated full H-bridge per coil (bipolar, full Vbus swing)"
+        self.scheme = "half-bridge per coil, center-tapped split rail (bipolar, +/-Vbus/2 swing)"
         self.half_bridges_per_coil = coil.half_bridges_per_coil
         self.driver_half_bridges = driver.half_bridges
         self.control_bits = driver.control_bits
@@ -782,7 +950,8 @@ class DriveMatrix:
         self.current_command_rate_headroom = Fixed.current_command_rate / control.pose_update_rate
         self.current_loop_headroom = control.actuator_bandwidth / control.required_bandwidth
         self.current_pwm_loop_cycles = Fixed.driver_pwm_frequency / Fixed.current_loop_bandwidth
-        self.current_command_resolution = Fixed.driver_channel_current / (2 ** Fixed.current_pwm_resolution_bits)
+        self.current_command_resolution = driver.setpoint_resolution
+        self.current_offset_error = driver.current_offset_error
         self.current_monitor_reads_per_tile = driver.channels_per_tile * control.pose_update_rate
         self.current_monitor_headroom = Fixed.current_monitor_adc_sample_rate / self.current_monitor_reads_per_tile
         self.coils_energized = coil.peak_driven_windings
@@ -815,29 +984,48 @@ class DriveMatrix:
 
 
 class HallSensing:
-    def __init__(self, board, control, tiles, sim):
+    def __init__(self, coil, config, control, tiles):
         self.update_rate = control.pose_update_rate
         self.sensor_pitch = Fixed.hall_sensor_pitch
         self.sensors_per_piece = Fixed.hall_observation_window_side ** 2
-        self.sensors_per_tile_side = ceil(Fixed.control_tile_side / self.sensor_pitch)
-        self.sensors_per_tile = self.sensors_per_tile_side ** 2
-        self.total_sensors = self.sensors_per_tile * tiles.tile_count
-        self.muxes_per_tile = ceil(self.sensors_per_tile / Fixed.hall_sensor_mux_channels)
-        self.reads_per_tile = self.sensors_per_tile * self.update_rate
+        self.sensors_per_tile = tiles.hall_sensors_per_tile
+        self.total_sensors = tiles.hall_total_sensors
+        self.muxes_per_tile = tiles.hall_muxes_per_tile
+        self.oversampling_factor = tiles.hall_oversampling_factor
+        self.reads_per_tile = self.sensors_per_tile * self.update_rate * self.oversampling_factor
         self.tile_capacity = Fixed.hall_adc_sample_rate
-        self.headroom = self.tile_capacity / self.reads_per_tile
-        self.position_resolution_um = self.sensor_pitch * 1000 / (2 ** Fixed.hall_interpolation_bits)
-        self.nominal_rank = sim["hall_rank6"]
-        self.nominal_condition = sim["hall_condition6"]
-        self.worst_rank = sim["hall_worst_rank6"]
-        self.worst_condition = sim["hall_worst_condition6"]
-        self.worst_poses = sim["hall_worst_case_poses"]
-        self.observation_window_side = sim["hall_observation_window_side"]
+        self.headroom = 1 / tiles.hall_scan_fraction
+        self.averaging_group_delay_ms = 0.5 * self.oversampling_factor / Fixed.hall_adc_sample_rate * 1000
+        verified = levitation_sim.verified_hall_sensing(coil.control_cells_per_side, config.coil_height / 1000,
+                                                        config.turns * config.current_limit)
+        self.plane_depth = verified["plane_depth_below_magnets"] * 1000
+        self.signal_peak = verified["signal_peak"]
+        self.coil_field_hover = verified["coil_field_hover"]
+        self.coil_field_hover_bound = verified["coil_field_hover_bound"]
+        self.coil_field_budget_bound = verified["coil_field_budget_bound"]
+        self.neighbour_field = verified["neighbour_field"]
+        self.nominal_rank = verified["rank6"]
+        self.nominal_condition = verified["condition6"]
+        self.worst_rank = verified["worst_rank6"]
+        self.worst_condition = verified["worst_condition6"]
+        self.worst_poses = verified["worst_poses"]
+        self.position_noise_gain = verified["worst_position_noise_gain"]
+        self.tilt_noise_gain = verified["worst_tilt_noise_gain"]
+        self.observation_window_side = Fixed.hall_observation_window_side
+        self.adc_quantization_field = Fixed.hall_supply_voltage / 2 ** Fixed.hall_adc_native_bits / Fixed.hall_sensitivity
+        self.field_noise = sqrt(Fixed.hall_output_noise ** 2 + self.adc_quantization_field ** 2 / 12) / sqrt(self.oversampling_factor)
+        self.position_noise_um = self.position_noise_gain * self.field_noise * 1e6
+        self.tilt_noise_mrad = self.tilt_noise_gain * self.field_noise * 1000
+        self.interference_bias_um = self.position_noise_gain * (self.coil_field_hover + self.neighbour_field) * Fixed.coil_field_subtraction_error * 1e6
+        self.total_position_error_um = self.position_noise_um + self.interference_bias_um
+        self.required_position_error_um = Inputs.magnet_to_coil_distance * 1000 * Fixed.position_error_gap_fraction
+        self.saturation_field = self.signal_peak + self.coil_field_hover_bound
 
     def cells(self):
         return [
             Cell("Required update rate", self.update_rate, "Hz"),
             Cell("Hall sensor pitch", self.sensor_pitch, "mm"),
+            Cell("Sensor plane depth below magnets", self.plane_depth, "mm"),
             Cell("Estimator observation window", f"{self.observation_window_side}x{self.observation_window_side}"),
             Cell("Sensors used per piece estimate", self.sensors_per_piece),
             Cell("Fixed-grid worst-case poses", self.worst_poses),
@@ -845,13 +1033,30 @@ class HallSensing:
             Cell("Nominal Hall condition", self.nominal_condition, "x"),
             Cell("Worst fixed-grid Hall rank", self.worst_rank),
             Cell("Worst fixed-grid Hall condition", self.worst_condition, "x"),
+            Cell("Peak magnet signal at sensors", self.signal_peak * 1000, "mT"),
+            Cell("Coil field at sensors (hover, signed)", self.coil_field_hover * 1000, "mT"),
+            Cell("Coil field bound (hover, worst signs)", self.coil_field_hover_bound * 1000, "mT"),
+            Cell("Coil field bound (full driver budget)", self.coil_field_budget_bound * 1000, "mT"),
+            Cell("Neighbour piece field at sensors", self.neighbour_field * 1000, "mT"),
+            Cell("Worst-case saturation field", self.saturation_field * 1000, "mT"),
+            Cell("Hall linear range", Fixed.hall_linear_range * 1000, "mT"),
+            Cell("ADC quantization (field)", self.adc_quantization_field * 1e6, "uT"),
+            Cell("Effective field noise per update", self.field_noise * 1e6, "uT"),
+            Cell("Worst position noise gain", self.position_noise_gain, "m/T"),
+            Cell("Position noise (worst pose)", self.position_noise_um, "um"),
+            Cell("Tilt noise (worst pose)", self.tilt_noise_mrad, "mrad"),
+            Cell("Interference bias after subtraction", self.interference_bias_um, "um"),
+            Cell("Total position error", self.total_position_error_um, "um"),
+            Cell("Position error budget (gap fraction)", self.required_position_error_um, "um"),
             Cell("Sensors per tile", self.sensors_per_tile),
             Cell("Total Hall sensors (board)", self.total_sensors),
+            Cell("Hall array supply power", self.total_sensors * Fixed.hall_supply_current * Fixed.hall_supply_voltage, "W"),
             Cell("Readout muxes per tile", self.muxes_per_tile),
+            Cell("ADC oversampling factor", self.oversampling_factor, "x"),
+            Cell("Sensor averaging group delay", self.averaging_group_delay_ms, "ms"),
             Cell("Reads needed per tile", self.reads_per_tile, "reads/s"),
             Cell("Per-tile ADC capacity", self.tile_capacity, "samples/s"),
-            Cell("Sensing headroom", self.headroom, "x"),
-            Cell("Interpolated position resolution", self.position_resolution_um, "um"),
+            Cell("Scan headroom (incl. gating settle)", self.headroom, "x"),
         ]
 
 
@@ -862,6 +1067,16 @@ class TileControl:
         self.tiles_per_height = ceil(board.motor_height / self.tile_side)
         self.tile_count = self.tiles_per_width * self.tiles_per_height
         self.coils_per_tile = ceil(coil.total_bodies / self.tile_count)
+        self.hall_sensors_per_tile_side = ceil(Fixed.control_tile_side / Fixed.hall_sensor_pitch)
+        self.hall_sensors_per_tile = self.hall_sensors_per_tile_side ** 2
+        self.hall_total_sensors = self.hall_sensors_per_tile * self.tile_count
+        self.hall_muxes_per_tile = ceil(self.hall_sensors_per_tile / Fixed.hall_sensor_mux_channels)
+        self.hall_oversampling_factor = 4 ** max(0, Fixed.hall_interpolation_bits - Fixed.hall_adc_native_bits)
+        self.hall_group_burst_time = Fixed.hall_sensor_mux_channels * self.hall_oversampling_factor / Fixed.hall_adc_sample_rate
+        self.hall_gating_duty = (Fixed.hall_power_settle_time + self.hall_group_burst_time) * control.pose_update_rate
+        self.hall_scan_fraction = self.hall_muxes_per_tile * self.hall_gating_duty
+        self.hall_peak_supply_power = self.hall_total_sensors * Fixed.hall_supply_current * Fixed.hall_supply_voltage
+        self.hall_supply_power = self.hall_peak_supply_power * self.hall_gating_duty
         self.square_area = board.square_size ** 2
         self.max_pieces_per_tile = max(1, ceil(self.tile_side ** 2 / self.square_area))
         self.pose_rate = control.pose_update_rate
@@ -881,6 +1096,11 @@ class TileControl:
             Cell("Per-tile MCU capacity", self.node_capacity / 1e6, "Mflop/s"),
             Cell("Per-tile compute headroom", self.tile_headroom, "x"),
             Cell("Single-MCU compute headroom (rejected)", self.central_headroom, "x"),
+            Cell("Hall gating policy", "per-mux-group high-side switch, powered only during scan burst"),
+            Cell("Hall group burst time", self.hall_group_burst_time * 1000, "ms"),
+            Cell("Hall gating duty", self.hall_gating_duty, "x"),
+            Cell("Hall supply power (peak, all on)", self.hall_peak_supply_power, "W"),
+            Cell("Hall supply power (gated)", self.hall_supply_power, "W"),
         ]
 
 
@@ -893,14 +1113,26 @@ class PowerSupply:
         self.driver_peak_power = driver.total_power * self.thrust_factor
         self.electronics_power = (tiles.tile_count * Fixed.tile_mcu_power
                                   + Fixed.host_power
+                                  + tiles.hall_supply_power
                                   + thermal.fan_power)
         self.total_load = self.coil_peak_power + self.driver_peak_power + self.electronics_power
         self.required_rating = self.total_load * Fixed.psu_sizing_margin
-        self.psu_part, self.supply_rating, self.psu_price, self.psu_url = Fixed.psu_options[config.bus_voltage]
+        self.psu_family, self.unit_rating, self.unit_price, self.psu_url = Fixed.psu_options[config.bus_voltage]
+        self.unit_count = 2 * ceil(self.required_rating / (2 * self.unit_rating))
+        self.psu_part = f"{self.unit_count}x {self.psu_family}"
+        self.supply_rating = self.unit_count * self.unit_rating
+        self.psu_price = self.unit_count * self.unit_price
         self.peak_current = self.total_load / self.bus_voltage
         self.required_current = self.required_rating / self.bus_voltage
         self.rated_current = self.supply_rating / self.bus_voltage
         self.load_fraction = self.required_rating / self.supply_rating
+        self.worst_phase_piece_capacity = (self.supply_rating - self.electronics_power - self.driver_peak_power) / config.worst_piece_hover_power
+        self.zones = self.unit_count // 2
+        self.zone_rating = self.supply_rating / self.zones
+        self.zone_hover_piece_capacity = (self.zone_rating - (self.electronics_power + self.driver_peak_power) / self.zones) / wire.one_piece_power
+        self.zone_required_pieces = Inputs.pieces_levitating_simultaneously / 2
+        self.rail_imbalance_current = sqrt(coil.active_windings) * driver.current_offset_error
+        self.unit_rated_current = self.unit_rating / (self.bus_voltage / 2)
 
     def cells(self):
         return [
@@ -911,15 +1143,27 @@ class PowerSupply:
             Cell("Total peak load", self.total_load, "W"),
             Cell("Required PSU rating (+margin)", self.required_rating, "W"),
             Cell(f"Selected PSU ({self.psu_part})", self.supply_rating, "W"),
+            Cell("PSU bank price", self.psu_price, "USD"),
             Cell("Peak bus current", self.peak_current, "A"),
             Cell("Required bus current (+margin)", self.required_current, "A"),
             Cell("PSU output current", self.rated_current, "A"),
             Cell("PSU load fraction", self.load_fraction, "x"),
+            Cell("C2 power policy", "firmware governor: phase-staggered reset, fleet current capped at PSU rating per zone"),
+            Cell("Pieces at worst-phase hover PSU sustains", self.worst_phase_piece_capacity),
+            Cell("PSU topology", "independent isolated series pairs, one +/-12V zone per board half; no shared bank"),
+            Cell("Independent PSU zones", self.zones),
+            Cell("Zone rating", self.zone_rating, "W"),
+            Cell("Zone hover capacity (pieces)", self.zone_hover_piece_capacity),
+            Cell("Zone pieces at reset formation", self.zone_required_pieces),
+            Cell("Zone governor policy", "per-zone hover cap in firmware; pathological clustering beyond capacity is refused"),
+            Cell("Split-rail policy", "zero-net-current row in commutation LP; rails carry only the offset residual imbalance"),
+            Cell("Rail imbalance current (offset RSS)", self.rail_imbalance_current, "A"),
+            Cell("PSU unit rated current", self.unit_rated_current, "A"),
         ]
 
 
 class Stability:
-    def __init__(self, board, piece, control, sim):
+    def __init__(self, board, piece, control, sensing, sim):
         self.mass = piece.mass / 1000
         self.height = piece.box_height / 1000
         self.half_width = board.platform_side / 2 / 1000
@@ -929,9 +1173,7 @@ class Stability:
         self.tilt_inertia = self.mass * self.height ** 2 / 3
         self.rock_frequency = sqrt(self.tilt_stiffness / self.tilt_inertia) / (2 * pi)
         self.control_margin_over_rock = control.required_bandwidth / self.rock_frequency
-        self.sense_resolution = Inputs.position_sense_resolution_um / 1e6
-        self.sense_baseline = board.platform_side / 1000
-        self.tilt_sense_resolution = self.sense_resolution / self.sense_baseline
+        self.tilt_sense_resolution = sensing.tilt_noise_mrad / 1000
         self.tip_sense_resolution = self.tilt_sense_resolution * self.height
 
     def cells(self):
@@ -942,9 +1184,7 @@ class Stability:
             Cell("Tip moment of inertia", self.tilt_inertia, "kg.m2"),
             Cell("King rocking frequency", self.rock_frequency, "Hz"),
             Cell("Control bandwidth over rock mode", self.control_margin_over_rock, "x"),
-            Cell("Position sense resolution", Inputs.position_sense_resolution_um, "um"),
-            Cell("Tilt sense baseline", self.sense_baseline * 1000, "mm"),
-            Cell("Tilt sense resolution", self.tilt_sense_resolution * 1000, "mrad"),
+            Cell("Tilt sense resolution (measured)", self.tilt_sense_resolution * 1000, "mrad"),
             Cell("Tip position sense resolution", self.tip_sense_resolution * 1e6, "um"),
         ]
 
@@ -953,7 +1193,7 @@ class StatusChecks:
     def passes(self, condition, ok_text, fail_text):
         return ok_text if condition else fail_text
 
-    def __init__(self, board, coil, halbach, piece, snap, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu, sim):
+    def __init__(self, board, coil, halbach, piece, snap, config, control, sensing, thermal, surface, propulsion, attitude, coupled, eddy, stability, drive, tiles, psu, sim):
         self.force = self.passes(config.available_margin >= 1, "OK", "not enough force")
         self.safety = self.passes(config.available_margin >= Inputs.force_safety_factor, "OK", "below safety margin")
         self.voltage = self.passes(config.voltage_per_winding <= config.usable_drive_voltage, "OK", "voltage too high")
@@ -966,13 +1206,27 @@ class StatusChecks:
         self.worst_maneuvering = self.passes(propulsion.worst_acceleration_in_g >= Inputs.min_maneuver_accel_g, "OK", "worst-case lateral thrust too weak")
         self.worst_tilt_authority = self.passes(attitude.worst_tilt_margin >= 1, "OK", "worst-case tilt torque too weak")
         self.worst_yaw_authority = self.passes(attitude.worst_yaw_margin >= 1, "OK", "worst-case yaw torque too weak")
+        self.coupled_lift = self.passes(coupled.lift_margin >= Inputs.force_safety_factor, "OK", "verified worst-case lift below safety margin")
+        self.coupled_maneuvering = self.passes(coupled.acceleration_in_g >= Inputs.min_maneuver_accel_g, "OK", "coupled worst-case lateral thrust too weak while hovering")
+        self.coupled_tilt_authority = self.passes(coupled.tilt_margin >= 1, "OK", "coupled worst-case tilt torque too weak while hovering")
+        self.coupled_yaw_authority = self.passes(coupled.yaw_margin >= 1, "OK", "coupled worst-case yaw torque too weak while hovering")
+        self.eddy_drag = self.passes(eddy.drag_to_thrust <= Fixed.max_eddy_drag_fraction, "OK", "eddy drag eats too much lateral thrust")
         self.rock_controllable = self.passes(stability.control_margin_over_rock >= Inputs.control_loop_bandwidth_margin, "OK", "rock mode too fast for loop")
         self.tilt_observable = self.passes(stability.tip_sense_resolution <= 0.001, "OK", "tilt sensing too coarse")
         self.driver_voltage = self.passes(config.bus_voltage <= Fixed.mosfet_voltage_rating, "OK", "bus exceeds MOSFET voltage rating")
-        self.current_sense_voltage = self.passes(config.bus_voltage <= Fixed.current_sense_common_mode_voltage, "OK", "bus exceeds current-sense common-mode rating")
+        self.current_offset = self.passes(drive.current_offset_error <= Fixed.max_current_offset_fraction * Fixed.driver_channel_current, "OK", "comparator offset degrades current accuracy")
+        self.midpoint_balance = self.passes(psu.rail_imbalance_current <= psu.unit_rated_current, "OK", "rail imbalance exceeds PSU unit current rating")
+        self.zone_capacity = self.passes(psu.zone_hover_piece_capacity >= psu.zone_required_pieces, "OK", "one zone cannot hover its half of the reset formation")
+        self.visible_hover = self.passes(surface.visible_hover >= Inputs.min_visible_hover_height, "OK", "top stack eats the visible hover height")
+        self.surface_flatness = self.passes(surface.flatness_fraction <= 0.25, "OK", "flatness budget too large vs visible hover")
+        self.hotspot_touch = self.passes(surface.hotspot_touch_temperature <= Fixed.max_touch_temperature, "OK", "surface hotspot exceeds short-contact touch limit")
+        self.prolonged_touch = self.passes(surface.idle_touch_temperature <= Fixed.prolonged_touch_temperature, "OK", "idle surface exceeds prolonged-contact touch limit")
+        self.shunt_power = self.passes(config.worst_required_current ** 2 * Fixed.current_sense_resistance <= 0.5 * Fixed.current_shunt_power_rating, "OK", "shunt dissipation exceeds derated rating at worst-case current")
         self.driver_current = self.passes(config.worst_required_current <= Fixed.driver_channel_current, "OK", "required coil current exceeds channel rating")
         self.actuator_rank = self.passes(sim["actuator_rank6"] >= 6, "OK", "actuator matrix not full 6-DOF rank")
-        self.hall_observable = self.passes(sim["hall_worst_rank6"] >= 6, "OK", "Hall array cannot observe all 6 DOF across fixed-grid phases")
+        self.hall_observable = self.passes(sensing.worst_rank >= 6, "OK", "Hall array cannot observe all 6 DOF across fixed-grid phases")
+        self.hall_condition = self.passes(sensing.worst_condition <= 2 ** Fixed.hall_interpolation_bits, "OK", "Hall worst-case observability condition too high for ADC resolution")
+        self.hall_saturation = self.passes(sensing.saturation_field <= Fixed.hall_linear_range, "OK", "Hall sensors saturate under worst-case magnet + coil field")
         self.shell_validity = self.passes((piece.diameter - 2 * Inputs.plastic_wall_thickness) > 0, "OK", "wall too thick")
         self.flight_gap = self.passes(Inputs.max_flight_gap >= Inputs.magnet_to_coil_distance, "OK", "maximum flight gap below resting gap")
         self.coil_height = self.passes(config.coil_height <= coil.outer_width, "OK", "coil too tall")
@@ -984,7 +1238,7 @@ class StatusChecks:
         self.control_bandwidth = self.passes(control.actuator_bandwidth >= control.required_bandwidth, "OK", "actuator bandwidth too low")
         self.current_slew = self.passes(control.slew_time <= control.instability_time / Inputs.control_loop_bandwidth_margin, "OK", "current cannot react in time")
         self.hall_throughput = self.passes(sensing.headroom >= 1, "OK", "tile ADC too slow to scan Hall grid")
-        self.hall_resolution = self.passes(sensing.position_resolution_um <= Inputs.position_sense_resolution_um, "OK", "Hall grid too coarse for position resolution")
+        self.hall_resolution = self.passes(sensing.total_position_error_um <= sensing.required_position_error_um, "OK", "Hall position error exceeds required resolution")
         self.driver_coverage = self.passes(drive.driver_half_bridges >= coil.total_bodies * coil.half_bridges_per_coil, "OK", "not enough driver half-bridges per coil")
         self.current_feedback = self.passes(drive.current_feedback_channels >= coil.total_bodies, "OK", "not every coil has current feedback")
         self.current_command_rate = self.passes(drive.current_command_rate_headroom >= 1, "OK", "current command update too slow")
@@ -1013,13 +1267,27 @@ class StatusChecks:
             Cell("Worst-case maneuvering check", self.worst_maneuvering),
             Cell("Worst-case tilt-authority check", self.worst_tilt_authority),
             Cell("Worst-case yaw-authority check", self.worst_yaw_authority),
+            Cell("Verified worst-case lift check", self.coupled_lift),
+            Cell("Coupled worst-case maneuvering check", self.coupled_maneuvering),
+            Cell("Coupled worst-case tilt-authority check", self.coupled_tilt_authority),
+            Cell("Coupled worst-case yaw-authority check", self.coupled_yaw_authority),
+            Cell("Eddy-drag check", self.eddy_drag),
             Cell("Rock-mode controllable check", self.rock_controllable),
             Cell("Tilt-observable check", self.tilt_observable),
             Cell("Driver-bus-voltage check", self.driver_voltage),
-            Cell("Current-sense-voltage check", self.current_sense_voltage),
+            Cell("Current-offset check", self.current_offset),
+            Cell("Split-rail midpoint-balance check", self.midpoint_balance),
+            Cell("PSU zone-capacity check", self.zone_capacity),
+            Cell("Visible-hover-height check", self.visible_hover),
+            Cell("Surface-flatness check", self.surface_flatness),
+            Cell("Hotspot-touch-temperature check", self.hotspot_touch),
+            Cell("Prolonged-touch-temperature check", self.prolonged_touch),
+            Cell("Shunt-dissipation check", self.shunt_power),
             Cell("Driver-channel-current check", self.driver_current),
             Cell("Actuator 6-DOF rank check", self.actuator_rank),
             Cell("Hall 6-DOF observability check", self.hall_observable),
+            Cell("Hall observability-condition check", self.hall_condition),
+            Cell("Hall-saturation check", self.hall_saturation),
             Cell("Shell-validity check", self.shell_validity),
             Cell("Flight-gap-range check", self.flight_gap),
             Cell("Coil-height buildable check", self.coil_height),
@@ -1031,7 +1299,7 @@ class StatusChecks:
             Cell("Control-bandwidth check", self.control_bandwidth),
             Cell("Current-slew check", self.current_slew),
             Cell("Hall-throughput check", self.hall_throughput),
-            Cell("Hall-grid-resolution check", self.hall_resolution),
+            Cell("Hall-position-error check", self.hall_resolution),
             Cell("Driver-coverage check", self.driver_coverage),
             Cell("Current-feedback-coverage check", self.current_feedback),
             Cell("Current-command-rate check", self.current_command_rate),
@@ -1060,12 +1328,12 @@ class BomItem:
 
 
 class MassBudget:
-    def __init__(self, board, wire, piece, thermal):
+    def __init__(self, board, wire, piece, thermal, psu):
         self.board_copper_mass = wire.copper_mass
         self.board_pcb_mass = board.motor_area * Fixed.pcb_thickness * Constants.fr4_density / 1000
         self.radiator_mass = thermal.aluminium_mass
         self.cooling_fan_mass = thermal.fan_mass
-        self.board_added_mass = Fixed.psu_mass_kg + Fixed.frame_enclosure_mass_kg + Fixed.board_electronics_mass_kg
+        self.board_added_mass = psu.unit_count * Fixed.psu_unit_mass_kg + Fixed.frame_enclosure_mass_kg + Fixed.board_electronics_mass_kg
         self.board_total_mass = self.board_copper_mass + self.board_pcb_mass + self.radiator_mass + self.cooling_fan_mass + self.board_added_mass
         self.piece_mass = piece.mass / 1000
         self.pieces_total = Fixed.captured_pieces_total
@@ -1088,26 +1356,24 @@ class MassBudget:
 
 
 class BillOfMaterials:
-    def __init__(self, board, coil, halbach, wire, config, tiles, sensing, thermal):
+    def __init__(self, board, coil, halbach, wire, config, tiles, sensing, thermal, psu):
         coils_per_tile = ceil(coil.total_bodies / tiles.tile_count)
         half_bridges_per_tile = coils_per_tile * coil.half_bridges_per_coil
-        tile_power_mosfets = half_bridges_per_tile * 2
+        tile_power_mosfets = half_bridges_per_tile
         tile_gate_drivers = ceil(half_bridges_per_tile / Fixed.gate_driver_half_bridges)
-        tile_shift_registers = ceil(coils_per_tile * Fixed.current_command_bits_per_channel / Fixed.shift_register_outputs)
-        tile_current_setpoint_passives = coils_per_tile * Fixed.current_setpoint_dac_passives_per_channel
+        tile_shift_registers = ceil(coils_per_tile / Fixed.shift_register_outputs)
+        tile_setpoint_filter_pairs = coils_per_tile
         tile_current_shunts = coils_per_tile
-        tile_current_sense_amps = coils_per_tile
         tile_current_comparators = ceil(coils_per_tile / Fixed.current_comparator_channels_per_ic)
         tile_current_frontend_passives = coils_per_tile * Fixed.current_frontend_passives_per_channel
         tile_driver_passives = half_bridges_per_tile * 2
-        tile_driver_decoupling = tile_shift_registers + tile_gate_drivers + tile_current_sense_amps + tile_current_comparators
+        tile_driver_decoupling = tile_shift_registers + tile_gate_drivers + tile_current_comparators
         tile_driver_solder_joints = (
-            tile_power_mosfets * 3
+            tile_power_mosfets * 8
             + tile_gate_drivers * 20
             + tile_shift_registers * 16
-            + tile_current_setpoint_passives * 2
+            + tile_setpoint_filter_pairs * 4
             + tile_current_shunts * 2
-            + tile_current_sense_amps * 6
             + tile_current_comparators * 8
             + tile_current_frontend_passives * 2
             + tile_driver_passives * 2
@@ -1117,40 +1383,48 @@ class BillOfMaterials:
         tile_hall_muxes = sensing.muxes_per_tile
         tile_wire_kg = wire.copper_mass / tiles.tile_count
         tile_pcb_area_cm2 = (tiles.tile_side ** 2) / 100
+        gap_filler_volume_cc = board.motor_area * Fixed.radiator_standoff_below_pcb / 1000
 
         self.tile_count = tiles.tile_count
         self.piece_count = Inputs.pieces_levitating_simultaneously
         self.coils_per_tile = coils_per_tile
 
         self.tile_items = [
-            BomItem("tile", "Driver power MOSFET", "TECH PUBLIC 20N06 60V N-MOSFET (LCSC C5350878)", tile_power_mosfets, Fixed.power_mosfet_price, "https://www.lcsc.com/product-detail/mosfets_tech-public-20n06_C5350878.html"),
+            BomItem("tile", "Driver power MOSFET", "40V dual N-MOSFET SOP-8/PDFN, one half-bridge/package; price is RFQ target", tile_power_mosfets, Fixed.power_mosfet_price, "https://www.lcsc.com/product-detail/C20539695.html"),
             BomItem("tile", "Driver gate driver", "EG Micro EG2134 3 half-bridge MOSFET driver (LCSC C480661)", tile_gate_drivers, Fixed.gate_driver_price, "https://www.lcsc.com/product-detail/C480661.html"),
             BomItem("tile", "Current setpoint latch", "Gcore GR74HC595 8-bit shift register (LCSC C18164493)", tile_shift_registers, Fixed.shift_register_price, "https://www.lcsc.com/product-detail/C18164493.html"),
-            BomItem("tile", "Current setpoint DAC", "12-bit resistor DAC reference network", tile_current_setpoint_passives, Fixed.current_frontend_passive_price),
-            BomItem("tile", "Current shunt", "20mohm 2512 current sense resistor (LCSC C2985717)", tile_current_shunts, Fixed.current_shunt_price, "https://www.lcsc.com/product-detail/C2985717.html"),
-            BomItem("tile", "Current sense amp", "TI INA181A2IDBVR bidirectional current-sense amp (LCSC C2058784)", tile_current_sense_amps, Fixed.current_sense_amp_price, "https://www.lcsc.com/product-detail/C2058784.html"),
+            BomItem("tile", "Setpoint RC filter", "15.8k 1% + 10nF X7R 0603 pair, 1.007kHz (LCSC C155689 + C519406)", tile_setpoint_filter_pairs, Fixed.setpoint_filter_passive_price, "https://www.lcsc.com/product-detail/C519406.html"),
+            BomItem("tile", "Current shunt", "2W 2512 50mR 1% low-side sense resistor [TO BE SOURCED]", tile_current_shunts, Fixed.current_shunt_price, ""),
             BomItem("tile", "Current comparator", "MSKSEMI LM393 dual comparator (LCSC C5252905)", tile_current_comparators, Fixed.current_comparator_price, "https://www.lcsc.com/product-detail/C5252905.html"),
-            BomItem("tile", "Current front-end passives", "Sense filters and dividers", tile_current_frontend_passives, Fixed.current_frontend_passive_price),
-            BomItem("tile", "Driver gate passives", "Gate pull resistors", tile_driver_passives, 0.0010),
-            BomItem("tile", "Driver decoupling", "100nF logic bypass capacitors", tile_driver_decoupling, 0.0030),
+            BomItem("tile", "Current front-end passives", "0603 1% sense filters and dividers (LCSC C54531144 class)", tile_current_frontend_passives, Fixed.current_frontend_passive_price, "https://www.lcsc.com/product-detail/C54531144.html"),
+            BomItem("tile", "Driver gate passives", "0603 1% gate pull resistors (LCSC C54531144 class)", tile_driver_passives, Fixed.driver_gate_passive_price, "https://www.lcsc.com/product-detail/C54531144.html"),
+            BomItem("tile", "Driver decoupling", "100nF 50V X7R 0603 logic bypass capacitors (LCSC C14663 class)", tile_driver_decoupling, Fixed.driver_decoupling_price, "https://www.lcsc.com/product-detail/C14663.html"),
             BomItem("tile", "Driver SMT assembly", "JLCPCB automated assembly joints", tile_driver_solder_joints, Fixed.smt_assembly_cost_per_joint, "https://jlcpcb.com/help/article/pcb-assembly-faqs"),
-            BomItem("tile", "Magnet wire", "UEW 0.04mm Cu (kg share)", tile_wire_kg, 18.74, "https://www.alibaba.com/product-detail/Different-Color-Enmalled-Ultra-Thin-Copper_60735084062.html"),
-            BomItem("tile", "Hall position sensor", "Diodes AH49ENTR-G1 linear Hall (LCSC C314698)", tile_hall_sensors, Fixed.hall_sensor_price, "https://www.lcsc.com/product-detail/C314698.html"),
+            BomItem("tile", "Magnet wire", f"{config.wire.label} rectangular self-bonding enameled copper wire (kg share; price is RFQ budget)", tile_wire_kg, 18.74, "https://enameledwires.com/products/enameled-copper-wire/self-bonding-rectangular.html"),
+            BomItem("tile", "Hall position sensor", "TI DRV5055A4QDBZR, 12.5 V/T, +/-169mT, approx. 18.4uT rms typical input noise", tile_hall_sensors, Fixed.hall_sensor_price, "https://www.digikey.com/en/products/detail/texas-instruments/DRV5055A4QDBZR/8567410"),
+            BomItem("tile", "Hall group gate switch", "GOODWORK AO3401A -30V P-FET, one per mux group (LCSC C2938368)", tiles.hall_muxes_per_tile, Fixed.hall_gate_switch_price, "https://www.lcsc.com/product-detail/MOSFETs_GOODWORK-AO3401A_C2938368.html"),
             BomItem("tile", "Hall readout mux", "TI CD74HC4067SM96 16ch analog mux (LCSC C98457)", tile_hall_muxes, Fixed.hall_sensor_mux_price, "https://www.lcsc.com/product-detail/C98457.html"),
-            BomItem("tile", "Tile PCB", "4-layer FR4 10x10cm", tile_pcb_area_cm2, 0.02),
+            BomItem("tile", "Tile PCB", "JLCPCB 4-layer FR4 100x100mm, 100-board quote equivalent", tile_pcb_area_cm2, Fixed.tile_pcb_price_per_cm2, "https://jlcpcb.com/news/discount-on-quality-4-layer-pcbs"),
             BomItem("tile", "Tile control MCU", "STM32G431KBT6 32-pin", 1, 3.13, "https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G431KBT6/10231564"),
-            BomItem("tile", "Backplane connector", "B2B header, tile->mainboard", 1, 0.45),
+            BomItem("tile", "Backplane connector", "ZHOURI 2x10 2.54mm male header (LCSC C5116480)", 1, Fixed.tile_connector_header_price, "https://www.lcsc.com/product-detail/C5116480.html"),
         ]
         self.piece_items = [
-            BomItem("piece", "NdFeB magnet block", f"Custom N52 {Inputs.magnet_lateral_edge:g}x{Inputs.magnet_lateral_edge:g}x{Inputs.magnet_thickness:g}mm", halbach.blocks_per_platform, halbach.block_mass / 1000 * Fixed.magnet_cost_per_kg, "https://www.alibaba.com/product-detail/Customized-Rare-Earth-Neodymium-Magnets-N52_1601519228921.html"),
-            BomItem("piece", "Piece plastic / misc", "3D print PLA + connectors", 1, 1.4),
+            BomItem("piece", "NdFeB magnet block", f"N52 {Inputs.magnet_lateral_edge:g}x{Inputs.magnet_lateral_edge:g}x{Inputs.magnet_thickness:g}mm cube, public 1000+ price", halbach.blocks_per_platform, halbach.block_mass / 1000 * Fixed.magnet_cost_per_kg, "https://www.jc-magnetics.com/Magnet-N52-5mmx5mmx5mm-Cube"),
+            BomItem("piece", "Piece plastic / misc", "PLA print material plus inserts/finish allowance", 1, 1.4, "https://jlc3dp.com/blog/3d-printing-cost"),
         ]
-        psu_part, _psu_rating, psu_price, psu_url = Fixed.psu_options[config.bus_voltage]
         self.board_items = [
             BomItem("board", "Compute module", "RPi CM5 2GB Lite, SC1556 (57.37 EUR)", 1, 61.96, "https://www.digikey.com/en/products/detail/raspberry-pi/SC1556/25805567"),
-            BomItem("board", "Mainboard", "Custom 4-layer carrier (CM5 + power + tile links)", 1, 25.0),
-            BomItem("board", "Tile interconnect", "B2B header, mainboard side", tiles.tile_count, 0.45),
-            BomItem("board", "Bus power supply", psu_part, 1, psu_price, psu_url),
+            BomItem("board", "Mainboard", "Custom 4-layer carrier, priced from JLCPCB quote basis", 1, 25.0, "https://jlcpcb.com/quote"),
+            BomItem("board", "Tile interconnect", "HDGC 2x10 2.54mm female socket (LCSC C19725277)", tiles.tile_count, Fixed.tile_connector_socket_price, "https://www.lcsc.com/product-detail/C19725277.html"),
+            BomItem("board", "Bus power supply", psu.psu_family, psu.unit_count, psu.unit_price, psu.psu_url),
+            BomItem("board", "Bus distribution", "Copper 110 flat busbar plus zone cabling allowance", 1, Fixed.bus_distribution_price, "https://www.ebay.com/itm/304578689563"),
+            BomItem("board", "Rail regen clamp", "TVS + dump resistor per rail per zone; PSUs cannot sink braking energy [TO BE SOURCED]", 2 * psu.zones, Fixed.rail_clamp_price, ""),
+            BomItem("board", "Rail bulk capacitance", "Low-ESR bulk electrolytic per rail per zone [TO BE SOURCED]", 2 * psu.zones, Fixed.rail_bulk_capacitor_price, ""),
+            BomItem("board", "Radiator aluminium", "Integral-fin extrusion, crosshatch-kerfed 4mm base (fins below the web, outside the eddy field); RFQ budget per kg", thermal.aluminium_mass, Fixed.radiator_aluminium_price_per_kg, ""),
+            BomItem("board", "Radiator eddy-break slotting", "Gang-saw/CNC 5mm-pitch crosshatch through 3.5mm of extrusion base; RFQ budget", 1, Fixed.radiator_slotting_price, ""),
+            BomItem("board", "Coil potting epoxy", "Ziitek TIE280-25AB-class epoxy, 2.5 W/mK; price remains RFQ budget", 1, Fixed.potting_epoxy_price, "https://www.ziitek.com/epoxy-potting-compound"),
+            BomItem("board", "Dispensed thermal gap filler", f"Premium 5 W/mK dispensed filler, 1.5mm nominal gap, {gap_filler_volume_cc:.1f}cc; price is RFQ target", 1, Fixed.gap_filler_pad_price, ""),
+            BomItem("board", "Playing surface", "UV-printed board graphics + clear wear topcoat applied directly on the potting [TO BE SOURCED]", 1, Fixed.playing_surface_price, ""),
         ]
         if thermal.fan_count:
             self.board_items.append(BomItem(
@@ -1196,6 +1470,8 @@ sim_geometry = levitation_sim.SimGeometry(
     hall_sensor_pitch_mm=Fixed.hall_sensor_pitch,
     hall_observation_window_side=Fixed.hall_observation_window_side,
     target_tilt_deg=Inputs.target_tilt_angle_deg,
+    pcb_thickness_mm=Fixed.pcb_thickness,
+    hall_package_standoff_mm=Fixed.hall_package_standoff,
 )
 sim = levitation_sim.measure(sim_geometry)
 halbach = HalbachArray(board, sim)
@@ -1210,15 +1486,18 @@ passive_thermal = RadiatorCooling(board, config, driver, 0)
 thermal = RadiatorCooling(board, config, driver, Inputs.active_cooling_fans)
 propulsion = Propulsion(board, coil, piece, config, halbach, sim)
 attitude = AttitudeAuthority(board, piece, config, sim)
+coupled = CoupledAuthority(coil, piece, config, attitude)
+eddy = EddyDrag(board, config, piece, coupled)
 control = Control(coil, config, sim)
 tiles = TileControl(board, coil, control)
 drive = DriveMatrix(coil, control, driver, tiles)
-sensing = HallSensing(board, control, tiles, sim)
+sensing = HallSensing(coil, config, control, tiles)
 psu = PowerSupply(coil, wire, tiles, config, driver, thermal)
-stability = Stability(board, piece, control, sim)
-checks = StatusChecks(board, coil, halbach, piece, snap, config, control, sensing, thermal, propulsion, attitude, stability, drive, tiles, psu, sim)
-bom = BillOfMaterials(board, coil, halbach, wire, config, tiles, sensing, thermal)
-mass = MassBudget(board, wire, piece, thermal)
+stability = Stability(board, piece, control, sensing, sim)
+surface = SurfaceStack(thermal)
+checks = StatusChecks(board, coil, halbach, piece, snap, config, control, sensing, thermal, surface, propulsion, attitude, coupled, eddy, stability, drive, tiles, psu, sim)
+bom = BillOfMaterials(board, coil, halbach, wire, config, tiles, sensing, thermal, psu)
+mass = MassBudget(board, wire, piece, thermal, psu)
 
 
 def format_value(value):
@@ -1301,9 +1580,13 @@ def print_report():
     print_section("Wire and thermal", wire.cells())
     print_section("Discrete coil drivers", driver.cells())
     print_section("Passive baseplate and radiator cooling", passive_thermal.cells())
-    print_section("Low-noise active radiator cooling", thermal.cells())
+    print_section("Playing surface stack", surface.cells())
+    if Inputs.active_cooling_fans:
+        print_section("Low-noise active radiator cooling", thermal.cells())
     print_section("Propulsion / flight", propulsion.cells())
     print_section("Attitude authority (tilt / yaw)", attitude.cells())
+    print_section("Verified worst-case authority (real coil geometry)", coupled.cells())
+    print_section("Eddy-current drag (conductive sheets)", eddy.cells())
     print_section("Control feasibility", control.cells())
     print_section("Drive matrix (position-addressed)", drive.cells())
     print_section("Hall position sensing", sensing.cells())
