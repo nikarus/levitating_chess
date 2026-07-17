@@ -54,6 +54,8 @@ class Fixed:
     nominal_coil_height_for_field = 1.0        # mm
     potting_thickness = 1.0                    # mm
     potting_thermal_conductivity = 2.5         # W/(m.K) Appli-Thane 7300 class thermal potting
+    potting_volumetric_heat_capacity = 2.0e6   # J/(m3.K) (epoxy/copper bed, conservative)
+    coil_bed_through_conductivity = 2.0        # W/(m.K) (through-plane: enamel-film wire stack in parallel with potted coil windows)
     potting_cover_thickness = 0.2              # mm (self-leveling skim over coil tops)
     playing_surface_thickness = 0.1            # mm (UV-printed graphics + clear wear topcoat directly on the potting; no separate sheet)
     playing_surface_conductivity = 0.2         # W/(m.K) epoxy topcoat
@@ -70,7 +72,7 @@ class Fixed:
     fin_height = 30                            # mm (sized for fanless dissipation at 3.5mm hover gap)
     fin_thickness = 2                          # mm
     fin_channel_width = 8                      # mm
-    natural_convection_coefficient = 3         # W/(m2.K)
+    natural_convection_coefficient = 2         # W/(m2.K) (derated: fins face down under an elevated board)
     forced_convection_coefficient = 8          # W/(m2.K)
     cooling_fan_size = 200                     # mm
     cooling_fan_speed = 550                    # rpm
@@ -146,6 +148,7 @@ class Fixed:
     hall_sensitivity = 12.5                    # V/T (TI DRV5055A4 nominal at 5V)
     hall_output_noise = 0.0000184              # T rms typical (130nT/sqrtHz * sqrt(20kHz)); not a guaranteed maximum
     hall_linear_range = 0.169                  # T (TI DRV5055A4 at 5V)
+    hall_sensor_bandwidth = 20000              # Hz (DRV5055 small-signal bandwidth; bounds independent noise samples)
     coil_field_subtraction_error = 0.005       # ratio (residual after Hall-array self-calibration of coil map + channel offsets, idle-board recalibration)
     position_error_gap_fraction = 0.1          # ratio (position error budget as fraction of flight gap)
     pcb_copper_plane_thickness = 0.07          # mm (two 1oz solid planes in the 4-layer tile PCB)
@@ -162,6 +165,7 @@ class Fixed:
     board_electronics_mass_kg = 0.3            # kg
     control_tile_side = 100                    # mm
     piece_control_flops = 20000                # flop/update
+    setpoint_modulator_flops_per_bit = 10      # flop/bit (software delta-sigma placeholder until drive architecture is fixed)
     node_mcu_throughput_mflops = 170           # Mflop/s
     tile_mcu_power = 0.4                       # W
     host_power = 8                             # W
@@ -474,6 +478,8 @@ class ConfigurationSweep:
             return "baseplate_temp"
         if cooling.cyclic_peak_source_temp > Inputs.ambient_temperature + Inputs.allowed_wire_temp_rise:
             return "source_temp"
+        if cooling.worst_piece_local_temp > Inputs.ambient_temperature + Inputs.allowed_wire_temp_rise:
+            return "local_hotspot"
         if SurfaceStack(cooling).hotspot_touch_temperature > Fixed.max_touch_temperature:
             return "touch_temp"
         prop = Propulsion(board, coil, piece, c, halbach, sim)
@@ -625,13 +631,17 @@ class RadiatorCooling:
         self.fan_count = fan_count
         self.mode = "fan-assisted" if fan_count else "passive"
         self.board_area = board.motor_area / 1000000
-        self.source_area = min(self.board_area, pi / 4 * (board.base_diameter / 1000) ** 2 * Inputs.pieces_levitating_simultaneously)
-        self.source_to_baseplate_resistance = (
-            Fixed.potting_thickness / 1000 / Fixed.potting_thermal_conductivity
+        self.piece_footprint_area = pi / 4 * (board.base_diameter / 1000) ** 2
+        self.source_area = min(self.board_area, self.piece_footprint_area * Inputs.pieces_levitating_simultaneously)
+        self.coil_bed_thickness = Fixed.herringbone_orientation_families * config.coil_height
+        self.stack_area_resistance = (
+            self.coil_bed_thickness / 1000 / 2 / Fixed.coil_bed_through_conductivity
+            + Fixed.potting_thickness / 1000 / Fixed.potting_thermal_conductivity
             + Fixed.pcb_thickness / 1000 / Fixed.pcb_via_effective_thermal_conductivity
             + Fixed.radiator_standoff_below_pcb / 1000 / Fixed.thermal_pad_conductivity
             + Fixed.baseplate_thickness / 1000 / Fixed.aluminium_thermal_conductivity
-        ) / self.source_area
+        )
+        self.source_to_baseplate_resistance = self.stack_area_resistance / self.source_area
         self.fin_pitch = (Fixed.fin_thickness + Fixed.fin_channel_width) / 1000
         self.fin_count = max(1, floor((board.motor_width / 1000 + Fixed.fin_channel_width / 1000) / self.fin_pitch))
         self.fin_length = board.motor_height / 1000
@@ -658,8 +668,16 @@ class RadiatorCooling:
         )
         self.cyclic_peak_baseplate_rise = self.pulse_power * self.baseplate_rise_per_watt
         self.cyclic_peak_baseplate_temp = Inputs.ambient_temperature + self.cyclic_peak_baseplate_rise
-        self.cyclic_peak_source_temp = self.cyclic_peak_baseplate_temp + self.pulse_power * self.source_to_baseplate_resistance
-        self.source_rise_per_watt = self.baseplate_rise_per_watt + self.source_to_baseplate_resistance
+        self.stack_area_capacitance = self.coil_bed_thickness / 1000 * Fixed.potting_volumetric_heat_capacity
+        self.source_time_constant = self.stack_area_resistance * self.stack_area_capacitance
+        self.source_cyclic_factor = (
+            (1 - exp(-Inputs.max_hover_duration / self.source_time_constant))
+            / (1 - exp(-self.period / self.source_time_constant))
+        )
+        self.cyclic_peak_source_temp = self.cyclic_peak_baseplate_temp + self.pulse_power * self.source_to_baseplate_resistance * self.source_cyclic_factor
+        self.source_rise_per_watt = self.baseplate_rise_per_watt + self.source_to_baseplate_resistance * self.source_cyclic_factor
+        self.worst_piece_local_rise = config.worst_piece_hover_power * self.stack_area_resistance / self.piece_footprint_area * self.source_cyclic_factor
+        self.worst_piece_local_temp = self.cyclic_peak_baseplate_temp + self.worst_piece_local_rise
         self.baseplate_power_capacity = (Inputs.max_surface_temperature - Inputs.ambient_temperature) / self.baseplate_rise_per_watt
         self.source_power_capacity = Inputs.allowed_wire_temp_rise / self.source_rise_per_watt
         self.thermal_power_capacity = min(self.baseplate_power_capacity, self.source_power_capacity)
@@ -680,7 +698,10 @@ class RadiatorCooling:
             Cell("Driver/control heat", self.driver_power, "W"),
             Cell("Total pulse heat", self.pulse_power, "W"),
             Cell("Source area (32 piece footprints)", self.source_area * 10000, "cm2"),
+            Cell("Coil-bed conduction thickness", self.coil_bed_thickness, "mm"),
             Cell("Source-to-baseplate resistance", self.source_to_baseplate_resistance, "K/W"),
+            Cell("Source RC time constant", self.source_time_constant, "s"),
+            Cell("Source cyclic attenuation", self.source_cyclic_factor, "x"),
             Cell("Bottom fins", self.fin_count),
             Cell("Fin height", self.fin_height * 1000, "mm"),
             Cell("Fin channel width", Fixed.fin_channel_width, "mm"),
@@ -691,6 +712,8 @@ class RadiatorCooling:
             Cell("All-piece duty cycle (2s/60s)", self.duty_cycle),
             Cell("Cyclic peak baseplate temp", self.cyclic_peak_baseplate_temp, "C"),
             Cell("Cyclic peak coil/MOSFET temp", self.cyclic_peak_source_temp, "C"),
+            Cell("Worst-phase single-piece local rise", self.worst_piece_local_rise, "K"),
+            Cell("Worst-phase local coil temp (one piece)", self.worst_piece_local_temp, "C"),
             Cell("Maximum total pulse heat", self.thermal_power_capacity, "W"),
             Cell("Maximum driver/control heat after coils", self.driver_heat_capacity, "W"),
             Cell("Thermal power margin", self.thermal_power_margin, "x"),
@@ -724,7 +747,7 @@ class SurfaceStack:
                                  + self.surface / 1000 / Fixed.playing_surface_conductivity)
         convection_resistance = 1 / Fixed.natural_convection_coefficient
         self.hotspot_touch_temperature = Inputs.ambient_temperature + (
-            (thermal.cyclic_peak_source_temp - Inputs.ambient_temperature)
+            (max(thermal.cyclic_peak_source_temp, thermal.worst_piece_local_temp) - Inputs.ambient_temperature)
             * convection_resistance / (conduction_resistance + convection_resistance))
         self.idle_touch_temperature = thermal.cyclic_peak_baseplate_temp
 
@@ -816,8 +839,8 @@ class AttitudeAuthority:
         return [
             Cell("Tilt lever arm (footprint)", self.lever_arm * 1000, "mm"),
             Cell("Max tilt torque available (sim)", self.tilt_torque_max, "N.m"),
-            Cell("Rim-touch tilt limit (base vs surface)", degrees(self.rim_tilt_limit), "deg"),
-            Cell("Design tilt angle (capped by rim)", degrees(self.tilt_angle), "deg"),
+            Cell("Tilt cap (conservative: extra flight gap / base radius)", degrees(self.rim_tilt_limit), "deg"),
+            Cell("Design tilt angle (capped)", degrees(self.tilt_angle), "deg"),
             Cell("Tilt inertia about diameter", self.tilt_inertia, "kg.m2"),
             Cell("Static torque to hold target tilt", self.tilt_static_torque, "N.m"),
             Cell("Dynamic torque to reach tilt in time", self.tilt_dynamic_torque, "N.m"),
@@ -1013,7 +1036,8 @@ class HallSensing:
         self.tilt_noise_gain = verified["worst_tilt_noise_gain"]
         self.observation_window_side = Fixed.hall_observation_window_side
         self.adc_quantization_field = Fixed.hall_supply_voltage / 2 ** Fixed.hall_adc_native_bits / Fixed.hall_sensitivity
-        self.field_noise = sqrt(Fixed.hall_output_noise ** 2 + self.adc_quantization_field ** 2 / 12) / sqrt(self.oversampling_factor)
+        self.sensor_noise_averages = max(1.0, min(self.oversampling_factor, self.oversampling_factor * 2 * Fixed.hall_sensor_bandwidth / Fixed.hall_adc_sample_rate))
+        self.field_noise = sqrt(Fixed.hall_output_noise ** 2 / self.sensor_noise_averages + self.adc_quantization_field ** 2 / 12 / self.oversampling_factor)
         self.position_noise_um = self.position_noise_gain * self.field_noise * 1e6
         self.tilt_noise_mrad = self.tilt_noise_gain * self.field_noise * 1000
         self.interference_bias_um = self.position_noise_gain * (self.coil_field_hover + self.neighbour_field) * Fixed.coil_field_subtraction_error * 1e6
@@ -1053,6 +1077,7 @@ class HallSensing:
             Cell("Hall array supply power", self.total_sensors * Fixed.hall_supply_current * Fixed.hall_supply_voltage, "W"),
             Cell("Readout muxes per tile", self.muxes_per_tile),
             Cell("ADC oversampling factor", self.oversampling_factor, "x"),
+            Cell("Independent sensor-noise averages", self.sensor_noise_averages, "x"),
             Cell("Sensor averaging group delay", self.averaging_group_delay_ms, "ms"),
             Cell("Reads needed per tile", self.reads_per_tile, "reads/s"),
             Cell("Per-tile ADC capacity", self.tile_capacity, "samples/s"),
@@ -1081,7 +1106,8 @@ class TileControl:
         self.max_pieces_per_tile = max(1, ceil(self.tile_side ** 2 / self.square_area))
         self.pose_rate = control.pose_update_rate
         self.node_capacity = Fixed.node_mcu_throughput_mflops * 1e6
-        self.tile_compute = self.max_pieces_per_tile * Fixed.piece_control_flops * self.pose_rate
+        self.setpoint_stream_compute = min(Fixed.driver_serial_clock, Fixed.shift_register_clock_rating) * Fixed.setpoint_modulator_flops_per_bit
+        self.tile_compute = self.max_pieces_per_tile * Fixed.piece_control_flops * self.pose_rate + self.setpoint_stream_compute
         self.central_compute = Inputs.pieces_levitating_simultaneously * Fixed.piece_control_flops * self.pose_rate
         self.tile_headroom = self.node_capacity / self.tile_compute
         self.central_headroom = self.node_capacity / self.central_compute
@@ -1092,6 +1118,7 @@ class TileControl:
             Cell("Control tiles (count)", self.tile_count),
             Cell("Coils per tile", self.coils_per_tile),
             Cell("Max pieces over one tile", self.max_pieces_per_tile),
+            Cell("Setpoint-stream modulator load", self.setpoint_stream_compute / 1e6, "Mflop/s"),
             Cell("Per-tile compute load", self.tile_compute / 1e6, "Mflop/s"),
             Cell("Per-tile MCU capacity", self.node_capacity / 1e6, "Mflop/s"),
             Cell("Per-tile compute headroom", self.tile_headroom, "x"),
@@ -1150,11 +1177,11 @@ class PowerSupply:
             Cell("PSU load fraction", self.load_fraction, "x"),
             Cell("C2 power policy", "firmware governor: phase-staggered reset, fleet current capped at PSU rating per zone"),
             Cell("Pieces at worst-phase hover PSU sustains", self.worst_phase_piece_capacity),
-            Cell("PSU topology", "independent isolated series pairs, one +/-12V zone per board half; no shared bank"),
+            Cell("PSU topology", f"independent isolated series pairs, {self.zones} zones, +/-{self.bus_voltage / 2:g}V split rail each; no shared bank"),
             Cell("Independent PSU zones", self.zones),
             Cell("Zone rating", self.zone_rating, "W"),
             Cell("Zone hover capacity (pieces)", self.zone_hover_piece_capacity),
-            Cell("Zone pieces at reset formation", self.zone_required_pieces),
+            Cell("Worst-case zone pieces (reset, half fleet)", self.zone_required_pieces),
             Cell("Zone governor policy", "per-zone hover cap in firmware; pathological clustering beyond capacity is refused"),
             Cell("Split-rail policy", "zero-net-current row in commutation LP; rails carry only the offset residual imbalance"),
             Cell("Rail imbalance current (offset RSS)", self.rail_imbalance_current, "A"),
@@ -1199,6 +1226,7 @@ class StatusChecks:
         self.voltage = self.passes(config.voltage_per_winding <= config.usable_drive_voltage, "OK", "voltage too high")
         self.baseplate_thermal = self.passes(thermal.cyclic_peak_baseplate_temp <= Inputs.max_surface_temperature, "OK", "baseplate too hot")
         self.source_thermal = self.passes(thermal.cyclic_peak_source_temp <= Inputs.ambient_temperature + Inputs.allowed_wire_temp_rise, "OK", "coil/MOSFET source too hot")
+        self.local_hotspot = self.passes(thermal.worst_piece_local_temp <= Inputs.ambient_temperature + Inputs.allowed_wire_temp_rise, "OK", "worst-phase single-piece hotspot too hot")
         self.maneuvering = self.passes(propulsion.acceleration_in_g >= Inputs.min_maneuver_accel_g, "OK", "lateral thrust too weak")
         self.tilt_authority = self.passes(attitude.tilt_margin >= 1, "OK", "not enough tilt torque")
         self.yaw_authority = self.passes(attitude.yaw_margin >= 1, "OK", "not enough yaw torque")
@@ -1260,6 +1288,7 @@ class StatusChecks:
             Cell("Voltage check", self.voltage),
             Cell("Baseplate thermal check", self.baseplate_thermal),
             Cell("Coil/MOSFET thermal check", self.source_thermal),
+            Cell("Worst-phase local hotspot check", self.local_hotspot),
             Cell("Maneuvering check", self.maneuvering),
             Cell("Tilt-authority check", self.tilt_authority),
             Cell("Yaw-authority check", self.yaw_authority),
@@ -1386,7 +1415,7 @@ class BillOfMaterials:
         gap_filler_volume_cc = board.motor_area * Fixed.radiator_standoff_below_pcb / 1000
 
         self.tile_count = tiles.tile_count
-        self.piece_count = Inputs.pieces_levitating_simultaneously
+        self.piece_count = Fixed.captured_pieces_total
         self.coils_per_tile = coils_per_tile
 
         self.tile_items = [

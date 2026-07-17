@@ -108,8 +108,8 @@ Selected coil configuration
 Configuration sweep (lowest-power feasible coil per bus voltage)
 ----------------------------------------------------------------
    bus V            wire layers  turns   op mA source C  avail x
-      24   1x0.05mm flat     47     47  1265.1     68.8     5.65  <- selected
-      30   1x0.05mm flat     47     47  1265.1     69.1     5.65
+      24   1x0.05mm flat     47     47  1265.1     51.9     5.65  <- selected
+      30   1x0.05mm flat     47     47  1265.1     52.0     5.65
 
 Wire and thermal
 ----------------
@@ -159,20 +159,25 @@ Passive baseplate and radiator cooling
   Driver/control heat                       277.1199 W
   Total pulse heat                          1438.5216 W
   Source area (32 piece footprints)         492.8774 cm2
-  Source-to-baseplate resistance            0.0179 K/W
+  Coil-bed conduction thickness             6.956 mm
+  Source-to-baseplate resistance            0.0532 K/W
+  Source RC time constant                   36.4905 s
+  Source cyclic attenuation                 0.0653 x
   Bottom fins                               64
   Fin height                                30 mm
   Fin channel width                         8 mm
   Effective convection area                 1.9839 m2
-  Convection coefficient                    3 W/(m2.K)
+  Convection coefficient                    2 W/(m2.K)
   Radiator aluminium mass                   7.6522 kg
-  Thermal time constant                     1157.1335 s
+  Thermal time constant                     1735.7002 s
   All-piece duty cycle (2s/60s)             0.0323
-  Cyclic peak baseplate temp                43.0005 C
-  Cyclic peak coil/MOSFET temp              68.7997 C
-  Maximum total pulse heat                  1702.4089 W
-  Maximum driver/control heat after coils   541.0073 W
-  Thermal power margin                      1.1834 x
+  Cyclic peak baseplate temp                46.8982 C
+  Cyclic peak coil/MOSFET temp              51.8948 C
+  Worst-phase single-piece local rise       17.1055 K
+  Worst-phase local coil temp (one piece)   64.0037 C
+  Maximum total pulse heat                  1813.5318 W
+  Maximum driver/control heat after coils   652.1302 W
+  Thermal power margin                      1.2607 x
 
 Playing surface stack
 ---------------------
@@ -184,8 +189,8 @@ Playing surface stack
   Visible hover height (max flight)         4.1 mm
   Surface flatness budget                   0.3 mm
   Flatness fraction of visible hover        0.0968 x
-  Hotspot surface temp (under levitating piece)68.741 C
-  Idle-region surface temp (prolonged touch)43.0005 C
+  Hotspot surface temp (under levitating piece)63.9701 C
+  Idle-region surface temp (prolonged touch)46.8982 C
   Touch policy                              hotspot is covered by the hovering piece; brief-contact limit applies to post-departure cooldown
 
 Propulsion / flight
@@ -207,8 +212,8 @@ Attitude authority (tilt / yaw)
 -------------------------------
   Tilt lever arm (footprint)                5 mm
   Max tilt torque available (sim)           0.0092 N.m
-  Rim-touch tilt limit (base vs surface)    2.5885 deg
-  Design tilt angle (capped by rim)         2.5885 deg
+  Tilt cap (conservative: extra flight gap / base radius)2.5885 deg
+  Design tilt angle (capped)                2.5885 deg
   Tilt inertia about diameter               3.005e-05 kg.m2
   Static torque to hold target tilt         0.0005754 N.m
   Dynamic torque to reach tilt in time      6.033e-05 N.m
@@ -308,18 +313,19 @@ Hall position sensing
   Worst-case saturation field               22.2201 mT
   Hall linear range                         169 mT
   ADC quantization (field)                  97.6562 uT
-  Effective field noise per update          8.4161 uT
+  Effective field noise per update          17.7249 uT
   Worst position noise gain                 5.0672 m/T
-  Position noise (worst pose)               42.6461 um
-  Tilt noise (worst pose)                   0.8974 mrad
+  Position noise (worst pose)               89.8156 um
+  Tilt noise (worst pose)                   1.8899 mrad
   Interference bias after subtraction       146.4537 um
-  Total position error                      189.0998 um
+  Total position error                      236.2693 um
   Position error budget (gap fraction)      350 um
   Sensors per tile                          64
   Total Hall sensors (board)                2240
   Hall array supply power                   56 W
   Readout muxes per tile                    4
   ADC oversampling factor                   16 x
+  Independent sensor-noise averages         1.28 x
   Sensor averaging group delay              0.016 ms
   Reads needed per tile                     156104.3009 reads/s
   Per-tile ADC capacity                     500000 samples/s
@@ -331,9 +337,10 @@ Tiled control architecture
   Control tiles (count)                     35
   Coils per tile                            108
   Max pieces over one tile                  4
-  Per-tile compute load                     12.1956 Mflop/s
+  Setpoint-stream modulator load            250 Mflop/s
+  Per-tile compute load                     262.1956 Mflop/s
   Per-tile MCU capacity                     170 Mflop/s
-  Per-tile compute headroom                 13.9394 x
+  Per-tile compute headroom                 0.6484 x
   Single-MCU compute headroom (rejected)    1.7424 x
   Hall gating policy                        per-mux-group high-side switch, powered only during scan burst
   Hall group burst time                     0.512 ms
@@ -357,11 +364,11 @@ Power supply
   PSU load fraction                         0.8005 x
   C2 power policy                           firmware governor: phase-staggered reset, fleet current capped at PSU rating per zone
   Pieces at worst-phase hover PSU sustains  16.6312
-  PSU topology                              independent isolated series pairs, one +/-12V zone per board half; no shared bank
+  PSU topology                              independent isolated series pairs, 3 zones, +/-12V split rail each; no shared bank
   Independent PSU zones                     3
   Zone rating                               1000.8 W
   Zone hover capacity (pieces)              23.5072
-  Zone pieces at reset formation            16
+  Worst-case zone pieces (reset, half fleet)16
   Zone governor policy                      per-zone hover cap in firmware; pathological clustering beyond capacity is refused
   Split-rail policy                         zero-net-current row in commutation LP; rails carry only the offset residual imbalance
   Rail imbalance current (offset RSS)       2.7713 A
@@ -375,8 +382,8 @@ Stability and vibration
   Tip moment of inertia                     0.0001035 kg.m2
   King rocking frequency                    1.2359 Hz
   Control bandwidth over rock mode          19.6321 x
-  Tilt sense resolution (measured)          0.8974 mrad
-  Tip position sense resolution             85.8008 um
+  Tilt sense resolution (measured)          1.8899 mrad
+  Tip position sense resolution             180.7024 um
 
 Mass budget (whole set)
 -----------------------
@@ -398,6 +405,7 @@ Status checks
   Voltage check                             OK
   Baseplate thermal check                   OK
   Coil/MOSFET thermal check                 OK
+  Worst-phase local hotspot check           OK
   Maneuvering check                         OK
   Tilt-authority check                      OK
   Yaw-authority check                       OK
@@ -447,7 +455,7 @@ Status checks
   Current-monitor-throughput check          OK
   Driver-serial-throughput check            OK
   Drive-slew check                          OK
-  Per-tile-compute check                    OK
+  Per-tile-compute check                    tile MCU overloaded
   Cooling-fan-fit check                     OK
   PSU-adequate check                        OK
   Bus-current check                         OK
