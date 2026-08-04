@@ -12,7 +12,7 @@ class SimGeometry:
                  gravity, reference_king_height_mm, reference_king_base_diameter_mm,
                  com_height_fraction, coil_outer_width_mm, coil_outer_length_mm,
                  coil_radial_width_mm, coil_height_mm, control_cells_per_side,
-                 hall_sensor_pitch_mm, hall_observation_window_side, target_tilt_deg,
+                 hall_sensor_pitch_mm, hall_observation_window_side, surface_stack_mm, tilt_rim_clearance_mm,
                  pcb_thickness_mm, hall_package_standoff_mm):
         self.magnet_lateral_edge = magnet_lateral_edge_mm / 1000
         self.magnet_thickness = magnet_thickness_mm / 1000
@@ -36,7 +36,8 @@ class SimGeometry:
         self.control_cells_per_side = control_cells_per_side
         self.hall_sensor_pitch = hall_sensor_pitch_mm / 1000
         self.hall_observation_window_side = hall_observation_window_side
-        self.target_tilt_deg = target_tilt_deg
+        self.surface_stack = surface_stack_mm / 1000
+        self.tilt_rim_clearance = tilt_rim_clearance_mm / 1000
         self.pcb_thickness = pcb_thickness_mm / 1000
         self.hall_standoff = hall_package_standoff_mm / 1000
 
@@ -91,14 +92,12 @@ class MagnetLayout:
         return (index + 0.5 - self.blocks_per_side / 2) * self.lateral_edge
 
     def block_polarization(self, column_index, row_index):
-        x = self.block_center(column_index)
-        y = self.block_center(row_index)
         remanence = self.remanence
         if (row_index % 2) == 0:
-            angle = self.wavenumber * x
-            return np.array([remanence * np.sin(angle), 0.0, -remanence * np.cos(angle)])
-        angle = self.wavenumber * y
-        return np.array([0.0, remanence * np.sin(angle), -remanence * np.cos(angle)])
+            angle = 2 * np.pi * (column_index % self.per_period) / self.per_period
+            return np.array([-remanence * np.sin(angle), 0.0, -remanence * np.cos(angle)])
+        angle = 2 * np.pi * (row_index % self.per_period) / self.per_period
+        return np.array([0.0, -remanence * np.sin(angle), -remanence * np.cos(angle)])
 
     def build(self):
         blocks = []
@@ -355,12 +354,12 @@ def hall_metrics(jacobian):
 
 def rim_tilt_limit(layout, target_gap):
     base_radius = layout.platform_side / 2 * np.sqrt(2) + G.base_corner_standoff
-    surface_clearance = target_gap - G.gap
-    return float(np.arcsin(min(0.95, max(0.0, surface_clearance) / base_radius)))
+    rim_drop_allowed = target_gap - G.surface_stack - G.tilt_rim_clearance
+    return float(np.arcsin(min(0.95, max(0.0, rim_drop_allowed) / base_radius)))
 
 
-def hall_observability(layout, target_tilt_deg, plane_z):
-    sensor_pitch = G.hall_sensor_pitch
+def hall_observability(layout, plane_z, sensor_pitch=None):
+    sensor_pitch = G.hall_sensor_pitch if sensor_pitch is None else sensor_pitch
     window_side = G.hall_observation_window_side
     points = local_hall_points(sensor_pitch, window_side, plane_z)
     phase = (0.0, sensor_pitch / 4, sensor_pitch / 2)
@@ -369,7 +368,7 @@ def hall_observability(layout, target_tilt_deg, plane_z):
              "max_position_noise_gain": 0.0, "max_tilt_noise_gain": 0.0}
     for target_gap in (G.gap, G.max_flight_gap):
         z = target_gap - G.gap
-        tilt = min(np.radians(target_tilt_deg), rim_tilt_limit(layout, target_gap))
+        tilt = rim_tilt_limit(layout, target_gap)
         for yaw in np.radians((0, 45, 90)):
             for roll, pitch in ((0.0, 0.0), (tilt, 0.0), (0.0, tilt), (tilt, tilt)):
                 for dx in phase:
@@ -396,12 +395,13 @@ def hall_observability(layout, target_tilt_deg, plane_z):
     }
 
 
-def verified_hall_sensing(control_cells, coil_height_m, ampere_turn_budget):
+def verified_hall_sensing(control_cells, coil_height_m, ampere_turn_budget, sensor_pitch=None):
+    sensor_pitch = G.hall_sensor_pitch if sensor_pitch is None else sensor_pitch
     magnet = magnet_layout_from_geometry()
     weight = piece_weight(magnet)
     plane_z = -(G.gap + 2 * coil_height_m + G.pcb_thickness + G.hall_standoff)
-    hall = hall_observability(magnet, G.target_tilt_deg, plane_z)
-    points = local_hall_points(G.hall_sensor_pitch, G.hall_observation_window_side, plane_z)
+    hall = hall_observability(magnet, plane_z, sensor_pitch)
+    points = local_hall_points(sensor_pitch, G.hall_observation_window_side, plane_z)
     place_piece(magnet)
     signal_peak = float(np.max(np.abs(magnet.collection.getB(points)[:, 2])))
     axial = min(4, max(1, int(round(coil_height_m / 0.001))))
@@ -500,8 +500,9 @@ def pose_coefficients(wrench, weight, characteristic_length):
     }
 
 
-def flight_worst_case(control_cells, weight, characteristic_length, target_tilt_deg,
-                      gaps, yaws_deg=(0, 45, 90), meshing=12, coil_height=None, filaments_axial=1):
+def flight_worst_case(control_cells, weight, characteristic_length,
+                      gaps, yaws_deg=(0, 45, 90), meshing=12, coil_height=None, filaments_axial=1,
+                      tilt_fractions=(1.0, 0.5)):
     magnet = magnet_layout_from_geometry()
     height = G.coil_height if coil_height is None else coil_height
     array = coil_array_from_geometry(control_cells, height, 1, meshing, 2, filaments_axial)
@@ -510,39 +511,60 @@ def flight_worst_case(control_cells, weight, characteristic_length, target_tilt_
         "min_rank6": 6, "max_cond6": 0.0,
         "min_lift_per_at": 0.0, "min_lateral_per_at": 0.0,
         "min_tilt_torque_per_at": 0.0, "min_yaw_torque_per_at": 0.0,
-        "max_hover_sumsq": 0.0, "max_tilt_deg": 0.0, "poses": 0, "wrenches": [],
+        "max_hover_sumsq": 0.0, "max_tilt_deg": 0.0, "poses": 0, "wrenches": [], "level_wrenches": [],
+        "level_min_lift_per_at": None, "level_min_lateral_per_at": None, "level_max_hover_sumsq": 0.0,
+        "rungs": {fraction: {"tilt_deg": 0.0, "min_lift_per_at": None, "max_hover_sumsq": 0.0, "wrenches": []}
+                  for fraction in tilt_fractions},
     }
     level_sumsq_by_gap = []
     for target_gap in gaps:
         z = target_gap - G.gap
-        tilt = min(np.radians(target_tilt_deg), rim_tilt_limit(magnet, target_gap))
-        worst["max_tilt_deg"] = max(worst["max_tilt_deg"], np.degrees(tilt))
-        tilts = ((0.0, 0.0), (tilt, 0.0), (0.0, tilt), (tilt, tilt))
+        limit = rim_tilt_limit(magnet, target_gap)
+        worst["max_tilt_deg"] = max(worst["max_tilt_deg"], np.degrees(limit))
+        pose_families = [(None, ((0.0, 0.0),))]
+        for fraction in tilt_fractions:
+            tilt = limit * fraction
+            worst["rungs"][fraction]["tilt_deg"] = max(worst["rungs"][fraction]["tilt_deg"], np.degrees(tilt))
+            pose_families.append((fraction, ((tilt, 0.0), (0.0, tilt), (tilt, tilt))))
         level_sumsq = []
         for yaw in np.radians(yaws_deg):
-            for roll, pitch in tilts:
-                for dx in phase:
-                    for dy in phase:
-                        _, center_of_mass = place_piece(magnet, x=dx, y=dy, z=z,
-                                                        roll=roll, pitch=pitch, yaw=yaw)
-                        wrench = actuator_matrix(magnet, array, center_of_mass)
-                        worst["wrenches"].append(wrench)
-                        rank6, coeffs = pose_coefficients(wrench, weight, characteristic_length)
-                        if worst["poses"] == 0:
-                            worst["min_lift_per_at"] = coeffs["lift_per_at"]
-                            worst["min_lateral_per_at"] = coeffs["lateral_per_at"]
-                            worst["min_tilt_torque_per_at"] = coeffs["tilt_torque_per_at"]
-                            worst["min_yaw_torque_per_at"] = coeffs["yaw_torque_per_at"]
-                        worst["min_rank6"] = min(worst["min_rank6"], rank6)
-                        worst["poses"] += 1
-                        worst["max_cond6"] = max(worst["max_cond6"], coeffs["cond6"])
-                        worst["min_lift_per_at"] = min(worst["min_lift_per_at"], coeffs["lift_per_at"])
-                        worst["min_lateral_per_at"] = min(worst["min_lateral_per_at"], coeffs["lateral_per_at"])
-                        worst["min_tilt_torque_per_at"] = min(worst["min_tilt_torque_per_at"], coeffs["tilt_torque_per_at"])
-                        worst["min_yaw_torque_per_at"] = min(worst["min_yaw_torque_per_at"], coeffs["yaw_torque_per_at"])
-                        worst["max_hover_sumsq"] = max(worst["max_hover_sumsq"], coeffs["hover_sumsq"])
-                        if roll == 0.0 and pitch == 0.0:
-                            level_sumsq.append(coeffs["hover_sumsq"])
+            for fraction, tilt_pairs in pose_families:
+                for roll, pitch in tilt_pairs:
+                    for dx in phase:
+                        for dy in phase:
+                            _, center_of_mass = place_piece(magnet, x=dx, y=dy, z=z,
+                                                            roll=roll, pitch=pitch, yaw=yaw)
+                            wrench = actuator_matrix(magnet, array, center_of_mass)
+                            worst["wrenches"].append(wrench)
+                            rank6, coeffs = pose_coefficients(wrench, weight, characteristic_length)
+                            if worst["poses"] == 0:
+                                worst["min_lift_per_at"] = coeffs["lift_per_at"]
+                                worst["min_lateral_per_at"] = coeffs["lateral_per_at"]
+                                worst["min_tilt_torque_per_at"] = coeffs["tilt_torque_per_at"]
+                                worst["min_yaw_torque_per_at"] = coeffs["yaw_torque_per_at"]
+                            worst["min_rank6"] = min(worst["min_rank6"], rank6)
+                            worst["poses"] += 1
+                            worst["max_cond6"] = max(worst["max_cond6"], coeffs["cond6"])
+                            worst["min_lift_per_at"] = min(worst["min_lift_per_at"], coeffs["lift_per_at"])
+                            worst["min_lateral_per_at"] = min(worst["min_lateral_per_at"], coeffs["lateral_per_at"])
+                            worst["min_tilt_torque_per_at"] = min(worst["min_tilt_torque_per_at"], coeffs["tilt_torque_per_at"])
+                            worst["min_yaw_torque_per_at"] = min(worst["min_yaw_torque_per_at"], coeffs["yaw_torque_per_at"])
+                            worst["max_hover_sumsq"] = max(worst["max_hover_sumsq"], coeffs["hover_sumsq"])
+                            if fraction is None:
+                                level_sumsq.append(coeffs["hover_sumsq"])
+                                worst["level_max_hover_sumsq"] = max(worst["level_max_hover_sumsq"], coeffs["hover_sumsq"])
+                                if target_gap == gaps[0]:
+                                    worst["level_wrenches"].append(wrench)
+                                for key, value in (("level_min_lift_per_at", coeffs["lift_per_at"]),
+                                                   ("level_min_lateral_per_at", coeffs["lateral_per_at"])):
+                                    if worst[key] is None or value < worst[key]:
+                                        worst[key] = value
+                            else:
+                                rung = worst["rungs"][fraction]
+                                rung["wrenches"].append(wrench)
+                                rung["max_hover_sumsq"] = max(rung["max_hover_sumsq"], coeffs["hover_sumsq"])
+                                if rung["min_lift_per_at"] is None or coeffs["lift_per_at"] < rung["min_lift_per_at"]:
+                                    rung["min_lift_per_at"] = coeffs["lift_per_at"]
         level_sumsq_by_gap.append(float(np.mean(level_sumsq)))
     worst["avg_level_hover_sumsq"] = max(level_sumsq_by_gap)
     place_piece(magnet)
@@ -569,14 +591,22 @@ def verified_worst_authority(control_cells, coil_height_m, ampere_turn_budget):
     magnet = magnet_layout_from_geometry()
     weight = piece_weight(magnet)
     axial = min(4, max(1, int(round(coil_height_m / 0.001))))
-    worst = flight_worst_case(control_cells, weight, magnet.platform_side / 2, G.target_tilt_deg,
+    worst = flight_worst_case(control_cells, weight, magnet.platform_side / 2,
                               (G.gap, G.max_flight_gap), coil_height=coil_height_m, filaments_axial=axial)
     coupled = coupled_worst_authority(worst["wrenches"], weight, ampere_turn_budget)
+    level = coupled_worst_authority(worst["level_wrenches"], weight, ampere_turn_budget)
     return {
-        "lift_margin": worst["min_lift_per_at"] * ampere_turn_budget / weight,
+        "lift_margin": worst["level_min_lift_per_at"] * ampere_turn_budget / weight,
+        "showpiece_lift_margin": worst["min_lift_per_at"] * ampere_turn_budget / weight,
         "lateral": coupled["lateral"],
+        "level_lateral": level["lateral"],
         "tilt": coupled["tilt"],
         "yaw": coupled["yaw"],
+        "rungs": {fraction: {
+            "tilt_deg": rung["tilt_deg"],
+            "lift_margin": rung["min_lift_per_at"] * ampere_turn_budget / weight,
+            "tilt_torque": coupled_worst_authority(rung["wrenches"], weight, ampere_turn_budget)["tilt"],
+        } for fraction, rung in worst["rungs"].items()},
     }
 
 
@@ -616,7 +646,7 @@ def measure(geometry):
     _, nominal = pose_coefficients(controllability.wrench_matrix, weight, characteristic_length)
 
     flight_gaps = (geometry.gap, geometry.max_flight_gap)
-    worst = flight_worst_case(control_cells, weight, characteristic_length, geometry.target_tilt_deg, flight_gaps)
+    worst = flight_worst_case(control_cells, weight, characteristic_length, flight_gaps)
 
     coupling_heights_mm = [0.5, 1.0, 2.0, 3.0, 4.0, 5.0, 7.0, 10.0]
     coupling_factors = coil_height_coupling(magnet, control_cells,
@@ -645,11 +675,13 @@ def measure(geometry):
         "worst_case_poses": worst["poses"],
         "worst_case_max_gap": max(flight_gaps),
         "worst_case_max_tilt_deg": worst["max_tilt_deg"],
-        "worst_lift_force_per_ampere_turn": worst["min_lift_per_at"],
-        "worst_lateral_force_per_ampere_turn": worst["min_lateral_per_at"],
+        "worst_lift_force_per_ampere_turn": worst["level_min_lift_per_at"],
+        "worst_lateral_force_per_ampere_turn": worst["level_min_lateral_per_at"],
         "worst_tilt_torque_per_ampere_turn": worst["min_tilt_torque_per_at"],
         "worst_yaw_torque_per_ampere_turn": worst["min_yaw_torque_per_at"],
-        "worst_hover_ampere_turns_squared_sum": worst["max_hover_sumsq"],
+        "worst_hover_ampere_turns_squared_sum": worst["level_max_hover_sumsq"],
+        "showpiece_lift_force_per_ampere_turn": worst["min_lift_per_at"],
+        "showpiece_hover_ampere_turns_squared_sum": worst["max_hover_sumsq"],
         "average_hover_ampere_turns_squared_sum": worst["avg_level_hover_sumsq"],
         "coil_height_coupling_heights_mm": coupling_heights_mm,
         "coil_height_coupling_factors": coupling_factors,

@@ -15,3 +15,10 @@ C3: 6 DoF should be supported for all pieces in all cases.
 C4: To create the "magical feeling" everything should happen in silence. If we must have fans they should be very very silent.
 
 C5: Figures must not snap together. We want to make sure that if we put two figures on the powered-off board in the way that bases of these figures touch, then if we move one figure, another figure do not move.
+
+C6: From the heat perspective, the following tests must pass:
+- T1 Burst: all 32 pieces run A from adversarial positions, twice back-to-back, then once per 5 min forever.
+- T2 Grind: A at 60 composite moves/min fans-on, and one per 6 s fans-off, forever.
+- T3 Hammer: one cell — aligned 1 s dwell every 5 s forever, plus a 10-exchange capture cascade, plus one hand-placed A.
+
+C7: Every reachable spot of the surface is always safe to touch — a hand may lift any resting piece at any moment, so no cell may ever exceed the brief-touch limit, covered or not.
