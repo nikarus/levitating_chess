@@ -13,7 +13,7 @@ class SimGeometry:
                  com_height_fraction, coil_outer_width_mm, coil_outer_length_mm,
                  coil_radial_width_mm, coil_height_mm, control_cells_per_side,
                  hall_sensor_pitch_mm, hall_observation_window_side, surface_stack_mm, tilt_rim_clearance_mm,
-                 pcb_thickness_mm, hall_package_standoff_mm):
+                 pcb_thickness_mm, hall_package_standoff_mm, cruise_accels_m_s2=()):
         self.magnet_lateral_edge = magnet_lateral_edge_mm / 1000
         self.magnet_thickness = magnet_thickness_mm / 1000
         self.magnets_per_period = magnets_per_period
@@ -40,6 +40,7 @@ class SimGeometry:
         self.tilt_rim_clearance = tilt_rim_clearance_mm / 1000
         self.pcb_thickness = pcb_thickness_mm / 1000
         self.hall_standoff = hall_package_standoff_mm / 1000
+        self.cruise_accels = tuple(cruise_accels_m_s2)
 
 
 AXIS_DIRECTIONS = np.array(
@@ -502,7 +503,7 @@ def pose_coefficients(wrench, weight, characteristic_length):
 
 def flight_worst_case(control_cells, weight, characteristic_length,
                       gaps, yaws_deg=(0, 45, 90), meshing=12, coil_height=None, filaments_axial=1,
-                      tilt_fractions=(1.0, 0.5)):
+                      tilt_fractions=(1.0, 0.5), cruise_thrusts=()):
     magnet = magnet_layout_from_geometry()
     height = G.coil_height if coil_height is None else coil_height
     array = coil_array_from_geometry(control_cells, height, 1, meshing, 2, filaments_axial)
@@ -513,10 +514,14 @@ def flight_worst_case(control_cells, weight, characteristic_length,
         "min_tilt_torque_per_at": 0.0, "min_yaw_torque_per_at": 0.0,
         "max_hover_sumsq": 0.0, "max_tilt_deg": 0.0, "poses": 0, "wrenches": [], "level_wrenches": [],
         "level_min_lift_per_at": None, "level_min_lateral_per_at": None, "level_max_hover_sumsq": 0.0,
+        "level_max_cruise_sumsq": [0.0] * len(cruise_thrusts),
+        "max_cruise_peak_at": [0.0] * len(cruise_thrusts),
+        "avg_level_cruise_sumsq": [0.0] * len(cruise_thrusts),
         "rungs": {fraction: {"tilt_deg": 0.0, "min_lift_per_at": None, "max_hover_sumsq": 0.0, "wrenches": []}
                   for fraction in tilt_fractions},
     }
     level_sumsq_by_gap = []
+    level_cruise_by_gap = []
     for target_gap in gaps:
         z = target_gap - G.gap
         limit = rim_tilt_limit(magnet, target_gap)
@@ -527,6 +532,7 @@ def flight_worst_case(control_cells, weight, characteristic_length,
             worst["rungs"][fraction]["tilt_deg"] = max(worst["rungs"][fraction]["tilt_deg"], np.degrees(tilt))
             pose_families.append((fraction, ((tilt, 0.0), (0.0, tilt), (tilt, tilt))))
         level_sumsq = []
+        level_cruise = [[] for _ in cruise_thrusts]
         for yaw in np.radians(yaws_deg):
             for fraction, tilt_pairs in pose_families:
                 for roll, pitch in tilt_pairs:
@@ -553,6 +559,13 @@ def flight_worst_case(control_cells, weight, characteristic_length,
                             if fraction is None:
                                 level_sumsq.append(coeffs["hover_sumsq"])
                                 worst["level_max_hover_sumsq"] = max(worst["level_max_hover_sumsq"], coeffs["hover_sumsq"])
+                                for index, thrust in enumerate(cruise_thrusts):
+                                    peak_x, cruise_x = min_peak_current(wrench, [thrust, 0, weight, 0, 0, 0])
+                                    peak_y, cruise_y = min_peak_current(wrench, [0, thrust, weight, 0, 0, 0])
+                                    cruise_sumsq = max(float(np.sum(cruise_x ** 2)), float(np.sum(cruise_y ** 2)))
+                                    level_cruise[index].append(cruise_sumsq)
+                                    worst["level_max_cruise_sumsq"][index] = max(worst["level_max_cruise_sumsq"][index], cruise_sumsq)
+                                    worst["max_cruise_peak_at"][index] = max(worst["max_cruise_peak_at"][index], float(peak_x), float(peak_y))
                                 if target_gap == gaps[0]:
                                     worst["level_wrenches"].append(wrench)
                                 for key, value in (("level_min_lift_per_at", coeffs["lift_per_at"]),
@@ -566,7 +579,10 @@ def flight_worst_case(control_cells, weight, characteristic_length,
                                 if rung["min_lift_per_at"] is None or coeffs["lift_per_at"] < rung["min_lift_per_at"]:
                                     rung["min_lift_per_at"] = coeffs["lift_per_at"]
         level_sumsq_by_gap.append(float(np.mean(level_sumsq)))
+        level_cruise_by_gap.append([float(np.mean(values)) for values in level_cruise])
     worst["avg_level_hover_sumsq"] = max(level_sumsq_by_gap)
+    worst["avg_level_cruise_sumsq"] = [max(per_gap[index] for per_gap in level_cruise_by_gap)
+                                       for index in range(len(cruise_thrusts))]
     place_piece(magnet)
     return worst
 
@@ -646,7 +662,9 @@ def measure(geometry):
     _, nominal = pose_coefficients(controllability.wrench_matrix, weight, characteristic_length)
 
     flight_gaps = (geometry.gap, geometry.max_flight_gap)
-    worst = flight_worst_case(control_cells, weight, characteristic_length, flight_gaps)
+    cruise_thrusts = [weight / geometry.gravity * accel for accel in geometry.cruise_accels]
+    worst = flight_worst_case(control_cells, weight, characteristic_length, flight_gaps,
+                              cruise_thrusts=cruise_thrusts)
 
     coupling_heights_mm = [0.5, 1.0, 2.0, 3.0, 4.0, 5.0, 7.0, 10.0]
     coupling_factors = coil_height_coupling(magnet, control_cells,
@@ -683,6 +701,11 @@ def measure(geometry):
         "showpiece_lift_force_per_ampere_turn": worst["min_lift_per_at"],
         "showpiece_hover_ampere_turns_squared_sum": worst["max_hover_sumsq"],
         "average_hover_ampere_turns_squared_sum": worst["avg_level_hover_sumsq"],
+        "cruise_ampere_turns_squared_sums": worst["avg_level_cruise_sumsq"],
+        "worst_cruise_ampere_turns_squared_sums": worst["level_max_cruise_sumsq"],
+        "cruise_peak_ampere_turns": worst["max_cruise_peak_at"],
+        "rung_hover_ampere_turns_squared_sums": {fraction: rung["max_hover_sumsq"]
+                                                 for fraction, rung in worst["rungs"].items()},
         "coil_height_coupling_heights_mm": coupling_heights_mm,
         "coil_height_coupling_factors": coupling_factors,
     }
