@@ -10,6 +10,8 @@ On the sides of the board there should be a buffer space for eaten pieces. It sh
 
 BOM cost should be calculated at a production volume of 100 boards.
 
+Please also read PRODUCT_TESTING.md - it contains testing patterns that we require.
+
 Constraints:
 
 C1: The chess do not levitate constantly - in the normal game a figure only levitates when it moves: it lifts off it flies to the target place, it lands.
@@ -21,11 +23,6 @@ C3: 6 DoF must be supported for all pieces during levitation.
 C4: To create the "magical feeling" everything should happen in silence. If we must have fans they should be very very silent.
 
 C5: Figures must not snap together (which is a risk because they have permanent magnets in them). We want to make sure that if we put two figures on the powered-off board in the way that bases of these figures touch, then if we move one figure, another figure do not move.
-
-C6: From the heat perspective, the following tests must pass:
-- T1 Burst: all 32 pieces run A from adversarial positions, then an immediate rematch reset from the home formation (the only physically possible back-to-back second event), then once per 5 min forever.
-- T2 Grind: A at 60 composite moves/min fans-on, and one per 6 s fans-off, forever.
-- T3 Hammer: one cell — aligned 1 s dwell every 5 s forever, plus a 10-exchange capture cascade, plus one hand-placed A.
 
 C7: Every reachable spot of the surface is always safe to touch — a hand may lift any resting piece at any moment, so no cell may ever exceed the brief-touch limit, covered or not.
 
