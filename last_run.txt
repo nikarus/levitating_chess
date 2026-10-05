@@ -22,7 +22,7 @@ Coil geometry
 -------------
   Coil outer width                          10 mm
   Coil outer length                         15 mm
-  Coil outer height                         4.144 mm
+  Coil outer height                         2.368 mm
   Coil aspect ratio (actual)                1.5
   Coil body footprint area                  150 mm2
   Winding radial width (wall)               1 mm
@@ -46,32 +46,34 @@ Magnet array
 ------------
   Magnet blocks per side                    4
   Magnet block lateral edge                 5 mm
-  Magnet block thickness                    5 mm
-  Magnet block volume                       125 mm3
+  Magnet block thickness                    4 mm
+  Magnet block volume                       100 mm3
   Magnet blocks per platform                16
-  Magnet block mass                         0.9375 g
-  Magnet mass total                         15 g
+  Magnet block mass                         0.75 g
+  Magnet mass total                         12 g
   Magnet corner reach (circumradius)        14.1421 mm
   Resting magnet gap (bases touching)       16 mm
-  Simulated peak Bz at coil plane           0.3835 T
+  Simulated peak Bz at coil plane           0.3365 T
 
 Piece mass
 ----------
   Size scale                                1.0065
   Box height (scaled king)                  95.6138 mm
   Cylinder diameter                         44.2843 mm
-  Plastic shell volume                      15810.2285 mm3
-  Plastic shell mass                        18.9723 g
-  Piece mass (real)                         33.9723 g
-  Magnet mass fraction                      0.4415
-  Piece weight                              0.3332 N
+  Hollow bounding-cylinder shell volume     15810.2285 mm3
+  Chess-silhouette shell shape factor (CAD target)0.6
+  Modelled plastic shell volume             9486.1371 mm3
+  Plastic shell mass                        11.3834 g
+  Piece mass (CAD target)                   23.3834 g
+  Magnet mass fraction                      0.5132
+  Piece weight                              0.2293 N
 
 Neighbour snap
 --------------
   Bases-touching center distance            44.2843 mm
   Worst-orientation magnet corner gap       16 mm
-  Neighbour snap force (worst orientation)  45.4623 mN
-  Snap-to-weight (needed friction)          0.1365
+  Neighbour snap force (worst orientation)  27.9105 mN
+  Snap-to-weight (needed friction)          0.1217
   Resting friction available                0.4
 
 Selected coil configuration
@@ -80,63 +82,100 @@ Selected coil configuration
   Winding radial pitch                      1.024 mm
   Winding axial pitch                       0.074 mm
   Copper cross-section area                 0.05 mm2
-  Selected bus voltage                      48 V
-  Usable drive voltage (per coil)           21.6 V
+  Selected bus voltage                      40 V
+  MOSFET voltage headroom                   1.5 x
+  Usable drive voltage (per coil)           18 V
   Winding radial width                      1 mm
   Turns per radial layer                    1
-  Vertical wire layers                      56
-  Turns per winding (fits window)           56
-  Coil height                               4.144 mm
-  Coil-height field coupling                0.4576 x
-  Wire length per winding                   2.576 m
-  Resistance per winding                    0.8882 ohm
-  Voltage-limited current                   24.3187 A
+  Vertical wire layers                      32
+  Turns per winding (fits window)           32
+  Coil height                               2.368 mm
+  Coil-height field coupling                0.6887 x
+  Wire length per winding                   1.472 m
+  Resistance per winding                    0.5075 ohm
+  Voltage-limited current                   35.4648 A
   Driver-limited current                    5.5 A
-  Lift force per amp (sim)                  0.2554 N/A
-  Available lift force (at limit)           1.4045 N
-  Available lift margin                     4.2157 x
+  Lift force per amp (sim)                  0.1857 N/A
+  Available lift force (at limit)           1.0213 N
+  Available lift margin                     4.4539 x
   Worst-case poses swept                    378
   Worst-case maximum flight gap             4.5 mm
   Worst-case max tilt swept                 8.0481 deg
-  Worst-case lift force per amp (sim)       0.1103 N/A
-  Worst-case required lift current          3.9278 A
-  Worst-case available lift margin          1.8204 x
-  Worst-case hover power (one piece)        167.7383 W
-  Showpiece-tilt lift margin (deepest tilt) 0.99 x
-  Showpiece-tilt hover power (one piece)    570.9155 W
-  Sprint power, full-diagonal A (one piece, phase avg)160.1228 W
-  Sprint power (worst level pose)           522.5941 W
-  Sprint peak coil demand vs driver budget  1.0033 x
-  Cruise power, relaxed tier (one piece, phase avg)60.3896 W
-  Cruise power, relaxed tier (worst level pose)202.7742 W
-  Relaxed-cruise peak coil demand vs driver budget1.6086 x
-  Best-phase hover power (one piece)        32.1361 W
-  Phase-averaged hover power (one piece)    50.1142 W
-  Operating current per winding             1.6961 A
-  Lift force per coil body                  0.0722 N
-  Total lift force                          0.4331 N
+  Worst-case lift force per amp (sim)       0.0768 N/A
+  Worst-case required lift current          3.8839 A
+  Worst-case available lift margin          1.8409 x
+  Worst-case hover power (one piece)        93.7044 W
+  Showpiece-tilt lift margin (deepest tilt) 1.0963 x
+  Showpiece-tilt hover power (one piece)    265.0124 W
+  Sprint power, full-diagonal A (one piece, phase avg)80.485 W
+  Sprint power (worst level pose)           262.1238 W
+  Sprint peak coil demand vs driver budget  1.0852 x
+  Hot sprint current limit (77C winding)    5.5 A
+  Hot sprint margin (77C magnet/winding)    1.0172 x
+  Reset action-A power (one piece, phase avg)80.485 W
+  Reset action-A power (worst level pose)   262.1238 W
+  Reset action-A peak demand vs driver budget1.0852 x
+  Best-phase hover power (one piece)        16.1465 W
+  Phase-averaged hover power (one piece)    25.7302 W
+  Operating current per winding             1.6053 A
+  Lift force per coil body                  0.0497 N
+  Total lift force                          0.2981 N
   Lift margin (with safety)                 1.3 x
 
-Configuration sweep (lowest-power feasible coil per bus voltage)
-----------------------------------------------------------------
+Coil sweep (least thermal-stress instantaneous-feasible coil per bus voltage)
+-----------------------------------------------------------------------------
    bus V            wire layers  turns   op mA source C  avail x
-      48   1x0.05mm flat     56     56  1696.1     58.7     4.22  <- selected
+      24   1x0.05mm flat     32     32  1605.3     58.5     4.45
+      30   1x0.05mm flat     32     32  1605.3     58.8     4.45
+      40   1x0.05mm flat     32     32  1605.3     59.4     4.45  <- selected
+
+Local fixed-current-mode compression (mathematical bound; not yet a driver BOM)
+-------------------------------------------------------------------------------
+  Local physical coil currents             24
+  Current-library rank (zero-sum maximum)  23
+  Pose matrices in basis/evaluation        378
+  Operational hover/sprint scenarios       486
+  Pose-adaptive constructive bound         9 modes max (7.29 mean), exact for evaluated operational currents
+  Pose-adaptive basis density              88.7%
+  A dense SVD basis proves command dimension only; it does not by itself remove per-coil switching/routing hardware.
+
+        basis  modes    energy   rank    cond max      peak x     power x    dense  LP fail
+         6dof      6    65.41%      6     90035.7    3611.624 1844953.704    89.6%        0
+         6dof      8    76.36%      6       334.5       9.965      43.284    87.5%        0
+         6dof     10    84.40%      6       172.4       4.516       9.390    88.3%        0
+         6dof     12    89.86%      6       177.8       2.299       2.827    88.2%        0
+         6dof     16    97.53%      6       242.1       1.322       1.361    89.8%        0
+         6dof     20    99.85%      6       253.0       1.120       1.185    90.2%        0
+         6dof     23   100.00%      6       253.1       1.000       1.000    84.8%        0
+  operational      6    55.22%      6   5708396.7         inf         inf    92.4%        1
+  operational      8    65.86%      6       608.3      31.905     419.976    92.7%        0
+  operational     10    74.22%      6       271.5       4.482       8.483    93.3%        0
+  operational     12    80.37%      6       251.6       2.796       3.473    92.7%        0
+  operational     16    89.92%      6       265.6       1.313       1.445    91.9%        0
+  operational     20    96.56%      6       259.3       1.117       1.181    91.0%        0
+  operational     23   100.00%      6       253.1       1.000       1.000    90.4%        0
+       hybrid      6    55.94%      6     18134.6     701.547  129565.402    87.5%        0
+       hybrid      8    68.01%      6       830.3      18.260     123.147    90.6%        0
+       hybrid     10    78.19%      6       393.3       8.071      27.133    90.4%        0
+       hybrid     12    85.37%      6       269.7       2.490       3.310    91.7%        0
+       hybrid     16    95.42%      6       257.7       1.279       1.389    91.9%        0
+       hybrid     20    99.05%      6       253.5       1.110       1.216    91.2%        0
+       hybrid     23   100.00%      6       253.1       1.000       1.000    88.0%        0
 
 Wire and thermal
 ----------------
-  Copper mass per winding                   1.154 g
-  Total wire length                         11870.208 m
-  Total copper mass                         5.3179 kg
-  One-piece active coil power               50.1142 W
-  All board pieces simultaneous power       1603.6549 W
-  PSU current at bus                        33.4095 A
+  Copper mass per winding                   0.6595 g
+  Total wire length                         6782.976 m
+  Total copper mass                         3.0388 kg
+  One-piece active coil power               25.7302 W
+  All board pieces simultaneous power       823.3651 W
+  PSU current at bus                        20.5841 A
 
 Discrete coil drivers
 ---------------------
   Driver implementation                     current-regulated N-MOSFET half-bridges, split rail
-  Driver control implementation             per-tile FPGA delta-sigma setpoint modulators + midpoint-referenced comparator current loop, idle zero-calibrated
+  Driver control implementation             one logical-board FPGA command engine + parallel delta-sigma lanes; local midpoint-referenced comparator loops, idle zero-calibrated
   Dedicated driver channels                 4608
-  Driver channels built (uniform tiles, incl. spares)4640
   Current feedback channels                 4608
   Discrete half-bridge legs                 4608
   Gate-driver ICs                           1536
@@ -145,49 +184,54 @@ Discrete coil drivers
   Comparator current-offset error           50 mA
   MOSFET gate drive                         10 V
   PWM frequency                             20 kHz
-  Setpoint frame rate (delta-sigma)         172.4138 kHz
-  Setpoint oversampling ratio               86.2069 x
-  Effective setpoint bits (delta-sigma)     12
+  Setpoint frame rate (delta-sigma)         73.5294 kHz
+  Setpoint oversampling ratio               36.7647 x
+  Effective setpoint bits (delta-sigma)     10.798
   Current command refresh                   500 Hz
   Current loop bandwidth limit              2000 Hz
   Comparator offset (raw / after zero-cal)  5 / 1 mV
-  Per-tile current-command stream           20 Mbit/s
-  Control clock rating used                 20 Mbit/s
-  Required stream for setpoint resolution   7.0306 Mbit/s
-  Control clock headroom                    2.8447 x
+  Parallel setpoint-output lanes            17
+  Channels per setpoint lane                272
+  Serialized slots incl. lane padding       4624
+  Setpoint-output clock per lane            20 Mbit/s
+  Required output rate per lane             16.4856 Mbit/s
+  Setpoint-output serial headroom           1.2132 x
+  Board command data to FPGA                27.648 Mbit/s
+  Board command-link headroom               1.4468 x
+  Minimum serial headroom                   1.2132 x
   Pessimistic hot path resistance           0.08 ohm
   Current shunt resistance                  0.02 ohm
-  MOSFET conduction loss                    144.4401 W
-  Current-sense shunt loss                  36.11 W
-  MOSFET switching loss                     113.0448 W
+  MOSFET conduction loss                    129.7799 W
+  Current-sense shunt loss                  32.445 W
+  MOSFET switching loss                     89.2954 W
   MOSFET gate-drive loss                    13.824 W
-  Shift-register dynamic loss               12.6 W
-  Total driver/control loss                 320.019 W
+  Shift-register dynamic loss               12.138 W
+  Total driver/control loss                 277.4823 W
   Serialized control bits                   4608
-  74HC595 shift registers                   600
+  74HC595 shift registers                   578
 
 Silent-mode cooling (fans off, live play)
 -----------------------------------------
   Cooling mode                              passive, live-play baseline
-  Coil heat (32 pieces, phase-averaged)     1603.6549 W
-  Driver/control heat (phase-averaged)      320.019 W
-  Driver loss ratio (per coil watt)         0.1996 x
-  Hot power derate (sustained / event avg / worst cell)1.138 / 1.171 / 1.324 x
+  Coil heat (32 pieces, phase-averaged)     823.3651 W
+  Driver/control heat (phase-averaged)      277.4823 W
+  Driver loss ratio (per coil watt)         0.337 x
+  Hot power derate (sustained / event avg / worst cell)1.140 / 1.178 / 1.214 x
   Reset fan policy                          resets spin the fans up (10.7 dB(A), still C4-silent); fans-off budget covers live play + hammer
-  Reset choreography                        pipelined: 5 colored waves of 7 lift 0.5s apart and depart at once; hovering neighbours never adjacent, so no 2.33x crowding term
+  Reset choreography                        pipelined: 5 colored waves of 7 lift 0.5s apart and depart at once; hovering neighbours never adjacent, so no 2.47x crowding term
   Reset takeoff stagger                     5 waves x 0.5 s, pipelined lift-cruise-land
-  Reset event duration                      6 s
-  Reset event heat energy                   13177.0737 J
-  Reset event peak heat (worst-phase lift)  3479.6396 W
-  Reset event average heat                  2196.179 W
-  Live-play move energy (one piece)         167.5127 J
-  Blocker hop energy (gap-making)           43.8656 J
-  Composite replay move energy (mix)        235.7103 J
-  W2 sustained baseline heat (this mode)    39.285 W
+  Reset event duration                      4.5 s
+  Reset event heat energy                   9190.7659 J
+  Reset event peak heat (worst-phase lift)  3757.7198 W
+  Reset event average heat                  2042.3924 W
+  Action-A move energy (one piece)          208.5786 J
+  Blocker hop energy (gap-making)           24.6053 J
+  Composite replay move energy (mix)        275.4864 J
+  W2 sustained baseline heat (this mode)    45.9144 W
   Source area (32 piece footprints)         492.8774 cm2
-  Coil-bed conduction thickness             8.288 mm
-  Source-to-baseplate resistance            0.0551 K/W
-  Source RC time constant                   51.7726 s
+  Coil-bed conduction thickness             4.736 mm
+  Source-to-baseplate resistance            0.0371 K/W
+  Source RC time constant                   19.9115 s
   Bottom fins                               72
   Fin height                                60 mm
   Fin channel width                         8 mm
@@ -195,25 +239,25 @@ Silent-mode cooling (fans off, live play)
   Convection coefficient                    2 W/(m2.K)
   Radiator aluminium mass                   14.9299 kg
   Thermal time constant                     1495.3846 s
-  W2 baseline rise (sustained duty)         4.372 K
+  W2 baseline rise (sustained duty)         5.1098 K
   Sustained-reset cyclic rise               0 K
   Back-to-back reset extra rise             0 K
-  Cyclic peak baseplate temp                39.372 C
+  Cyclic peak baseplate temp                40.1098 C
   Source rise (fleet, double reset)         0 K
-  Cyclic peak coil/MOSFET temp              39.372 C
-  W3 hammer local rise (dwell / 5s forever) 15.0061 K
+  Cyclic peak coil/MOSFET temp              40.1098 C
+  W3 hammer local rise (dwell / 5s forever) 4.6516 K
   Cascade hover per exchange (serialized)   1 s
-  W3 cascade local rise (RC-drained burst)  13.1787 K
-  Worst-phase takeoff local rise            3.764 K
-  Worst-phase takeoff local rise            3.764 K
-  Worst-case local coil temp (T3 on own baseline)67.8959 C
+  W3 cascade local rise (RC-drained burst)  9.1826 K
+  Worst-phase takeoff local rise            3.3472 K
+  Worst-phase takeoff local rise            3.3472 K
+  Worst-case local coil temp (T3 on own baseline)52.6176 C
   Pile-up zone plate rise (pre-departure heat in 1/3 plate)0 K
-  Governed peak cell temp (worst of T1/T3 paths)67.8959 C
+  Governed peak cell temp (worst of T1/T3 paths)52.6176 C
   Test-combination policy                   C6 tests evaluated separately; the NTC-grounded governor throttles any user-combined workload to keep C7
-  Level parked-hover endurance (one cell, touch cap)36.0417 s
-  Showpiece rung 0.5 hover endurance        5.666 s
-  Showpiece rung 1 hover endurance          1.4825 s
-  Thermal margin (plate/source/local min)   2.1279 x
+  Level parked-hover endurance (one cell, touch cap)inf s
+  Showpiece rung 0.5 hover endurance        7.1558 s
+  Showpiece rung 1 hover endurance          2.0237 s
+  Thermal margin (plate/source/local min)   2.9355 x
 
 Playing surface stack
 ---------------------
@@ -225,33 +269,33 @@ Playing surface stack
   Visible hover height (max flight)         4.1 mm
   Surface flatness budget                   0.3 mm
   Flatness fraction of visible hover        0.0968 x
-  Hotspot surface temp (worst cell, ever)   66.9916 C
-  Idle-region surface temp (sustained, prolonged touch)42.1443 C
-  Idle-region surface temp (rare double-reset peak)44.9827 C
+  Hotspot surface temp (worst cell, ever)   59.6881 C
+  Idle-region surface temp (sustained, prolonged touch)43.2376 C
+  Idle-region surface temp (rare double-reset peak)45.2139 C
   Touch policy                              governor hard-caps every cell at the brief-touch limit; any square a hand can reach is safe the instant it is uncovered
 
 Spectate-mode cooling (fans on, real-time replay)
 -------------------------------------------------
   Cooling mode                              fan-assisted, real-time replay baseline
-  Coil heat (32 pieces, phase-averaged)     1603.6549 W
-  Driver/control heat (phase-averaged)      320.019 W
-  Driver loss ratio (per coil watt)         0.1996 x
-  Hot power derate (sustained / event avg / worst cell)1.240 / 1.211 / 1.318 x
+  Coil heat (32 pieces, phase-averaged)     823.3651 W
+  Driver/control heat (phase-averaged)      277.4823 W
+  Driver loss ratio (per coil watt)         0.337 x
+  Hot power derate (sustained / event avg / worst cell)1.225 / 1.215 / 1.211 x
   Reset fan policy                          resets spin the fans up (10.7 dB(A), still C4-silent); fans-off budget covers live play + hammer
-  Reset choreography                        pipelined: 5 colored waves of 7 lift 0.5s apart and depart at once; hovering neighbours never adjacent, so no 2.33x crowding term
+  Reset choreography                        pipelined: 5 colored waves of 7 lift 0.5s apart and depart at once; hovering neighbours never adjacent, so no 2.47x crowding term
   Reset takeoff stagger                     5 waves x 0.5 s, pipelined lift-cruise-land
-  Reset event duration                      6 s
-  Reset event heat energy                   13631.8236 J
-  Reset event peak heat (worst-phase lift)  3600.9256 W
-  Reset event average heat                  2271.9706 W
-  Live-play move energy (one piece)         182.4876 J
-  Blocker hop energy (gap-making)           47.7869 J
-  Composite replay move energy (mix)        256.7816 J
-  W2 sustained baseline heat (this mode)    256.7816 W
+  Reset event duration                      4.5 s
+  Reset event heat energy                   9478.9691 J
+  Reset event peak heat (worst-phase lift)  3876.9579 W
+  Reset event average heat                  2106.4376 W
+  Action-A move energy (one piece)          224.1696 J
+  Blocker hop energy (gap-making)           26.4445 J
+  Composite replay move energy (mix)        296.0787 J
+  W2 sustained baseline heat (this mode)    296.0787 W
   Source area (32 piece footprints)         492.8774 cm2
-  Coil-bed conduction thickness             8.288 mm
-  Source-to-baseplate resistance            0.0551 K/W
-  Source RC time constant                   51.7726 s
+  Coil-bed conduction thickness             4.736 mm
+  Source-to-baseplate resistance            0.0371 K/W
+  Source RC time constant                   19.9115 s
   Bottom fins                               72
   Fin height                                60 mm
   Fin channel width                         8 mm
@@ -259,25 +303,25 @@ Spectate-mode cooling (fans on, real-time replay)
   Convection coefficient                    8 W/(m2.K)
   Radiator aluminium mass                   14.9299 kg
   Thermal time constant                     373.8462 s
-  W2 baseline rise (sustained duty)         7.1443 K
-  Sustained-reset cyclic rise               1.8239 K
-  Back-to-back reset extra rise             1.0145 K
-  Cyclic peak baseplate temp                44.9827 C
-  Source rise (fleet, double reset)         13.6842 K
-  Cyclic peak coil/MOSFET temp              58.6669 C
-  W3 hammer local rise (dwell / 5s forever) 14.933 K
+  W2 baseline rise (sustained duty)         8.2376 K
+  Sustained-reset cyclic rise               1.2708 K
+  Back-to-back reset extra rise             0.7054 K
+  Cyclic peak baseplate temp                45.2139 C
+  Source rise (fleet, double reset)         14.1519 K
+  Cyclic peak coil/MOSFET temp              59.3658 C
+  W3 hammer local rise (dwell / 5s forever) 4.6419 K
   Cascade hover per exchange (serialized)   1 s
-  W3 cascade local rise (RC-drained burst)  13.1144 K
-  Worst-phase takeoff local rise            3.7457 K
-  Worst-phase takeoff local rise            3.7457 K
-  Worst-case local coil temp (T3 on own baseline)67.0287 C
-  Pile-up zone plate rise (pre-departure heat in 1/3 plate)0.5619 K
-  Governed peak cell temp (worst of T1/T3 paths)67.0287 C
+  W3 cascade local rise (RC-drained burst)  9.1634 K
+  Worst-phase takeoff local rise            3.3402 K
+  Worst-phase takeoff local rise            3.3402 K
+  Worst-case local coil temp (T3 on own baseline)52.2543 C
+  Pile-up zone plate rise (pre-departure heat in 1/3 plate)0.351 K
+  Governed peak cell temp (worst of T1/T3 paths)59.7168 C
   Test-combination policy                   C6 tests evaluated separately; the NTC-grounded governor throttles any user-combined workload to keep C7
-  Level parked-hover endurance (one cell, touch cap)32.5604 s
-  Showpiece rung 0.5 hover endurance        5.2537 s
-  Showpiece rung 1 hover endurance          1.3786 s
-  Thermal margin (plate/source/local min)   1.5026 x
+  Level parked-hover endurance (one cell, touch cap)inf s
+  Showpiece rung 0.5 hover endurance        6.4548 s
+  Showpiece rung 1 hover endurance          1.8479 s
+  Thermal margin (plate/source/local min)   1.4686 x
   Cooling fans                              2
   Fan size                                  200 mm
   Fan speed                                 550 rpm
@@ -291,92 +335,92 @@ Spectate-mode cooling (fans on, real-time replay)
 
 Propulsion / flight
 -------------------
-  Max lateral thrust                        1.4502 N
-  Max lateral acceleration                  42.6887 m/s2
-  Max lateral acceleration                  4.353 g
-  Worst-case max lateral acceleration       2.5394 g
+  Max lateral thrust                        1.0849 N
+  Max lateral acceleration                  46.3957 m/s2
+  Max lateral acceleration                  4.731 g
+  Worst-case max lateral acceleration       2.6498 g
   Thrust current per winding                5.5 A
-  In-flight coil power (one piece)          644.8367 W
-  One-square hop time (bang-bang)           0.075 s
-  One-square peak speed                     1.6004 m/s
-  Full-rank traverse time                   0.1984 s
-  Yaw moment of inertia                     1e-06 kg.m2
-  Max yaw torque                            0.0073 N.m
-  Max yaw angular acceleration              7251.1662 rad/s2
+  In-flight coil power (one piece)          368.4781 W
+  One-square hop time (bang-bang)           0.0719 s
+  One-square peak speed                     1.6685 m/s
+  Full-rank traverse time                   0.1903 s
+  Yaw moment of inertia                     8e-07 kg.m2
+  Max yaw torque                            0.0054 N.m
+  Max yaw angular acceleration              6780.5441 rad/s2
 
 Attitude authority (tilt / yaw)
 -------------------------------
   Tilt lever arm (footprint)                5 mm
-  Max tilt torque available (sim)           0.0082 N.m
+  Max tilt torque available (sim)           0.0061 N.m
   Geometric tilt cap (1mm rim clearance at showpiece gap)8.0481 deg
-  Tilt inertia about diameter               3.005e-05 kg.m2
-  Static torque to hold target tilt         0.0018 N.m
-  Dynamic torque to reach tilt in time      0.0001876 N.m
-  Tilt torque required (hold+slew)          0.002 N.m
-  Tilt authority margin                     4.1839 x
-  Worst-case tilt authority margin          1.9154 x
-  Max yaw torque available (sim)            0.012 N.m
-  Yaw inertia about vertical                8.328e-06 kg.m2
-  Yaw torque required for 90deg slew        0.0002093 N.m
-  Yaw authority margin                      57.5149 x
-  Worst-case yaw authority margin           18.7221 x
+  Tilt inertia about diameter               2.068e-05 kg.m2
+  Static torque to hold target tilt         0.0012 N.m
+  Dynamic torque to reach tilt in time      0.0001291 N.m
+  Tilt torque required (hold+slew)          0.0014 N.m
+  Tilt authority margin                     4.4751 x
+  Worst-case tilt authority margin          2.0497 x
+  Max yaw torque available (sim)            0.0089 N.m
+  Yaw inertia about vertical                5.732e-06 kg.m2
+  Yaw torque required for 90deg slew        0.0001441 N.m
+  Yaw authority margin                      62.0166 x
+  Worst-case yaw authority margin           19.9679 x
 
 Verified worst-case authority (real coil geometry)
 --------------------------------------------------
-  Ampere-turn budget per coil (driver limit)308 A.t
-  Verified worst-case lift margin (level transport)2.6274 x
-  Hot-soak lift margin (magnets at touch cap)2.4627 x
-  Coupled level-pose lateral force (transport)0.0704 N
-  Coupled level-pose lateral acceleration   0.2113 g
-  Coupled worst yaw torque (hover held)     0.0036 N.m
-  Coupled worst yaw margin                  17.3676 x
-  Showpiece rung 8.0 deg: lift / tilt-torque margin1.20 / 1.12 x
-  Showpiece rung 4.0 deg: lift / tilt-torque margin2.10 / 2.70 x
+  Ampere-turn budget per coil (driver limit)176 A.t
+  Verified worst-case lift margin (level transport)2.2383 x
+  Hot-soak lift margin (magnets at touch cap)2.0979 x
+  Coupled level-pose lateral force (transport)0.0502 N
+  Coupled level-pose lateral acceleration   0.219 g
+  Coupled worst yaw torque (hover held)     0.0025 N.m
+  Coupled worst yaw margin                  17.1684 x
+  Showpiece rung 8.0 deg: lift / tilt-torque margin1.14 / 1.28 x
+  Showpiece rung 4.0 deg: lift / tilt-torque margin2.14 / 2.79 x
   Selected showpiece tilt (deepest affordable)4.0241 deg
-  Showpiece lift margin (selected rung)     2.0994 x
-  Showpiece tilt-torque margin (selected rung)2.6984 x
+  Showpiece lift margin (selected rung)     2.1399 x
+  Showpiece tilt-torque margin (selected rung)2.7869 x
 
 Eddy-current drag (conductive sheets)
 -------------------------------------
-  Design traverse speed (coupled accel)     0.933 m/s
+  Design traverse speed (coupled accel)     0.9496 m/s
   Crosshatch slot pitch (island size)       5 mm
   Eddy loop-area slot factor                0.25 x
-  PCB copper planes: depth below magnets    12.588 mm
+  PCB copper planes: depth below magnets    9.036 mm
   PCB copper planes: characteristic velocity391.9759 m/s
-  PCB copper planes: image (superconductor) force256.4008 mN
-  PCB copper planes: drag at design speed   0.6103 mN
-  Radiator plate (crosshatch-slotted): depth below magnets14.688 mm
+  PCB copper planes: image (superconductor) force700.8399 mN
+  PCB copper planes: drag at design speed   1.6979 mN
+  Radiator plate (crosshatch-slotted): depth below magnets11.136 mm
   Radiator plate (crosshatch-slotted): characteristic velocity12.8233 m/s
-  Radiator plate (crosshatch-slotted): image (superconductor) force129.1045 mN
-  Radiator plate (crosshatch-slotted): drag at design speed2.3359 mN
-  Radiator solid bottom web: depth below magnets18.188 mm
+  Radiator plate (crosshatch-slotted): image (superconductor) force304.2639 mN
+  Radiator plate (crosshatch-slotted): drag at design speed5.6024 mN
+  Radiator solid bottom web: depth below magnets14.636 mm
   Radiator solid bottom web: characteristic velocity89.7634 m/s
-  Radiator solid bottom web: image (superconductor) force47.0007 mN
-  Radiator solid bottom web: drag at design speed0.4885 mN
-  Total eddy drag at design speed           3.4346 mN
-  Drag fraction of coupled lateral thrust   0.0488 x
-  Total eddy damping coefficient            0.0037 N.s/m
-  Eddy damping rate (c/m)                   0.1088 1/s
-  Eddy heating at design speed              3.2043 mW
+  Radiator solid bottom web: image (superconductor) force90.932 mN
+  Radiator solid bottom web: drag at design speed0.9619 mN
+  Total eddy drag at design speed           8.2623 mN
+  Drag fraction of coupled lateral thrust   0.1646 x
+  Total eddy damping coefficient            0.0087 N.s/m
+  Eddy damping rate (c/m)                   0.3735 1/s
+  Eddy heating at design speed              7.8462 mW
   Cruise scenario (level, nominal gap, full diagonal)865 mm in 1.5 s
   Cruise accel required                     0.1569 g
-  Cruise thrust required (bang-bang incl. drag)52.3198 mN
-  Cruise authority margin                   1.3457 x
+  Cruise thrust required (bang-bang incl. drag)36.439 mN
+  Cruise authority margin                   1.3779 x
   Slide-to-phase scenario (worst pose)      30 mm in 0.5 s
   Slide accel required                      0.0489 g
-  Slide thrust required (bang-bang incl. drag)16.3087 mN
-  Slide authority margin                    4.317 x
+  Slide thrust required (bang-bang incl. drag)11.2403 mN
+  Slide authority margin                    4.4669 x
 
 Control feasibility
 -------------------
-  Coil inductance (estimate)                0.1426 mH
+  Coil inductance (estimate)                0.0815 mH
   Electrical time constant L/R              0.1606 ms
   Electrical L/R bandwidth                  991.0049 Hz
   Closed-loop current bandwidth             991.0049 Hz
-  Current slew time to Imax                 0.0112 ms
-  Open-loop instability growth time         21.8714 ms
-  Required control loop bandwidth           36.3842 Hz
-  Required pose update rate                 228.6086 Hz
+  Current slew time to Imax                 0.0073 ms
+  Open-loop instability growth time         21.5698 ms
+  Required control loop bandwidth           36.8929 Hz
+  Required pose update rate                 231.8051 Hz
 
 Drive matrix (position-addressed)
 ---------------------------------
@@ -385,166 +429,184 @@ Drive matrix (position-addressed)
   Driver half-bridges provided              4608
   Serialized control bits                   4608
   Current feedback channels                 4608
-  74HC595 shift registers                   600
-  Per-tile current-command data             20 Mbit/s
-  Per-tile SPI clock                        20 Mbit/s
-  Current-command serial headroom           2.8447 x
-  Current command-rate headroom             2.1871 x
-  Current-loop bandwidth headroom           27.2372 x
+  74HC595 shift registers                   578
+  Parallel setpoint-output lanes            17
+  Aggregate setpoint-output bandwidth       340 Mbit/s
+  Setpoint-output clock per lane            20 Mbit/s
+  Current-command serial headroom           1.2132 x
+  Current command-rate headroom             2.157 x
+  Current-loop bandwidth headroom           26.8616 x
   PWM cycles per current-loop bandwidth     10
-  Current command resolution                1.3428 mA
-  Current-monitor reads per tile            26518.5962 samples/s
-  Current-monitor ADC headroom              18.8547 x
+  Current command resolution                3.0892 mA
+  Current-monitor reads per control node    106862.1651 samples/s
+  Current-monitor ADC headroom              1.3926 x
   Coils energized at once                   1152
-  Current slew time to Imax                 0.0112 ms
-  Control update period                     4.3743 ms
-  Slew / update-period ratio                0.0026 x
+  Current slew time to Imax                 0.0073 ms
+  Control update period                     4.314 ms
+  Slew / update-period ratio                0.0017 x
 
 Hall position sensing
 ---------------------
-  Required update rate                      228.6086 Hz
-  Hall sensor pitch                         12.5 mm
-  Sensor plane depth below magnets          13.988 mm
+  Required update rate                      231.8051 Hz
+  Hall sensor pitch                         14.2857 mm
+  Sensor plane depth below magnets          10.436 mm
   Estimator observation window              4x4
   Sensors used per piece estimate           16
   Fixed-grid worst-case poses               216
   Nominal Hall observability rank           6
-  Nominal Hall condition                    371.9986 x
+  Nominal Hall condition                    834.4831 x
   Worst fixed-grid Hall rank                6
-  Worst fixed-grid Hall condition           624.446 x
-  Peak magnet signal at sensors             17.9159 mT
-  Coil field at sensors (hover, signed)     5.1286 mT
-  Coil field bound (hover, worst signs)     6.3294 mT
-  Coil field bound (full driver budget)     26.5663 mT
-  Neighbour piece field at sensors          1.0417 mT
-  Worst-case saturation field               25.2869 mT
+  Worst fixed-grid Hall condition           1579.0698 x
+  Peak magnet signal at sensors             20.7768 mT
+  Coil field at sensors (hover, signed)     1.7774 mT
+  Coil field bound (hover, worst signs)     3.9033 mT
+  Coil field bound (full driver budget)     17.1736 mT
+  Neighbour piece field at sensors          1.4747 mT
+  Worst-case saturation field               26.1547 mT
   Rest-pose magnet descent (parked piece)   3.1 mm
-  Rest-pose saturation field (coils off underneath)48.4871 mT
+  Rest-pose saturation field (coils off underneath)56.4965 mT
   Hall linear range                         169 mT
   ADC quantization (field)                  97.6562 uT
   Effective field noise per update          17.7249 uT
-  Worst position noise gain                 6.7574 m/T
-  Position noise (worst pose)               119.7748 um
-  Tilt noise (worst pose)                   2.4236 mrad
-  Interference bias after subtraction (hover currents)208.4756 um
-  Total position error (docking, hover currents)328.2504 um
+  Worst position noise gain                 8.3838 m/T
+  Position noise (worst pose)               148.602 um
+  Tilt noise (worst pose)                   3.6859 mrad
+  Interference bias after subtraction (hover currents)136.3235 um
+  Total position error (docking, hover currents)284.9255 um
   Docking error budget (gap fraction)       350 um
-  Flight current scale for bias (sprint/hover)1.7875 x
-  Interference bias after subtraction (sprint currents)344.9344 um
-  Total position error (in transit)         464.7092 um
+  Flight current scale for bias (sprint/hover)1.7686 x
+  Interference bias after subtraction (sprint currents)193.5909 um
+  Total position error (in transit)         342.1928 um
   In-transit error budget (gap fraction)    875 um
-  Sensors per tile                          64
-  Total Hall sensors (board)                2560
-  Hall array supply power                   128 W
-  Readout muxes per tile                    4
+  Sensors per control node (maximum)        174
+  Total Hall sensors (board)                1734
+  Hall array supply power                   86.7 W
+  Readout muxes per control node (maximum)  11
+  Total Hall readout muxes                  109
   ADC oversampling factor                   16 x
   Independent sensor-noise averages         1.28 x
   Sensor averaging group delay              0.016 ms
-  Reads needed per tile                     234095.1937 reads/s
-  Per-tile ADC capacity                     500000 samples/s
-  Scan headroom (incl. gating settle)       1.7869 x
+  Reads needed per control node (maximum)   645345.4829 reads/s
+  Raw ADC sample capacity per control node  1000000 samples/s
+  Scan headroom (incl. gating settle)       1.1748 x
 
-Tiled control architecture
---------------------------
-  Control tile side (square)                100 mm
-  Hall pitch (cost-selected, sparsest passing)12.5 mm
-  Control tiles (count)                     40
-  Coils per tile                            116
-  Max pieces over one tile                  3
-  Setpoint architecture                     per-tile FPGA delta-sigma modulators; MCU DMA-streams 12-bit setpoints
-  Setpoint-stream MCU load (DMA)            0.232 Mflop/s
-  Per-tile compute load                     13.9485 Mflop/s
-  Per-tile MCU capacity                     170 Mflop/s
-  Per-tile compute headroom                 12.1877 x
-  Single-MCU compute headroom (rejected)    1.1619 x
-  Hall gating policy                        per-mux-group high-side switch, powered only during scan burst
-  Cross-tile Hall sharing (corner piece, worst)58.5238 kbit/s
-  Cross-tile link                           neighbour tiles exchange edge Hall rows over the backplane serial; a corner piece reads from up to 4 tiles
-  Thermal governor fail-safe                2 NTC/tile ground-truth a per-cell energy observer; sensor fault or overtemp de-energizes coils (pieces settle, passive-safe)
+Logical-board control architecture
+----------------------------------
+  Control architecture                      one logical continuous motor/control board; physical PCB segmentation deferred
+  Logical motor/control footprint           720 x 480 mm
+  Physical PCB partition                    not fixed; one PCB, strips, or panels may implement the same logical board
+  Hall pitch (cost-selected, sparsest passing)14.2857 mm
+  Hall grid                                 51 x 34
+  Regional control/ADC nodes                10
+  Hall ADC engines per node                 2
+  Total Hall ADC engines                    20
+  Hall mux groups per ADC engine            6
+  Board-wide setpoint FPGAs                 1
+  Parallel setpoint-output lanes            17
+  Driver channels per control node          461
+  Setpoint-stream compute (board)           9.216 Mflop/s
+  Piece-control compute (board)             148.3553 Mflop/s
+  Compute load per control node             15.7571 Mflop/s
+  Control-node compute capacity             170 Mflop/s
+  Control-node compute headroom             10.7888 x
+  Single-node compute headroom (information)1.0789 x
+  Hall gating policy                        each mux group is high-side switched and scanned by regional parallel ADC engines
+  Thermal governor fail-safe                70 distributed NTCs ground-truth a per-cell energy observer; fault/overtemp de-energizes coils
   Hall group burst time                     0.512 ms
-  Hall gating duty                          0.1399 x
-  Hall supply power (peak, all on)          128 W
-  Hall supply power (gated)                 17.9083 W
+  Hall gating duty per mux group            0.1419 x
+  Worst ADC-engine scan fraction            0.8512 x
+  Hall scan headroom                        1.1748 x
+  ADC capacity left for current monitoring  148811.5613 samples/s per node
+  Current-monitor shared-ADC headroom       1.3926 x
+  Hall supply power (peak, all on)          86.7 W
+  Hall supply power (gated)                 12.2997 W
 
 Power supply
 ------------
-  Coil lift power (32 pieces)               1603.6549 W
-  Coil peak power (+thrust)                 1932.4666 W
-  Discrete driver peak loss                 385.6353 W
-  Electronics overhead                      47.8283 W
-  Total peak load (cruise, info)            2365.9302 W
-  Sustained load (grind + electronics)      304.6099 W
-  Required PSU rating (sustained +margin)   335.0709 W
-  PSU sizing policy                         PSU covers sustained + recharge; supercap buffer covers every event segment above rating; unit count = min(PSU + buffer cost)
-  Selected PSU (6x Mean Well UHP-500-24, series pair = +/-24V split rail)3009.6 W
-  PSU bank price                            565.2 USD
-  PSU + buffer architecture cost            809.2 USD
-  Peak bus current                          49.2902 A
-  Required bus current (+margin)            6.9806 A
-  PSU output current                        62.7 A
-  PSU load fraction                         0.1113 x
-  C2 power policy                           thermal-governor admission; takeoff waves stagger the worst-phase peak; single-zone pile-up reset served from zone PSU + shared supercap buffer
-  Reset event peak load (all 32, staggered lift)3648.7538 W
-  Reset event energy (incl. electronics)    13918.7933 J
-  Burst power deficit vs one zone           639.1538 W
-  Burst energy for buffer (pile-up + rematch reset)1181.0908 J
-  Buffer recharge time (PSU headroom)       0.4366 s
-  Buffer recharge window (event period)     288 s
-  Burst rail current (worst zone, per split rail, at full droop)84.4619 A
-  Pieces at worst-phase hover PSU sustains  15.3581
-  PSU topology                              isolated series pairs, 3 zones, +/-24V split rail; PSU rails and buffer cross-tied through ideal-diode ORing
-  Independent PSU zones                     3
-  Zone rating                               1003.2 W
-  Aligned-rest hover power (one piece)      32.1361 W
-  Cross-tied hover capacity (pieces, aligned rest)80.1634
-  Worst-case zone pieces (reset, full pile-up)32
-  Zone burst demand (pile-up reset peak)    3648.7538 W
-  Zone burst available (cross-tied PSUs + buffer)3819.6 W
-  Zone governor policy                      staggered takeoff waves; cross-tied rails let all PSUs + buffer serve the pile-up zone
+  Coil lift power (32 pieces)               823.3651 W
+  Coil peak power (+thrust)                 2575.5189 W
+  Discrete driver peak loss                 867.9757 W
+  Electronics overhead                      27.2197 W
+  Total peak load (cruise, info)            3470.7143 W
+  Sustained load (grind + electronics)      323.2984 W
+  Required PSU rating (sustained +margin)   355.6282 W
+  PSU sizing policy                         one full-bus source covers sustained and reset-average load; split-rail buffers clip only the cumulative intra-event peaks
+  Selected PSU (1x Mean Well UHP-2500-36 adjusted to 40V)2498.4 W
+  PSU bank price                            589 USD
+  Active midpoint allowance                 40 USD
+  PSU + midpoint + buffer cost              1106.2 USD
+  Peak bus current                          86.7679 A
+  Required bus current (+margin)            8.8907 A
+  PSU output current                        62.46 A
+  PSU load fraction                         0.1423 x
+  C2 power policy                           takeoff waves stagger the worst-phase peak; a full pile-up is served by the common source and split-rail buffer
+  Reset event peak load (all 32, staggered lift)3904.1776 W
+  Reset event average load                  2177.0317 W
+  Reset event energy (incl. electronics)    9601.4577 J
+  Burst power deficit vs continuous source  1405.7776 W
+  Dynamic usable-buffer requirement         1739.6767 J
+  Buffer depletion after double reset       0 J
+  Post-event recharge time (PSU headroom)   0 s
+  Buffer recharge window (event period)     291 s
+  Burst rail current (per split rail, at full droop)108.4494 A
+  Pieces at worst-phase hover PSU sustains  19.7247
+  PSU topology                              single 40V full-bus source with controlled +/-20V midpoint and one protected bank per rail
+  Logical power feeds                       1
+  Full-bus source rating                    2498.4 W
+  Source contribution during burst          2498.4 W
+  Worst localized sustained requirement (+margin)355.6282 W
+  Worst localized sustained margin          7.0253 x
+  Aligned-rest hover power (one piece)      16.1465 W
+  Continuous capacity (pieces, aligned rest)114.4697
+  Worst-case pieces (reset, full pile-up)   32
+  Burst demand (pile-up reset peak)         3904.1776 W
+  Burst available (source + buffer)         4373.4 W
+  Power governor policy                     staggered takeoff waves; source output and buffer state are supervised
   Split-rail policy                         zero-net-current row in commutation LP; rails carry only the offset residual imbalance
   Rail imbalance current (offset RSS)       1.3856 A
-  PSU unit rated current                    20.9 A
+  Active midpoint current rating            5 A
+  Full-bus PSU rated current                62.46 A
 
 Burst energy buffer (supercaps)
 -------------------------------
-  Buffer topology                           one supercap bank per rail polarity, ideal-diode ORed into every zone rail (common midpoint ground)
+  Buffer topology                           one protected supercap bank per rail polarity around the controlled midpoint; four high-current charge/discharge protection paths
   Supercap cell                             350F 2.7V, run at 2.4V; sized at EOL (80% C, 2x ESR)
-  Cells in series per string                10
-  Parallel strings per rail                 1
-  Total supercap cells (both rails)         20
-  Bank capacitance per rail                 28 F
-  Allowed rail droop during burst           2.4 V
-  Usable buffer energy                      1572.48 J
-  Buffer peak power (ESR-limited)           810 W
-  Buffer mass                               1.3 kg
-  Buffer cost (cells + balancing + ORing)   244 USD
+  Cells in series per string                9
+  Parallel strings per rail                 3
+  Total supercap cells (both rails)         54
+  Bank capacitance per rail                 93.3333 F
+  Allowed rail droop during burst           2 V
+  Usable buffer energy                      3640 J
+  Buffer peak power (ESR-limited)           1875 W
+  Buffer mass                               3.51 kg
+  Buffer cost (cells + balancing + ORing)   477.2 USD
 
 Stability and vibration
 -----------------------
-  Vertical magnetic stiffness               86.0063 N/m
-  Vertical bounce frequency                 8.008 Hz
-  Tilt (rock) stiffness                     0.0086 N.m/rad
-  Tip moment of inertia                     0.0001035 kg.m2
-  King rocking frequency                    1.4507 Hz
-  Control bandwidth over rock mode          25.0813 x
-  Tilt sense resolution (measured)          2.4236 mrad
-  Tip position sense resolution             231.727 um
+  Vertical magnetic stiffness               62.3262 N/m
+  Vertical bounce frequency                 8.2168 Hz
+  Tilt (rock) stiffness                     0.0062 N.m/rad
+  Tip moment of inertia                     7.126e-05 kg.m2
+  King rocking frequency                    1.4885 Hz
+  Control bandwidth over rock mode          24.7857 x
+  Tilt sense resolution (measured)          3.6859 mrad
+  Tip position sense resolution             352.424 um
 
 Mass budget (whole set)
 -----------------------
-  Board copper (coils)                      5.3179 kg
+  Board copper (coils)                      3.0388 kg
   Board PCB (FR4)                           1.023 kg
   Aluminium baseplate + fins                14.9299 kg
   Cooling fans                              0.74 kg
-  Supercap burst buffer                     1.3 kg
+  Supercap burst buffer                     3.51 kg
   Dispensed gap filler                      1.5276 kg
-  Coil-bed potting epoxy                    4.5229 kg
-  PSU + frame + electronics + cabling (est.)7.98 kg
-  Board total (est.)                        37.3412 kg
-  Mass per piece                            33.9723 g
+  Coil-bed potting epoxy                    2.7712 kg
+  PSU + midpoint + frame + electronics + cabling (est.)6.47 kg
+  Board total (est.)                        34.0104 kg
+  Mass per piece                            23.3834 g
   Pieces total                              32
-  All pieces mass                           1.0871 kg
-  WHOLE SET mass (est.)                     38.4284 kg
+  All pieces mass                           0.7483 kg
+  WHOLE SET mass (est.)                     34.7586 kg
 
 Status checks
 -------------
@@ -578,12 +640,13 @@ Status checks
   Eddy-drag check                           OK
   Rock-mode controllable check              OK
   Tilt-observable check                     OK
-  Driver-bus-voltage check                  OK
+  Driver-voltage-headroom check             OK
   Current-offset check                      OK
   Split-rail midpoint-balance check         OK
-  PSU zone-capacity check                   OK
-  Zone pile-up burst check                  OK
+  PSU sustained-capacity check              OK
+  Pile-up burst check                       OK
   Takeoff-stagger-fits check                OK
+  Reset-choreography check                  five-wave reset has no demonstrated collision-free routing from adversarial placements
   Visible-hover-height check                OK
   Surface-flatness check                    OK
   Hotspot-touch-temperature check           OK
@@ -618,7 +681,8 @@ Status checks
   Current-monitor-throughput check          OK
   Driver-serial-throughput check            OK
   Drive-slew check                          OK
-  Per-tile-compute check                    OK
+  Regional-control-compute check            OK
+  Logical-board-footprint check             OK
   Cooling-fan-fit check                     OK
   PSU-adequate check                        OK
   Reset-burst coverage check                OK
@@ -628,59 +692,58 @@ Status checks
 BOM (per board; listed volume pricing, 100-board order)
 -------------------------------------------------------
 
-  [A] Per tile (one 10x10cm coil-array module)
-  Driver power MOSFET  60V dual N-MOSFET SOP-8/PDFN, one half-bridge/package; price is RFQ targetqty      116  $  0.075  $     8.70  https://www.lcsc.com/product-detail/C20539695.html
-  Driver gate driver   EG Micro EG2134 3 half-bridge MOSFET driver (LCSC C480661)qty       39  $  0.225  $     8.79  https://www.lcsc.com/product-detail/C480661.html
-  Current setpoint latchGcore GR74HC595 8-bit shift register (LCSC C18164493)qty       15  $  0.028  $     0.42  https://www.lcsc.com/product-detail/C18164493.html
-  Setpoint RC filter   15.8k 1% + 10nF X7R 0603 pair, 1.007kHz (LCSC C155689 + C519406)qty      116  $  0.003  $     0.35  https://www.lcsc.com/product-detail/C519406.html
-  Setpoint FPGA        GOWIN GW1NZ-LV1QN48C6 + 1.2V LDO; BRAM-multiplexed delta-sigma fabric, synthesis proof pendingqty        1  $  4.050  $     4.05  https://www.lcsc.com/product-detail/C5799569.html
-  Current shunt        Milliohm HoJLR2512-2W-20mR-1% 75ppm midpoint-return sense; full-reel RFQ pendingqty      116  $  0.042  $     4.85  https://www.lcsc.com/product-detail/C2924538.html
-  Current comparator   MSKSEMI LM393 dual comparator (LCSC C5252905) qty       58  $  0.020  $     1.15  https://www.lcsc.com/product-detail/C5252905.html
-  Current front-end passives0603 1% + matched-pair arrays (idle zero-cal removes statics) [TO BE SOURCED]qty      464  $  0.004  $     1.62
-  Tile bulk capacitance330-470uF 35V polymer local power decoupling for the 20kHz half-bridge bank (24V rail + margin) [TO BE SOURCED]qty        4  $  0.250  $     1.00
-  Thermal sensor       10k 1% 0402 NTC; ground truth for the thermal-governor energy observer + hardware overtemp cutback [TO BE SOURCED]qty        2  $  0.009  $     0.02
-  Driver gate passives 0603 1% gate pull resistors (LCSC C54531144 class)qty      232  $  0.001  $     0.28  https://www.lcsc.com/product-detail/C54531144.html
-  Driver decoupling    100nF 50V X7R 0603 logic bypass capacitors (LCSC C14663 class)qty      112  $  0.020  $     2.21  https://www.lcsc.com/product-detail/C14663.html
-  Driver SMT assembly  JLCPCB automated assembly joints              qty     5368  $  0.002  $     9.13  https://jlcpcb.com/help/article/pcb-assembly-faqs
-  Magnet wire          1x0.05mm flat rectangular self-bonding enameled copper wire (kg share; price is RFQ budget)qty   0.1329  $ 18.740  $     2.49  https://enameledwires.com/products/enameled-copper-wire/self-bonding-rectangular.html
-  Hall position sensor TI DRV5055A4QDBZR, 12.5 V/T, +/-169mT, approx. 18.4uT rms typical input noiseqty       64  $  0.348  $    22.25  https://www.digikey.com/en/products/detail/texas-instruments/DRV5055A4QDBZR/8567410
-  Hall group gate switchGOODWORK AO3401A -30V P-FET, one per mux group (LCSC C2938368)qty        4  $  0.021  $     0.08  https://www.lcsc.com/product-detail/MOSFETs_GOODWORK-AO3401A_C2938368.html
-  Hall readout mux     TI CD74HC4067SM96 16ch analog mux (LCSC C98457)qty        4  $  0.253  $     1.01  https://www.lcsc.com/product-detail/C98457.html
-  Tile PCB             JLCPCB 4-layer FR4 100x100mm, 100-board quote equivalentqty      100  $  0.011  $     1.06  https://jlcpcb.com/news/discount-on-quality-4-layer-pcbs
-  Tile control MCU     STM32G431KBT6 32-pin                          qty        1  $  3.130  $     3.13  https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G431KBT6/10231564
-  Backplane connector  ZHOURI 2x10 2.54mm male header (LCSC C5116480)qty        1  $  0.072  $     0.07  https://www.lcsc.com/product-detail/C5116480.html
-  PER-TILE SUBTOTAL                                                                          $    72.65
+  [A] Continuous motor/control bed (one logical board)
+  Driver power MOSFET  >=60V dual N-MOSFET SOP-8/PDFN, one half-bridge/package; RFQ target [TO BE SOURCED]qty     4608  $  0.075  $   345.60
+  Driver gate driver   EG Micro EG2134, 3 half-bridges/IC (LCSC C480661)qty     1536  $  0.225  $   346.21  https://www.lcsc.com/product-detail/C480661.html
+  Current setpoint latchGR74HC595 chains across 17 parallel lanes     qty      578  $  0.028  $    16.18  https://www.lcsc.com/product-detail/C18164493.html
+  Setpoint RC filter   15.8k 1% + 10nF X7R 0603 pair, 1.007kHz       qty     4608  $  0.003  $    13.82  https://www.lcsc.com/product-detail/C519406.html
+  Board setpoint FPGA  board-wide delta-sigma engine, 17 parallel outputs and >=55kbit channel state [TO BE SOURCED / SYNTHESIS REQUIRED]qty        1  $ 25.000  $    25.00
+  Current shunt        HoJLR2512-2W-20mR-1% midpoint-return sense    qty     4608  $  0.042  $   192.61  https://www.lcsc.com/product-detail/C2924538.html
+  Current comparator   MSKSEMI LM393 dual comparator                 qty     2304  $  0.020  $    45.62  https://www.lcsc.com/product-detail/C5252905.html
+  Current front-end passives0603 1% + matched-pair arrays; idle zero-calibrated [TO BE SOURCED]qty    18432  $  0.004  $    64.51
+  Local bulk capacitance330-470uF 35V polymer distributed every ~29 drivers [TO BE SOURCED]qty      159  $  0.250  $    39.75
+  Thermal sensor       distributed 10k 1% NTCs for the per-cell energy observer [TO BE SOURCED]qty       70  $  0.009  $     0.64
+  Driver gate passives 0603 1% gate pull resistors                   qty     9216  $  0.001  $    11.06  https://www.lcsc.com/product-detail/C54531144.html
+  Driver decoupling    100nF 50V X7R 0603 bypass capacitors          qty     4418  $  0.020  $    87.03  https://www.lcsc.com/product-detail/C14663.html
+  Motor-bed SMT assemblyautomated assembly joints over exact motor areaqty   205327  $  0.002  $   349.06  https://jlcpcb.com/help/article/pcb-assembly-faqs
+  Magnet wire          1x0.05mm flat rectangular self-bonding enameled copperqty   3.0388  $ 18.740  $    56.95  https://enameledwires.com/products/enameled-copper-wire/self-bonding-rectangular.html
+  Hall position sensor TI DRV5055A4QDBZR                             qty     1734  $  0.348  $   602.70  https://www.digikey.com/en/products/detail/texas-instruments/DRV5055A4QDBZR/8567410
+  Hall group gate switchAO3401A -30V P-FET, one per mux group         qty      109  $  0.021  $     2.25  https://www.lcsc.com/product-detail/MOSFETs_GOODWORK-AO3401A_C2938368.html
+  Hall readout mux     TI CD74HC4067SM96 16-channel analog mux       qty      109  $  0.253  $    27.54  https://www.lcsc.com/product-detail/C98457.html
+  Motor/control PCB area4-layer area allowance over exact 720x480mm motor; one PCB vs strips/panels is not fixedqty     3456  $  0.011  $    36.74  https://jlcpcb.com/news/discount-on-quality-4-layer-pcbs
+  Regional control MCU STM32G431KBT6-class node with two Hall scan enginesqty       10  $  3.130  $    31.30  https://www.digikey.com/en/products/detail/stmicroelectronics/STM32G431KBT6/10231564
+  MOTOR-BED SUBTOTAL                                                                         $  2294.58
 
   [B] Per piece (chess piece)
-  NdFeB magnet block   N48SH 5x5x5mm cube (SH grade for hot-cell soak) [TO BE SOURCED]qty       16  $  0.360  $     5.76
-  Piece plastic / misc PETG/PC print material plus inserts/finish allowance (PLA Tg 60C rules it out on a 77C-capable surface)qty        1  $  1.400  $     1.40  https://jlc3dp.com/blog/3d-printing-cost
-  PER-PIECE SUBTOTAL                                                                         $     7.16
+  NdFeB magnet block   N48SH 5x5x4mm cube (SH grade) [TO BE SOURCED] qty       16  $  0.288  $     4.61
+  Piece plastic / misc PETG/PC print material plus inserts/finish allowanceqty        1  $  1.400  $     1.40  https://jlc3dp.com/blog/3d-printing-cost
+  PER-PIECE SUBTOTAL                                                                         $     6.01
 
   [C] Board-shared (one per board)
-  Compute module       RPi CM5 2GB Lite, SC1556 (57.37 EUR)          qty        1  $ 61.960  $    61.96  https://www.digikey.com/en/products/detail/raspberry-pi/SC1556/25805567
-  Mainboard            Custom 4-layer carrier, priced from JLCPCB quote basisqty        1  $ 25.000  $    25.00  https://jlcpcb.com/quote
-  Tile interconnect    HDGC 2x10 2.54mm female socket (LCSC C19725277)qty       40  $  0.113  $     4.50  https://www.lcsc.com/product-detail/C19725277.html
-  Bus power supply     Mean Well UHP-500-24, series pair = +/-24V split railqty        6  $ 94.200  $   565.20  https://www.digikey.com/en/products/detail/mean-well-usa-inc/UHP-500-24/8324036
+  Compute module       RPi CM5 2GB Lite, SC1556                      qty        1  $ 61.960  $    61.96  https://www.digikey.com/en/products/detail/raspberry-pi/SC1556/25805567
+  Mainboard            Custom carrier for CM5, power supervision and logical-board linksqty        1  $ 25.000  $    25.00  https://jlcpcb.com/quote
+  Bus power supply     Mean Well UHP-2500-36 adjusted to 40V         qty        1  $589.000  $   589.00  https://www.digikey.com/en/products/detail/mean-well-usa-inc/UHP-2500-36/11494555
+  Active bus midpoint  controlled 40V-to-+/-20V midpoint balance and protection [TO BE SOURCED / BENCH VALIDATION REQUIRED]qty        1  $ 40.000  $    40.00
   Bus distribution     Copper 110 flat busbar plus zone cabling allowanceqty        1  $ 36.960  $    36.96  https://www.ebay.com/itm/304578689563
-  Rail regen clamp     TVS + dump resistor per rail per zone; PSUs cannot sink braking energy [TO BE SOURCED]qty        6  $  5.000  $    30.00
-  Rail bulk capacitanceLow-ESR bulk electrolytic per rail per zone [TO BE SOURCED]qty        6  $  4.000  $    24.00
-  Supercap burst bufferMaxwell BCAP0350-P270-S18, 10s1p per rail; allocation advisedqty       20  $  7.650  $   153.00  https://www.digikey.com/en/products/detail/maxwell-technologies/BCAP0350-P270-S18/11673891
-  Supercap balancing   active balancing network per cell group; topology decision pending [TO BE SOURCED]qty       20  $  0.150  $     3.00
-  Buffer charge/protectionBQ33100-class monitor + precharge/charge path + fuse + disconnect per rail bank [TO BE SOURCED]qty        2  $ 20.000  $    40.00  https://www.ti.com/product/BQ33100
-  Buffer ideal-diode ORingLM74800-Q1 + paralleled 40V N-FET pairs per rail per zone; 103A path thermal validation pending [TO BE SOURCED]qty       12  $  4.000  $    48.00  https://www.ti.com/lit/ds/symlink/lm7480.pdf
-  Radiator aluminium   Integral-fin extrusion, crosshatch-kerfed 4mm base (fins below the web, outside the eddy field); RFQ budget per kgqty  14.9299  $ 12.000  $   179.16
-  Radiator eddy-break slottingGang-saw/CNC 5mm-pitch crosshatch through 3.5mm of extrusion base; RFQ budgetqty        1  $200.000  $   200.00
-  Coil potting epoxy   Ziitek TIE280-25AB-class epoxy, 2.5 W/mK; price remains RFQ budgetqty        1  $ 45.000  $    45.00  https://www.ziitek.com/epoxy-potting-compound
-  Dispensed thermal gap fillerLaird Tputty SF560 5.6 W/mK, 1.3mm bond line, 449.3cc; 10-pail public price, RFQ + selective dispensing pendingqty        1  $336.430  $   336.43  https://www.laird.com/products/thermal-interface-materials/liquid-gap-fillers/tputty-sf560
-  Playing surface      UV-printed board graphics + clear wear topcoat applied directly on the potting [TO BE SOURCED]qty        1  $ 12.000  $    12.00
-  AC input             IEC inlet + fuse + mains switch + internal AC harness [TO BE SOURCED]qty        1  $  8.000  $     8.00
-  Mains EMI filter     Conducted-emissions filter for the 20kHz half-bridge farm [TO BE SOURCED]qty        1  $ 12.000  $    12.00
-  Enclosure / frame    Frame + skirt enclosure allowance (1.0kg mass already budgeted) [TO BE SOURCED]qty        1  $ 40.000  $    40.00
-  Radiator fan         Noctua NF-A20 PWM 200mm at 550rpm low-noise settingqty        2  $ 39.950  $    79.90  https://www.coolerguys.com/products/noctua-nf-a20-pwm-200mm-cooling-fan
-  SHARED SUBTOTAL                                                                            $  1904.11
+  Rail regen clamp     TVS + dump resistor per rail per zone; PSUs cannot sink braking energy [TO BE SOURCED]qty        2  $  5.000  $    10.00
+  Rail bulk capacitanceLow-ESR bulk electrolytic per rail per zone [TO BE SOURCED]qty        2  $  4.000  $     8.00
+  Supercap burst bufferMaxwell BCAP0350-P270-S18, 9s3p per rail      qty       54  $  7.650  $   413.10  https://www.digikey.com/en/products/detail/maxwell-technologies/BCAP0350-P270-S18/11673891
+  Supercap balancing   active balancing network per cell group [TO BE SOURCED]qty       54  $  0.150  $     8.10
+  Buffer charge/protection9-series monitor + precharge/charge + fuse/disconnect [TO BE SOURCED]qty        2  $ 20.000  $    40.00
+  Buffer charge/discharge protectionprotected high-current paths around both rail banks; 108A modeled rail demand [TO BE SOURCED]qty        4  $  4.000  $    16.00
+  Radiator aluminium   Integral-fin extrusion, crosshatch-kerfed 4mm baseqty  14.9299  $ 12.000  $   179.16
+  Radiator eddy-break slottinggang-saw/CNC 5mm-pitch crosshatch             qty        1  $200.000  $   200.00
+  Coil potting epoxy   2.5 W/mK filled epoxy allowance               qty        1  $ 45.000  $    45.00  https://www.ziitek.com/epoxy-potting-compound
+  Dispensed thermal gap filler5.6 W/mK, 1.3mm bond line, 449.3cc            qty        1  $336.430  $   336.43  https://www.laird.com/products/thermal-interface-materials/liquid-gap-fillers/tputty-sf560
+  Playing surface      UV-printed graphics + clear wear topcoat [TO BE SOURCED]qty        1  $ 12.000  $    12.00
+  AC input             IEC inlet + fuse + mains switch + harness [TO BE SOURCED]qty        1  $  8.000  $     8.00
+  Mains EMI filter     conducted-emissions filter [TO BE SOURCED]    qty        1  $ 12.000  $    12.00
+  Enclosure / frame    frame + skirt allowance [TO BE SOURCED]       qty        1  $ 40.000  $    40.00
+  Radiator fan         Noctua NF-A20 PWM 200mm at 550rpm             qty        2  $ 39.950  $    79.90  https://www.coolerguys.com/products/noctua-nf-a20-pwm-200mm-cooling-fan
+  SHARED SUBTOTAL                                                                            $  2160.61
 
   Board roll-up
-  Tiles                40 x $72.65                                                           $  2906.14
-  Pieces               32 x $7.16                                                            $   229.12
-  Board-shared                                                                               $  1904.11
-  BOARD TOTAL                                                                                $  5039.37
+  Motor/control bed    one logical board                                                     $  2294.58
+  Pieces               32 x $6.01                                                            $   192.26
+  Board-shared                                                                               $  2160.61
+  BOARD TOTAL                                                                                $  4647.45

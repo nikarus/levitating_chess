@@ -2,12 +2,13 @@ import numpy as np
 import magpylib as magpy
 from magpylib_force import getFT
 from scipy.spatial.transform import Rotation
-from scipy.optimize import linprog
+from scipy.optimize import linprog, minimize
 
 
 class SimGeometry:
     def __init__(self, magnet_lateral_edge_mm, magnet_thickness_mm, magnets_per_period, periods_per_side,
-                 magnet_to_coil_distance_mm, max_flight_gap_mm, plastic_wall_thickness_mm, base_corner_standoff_mm,
+                 magnet_to_coil_distance_mm, max_flight_gap_mm, plastic_wall_thickness_mm, piece_shell_shape_factor,
+                 base_corner_standoff_mm,
                  remanence, ndfeb_density_g_per_mm3, plastic_density_g_per_mm3,
                  gravity, reference_king_height_mm, reference_king_base_diameter_mm,
                  com_height_fraction, coil_outer_width_mm, coil_outer_length_mm,
@@ -21,6 +22,7 @@ class SimGeometry:
         self.gap = magnet_to_coil_distance_mm / 1000
         self.max_flight_gap = max_flight_gap_mm / 1000
         self.wall_thickness = plastic_wall_thickness_mm / 1000
+        self.shell_shape_factor = piece_shell_shape_factor
         self.base_corner_standoff = base_corner_standoff_mm / 1000
         self.remanence = remanence
         self.ndfeb_density = ndfeb_density_g_per_mm3 * 1e6
@@ -230,7 +232,7 @@ def piece_weight(layout):
     inner_diameter = base_diameter - 2 * G.wall_thickness
     inner_height = height - 2 * G.wall_thickness
     shell_volume = np.pi / 4 * (base_diameter ** 2 * height - inner_diameter ** 2 * inner_height)
-    shell_mass = shell_volume * G.plastic_density
+    shell_mass = shell_volume * G.shell_shape_factor * G.plastic_density
     total_mass = shell_mass + layout.magnet_mass
     return total_mass * G.gravity
 
@@ -256,6 +258,208 @@ def min_peak_current(matrix, target):
     if not result.success:
         raise RuntimeError(result.message)
     return result.x[-1], result.x[:coil_count]
+
+
+def min_loss_current(matrix, target, current_limit, resistances=1.0, initial_currents=None):
+    matrix = np.asarray(matrix, dtype=float)
+    target = np.asarray(target, dtype=float)
+    coil_count = matrix.shape[1]
+    limits = np.broadcast_to(np.asarray(current_limit, dtype=float), (coil_count,))
+    weights = np.broadcast_to(np.asarray(resistances, dtype=float), (coil_count,))
+    if np.any(limits <= 0) or np.any(weights <= 0):
+        raise ValueError("Current limits and resistances must be positive")
+    equality = np.vstack((matrix, np.ones(coil_count)))
+    expected = np.append(target, 0.0)
+    scaled_equality = equality * limits
+    row_norms = np.linalg.norm(scaled_equality, axis=1)
+    if np.any(row_norms == 0):
+        raise ValueError("Allocation constraints contain an empty row")
+    scaled_equality /= row_norms[:, None]
+    scaled_expected = expected / row_norms
+    objective_weights = weights * limits ** 2
+    objective_weights /= np.max(objective_weights)
+    if initial_currents is None:
+        _, initial_currents = min_peak_current(matrix, target)
+    result = minimize(
+        lambda currents: np.dot(objective_weights, currents ** 2),
+        np.asarray(initial_currents) / limits,
+        jac=lambda currents: 2 * objective_weights * currents,
+        bounds=[(-1.0, 1.0)] * coil_count,
+        constraints={
+            "type": "eq",
+            "fun": lambda currents: scaled_equality @ currents - scaled_expected,
+            "jac": lambda currents: scaled_equality,
+        },
+        method="SLSQP",
+        options={"ftol": 1e-11, "maxiter": 300},
+    )
+    if not result.success:
+        raise RuntimeError(f"Current allocation failed: {result.message}")
+    residual = np.max(np.abs(scaled_equality @ result.x - scaled_expected))
+    if residual > 1e-7 or np.max(np.abs(result.x)) > 1 + 1e-8:
+        raise RuntimeError("Current allocation violates wrench or current constraints")
+    return result.x * limits
+
+
+def horizontal_wrench_targets(thrust, weight, directions=8):
+    angles = np.arange(directions) * 2 * np.pi / directions
+    return np.column_stack((thrust * np.cos(angles), thrust * np.sin(angles),
+                            np.full(directions, weight), np.zeros((directions, 3))))
+
+
+def min_peak_current_in_basis(matrix, target, basis):
+    """Minimize physical coil peak current for currents constrained to i = basis @ u."""
+    coil_count, mode_count = basis.shape
+    objective = np.zeros(mode_count + 1)
+    objective[-1] = 1.0
+    inequality = np.zeros((2 * coil_count, mode_count + 1))
+    inequality[:coil_count, :mode_count] = basis
+    inequality[:coil_count, -1] = -1.0
+    inequality[coil_count:, :mode_count] = -basis
+    inequality[coil_count:, -1] = -1.0
+    equality = np.hstack([np.asarray(matrix) @ basis, np.zeros((matrix.shape[0], 1))])
+    result = linprog(
+        objective,
+        A_ub=inequality, b_ub=np.zeros(2 * coil_count),
+        A_eq=equality, b_eq=np.asarray(target, dtype=float),
+        bounds=[(None, None)] * mode_count + [(0, None)],
+        method="highs",
+    )
+    if not result.success:
+        return np.inf, None
+    currents = basis @ result.x[:mode_count]
+    return result.x[-1], currents
+
+
+def local_current_mode_analysis(wrenches, level_wrenches, weight, characteristic_length,
+                                sprint_thrust, mode_counts=(6, 8, 10, 12, 16, 20, 23)):
+    """Test one fixed local current basis across the existing pose envelope.
+
+    This is deliberately a local mathematical bound.  It does not assume that a
+    dense basis can be manufactured as a winding or routed across the full board.
+    """
+    def unit_columns(matrix):
+        norms = np.linalg.norm(matrix, axis=0)
+        return matrix[:, norms > 1e-12] / norms[norms > 1e-12]
+
+    coil_count = wrenches[0].shape[1]
+    zero_sum_projector = np.eye(coil_count) - np.ones((coil_count, coil_count)) / coil_count
+    normalized_solutions = []
+    solutions_by_wrench = {}
+    for wrench in wrenches:
+        scaled = np.array(wrench, copy=True)
+        scaled[3:] /= characteristic_length
+        augmented = np.vstack([scaled, np.ones((1, coil_count))])
+        targets = np.vstack([np.eye(6), np.zeros((1, 6))])
+        solutions = np.linalg.lstsq(augmented, targets, rcond=None)[0]
+        normalized_solutions.append(solutions)
+        solutions_by_wrench[id(wrench)] = solutions
+    six_dof_library = zero_sum_projector @ np.hstack(normalized_solutions)
+
+    operational = []
+    operational_by_wrench = {id(wrench): [] for wrench in wrenches}
+    for wrench in wrenches:
+        target = np.array([0, 0, weight, 0, 0, 0], dtype=float)
+        peak, currents = min_peak_current(wrench, target)
+        scenario = (wrench, target, peak, float(np.sum(currents ** 2)), currents)
+        operational.append(scenario)
+        operational_by_wrench[id(wrench)].append(currents)
+    if sprint_thrust is not None:
+        for wrench in level_wrenches:
+            for target in ([sprint_thrust, 0, weight, 0, 0, 0],
+                           [0, sprint_thrust, weight, 0, 0, 0]):
+                peak, currents = min_peak_current(wrench, target)
+                scenario = (wrench, np.asarray(target, dtype=float), peak,
+                            float(np.sum(currents ** 2)), currents)
+                operational.append(scenario)
+                operational_by_wrench[id(wrench)].append(currents)
+
+    operational_library = zero_sum_projector @ np.column_stack([scenario[4] for scenario in operational])
+    libraries = {
+        "6dof": six_dof_library,
+        "operational": operational_library,
+        "hybrid": np.hstack([unit_columns(six_dof_library), unit_columns(operational_library)]),
+    }
+
+    rows = []
+    library_ranks = {}
+    for basis_source, library in libraries.items():
+        left, singular_values, _ = np.linalg.svd(library, full_matrices=False)
+        library_rank = matrix_rank(library)
+        library_ranks[basis_source] = library_rank
+        total_energy = float(np.sum(singular_values ** 2))
+        for requested_count in mode_counts:
+            mode_count = min(requested_count, library_rank)
+            basis = left[:, :mode_count]
+            min_rank = 6
+            max_condition = 0.0
+            for wrench in wrenches:
+                reduced = np.asarray(wrench) @ basis
+                scaled = np.array(reduced, copy=True)
+                scaled[3:] /= characteristic_length
+                rank = matrix_rank(scaled)
+                min_rank = min(min_rank, rank)
+                if rank == 6:
+                    max_condition = max(max_condition, condition_number(scaled))
+                else:
+                    max_condition = np.inf
+
+            worst_peak_ratio = 0.0
+            worst_power_ratio = 0.0
+            infeasible_scenarios = 0
+            for wrench, target, full_peak, full_sumsq, _ in operational:
+                reduced_peak, reduced_currents = min_peak_current_in_basis(wrench, target, basis)
+                if reduced_currents is None:
+                    infeasible_scenarios += 1
+                    worst_peak_ratio = np.inf
+                    worst_power_ratio = np.inf
+                    continue
+                worst_peak_ratio = max(worst_peak_ratio, float(reduced_peak / full_peak))
+                worst_power_ratio = max(
+                    worst_power_ratio,
+                    float(np.sum(reduced_currents ** 2) / full_sumsq),
+                )
+
+            column_peaks = np.max(np.abs(basis), axis=0)
+            dense_fraction = float(np.mean(np.abs(basis) > 0.05 * column_peaks))
+            captured = float(np.sum(singular_values[:mode_count] ** 2) / total_energy)
+            rows.append({
+                "basis_source": basis_source,
+                "modes": mode_count,
+                "captured_energy": captured,
+                "min_rank6": min_rank,
+                "max_condition6": max_condition,
+                "worst_peak_current_ratio": worst_peak_ratio,
+                "worst_power_ratio": worst_power_ratio,
+                "infeasible_scenarios": infeasible_scenarios,
+                "basis_dense_fraction": dense_fraction,
+            })
+
+    adaptive_mode_counts = []
+    adaptive_dense_fractions = []
+    for wrench in wrenches:
+        candidate = np.column_stack(
+            [solutions_by_wrench[id(wrench)]] + operational_by_wrench[id(wrench)]
+        )
+        adaptive_mode_counts.append(matrix_rank(candidate))
+        adaptive_basis, _ = np.linalg.qr(candidate)
+        adaptive_basis = adaptive_basis[:, :adaptive_mode_counts[-1]]
+        column_peaks = np.max(np.abs(adaptive_basis), axis=0)
+        adaptive_dense_fractions.append(
+            float(np.mean(np.abs(adaptive_basis) > 0.05 * column_peaks))
+        )
+    return {
+        "coil_count": coil_count,
+        "library_rank": max(library_ranks.values()),
+        "library_ranks": library_ranks,
+        "pose_count": len(wrenches),
+        "level_pose_count": len(level_wrenches),
+        "operational_scenarios": len(operational),
+        "adaptive_max_modes": max(adaptive_mode_counts),
+        "adaptive_mean_modes": float(np.mean(adaptive_mode_counts)),
+        "adaptive_dense_fraction": max(adaptive_dense_fractions),
+        "rows": rows,
+    }
 
 
 def max_generalized_force(wrench_matrix, objective_row, constrained_rows,
@@ -512,7 +716,8 @@ def flight_worst_case(control_cells, weight, characteristic_length,
         "min_rank6": 6, "max_cond6": 0.0,
         "min_lift_per_at": 0.0, "min_lateral_per_at": 0.0,
         "min_tilt_torque_per_at": 0.0, "min_yaw_torque_per_at": 0.0,
-        "max_hover_sumsq": 0.0, "max_tilt_deg": 0.0, "poses": 0, "wrenches": [], "level_wrenches": [],
+        "max_hover_sumsq": 0.0, "max_tilt_deg": 0.0, "poses": 0,
+        "wrenches": [], "level_wrenches": [], "level_all_wrenches": [],
         "level_min_lift_per_at": None, "level_min_lateral_per_at": None, "level_max_hover_sumsq": 0.0,
         "level_max_cruise_sumsq": [0.0] * len(cruise_thrusts),
         "max_cruise_peak_at": [0.0] * len(cruise_thrusts),
@@ -557,6 +762,7 @@ def flight_worst_case(control_cells, weight, characteristic_length,
                             worst["min_yaw_torque_per_at"] = min(worst["min_yaw_torque_per_at"], coeffs["yaw_torque_per_at"])
                             worst["max_hover_sumsq"] = max(worst["max_hover_sumsq"], coeffs["hover_sumsq"])
                             if fraction is None:
+                                worst["level_all_wrenches"].append(wrench)
                                 level_sumsq.append(coeffs["hover_sumsq"])
                                 worst["level_max_hover_sumsq"] = max(worst["level_max_hover_sumsq"], coeffs["hover_sumsq"])
                                 for index, thrust in enumerate(cruise_thrusts):
@@ -665,6 +871,13 @@ def measure(geometry):
     cruise_thrusts = [weight / geometry.gravity * accel for accel in geometry.cruise_accels]
     worst = flight_worst_case(control_cells, weight, characteristic_length, flight_gaps,
                               cruise_thrusts=cruise_thrusts)
+    mode_analysis = local_current_mode_analysis(
+        worst["wrenches"],
+        worst["level_all_wrenches"],
+        weight,
+        characteristic_length,
+        cruise_thrusts[0] if cruise_thrusts else None,
+    )
 
     coupling_heights_mm = [0.5, 1.0, 2.0, 3.0, 4.0, 5.0, 7.0, 10.0]
     coupling_factors = coil_height_coupling(magnet, control_cells,
@@ -706,6 +919,7 @@ def measure(geometry):
         "cruise_peak_ampere_turns": worst["max_cruise_peak_at"],
         "rung_hover_ampere_turns_squared_sums": {fraction: rung["max_hover_sumsq"]
                                                  for fraction, rung in worst["rungs"].items()},
+        "local_current_mode_analysis": mode_analysis,
         "coil_height_coupling_heights_mm": coupling_heights_mm,
         "coil_height_coupling_factors": coupling_factors,
     }
