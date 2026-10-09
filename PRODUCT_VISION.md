@@ -1,5 +1,4 @@
 # PRODUCT VISION
-IMPORTANT: It is absolutely forbidden for AI to modify this document.
 
 We are working on levitating chess idea - chess that use magnetic levitation (like a planar motor) to levitate over the board.
 You can reference to pdf files in the project for more info about planar motors design.
@@ -11,6 +10,8 @@ On the sides of the board there should be a buffer space for eaten pieces. It sh
 BOM cost should be calculated at a production volume of 100 boards.
 
 Please also read PRODUCT_TESTING.md - it contains testing patterns that we require.
+
+Quantitative requirements should live in model.py in Inputs, Fixed, or Constants. The vision should describe product behaviour.
 
 Constraints:
 

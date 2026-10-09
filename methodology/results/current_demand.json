@@ -1,0 +1,871 @@
+{
+    "case_count": 432,
+    "envelope_maxima": {
+        "hover": {
+            "six_axis_peak_A": {
+                "current_A": 1.7583853672703735,
+                "pose": {
+                    "gap_mm": 4.5,
+                    "x_mm": 7.5,
+                    "y_mm": 7.5,
+                    "yaw_deg": 0.0,
+                    "direction_xy": [
+                        1.0,
+                        0.0
+                    ]
+                }
+            },
+            "force_only_peak_A": {
+                "current_A": 1.5262118437752088,
+                "pose": {
+                    "gap_mm": 4.5,
+                    "x_mm": 7.5,
+                    "y_mm": 7.5,
+                    "yaw_deg": 0.0,
+                    "direction_xy": [
+                        1.0,
+                        0.0
+                    ]
+                }
+            }
+        },
+        "acceleration": {
+            "six_axis_peak_A": {
+                "current_A": 4.7018640070280036,
+                "pose": {
+                    "gap_mm": 4.5,
+                    "x_mm": 7.5,
+                    "y_mm": 7.5,
+                    "yaw_deg": 0.0,
+                    "direction_xy": [
+                        0.7071067811865474,
+                        -0.7071067811865477
+                    ]
+                }
+            },
+            "force_only_peak_A": {
+                "current_A": 1.6933138320377286,
+                "pose": {
+                    "gap_mm": 4.5,
+                    "x_mm": 7.5,
+                    "y_mm": 7.5,
+                    "yaw_deg": 0.0,
+                    "direction_xy": [
+                        6.123233995736766e-17,
+                        1.0
+                    ]
+                }
+            }
+        },
+        "acceleration_and_drag": {
+            "six_axis_peak_A": {
+                "current_A": 4.854887320089561,
+                "pose": {
+                    "gap_mm": 4.5,
+                    "x_mm": 7.5,
+                    "y_mm": 7.5,
+                    "yaw_deg": 0.0,
+                    "direction_xy": [
+                        0.7071067811865474,
+                        -0.7071067811865477
+                    ]
+                }
+            },
+            "force_only_peak_A": {
+                "current_A": 1.7012519049369927,
+                "pose": {
+                    "gap_mm": 4.5,
+                    "x_mm": 7.5,
+                    "y_mm": 7.5,
+                    "yaw_deg": 0.0,
+                    "direction_xy": [
+                        6.123233995736766e-17,
+                        1.0
+                    ]
+                }
+            }
+        }
+    },
+    "worst_pose": {
+        "gap_mm": 4.5,
+        "x_mm": 7.5,
+        "y_mm": 7.5,
+        "yaw_deg": 0.0,
+        "direction_xy": [
+            0.7071067811865474,
+            -0.7071067811865477
+        ]
+    },
+    "same_pose_breakdown": {
+        "hover": {
+            "six_axis_peak_A": 1.7583853672703735,
+            "force_only_peak_A": 1.5262118437752088
+        },
+        "acceleration": {
+            "six_axis_peak_A": 4.7018640070280036,
+            "force_only_peak_A": 1.4974646423003937
+        },
+        "acceleration_and_drag": {
+            "six_axis_peak_A": 4.854887320089561,
+            "force_only_peak_A": 1.496183980506174
+        }
+    },
+    "directions": [
+        {
+            "direction_xy": [
+                1.0,
+                0.0
+            ],
+            "acceleration_peak_A": 3.0157148009049526,
+            "full_peak_A": 3.082028159467048
+        },
+        {
+            "direction_xy": [
+                0.7071067811865476,
+                0.7071067811865475
+            ],
+            "acceleration_peak_A": 2.5471287802622244,
+            "full_peak_A": 2.6022680960107754
+        },
+        {
+            "direction_xy": [
+                6.123233995736766e-17,
+                1.0
+            ],
+            "acceleration_peak_A": 3.14376706057702,
+            "full_peak_A": 3.300638265729114
+        },
+        {
+            "direction_xy": [
+                -0.7071067811865475,
+                0.7071067811865476
+            ],
+            "acceleration_peak_A": 3.499052207831156,
+            "full_peak_A": 3.670139515007497
+        },
+        {
+            "direction_xy": [
+                -1.0,
+                1.2246467991473532e-16
+            ],
+            "acceleration_peak_A": 2.715135974055704,
+            "full_peak_A": 2.763628407797362
+        },
+        {
+            "direction_xy": [
+                -0.7071067811865477,
+                -0.7071067811865475
+            ],
+            "acceleration_peak_A": 2.6956652179227905,
+            "full_peak_A": 2.754785302540985
+        },
+        {
+            "direction_xy": [
+                -1.8369701987210297e-16,
+                -1.0
+            ],
+            "acceleration_peak_A": 4.586783159628818,
+            "full_peak_A": 4.734612100033807
+        },
+        {
+            "direction_xy": [
+                0.7071067811865474,
+                -0.7071067811865477
+            ],
+            "acceleration_peak_A": 4.7018640070280036,
+            "full_peak_A": 4.854887320089561
+        }
+    ],
+    "torque_constraints": {
+        "force_only": {
+            "peak_A": 1.496183980506174,
+            "torque_mNm": [
+                -1.2369033457964635,
+                -0.8268039165077686,
+                -0.36836286923262046
+            ]
+        },
+        "force_and_roll": {
+            "peak_A": 2.539239262274643,
+            "torque_mNm": [
+                -2.6020852139652106e-15,
+                -1.963692429913662,
+                -0.32984377361062533
+            ]
+        },
+        "force_and_pitch": {
+            "peak_A": 1.7255377104348697,
+            "torque_mNm": [
+                -1.6531685886670557,
+                4.065758146820642e-15,
+                0.12538077349576354
+            ]
+        },
+        "force_and_yaw": {
+            "peak_A": 1.5108462722822715,
+            "torque_mNm": [
+                -1.29555850410945,
+                -0.6713728438577687,
+                -8.131516293641283e-17
+            ]
+        },
+        "force_roll_pitch": {
+            "peak_A": 4.708049663219747,
+            "torque_mNm": [
+                -6.938893903907228e-15,
+                -3.686287386450715e-15,
+                -2.339740170264132
+            ]
+        },
+        "six_axis": {
+            "peak_A": 4.854887320089693,
+            "torque_mNm": [
+                -2.168404344971009e-15,
+                -5.854691731421724e-15,
+                -5.421010862427522e-16
+            ]
+        }
+    },
+    "COM_sensitivity": {
+        "configured_COM": {
+            "COM_height_mm": 24.29946229917822,
+            "peak_A": 4.854887320089693
+        },
+        "shell_centroid_counterfactual": {
+            "COM_height_mm": 47.80688373305546,
+            "peak_A": 8.145429458783106
+        },
+        "magnet_midplane_counterfactual": {
+            "COM_height_mm": 2.0,
+            "peak_A": 2.072697538214366
+        }
+    },
+    "mesh_refinement_at_original_worst_pose": [
+        {
+            "refinement_factor": 1,
+            "segment_mesh": 8,
+            "radial_filaments": 2,
+            "axial_filaments": 4,
+            "peak_A": 4.854887320089532
+        },
+        {
+            "refinement_factor": 2,
+            "segment_mesh": 16,
+            "radial_filaments": 4,
+            "axial_filaments": 8,
+            "peak_A": 4.848811892900887
+        }
+    ],
+    "integer_pitch_window_shift_at_original_worst_pose": {
+        "coil_count": 24,
+        "peak_A": 2.115416817664657
+    },
+    "moving_window_candidate": {
+        "case_count": 3072,
+        "lattice_repeat_mm": 30.0,
+        "sampled_phases_mm": [
+            0.0,
+            5.0,
+            7.5,
+            10.0,
+            15.0,
+            20.0,
+            22.5,
+            24.999999999999996
+        ],
+        "coil_count": 24,
+        "peak_A": 3.2601419625029537,
+        "worst_copper_loss_W": 197.1010988477602,
+        "worst_pose": {
+            "gap_mm": 4.5,
+            "x_mm": 20.0,
+            "y_mm": 20.0,
+            "yaw_deg": 0.0,
+            "direction_xy": [
+                1.0,
+                0.0
+            ]
+        },
+        "same_pose_breakdown": {
+            "hover": {
+                "six_axis_peak_A": 1.7905761523406094,
+                "force_only_peak_A": 1.235342219806165
+            },
+            "acceleration": {
+                "six_axis_peak_A": 3.194535258476999,
+                "force_only_peak_A": 1.3915238559383871
+            },
+            "acceleration_and_drag": {
+                "six_axis_peak_A": 3.2601419625029537,
+                "force_only_peak_A": 1.3985455814772307
+            }
+        },
+        "handoff": {
+            "allocation_limit_A": 3.5083974281220933,
+            "rows": [
+                {
+                    "axis": "x",
+                    "boundary_mm": 5.0,
+                    "offset_mm": 1.0,
+                    "abrupt": {
+                        "max_channel_change_A": 1.9721010962847094,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1137.6818596885223,
+                        "physical_coils_in_union": 27
+                    },
+                    "blended": {
+                        "max_channel_change_A": 1.9721010962847094,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1137.6818596885223,
+                        "physical_coils_in_union": 27
+                    }
+                },
+                {
+                    "axis": "x",
+                    "boundary_mm": 5.0,
+                    "offset_mm": 0.1,
+                    "abrupt": {
+                        "max_channel_change_A": 0.885200977521586,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 5106.620021671879,
+                        "physical_coils_in_union": 27
+                    },
+                    "blended": {
+                        "max_channel_change_A": 0.2214970601708976,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1277.7904124971258,
+                        "physical_coils_in_union": 27
+                    }
+                },
+                {
+                    "axis": "x",
+                    "boundary_mm": 5.0,
+                    "offset_mm": 0.01,
+                    "abrupt": {
+                        "max_channel_change_A": 0.9018970866592452,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 52029.379058263956,
+                        "physical_coils_in_union": 27
+                    },
+                    "blended": {
+                        "max_channel_change_A": 0.02218072628940869,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1279.579935415922,
+                        "physical_coils_in_union": 27
+                    }
+                },
+                {
+                    "axis": "x",
+                    "boundary_mm": 7.5,
+                    "offset_mm": 1.0,
+                    "abrupt": {
+                        "max_channel_change_A": 1.49314808719848,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 861.3795184408151,
+                        "physical_coils_in_union": 28
+                    },
+                    "blended": {
+                        "max_channel_change_A": 1.49314808719848,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 861.3795184408151,
+                        "physical_coils_in_union": 28
+                    }
+                },
+                {
+                    "axis": "x",
+                    "boundary_mm": 7.5,
+                    "offset_mm": 0.1,
+                    "abrupt": {
+                        "max_channel_change_A": 0.8544805996659628,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 4929.397785575754,
+                        "physical_coils_in_union": 28
+                    },
+                    "blended": {
+                        "max_channel_change_A": 0.20609059380890227,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1188.9123253901093,
+                        "physical_coils_in_union": 28
+                    }
+                },
+                {
+                    "axis": "x",
+                    "boundary_mm": 7.5,
+                    "offset_mm": 0.01,
+                    "abrupt": {
+                        "max_channel_change_A": 0.87611526818622,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 50542.05636259679,
+                        "physical_coils_in_union": 28
+                    },
+                    "blended": {
+                        "max_channel_change_A": 0.020764882220690783,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1197.9015612107385,
+                        "physical_coils_in_union": 28
+                    }
+                },
+                {
+                    "axis": "x",
+                    "boundary_mm": 15.0,
+                    "offset_mm": 1.0,
+                    "abrupt": {
+                        "max_channel_change_A": 1.7014668888001272,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 981.556177771687,
+                        "physical_coils_in_union": 27
+                    },
+                    "blended": {
+                        "max_channel_change_A": 1.7014668888001272,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 981.556177771687,
+                        "physical_coils_in_union": 27
+                    }
+                },
+                {
+                    "axis": "x",
+                    "boundary_mm": 15.0,
+                    "offset_mm": 0.1,
+                    "abrupt": {
+                        "max_channel_change_A": 1.0882343236199226,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 6277.895445650405,
+                        "physical_coils_in_union": 27
+                    },
+                    "blended": {
+                        "max_channel_change_A": 0.23782245140299185,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1371.9696687840476,
+                        "physical_coils_in_union": 27
+                    }
+                },
+                {
+                    "axis": "x",
+                    "boundary_mm": 15.0,
+                    "offset_mm": 0.01,
+                    "abrupt": {
+                        "max_channel_change_A": 1.1139707327735142,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 64263.65754209757,
+                        "physical_coils_in_union": 27
+                    },
+                    "blended": {
+                        "max_channel_change_A": 0.0240341889555592,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1386.5040102953437,
+                        "physical_coils_in_union": 27
+                    }
+                },
+                {
+                    "axis": "x",
+                    "boundary_mm": 22.5,
+                    "offset_mm": 1.0,
+                    "abrupt": {
+                        "max_channel_change_A": 3.3602368042430037,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1938.480975263904,
+                        "physical_coils_in_union": 28
+                    },
+                    "blended": {
+                        "max_channel_change_A": 3.3602368042430037,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1938.480975263904,
+                        "physical_coils_in_union": 28
+                    }
+                },
+                {
+                    "axis": "x",
+                    "boundary_mm": 22.5,
+                    "offset_mm": 0.1,
+                    "abrupt": {
+                        "max_channel_change_A": 1.1069720509297103,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 6385.991184212167,
+                        "physical_coils_in_union": 28
+                    },
+                    "blended": {
+                        "max_channel_change_A": 0.3304696552218229,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1906.4404590195013,
+                        "physical_coils_in_union": 28
+                    }
+                },
+                {
+                    "axis": "x",
+                    "boundary_mm": 22.5,
+                    "offset_mm": 0.01,
+                    "abrupt": {
+                        "max_channel_change_A": 1.1167554307645136,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 64424.30348438925,
+                        "physical_coils_in_union": 28
+                    },
+                    "blended": {
+                        "max_channel_change_A": 0.037095165992889534,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 2139.97636894738,
+                        "physical_coils_in_union": 28
+                    }
+                },
+                {
+                    "axis": "x",
+                    "boundary_mm": 24.999999999999996,
+                    "offset_mm": 1.0,
+                    "abrupt": {
+                        "max_channel_change_A": 1.7380474405642428,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1002.6590665829323,
+                        "physical_coils_in_union": 27
+                    },
+                    "blended": {
+                        "max_channel_change_A": 1.7380474405642428,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1002.6590665829323,
+                        "physical_coils_in_union": 27
+                    }
+                },
+                {
+                    "axis": "x",
+                    "boundary_mm": 24.999999999999996,
+                    "offset_mm": 0.1,
+                    "abrupt": {
+                        "max_channel_change_A": 1.0335042699566919,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 5962.164221983727,
+                        "physical_coils_in_union": 27
+                    },
+                    "blended": {
+                        "max_channel_change_A": 0.221178791607411,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1275.9543586970954,
+                        "physical_coils_in_union": 27
+                    }
+                },
+                {
+                    "axis": "x",
+                    "boundary_mm": 24.999999999999996,
+                    "offset_mm": 0.01,
+                    "abrupt": {
+                        "max_channel_change_A": 1.0629298365138924,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 61319.16844434231,
+                        "physical_coils_in_union": 27
+                    },
+                    "blended": {
+                        "max_channel_change_A": 0.022343214834623537,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1288.9537079190848,
+                        "physical_coils_in_union": 27
+                    }
+                },
+                {
+                    "axis": "y",
+                    "boundary_mm": 5.0,
+                    "offset_mm": 1.0,
+                    "abrupt": {
+                        "max_channel_change_A": 4.116571111779142,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 2374.801315618159,
+                        "physical_coils_in_union": 27
+                    },
+                    "blended": {
+                        "max_channel_change_A": 4.116571111779142,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 2374.801315618159,
+                        "physical_coils_in_union": 27
+                    }
+                },
+                {
+                    "axis": "y",
+                    "boundary_mm": 5.0,
+                    "offset_mm": 0.1,
+                    "abrupt": {
+                        "max_channel_change_A": 4.184998287888915,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 24142.761463539977,
+                        "physical_coils_in_union": 27
+                    },
+                    "blended": {
+                        "max_channel_change_A": 2.085826808055715,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 12032.888813091624,
+                        "physical_coils_in_union": 27
+                    }
+                },
+                {
+                    "axis": "y",
+                    "boundary_mm": 5.0,
+                    "offset_mm": 0.01,
+                    "abrupt": {
+                        "max_channel_change_A": 3.5083974281220933,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 202395.30914880303,
+                        "physical_coils_in_union": 27
+                    },
+                    "blended": {
+                        "max_channel_change_A": 0.19417697087258445,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 11201.84039992609,
+                        "physical_coils_in_union": 27
+                    }
+                },
+                {
+                    "axis": "y",
+                    "boundary_mm": 7.5,
+                    "offset_mm": 1.0,
+                    "abrupt": {
+                        "max_channel_change_A": 2.710620859051371,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1563.7251993043142,
+                        "physical_coils_in_union": 28
+                    },
+                    "blended": {
+                        "max_channel_change_A": 2.710620859051371,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1563.7251993043142,
+                        "physical_coils_in_union": 28
+                    }
+                },
+                {
+                    "axis": "y",
+                    "boundary_mm": 7.5,
+                    "offset_mm": 0.1,
+                    "abrupt": {
+                        "max_channel_change_A": 1.2437510263102205,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 7175.052958835937,
+                        "physical_coils_in_union": 28
+                    },
+                    "blended": {
+                        "max_channel_change_A": 0.3127035146647081,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1803.9496898262566,
+                        "physical_coils_in_union": 28
+                    }
+                },
+                {
+                    "axis": "y",
+                    "boundary_mm": 7.5,
+                    "offset_mm": 0.01,
+                    "abrupt": {
+                        "max_channel_change_A": 1.2363010484047117,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 71320.74915092919,
+                        "physical_coils_in_union": 28
+                    },
+                    "blended": {
+                        "max_channel_change_A": 0.031324708201596885,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1807.0854657568786,
+                        "physical_coils_in_union": 28
+                    }
+                },
+                {
+                    "axis": "y",
+                    "boundary_mm": 15.0,
+                    "offset_mm": 1.0,
+                    "abrupt": {
+                        "max_channel_change_A": 2.380975938628108,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1373.5569331791428,
+                        "physical_coils_in_union": 27
+                    },
+                    "blended": {
+                        "max_channel_change_A": 2.380975938628108,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1373.5569331791428,
+                        "physical_coils_in_union": 27
+                    }
+                },
+                {
+                    "axis": "y",
+                    "boundary_mm": 15.0,
+                    "offset_mm": 0.1,
+                    "abrupt": {
+                        "max_channel_change_A": 1.4706513031717312,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 8484.01389106178,
+                        "physical_coils_in_union": 27
+                    },
+                    "blended": {
+                        "max_channel_change_A": 0.422616939699912,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 2438.0272735483286,
+                        "physical_coils_in_union": 27
+                    }
+                },
+                {
+                    "axis": "y",
+                    "boundary_mm": 15.0,
+                    "offset_mm": 0.01,
+                    "abrupt": {
+                        "max_channel_change_A": 1.4679426332543013,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 84683.87893820819,
+                        "physical_coils_in_union": 27
+                    },
+                    "blended": {
+                        "max_channel_change_A": 0.04262537857771542,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 2459.0078095682757,
+                        "physical_coils_in_union": 27
+                    }
+                },
+                {
+                    "axis": "y",
+                    "boundary_mm": 22.5,
+                    "offset_mm": 1.0,
+                    "abrupt": {
+                        "max_channel_change_A": 2.6971104535428463,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1555.9312057341867,
+                        "physical_coils_in_union": 28
+                    },
+                    "blended": {
+                        "max_channel_change_A": 2.6971104535428463,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1555.9312057341867,
+                        "physical_coils_in_union": 28
+                    }
+                },
+                {
+                    "axis": "y",
+                    "boundary_mm": 22.5,
+                    "offset_mm": 0.1,
+                    "abrupt": {
+                        "max_channel_change_A": 0.8567653131774402,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 4942.578028320358,
+                        "physical_coils_in_union": 28
+                    },
+                    "blended": {
+                        "max_channel_change_A": 0.3212094294542567,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1853.0193088957685,
+                        "physical_coils_in_union": 28
+                    }
+                },
+                {
+                    "axis": "y",
+                    "boundary_mm": 22.5,
+                    "offset_mm": 0.01,
+                    "abrupt": {
+                        "max_channel_change_A": 0.843768921675982,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 48676.03378793138,
+                        "physical_coils_in_union": 28
+                    },
+                    "blended": {
+                        "max_channel_change_A": 0.032175268106025,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1856.153263329188,
+                        "physical_coils_in_union": 28
+                    }
+                },
+                {
+                    "axis": "y",
+                    "boundary_mm": 24.999999999999996,
+                    "offset_mm": 1.0,
+                    "abrupt": {
+                        "max_channel_change_A": 2.505804748572869,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1445.5692011649003,
+                        "physical_coils_in_union": 27
+                    },
+                    "blended": {
+                        "max_channel_change_A": 2.505804748572869,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1445.5692011649003,
+                        "physical_coils_in_union": 27
+                    }
+                },
+                {
+                    "axis": "y",
+                    "boundary_mm": 24.999999999999996,
+                    "offset_mm": 0.1,
+                    "abrupt": {
+                        "max_channel_change_A": 0.5290231463575636,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 3051.8721281591775,
+                        "physical_coils_in_union": 27
+                    },
+                    "blended": {
+                        "max_channel_change_A": 0.24104949115319174,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1390.5860804437375,
+                        "physical_coils_in_union": 27
+                    }
+                },
+                {
+                    "axis": "y",
+                    "boundary_mm": 24.999999999999996,
+                    "offset_mm": 0.01,
+                    "abrupt": {
+                        "max_channel_change_A": 0.5349229085559108,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 30859.071603498738,
+                        "physical_coils_in_union": 27
+                    },
+                    "blended": {
+                        "max_channel_change_A": 0.024110242972561702,
+                        "equivalent_slew_A_per_s_at_cruise_speed": 1390.8914768234642,
+                        "physical_coils_in_union": 27
+                    }
+                }
+            ],
+            "blended_peak_A": 3.5083974281220933,
+            "blended_coil_count": 28,
+            "maximum_wrench_or_current_sum_residual": 1.6142642778049776e-13,
+            "transition_width_mm": 1.2499999999999993,
+            "transition_time_at_cruise_ms": 1.0833988207524003,
+            "baseline_current_command_period_ms": 0.25,
+            "baseline_command_updates_per_transition": 4.333595283009601,
+            "scope": "Worst interior pose gap/yaw/force target; both translation axes and every handoff plane. Abrupt selection and smooth blending use the same component current limit. Full-path dynamics and correction reserve remain unverified."
+        },
+        "edge_probe": {
+            "case_count": 384,
+            "coil_counts": [
+                24
+            ],
+            "peak_A": 3.1872412208680667,
+            "worst_pose": {
+                "gap_mm": 4.5,
+                "x_mm": -337.85786437626905,
+                "y_mm": -217.85786437626902,
+                "yaw_deg": 45.0,
+                "direction_xy": [
+                    0.7071067811865476,
+                    0.7071067811865476
+                ]
+            },
+            "scope": "Four outer motor-area corners and four edge midpoints, with the king base fully supported and complete coil windows shifted inward to fit the motor footprint; not continuous edge coverage."
+        }
+    },
+    "worst_pose_solution": {
+        "coil_currents_A": [
+            4.854887320089329,
+            4.854887320089417,
+            -4.85488732008943,
+            4.854887320089561,
+            4.854887320089425,
+            4.854887320089427,
+            -4.854887320089487,
+            4.334137109734336,
+            0.8454978825560836,
+            -4.854887320089445,
+            4.157986420881069,
+            1.3987795060470591,
+            4.8548873200894445,
+            4.854887320089365,
+            -4.476973264186092,
+            -4.854887320089491,
+            3.450346985146702,
+            -4.854887320089449,
+            -4.854887320089436,
+            4.854887320089374,
+            -4.854887320089314,
+            -4.854887320089559,
+            -4.854887320089425,
+            -4.854887320089438
+        ],
+        "target_wrench_N_Nm": [
+            0.03388767752304184,
+            -0.03388767752304185,
+            0.22931247187157439,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "achieved_wrench_N_Nm": [
+            0.033887677523041976,
+            -0.03388767752304206,
+            0.22931247187157439,
+            -8.673617379884035e-19,
+            -1.0842021724855044e-18,
+            1.0842021724855044e-18
+        ],
+        "sum_current_A": 2.842170943040401e-14,
+        "copper_loss_W": 468.06387496209084
+    },
+    "physical_inputs": {
+        "piece_mass_g": 23.383364540548953,
+        "magnet_mass_g": 12.0,
+        "shell_mass_g": 11.383364540548955,
+        "COM_height_mm": 24.29946229917822,
+        "tilt_inertia_kg_m2": 2.675035928120803e-05,
+        "yaw_inertia_kg_m2": 5.638909085903422e-06,
+        "weight_N": 0.22931247187157439,
+        "acceleration_m_s2": 1.96133,
+        "acceleration_force_N": 0.04586249437431488,
+        "peak_speed_m_s": 1.1537764081484765,
+        "drag_components_N": {
+            "pcb_copper": 0.00035824836558035085,
+            "slotted_plate": 0.0014005540483339957,
+            "plate_web": 0.0003031163621824388
+        },
+        "wire": "0.956x0.05mm flat",
+        "turns": 57,
+        "coil_height_mm": 4.218000000000001,
+        "resistance_ohm": 0.9456753138075313,
+        "baseline_driver_limit_A": 5.5
+    },
+    "preliminary_screen": {
+        "cold_current_A": 5.142584203266748,
+        "hot_current_margin": 1.0024434790441097,
+        "method": "reference-height scalar coupling, all horizontal directions, no conductive drag"
+    },
+    "limitations": [
+        "The default report retains fixed-window allocation; smooth moving-window commutation remains a diagnostic candidate until complete trajectories, neighbour constraints and delayed dynamics are verified.",
+        "Counterfactual COM and shifted-window values apply to the original worst pose only; they are not new global minima.",
+        "The configured king uses a uniformly scaled hollow shell and bottom magnets; this is not a CAD or measured mass distribution.",
+        "Current contributions are coupled and non-additive; every row is a newly optimized allocation.",
+        "Mesh refinement checks one fixed-window pose. Moving-window phase samples, edge probes and handoff checks do not establish continuous whole-board coverage.",
+        "No delayed closed-loop dynamics, hot-current reserve or supplier-confirmed winding is established by this diagnostic."
+    ],
+    "source_sha256": {
+        "model.py": "661c32b406578592be07699b511f3c820af88ed2faca2c912aef92ec9bb5754f",
+        "levitation_sim.py": "f5d153c0c66b225e6bf6a00a818334f47b1e424986672a02ff2ae66094630514",
+        "current_demand.py": "3a2249e7836040c799976aa08e21f1025b3d02a9e320d5527c01896cd388612a"
+    }
+}

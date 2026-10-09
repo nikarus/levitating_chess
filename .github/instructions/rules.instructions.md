@@ -5,6 +5,10 @@ description: Load always and keep in memory
 We are working on levitating chess idea. Please read the PRODUCT_VISION.md.
 You can also refer to the articles in the articles/ folder.
 
+IMPORTANT: It is absolutely forbidden for AI to modify PRODUCT_VISION.md and PRODUCT_TESTING.md.
+AI can only propose the modification to the user even when the user asks for it. The user is the only one who can modify these files.
+
+
 Coding rules:
 1. No comments in the code unless absolutely necessary or asked by user.
 2. Variable and function names should be descriptive - it should be clear what they do.

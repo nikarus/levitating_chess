@@ -1,0 +1,3503 @@
+{
+    "status": "Geometry reference; not manufacturing-ready or thermally qualified",
+    "coordinates": "millimetres; magnet bottom z=0; board below; exploded view adds display-only offsets",
+    "winding": {
+        "turns": 57,
+        "conductor_width_mm": 0.956,
+        "conductor_thickness_mm": 0.05,
+        "height_mm": 4.218000000000001,
+        "outer_width_mm": 10.0,
+        "outer_length_mm": 15,
+        "resistance_ohm": 0.9456753138075313,
+        "wire_length_m": 2.622,
+        "copper_volume_mm3": 125.33159999999998
+    },
+    "king": {
+        "mass_g": 23.383364540548953,
+        "com_height_mm": 24.29946229917822,
+        "clearance_envelope_height_mm": 95.61376746611091,
+        "note": "Envelope is not a finished shell or CAD-derived mass distribution"
+    },
+    "nominal_magnet_gap_mm": 3.5,
+    "visible_hover_mm": 3.0999999999999996,
+    "preview": {
+        "size": [
+            1600,
+            1000
+        ],
+        "transparency": 85,
+        "margin": 1.2,
+        "geometry_tolerance_mm": 0.001
+    },
+    "parts": [
+        {
+            "label": "Coil_x_-2_-1",
+            "group": "Upper_coils",
+            "overlay": false,
+            "volume_mm3": 194.02799999999996,
+            "minimum_mm": [
+                -20.0,
+                -22.5,
+                -7.718000000000002
+            ],
+            "maximum_mm": [
+                -10.0,
+                -7.5,
+                -3.500000000000001
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_x_-2_0",
+            "group": "Upper_coils",
+            "overlay": false,
+            "volume_mm3": 194.02799999999996,
+            "minimum_mm": [
+                -20.0,
+                -7.5,
+                -7.718000000000002
+            ],
+            "maximum_mm": [
+                -10.0,
+                7.5,
+                -3.500000000000001
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_x_-2_1",
+            "group": "Upper_coils",
+            "overlay": false,
+            "volume_mm3": 194.02799999999996,
+            "minimum_mm": [
+                -20.0,
+                7.5,
+                -7.718000000000002
+            ],
+            "maximum_mm": [
+                -10.0,
+                22.5,
+                -3.500000000000001
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_x_-1_-1",
+            "group": "Upper_coils",
+            "overlay": false,
+            "volume_mm3": 194.02799999999996,
+            "minimum_mm": [
+                -10.0,
+                -22.5,
+                -7.718000000000002
+            ],
+            "maximum_mm": [
+                0.0,
+                -7.5,
+                -3.500000000000001
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_x_-1_0",
+            "group": "Upper_coils",
+            "overlay": false,
+            "volume_mm3": 194.02799999999996,
+            "minimum_mm": [
+                -10.0,
+                -7.5,
+                -7.718000000000002
+            ],
+            "maximum_mm": [
+                0.0,
+                7.5,
+                -3.500000000000001
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_x_-1_1",
+            "group": "Upper_coils",
+            "overlay": false,
+            "volume_mm3": 194.02799999999996,
+            "minimum_mm": [
+                -10.0,
+                7.5,
+                -7.718000000000002
+            ],
+            "maximum_mm": [
+                0.0,
+                22.5,
+                -3.500000000000001
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_x_0_-1",
+            "group": "Upper_coils",
+            "overlay": false,
+            "volume_mm3": 194.02799999999996,
+            "minimum_mm": [
+                0.0,
+                -22.5,
+                -7.718000000000002
+            ],
+            "maximum_mm": [
+                10.0,
+                -7.5,
+                -3.500000000000001
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_x_0_0",
+            "group": "Upper_coils",
+            "overlay": false,
+            "volume_mm3": 194.02799999999996,
+            "minimum_mm": [
+                0.0,
+                -7.5,
+                -7.718000000000002
+            ],
+            "maximum_mm": [
+                10.0,
+                7.5,
+                -3.500000000000001
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_x_0_1",
+            "group": "Upper_coils",
+            "overlay": false,
+            "volume_mm3": 194.02799999999996,
+            "minimum_mm": [
+                0.0,
+                7.5,
+                -7.718000000000002
+            ],
+            "maximum_mm": [
+                10.0,
+                22.5,
+                -3.500000000000001
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_x_1_-1",
+            "group": "Upper_coils",
+            "overlay": false,
+            "volume_mm3": 194.02799999999996,
+            "minimum_mm": [
+                10.0,
+                -22.5,
+                -7.718000000000002
+            ],
+            "maximum_mm": [
+                20.0,
+                -7.5,
+                -3.500000000000001
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_x_1_0",
+            "group": "Upper_coils",
+            "overlay": false,
+            "volume_mm3": 194.02799999999996,
+            "minimum_mm": [
+                10.0,
+                -7.5,
+                -7.718000000000002
+            ],
+            "maximum_mm": [
+                20.0,
+                7.5,
+                -3.500000000000001
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_x_1_1",
+            "group": "Upper_coils",
+            "overlay": false,
+            "volume_mm3": 194.02799999999996,
+            "minimum_mm": [
+                10.0,
+                7.5,
+                -7.718000000000002
+            ],
+            "maximum_mm": [
+                20.0,
+                22.5,
+                -3.500000000000001
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_y_-1_-2",
+            "group": "Lower_coils",
+            "overlay": false,
+            "volume_mm3": 194.0279999999999,
+            "minimum_mm": [
+                -22.5,
+                -20.0,
+                -11.936000000000002
+            ],
+            "maximum_mm": [
+                -7.5,
+                -10.0,
+                -7.718000000000001
+            ],
+            "color": [
+                0.854902,
+                0.6470588,
+                0.1254902
+            ]
+        },
+        {
+            "label": "Coil_y_-1_-1",
+            "group": "Lower_coils",
+            "overlay": false,
+            "volume_mm3": 194.0279999999999,
+            "minimum_mm": [
+                -22.5,
+                -10.0,
+                -11.936000000000002
+            ],
+            "maximum_mm": [
+                -7.5,
+                0.0,
+                -7.718000000000001
+            ],
+            "color": [
+                0.854902,
+                0.6470588,
+                0.1254902
+            ]
+        },
+        {
+            "label": "Coil_y_-1_0",
+            "group": "Lower_coils",
+            "overlay": false,
+            "volume_mm3": 194.0279999999999,
+            "minimum_mm": [
+                -22.5,
+                0.0,
+                -11.936000000000002
+            ],
+            "maximum_mm": [
+                -7.5,
+                10.0,
+                -7.718000000000001
+            ],
+            "color": [
+                0.854902,
+                0.6470588,
+                0.1254902
+            ]
+        },
+        {
+            "label": "Coil_y_-1_1",
+            "group": "Lower_coils",
+            "overlay": false,
+            "volume_mm3": 194.0279999999999,
+            "minimum_mm": [
+                -22.5,
+                10.0,
+                -11.936000000000002
+            ],
+            "maximum_mm": [
+                -7.5,
+                20.0,
+                -7.718000000000001
+            ],
+            "color": [
+                0.854902,
+                0.6470588,
+                0.1254902
+            ]
+        },
+        {
+            "label": "Coil_y_0_-2",
+            "group": "Lower_coils",
+            "overlay": false,
+            "volume_mm3": 194.0279999999999,
+            "minimum_mm": [
+                -7.5,
+                -20.0,
+                -11.936000000000002
+            ],
+            "maximum_mm": [
+                7.5,
+                -10.0,
+                -7.718000000000001
+            ],
+            "color": [
+                0.854902,
+                0.6470588,
+                0.1254902
+            ]
+        },
+        {
+            "label": "Coil_y_0_-1",
+            "group": "Lower_coils",
+            "overlay": false,
+            "volume_mm3": 194.0279999999999,
+            "minimum_mm": [
+                -7.5,
+                -10.0,
+                -11.936000000000002
+            ],
+            "maximum_mm": [
+                7.5,
+                0.0,
+                -7.718000000000001
+            ],
+            "color": [
+                0.854902,
+                0.6470588,
+                0.1254902
+            ]
+        },
+        {
+            "label": "Coil_y_0_0",
+            "group": "Lower_coils",
+            "overlay": false,
+            "volume_mm3": 194.0279999999999,
+            "minimum_mm": [
+                -7.5,
+                0.0,
+                -11.936000000000002
+            ],
+            "maximum_mm": [
+                7.5,
+                10.0,
+                -7.718000000000001
+            ],
+            "color": [
+                0.854902,
+                0.6470588,
+                0.1254902
+            ]
+        },
+        {
+            "label": "Coil_y_0_1",
+            "group": "Lower_coils",
+            "overlay": false,
+            "volume_mm3": 194.0279999999999,
+            "minimum_mm": [
+                -7.5,
+                10.0,
+                -11.936000000000002
+            ],
+            "maximum_mm": [
+                7.5,
+                20.0,
+                -7.718000000000001
+            ],
+            "color": [
+                0.854902,
+                0.6470588,
+                0.1254902
+            ]
+        },
+        {
+            "label": "Coil_y_1_-2",
+            "group": "Lower_coils",
+            "overlay": false,
+            "volume_mm3": 194.0279999999999,
+            "minimum_mm": [
+                7.5,
+                -20.0,
+                -11.936000000000002
+            ],
+            "maximum_mm": [
+                22.5,
+                -10.0,
+                -7.718000000000001
+            ],
+            "color": [
+                0.854902,
+                0.6470588,
+                0.1254902
+            ]
+        },
+        {
+            "label": "Coil_y_1_-1",
+            "group": "Lower_coils",
+            "overlay": false,
+            "volume_mm3": 194.0279999999999,
+            "minimum_mm": [
+                7.5,
+                -10.0,
+                -11.936000000000002
+            ],
+            "maximum_mm": [
+                22.5,
+                0.0,
+                -7.718000000000001
+            ],
+            "color": [
+                0.854902,
+                0.6470588,
+                0.1254902
+            ]
+        },
+        {
+            "label": "Coil_y_1_0",
+            "group": "Lower_coils",
+            "overlay": false,
+            "volume_mm3": 194.0279999999999,
+            "minimum_mm": [
+                7.5,
+                0.0,
+                -11.936000000000002
+            ],
+            "maximum_mm": [
+                22.5,
+                10.0,
+                -7.718000000000001
+            ],
+            "color": [
+                0.854902,
+                0.6470588,
+                0.1254902
+            ]
+        },
+        {
+            "label": "Coil_y_1_1",
+            "group": "Lower_coils",
+            "overlay": false,
+            "volume_mm3": 194.0279999999999,
+            "minimum_mm": [
+                7.5,
+                10.0,
+                -11.936000000000002
+            ],
+            "maximum_mm": [
+                22.5,
+                20.0,
+                -7.718000000000001
+            ],
+            "color": [
+                0.854902,
+                0.6470588,
+                0.1254902
+            ]
+        },
+        {
+            "label": "Potting_between_winding_envelopes",
+            "group": "Potting",
+            "overlay": true,
+            "volume_mm3": 12426.227999999986,
+            "minimum_mm": [
+                -22.5,
+                -22.5,
+                -11.936000000000002
+            ],
+            "maximum_mm": [
+                22.5,
+                22.5,
+                -3.500000000000001
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Potting_bond",
+            "group": "Potting_bond",
+            "overlay": false,
+            "volume_mm3": 1012.5000000000001,
+            "minimum_mm": [
+                -22.5,
+                -22.5,
+                -12.436000000000002
+            ],
+            "maximum_mm": [
+                22.5,
+                22.5,
+                -11.936000000000002
+            ],
+            "color": [
+                0.8627451,
+                0.8627451,
+                0.8627451
+            ]
+        },
+        {
+            "label": "PCB_envelope",
+            "group": "PCB",
+            "overlay": false,
+            "volume_mm3": 3240.0,
+            "minimum_mm": [
+                -22.5,
+                -22.5,
+                -14.036000000000001
+            ],
+            "maximum_mm": [
+                22.5,
+                22.5,
+                -12.436000000000002
+            ],
+            "color": [
+                0.1803922,
+                0.545098,
+                0.3411765
+            ]
+        },
+        {
+            "label": "Thermal_interface",
+            "group": "Thermal_interface",
+            "overlay": false,
+            "volume_mm3": 2632.5000000000005,
+            "minimum_mm": [
+                -22.5,
+                -22.5,
+                -15.336000000000002
+            ],
+            "maximum_mm": [
+                22.5,
+                22.5,
+                -14.036000000000001
+            ],
+            "color": [
+                0.4392157,
+                0.5019608,
+                0.5647059
+            ]
+        },
+        {
+            "label": "Baseplate_envelope",
+            "group": "Baseplate",
+            "overlay": false,
+            "volume_mm3": 8100.000000000001,
+            "minimum_mm": [
+                -22.5,
+                -22.5,
+                -19.336000000000002
+            ],
+            "maximum_mm": [
+                22.5,
+                22.5,
+                -15.336000000000002
+            ],
+            "color": [
+                0.7529412,
+                0.7529412,
+                0.7529412
+            ]
+        },
+        {
+            "label": "Potting_cover",
+            "group": "Potting_cover",
+            "overlay": true,
+            "volume_mm3": 405.0000000000002,
+            "minimum_mm": [
+                -22.5,
+                -22.5,
+                -3.500000000000001
+            ],
+            "maximum_mm": [
+                22.5,
+                22.5,
+                -3.3000000000000007
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Playing_surface",
+            "group": "Playing_surface",
+            "overlay": true,
+            "volume_mm3": 202.50000000000009,
+            "minimum_mm": [
+                -22.5,
+                -22.5,
+                -3.3000000000000007
+            ],
+            "maximum_mm": [
+                22.5,
+                22.5,
+                -3.2000000000000006
+            ],
+            "color": [
+                1.0,
+                1.0,
+                0.9411765
+            ]
+        },
+        {
+            "label": "Magnet_0_minus_Z",
+            "group": "Magnets",
+            "overlay": false,
+            "volume_mm3": 99.99999999999997,
+            "minimum_mm": [
+                -10.0,
+                -10.0,
+                0.0
+            ],
+            "maximum_mm": [
+                -5.0,
+                -5.0,
+                4.0
+            ],
+            "color": [
+                0.5764706,
+                0.4392157,
+                0.8588235
+            ]
+        },
+        {
+            "label": "Magnet_1_minus_Y",
+            "group": "Magnets",
+            "overlay": false,
+            "volume_mm3": 99.99999999999997,
+            "minimum_mm": [
+                -10.0,
+                -5.0,
+                0.0
+            ],
+            "maximum_mm": [
+                -5.0,
+                0.0,
+                4.0
+            ],
+            "color": [
+                0.5294118,
+                0.8078431,
+                0.9215686
+            ]
+        },
+        {
+            "label": "Magnet_2_minus_Z",
+            "group": "Magnets",
+            "overlay": false,
+            "volume_mm3": 99.99999999999997,
+            "minimum_mm": [
+                -10.0,
+                0.0,
+                0.0
+            ],
+            "maximum_mm": [
+                -5.0,
+                5.0,
+                4.0
+            ],
+            "color": [
+                0.5764706,
+                0.4392157,
+                0.8588235
+            ]
+        },
+        {
+            "label": "Magnet_3_plus_Y",
+            "group": "Magnets",
+            "overlay": false,
+            "volume_mm3": 99.99999999999997,
+            "minimum_mm": [
+                -10.0,
+                5.0,
+                0.0
+            ],
+            "maximum_mm": [
+                -5.0,
+                10.0,
+                4.0
+            ],
+            "color": [
+                0.254902,
+                0.4117647,
+                0.8823529
+            ]
+        },
+        {
+            "label": "Magnet_4_minus_X",
+            "group": "Magnets",
+            "overlay": false,
+            "volume_mm3": 99.99999999999997,
+            "minimum_mm": [
+                -5.0,
+                -10.0,
+                0.0
+            ],
+            "maximum_mm": [
+                0.0,
+                -5.0,
+                4.0
+            ],
+            "color": [
+                0.9803921,
+                0.5019608,
+                0.4470588
+            ]
+        },
+        {
+            "label": "Magnet_5_minus_Y",
+            "group": "Magnets",
+            "overlay": false,
+            "volume_mm3": 99.99999999999997,
+            "minimum_mm": [
+                -5.0,
+                -5.0,
+                0.0
+            ],
+            "maximum_mm": [
+                0.0,
+                0.0,
+                4.0
+            ],
+            "color": [
+                0.5294118,
+                0.8078431,
+                0.9215686
+            ]
+        },
+        {
+            "label": "Magnet_6_minus_X",
+            "group": "Magnets",
+            "overlay": false,
+            "volume_mm3": 99.99999999999997,
+            "minimum_mm": [
+                -5.0,
+                0.0,
+                0.0
+            ],
+            "maximum_mm": [
+                0.0,
+                5.0,
+                4.0
+            ],
+            "color": [
+                0.9803921,
+                0.5019608,
+                0.4470588
+            ]
+        },
+        {
+            "label": "Magnet_7_plus_Y",
+            "group": "Magnets",
+            "overlay": false,
+            "volume_mm3": 99.99999999999997,
+            "minimum_mm": [
+                -5.0,
+                5.0,
+                0.0
+            ],
+            "maximum_mm": [
+                0.0,
+                10.0,
+                4.0
+            ],
+            "color": [
+                0.254902,
+                0.4117647,
+                0.8823529
+            ]
+        },
+        {
+            "label": "Magnet_8_plus_Z",
+            "group": "Magnets",
+            "overlay": false,
+            "volume_mm3": 99.99999999999997,
+            "minimum_mm": [
+                0.0,
+                -10.0,
+                0.0
+            ],
+            "maximum_mm": [
+                5.0,
+                -5.0,
+                4.0
+            ],
+            "color": [
+                0.5019608,
+                0.0,
+                0.5019608
+            ]
+        },
+        {
+            "label": "Magnet_9_minus_Y",
+            "group": "Magnets",
+            "overlay": false,
+            "volume_mm3": 99.99999999999997,
+            "minimum_mm": [
+                0.0,
+                -5.0,
+                0.0
+            ],
+            "maximum_mm": [
+                5.0,
+                0.0,
+                4.0
+            ],
+            "color": [
+                0.5294118,
+                0.8078431,
+                0.9215686
+            ]
+        },
+        {
+            "label": "Magnet_10_plus_Z",
+            "group": "Magnets",
+            "overlay": false,
+            "volume_mm3": 99.99999999999997,
+            "minimum_mm": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "maximum_mm": [
+                5.0,
+                5.0,
+                4.0
+            ],
+            "color": [
+                0.5019608,
+                0.0,
+                0.5019608
+            ]
+        },
+        {
+            "label": "Magnet_11_plus_Y",
+            "group": "Magnets",
+            "overlay": false,
+            "volume_mm3": 99.99999999999997,
+            "minimum_mm": [
+                0.0,
+                5.0,
+                0.0
+            ],
+            "maximum_mm": [
+                5.0,
+                10.0,
+                4.0
+            ],
+            "color": [
+                0.254902,
+                0.4117647,
+                0.8823529
+            ]
+        },
+        {
+            "label": "Magnet_12_plus_X",
+            "group": "Magnets",
+            "overlay": false,
+            "volume_mm3": 99.99999999999997,
+            "minimum_mm": [
+                5.0,
+                -10.0,
+                0.0
+            ],
+            "maximum_mm": [
+                10.0,
+                -5.0,
+                4.0
+            ],
+            "color": [
+                0.6980392,
+                0.1333333,
+                0.1333333
+            ]
+        },
+        {
+            "label": "Magnet_13_minus_Y",
+            "group": "Magnets",
+            "overlay": false,
+            "volume_mm3": 99.99999999999997,
+            "minimum_mm": [
+                5.0,
+                -5.0,
+                0.0
+            ],
+            "maximum_mm": [
+                10.0,
+                0.0,
+                4.0
+            ],
+            "color": [
+                0.5294118,
+                0.8078431,
+                0.9215686
+            ]
+        },
+        {
+            "label": "Magnet_14_plus_X",
+            "group": "Magnets",
+            "overlay": false,
+            "volume_mm3": 99.99999999999997,
+            "minimum_mm": [
+                5.0,
+                0.0,
+                0.0
+            ],
+            "maximum_mm": [
+                10.0,
+                5.0,
+                4.0
+            ],
+            "color": [
+                0.6980392,
+                0.1333333,
+                0.1333333
+            ]
+        },
+        {
+            "label": "Magnet_15_plus_Y",
+            "group": "Magnets",
+            "overlay": false,
+            "volume_mm3": 99.99999999999997,
+            "minimum_mm": [
+                5.0,
+                5.0,
+                0.0
+            ],
+            "maximum_mm": [
+                10.0,
+                10.0,
+                4.0
+            ],
+            "color": [
+                0.254902,
+                0.4117647,
+                0.8823529
+            ]
+        },
+        {
+            "label": "Piece_bottom_skin",
+            "group": "Piece_reference",
+            "overlay": true,
+            "volume_mm3": 154.02417306530438,
+            "minimum_mm": [
+                -22.14213562373095,
+                -22.14213562373095,
+                -0.1
+            ],
+            "maximum_mm": [
+                22.14213562373095,
+                22.14213562373095,
+                0.0
+            ],
+            "color": [
+                1.0,
+                1.0,
+                0.9411765
+            ]
+        },
+        {
+            "label": "King_clearance_envelope_NOT_material",
+            "group": "Piece_reference",
+            "overlay": true,
+            "volume_mm3": 147268.3146762604,
+            "minimum_mm": [
+                -22.14213562373095,
+                -22.14213562373095,
+                0.0
+            ],
+            "maximum_mm": [
+                22.14213562373095,
+                22.14213562373095,
+                95.61376746611091
+            ],
+            "color": [
+                0.6901961,
+                0.7686275,
+                0.8705882
+            ]
+        }
+    ],
+    "detail_parts": [
+        {
+            "label": "Copper_turn_0_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000001,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                0.012
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                0.062
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_0_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000017,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                0.0
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                0.07400000000000001
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_1_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1988000000000003,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                0.08600000000000001
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                0.136
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_1_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000017,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                0.07400000000000001
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                0.14800000000000002
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_2_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000001,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                0.16000000000000003
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                0.21000000000000002
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_2_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000035,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                0.14800000000000002
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                0.22200000000000003
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_3_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1988000000000003,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                0.23400000000000004
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                0.28400000000000003
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_3_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000017,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                0.22200000000000003
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                0.29600000000000004
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_4_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1988000000000003,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                0.30800000000000005
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                0.35800000000000004
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_4_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                0.29600000000000004
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                0.37000000000000005
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_5_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1988000000000003,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                0.38200000000000006
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                0.43200000000000005
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_5_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000043,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                0.37000000000000005
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                0.44400000000000006
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_6_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000001,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                0.45600000000000007
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                0.5060000000000001
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_6_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371199999999995,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                0.44400000000000006
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                0.518
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_7_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000002,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                0.53
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                0.5800000000000001
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_7_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                0.518
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                0.5920000000000001
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_8_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000001,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                0.6040000000000001
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                0.6540000000000001
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_8_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                0.5920000000000001
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                0.6660000000000001
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_9_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000001,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                0.6780000000000002
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                0.7280000000000002
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_9_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.137120000000003,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                0.6660000000000001
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                0.7400000000000002
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_10_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000002,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                0.7520000000000001
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                0.8020000000000002
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_10_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000008,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                0.7400000000000001
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                0.8140000000000001
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_11_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000002,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                0.8260000000000001
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                0.8760000000000001
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_11_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                0.8140000000000001
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                0.8880000000000001
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_12_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000001,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                0.9000000000000001
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                0.9500000000000002
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_12_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000012,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                0.8880000000000001
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                0.9620000000000002
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_13_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000001,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                0.9740000000000002
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                1.0240000000000002
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_13_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.137120000000003,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                0.9620000000000002
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                1.0360000000000003
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_14_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000001,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                1.048
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                1.098
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_14_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.137120000000003,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                1.036
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                1.11
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_15_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000001,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                1.122
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                1.1720000000000002
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_15_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000035,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                1.11
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                1.1840000000000002
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_16_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000002,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                1.1960000000000002
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                1.2460000000000002
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_16_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                1.1840000000000002
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                1.2580000000000002
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_17_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000001,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                1.2700000000000002
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                1.3200000000000003
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_17_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.137120000000003,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                1.2580000000000002
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                1.3320000000000003
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_18_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000001,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                1.3440000000000003
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                1.3940000000000003
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_18_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.137120000000003,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                1.3320000000000003
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                1.4060000000000004
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_19_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000001,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                1.4180000000000001
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                1.4680000000000002
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_19_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                1.4060000000000001
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                1.4800000000000002
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_20_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000001,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                1.4920000000000002
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                1.5420000000000003
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_20_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                1.4800000000000002
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                1.5540000000000003
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_21_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000001,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                1.5660000000000003
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                1.6160000000000003
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_21_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                1.5540000000000003
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                1.6280000000000003
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_22_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000002,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                1.6400000000000001
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                1.6900000000000002
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_22_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                1.6280000000000001
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                1.7020000000000002
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_23_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000002,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                1.7140000000000002
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                1.7640000000000002
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_23_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                1.7020000000000002
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                1.7760000000000002
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_24_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000001,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                1.7880000000000003
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                1.8380000000000003
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_24_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                1.7760000000000002
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                1.8500000000000003
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_25_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000001,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                1.8620000000000003
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                1.9120000000000004
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_25_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                1.8500000000000003
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                1.9240000000000004
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_26_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.198800000000001,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                1.9360000000000004
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                1.9860000000000004
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_26_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                1.9240000000000004
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                1.9980000000000004
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_27_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999985,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                2.0100000000000002
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                2.06
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_27_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                1.9980000000000002
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                2.072
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_28_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999976,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                2.084
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                2.134
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_28_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                2.072
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                2.146
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_29_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999994,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                2.1580000000000004
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                2.208
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_29_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                2.1460000000000004
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                2.22
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_30_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999976,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                2.232
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                2.282
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_30_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000021,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                2.22
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                2.294
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_31_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999985,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                2.3060000000000005
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                2.3560000000000003
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_31_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                2.2940000000000005
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                2.3680000000000003
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_32_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999985,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                2.3800000000000003
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                2.43
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_32_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                2.3680000000000003
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                2.442
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_33_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999976,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                2.454
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                2.504
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_33_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                2.442
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                2.516
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_34_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999985,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                2.5280000000000005
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                2.5780000000000003
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_34_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                2.5160000000000005
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                2.5900000000000003
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_35_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999976,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                2.6020000000000003
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                2.652
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_35_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000021,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                2.5900000000000003
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                2.664
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_36_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999985,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                2.6760000000000006
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                2.7260000000000004
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_36_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                2.6640000000000006
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                2.7380000000000004
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_37_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999985,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                2.7500000000000004
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                2.8000000000000003
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_37_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                2.7380000000000004
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                2.8120000000000003
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_38_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999976,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                2.8240000000000003
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                2.874
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_38_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                2.8120000000000003
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                2.886
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_39_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999976,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                2.8980000000000006
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                2.9480000000000004
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_39_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                2.8860000000000006
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                2.9600000000000004
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_40_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999985,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                2.9720000000000004
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                3.0220000000000002
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_40_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                2.9600000000000004
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                3.0340000000000003
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_41_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999976,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                3.0460000000000003
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                3.096
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_41_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                3.0340000000000003
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                3.108
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_42_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999976,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                3.1200000000000006
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                3.1700000000000004
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_42_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                3.1080000000000005
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                3.1820000000000004
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_43_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999985,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                3.1940000000000004
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                3.244
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_43_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                3.1820000000000004
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                3.2560000000000002
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_44_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999994,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                3.2680000000000002
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                3.318
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_44_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                3.2560000000000002
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                3.33
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_45_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999985,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                3.3420000000000005
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                3.3920000000000003
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_45_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.137120000000003,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                3.3300000000000005
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                3.4040000000000004
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_46_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999976,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                3.4160000000000004
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                3.466
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_46_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000021,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                3.4040000000000004
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                3.478
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_47_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999985,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                3.4900000000000007
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                3.5400000000000005
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_47_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                3.4780000000000006
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                3.5520000000000005
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_48_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999985,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                3.5640000000000005
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                3.6140000000000003
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_48_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                3.5520000000000005
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                3.6260000000000003
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_49_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999976,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                3.6380000000000003
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                3.688
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_49_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                3.6260000000000003
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                3.7
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_50_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999976,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                3.7120000000000006
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                3.7620000000000005
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_50_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                3.7000000000000006
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                3.7740000000000005
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_51_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999985,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                3.7860000000000005
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                3.8360000000000003
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_51_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                3.7740000000000005
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                3.8480000000000003
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_52_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999985,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                3.8600000000000008
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                3.9100000000000006
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_52_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                3.8480000000000008
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                3.9220000000000006
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_53_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999985,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                3.9340000000000006
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                3.9840000000000004
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_53_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                3.9220000000000006
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                3.9960000000000004
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_54_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999994,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                4.008
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                4.058
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_54_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                3.9960000000000004
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                4.07
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_55_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999985,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                4.082
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                4.132
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_55_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000026,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                4.07
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                4.144
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        },
+        {
+            "label": "Copper_turn_56_0",
+            "group": "Copper",
+            "overlay": false,
+            "volume_mm3": 2.1987999999999976,
+            "minimum_mm": [
+                -4.978000000000001,
+                -7.478000000000001,
+                4.156
+            ],
+            "maximum_mm": [
+                4.978000000000001,
+                7.478000000000001,
+                4.2059999999999995
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Insulation_turn_56_0",
+            "group": "Insulation",
+            "overlay": true,
+            "volume_mm3": 1.1371200000000021,
+            "minimum_mm": [
+                -4.99,
+                -7.49,
+                4.144
+            ],
+            "maximum_mm": [
+                4.99,
+                7.49,
+                4.218
+            ],
+            "color": [
+                0.827451,
+                0.827451,
+                0.827451
+            ]
+        }
+    ],
+    "validation": {
+        "valid_solids": true,
+        "tested_volume_intersections": 24,
+        "maximum_overlap_mm3": 0,
+        "excluded_reference_envelopes": [
+            "King_clearance_envelope_NOT_material"
+        ]
+    },
+    "exports": [
+        {
+            "file": "coil_assembly.step",
+            "solids": 49,
+            "bounding_box_error_mm": 8.526512829121202e-14,
+            "volume_error_mm3": 8.149072527885437e-10
+        },
+        {
+            "file": "coil_assembly_exploded.step",
+            "solids": 49,
+            "bounding_box_error_mm": 8.526512829121202e-14,
+            "volume_error_mm3": 8.440110832452774e-10
+        },
+        {
+            "file": "single_coil.step",
+            "solids": 114,
+            "bounding_box_error_mm": 0.0,
+            "volume_error_mm3": 1.1368683772161603e-13
+        }
+    ],
+    "limitations": [
+        "Sharp rectangular turns reproduce the existing model; bend radii, continuous layer transitions and lead exits are unresolved.",
+        "Assembly coils are winding envelopes including copper, insulation and reserved winding clearance, not solid copper.",
+        "Single-coil view has separate closed turn sections for packing inspection; it is not a connected manufacturable conductor.",
+        "Adjacent winding envelopes and the two orientation layers touch; no additional assembly tolerance or interlayer separator is assumed.",
+        "PCB, interface and baseplate are local envelopes; traces, sensors, heatsink fins, eddy-break slots and mounting are not yet detailed.",
+        "No driver selection, fixture design, temperature solution or new current qualification is claimed by this CAD model."
+    ],
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "91a6f011ace82c3db3c8b644386780520abb5c2952bf7e8ec3aaed9b3236338d",
+        "methodology/design.py": "43c1545871496af8456260e793515c68ede53ac258b090afc734a7bc14079804",
+        "levitation_sim.py": "eb87ab55ad0c47520aa0efcc128c51fb9d64372e903c11a3cc8873ab7d572ab0",
+        "methodology/cad/assembly.py": "5cef553efa8e8d88a17ccd1a7fee52b5f25f6de2747f5c5381609eb2f55b4948",
+        "methodology/cad/freecad_view.py": "441d211f5ee0d1676f34def3e885759f8037c75c5faceebabddedacb78d720c7"
+    }
+}

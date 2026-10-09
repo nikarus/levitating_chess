@@ -1,0 +1,2 @@
+from pathlib import Path
+exec(compile(Path('/home/arseniy/projects/flying_chess/methodology/cad/freecad_view.py').read_text(), 'freecad_view.py', 'exec'), {'output_directory': '/home/arseniy/projects/flying_chess/methodology/cad/output'})
