@@ -1,0 +1,21 @@
+import json
+import sys
+from pathlib import Path
+import FreeCAD as App
+from uuid import uuid4
+sys.path.insert(0, '/home/arseniy/projects/flying_chess/methodology/cad')
+import importlib
+import freecad_view
+importlib.reload(freecad_view)
+output = Path('/home/arseniy/projects/flying_chess/methodology/cad/output')
+for document in list(App.listDocuments().values()):
+    document.saveCopy(str(Path('/tmp') / (document.Name + '_before_square_review_' + uuid4().hex + '.FCStd')))
+    App.closeDocument(document.Name)
+report = json.loads((output / 'square_geometry.json').read_text())
+result = freecad_view.create_document(output, 'square_assembly', 'square_assembly.step', report['parts'], report['preview'],
+    detail_groups=('Single_layer_coils', 'Magnets', 'PCB', 'Thermal_interface', 'Baseplate'), transparent_groups=('King_shell',))
+freecad_view.save_isolated_view(App.activeDocument(), output / 'square_winding.png',
+    ('Detailed_winding', 'Coil_terminals'), report['preview'])
+if result['imported_solids'] != report['export']['solids']:
+    raise ValueError('FreeCAD square-assembly solid count mismatch')
+(output / 'square_freecad_validation.json').write_text(json.dumps(dict(version=App.Version(), documents=[result]), indent=4) + '\n')

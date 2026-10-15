@@ -1,0 +1,710 @@
+{
+    "scope": "CAD/MuJoCo motion and direct magnetic-force interface verification; virtual hardware loop not yet implemented",
+    "mujoco_version": "3.15.0",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "163c09a7c1ab742e22beb5ff3ccfdc4f8788181c0012573d9839a579d9c86578",
+        "levitation_sim.py": "fe3b0dd9b5b38d2d79324cdb9fe976881444855eac92b686f3f6611a1d30d3a4",
+        "methodology/design.py": "3734c9577def9d325aaa813a96a8fcd0ef21c067a864c69e5d60ef1a20cd2568",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+        "methodology/motion.py": "2efc3e4b032d9de25dde50007fe741b2529161fc07eaba179896a44d286e1399",
+        "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+        "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+        "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818"
+    },
+    "scene": {
+        "king_mass_kg": 0.02272993161787309,
+        "king_com_from_magnet_bottom_m": [
+            -1.6091981399244162e-15,
+            -6.252044640568855e-18,
+            0.014742337541608893
+        ],
+        "king_inertia_kg_m2": [
+            [
+                1.3889676910660339e-05,
+                3.836930773104541e-22,
+                2.0625350316549885e-18
+            ],
+            [
+                3.836930773104541e-22,
+                1.3899879217463566e-05,
+                -7.389644451905042e-22
+            ],
+            [
+                2.0625350316549885e-18,
+                -7.389644451905042e-22,
+                2.9250582572874887e-06
+            ]
+        ],
+        "physical_coils": 81,
+        "physical_identities": [
+            [
+                "x",
+                -4,
+                -4
+            ],
+            [
+                "x",
+                -4,
+                -3
+            ],
+            [
+                "x",
+                -4,
+                -2
+            ],
+            [
+                "x",
+                -4,
+                -1
+            ],
+            [
+                "x",
+                -4,
+                0
+            ],
+            [
+                "x",
+                -4,
+                1
+            ],
+            [
+                "x",
+                -4,
+                2
+            ],
+            [
+                "x",
+                -4,
+                3
+            ],
+            [
+                "x",
+                -4,
+                4
+            ],
+            [
+                "x",
+                -3,
+                -4
+            ],
+            [
+                "x",
+                -3,
+                -3
+            ],
+            [
+                "x",
+                -3,
+                -2
+            ],
+            [
+                "x",
+                -3,
+                -1
+            ],
+            [
+                "x",
+                -3,
+                0
+            ],
+            [
+                "x",
+                -3,
+                1
+            ],
+            [
+                "x",
+                -3,
+                2
+            ],
+            [
+                "x",
+                -3,
+                3
+            ],
+            [
+                "x",
+                -3,
+                4
+            ],
+            [
+                "x",
+                -2,
+                -4
+            ],
+            [
+                "x",
+                -2,
+                -3
+            ],
+            [
+                "x",
+                -2,
+                -2
+            ],
+            [
+                "x",
+                -2,
+                -1
+            ],
+            [
+                "x",
+                -2,
+                0
+            ],
+            [
+                "x",
+                -2,
+                1
+            ],
+            [
+                "x",
+                -2,
+                2
+            ],
+            [
+                "x",
+                -2,
+                3
+            ],
+            [
+                "x",
+                -2,
+                4
+            ],
+            [
+                "x",
+                -1,
+                -4
+            ],
+            [
+                "x",
+                -1,
+                -3
+            ],
+            [
+                "x",
+                -1,
+                -2
+            ],
+            [
+                "x",
+                -1,
+                -1
+            ],
+            [
+                "x",
+                -1,
+                0
+            ],
+            [
+                "x",
+                -1,
+                1
+            ],
+            [
+                "x",
+                -1,
+                2
+            ],
+            [
+                "x",
+                -1,
+                3
+            ],
+            [
+                "x",
+                -1,
+                4
+            ],
+            [
+                "x",
+                0,
+                -4
+            ],
+            [
+                "x",
+                0,
+                -3
+            ],
+            [
+                "x",
+                0,
+                -2
+            ],
+            [
+                "x",
+                0,
+                -1
+            ],
+            [
+                "x",
+                0,
+                0
+            ],
+            [
+                "x",
+                0,
+                1
+            ],
+            [
+                "x",
+                0,
+                2
+            ],
+            [
+                "x",
+                0,
+                3
+            ],
+            [
+                "x",
+                0,
+                4
+            ],
+            [
+                "x",
+                1,
+                -4
+            ],
+            [
+                "x",
+                1,
+                -3
+            ],
+            [
+                "x",
+                1,
+                -2
+            ],
+            [
+                "x",
+                1,
+                -1
+            ],
+            [
+                "x",
+                1,
+                0
+            ],
+            [
+                "x",
+                1,
+                1
+            ],
+            [
+                "x",
+                1,
+                2
+            ],
+            [
+                "x",
+                1,
+                3
+            ],
+            [
+                "x",
+                1,
+                4
+            ],
+            [
+                "x",
+                2,
+                -4
+            ],
+            [
+                "x",
+                2,
+                -3
+            ],
+            [
+                "x",
+                2,
+                -2
+            ],
+            [
+                "x",
+                2,
+                -1
+            ],
+            [
+                "x",
+                2,
+                0
+            ],
+            [
+                "x",
+                2,
+                1
+            ],
+            [
+                "x",
+                2,
+                2
+            ],
+            [
+                "x",
+                2,
+                3
+            ],
+            [
+                "x",
+                2,
+                4
+            ],
+            [
+                "x",
+                3,
+                -4
+            ],
+            [
+                "x",
+                3,
+                -3
+            ],
+            [
+                "x",
+                3,
+                -2
+            ],
+            [
+                "x",
+                3,
+                -1
+            ],
+            [
+                "x",
+                3,
+                0
+            ],
+            [
+                "x",
+                3,
+                1
+            ],
+            [
+                "x",
+                3,
+                2
+            ],
+            [
+                "x",
+                3,
+                3
+            ],
+            [
+                "x",
+                3,
+                4
+            ],
+            [
+                "x",
+                4,
+                -4
+            ],
+            [
+                "x",
+                4,
+                -3
+            ],
+            [
+                "x",
+                4,
+                -2
+            ],
+            [
+                "x",
+                4,
+                -1
+            ],
+            [
+                "x",
+                4,
+                0
+            ],
+            [
+                "x",
+                4,
+                1
+            ],
+            [
+                "x",
+                4,
+                2
+            ],
+            [
+                "x",
+                4,
+                3
+            ],
+            [
+                "x",
+                4,
+                4
+            ]
+        ],
+        "board_top_m": -0.0031999999999999997,
+        "base_radius_m": 0.022142135623730953,
+        "collision_scope": "Exact bottom-film cylinder against a local infinite plane at the CAD playing-surface height; convex exterior mesh for the king. Board edges and concave piece-to-piece contact remain unqualified.",
+        "friction_scope": "Single Coulomb coefficient from resting_friction_coefficient; separate static/kinetic friction and torsional/rolling resistance remain unqualified.",
+        "damping_scope": "Soft-contact numerical damping only. No artificial airborne joint damping or material vibration model."
+    },
+    "time_step_s": 3.125e-05,
+    "mechanical_checks": {
+        "checks": [
+            {
+                "name": "free_fall",
+                "refinement": 1,
+                "position_error_m": 1.5322890624999003e-06,
+                "velocity_error_m_per_s": 5.551115123125783e-16,
+                "passed": true
+            },
+            {
+                "name": "lateral_force",
+                "refinement": 1,
+                "position_error_m": 1.5322890624997918e-06,
+                "velocity_error_m_per_s": 5.551115123125783e-16,
+                "passed": true
+            },
+            {
+                "name": "principal_torque_0",
+                "refinement": 1,
+                "angle_error_rad": 3.9269908169857655e-06,
+                "angular_velocity_error_rad_per_s": 1.7721797715983918e-13,
+                "passed": true
+            },
+            {
+                "name": "principal_torque_1",
+                "refinement": 1,
+                "angle_error_rad": 3.9269908169857655e-06,
+                "angular_velocity_error_rad_per_s": 3.3306691024637627e-16,
+                "passed": true
+            },
+            {
+                "name": "principal_torque_2",
+                "refinement": 1,
+                "angle_error_rad": 3.9269908169857655e-06,
+                "angular_velocity_error_rad_per_s": 3.7322129610477746e-14,
+                "passed": true
+            },
+            {
+                "name": "free_fall",
+                "refinement": 2,
+                "position_error_m": 7.661445312508175e-07,
+                "velocity_error_m_per_s": 1.2490009027033011e-15,
+                "passed": true
+            },
+            {
+                "name": "lateral_force",
+                "refinement": 2,
+                "position_error_m": 7.66144531246047e-07,
+                "velocity_error_m_per_s": 1.2490009027033011e-15,
+                "passed": true
+            },
+            {
+                "name": "principal_torque_0",
+                "refinement": 2,
+                "angle_error_rad": 1.9634954084961354e-06,
+                "angular_velocity_error_rad_per_s": 1.7722080308622208e-13,
+                "passed": true
+            },
+            {
+                "name": "principal_torque_1",
+                "refinement": 2,
+                "angle_error_rad": 1.9634954084961354e-06,
+                "angular_velocity_error_rad_per_s": 1.0547118844488284e-15,
+                "passed": true
+            },
+            {
+                "name": "principal_torque_2",
+                "refinement": 2,
+                "angle_error_rad": 1.9634954084961354e-06,
+                "angular_velocity_error_rad_per_s": 3.733554392633855e-14,
+                "passed": true
+            },
+            {
+                "name": "free_fall_time_refinement",
+                "passed": true
+            },
+            {
+                "name": "lateral_force_time_refinement",
+                "passed": true
+            },
+            {
+                "name": "principal_torque_0_time_refinement",
+                "passed": true
+            },
+            {
+                "name": "principal_torque_1_time_refinement",
+                "passed": true
+            },
+            {
+                "name": "principal_torque_2_time_refinement",
+                "passed": true
+            },
+            {
+                "name": "rotated_body_and_off_centre_force",
+                "generalized_force_error": 8.673617379884035e-19,
+                "linear_acceleration_error_m_per_s2": 0.0,
+                "angular_acceleration_error_rad_per_s2": 3.6274163549265397e-12,
+                "passed": true
+            },
+            {
+                "name": "drop_and_rest",
+                "time_step_s": 3.125e-05,
+                "maximum_penetration_m": 4.5083203568427626e-05,
+                "final_speed_m_per_s": 1.4919631143041985e-14,
+                "support_relative_error": 1.1102230246251565e-16,
+                "passed": true
+            },
+            {
+                "name": "drop_and_rest",
+                "time_step_s": 1.5625e-05,
+                "maximum_penetration_m": 4.337095771811436e-05,
+                "final_speed_m_per_s": 8.862473924168009e-15,
+                "support_relative_error": 2.220446049250313e-16,
+                "passed": true
+            },
+            {
+                "name": "contact_time_refinement",
+                "relative_penetration_change": 0.037979684556231796,
+                "passed": true
+            },
+            {
+                "name": "sliding_contact_impulse",
+                "velocity_balance_error_m_per_s": 4.497753614858677e-17,
+                "final_speed_m_per_s": 0.04059454161784706,
+                "contact_impulse_Ns": [
+                    -0.0008605247161707534,
+                    3.319074913569504e-09,
+                    0.002151311790497674
+                ],
+                "scope": "Free king can rock and change normal force; check momentum balance and Coulomb bound, not constant-normal-force deceleration.",
+                "passed": true
+            }
+        ],
+        "passed": true
+    },
+    "magnetic_check": {
+        "scope": "Constant prescribed currents from one nominal gravity-balancing allocation; interface check, not feedback levitation",
+        "peak_minimum_rating_A": 1.2456787376466396,
+        "peak_applied_current_A": 2.146902370161236,
+        "duration_s": 0.000125,
+        "elapsed_s": 30.33831935597118,
+        "com_displacement_m": 2.3379746294283737e-23,
+        "maximum_acceleration_residual_SI": 5.545421496991331e-14,
+        "trace": [
+            {
+                "time_s": 3.125e-05,
+                "com_position_m": [
+                    -1.6091981381787796e-15,
+                    -6.252043657702106e-18,
+                    0.015742337541608892
+                ],
+                "rotation_vector_rad": [
+                    6.159472893993055e-23,
+                    2.5513372097613807e-23,
+                    0.7853981633974484
+                ],
+                "magnetic_wrench": [
+                    4.063047641389428e-17,
+                    2.2876665839444144e-17,
+                    0.22290448390041515,
+                    4.0339944112986054e-20,
+                    5.090668012998345e-19,
+                    1.6220680939919851e-19
+                ]
+            },
+            {
+                "time_s": 6.25e-05,
+                "com_position_m": [
+                    -1.6091981346374316e-15,
+                    -6.252040795277381e-18,
+                    0.015742337541608892
+                ],
+                "rotation_vector_rad": [
+                    1.2085473178154842e-22,
+                    5.005966898088009e-23,
+                    0.7853981633974484
+                ],
+                "magnetic_wrench": [
+                    4.1795993749316196e-17,
+                    4.3747557659790104e-17,
+                    0.2229044839004152,
+                    3.875175733688424e-20,
+                    3.875175733688424e-20,
+                    -1.5670109524204556e-20
+                ]
+            },
+            {
+                "time_s": 9.375e-05,
+                "com_position_m": [
+                    -1.609198129300372e-15,
+                    -6.25203605329468e-18,
+                    0.015742337541608892
+                ],
+                "rotation_vector_rad": [
+                    1.7834799525983143e-22,
+                    7.387415845867466e-23,
+                    0.7853981633974484
+                ],
+                "magnetic_wrench": [
+                    4.1795993749316196e-17,
+                    4.3747557659790104e-17,
+                    0.2229044839004152,
+                    3.875175733688424e-20,
+                    3.875175733688424e-20,
+                    -1.5670109524204556e-20
+                ]
+            },
+            {
+                "time_s": 0.000125,
+                "com_position_m": [
+                    -1.609198122167601e-15,
+                    -6.252029431754002e-18,
+                    0.015742337541608892
+                ],
+                "rotation_vector_rad": [
+                    2.3469595759182394e-22,
+                    9.721424866867425e-23,
+                    0.7853981633974484
+                ],
+                "magnetic_wrench": [
+                    4.1795993749316196e-17,
+                    4.3747557659790104e-17,
+                    0.2229044839004152,
+                    3.875175733688424e-20,
+                    3.875175733688424e-20,
+                    -1.5670109524204556e-20
+                ]
+            }
+        ],
+        "passed": true
+    },
+    "limitations": [
+        "No physical sensor estimator, driver dynamics or closed-loop control in this check.",
+        "Contact parameters are provisional; manufactured winding clearance and material behavior remain unresolved.",
+        "The magnetic circuit retains the provisional local PCB closure and nominal material properties."
+    ],
+    "video": {
+        "path": "/home/arseniy/projects/flying_chess/methodology/cad/output/motion_scene.mp4",
+        "scope": "Unpowered drop/settle followed by initial-velocity sliding; no levitation controller",
+        "frames": 302,
+        "frame_rate": 30,
+        "playback_slowdown": 20,
+        "simulated_duration_s": 0.49999999999989286,
+        "playback_duration_s": 10.066666666666666,
+        "views": [
+            "overview",
+            "side_0_deg_gap",
+            "side_90_deg_gap"
+        ],
+        "physics_time_step_s": 3.125e-05
+    }
+}

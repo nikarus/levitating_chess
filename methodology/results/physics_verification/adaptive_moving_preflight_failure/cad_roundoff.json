@@ -1,0 +1,15 @@
+{
+  "scope": "Production adaptive integration against saved moving fine-step physical references; no controller feedback",
+  "status": "preflight_failed",
+  "physical_envelope_qualified": false,
+  "reused_evidence_sha256": {
+    "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+    "methodology/results/physics_verification/moving_inputs/summary.json": "2de15077102f3261b6f84cd8f8238fa36289787582c6bc7f398959ae1b70554f",
+    "methodology/results/physics_verification/moving_inputs/translation_yaw/time_refined.json": "e43608074e4c79f1510889c6150b647db219be6d063a2b02771d3c8cd4de8946",
+    "methodology/results/physics_verification/moving_inputs/tilt_vertical/time_refined.json": "a6e7cfd7d60ad30ab60c7cf33b9d4f7e30957b075208764641217b28cca0f2b8"
+  },
+  "reuse_scope": "Physical dependencies unchanged; diagnostic runner gains an adaptive adapter and shares its unchanged field-filter calculation.",
+  "cases": {},
+  "active_case": "translation_yaw",
+  "failure": "Rebuilt CAD mass, COM and inertia differed from saved values at floating-point rounding level. Inputs and atlas identities matched; no physics advanced."
+}

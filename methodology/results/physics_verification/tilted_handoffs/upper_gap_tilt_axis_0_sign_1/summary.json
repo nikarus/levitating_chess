@@ -1,0 +1,194 @@
+{
+    "scope": "Moving prescribed handoff, independent time/conductor refinement and adaptive comparison",
+    "status": "completed",
+    "physical_envelope_qualified": false,
+    "cases": {
+        "reference": {
+            "stop_reason": null,
+            "duration_s": 0.0001,
+            "elapsed_s": 113.65524019196164,
+            "comparison": null,
+            "geometric_handoff_crossed": true
+        },
+        "time_refined": {
+            "stop_reason": null,
+            "duration_s": 0.0001,
+            "elapsed_s": 219.48414205899462,
+            "comparison": {
+                "differences": {
+                    "pose_position_m": 2.0138400277773484e-12,
+                    "pose_angle_rad": 1.0764876140591276e-10,
+                    "current_trace_A": 2.172069922101727e-05
+                },
+                "limits": {
+                    "pose_position_m": 8.000000000000001e-06,
+                    "pose_angle_rad": 0.00025,
+                    "current_trace_A": 0.027500000000000004
+                },
+                "checks": {
+                    "pose_position_m": true,
+                    "pose_angle_rad": true,
+                    "current_trace_A": true
+                },
+                "converged": true,
+                "world_velocity_maximum_component_differences": [
+                    3.4603355170968994e-08,
+                    2.145916218054822e-07,
+                    3.4381152456269826e-09,
+                    5.361729062087182e-06,
+                    1.249938802341287e-06,
+                    2.4040807922134813e-06
+                ],
+                "wrench_maximum_component_differences": [
+                    8.416271771050782e-07,
+                    6.977527534880387e-08,
+                    1.9415217814566788e-06,
+                    4.038675318429423e-09,
+                    1.2931814259347843e-08,
+                    1.2668857357001415e-09
+                ],
+                "analogue_field_T_maximum_difference": 5.881671547025569e-08
+            },
+            "geometric_handoff_crossed": true
+        },
+        "wire_refined": {
+            "stop_reason": null,
+            "duration_s": 0.0001,
+            "elapsed_s": 412.742176280939,
+            "comparison": {
+                "differences": {
+                    "pose_position_m": 2.0174890413863604e-11,
+                    "pose_angle_rad": 9.990180324908396e-11,
+                    "current_trace_A": 1.3521577511999006e-05
+                },
+                "limits": {
+                    "pose_position_m": 8.000000000000001e-06,
+                    "pose_angle_rad": 0.00025,
+                    "current_trace_A": 0.027500000000000004
+                },
+                "checks": {
+                    "pose_position_m": true,
+                    "pose_angle_rad": true,
+                    "current_trace_A": true
+                },
+                "converged": true,
+                "world_velocity_maximum_component_differences": [
+                    3.297541805127633e-08,
+                    1.229755275389266e-08,
+                    3.8949702674435926e-07,
+                    3.6210856104907404e-07,
+                    1.01909214645427e-06,
+                    1.5780226115471468e-06
+                ],
+                "wrench_maximum_component_differences": [
+                    7.695281343725931e-06,
+                    2.958505693031674e-06,
+                    8.864107954476008e-05,
+                    5.261190611213014e-08,
+                    1.1950447978802622e-07,
+                    3.513154483860154e-08
+                ],
+                "analogue_field_T_maximum_difference": 7.320408959114733e-07
+            },
+            "geometric_handoff_crossed": true
+        },
+        "adaptive": {
+            "stop_reason": null,
+            "duration_s": 0.0001,
+            "elapsed_s": 143.70115498790983,
+            "comparison": {
+                "differences": {
+                    "pose_position_m": 2.0138400261437947e-12,
+                    "pose_angle_rad": 1.0764876140591276e-10,
+                    "current_trace_A": 2.172069922101727e-05
+                },
+                "limits": {
+                    "pose_position_m": 8.000000000000001e-06,
+                    "pose_angle_rad": 0.00025,
+                    "current_trace_A": 0.027500000000000004
+                },
+                "checks": {
+                    "pose_position_m": true,
+                    "pose_angle_rad": true,
+                    "current_trace_A": true
+                },
+                "converged": true,
+                "world_velocity_maximum_component_differences": [
+                    3.460335517088429e-08,
+                    2.145916218054822e-07,
+                    3.4381152456269826e-09,
+                    5.361729062088863e-06,
+                    1.2499388023419646e-06,
+                    2.404080792208792e-06
+                ],
+                "wrench_maximum_component_differences": [
+                    8.416271771489884e-07,
+                    6.977527543987685e-08,
+                    1.9415217814566788e-06,
+                    4.038675318835999e-09,
+                    1.2931814257379339e-08,
+                    1.2668857359271463e-09
+                ],
+                "analogue_field_T_maximum_difference": 5.881671546331679e-08
+            },
+            "geometric_handoff_crossed": true
+        }
+    },
+    "active_case": null,
+    "verification": {
+        "cases": {
+            "reference": {
+                "sources_inputs_checkpoint_verified": true,
+                "physical_coils": 81,
+                "incoming_coils": 4,
+                "outgoing_coils": 4,
+                "outgoing_current_at_switch_A": 0.1346868116919097,
+                "incoming_current_at_end_A": 0.05712953497452462,
+                "displacement_m": 0.0001153785803486258,
+                "chronological_raw_samples": 17
+            },
+            "time_refined": {
+                "sources_inputs_checkpoint_verified": true,
+                "physical_coils": 81,
+                "incoming_coils": 4,
+                "outgoing_coils": 4,
+                "outgoing_current_at_switch_A": 0.13468648365431993,
+                "incoming_current_at_end_A": 0.05712859234036895,
+                "displacement_m": 0.0001153785801031327,
+                "chronological_raw_samples": 33
+            },
+            "wire_refined": {
+                "sources_inputs_checkpoint_verified": true,
+                "physical_coils": 81,
+                "incoming_coils": 4,
+                "outgoing_coils": 4,
+                "outgoing_current_at_switch_A": 0.13468789664971734,
+                "incoming_current_at_end_A": 0.057128597044872026,
+                "displacement_m": 0.00011537858066692468,
+                "chronological_raw_samples": 33
+            },
+            "adaptive": {
+                "sources_inputs_checkpoint_verified": true,
+                "physical_coils": 81,
+                "incoming_coils": 4,
+                "outgoing_coils": 4,
+                "outgoing_current_at_switch_A": 0.1346868116919097,
+                "incoming_current_at_end_A": 0.05712953497452462,
+                "displacement_m": 0.00011537858034862578,
+                "chronological_raw_samples": 17,
+                "adaptation": {
+                    "accepted": 8,
+                    "rejected": 2,
+                    "force_evaluations": 20,
+                    "maximum_accepted_error": 0.2922730660964712
+                },
+                "accepted_step_range_s": [
+                    1.2499999999999992e-05,
+                    1.25e-05
+                ]
+            }
+        },
+        "physical_envelope_qualified": false,
+        "remaining": "Longer tilted transitions, other boundary geometries, a global Hall-field accuracy budget and realistic switching hardware remain unqualified."
+    }
+}

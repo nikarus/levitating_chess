@@ -1,0 +1,2642 @@
+{
+    "scope": "Instantaneous magnetic forces and COM torque at saved observation times; not integration-step extrema",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "7474a0aa7ef3699af0e89ad198235d81001253da2d53fc49a200129f3809ea52",
+        "levitation_sim.py": "85cc7c37ab8a72a429a145d1820e2e5cb8d8d79233f14861050d7cfdb0ad7b8d",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+        "methodology/motion.py": "d05c5d934a16a87f49330e28720b5c2161eabfe186a4563d2c08c2bf6a05ba09",
+        "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+        "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+        "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+        "methodology/airborne.py": "9fd7e48b4471aaaa062bf2c7ac5e82d87197bfdcc8f4675f087161f7836b4564",
+        "methodology/electrical.py": "e6670b479f4d8e24e8de53876b7839273dda1243a014d8bb2d81f57801038d2d",
+        "methodology/sensing.py": "d2e1c2fdba41f15fde20b6aebbfa878fb9a9e803bcd4cd1608220a16ff673dc8",
+        "methodology/qualification.py": "97efa1056a8b49937ee7158d3d5cc81fbdd34b822901a26ea8af32833cab2b04",
+        "methodology/adaptive_airborne.py": "172790317901dc649b7cc8c90c17875dd8be63d586947708083b9a5564d90d0e",
+        "methodology/magnetic_atlas.py": "a41022ce4060c56026e4408d04d58807ffd594d8560f38c49abf119388b46a73",
+        "methodology/hover.py": "108df953300f19ba831dfb18f9e7a0fdbec6b29df7d6f9035a3af3dfee8d25c9",
+        "methodology/count_response.py": "c4b6c2beb21326145f3e5ceeae365cbe6f9045b6875825980f2445a891a54dba"
+    },
+    "trace": [
+        {
+            "time_s": 0.0,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                0.0,
+                0.0
+            ]
+        },
+        {
+            "time_s": 0.00025,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                1.0071171915509611,
+                1.0071171915509611
+            ]
+        },
+        {
+            "time_s": 0.0005,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                2.3534070853673876,
+                2.3534070853673876
+            ]
+        },
+        {
+            "time_s": 0.00075,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                2.687009899995908,
+                2.687009899995908
+            ]
+        },
+        {
+            "time_s": 0.001,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                2.763195880326689,
+                2.763195880326689
+            ]
+        },
+        {
+            "time_s": 0.00125,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                2.7594431040408813,
+                2.7594431040408813
+            ]
+        },
+        {
+            "time_s": 0.0015,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                2.7279257774423744,
+                2.7279257774423744
+            ]
+        },
+        {
+            "time_s": 0.00175,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                2.7013473303895807,
+                2.7013473303895807
+            ]
+        },
+        {
+            "time_s": 0.002,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                3.5737743783501865,
+                3.5737743783501865
+            ]
+        },
+        {
+            "time_s": 0.00225,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                4.2616727236807135,
+                4.2616727236807135
+            ]
+        },
+        {
+            "time_s": 0.0025,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                4.2748761613914805,
+                4.2748761613914805
+            ]
+        },
+        {
+            "time_s": 0.00275,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                4.156414515786744,
+                4.156414515786744
+            ]
+        },
+        {
+            "time_s": 0.003,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                3.4682513598241727,
+                3.4682513598241727
+            ]
+        },
+        {
+            "time_s": 0.00325,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                3.193342641896291,
+                3.193342641896291
+            ]
+        },
+        {
+            "time_s": 0.0035,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                3.0917389383667766,
+                3.0917389383667766
+            ]
+        },
+        {
+            "time_s": 0.00375,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                3.0218900889003386,
+                3.0218900889003386
+            ]
+        },
+        {
+            "time_s": 0.004,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                3.091547536957955,
+                3.091547536957955
+            ]
+        },
+        {
+            "time_s": 0.00425,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                3.11774337643703,
+                3.11774337643703
+            ]
+        },
+        {
+            "time_s": 0.0045,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                3.0795969153765794,
+                3.0795969153765794
+            ]
+        },
+        {
+            "time_s": 0.00475,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                3.024200322570744,
+                3.024200322570744
+            ]
+        },
+        {
+            "time_s": 0.005,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                2.776490634802739,
+                2.776490634802739
+            ]
+        },
+        {
+            "time_s": 0.00525,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                2.669941463379766,
+                2.669941463379766
+            ]
+        },
+        {
+            "time_s": 0.0055,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                2.6247906474448457,
+                2.6247906474448457
+            ]
+        },
+        {
+            "time_s": 0.00575,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                2.5978701665278217,
+                2.5978701665278217
+            ]
+        },
+        {
+            "time_s": 0.006,
+            "current_difference_A": 0.0,
+            "position_difference_m": 0.0,
+            "orientation_difference_rad": 0.0,
+            "force_difference_N": 0.0,
+            "force_difference_weight_fraction": 0.0,
+            "torque_difference_Nm": 0.0,
+            "copper_loss_W": [
+                2.9409498481532617,
+                2.9409498481532617
+            ]
+        },
+        {
+            "time_s": 0.00625,
+            "current_difference_A": 0.0062956555715382445,
+            "position_difference_m": 5.7570465482944526e-11,
+            "orientation_difference_rad": 1.8600894207799888e-09,
+            "force_difference_N": 0.000187833327355848,
+            "force_difference_weight_fraction": 0.000842662848539936,
+            "torque_difference_Nm": 3.4669801882264468e-06,
+            "copper_loss_W": [
+                3.1924830414931615,
+                3.1938476771028133
+            ]
+        },
+        {
+            "time_s": 0.0065,
+            "current_difference_A": 0.003008552897107858,
+            "position_difference_m": 5.373247620641163e-10,
+            "orientation_difference_rad": 1.7360763032227744e-08,
+            "force_difference_N": 8.972608938586355e-05,
+            "force_difference_weight_fraction": 0.00040253155888039316,
+            "torque_difference_Nm": 1.656676335956504e-06,
+            "copper_loss_W": [
+                3.1851195441606825,
+                3.185744966657546
+            ]
+        },
+        {
+            "time_s": 0.00675,
+            "current_difference_A": 0.006295676273168654,
+            "position_difference_m": 1.2926842757183923e-09,
+            "orientation_difference_rad": 4.163604994337381e-08,
+            "force_difference_N": 6.0510174833762934e-05,
+            "force_difference_weight_fraction": 0.000271462349141422,
+            "torque_difference_Nm": 2.4817296331887273e-07,
+            "copper_loss_W": [
+                3.120271942108501,
+                3.1213298309815194
+            ]
+        },
+        {
+            "time_s": 0.007,
+            "current_difference_A": 0.0030195887524048504,
+            "position_difference_m": 2.1289971528725058e-09,
+            "orientation_difference_rad": 6.74037148951135e-08,
+            "force_difference_N": 2.6767294923172316e-05,
+            "force_difference_weight_fraction": 0.00012008414750028489,
+            "torque_difference_Nm": 3.1220304017806064e-08,
+            "copper_loss_W": [
+                2.861645718538286,
+                2.86205752178795
+            ]
+        },
+        {
+            "time_s": 0.00725,
+            "current_difference_A": 0.006295761832743385,
+            "position_difference_m": 2.9760202728025826e-09,
+            "orientation_difference_rad": 9.292080310475074e-08,
+            "force_difference_N": 8.947484462139263e-05,
+            "force_difference_weight_fraction": 0.00040140441796301636,
+            "torque_difference_Nm": 1.3981273718121874e-06,
+            "copper_loss_W": [
+                2.7366284026440635,
+                2.732014907519787
+            ]
+        },
+        {
+            "time_s": 0.0075,
+            "current_difference_A": 0.0031160214993293245,
+            "position_difference_m": 3.6513782094792277e-09,
+            "orientation_difference_rad": 1.1635575879979497e-07,
+            "force_difference_N": 4.542018211813417e-05,
+            "force_difference_weight_fraction": 0.00020376522411467561,
+            "torque_difference_Nm": 6.884130706337102e-07,
+            "copper_loss_W": [
+                2.684209981919388,
+                2.6820177925890287
+            ]
+        },
+        {
+            "time_s": 0.00775,
+            "current_difference_A": 0.0005082382604958413,
+            "position_difference_m": 4.213770402295129e-09,
+            "orientation_difference_rad": 1.4049348631772555e-07,
+            "force_difference_N": 7.5976503851471856e-06,
+            "force_difference_weight_fraction": 3.408478040550103e-05,
+            "torque_difference_Nm": 1.1463985537251625e-07,
+            "copper_loss_W": [
+                2.636473148925565,
+                2.636123667924132
+            ]
+        },
+        {
+            "time_s": 0.008,
+            "current_difference_A": 0.006284067638903046,
+            "position_difference_m": 4.803932803235436e-09,
+            "orientation_difference_rad": 1.6774479971063834e-07,
+            "force_difference_N": 0.00015539628079545454,
+            "force_difference_weight_fraction": 0.0006971429110635546,
+            "torque_difference_Nm": 2.763833141717524e-06,
+            "copper_loss_W": [
+                2.6282559132802286,
+                2.6294790064076623
+            ]
+        },
+        {
+            "time_s": 0.00825,
+            "current_difference_A": 0.006385019175362966,
+            "position_difference_m": 5.750831434258298e-09,
+            "orientation_difference_rad": 2.0645411236986354e-07,
+            "force_difference_N": 0.00018770010572707923,
+            "force_difference_weight_fraction": 0.0008420651861401598,
+            "torque_difference_Nm": 3.5653916863191187e-06,
+            "copper_loss_W": [
+                2.63827526748297,
+                2.6379361503873753
+            ]
+        },
+        {
+            "time_s": 0.0085,
+            "current_difference_A": 0.00628888900209762,
+            "position_difference_m": 7.071490279352294e-09,
+            "orientation_difference_rad": 2.604848647995761e-07,
+            "force_difference_N": 5.5022028541322256e-05,
+            "force_difference_weight_fraction": 0.000246841281873468,
+            "torque_difference_Nm": 1.3240717943389342e-06,
+            "copper_loss_W": [
+                2.625397126483584,
+                2.6240740214601663
+            ]
+        },
+        {
+            "time_s": 0.00875,
+            "current_difference_A": 0.0031273485333027096,
+            "position_difference_m": 8.490007880498654e-09,
+            "orientation_difference_rad": 3.2472995091768116e-07,
+            "force_difference_N": 1.33654110381984e-05,
+            "force_difference_weight_fraction": 5.996026102449129e-05,
+            "torque_difference_Nm": 3.450379878850281e-07,
+            "copper_loss_W": [
+                2.6011016286571174,
+                2.600562592321703
+            ]
+        },
+        {
+            "time_s": 0.009,
+            "current_difference_A": 0.00638519628291942,
+            "position_difference_m": 9.884014837283812e-09,
+            "orientation_difference_rad": 3.950624841722595e-07,
+            "force_difference_N": 0.0002544205257560677,
+            "force_difference_weight_fraction": 0.0011413881017742686,
+            "torque_difference_Nm": 9.223678917571406e-07,
+            "copper_loss_W": [
+                2.449209293664767,
+                2.4465711752172963
+            ]
+        },
+        {
+            "time_s": 0.00925,
+            "current_difference_A": 0.009424304900597341,
+            "position_difference_m": 1.1161554443243804e-08,
+            "orientation_difference_rad": 4.755795900363393e-07,
+            "force_difference_N": 0.00022656772946387204,
+            "force_difference_weight_fraction": 0.001016434149279355,
+            "torque_difference_Nm": 2.9010755573182678e-06,
+            "copper_loss_W": [
+                2.3834780653873273,
+                2.3835672643845722
+            ]
+        },
+        {
+            "time_s": 0.0095,
+            "current_difference_A": 0.009418319676289588,
+            "position_difference_m": 1.2514504017650435e-08,
+            "orientation_difference_rad": 5.903868824254326e-07,
+            "force_difference_N": 0.00048295273776435024,
+            "force_difference_weight_fraction": 0.0021666353646798537,
+            "torque_difference_Nm": 5.759335914341634e-06,
+            "copper_loss_W": [
+                2.3730035725925367,
+                2.3665583699453907
+            ]
+        },
+        {
+            "time_s": 0.00975,
+            "current_difference_A": 0.006414357995826014,
+            "position_difference_m": 1.354859662033218e-08,
+            "orientation_difference_rad": 7.456160097101371e-07,
+            "force_difference_N": 0.00018663912351391977,
+            "force_difference_weight_fraction": 0.0008373053796320348,
+            "torque_difference_Nm": 5.962065419228238e-06,
+            "copper_loss_W": [
+                2.3653368426132615,
+                2.363017752473214
+            ]
+        },
+        {
+            "time_s": 0.01,
+            "current_difference_A": 0.009507376311404414,
+            "position_difference_m": 1.4541301990227397e-08,
+            "orientation_difference_rad": 8.966959317760839e-07,
+            "force_difference_N": 0.0005832828350441982,
+            "force_difference_weight_fraction": 0.0026167389046547226,
+            "torque_difference_Nm": 7.290442293140877e-06,
+            "copper_loss_W": [
+                2.425076414641925,
+                2.440611639138179
+            ]
+        },
+        {
+            "time_s": 0.01025,
+            "current_difference_A": 0.009934418982069065,
+            "position_difference_m": 1.579682630405638e-08,
+            "orientation_difference_rad": 1.0434776740235386e-06,
+            "force_difference_N": 0.000402011949617149,
+            "force_difference_weight_fraction": 0.0018035166569226673,
+            "torque_difference_Nm": 8.693431792987716e-07,
+            "copper_loss_W": [
+                2.6638582940303825,
+                2.6710404838518467
+            ]
+        },
+        {
+            "time_s": 0.0105,
+            "current_difference_A": 0.010038174173726655,
+            "position_difference_m": 1.6423347205026643e-08,
+            "orientation_difference_rad": 1.2048352720348035e-06,
+            "force_difference_N": 0.0005296037209339281,
+            "force_difference_weight_fraction": 0.002375922241073151,
+            "torque_difference_Nm": 6.048976828892154e-06,
+            "copper_loss_W": [
+                2.699716252503625,
+                2.705058357236034
+            ]
+        },
+        {
+            "time_s": 0.01075,
+            "current_difference_A": 0.010024534080882427,
+            "position_difference_m": 1.6199836035283862e-08,
+            "orientation_difference_rad": 1.3865940776179713e-06,
+            "force_difference_N": 0.00032559988123054766,
+            "force_difference_weight_fraction": 0.0014607148117128633,
+            "torque_difference_Nm": 7.990894384568993e-06,
+            "copper_loss_W": [
+                2.6723331256675675,
+                2.690723592929871
+            ]
+        },
+        {
+            "time_s": 0.011,
+            "current_difference_A": 0.0036481455335414803,
+            "position_difference_m": 1.6284380185015068e-08,
+            "orientation_difference_rad": 1.578271167509276e-06,
+            "force_difference_N": 0.00020410712001586696,
+            "force_difference_weight_fraction": 0.0009156707682338684,
+            "torque_difference_Nm": 2.755172482034261e-06,
+            "copper_loss_W": [
+                3.079805223378426,
+                3.0906284448860566
+            ]
+        },
+        {
+            "time_s": 0.01125,
+            "current_difference_A": 0.0063965166208641636,
+            "position_difference_m": 1.6754802767206024e-08,
+            "orientation_difference_rad": 1.772044545088186e-06,
+            "force_difference_N": 0.00017102841284050708,
+            "force_difference_weight_fraction": 0.0007672721959102261,
+            "torque_difference_Nm": 2.3375486697988494e-06,
+            "copper_loss_W": [
+                3.3263329233357957,
+                3.325609234243912
+            ]
+        },
+        {
+            "time_s": 0.0115,
+            "current_difference_A": 0.006410468910260536,
+            "position_difference_m": 1.7111715529807313e-08,
+            "orientation_difference_rad": 1.949677106230657e-06,
+            "force_difference_N": 0.00020159626057186675,
+            "force_difference_weight_fraction": 0.0009044064840881894,
+            "torque_difference_Nm": 3.858811233997428e-06,
+            "copper_loss_W": [
+                3.2943559036190107,
+                3.290896179061336
+            ]
+        },
+        {
+            "time_s": 0.01175,
+            "current_difference_A": 0.006792527529374197,
+            "position_difference_m": 1.7445279519744192e-08,
+            "orientation_difference_rad": 2.096214106910583e-06,
+            "force_difference_N": 0.0001639930235129007,
+            "force_difference_weight_fraction": 0.0007357098459543162,
+            "torque_difference_Nm": 4.440499901500629e-06,
+            "copper_loss_W": [
+                3.2074769566936054,
+                3.2032231215925244
+            ]
+        },
+        {
+            "time_s": 0.012,
+            "current_difference_A": 0.006811610568103643,
+            "position_difference_m": 1.8040814288495653e-08,
+            "orientation_difference_rad": 2.203954197363249e-06,
+            "force_difference_N": 0.00011846590861340579,
+            "force_difference_weight_fraction": 0.0005314648971634493,
+            "torque_difference_Nm": 4.397824455830231e-06,
+            "copper_loss_W": [
+                2.457173585512511,
+                2.46017476401974
+            ]
+        },
+        {
+            "time_s": 0.01225,
+            "current_difference_A": 0.00953552515424494,
+            "position_difference_m": 1.8938483683266508e-08,
+            "orientation_difference_rad": 2.2787617900560323e-06,
+            "force_difference_N": 9.970616158798557e-05,
+            "force_difference_weight_fraction": 0.00044730442314713765,
+            "torque_difference_Nm": 6.205270774143805e-06,
+            "copper_loss_W": [
+                2.4266415801959687,
+                2.42356814476018
+            ]
+        },
+        {
+            "time_s": 0.0125,
+            "current_difference_A": 0.009965207215220762,
+            "position_difference_m": 2.0305163548465183e-08,
+            "orientation_difference_rad": 2.322716234637181e-06,
+            "force_difference_N": 0.0003921163347959932,
+            "force_difference_weight_fraction": 0.0017591226875955327,
+            "torque_difference_Nm": 4.416077940415587e-06,
+            "copper_loss_W": [
+                2.4370599991555597,
+                2.4400235067259453
+            ]
+        },
+        {
+            "time_s": 0.01275,
+            "current_difference_A": 0.010051778100611697,
+            "position_difference_m": 2.2827728880985956e-08,
+            "orientation_difference_rad": 2.36239712604478e-06,
+            "force_difference_N": 0.0005445542274112307,
+            "force_difference_weight_fraction": 0.002442993599242787,
+            "torque_difference_Nm": 7.373192654335796e-06,
+            "copper_loss_W": [
+                2.4355330140076545,
+                2.441031135448609
+            ]
+        },
+        {
+            "time_s": 0.013,
+            "current_difference_A": 0.006289254382399967,
+            "position_difference_m": 2.6594086470311614e-08,
+            "orientation_difference_rad": 2.4152155602670838e-06,
+            "force_difference_N": 0.0001954800073865608,
+            "force_difference_weight_fraction": 0.0008769675870400778,
+            "torque_difference_Nm": 5.512708148743549e-06,
+            "copper_loss_W": [
+                2.3179584347162856,
+                2.318838902779509
+            ]
+        },
+        {
+            "time_s": 0.01325,
+            "current_difference_A": 0.009252457118797908,
+            "position_difference_m": 3.0586059585289565e-08,
+            "orientation_difference_rad": 2.481388955543577e-06,
+            "force_difference_N": 0.0002757115412423269,
+            "force_difference_weight_fraction": 0.001236904419408198,
+            "torque_difference_Nm": 4.832669916887306e-06,
+            "copper_loss_W": [
+                2.2812683572021535,
+                2.2797445111045898
+            ]
+        },
+        {
+            "time_s": 0.0135,
+            "current_difference_A": 0.009769485361118324,
+            "position_difference_m": 3.4214826070239807e-08,
+            "orientation_difference_rad": 2.5514617671759977e-06,
+            "force_difference_N": 0.0002082790211481668,
+            "force_difference_weight_fraction": 0.0009343868615995079,
+            "torque_difference_Nm": 6.249458139756201e-06,
+            "copper_loss_W": [
+                2.2793560362515537,
+                2.2776208418307924
+            ]
+        },
+        {
+            "time_s": 0.01375,
+            "current_difference_A": 0.009793104071092337,
+            "position_difference_m": 3.7802239623173564e-08,
+            "orientation_difference_rad": 2.6105080155250408e-06,
+            "force_difference_N": 0.00041930823171111147,
+            "force_difference_weight_fraction": 0.0018811116957990041,
+            "torque_difference_Nm": 5.632937035837049e-06,
+            "copper_loss_W": [
+                2.2780770707112317,
+                2.2726551863239086
+            ]
+        },
+        {
+            "time_s": 0.014,
+            "current_difference_A": 0.009936033726885132,
+            "position_difference_m": 4.0972765966883894e-08,
+            "orientation_difference_rad": 2.6581417882972827e-06,
+            "force_difference_N": 0.00020552338071689637,
+            "force_difference_weight_fraction": 0.0009220244345049432,
+            "torque_difference_Nm": 6.14804467519271e-06,
+            "copper_loss_W": [
+                2.7668226467773063,
+                2.7471087847774127
+            ]
+        },
+        {
+            "time_s": 0.01425,
+            "current_difference_A": 0.010084065416589905,
+            "position_difference_m": 4.395103400613526e-08,
+            "orientation_difference_rad": 2.7025273032158032e-06,
+            "force_difference_N": 0.00022235983340982885,
+            "force_difference_weight_fraction": 0.000997556574542352,
+            "torque_difference_Nm": 5.560852588663128e-06,
+            "copper_loss_W": [
+                3.4085283800150914,
+                3.375940261368395
+            ]
+        },
+        {
+            "time_s": 0.0145,
+            "current_difference_A": 0.00996653503216094,
+            "position_difference_m": 4.661764951732356e-08,
+            "orientation_difference_rad": 2.7540282240337535e-06,
+            "force_difference_N": 0.00010638861245493763,
+            "force_difference_weight_fraction": 0.0004772834112321756,
+            "torque_difference_Nm": 7.945465631845492e-06,
+            "copper_loss_W": [
+                3.467329785781052,
+                3.4393961669730513
+            ]
+        },
+        {
+            "time_s": 0.01475,
+            "current_difference_A": 0.009972228477216127,
+            "position_difference_m": 4.939914615256505e-08,
+            "orientation_difference_rad": 2.8051385576307935e-06,
+            "force_difference_N": 0.00036144168075144935,
+            "force_difference_weight_fraction": 0.0016215092421062616,
+            "torque_difference_Nm": 1.0261908176828344e-05,
+            "copper_loss_W": [
+                3.387443182646589,
+                3.378008887573281
+            ]
+        },
+        {
+            "time_s": 0.015,
+            "current_difference_A": 0.010174539819323813,
+            "position_difference_m": 5.288494881340236e-08,
+            "orientation_difference_rad": 2.8556896862942123e-06,
+            "force_difference_N": 0.0004480357780505169,
+            "force_difference_weight_fraction": 0.002009989975126215,
+            "torque_difference_Nm": 4.537912135108598e-06,
+            "copper_loss_W": [
+                3.654843848213729,
+                3.6378209547281966
+            ]
+        },
+        {
+            "time_s": 0.01525,
+            "current_difference_A": 0.010085281759771414,
+            "position_difference_m": 5.6279303920708275e-08,
+            "orientation_difference_rad": 2.9254889422370533e-06,
+            "force_difference_N": 0.00046515862105220486,
+            "force_difference_weight_fraction": 0.00208680692695271,
+            "torque_difference_Nm": 6.101537072748105e-06,
+            "copper_loss_W": [
+                3.736186326846692,
+                3.7144446531822304
+            ]
+        },
+        {
+            "time_s": 0.0155,
+            "current_difference_A": 0.010071718945715125,
+            "position_difference_m": 5.999156050257811e-08,
+            "orientation_difference_rad": 3.0053709283945984e-06,
+            "force_difference_N": 0.0006256495998854274,
+            "force_difference_weight_fraction": 0.002806805807302392,
+            "torque_difference_Nm": 9.301567748213178e-06,
+            "copper_loss_W": [
+                3.632934486792964,
+                3.608135901194573
+            ]
+        },
+        {
+            "time_s": 0.01575,
+            "current_difference_A": 0.010071365310668101,
+            "position_difference_m": 6.434833934162514e-08,
+            "orientation_difference_rad": 3.099431714376549e-06,
+            "force_difference_N": 0.00040147913881996236,
+            "force_difference_weight_fraction": 0.0018011263470111597,
+            "torque_difference_Nm": 3.0376596344925353e-06,
+            "copper_loss_W": [
+                3.499433495587149,
+                3.480201262204373
+            ]
+        },
+        {
+            "time_s": 0.016,
+            "current_difference_A": 0.0063781762878062365,
+            "position_difference_m": 6.881396165509998e-08,
+            "orientation_difference_rad": 3.2200673553321912e-06,
+            "force_difference_N": 0.00022127678937509506,
+            "force_difference_weight_fraction": 0.0009926977937059036,
+            "torque_difference_Nm": 1.0449106167165462e-06,
+            "copper_loss_W": [
+                2.7395270547038066,
+                2.73990717991377
+            ]
+        },
+        {
+            "time_s": 0.01625,
+            "current_difference_A": 0.006877150944696514,
+            "position_difference_m": 7.337162275530814e-08,
+            "orientation_difference_rad": 3.3609451625499937e-06,
+            "force_difference_N": 0.00010664061946556571,
+            "force_difference_weight_fraction": 0.0004784139717584531,
+            "torque_difference_Nm": 2.691178693649081e-06,
+            "copper_loss_W": [
+                2.5534426598437414,
+                2.5518093000228617
+            ]
+        },
+        {
+            "time_s": 0.0165,
+            "current_difference_A": 0.00927821442967991,
+            "position_difference_m": 7.807731397528174e-08,
+            "orientation_difference_rad": 3.5146706335704484e-06,
+            "force_difference_N": 0.0003806574969057183,
+            "force_difference_weight_fraction": 0.001707715745528839,
+            "torque_difference_Nm": 3.926692460658341e-06,
+            "copper_loss_W": [
+                2.5124617013860946,
+                2.5186730152979777
+            ]
+        },
+        {
+            "time_s": 0.01675,
+            "current_difference_A": 0.006396224943675227,
+            "position_difference_m": 8.317073042513993e-08,
+            "orientation_difference_rad": 3.6699600132092782e-06,
+            "force_difference_N": 0.000504046755794493,
+            "force_difference_weight_fraction": 0.002261267907108057,
+            "torque_difference_Nm": 3.0686834246947736e-06,
+            "copper_loss_W": [
+                2.483223395227787,
+                2.4975770162115944
+            ]
+        },
+        {
+            "time_s": 0.017,
+            "current_difference_A": 0.018966009722331277,
+            "position_difference_m": 8.905912386105367e-08,
+            "orientation_difference_rad": 3.8355910170680134e-06,
+            "force_difference_N": 0.0006374034130259097,
+            "force_difference_weight_fraction": 0.002859536075149913,
+            "torque_difference_Nm": 6.176163127603852e-06,
+            "copper_loss_W": [
+                2.554087107266861,
+                2.556534104815526
+            ]
+        },
+        {
+            "time_s": 0.01725,
+            "current_difference_A": 0.02845087369577895,
+            "position_difference_m": 9.545995713060955e-08,
+            "orientation_difference_rad": 3.995254814446077e-06,
+            "force_difference_N": 0.0006658627046743207,
+            "force_difference_weight_fraction": 0.0029872109031768156,
+            "torque_difference_Nm": 5.967318757421412e-06,
+            "copper_loss_W": [
+                2.634012086940558,
+                2.612029840248564
+            ]
+        },
+        {
+            "time_s": 0.0175,
+            "current_difference_A": 0.02975925490226701,
+            "position_difference_m": 1.0105065697999076e-07,
+            "orientation_difference_rad": 4.14240312818526e-06,
+            "force_difference_N": 0.00040456627879519936,
+            "force_difference_weight_fraction": 0.0018149759561406748,
+            "torque_difference_Nm": 9.861037622748288e-06,
+            "copper_loss_W": [
+                2.6197164598139495,
+                2.593331097122323
+            ]
+        },
+        {
+            "time_s": 0.01775,
+            "current_difference_A": 0.023703148213236824,
+            "position_difference_m": 1.0579998510595721e-07,
+            "orientation_difference_rad": 4.2767016479678146e-06,
+            "force_difference_N": 0.0006123085106871762,
+            "force_difference_weight_fraction": 0.0027469546595605123,
+            "torque_difference_Nm": 8.312949248308043e-06,
+            "copper_loss_W": [
+                2.5850970275747414,
+                2.5564150316236747
+            ]
+        },
+        {
+            "time_s": 0.018,
+            "current_difference_A": 0.020637190556961782,
+            "position_difference_m": 1.093393053826225e-07,
+            "orientation_difference_rad": 4.40288983833372e-06,
+            "force_difference_N": 0.0006974276131729984,
+            "force_difference_weight_fraction": 0.0031288182317794097,
+            "torque_difference_Nm": 8.50455366041296e-06,
+            "copper_loss_W": [
+                2.607361202075554,
+                2.5830459458075676
+            ]
+        },
+        {
+            "time_s": 0.01825,
+            "current_difference_A": 0.020139813924558353,
+            "position_difference_m": 1.1183486812181332e-07,
+            "orientation_difference_rad": 4.518984415701539e-06,
+            "force_difference_N": 0.0006603633822358865,
+            "force_difference_weight_fraction": 0.00296253969718667,
+            "torque_difference_Nm": 6.746860557318543e-06,
+            "copper_loss_W": [
+                2.6111185498793685,
+                2.5816078694473474
+            ]
+        },
+        {
+            "time_s": 0.0185,
+            "current_difference_A": 0.013650254193489808,
+            "position_difference_m": 1.1306770698630086e-07,
+            "orientation_difference_rad": 4.642351908855933e-06,
+            "force_difference_N": 0.000683699955149839,
+            "force_difference_weight_fraction": 0.0030672328487357362,
+            "torque_difference_Nm": 4.942305042872499e-06,
+            "copper_loss_W": [
+                2.581031685272721,
+                2.558377152386598
+            ]
+        },
+        {
+            "time_s": 0.01875,
+            "current_difference_A": 0.01065745600868001,
+            "position_difference_m": 1.1316572331605385e-07,
+            "orientation_difference_rad": 4.7772813623445585e-06,
+            "force_difference_N": 0.0003415668082958978,
+            "force_difference_weight_fraction": 0.0015323460628476925,
+            "torque_difference_Nm": 5.4031651565170505e-06,
+            "copper_loss_W": [
+                2.545039464566465,
+                2.531582210670579
+            ]
+        },
+        {
+            "time_s": 0.019,
+            "current_difference_A": 0.009914005070377568,
+            "position_difference_m": 1.1316809629516548e-07,
+            "orientation_difference_rad": 4.926919173459373e-06,
+            "force_difference_N": 0.0003818790889312315,
+            "force_difference_weight_fraction": 0.0017131960840314014,
+            "torque_difference_Nm": 3.7342087793230515e-06,
+            "copper_loss_W": [
+                2.353998361145645,
+                2.3516042335101104
+            ]
+        },
+        {
+            "time_s": 0.01925,
+            "current_difference_A": 0.015753847205642435,
+            "position_difference_m": 1.1347474710392435e-07,
+            "orientation_difference_rad": 5.108184142224113e-06,
+            "force_difference_N": 0.00016685897706931278,
+            "force_difference_weight_fraction": 0.0007485671627128813,
+            "torque_difference_Nm": 1.1573106142653227e-05,
+            "copper_loss_W": [
+                2.332538422258741,
+                2.333993947267222
+            ]
+        },
+        {
+            "time_s": 0.0195,
+            "current_difference_A": 0.013087613723041791,
+            "position_difference_m": 1.14563439955287e-07,
+            "orientation_difference_rad": 5.35589276901417e-06,
+            "force_difference_N": 0.00019013774391267823,
+            "force_difference_weight_fraction": 0.0008530009831369042,
+            "torque_difference_Nm": 8.936113762913912e-06,
+            "copper_loss_W": [
+                2.3313878636156407,
+                2.3300364014032664
+            ]
+        },
+        {
+            "time_s": 0.01975,
+            "current_difference_A": 0.010488337501915579,
+            "position_difference_m": 1.163318258636085e-07,
+            "orientation_difference_rad": 5.661698297788759e-06,
+            "force_difference_N": 0.00030133526663392594,
+            "force_difference_weight_fraction": 0.0013518582549849052,
+            "torque_difference_Nm": 6.012235595108546e-06,
+            "copper_loss_W": [
+                2.32212273920009,
+                2.3166545944885737
+            ]
+        },
+        {
+            "time_s": 0.02,
+            "current_difference_A": 0.010161645076253722,
+            "position_difference_m": 1.1855353670159099e-07,
+            "orientation_difference_rad": 6.00909420736701e-06,
+            "force_difference_N": 0.0002940122981731132,
+            "force_difference_weight_fraction": 0.0013190057599041678,
+            "torque_difference_Nm": 5.443956625332474e-06,
+            "copper_loss_W": [
+                2.3306804328989443,
+                2.3262855047215654
+            ]
+        },
+        {
+            "time_s": 0.02025,
+            "current_difference_A": 0.010159893089061511,
+            "position_difference_m": 1.2145363382194676e-07,
+            "orientation_difference_rad": 6.3905928563234325e-06,
+            "force_difference_N": 0.0004772488369005072,
+            "force_difference_weight_fraction": 0.0021410463735387366,
+            "torque_difference_Nm": 3.986230882925626e-06,
+            "copper_loss_W": [
+                2.3528935528273114,
+                2.3487644896311384
+            ]
+        },
+        {
+            "time_s": 0.0205,
+            "current_difference_A": 0.010075445525709159,
+            "position_difference_m": 1.2544821849214266e-07,
+            "orientation_difference_rad": 6.795193708323668e-06,
+            "force_difference_N": 0.00044012907507915886,
+            "force_difference_weight_fraction": 0.0019745187148222255,
+            "torque_difference_Nm": 4.202040914395186e-06,
+            "copper_loss_W": [
+                2.342030685630964,
+                2.340636116461855
+            ]
+        },
+        {
+            "time_s": 0.02075,
+            "current_difference_A": 0.010077865275047504,
+            "position_difference_m": 1.3061553256191663e-07,
+            "orientation_difference_rad": 7.220261671296131e-06,
+            "force_difference_N": 0.000289155794031939,
+            "force_difference_weight_fraction": 0.0012972183823862532,
+            "torque_difference_Nm": 9.717484836012094e-06,
+            "copper_loss_W": [
+                2.3323938796585244,
+                2.3337363910338715
+            ]
+        },
+        {
+            "time_s": 0.021,
+            "current_difference_A": 0.006272938032933328,
+            "position_difference_m": 1.370587002336696e-07,
+            "orientation_difference_rad": 7.682808879151141e-06,
+            "force_difference_N": 0.00013091304688852174,
+            "force_difference_weight_fraction": 0.0005873055785948593,
+            "torque_difference_Nm": 4.308892075257872e-06,
+            "copper_loss_W": [
+                2.321582225155205,
+                2.3225392138057708
+            ]
+        },
+        {
+            "time_s": 0.02125,
+            "current_difference_A": 0.003021582077918583,
+            "position_difference_m": 1.4431164992467958e-07,
+            "orientation_difference_rad": 8.169231075457347e-06,
+            "force_difference_N": 2.3717173386731354e-05,
+            "force_difference_weight_fraction": 0.00010640061147144647,
+            "torque_difference_Nm": 5.501730671855571e-07,
+            "copper_loss_W": [
+                2.3474169860436565,
+                2.347211642266073
+            ]
+        },
+        {
+            "time_s": 0.0215,
+            "current_difference_A": 0.0064304080017481,
+            "position_difference_m": 1.5201011256712673e-07,
+            "orientation_difference_rad": 8.663590489959228e-06,
+            "force_difference_N": 0.0004615626676992507,
+            "force_difference_weight_fraction": 0.0020706746657705587,
+            "torque_difference_Nm": 1.918852779682106e-06,
+            "copper_loss_W": [
+                2.359060762102544,
+                2.351282996949103
+            ]
+        },
+        {
+            "time_s": 0.02175,
+            "current_difference_A": 0.003105364927970422,
+            "position_difference_m": 1.5974294232940206e-07,
+            "orientation_difference_rad": 9.156630379743622e-06,
+            "force_difference_N": 0.00023681480819949852,
+            "force_difference_weight_fraction": 0.0010624048653292148,
+            "torque_difference_Nm": 1.0641073591694214e-06,
+            "copper_loss_W": [
+                2.350822931075132,
+                2.346927219495834
+            ]
+        },
+        {
+            "time_s": 0.022,
+            "current_difference_A": 0.006373340056291296,
+            "position_difference_m": 1.676969376313159e-07,
+            "orientation_difference_rad": 9.649616240627214e-06,
+            "force_difference_N": 4.0800507782644283e-05,
+            "force_difference_weight_fraction": 0.00018304031874420414,
+            "torque_difference_Nm": 1.4933742764721845e-07,
+            "copper_loss_W": [
+                2.4121665274461774,
+                2.412163024099452
+            ]
+        },
+        {
+            "time_s": 0.02225,
+            "current_difference_A": 0.006383037974169642,
+            "position_difference_m": 1.76095993699152e-07,
+            "orientation_difference_rad": 1.014508320860258e-05,
+            "force_difference_N": 5.7045636172984416e-05,
+            "force_difference_weight_fraction": 0.00025591964403224015,
+            "torque_difference_Nm": 3.626349233499934e-06,
+            "copper_loss_W": [
+                2.64889088317971,
+                2.659856132702056
+            ]
+        },
+        {
+            "time_s": 0.0225,
+            "current_difference_A": 0.00941694320498343,
+            "position_difference_m": 1.8504028559279484e-07,
+            "orientation_difference_rad": 1.0635288202491154e-05,
+            "force_difference_N": 0.00018510717409600983,
+            "force_difference_weight_fraction": 0.0008304327075749112,
+            "torque_difference_Nm": 4.0455497174183855e-06,
+            "copper_loss_W": [
+                2.674046674939209,
+                2.6897385357259602
+            ]
+        },
+        {
+            "time_s": 0.02275,
+            "current_difference_A": 0.009912809837256398,
+            "position_difference_m": 1.9442147688412873e-07,
+            "orientation_difference_rad": 1.1113986492979424e-05,
+            "force_difference_N": 0.0003573169617892583,
+            "force_difference_weight_fraction": 0.0016030048186419323,
+            "torque_difference_Nm": 1.3609991298056544e-06,
+            "copper_loss_W": [
+                2.64851912963347,
+                2.65347593582655
+            ]
+        },
+        {
+            "time_s": 0.023,
+            "current_difference_A": 0.009902319924900538,
+            "position_difference_m": 2.0356395558250319e-07,
+            "orientation_difference_rad": 1.1591697559832076e-05,
+            "force_difference_N": 0.0003858227649087323,
+            "force_difference_weight_fraction": 0.0017308883076623204,
+            "torque_difference_Nm": 1.0307811693267043e-06,
+            "copper_loss_W": [
+                2.647901060021452,
+                2.6633005988392258
+            ]
+        },
+        {
+            "time_s": 0.02325,
+            "current_difference_A": 0.009992055063743566,
+            "position_difference_m": 2.1278513269992382e-07,
+            "orientation_difference_rad": 1.207224505315993e-05,
+            "force_difference_N": 0.0002293953058428758,
+            "force_difference_weight_fraction": 0.0010291192973280907,
+            "torque_difference_Nm": 3.705401727222121e-06,
+            "copper_loss_W": [
+                2.6250339541092838,
+                2.6405139068138275
+            ]
+        },
+        {
+            "time_s": 0.0235,
+            "current_difference_A": 0.009964425545631322,
+            "position_difference_m": 2.2201377437887383e-07,
+            "orientation_difference_rad": 1.254669523249756e-05,
+            "force_difference_N": 0.0004582201989237171,
+            "force_difference_weight_fraction": 0.002055679593813967,
+            "torque_difference_Nm": 6.231668953635646e-06,
+            "copper_loss_W": [
+                2.6018108816060077,
+                2.5999187661597283
+            ]
+        },
+        {
+            "time_s": 0.02375,
+            "current_difference_A": 0.009957120397833917,
+            "position_difference_m": 2.3070829907514845e-07,
+            "orientation_difference_rad": 1.2998625734614787e-05,
+            "force_difference_N": 0.0007159040622925889,
+            "force_difference_weight_fraction": 0.0032117077672265525,
+            "torque_difference_Nm": 8.966550173592499e-06,
+            "copper_loss_W": [
+                2.5662729915907683,
+                2.555624404086215
+            ]
+        },
+        {
+            "time_s": 0.024,
+            "current_difference_A": 0.009914439458428292,
+            "position_difference_m": 2.3868994218818216e-07,
+            "orientation_difference_rad": 1.3419285648006792e-05,
+            "force_difference_N": 0.0005146665199653024,
+            "force_difference_weight_fraction": 0.002308910574428979,
+            "torque_difference_Nm": 9.488696713801397e-06,
+            "copper_loss_W": [
+                2.8258646230834294,
+                2.8266865322104615
+            ]
+        },
+        {
+            "time_s": 0.02425,
+            "current_difference_A": 0.01582078838875739,
+            "position_difference_m": 2.4616061606063786e-07,
+            "orientation_difference_rad": 1.3802224453463361e-05,
+            "force_difference_N": 0.00014013555038114894,
+            "force_difference_weight_fraction": 0.0006286798180504795,
+            "torque_difference_Nm": 1.0095294904434288e-05,
+            "copper_loss_W": [
+                2.9575056107224857,
+                2.984739077046434
+            ]
+        },
+        {
+            "time_s": 0.0245,
+            "current_difference_A": 0.019347311545589163,
+            "position_difference_m": 2.5357490587198433e-07,
+            "orientation_difference_rad": 1.4152557448129135e-05,
+            "force_difference_N": 0.0004998091948917318,
+            "force_difference_weight_fraction": 0.0022422572491409684,
+            "torque_difference_Nm": 4.630091959035069e-06,
+            "copper_loss_W": [
+                2.9319090298077772,
+                2.9653613850502643
+            ]
+        },
+        {
+            "time_s": 0.02475,
+            "current_difference_A": 0.013589465147029856,
+            "position_difference_m": 2.606137641588271e-07,
+            "orientation_difference_rad": 1.4495194434408343e-05,
+            "force_difference_N": 0.00027631374315367074,
+            "force_difference_weight_fraction": 0.0012396060335740796,
+            "torque_difference_Nm": 7.2710589520178604e-06,
+            "copper_loss_W": [
+                2.8742847174192914,
+                2.892910525356771
+            ]
+        },
+        {
+            "time_s": 0.025,
+            "current_difference_A": 0.023351763986216356,
+            "position_difference_m": 2.6728425124953983e-07,
+            "orientation_difference_rad": 1.4813174074805182e-05,
+            "force_difference_N": 0.00012465196151028454,
+            "force_difference_weight_fraction": 0.0005592169315264836,
+            "torque_difference_Nm": 1.2159994775971598e-05,
+            "copper_loss_W": [
+                2.6389459797272714,
+                2.6645844263497
+            ]
+        },
+        {
+            "time_s": 0.02525,
+            "current_difference_A": 0.022705302050082074,
+            "position_difference_m": 2.740655164328242e-07,
+            "orientation_difference_rad": 1.5093000198455948e-05,
+            "force_difference_N": 0.0003767164659228965,
+            "force_difference_weight_fraction": 0.0016900353879431096,
+            "torque_difference_Nm": 1.0812780033980117e-05,
+            "copper_loss_W": [
+                2.529656494088451,
+                2.559527175601899
+            ]
+        },
+        {
+            "time_s": 0.0255,
+            "current_difference_A": 0.020482399732527065,
+            "position_difference_m": 2.810056669375593e-07,
+            "orientation_difference_rad": 1.5345129982976605e-05,
+            "force_difference_N": 0.00038638304965309437,
+            "force_difference_weight_fraction": 0.0017334018719233804,
+            "torque_difference_Nm": 1.0968767329268536e-05,
+            "copper_loss_W": [
+                2.497596101588798,
+                2.5247978224757444
+            ]
+        },
+        {
+            "time_s": 0.02575,
+            "current_difference_A": 0.020224504842514604,
+            "position_difference_m": 2.884064818520059e-07,
+            "orientation_difference_rad": 1.556220820851789e-05,
+            "force_difference_N": 0.0003047586345187862,
+            "force_difference_weight_fraction": 0.0013672162586686252,
+            "torque_difference_Nm": 8.046172435740668e-06,
+            "copper_loss_W": [
+                2.4728565802539912,
+                2.4864692820444967
+            ]
+        },
+        {
+            "time_s": 0.026,
+            "current_difference_A": 0.010557629325601003,
+            "position_difference_m": 2.955613694463148e-07,
+            "orientation_difference_rad": 1.5744477747900404e-05,
+            "force_difference_N": 0.00031551888674916854,
+            "force_difference_weight_fraction": 0.0014154891872436718,
+            "torque_difference_Nm": 1.1806971011962886e-05,
+            "copper_loss_W": [
+                2.45240238750591,
+                2.451816217244545
+            ]
+        },
+        {
+            "time_s": 0.02625,
+            "current_difference_A": 0.01016671604306163,
+            "position_difference_m": 3.0238125980118353e-07,
+            "orientation_difference_rad": 1.5884928965928927e-05,
+            "force_difference_N": 0.00045388424823771965,
+            "force_difference_weight_fraction": 0.0020362275369951613,
+            "torque_difference_Nm": 4.706919812059587e-06,
+            "copper_loss_W": [
+                2.4219117917470236,
+                2.4302195710747507
+            ]
+        },
+        {
+            "time_s": 0.0265,
+            "current_difference_A": 0.009487879091784363,
+            "position_difference_m": 3.090659893446562e-07,
+            "orientation_difference_rad": 1.6007753662947972e-05,
+            "force_difference_N": 0.00036835766018981854,
+            "force_difference_weight_fraction": 0.0016525358922541294,
+            "torque_difference_Nm": 3.005522458472438e-06,
+            "copper_loss_W": [
+                2.408617068948468,
+                2.4139593350817417
+            ]
+        },
+        {
+            "time_s": 0.02675,
+            "current_difference_A": 0.009425229723473816,
+            "position_difference_m": 3.1531349843186946e-07,
+            "orientation_difference_rad": 1.613207183908837e-05,
+            "force_difference_N": 0.00032236609740167856,
+            "force_difference_weight_fraction": 0.0014462073250428606,
+            "torque_difference_Nm": 3.0260304282575744e-06,
+            "copper_loss_W": [
+                2.404864092873041,
+                2.403359052348427
+            ]
+        },
+        {
+            "time_s": 0.027,
+            "current_difference_A": 0.009567049397286365,
+            "position_difference_m": 3.2088576628594303e-07,
+            "orientation_difference_rad": 1.6249626268004168e-05,
+            "force_difference_N": 0.0004178493823655808,
+            "force_difference_weight_fraction": 0.0018745669672228734,
+            "torque_difference_Nm": 8.828906567683673e-06,
+            "copper_loss_W": [
+                2.3113654259285803,
+                2.30806549177476
+            ]
+        },
+        {
+            "time_s": 0.02725,
+            "current_difference_A": 0.016240979799524435,
+            "position_difference_m": 3.260428733190739e-07,
+            "orientation_difference_rad": 1.6357745793403504e-05,
+            "force_difference_N": 0.00026714640381171796,
+            "force_difference_weight_fraction": 0.001198479272992411,
+            "torque_difference_Nm": 1.466993217700025e-05,
+            "copper_loss_W": [
+                2.3059157936289827,
+                2.3096470742746686
+            ]
+        },
+        {
+            "time_s": 0.0275,
+            "current_difference_A": 0.013201718212737967,
+            "position_difference_m": 3.317441076932138e-07,
+            "orientation_difference_rad": 1.6427304049397225e-05,
+            "force_difference_N": 0.0002516988575124273,
+            "force_difference_weight_fraction": 0.00112917808160771,
+            "torque_difference_Nm": 1.0865167607387828e-05,
+            "copper_loss_W": [
+                2.3064764375659728,
+                2.311836786018374
+            ]
+        },
+        {
+            "time_s": 0.02775,
+            "current_difference_A": 0.01685345978187547,
+            "position_difference_m": 3.378649951670217e-07,
+            "orientation_difference_rad": 1.645706208017975e-05,
+            "force_difference_N": 0.00020012237102357176,
+            "force_difference_weight_fraction": 0.0008977942817560306,
+            "torque_difference_Nm": 1.1389313442716005e-05,
+            "copper_loss_W": [
+                2.3103086508012436,
+                2.3063433685572816
+            ]
+        },
+        {
+            "time_s": 0.028,
+            "current_difference_A": 0.01958217032479026,
+            "position_difference_m": 3.4391305389672405e-07,
+            "orientation_difference_rad": 1.6446850414192504e-05,
+            "force_difference_N": 0.000227910919197391,
+            "force_difference_weight_fraction": 0.0010224600026404703,
+            "torque_difference_Nm": 1.3430722684134126e-05,
+            "copper_loss_W": [
+                2.3957015013326144,
+                2.4023974697235913
+            ]
+        },
+        {
+            "time_s": 0.02825,
+            "current_difference_A": 0.019972164679891602,
+            "position_difference_m": 3.4991776187843095e-07,
+            "orientation_difference_rad": 1.6387243536043817e-05,
+            "force_difference_N": 0.0002914988473866476,
+            "force_difference_weight_fraction": 0.0013077298504092806,
+            "torque_difference_Nm": 1.3460145943751857e-05,
+            "copper_loss_W": [
+                2.4828202454017907,
+                2.482509882420792
+            ]
+        },
+        {
+            "time_s": 0.0285,
+            "current_difference_A": 0.020012036188800097,
+            "position_difference_m": 3.552847478296095e-07,
+            "orientation_difference_rad": 1.6272598528809556e-05,
+            "force_difference_N": 0.0004358213131839377,
+            "force_difference_weight_fraction": 0.0019551931193032687,
+            "torque_difference_Nm": 1.03333921410089e-05,
+            "copper_loss_W": [
+                2.487716026081539,
+                2.4928408477335857
+            ]
+        },
+        {
+            "time_s": 0.02875,
+            "current_difference_A": 0.013721586383588447,
+            "position_difference_m": 3.59801425494704e-07,
+            "orientation_difference_rad": 1.6114719450449216e-05,
+            "force_difference_N": 0.0006066585912502386,
+            "force_difference_weight_fraction": 0.002721607841326646,
+            "torque_difference_Nm": 1.3041286404349433e-05,
+            "copper_loss_W": [
+                2.4693576811574505,
+                2.4880766478976852
+            ]
+        },
+        {
+            "time_s": 0.029,
+            "current_difference_A": 0.010589744574100779,
+            "position_difference_m": 3.64762756993367e-07,
+            "orientation_difference_rad": 1.5912433554253194e-05,
+            "force_difference_N": 0.00032000733246871583,
+            "force_difference_weight_fraction": 0.001435625371321299,
+            "torque_difference_Nm": 6.930147964955435e-06,
+            "copper_loss_W": [
+                2.3700050757691264,
+                2.3779244409625924
+            ]
+        },
+        {
+            "time_s": 0.02925,
+            "current_difference_A": 0.003825251129319973,
+            "position_difference_m": 3.69866759077997e-07,
+            "orientation_difference_rad": 1.568797060850551e-05,
+            "force_difference_N": 0.00010996962762912993,
+            "force_difference_weight_fraction": 0.0004933486563610809,
+            "torque_difference_Nm": 1.8006407233296773e-06,
+            "copper_loss_W": [
+                2.347352885195986,
+                2.34844142714832
+            ]
+        },
+        {
+            "time_s": 0.0295,
+            "current_difference_A": 0.006975713317134646,
+            "position_difference_m": 3.747775134945157e-07,
+            "orientation_difference_rad": 1.5463496042609224e-05,
+            "force_difference_N": 0.00043370675974678974,
+            "force_difference_weight_fraction": 0.0019457067536629408,
+            "torque_difference_Nm": 3.387764558976148e-06,
+            "copper_loss_W": [
+                2.334662720287572,
+                2.3408407997729666
+            ]
+        },
+        {
+            "time_s": 0.02975,
+            "current_difference_A": 0.009497664990514743,
+            "position_difference_m": 3.793078737477001e-07,
+            "orientation_difference_rad": 1.525431731872063e-05,
+            "force_difference_N": 0.00032676312974775674,
+            "force_difference_weight_fraction": 0.0014659334080230602,
+            "torque_difference_Nm": 4.5847947603252026e-07,
+            "copper_loss_W": [
+                2.339066855357797,
+                2.341758618587782
+            ]
+        },
+        {
+            "time_s": 0.03,
+            "current_difference_A": 0.006392552081516678,
+            "position_difference_m": 3.832128214339796e-07,
+            "orientation_difference_rad": 1.505061007950969e-05,
+            "force_difference_N": 0.00038184523816862795,
+            "force_difference_weight_fraction": 0.0017130442218435654,
+            "torque_difference_Nm": 1.8519537771700636e-06,
+            "copper_loss_W": [
+                2.528255913641258,
+                2.51741106360499
+            ]
+        },
+        {
+            "time_s": 0.03025,
+            "current_difference_A": 0.009497583244545194,
+            "position_difference_m": 3.8631839305620813e-07,
+            "orientation_difference_rad": 1.4843788216243426e-05,
+            "force_difference_N": 0.0005558526069448669,
+            "force_difference_weight_fraction": 0.002493680688779684,
+            "torque_difference_Nm": 5.495295977666482e-06,
+            "copper_loss_W": [
+                2.7159754572773225,
+                2.69491893376876
+            ]
+        },
+        {
+            "time_s": 0.0305,
+            "current_difference_A": 0.009941213437991037,
+            "position_difference_m": 3.8819116945859543e-07,
+            "orientation_difference_rad": 1.4636068387877946e-05,
+            "force_difference_N": 0.0007344893716720678,
+            "force_difference_weight_fraction": 0.0032950856744551125,
+            "torque_difference_Nm": 8.620271441326199e-06,
+            "copper_loss_W": [
+                2.725711652238734,
+                2.705708391525588
+            ]
+        },
+        {
+            "time_s": 0.03075,
+            "current_difference_A": 0.010032925033981732,
+            "position_difference_m": 3.88227296270138e-07,
+            "orientation_difference_rad": 1.4444319125996915e-05,
+            "force_difference_N": 0.0007514284920195918,
+            "force_difference_weight_fraction": 0.0033710784048440255,
+            "torque_difference_Nm": 8.32374036294688e-06,
+            "copper_loss_W": [
+                2.7045356513444228,
+                2.678639264905897
+            ]
+        },
+        {
+            "time_s": 0.031,
+            "current_difference_A": 0.010033641175478725,
+            "position_difference_m": 3.865547530770287e-07,
+            "orientation_difference_rad": 1.4264346657129201e-05,
+            "force_difference_N": 0.0001824132925688464,
+            "force_difference_weight_fraction": 0.0008183473449118301,
+            "torque_difference_Nm": 5.489684873402851e-06,
+            "copper_loss_W": [
+                2.582385909720692,
+                2.5698011354451484
+            ]
+        },
+        {
+            "time_s": 0.03125,
+            "current_difference_A": 0.010121615262725314,
+            "position_difference_m": 3.8438997588164486e-07,
+            "orientation_difference_rad": 1.4069309174906946e-05,
+            "force_difference_N": 0.00011951473266540395,
+            "force_difference_weight_fraction": 0.0005361701594069254,
+            "torque_difference_Nm": 6.669026532194007e-06,
+            "copper_loss_W": [
+                2.535582757071162,
+                2.5288999571724484
+            ]
+        },
+        {
+            "time_s": 0.0315,
+            "current_difference_A": 0.010051396922930333,
+            "position_difference_m": 3.825249707717513e-07,
+            "orientation_difference_rad": 1.3844184238880862e-05,
+            "force_difference_N": 0.00028092043593478294,
+            "force_difference_weight_fraction": 0.0012602727007514447,
+            "torque_difference_Nm": 7.068457593103718e-06,
+            "copper_loss_W": [
+                2.506864280727673,
+                2.5063051164844734
+            ]
+        },
+        {
+            "time_s": 0.03175,
+            "current_difference_A": 0.010067323809254791,
+            "position_difference_m": 3.812898175050867e-07,
+            "orientation_difference_rad": 1.3592111929649795e-05,
+            "force_difference_N": 0.0005468422720742853,
+            "force_difference_weight_fraction": 0.0024532582858162377,
+            "torque_difference_Nm": 4.9952289724073726e-06,
+            "copper_loss_W": [
+                2.486245721124144,
+                2.488691709104246
+            ]
+        },
+        {
+            "time_s": 0.032,
+            "current_difference_A": 0.009552210327018307,
+            "position_difference_m": 3.804030550081347e-07,
+            "orientation_difference_rad": 1.3348919985158929e-05,
+            "force_difference_N": 0.0005858056825016306,
+            "force_difference_weight_fraction": 0.0026280569697438015,
+            "torque_difference_Nm": 2.1390419410740643e-06,
+            "copper_loss_W": [
+                2.589582863556006,
+                2.5693000707717064
+            ]
+        },
+        {
+            "time_s": 0.03225,
+            "current_difference_A": 0.009545246668726942,
+            "position_difference_m": 3.789150611752126e-07,
+            "orientation_difference_rad": 1.3111657962290656e-05,
+            "force_difference_N": 0.0003101689081461894,
+            "force_difference_weight_fraction": 0.0013914879715239857,
+            "torque_difference_Nm": 5.45814735428295e-06,
+            "copper_loss_W": [
+                2.62756259912909,
+                2.6160890006694317
+            ]
+        },
+        {
+            "time_s": 0.0325,
+            "current_difference_A": 0.009818725184701171,
+            "position_difference_m": 3.767914677970089e-07,
+            "orientation_difference_rad": 1.2874965576253716e-05,
+            "force_difference_N": 0.0007967483984998584,
+            "force_difference_weight_fraction": 0.0035743937697359845,
+            "torque_difference_Nm": 7.5960061767609415e-06,
+            "copper_loss_W": [
+                2.6081631299033927,
+                2.612745170562053
+            ]
+        },
+        {
+            "time_s": 0.03275,
+            "current_difference_A": 0.0099733138881542,
+            "position_difference_m": 3.740988248107707e-07,
+            "orientation_difference_rad": 1.2643056361065873e-05,
+            "force_difference_N": 0.000519778736935815,
+            "force_difference_weight_fraction": 0.00233184513761523,
+            "torque_difference_Nm": 5.049809437111845e-06,
+            "copper_loss_W": [
+                2.5880369589303935,
+                2.591410564264411
+            ]
+        },
+        {
+            "time_s": 0.033,
+            "current_difference_A": 0.006409641035538094,
+            "position_difference_m": 3.710442190008472e-07,
+            "orientation_difference_rad": 1.241329877333374e-05,
+            "force_difference_N": 0.0006365248361053049,
+            "force_difference_weight_fraction": 0.002855594580096824,
+            "torque_difference_Nm": 2.1745735958189025e-06,
+            "copper_loss_W": [
+                2.462084415310548,
+                2.4485813960501304
+            ]
+        },
+        {
+            "time_s": 0.03325,
+            "current_difference_A": 0.006901363624130796,
+            "position_difference_m": 3.6717988608383884e-07,
+            "orientation_difference_rad": 1.2190791211525713e-05,
+            "force_difference_N": 0.00028062511263410273,
+            "force_difference_weight_fraction": 0.001258947813537367,
+            "torque_difference_Nm": 1.786668272139419e-06,
+            "copper_loss_W": [
+                2.397436088595615,
+                2.3911878375614726
+            ]
+        },
+        {
+            "time_s": 0.0335,
+            "current_difference_A": 0.00953111956360897,
+            "position_difference_m": 3.629429591919308e-07,
+            "orientation_difference_rad": 1.1979504781286227e-05,
+            "force_difference_N": 0.00033141381520941865,
+            "force_difference_weight_fraction": 0.001486797436329192,
+            "torque_difference_Nm": 7.3160300478318145e-06,
+            "copper_loss_W": [
+                2.37839684120806,
+                2.373144581308443
+            ]
+        },
+        {
+            "time_s": 0.03375,
+            "current_difference_A": 0.0036191608962325428,
+            "position_difference_m": 3.5886545088643554e-07,
+            "orientation_difference_rad": 1.1766306481175046e-05,
+            "force_difference_N": 0.000170349101027952,
+            "force_difference_weight_fraction": 0.0007642246492630327,
+            "torque_difference_Nm": 3.494499295087434e-06,
+            "copper_loss_W": [
+                2.3758557111468286,
+                2.373367752538558
+            ]
+        },
+        {
+            "time_s": 0.034,
+            "current_difference_A": 0.0063340732370009145,
+            "position_difference_m": 3.5496057541801395e-07,
+            "orientation_difference_rad": 1.156123146260765e-05,
+            "force_difference_N": 0.0002839693275913936,
+            "force_difference_weight_fraction": 0.001273950719260811,
+            "torque_difference_Nm": 5.57634564762849e-06,
+            "copper_loss_W": [
+                2.3599001631274352,
+                2.362564356110986
+            ]
+        },
+        {
+            "time_s": 0.03425,
+            "current_difference_A": 0.006319164221187293,
+            "position_difference_m": 3.5113739631427684e-07,
+            "orientation_difference_rad": 1.1369024858045236e-05,
+            "force_difference_N": 0.00011870912559169913,
+            "force_difference_weight_fraction": 0.0005325560236138351,
+            "torque_difference_Nm": 2.429108986242848e-06,
+            "copper_loss_W": [
+                2.360835731220882,
+                2.362919914732513
+            ]
+        },
+        {
+            "time_s": 0.0345,
+            "current_difference_A": 0.006866912931324021,
+            "position_difference_m": 3.474642902126682e-07,
+            "orientation_difference_rad": 1.1197566362450719e-05,
+            "force_difference_N": 0.0002758900428255095,
+            "force_difference_weight_fraction": 0.0012377052179388477,
+            "torque_difference_Nm": 4.953241327868803e-06,
+            "copper_loss_W": [
+                2.3507157300833077,
+                2.356024223382536
+            ]
+        },
+        {
+            "time_s": 0.03475,
+            "current_difference_A": 0.006719030714609511,
+            "position_difference_m": 3.441314533442576e-07,
+            "orientation_difference_rad": 1.1046946906997154e-05,
+            "force_difference_N": 0.00021466198690195387,
+            "force_difference_weight_fraction": 0.0009630222916370603,
+            "torque_difference_Nm": 4.177002477823542e-06,
+            "copper_loss_W": [
+                2.333238450755807,
+                2.335990398707112
+            ]
+        },
+        {
+            "time_s": 0.035,
+            "current_difference_A": 0.009462543999532086,
+            "position_difference_m": 3.4088571946625756e-07,
+            "orientation_difference_rad": 1.0931963606258647e-05,
+            "force_difference_N": 0.00042766009989964217,
+            "force_difference_weight_fraction": 0.0019185800680918735,
+            "torque_difference_Nm": 6.5456250397173144e-06,
+            "copper_loss_W": [
+                2.34166379804397,
+                2.3532623452528307
+            ]
+        },
+        {
+            "time_s": 0.03525,
+            "current_difference_A": 0.009927079443431797,
+            "position_difference_m": 3.378080608405539e-07,
+            "orientation_difference_rad": 1.0871424462505053e-05,
+            "force_difference_N": 0.0003341455124099644,
+            "force_difference_weight_fraction": 0.0014990524486678677,
+            "torque_difference_Nm": 1.0106958056885691e-05,
+            "copper_loss_W": [
+                2.377433885943679,
+                2.389064853784132
+            ]
+        },
+        {
+            "time_s": 0.0355,
+            "current_difference_A": 0.009950025039794114,
+            "position_difference_m": 3.3464642086935897e-07,
+            "orientation_difference_rad": 1.0848364483412653e-05,
+            "force_difference_N": 0.00040988290667855464,
+            "force_difference_weight_fraction": 0.0018388275529785856,
+            "torque_difference_Nm": 8.451629409107516e-06,
+            "copper_loss_W": [
+                2.3835273591162,
+                2.384187587028404
+            ]
+        },
+        {
+            "time_s": 0.03575,
+            "current_difference_A": 0.010053614463838706,
+            "position_difference_m": 3.316280925012057e-07,
+            "orientation_difference_rad": 1.0851289826386323e-05,
+            "force_difference_N": 0.00040161000615305365,
+            "force_difference_weight_fraction": 0.0018017134475073067,
+            "torque_difference_Nm": 4.906474789304307e-06,
+            "copper_loss_W": [
+                2.376285824060376,
+                2.3746445085301384
+            ]
+        },
+        {
+            "time_s": 0.036,
+            "current_difference_A": 0.009839588561021628,
+            "position_difference_m": 3.28571324608348e-07,
+            "orientation_difference_rad": 1.0900612347640428e-05,
+            "force_difference_N": 0.0005277264453943666,
+            "force_difference_weight_fraction": 0.002367500357822026,
+            "torque_difference_Nm": 3.194380735228678e-06,
+            "copper_loss_W": [
+                2.4815589940158778,
+                2.4787521409686653
+            ]
+        },
+        {
+            "time_s": 0.03625,
+            "current_difference_A": 0.00996675259570734,
+            "position_difference_m": 3.255043968222678e-07,
+            "orientation_difference_rad": 1.0999700106374967e-05,
+            "force_difference_N": 0.0006069752350562818,
+            "force_difference_weight_fraction": 0.0027230283771566234,
+            "torque_difference_Nm": 4.876874240541769e-06,
+            "copper_loss_W": [
+                2.5593270279723264,
+                2.554769068044879
+            ]
+        },
+        {
+            "time_s": 0.0365,
+            "current_difference_A": 0.0064632529635527125,
+            "position_difference_m": 3.2253486378518025e-07,
+            "orientation_difference_rad": 1.1145435336106869e-05,
+            "force_difference_N": 0.00036953147057600507,
+            "force_difference_weight_fraction": 0.0016578018715006973,
+            "torque_difference_Nm": 3.70312449636254e-06,
+            "copper_loss_W": [
+                2.5627341567586033,
+                2.5609127874672835
+            ]
+        },
+        {
+            "time_s": 0.03675,
+            "current_difference_A": 0.009426045185022706,
+            "position_difference_m": 3.192085753002772e-07,
+            "orientation_difference_rad": 1.1322176963448201e-05,
+            "force_difference_N": 0.00019544617913345994,
+            "force_difference_weight_fraction": 0.000876815825834969,
+            "torque_difference_Nm": 7.515241840531773e-06,
+            "copper_loss_W": [
+                2.5384051604335434,
+                2.547293318046278
+            ]
+        },
+        {
+            "time_s": 0.037,
+            "current_difference_A": 0.009968479511695966,
+            "position_difference_m": 3.158454456535489e-07,
+            "orientation_difference_rad": 1.1530081304662563e-05,
+            "force_difference_N": 0.0005148905961412189,
+            "force_difference_weight_fraction": 0.002309915830904738,
+            "torque_difference_Nm": 5.9015990055310186e-06,
+            "copper_loss_W": [
+                2.6567676029603318,
+                2.682122874901111
+            ]
+        },
+        {
+            "time_s": 0.03725,
+            "current_difference_A": 0.0163770597372645,
+            "position_difference_m": 3.1318662764317923e-07,
+            "orientation_difference_rad": 1.1775195069868527e-05,
+            "force_difference_N": 0.0005569241195833827,
+            "force_difference_weight_fraction": 0.002498487737160974,
+            "torque_difference_Nm": 5.382814561229148e-06,
+            "copper_loss_W": [
+                2.7103317355718017,
+                2.7305962808606767
+            ]
+        },
+        {
+            "time_s": 0.0375,
+            "current_difference_A": 0.013082664764297453,
+            "position_difference_m": 3.1163310128957803e-07,
+            "orientation_difference_rad": 1.204729345824177e-05,
+            "force_difference_N": 0.00035015286798583686,
+            "force_difference_weight_fraction": 0.0015708650712574783,
+            "torque_difference_Nm": 4.87064362818726e-06,
+            "copper_loss_W": [
+                2.6845301040755896,
+                2.7035615034887983
+            ]
+        },
+        {
+            "time_s": 0.03775,
+            "current_difference_A": 0.01045878035268566,
+            "position_difference_m": 3.1090481100343053e-07,
+            "orientation_difference_rad": 1.2334039438347623e-05,
+            "force_difference_N": 0.0004761978996025761,
+            "force_difference_weight_fraction": 0.00213633163079538,
+            "torque_difference_Nm": 2.7515896685988708e-06,
+            "copper_loss_W": [
+                2.65488580166941,
+                2.6692402638501087
+            ]
+        },
+        {
+            "time_s": 0.038,
+            "current_difference_A": 0.0063472299848161,
+            "position_difference_m": 3.110343541513143e-07,
+            "orientation_difference_rad": 1.2628908857526188e-05,
+            "force_difference_N": 0.00042495136124741416,
+            "force_difference_weight_fraction": 0.0019064280530007901,
+            "torque_difference_Nm": 6.113408188497636e-06,
+            "copper_loss_W": [
+                2.355273038293534,
+                2.3510640840097374
+            ]
+        },
+        {
+            "time_s": 0.03825,
+            "current_difference_A": 0.009447256946641735,
+            "position_difference_m": 3.115247270734245e-07,
+            "orientation_difference_rad": 1.2921451126455347e-05,
+            "force_difference_N": 5.7470315694185823e-05,
+            "force_difference_weight_fraction": 0.000257824852549226,
+            "torque_difference_Nm": 3.861927641253244e-06,
+            "copper_loss_W": [
+                2.4210336675878783,
+                2.423795744976988
+            ]
+        },
+        {
+            "time_s": 0.0385,
+            "current_difference_A": 0.009846283475364065,
+            "position_difference_m": 3.1210825927204426e-07,
+            "orientation_difference_rad": 1.318441373151102e-05,
+            "force_difference_N": 0.000201273800755571,
+            "force_difference_weight_fraction": 0.0009029598563189615,
+            "torque_difference_Nm": 6.135141791328233e-06,
+            "copper_loss_W": [
+                2.4440647582907506,
+                2.4470305280983933
+            ]
+        },
+        {
+            "time_s": 0.03875,
+            "current_difference_A": 0.009979025724072235,
+            "position_difference_m": 3.129185611406465e-07,
+            "orientation_difference_rad": 1.3401690410376546e-05,
+            "force_difference_N": 0.00028171030368794535,
+            "force_difference_weight_fraction": 0.0012638162263878122,
+            "torque_difference_Nm": 7.843970793367694e-06,
+            "copper_loss_W": [
+                2.4365008449793,
+                2.439468589125725
+            ]
+        },
+        {
+            "time_s": 0.039,
+            "current_difference_A": 0.02536297604566362,
+            "position_difference_m": 3.1384696234695016e-07,
+            "orientation_difference_rad": 1.3561869024108414e-05,
+            "force_difference_N": 0.0002576847127956933,
+            "force_difference_weight_fraction": 0.0011560319841336917,
+            "torque_difference_Nm": 1.2791261539959063e-05,
+            "copper_loss_W": [
+                2.660704141170873,
+                2.6970830063661015
+            ]
+        },
+        {
+            "time_s": 0.03925,
+            "current_difference_A": 0.0314951982601156,
+            "position_difference_m": 3.152047936689416e-07,
+            "orientation_difference_rad": 1.3678938692929867e-05,
+            "force_difference_N": 0.0005356960527145998,
+            "force_difference_weight_fraction": 0.0024032538212821588,
+            "torque_difference_Nm": 1.3680102851270311e-05,
+            "copper_loss_W": [
+                2.822930314394998,
+                2.8868750780847083
+            ]
+        },
+        {
+            "time_s": 0.0395,
+            "current_difference_A": 0.03645445052293639,
+            "position_difference_m": 3.171085838840383e-07,
+            "orientation_difference_rad": 1.374251346499676e-05,
+            "force_difference_N": 0.0004901806347375534,
+            "force_difference_weight_fraction": 0.00219906134753461,
+            "torque_difference_Nm": 7.947715574440687e-06,
+            "copper_loss_W": [
+                2.822417620861302,
+                2.878542924457752
+            ]
+        },
+        {
+            "time_s": 0.03975,
+            "current_difference_A": 0.03325617636441336,
+            "position_difference_m": 3.1825691008243283e-07,
+            "orientation_difference_rad": 1.3759683208799029e-05,
+            "force_difference_N": 0.000608547930556907,
+            "force_difference_weight_fraction": 0.0027300838453693126,
+            "torque_difference_Nm": 6.850519269933771e-06,
+            "copper_loss_W": [
+                2.7867695638879084,
+                2.843535154767208
+            ]
+        },
+        {
+            "time_s": 0.04,
+            "current_difference_A": 0.024278506785328613,
+            "position_difference_m": 3.1798609588465145e-07,
+            "orientation_difference_rad": 1.3727422156963542e-05,
+            "force_difference_N": 0.0005858939328982135,
+            "force_difference_weight_fraction": 0.002628452881010541,
+            "torque_difference_Nm": 2.957314549977859e-06,
+            "copper_loss_W": [
+                2.75491959200315,
+                2.7890068712061304
+            ]
+        },
+        {
+            "time_s": 0.04025,
+            "current_difference_A": 0.017431774109311737,
+            "position_difference_m": 3.1653646775326036e-07,
+            "orientation_difference_rad": 1.367478272843235e-05,
+            "force_difference_N": 0.00035196629968855636,
+            "force_difference_weight_fraction": 0.0015790005365966578,
+            "torque_difference_Nm": 8.349699802673442e-06,
+            "copper_loss_W": [
+                2.712144769362284,
+                2.744319522983218
+            ]
+        },
+        {
+            "time_s": 0.0405,
+            "current_difference_A": 0.017134156108793208,
+            "position_difference_m": 3.1523197005667497e-07,
+            "orientation_difference_rad": 1.3571583767627082e-05,
+            "force_difference_N": 0.0006247221967161317,
+            "force_difference_weight_fraction": 0.0028026452666391095,
+            "torque_difference_Nm": 1.1876782539273477e-05,
+            "copper_loss_W": [
+                2.6799704585356197,
+                2.709169372558634
+            ]
+        },
+        {
+            "time_s": 0.04075,
+            "current_difference_A": 0.013315839954217479,
+            "position_difference_m": 3.14581407503175e-07,
+            "orientation_difference_rad": 1.3426588763357142e-05,
+            "force_difference_N": 0.000577134171376793,
+            "force_difference_weight_fraction": 0.002589154606843324,
+            "torque_difference_Nm": 3.655847376050398e-06,
+            "copper_loss_W": [
+                2.6445542515277074,
+                2.6709597619093426
+            ]
+        },
+        {
+            "time_s": 0.041,
+            "current_difference_A": 0.009961261079546535,
+            "position_difference_m": 3.1329575019785776e-07,
+            "orientation_difference_rad": 1.325039656189693e-05,
+            "force_difference_N": 0.00030556641714452813,
+            "force_difference_weight_fraction": 0.0013708401544808907,
+            "torque_difference_Nm": 7.691641882338007e-06,
+            "copper_loss_W": [
+                2.540047028012871,
+                2.5491960917329086
+            ]
+        },
+        {
+            "time_s": 0.04125,
+            "current_difference_A": 0.009858501121098748,
+            "position_difference_m": 3.1135738546384614e-07,
+            "orientation_difference_rad": 1.3027667178254542e-05,
+            "force_difference_N": 6.60168248203579e-05,
+            "force_difference_weight_fraction": 0.0002961664281722194,
+            "torque_difference_Nm": 2.425719784369672e-06,
+            "copper_loss_W": [
+                2.490559671852517,
+                2.4970367911831306
+            ]
+        },
+        {
+            "time_s": 0.0415,
+            "current_difference_A": 0.0069552300131295874,
+            "position_difference_m": 3.09211158316066e-07,
+            "orientation_difference_rad": 1.278956678947854e-05,
+            "force_difference_N": 0.0005259458652860312,
+            "force_difference_weight_fraction": 0.0023595122721757505,
+            "torque_difference_Nm": 8.284660970528904e-06,
+            "copper_loss_W": [
+                2.4683083784468636,
+                2.4787635040502285
+            ]
+        },
+        {
+            "time_s": 0.04175,
+            "current_difference_A": 0.009480489824036098,
+            "position_difference_m": 3.063726314489484e-07,
+            "orientation_difference_rad": 1.2561480309245729e-05,
+            "force_difference_N": 0.00042686035030441773,
+            "force_difference_weight_fraction": 0.0019149922102738956,
+            "torque_difference_Nm": 6.640238831596344e-06,
+            "copper_loss_W": [
+                2.4558595068087397,
+                2.462085940389771
+            ]
+        },
+        {
+            "time_s": 0.042,
+            "current_difference_A": 0.025402696407233583,
+            "position_difference_m": 3.0266325735765754e-07,
+            "orientation_difference_rad": 1.234339979191302e-05,
+            "force_difference_N": 0.00033813918081722555,
+            "force_difference_weight_fraction": 0.0015169689496613845,
+            "torque_difference_Nm": 7.71630562078271e-06,
+            "copper_loss_W": [
+                2.3730251592609592,
+                2.388522710874662
+            ]
+        },
+        {
+            "time_s": 0.04225,
+            "current_difference_A": 0.031502823653905054,
+            "position_difference_m": 2.983427558383298e-07,
+            "orientation_difference_rad": 1.2106680103363128e-05,
+            "force_difference_N": 0.00050409256610516,
+            "force_difference_weight_fraction": 0.002261473422537201,
+            "torque_difference_Nm": 1.3700316999018632e-05,
+            "copper_loss_W": [
+                2.3423691954735,
+                2.361877082083236
+            ]
+        },
+        {
+            "time_s": 0.0425,
+            "current_difference_A": 0.03019234841893159,
+            "position_difference_m": 2.9357085471836756e-07,
+            "orientation_difference_rad": 1.1855189846462646e-05,
+            "force_difference_N": 0.000413663678201494,
+            "force_difference_weight_fraction": 0.0018557889503304145,
+            "torque_difference_Nm": 9.22714017280143e-06,
+            "copper_loss_W": [
+                2.340134386159635,
+                2.347063101881956
+            ]
+        },
+        {
+            "time_s": 0.04275,
+            "current_difference_A": 0.030145791099778163,
+            "position_difference_m": 2.8785657922039815e-07,
+            "orientation_difference_rad": 1.160200431825046e-05,
+            "force_difference_N": 0.00038136019339183154,
+            "force_difference_weight_fraction": 0.0017108682011179655,
+            "torque_difference_Nm": 1.150798311216316e-05,
+            "copper_loss_W": [
+                2.330748268521118,
+                2.336257417041707
+            ]
+        },
+        {
+            "time_s": 0.043,
+            "current_difference_A": 0.02381197748323255,
+            "position_difference_m": 2.8114467118852676e-07,
+            "orientation_difference_rad": 1.1347924737167952e-05,
+            "force_difference_N": 0.0006321546840721291,
+            "force_difference_weight_fraction": 0.0028359890882883767,
+            "torque_difference_Nm": 1.3021843387801674e-05,
+            "copper_loss_W": [
+                2.2989858919885457,
+                2.30505776033946
+            ]
+        },
+        {
+            "time_s": 0.04325,
+            "current_difference_A": 0.027083739312404598,
+            "position_difference_m": 2.7345657602937196e-07,
+            "orientation_difference_rad": 1.1085849324789109e-05,
+            "force_difference_N": 0.00019889949610315088,
+            "force_difference_weight_fraction": 0.000892308187896352,
+            "torque_difference_Nm": 1.1186013812041884e-05,
+            "copper_loss_W": [
+                2.2933969352436687,
+                2.290668246531391
+            ]
+        },
+        {
+            "time_s": 0.0435,
+            "current_difference_A": 0.023247773953398887,
+            "position_difference_m": 2.655081481696621e-07,
+            "orientation_difference_rad": 1.0815963023815393e-05,
+            "force_difference_N": 0.00022163270935795785,
+            "force_difference_weight_fraction": 0.0009942945313606822,
+            "torque_difference_Nm": 1.2103855677731564e-05,
+            "copper_loss_W": [
+                2.2901716138162302,
+                2.2863804061201094
+            ]
+        },
+        {
+            "time_s": 0.04375,
+            "current_difference_A": 0.02062197830635143,
+            "position_difference_m": 2.5762548035349504e-07,
+            "orientation_difference_rad": 1.0522396034115189e-05,
+            "force_difference_N": 0.0001928047989512062,
+            "force_difference_weight_fraction": 0.0008649659960960849,
+            "torque_difference_Nm": 6.942759902949243e-06,
+            "copper_loss_W": [
+                2.2820814169637402,
+                2.281321147428885
+            ]
+        },
+        {
+            "time_s": 0.044,
+            "current_difference_A": 0.020156747822631216,
+            "position_difference_m": 2.49423527734172e-07,
+            "orientation_difference_rad": 1.0212903045692096e-05,
+            "force_difference_N": 0.00017458712570796343,
+            "force_difference_weight_fraction": 0.000783237387839906,
+            "torque_difference_Nm": 9.603119617431126e-06,
+            "copper_loss_W": [
+                2.311560649428022,
+                2.3058382295932605
+            ]
+        },
+        {
+            "time_s": 0.04425,
+            "current_difference_A": 0.020163489565393267,
+            "position_difference_m": 2.4116587494140036e-07,
+            "orientation_difference_rad": 9.900656688670247e-06,
+            "force_difference_N": 0.0007178943253759345,
+            "force_difference_weight_fraction": 0.0032206365381894316,
+            "torque_difference_Nm": 9.8799644919986e-06,
+            "copper_loss_W": [
+                2.3363483760988863,
+                2.3396238883230396
+            ]
+        },
+        {
+            "time_s": 0.0445,
+            "current_difference_A": 0.020185728541981363,
+            "position_difference_m": 2.3384306201184464e-07,
+            "orientation_difference_rad": 9.59436728977851e-06,
+            "force_difference_N": 0.0003129159133959892,
+            "force_difference_weight_fraction": 0.0014038116592387068,
+            "torque_difference_Nm": 9.455707139714816e-06,
+            "copper_loss_W": [
+                2.34082463363704,
+                2.34011474002083
+            ]
+        },
+        {
+            "time_s": 0.04475,
+            "current_difference_A": 0.026381466071537962,
+            "position_difference_m": 2.2707646611181815e-07,
+            "orientation_difference_rad": 9.319063089920663e-06,
+            "force_difference_N": 0.00046307981810320126,
+            "force_difference_weight_fraction": 0.0020774809460992593,
+            "torque_difference_Nm": 1.2725995924876728e-05,
+            "copper_loss_W": [
+                2.3423534723622086,
+                2.332215457636498
+            ]
+        },
+        {
+            "time_s": 0.045,
+            "current_difference_A": 0.016842159454081962,
+            "position_difference_m": 2.2047887415772218e-07,
+            "orientation_difference_rad": 9.104071102745497e-06,
+            "force_difference_N": 0.0004491053209374839,
+            "force_difference_weight_fraction": 0.0020147881867559315,
+            "torque_difference_Nm": 7.28452024394465e-06,
+            "copper_loss_W": [
+                2.336432414003852,
+                2.326540882353484
+            ]
+        },
+        {
+            "time_s": 0.04525,
+            "current_difference_A": 0.006931698164325539,
+            "position_difference_m": 2.1343712025126006e-07,
+            "orientation_difference_rad": 8.945243932942608e-06,
+            "force_difference_N": 0.00022647188296455345,
+            "force_difference_weight_fraction": 0.0010160041601753162,
+            "torque_difference_Nm": 2.138604107418507e-06,
+            "copper_loss_W": [
+                2.3389895671559047,
+                2.33481399012185
+            ]
+        },
+        {
+            "time_s": 0.0455,
+            "current_difference_A": 0.009562788124532248,
+            "position_difference_m": 2.0594016275363712e-07,
+            "orientation_difference_rad": 8.825700332149856e-06,
+            "force_difference_N": 0.00020672379060553446,
+            "force_difference_weight_fraction": 0.0009274097451439808,
+            "torque_difference_Nm": 3.925711108800683e-06,
+            "copper_loss_W": [
+                2.3339597163945007,
+                2.330345828186711
+            ]
+        },
+        {
+            "time_s": 0.04575,
+            "current_difference_A": 0.009384245833557903,
+            "position_difference_m": 1.980986746495881e-07,
+            "orientation_difference_rad": 8.72860896497731e-06,
+            "force_difference_N": 0.0004884191870857113,
+            "force_difference_weight_fraction": 0.002191159094421438,
+            "torque_difference_Nm": 5.571543420840595e-06,
+            "copper_loss_W": [
+                2.323663987068956,
+                2.332995770345208
+            ]
+        },
+        {
+            "time_s": 0.046,
+            "current_difference_A": 0.02220757993775424,
+            "position_difference_m": 1.908728062292886e-07,
+            "orientation_difference_rad": 8.676802611164541e-06,
+            "force_difference_N": 0.0007825892174394719,
+            "force_difference_weight_fraction": 0.0035108724766124582,
+            "torque_difference_Nm": 2.5693772779954483e-06,
+            "copper_loss_W": [
+                2.3207843899669065,
+                2.326789839338788
+            ]
+        },
+        {
+            "time_s": 0.04625,
+            "current_difference_A": 0.030937105624493144,
+            "position_difference_m": 1.8549513085571663e-07,
+            "orientation_difference_rad": 8.660074078568507e-06,
+            "force_difference_N": 0.0003780016461750446,
+            "force_difference_weight_fraction": 0.0016958009976323354,
+            "torque_difference_Nm": 1.0440018776654808e-05,
+            "copper_loss_W": [
+                2.330606863160222,
+                2.3231798217878787
+            ]
+        },
+        {
+            "time_s": 0.0465,
+            "current_difference_A": 0.029998139697188342,
+            "position_difference_m": 1.8121918695973758e-07,
+            "orientation_difference_rad": 8.661227076320667e-06,
+            "force_difference_N": 0.000554779275053838,
+            "force_difference_weight_fraction": 0.002488865478819581,
+            "torque_difference_Nm": 1.0831639183998632e-05,
+            "copper_loss_W": [
+                2.33832122512956,
+                2.3176570067351103
+            ]
+        },
+        {
+            "time_s": 0.04675,
+            "current_difference_A": 0.030096808428496546,
+            "position_difference_m": 1.7690304544441745e-07,
+            "orientation_difference_rad": 8.673844300361673e-06,
+            "force_difference_N": 0.0006252968207941008,
+            "force_difference_weight_fraction": 0.0028052231603984193,
+            "torque_difference_Nm": 1.0258125579622126e-05,
+            "copper_loss_W": [
+                2.332783749735532,
+                2.3154204158677416
+            ]
+        },
+        {
+            "time_s": 0.047,
+            "current_difference_A": 0.030108060744059584,
+            "position_difference_m": 1.7279767351047686e-07,
+            "orientation_difference_rad": 8.688748427705644e-06,
+            "force_difference_N": 0.00018962620954043777,
+            "force_difference_weight_fraction": 0.0008507061240865632,
+            "torque_difference_Nm": 1.1450143226828295e-05,
+            "copper_loss_W": [
+                2.3307437203169137,
+                2.320754443800116
+            ]
+        },
+        {
+            "time_s": 0.04725,
+            "current_difference_A": 0.030130289658298948,
+            "position_difference_m": 1.6923208922300559e-07,
+            "orientation_difference_rad": 8.714371259574444e-06,
+            "force_difference_N": 0.0003337641012377744,
+            "force_difference_weight_fraction": 0.001497341351764315,
+            "torque_difference_Nm": 1.0886960054503602e-05,
+            "copper_loss_W": [
+                2.326406755973953,
+                2.3238398447625794
+            ]
+        },
+        {
+            "time_s": 0.0475,
+            "current_difference_A": 0.023768954284043797,
+            "position_difference_m": 1.6647318850264214e-07,
+            "orientation_difference_rad": 8.733301533264111e-06,
+            "force_difference_N": 0.0004737882653129362,
+            "force_difference_weight_fraction": 0.0021255214656184587,
+            "torque_difference_Nm": 6.2028535449890325e-06,
+            "copper_loss_W": [
+                2.3289897208695223,
+                2.325398124563069
+            ]
+        },
+        {
+            "time_s": 0.04775,
+            "current_difference_A": 0.02703220717300492,
+            "position_difference_m": 1.6500621760716453e-07,
+            "orientation_difference_rad": 8.773708743594184e-06,
+            "force_difference_N": 0.0004448977293375084,
+            "force_difference_weight_fraction": 0.0019959119778688314,
+            "torque_difference_Nm": 8.572115583298078e-06,
+            "copper_loss_W": [
+                2.3256814191446162,
+                2.318769416833766
+            ]
+        },
+        {
+            "time_s": 0.048,
+            "current_difference_A": 0.02968783204874885,
+            "position_difference_m": 1.6468996365511037e-07,
+            "orientation_difference_rad": 8.846112786037293e-06,
+            "force_difference_N": 0.0004181200400209092,
+            "force_difference_weight_fraction": 0.0018757811987654266,
+            "torque_difference_Nm": 8.231018458652077e-06,
+            "copper_loss_W": [
+                2.4583242601649036,
+                2.4839670245003016
+            ]
+        },
+        {
+            "time_s": 0.04825,
+            "current_difference_A": 0.030082606806605405,
+            "position_difference_m": 1.6538537315739815e-07,
+            "orientation_difference_rad": 8.90847234285555e-06,
+            "force_difference_N": 0.00046493000838124905,
+            "force_difference_weight_fraction": 0.002085781318732743,
+            "torque_difference_Nm": 7.120787052268074e-06,
+            "copper_loss_W": [
+                2.741665519890436,
+                2.7854706393295285
+            ]
+        },
+        {
+            "time_s": 0.0485,
+            "current_difference_A": 0.030137437092504216,
+            "position_difference_m": 1.6708534554650965e-07,
+            "orientation_difference_rad": 8.96300447819353e-06,
+            "force_difference_N": 0.0005655386705863571,
+            "force_difference_weight_fraction": 0.0025371345640539814,
+            "torque_difference_Nm": 1.3423230983530051e-05,
+            "copper_loss_W": [
+                2.782950932622138,
+                2.82052221494586
+            ]
+        },
+        {
+            "time_s": 0.04875,
+            "current_difference_A": 0.030041245303761954,
+            "position_difference_m": 1.6882342320901451e-07,
+            "orientation_difference_rad": 9.004231518632193e-06,
+            "force_difference_N": 0.0005896303837282073,
+            "force_difference_weight_fraction": 0.0026452154456957045,
+            "torque_difference_Nm": 1.469067531660408e-05,
+            "copper_loss_W": [
+                2.753617894671842,
+                2.786596231982308
+            ]
+        },
+        {
+            "time_s": 0.049,
+            "current_difference_A": 0.030159047015896834,
+            "position_difference_m": 1.7015336900594423e-07,
+            "orientation_difference_rad": 9.027026574239703e-06,
+            "force_difference_N": 0.00034633350255693367,
+            "force_difference_weight_fraction": 0.0015537305329024332,
+            "torque_difference_Nm": 1.466209673121902e-05,
+            "copper_loss_W": [
+                2.3417207586559514,
+                2.3484430644480763
+            ]
+        },
+        {
+            "time_s": 0.04925,
+            "current_difference_A": 0.023790025951847704,
+            "position_difference_m": 1.7120020392547349e-07,
+            "orientation_difference_rad": 9.014169314150332e-06,
+            "force_difference_N": 0.00026360378506317533,
+            "force_difference_weight_fraction": 0.0011825862829253052,
+            "torque_difference_Nm": 1.4341067004249583e-05,
+            "copper_loss_W": [
+                2.3297072273567934,
+                2.328931728023849
+            ]
+        },
+        {
+            "time_s": 0.0495,
+            "current_difference_A": 0.027062501799367755,
+            "position_difference_m": 1.7239742019246586e-07,
+            "orientation_difference_rad": 8.955691952646883e-06,
+            "force_difference_N": 0.0004651860406823515,
+            "force_difference_weight_fraction": 0.002086929937623769,
+            "torque_difference_Nm": 1.4666016135370617e-05,
+            "copper_loss_W": [
+                2.3453582225623353,
+                2.3438698126743733
+            ]
+        },
+        {
+            "time_s": 0.04975,
+            "current_difference_A": 0.023324240776354588,
+            "position_difference_m": 1.7407491434901652e-07,
+            "orientation_difference_rad": 8.853685499439015e-06,
+            "force_difference_N": 0.00030372729304423206,
+            "force_difference_weight_fraction": 0.0013625894272271595,
+            "torque_difference_Nm": 9.58563145029637e-06,
+            "copper_loss_W": [
+                2.346649919405622,
+                2.3423850417405903
+            ]
+        },
+        {
+            "time_s": 0.05,
+            "current_difference_A": 0.026858207305217152,
+            "position_difference_m": 1.7638077405071654e-07,
+            "orientation_difference_rad": 8.733908231575684e-06,
+            "force_difference_N": 0.0004265502347595968,
+            "force_difference_weight_fraction": 0.0019136009617023348,
+            "torque_difference_Nm": 1.462009729512347e-05,
+            "copper_loss_W": [
+                2.4424825357848508,
+                2.4280742998668
+            ]
+        }
+    ]
+}

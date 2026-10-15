@@ -25,7 +25,10 @@ def block(width, length, height, center_x, center_y, bottom):
     return cad.Pos(center_x, center_y, bottom) * cad.Box(width, length, height, align=(cad.Align.CENTER, cad.Align.CENTER, cad.Align.MIN))
 
 
-def rectangular_ring(width, length, wall, height):
+def rectangular_ring(width, length, wall, height, corner_radius=0):
+    if corner_radius:
+        profile = cad.RectangleRounded(width, length, corner_radius) - cad.RectangleRounded(width - 2 * wall, length - 2 * wall, corner_radius - wall)
+        return cad.extrude(profile, amount=height)
     return block(width, length, height, 0, 0, 0) - block(width - 2 * wall, length - 2 * wall, height, 0, 0, 0)
 
 
@@ -54,6 +57,21 @@ def coil_placements(array):
         center = (vertices.min(axis=0) + vertices.max(axis=0)) / 2
         placements.append((identity, float(center[0]), float(center[1]), float(center[2] - array.height * 1000 / 2)))
     return placements
+
+
+def magnet_parts(magnets):
+    parts = []
+    polarization_colors = {(1, 0, 0): 'firebrick', (-1, 0, 0): 'salmon', (0, 1, 0): 'royalblue',
+                           (0, -1, 0): 'skyblue', (0, 0, 1): 'purple', (0, 0, -1): 'mediumpurple'}
+    for index, magnet in enumerate(magnets.collection.children):
+        x, y, z = magnet.position * 1000
+        dx, dy, dz = magnet.dimension * 1000
+        direction = tuple(np.rint(magnet.polarization / np.linalg.norm(magnet.polarization)).astype(int))
+        axis = ('X', 'Y', 'Z')[int(np.argmax(np.abs(direction)))]
+        sign = 'plus' if max(direction) > 0 else 'minus'
+        label = f'Magnet_{index}_{sign}_{axis}'
+        parts.append(labeled_part(block(dx, dy, dz, x, y, z - dz / 2), label, polarization_colors[direction], 'Magnets', 7))
+    return parts
 
 
 def prototype_parts():
@@ -88,16 +106,7 @@ def prototype_parts():
     ):
         parts.append(labeled_part(block(width, length, height, 0, 0, surface_bottom), label, color, label, level, True))
         surface_bottom += height
-    polarization_colors = {(1, 0, 0): 'firebrick', (-1, 0, 0): 'salmon', (0, 1, 0): 'royalblue',
-                           (0, -1, 0): 'skyblue', (0, 0, 1): 'purple', (0, 0, -1): 'mediumpurple'}
-    for index, magnet in enumerate(magnets.collection.children):
-        x, y, z = magnet.position * 1000
-        dx, dy, dz = magnet.dimension * 1000
-        direction = tuple(np.rint(magnet.polarization / np.linalg.norm(magnet.polarization)).astype(int))
-        axis = ('X', 'Y', 'Z')[int(np.argmax(np.abs(direction)))]
-        sign = 'plus' if max(direction) > 0 else 'minus'
-        label = f'Magnet_{index}_{sign}_{axis}'
-        parts.append(labeled_part(block(dx, dy, dz, x, y, z - dz / 2), label, polarization_colors[direction], 'Magnets', 7))
+    parts.extend(magnet_parts(magnets))
     skin = cad.Pos(0, 0, -Fixed.piece_bottom_skin) * cad.Cylinder(piece.diameter / 2, Fixed.piece_bottom_skin,
                                                                               align=(cad.Align.CENTER, cad.Align.CENTER, cad.Align.MIN))
     parts.append(labeled_part(skin, 'Piece_bottom_skin', 'ivory', 'Piece_reference', 7, True))
@@ -148,12 +157,13 @@ def validate_parts(parts):
         if not part.shape.is_valid or part.shape.volume <= 0:
             raise ValueError(f'Invalid CAD solid: {part.shape.label}')
     physical = [part for part in parts if part.shape.label != 'King_clearance_envelope_NOT_material']
+    bounds = {id(part): part.shape.bounding_box() for part in physical}
     largest_overlap = 0
     pairs_checked = 0
     for index, first in enumerate(physical):
-        a = first.shape.bounding_box()
+        a = bounds[id(first)]
         for second in physical[index + 1:]:
-            b = second.shape.bounding_box()
+            b = bounds[id(second)]
             overlap = np.minimum(list(a.max), list(b.max)) - np.maximum(list(a.min), list(b.min))
             if np.any(overlap <= Fixed.cad_geometry_tolerance):
                 continue
@@ -165,6 +175,22 @@ def validate_parts(parts):
                 raise ValueError(f'Overlapping CAD material regions: {first.shape.label}, {second.shape.label}: {volume} mm3')
     return dict(valid_solids=True, tested_volume_intersections=pairs_checked, maximum_overlap_mm3=largest_overlap,
                 excluded_reference_envelopes=['King_clearance_envelope_NOT_material'])
+
+
+def minimum_clearance(first_shapes, second_shapes):
+    candidates = []
+    for first in first_shapes:
+        a = first.bounding_box()
+        for second in second_shapes:
+            b = second.bounding_box()
+            separation = np.maximum(0, np.maximum(np.array(list(a.min)) - list(b.max), np.array(list(b.min)) - list(a.max)))
+            candidates.append((float(np.linalg.norm(separation)), first, second))
+    minimum = float('inf')
+    for bound, first, second in sorted(candidates, key=lambda row: row[0]):
+        if bound >= minimum:
+            break
+        minimum = min(minimum, first.distance_to(second))
+    return minimum
 
 
 def export_checked(parts, path, exploded=False):

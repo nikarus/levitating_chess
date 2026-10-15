@@ -1,0 +1,42 @@
+{
+    "path": "/home/arseniy/projects/flying_chess/methodology/cad/output/airborne_integration.mp4",
+    "frames": 181,
+    "slowdown": 120.0,
+    "simulated_duration_s": 0.05,
+    "start_time_s": 0.0,
+    "end_time_s": 0.05,
+    "trial_finished": true,
+    "trial_stop_reason": null,
+    "trial_passed": true,
+    "views": [
+        "overview",
+        "side_0_deg_gap",
+        "side_90_deg_gap"
+    ],
+    "source_report_sha256": "e515e24b1b9028c4f8644f0f4fa30b10905b72aa2de1eb992c06c32566908eea",
+    "simulation_source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "cc2a5ad210432d7202443234ef81795c1e1cc1468605b3213ed9d5ae04da4f24",
+        "levitation_sim.py": "68903a2bac1a41ff01592cc2fbc97f235aacfb546ca72bea740aaf4ec22e744b",
+        "methodology/design.py": "3734c9577def9d325aaa813a96a8fcd0ef21c067a864c69e5d60ef1a20cd2568",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+        "methodology/motion.py": "f2fed6e79411025341767203f22136ee219fc10f7f252b5241671919ad65cc49",
+        "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+        "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+        "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+        "methodology/airborne.py": "96241ca0058151b90735e035e25f4ce96c64c9a5f6bd6d6ab00d11cfa67bea8a",
+        "methodology/electrical.py": "e6670b479f4d8e24e8de53876b7839273dda1243a014d8bb2d81f57801038d2d",
+        "methodology/sensing.py": "ca77b63cd177552b3bdf4887385e6ba4a8874b1125d5058103c30f33c87c0d0e",
+        "methodology/qualification.py": "5a88466c525b3c565c1a32964f0b6fdbc732e3c5ccc4d9e0b62c5ecf714b0171",
+        "methodology/airborne_verification.py": "7530ecbc0f72d90dbe887be15e514dd44aaaeab562a4825408505d2609ede2c8"
+    },
+    "render_source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/airborne_video.py": "8294fd764f871a790998cc976aa88b28104ffda822a59c37e50928956024c0b6"
+    }
+}

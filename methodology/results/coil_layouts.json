@@ -1,0 +1,2290 @@
+{
+    "scope": "Common local window; level hover and horizontal flight; nominal and hot/heavy king; static allocations with zero-sum currents",
+    "window_side_mm": 45,
+    "results": [
+        {
+            "name": "stacked_reference",
+            "pattern": "stacked",
+            "rotation_deg": 0,
+            "dimensions_mm": [
+                10,
+                15,
+                1
+            ],
+            "conductor_width_mm": 0.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 0.9456753138075313,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 8.436000000000002,
+            "coil_counts": [
+                16,
+                18,
+                20,
+                21,
+                24
+            ],
+            "augmented_rank_min": 7,
+            "pose_count": 96,
+            "demand_count": 1728,
+            "phase_samples": 4,
+            "mesh_refinement": 1,
+            "lattice_repeat_mm": 30.0,
+            "coil_density_per_m2": 13333.333333333334,
+            "copper_volume_per_m2_mm3": 1671088.0000000002,
+            "nominal": {
+                "peak_current_A": 3.866436642699714,
+                "worst_copper_loss_W": 148.31908412894936,
+                "worst_current_pose": {
+                    "peak_A": 3.866436642699714,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        22.5,
+                        22.5
+                    ],
+                    "world_xy_mm": [
+                        22.5,
+                        22.5
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        0.033887677523041844,
+                        0.033887677523041844
+                    ],
+                    "loss_W": 90.10968087950963
+                },
+                "worst_loss_pose": {
+                    "peak_A": 3.8005921807291454,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        15.0,
+                        22.5
+                    ],
+                    "world_xy_mm": [
+                        15.0,
+                        22.5
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        0.04792441315041167,
+                        0.0
+                    ],
+                    "loss_W": 148.31908412894936
+                }
+            },
+            "hot_heavy": {
+                "peak_current_A": 5.044279664697497,
+                "worst_copper_loss_W": 348.1979918676452,
+                "worst_current_pose": {
+                    "peak_A": 5.044279664697497,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        22.5,
+                        22.5
+                    ],
+                    "world_xy_mm": [
+                        22.5,
+                        22.5
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        0.03695354461619759,
+                        0.036953544616197584
+                    ],
+                    "loss_W": 266.51109871312264
+                },
+                "worst_loss_pose": {
+                    "peak_A": 5.0043185988135,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        15.0,
+                        22.5
+                    ],
+                    "world_xy_mm": [
+                        15.0,
+                        22.5
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        0.0522602039739859,
+                        0.0
+                    ],
+                    "loss_W": 348.1979918676452
+                }
+            },
+            "loss_allocation_limit_A": 5.5,
+            "static_current_reserve_pass": false,
+            "status": "Static screen only; dynamics, neighbours, edges and thermal acceptance unqualified"
+        },
+        {
+            "name": "parquet_5",
+            "pattern": "herringbone",
+            "rotation_deg": 0,
+            "dimensions_mm": [
+                5,
+                10,
+                1
+            ],
+            "conductor_width_mm": 0.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 0.5345121338912133,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 4.218000000000001,
+            "coil_counts": [
+                28
+            ],
+            "augmented_rank_min": 7,
+            "pose_count": 96,
+            "demand_count": 1728,
+            "phase_samples": 4,
+            "mesh_refinement": 1,
+            "lattice_repeat_mm": 20.0,
+            "coil_density_per_m2": 20000.0,
+            "copper_volume_per_m2_mm3": 1416792.0,
+            "nominal": {
+                "peak_current_A": 2.185879164594973,
+                "worst_copper_loss_W": 26.960287833715824,
+                "worst_current_pose": {
+                    "peak_A": 2.185879164594973,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        10.0,
+                        15.0
+                    ],
+                    "world_xy_mm": [
+                        10.0,
+                        15.0
+                    ],
+                    "yaw_deg": 0.0,
+                    "thrust_N": [
+                        0.03834859821828354,
+                        0.038348598218283535
+                    ],
+                    "loss_W": 15.328828960087966
+                },
+                "worst_loss_pose": {
+                    "peak_A": 1.8022066617115915,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        10.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        10.0
+                    ],
+                    "yaw_deg": 0.0,
+                    "thrust_N": [
+                        0.03834859821828353,
+                        -0.03834859821828355
+                    ],
+                    "loss_W": 26.960287833715824
+                }
+            },
+            "hot_heavy": {
+                "peak_current_A": 2.814060241311402,
+                "worst_copper_loss_W": 60.965275846016254,
+                "worst_current_pose": {
+                    "peak_A": 2.814060241311402,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        10.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        10.0,
+                        0.0
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        3.53938781272241e-18,
+                        0.0578025895333523
+                    ],
+                    "loss_W": 49.46086659678715
+                },
+                "worst_loss_pose": {
+                    "peak_A": 2.3709416838171564,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        10.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        10.0
+                    ],
+                    "yaw_deg": 0.0,
+                    "thrust_N": [
+                        0.04087260302917596,
+                        -0.040872603029175975
+                    ],
+                    "loss_W": 60.965275846016254
+                }
+            },
+            "loss_allocation_limit_A": 5.5,
+            "static_current_reserve_pass": true,
+            "status": "Static screen only; dynamics, neighbours, edges and thermal acceptance unqualified"
+        },
+        {
+            "name": "parquet_5",
+            "pattern": "herringbone",
+            "rotation_deg": 45,
+            "dimensions_mm": [
+                5,
+                10,
+                1
+            ],
+            "conductor_width_mm": 0.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 0.5345121338912133,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 4.218000000000001,
+            "coil_counts": [
+                28
+            ],
+            "augmented_rank_min": 7,
+            "pose_count": 96,
+            "demand_count": 1728,
+            "phase_samples": 4,
+            "mesh_refinement": 1,
+            "lattice_repeat_mm": 20.0,
+            "coil_density_per_m2": 20000.0,
+            "copper_volume_per_m2_mm3": 1416792.0,
+            "nominal": {
+                "peak_current_A": 2.185879164594726,
+                "worst_copper_loss_W": 28.886022980821267,
+                "worst_current_pose": {
+                    "peak_A": 2.185879164594726,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        10.0,
+                        15.0
+                    ],
+                    "world_xy_mm": [
+                        -3.5355339059327386,
+                        17.67766952966369
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        3.3208200875264277e-18,
+                        0.05423310769829329
+                    ],
+                    "loss_W": 15.328828960087888
+                },
+                "worst_loss_pose": {
+                    "peak_A": 2.159300389849387,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        15.0,
+                        5.0
+                    ],
+                    "world_xy_mm": [
+                        7.071067811865474,
+                        14.142135623730951
+                    ],
+                    "yaw_deg": 0.0,
+                    "thrust_N": [
+                        0.03834859821828353,
+                        -0.03834859821828355
+                    ],
+                    "loss_W": 28.886022980821267
+                }
+            },
+            "hot_heavy": {
+                "peak_current_A": 2.7992741398751315,
+                "worst_copper_loss_W": 65.03181795381029,
+                "worst_current_pose": {
+                    "peak_A": 2.7992741398751315,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        5.0,
+                        10.0
+                    ],
+                    "world_xy_mm": [
+                        -3.535533905932739,
+                        10.606601717798211
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        3.53938781272241e-18,
+                        0.0578025895333523
+                    ],
+                    "loss_W": 32.576380609820234
+                },
+                "worst_loss_pose": {
+                    "peak_A": 2.7447274765382765,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        15.0,
+                        5.0
+                    ],
+                    "world_xy_mm": [
+                        7.071067811865474,
+                        14.142135623730951
+                    ],
+                    "yaw_deg": 0.0,
+                    "thrust_N": [
+                        0.04087260302917596,
+                        -0.040872603029175975
+                    ],
+                    "loss_W": 65.03181795381029
+                }
+            },
+            "loss_allocation_limit_A": 5.5,
+            "static_current_reserve_pass": true,
+            "status": "Static screen only; dynamics, neighbours, edges and thermal acceptance unqualified"
+        },
+        {
+            "name": "parquet_7_5",
+            "pattern": "herringbone",
+            "rotation_deg": 0,
+            "dimensions_mm": [
+                7.5,
+                15,
+                1
+            ],
+            "conductor_width_mm": 0.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 0.842884518828452,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 4.218000000000001,
+            "coil_counts": [
+                15
+            ],
+            "augmented_rank_min": 7,
+            "pose_count": 96,
+            "demand_count": 1728,
+            "phase_samples": 4,
+            "mesh_refinement": 1,
+            "lattice_repeat_mm": 30.0,
+            "coil_density_per_m2": 8888.888888888889,
+            "copper_volume_per_m2_mm3": 992965.3333333335,
+            "nominal": {
+                "peak_current_A": 3.7833529364161387,
+                "worst_copper_loss_W": 71.3669864680074,
+                "worst_current_pose": {
+                    "peak_A": 3.7833529364161387,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        15.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        15.0,
+                        0.0
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        0.03834859821828353,
+                        -0.03834859821828355
+                    ],
+                    "loss_W": 67.31290846681745
+                },
+                "worst_loss_pose": {
+                    "peak_A": 3.495568712728953,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        15.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        15.0,
+                        0.0
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        0.05423310769829329,
+                        0.0
+                    ],
+                    "loss_W": 71.3669864680074
+                }
+            },
+            "hot_heavy": {
+                "peak_current_A": 4.904731212767995,
+                "worst_copper_loss_W": 174.7027992895037,
+                "worst_current_pose": {
+                    "peak_A": 4.904731212767995,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        7.5,
+                        22.5
+                    ],
+                    "world_xy_mm": [
+                        7.5,
+                        22.5
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        0.04087260302917596,
+                        -0.040872603029175975
+                    ],
+                    "loss_W": 174.70279928950322
+                },
+                "worst_loss_pose": {
+                    "peak_A": 4.904731212767991,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        15.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        15.0,
+                        0.0
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        0.04087260302917596,
+                        -0.040872603029175975
+                    ],
+                    "loss_W": 174.7027992895037
+                }
+            },
+            "loss_allocation_limit_A": 5.5,
+            "static_current_reserve_pass": true,
+            "status": "Static screen only; dynamics, neighbours, edges and thermal acceptance unqualified"
+        },
+        {
+            "name": "parquet_7_5",
+            "pattern": "herringbone",
+            "rotation_deg": 45,
+            "dimensions_mm": [
+                7.5,
+                15,
+                1
+            ],
+            "conductor_width_mm": 0.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 0.842884518828452,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 4.218000000000001,
+            "coil_counts": [
+                15
+            ],
+            "augmented_rank_min": 7,
+            "pose_count": 96,
+            "demand_count": 1728,
+            "phase_samples": 4,
+            "mesh_refinement": 1,
+            "lattice_repeat_mm": 30.0,
+            "coil_density_per_m2": 8888.888888888889,
+            "copper_volume_per_m2_mm3": 992965.3333333335,
+            "nominal": {
+                "peak_current_A": 3.7833529364161906,
+                "worst_copper_loss_W": 72.73189598940088,
+                "worst_current_pose": {
+                    "peak_A": 3.7833529364161906,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        15.0
+                    ],
+                    "world_xy_mm": [
+                        -10.606601717798213,
+                        10.606601717798211
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        0.05423310769829329,
+                        0.0
+                    ],
+                    "loss_W": 67.31290846681979
+                },
+                "worst_loss_pose": {
+                    "peak_A": 3.7043892817997754,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        7.5,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        5.303300858899106,
+                        5.303300858899107
+                    ],
+                    "yaw_deg": 0.0,
+                    "thrust_N": [
+                        -0.038348598218283535,
+                        0.03834859821828354
+                    ],
+                    "loss_W": 72.73189598940088
+                }
+            },
+            "hot_heavy": {
+                "peak_current_A": 4.904731212768058,
+                "worst_copper_loss_W": 185.1603967458165,
+                "worst_current_pose": {
+                    "peak_A": 4.904731212768058,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        15.0
+                    ],
+                    "world_xy_mm": [
+                        -10.606601717798213,
+                        10.606601717798211
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        0.0578025895333523,
+                        0.0
+                    ],
+                    "loss_W": 174.70279928951027
+                },
+                "worst_loss_pose": {
+                    "peak_A": 4.791975802915028,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        7.5,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        5.303300858899106,
+                        5.303300858899107
+                    ],
+                    "yaw_deg": 0.0,
+                    "thrust_N": [
+                        -0.04087260302917597,
+                        0.04087260302917597
+                    ],
+                    "loss_W": 185.1603967458165
+                }
+            },
+            "loss_allocation_limit_A": 5.5,
+            "static_current_reserve_pass": true,
+            "status": "Static screen only; dynamics, neighbours, edges and thermal acceptance unqualified"
+        },
+        {
+            "name": "parquet_10",
+            "pattern": "herringbone",
+            "rotation_deg": 0,
+            "dimensions_mm": [
+                10,
+                20,
+                1
+            ],
+            "conductor_width_mm": 0.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 1.1512569037656903,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 4.218000000000001,
+            "coil_counts": [
+                6
+            ],
+            "augmented_rank_min": 6,
+            "pose_count": 96,
+            "demand_count": 0,
+            "phase_samples": 4,
+            "mesh_refinement": 1,
+            "lattice_repeat_mm": 40.0,
+            "coil_density_per_m2": 5000.0,
+            "copper_volume_per_m2_mm3": 762888.0000000001,
+            "status": "Insufficient six-axis plus midpoint-current authority at sampled poses"
+        },
+        {
+            "name": "parquet_10",
+            "pattern": "herringbone",
+            "rotation_deg": 45,
+            "dimensions_mm": [
+                10,
+                20,
+                1
+            ],
+            "conductor_width_mm": 0.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 1.1512569037656903,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 4.218000000000001,
+            "coil_counts": [
+                6
+            ],
+            "augmented_rank_min": 6,
+            "pose_count": 96,
+            "demand_count": 0,
+            "phase_samples": 4,
+            "mesh_refinement": 1,
+            "lattice_repeat_mm": 40.0,
+            "coil_density_per_m2": 5000.0,
+            "copper_volume_per_m2_mm3": 762888.0000000001,
+            "status": "Insufficient six-axis plus midpoint-current authority at sampled poses"
+        },
+        {
+            "name": "parquet_wide_wall",
+            "pattern": "herringbone",
+            "rotation_deg": 0,
+            "dimensions_mm": [
+                7.5,
+                15,
+                2
+            ],
+            "conductor_width_mm": 1.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 0.37177055214723925,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 4.218000000000001,
+            "coil_counts": [
+                15
+            ],
+            "augmented_rank_min": 7,
+            "pose_count": 96,
+            "demand_count": 1728,
+            "phase_samples": 4,
+            "mesh_refinement": 1,
+            "lattice_repeat_mm": 30.0,
+            "coil_density_per_m2": 8888.888888888889,
+            "copper_volume_per_m2_mm3": 1833424.0000000002,
+            "nominal": {
+                "peak_current_A": 4.9470778939497135,
+                "worst_copper_loss_W": 54.00980200278875,
+                "worst_current_pose": {
+                    "peak_A": 4.9470778939497135,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        15.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        15.0
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        0.03834859821828353,
+                        -0.03834859821828355
+                    ],
+                    "loss_W": 54.00980200278875
+                },
+                "worst_loss_pose": {
+                    "peak_A": 4.9470778939497135,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        15.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        15.0
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        0.03834859821828353,
+                        -0.03834859821828355
+                    ],
+                    "loss_W": 54.00980200278875
+                }
+            },
+            "hot_heavy": {
+                "peak_current_A": 6.409461567913716,
+                "worst_copper_loss_W": 210.02600218830435,
+                "worst_current_pose": {
+                    "peak_A": 6.409461567913716,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        15.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        15.0
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        0.04087260302917596,
+                        -0.040872603029175975
+                    ],
+                    "loss_W": 210.02600218830435
+                },
+                "worst_loss_pose": {
+                    "peak_A": 6.409461567913716,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        15.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        15.0
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        0.04087260302917596,
+                        -0.040872603029175975
+                    ],
+                    "loss_W": 210.02600218830435
+                }
+            },
+            "loss_allocation_limit_A": 6.409461567913716,
+            "static_current_reserve_pass": false,
+            "status": "Static screen only; dynamics, neighbours, edges and thermal acceptance unqualified"
+        },
+        {
+            "name": "parquet_wide_wall",
+            "pattern": "herringbone",
+            "rotation_deg": 45,
+            "dimensions_mm": [
+                7.5,
+                15,
+                2
+            ],
+            "conductor_width_mm": 1.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 0.37177055214723925,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 4.218000000000001,
+            "coil_counts": [
+                15
+            ],
+            "augmented_rank_min": 7,
+            "pose_count": 96,
+            "demand_count": 1728,
+            "phase_samples": 4,
+            "mesh_refinement": 1,
+            "lattice_repeat_mm": 30.0,
+            "coil_density_per_m2": 8888.888888888889,
+            "copper_volume_per_m2_mm3": 1833424.0000000002,
+            "nominal": {
+                "peak_current_A": 4.947077893949753,
+                "worst_copper_loss_W": 54.00980200278921,
+                "worst_current_pose": {
+                    "peak_A": 4.947077893949753,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        15.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        10.606601717798211,
+                        10.606601717798213
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        0.05423310769829329,
+                        0.0
+                    ],
+                    "loss_W": 54.00980200278921
+                },
+                "worst_loss_pose": {
+                    "peak_A": 4.947077893949753,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        15.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        10.606601717798211,
+                        10.606601717798213
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        0.05423310769829329,
+                        0.0
+                    ],
+                    "loss_W": 54.00980200278921
+                }
+            },
+            "hot_heavy": {
+                "peak_current_A": 6.409461567913759,
+                "worst_copper_loss_W": 210.0260021883052,
+                "worst_current_pose": {
+                    "peak_A": 6.409461567913759,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        15.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        10.606601717798211,
+                        10.606601717798213
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        0.0578025895333523,
+                        0.0
+                    ],
+                    "loss_W": 210.0260021883052
+                },
+                "worst_loss_pose": {
+                    "peak_A": 6.409461567913759,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        15.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        10.606601717798211,
+                        10.606601717798213
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        0.0578025895333523,
+                        0.0
+                    ],
+                    "loss_W": 210.0260021883052
+                }
+            },
+            "loss_allocation_limit_A": 6.409461567913759,
+            "static_current_reserve_pass": false,
+            "status": "Static screen only; dynamics, neighbours, edges and thermal acceptance unqualified"
+        },
+        {
+            "name": "square_7_5",
+            "pattern": "square",
+            "rotation_deg": 0,
+            "dimensions_mm": [
+                7.5,
+                7.5,
+                1
+            ],
+            "conductor_width_mm": 0.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 0.5345121338912133,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 4.218000000000001,
+            "coil_counts": [
+                25,
+                30,
+                36
+            ],
+            "augmented_rank_min": 7,
+            "pose_count": 96,
+            "demand_count": 1728,
+            "phase_samples": 4,
+            "mesh_refinement": 1,
+            "lattice_repeat_mm": 7.5,
+            "coil_density_per_m2": 17777.777777777777,
+            "copper_volume_per_m2_mm3": 1259370.6666666667,
+            "nominal": {
+                "peak_current_A": 2.246457547718043,
+                "worst_copper_loss_W": 24.93955004771688,
+                "worst_current_pose": {
+                    "peak_A": 2.246457547718043,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        3.75
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        3.75
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        0.03834859821828354,
+                        0.038348598218283535
+                    ],
+                    "loss_W": 15.73464854132378
+                },
+                "worst_loss_pose": {
+                    "peak_A": 1.8835968770107188,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        5.625,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        5.625,
+                        0.0
+                    ],
+                    "yaw_deg": 0.0,
+                    "thrust_N": [
+                        0.03834859821828353,
+                        -0.03834859821828355
+                    ],
+                    "loss_W": 24.93955004771688
+                }
+            },
+            "hot_heavy": {
+                "peak_current_A": 2.909841801180959,
+                "worst_copper_loss_W": 55.819381236226484,
+                "worst_current_pose": {
+                    "peak_A": 2.909841801180959,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        3.75
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        3.75
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        0.04087260302917597,
+                        0.04087260302917597
+                    ],
+                    "loss_W": 35.223654146053335
+                },
+                "worst_loss_pose": {
+                    "peak_A": 2.370836387272864,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        5.625
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        5.625
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        0.04087260302917597,
+                        0.04087260302917597
+                    ],
+                    "loss_W": 55.819381236226484
+                }
+            },
+            "loss_allocation_limit_A": 5.5,
+            "static_current_reserve_pass": true,
+            "status": "Static screen only; dynamics, neighbours, edges and thermal acceptance unqualified"
+        },
+        {
+            "name": "square_7_5",
+            "pattern": "square",
+            "rotation_deg": 45,
+            "dimensions_mm": [
+                7.5,
+                7.5,
+                1
+            ],
+            "conductor_width_mm": 0.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 0.5345121338912133,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 4.218000000000001,
+            "coil_counts": [
+                25,
+                30,
+                36
+            ],
+            "augmented_rank_min": 7,
+            "pose_count": 96,
+            "demand_count": 1728,
+            "phase_samples": 4,
+            "mesh_refinement": 1,
+            "lattice_repeat_mm": 7.5,
+            "coil_density_per_m2": 17777.777777777777,
+            "copper_volume_per_m2_mm3": 1259370.6666666667,
+            "nominal": {
+                "peak_current_A": 2.246457547717982,
+                "worst_copper_loss_W": 24.939550047716757,
+                "worst_current_pose": {
+                    "peak_A": 2.246457547717982,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        3.75
+                    ],
+                    "world_xy_mm": [
+                        -2.6516504294495533,
+                        2.651650429449553
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        3.3208200875264277e-18,
+                        0.05423310769829329
+                    ],
+                    "loss_W": 15.734648541323757
+                },
+                "worst_loss_pose": {
+                    "peak_A": 1.8835968770106932,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        5.625,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        3.9774756441743295,
+                        3.9774756441743295
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        0.05423310769829329,
+                        0.0
+                    ],
+                    "loss_W": 24.939550047716757
+                }
+            },
+            "hot_heavy": {
+                "peak_current_A": 2.9098418011817726,
+                "worst_copper_loss_W": 55.81938123622619,
+                "worst_current_pose": {
+                    "peak_A": 2.9098418011817726,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        3.75,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        2.651650429449553,
+                        2.6516504294495533
+                    ],
+                    "yaw_deg": 0.0,
+                    "thrust_N": [
+                        0.0578025895333523,
+                        0.0
+                    ],
+                    "loss_W": 35.22365414605331
+                },
+                "worst_loss_pose": {
+                    "peak_A": 2.3708363872725795,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        5.625,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        3.9774756441743295,
+                        3.9774756441743295
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        0.0578025895333523,
+                        0.0
+                    ],
+                    "loss_W": 55.81938123622619
+                }
+            },
+            "loss_allocation_limit_A": 5.5,
+            "static_current_reserve_pass": true,
+            "status": "Static screen only; dynamics, neighbours, edges and thermal acceptance unqualified"
+        },
+        {
+            "name": "square_10",
+            "pattern": "square",
+            "rotation_deg": 0,
+            "dimensions_mm": [
+                10,
+                10,
+                1
+            ],
+            "conductor_width_mm": 0.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 0.7400937238493723,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 4.218000000000001,
+            "coil_counts": [
+                9,
+                12,
+                16
+            ],
+            "augmented_rank_min": 7,
+            "pose_count": 96,
+            "demand_count": 1728,
+            "phase_samples": 4,
+            "mesh_refinement": 1,
+            "lattice_repeat_mm": 10.0,
+            "coil_density_per_m2": 10000.0,
+            "copper_volume_per_m2_mm3": 980856.0,
+            "nominal": {
+                "peak_current_A": 8.521174582933886,
+                "worst_copper_loss_W": 218.41358383459968,
+                "worst_current_pose": {
+                    "peak_A": 8.521174582933886,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        -0.05423310769829329,
+                        6.6416401750528554e-18
+                    ],
+                    "loss_W": 218.41358383459968
+                },
+                "worst_loss_pose": {
+                    "peak_A": 8.521174582933886,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        -0.05423310769829329,
+                        6.6416401750528554e-18
+                    ],
+                    "loss_W": 218.41358383459968
+                }
+            },
+            "hot_heavy": {
+                "peak_current_A": 11.056228511633936,
+                "worst_copper_loss_W": 595.6516181067598,
+                "worst_current_pose": {
+                    "peak_A": 11.056228511633936,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        -0.0578025895333523,
+                        7.07877562544482e-18
+                    ],
+                    "loss_W": 595.6516181067598
+                },
+                "worst_loss_pose": {
+                    "peak_A": 11.056228511633936,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        -0.0578025895333523,
+                        7.07877562544482e-18
+                    ],
+                    "loss_W": 595.6516181067598
+                }
+            },
+            "loss_allocation_limit_A": 11.056228511633936,
+            "static_current_reserve_pass": false,
+            "status": "Static screen only; dynamics, neighbours, edges and thermal acceptance unqualified"
+        },
+        {
+            "name": "square_10",
+            "pattern": "square",
+            "rotation_deg": 45,
+            "dimensions_mm": [
+                10,
+                10,
+                1
+            ],
+            "conductor_width_mm": 0.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 0.7400937238493723,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 4.218000000000001,
+            "coil_counts": [
+                9,
+                12,
+                16
+            ],
+            "augmented_rank_min": 7,
+            "pose_count": 96,
+            "demand_count": 1728,
+            "phase_samples": 4,
+            "mesh_refinement": 1,
+            "lattice_repeat_mm": 10.0,
+            "coil_density_per_m2": 10000.0,
+            "copper_volume_per_m2_mm3": 980856.0,
+            "nominal": {
+                "peak_current_A": 8.521174582934002,
+                "worst_copper_loss_W": 218.41358383460343,
+                "worst_current_pose": {
+                    "peak_A": 8.521174582934002,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        -0.03834859821828355,
+                        -0.038348598218283535
+                    ],
+                    "loss_W": 218.41358383460343
+                },
+                "worst_loss_pose": {
+                    "peak_A": 8.521174582934002,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        -0.03834859821828355,
+                        -0.038348598218283535
+                    ],
+                    "loss_W": 218.41358383460343
+                }
+            },
+            "hot_heavy": {
+                "peak_current_A": 11.056228511634064,
+                "worst_copper_loss_W": 595.6516181067733,
+                "worst_current_pose": {
+                    "peak_A": 11.056228511634064,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        -0.040872603029175975,
+                        -0.04087260302917597
+                    ],
+                    "loss_W": 595.6516181067733
+                },
+                "worst_loss_pose": {
+                    "peak_A": 11.056228511634064,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        -0.040872603029175975,
+                        -0.04087260302917597
+                    ],
+                    "loss_W": 595.6516181067733
+                }
+            },
+            "loss_allocation_limit_A": 11.056228511634064,
+            "static_current_reserve_pass": false,
+            "status": "Static screen only; dynamics, neighbours, edges and thermal acceptance unqualified"
+        },
+        {
+            "name": "square_12_5",
+            "pattern": "square",
+            "rotation_deg": 0,
+            "dimensions_mm": [
+                12.5,
+                12.5,
+                1
+            ],
+            "conductor_width_mm": 0.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 0.9456753138075313,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 4.218000000000001,
+            "coil_counts": [
+                4,
+                6,
+                9
+            ],
+            "augmented_rank_min": 4,
+            "pose_count": 96,
+            "demand_count": 972,
+            "phase_samples": 4,
+            "mesh_refinement": 1,
+            "lattice_repeat_mm": 12.5,
+            "coil_density_per_m2": 6399.999999999999,
+            "copper_volume_per_m2_mm3": 802122.2399999999,
+            "status": "Insufficient six-axis plus midpoint-current authority at sampled poses"
+        },
+        {
+            "name": "square_12_5",
+            "pattern": "square",
+            "rotation_deg": 45,
+            "dimensions_mm": [
+                12.5,
+                12.5,
+                1
+            ],
+            "conductor_width_mm": 0.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 0.9456753138075313,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 4.218000000000001,
+            "coil_counts": [
+                4,
+                6,
+                9
+            ],
+            "augmented_rank_min": 4,
+            "pose_count": 96,
+            "demand_count": 972,
+            "phase_samples": 4,
+            "mesh_refinement": 1,
+            "lattice_repeat_mm": 12.5,
+            "coil_density_per_m2": 6399.999999999999,
+            "copper_volume_per_m2_mm3": 802122.2399999999,
+            "status": "Insufficient six-axis plus midpoint-current authority at sampled poses"
+        },
+        {
+            "name": "square_wide_wall",
+            "pattern": "square",
+            "rotation_deg": 0,
+            "dimensions_mm": [
+                10,
+                10,
+                2
+            ],
+            "conductor_width_mm": 1.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 0.3215312883435583,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 4.218000000000001,
+            "coil_counts": [
+                9,
+                12,
+                16
+            ],
+            "augmented_rank_min": 7,
+            "pose_count": 96,
+            "demand_count": 1728,
+            "phase_samples": 4,
+            "mesh_refinement": 1,
+            "lattice_repeat_mm": 10.0,
+            "coil_density_per_m2": 10000.0,
+            "copper_volume_per_m2_mm3": 1783872.0000000002,
+            "nominal": {
+                "peak_current_A": 10.451289460271072,
+                "worst_copper_loss_W": 136.72444832806315,
+                "worst_current_pose": {
+                    "peak_A": 10.451289460271072,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        -0.05423310769829329,
+                        6.6416401750528554e-18
+                    ],
+                    "loss_W": 136.72444832806315
+                },
+                "worst_loss_pose": {
+                    "peak_A": 10.451289460271072,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        -0.05423310769829329,
+                        6.6416401750528554e-18
+                    ],
+                    "loss_W": 136.72444832806315
+                }
+            },
+            "hot_heavy": {
+                "peak_current_A": 13.524987784169888,
+                "worst_copper_loss_W": 393.74099189271874,
+                "worst_current_pose": {
+                    "peak_A": 13.524987784169888,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        -0.0578025895333523,
+                        7.07877562544482e-18
+                    ],
+                    "loss_W": 393.74099189271874
+                },
+                "worst_loss_pose": {
+                    "peak_A": 13.524987784169888,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        -0.0578025895333523,
+                        7.07877562544482e-18
+                    ],
+                    "loss_W": 393.74099189271874
+                }
+            },
+            "loss_allocation_limit_A": 13.524987784169888,
+            "static_current_reserve_pass": false,
+            "status": "Static screen only; dynamics, neighbours, edges and thermal acceptance unqualified"
+        },
+        {
+            "name": "square_wide_wall",
+            "pattern": "square",
+            "rotation_deg": 45,
+            "dimensions_mm": [
+                10,
+                10,
+                2
+            ],
+            "conductor_width_mm": 1.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 0.3215312883435583,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 4.218000000000001,
+            "coil_counts": [
+                9,
+                12,
+                16
+            ],
+            "augmented_rank_min": 7,
+            "pose_count": 96,
+            "demand_count": 1728,
+            "phase_samples": 4,
+            "mesh_refinement": 1,
+            "lattice_repeat_mm": 10.0,
+            "coil_density_per_m2": 10000.0,
+            "copper_volume_per_m2_mm3": 1783872.0000000002,
+            "nominal": {
+                "peak_current_A": 10.451289460270951,
+                "worst_copper_loss_W": 136.7244483280611,
+                "worst_current_pose": {
+                    "peak_A": 10.451289460270951,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "yaw_deg": 0.0,
+                    "thrust_N": [
+                        -0.038348598218283535,
+                        0.03834859821828354
+                    ],
+                    "loss_W": 136.72444832806102
+                },
+                "worst_loss_pose": {
+                    "peak_A": 10.451289460270944,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        -0.03834859821828355,
+                        -0.038348598218283535
+                    ],
+                    "loss_W": 136.7244483280611
+                }
+            },
+            "hot_heavy": {
+                "peak_current_A": 13.524987784169765,
+                "worst_copper_loss_W": 393.74099189271215,
+                "worst_current_pose": {
+                    "peak_A": 13.524987784169765,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        -0.040872603029175975,
+                        -0.04087260302917597
+                    ],
+                    "loss_W": 393.74099189271215
+                },
+                "worst_loss_pose": {
+                    "peak_A": 13.524987784169765,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        0.0
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        -0.040872603029175975,
+                        -0.04087260302917597
+                    ],
+                    "loss_W": 393.74099189271215
+                }
+            },
+            "loss_allocation_limit_A": 13.524987784169765,
+            "static_current_reserve_pass": false,
+            "status": "Static screen only; dynamics, neighbours, edges and thermal acceptance unqualified"
+        }
+    ],
+    "limitations": [
+        "Sampled static screen, not trajectory or complete-board qualification.",
+        "Equal local window area, not equal channel count or equal copper mass.",
+        "Winding envelopes touch; bend radii, terminals and construction clearance remain unresolved.",
+        "Conductor widths are geometric candidates, not supplier-confirmed products.",
+        "Existing approximate conductive-sheet drag model, with depth adjusted for the number of coil layers.",
+        "Loss comparisons use the installed current limit, raised explicitly when the candidate needs more current.",
+        "Existing magnet layout retained; literature magnet arrays are not assumed equivalent."
+    ],
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "38e5fc6010de02ee7cf7820ac6b6517da72e1e955a52194df9672dd8f8460fa9",
+        "methodology/design.py": "a249c747b348d138fdbfd356cb822f3e95a2f14f27997296fc238e58882c5a9e",
+        "levitation_sim.py": "627c1970198c391eb3374c27100eb304fb86ff6a632526bb8fa688a816b65c97",
+        "methodology/coil_layouts.py": "881d1aff0a7a5c14dd88689a94798b29e43fa5ba7bbda2853473266a864add53"
+    },
+    "refined_results": [
+        {
+            "name": "stacked_reference",
+            "pattern": "stacked",
+            "rotation_deg": 0,
+            "dimensions_mm": [
+                10.0,
+                15,
+                1.0
+            ],
+            "conductor_width_mm": 0.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 0.9456753138075313,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 8.436000000000002,
+            "coil_counts": [
+                12,
+                14,
+                15,
+                16,
+                17,
+                18,
+                20,
+                21,
+                24
+            ],
+            "augmented_rank_min": 7,
+            "pose_count": 640,
+            "demand_count": 11520,
+            "phase_samples": 8,
+            "mesh_refinement": 1,
+            "yaws_deg": [
+                0,
+                22.5,
+                45,
+                67.5,
+                90
+            ],
+            "lattice_repeat_mm": 30.0,
+            "coil_density_per_m2": 13333.333333333334,
+            "copper_volume_per_m2_mm3": 1671088.0000000002,
+            "nominal": {
+                "peak_current_A": 16.800919803921012,
+                "worst_copper_loss_W": 1265.3444755295225,
+                "worst_current_pose": {
+                    "peak_A": 16.800919803921012,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        3.75,
+                        26.25
+                    ],
+                    "world_xy_mm": [
+                        3.75,
+                        26.25
+                    ],
+                    "yaw_deg": 22.5,
+                    "thrust_N": [
+                        -0.033887677523041844,
+                        0.033887677523041844
+                    ],
+                    "loss_W": 1265.3444755295225
+                },
+                "worst_loss_pose": {
+                    "peak_A": 16.800919803921012,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        3.75,
+                        26.25
+                    ],
+                    "world_xy_mm": [
+                        3.75,
+                        26.25
+                    ],
+                    "yaw_deg": 22.5,
+                    "thrust_N": [
+                        -0.033887677523041844,
+                        0.033887677523041844
+                    ],
+                    "loss_W": 1265.3444755295225
+                }
+            },
+            "hot_heavy": {
+                "peak_current_A": 22.296217566312265,
+                "worst_copper_loss_W": 4230.105503761136,
+                "worst_current_pose": {
+                    "peak_A": 22.296217566312265,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        3.75,
+                        26.25
+                    ],
+                    "world_xy_mm": [
+                        3.75,
+                        26.25
+                    ],
+                    "yaw_deg": 22.5,
+                    "thrust_N": [
+                        -0.036953544616197584,
+                        0.03695354461619759
+                    ],
+                    "loss_W": 4230.105503761136
+                },
+                "worst_loss_pose": {
+                    "peak_A": 22.296217566312265,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        3.75,
+                        26.25
+                    ],
+                    "world_xy_mm": [
+                        3.75,
+                        26.25
+                    ],
+                    "yaw_deg": 22.5,
+                    "thrust_N": [
+                        -0.036953544616197584,
+                        0.03695354461619759
+                    ],
+                    "loss_W": 4230.105503761136
+                }
+            },
+            "loss_allocation_limit_A": 22.296217566312265,
+            "static_current_reserve_pass": false,
+            "status": "Static screen only; dynamics, neighbours, edges and thermal acceptance unqualified",
+            "electrical_screen": {
+                "estimated_inductance_mH": 0.1451925251756756,
+                "assumed_minimum_mH": 0.0725962625878378,
+                "pwm_frequency_Hz": 160000,
+                "ripple_peak_A": 0.4304233076797552,
+                "ripple_allowance_A": 0.5,
+                "ripple_pass": true,
+                "status": "Existing approximate independent-RL screen; actual self/mutual inductance unmeasured"
+            },
+            "existing_window_at_worst_screen_pose": {
+                "component_coil_counts": [
+                    24
+                ],
+                "union_coil_count": 24,
+                "required_component_peak_A": 3.8679779459468238,
+                "allocated_peak_A": 5.5,
+                "copper_loss_W": 239.72029445336182,
+                "status": "Same pose with the existing fixed-count blended selection; not a full resweep"
+            },
+            "mesh_checks": [
+                {
+                    "stress": "nominal",
+                    "metric": "worst_current_pose",
+                    "values": [
+                        {
+                            "refinement": 1,
+                            "peak_A": 16.80091980392272,
+                            "copper_loss_W": 1265.3444755296737
+                        },
+                        {
+                            "refinement": 2,
+                            "peak_A": 16.659701530798376,
+                            "copper_loss_W": 1248.9124184386044
+                        }
+                    ],
+                    "peak_change_fraction": 0.008405389393702833,
+                    "loss_change_fraction": 0.012986232135870246
+                },
+                {
+                    "stress": "nominal",
+                    "metric": "worst_loss_pose",
+                    "values": [
+                        {
+                            "refinement": 1,
+                            "peak_A": 16.80091980392272,
+                            "copper_loss_W": 1265.3444755296737
+                        },
+                        {
+                            "refinement": 2,
+                            "peak_A": 16.659701530798376,
+                            "copper_loss_W": 1248.9124184386044
+                        }
+                    ],
+                    "peak_change_fraction": 0.008405389393702833,
+                    "loss_change_fraction": 0.012986232135870246
+                },
+                {
+                    "stress": "hot_heavy",
+                    "metric": "worst_current_pose",
+                    "values": [
+                        {
+                            "refinement": 1,
+                            "peak_A": 22.29621756631456,
+                            "copper_loss_W": 4230.105503762026
+                        },
+                        {
+                            "refinement": 2,
+                            "peak_A": 22.107307360576417,
+                            "copper_loss_W": 3807.283958332702
+                        }
+                    ],
+                    "peak_change_fraction": 0.008472746786591823,
+                    "loss_change_fraction": 0.09995531909388311
+                },
+                {
+                    "stress": "hot_heavy",
+                    "metric": "worst_loss_pose",
+                    "values": [
+                        {
+                            "refinement": 1,
+                            "peak_A": 22.29621756631456,
+                            "copper_loss_W": 4230.105503762026
+                        },
+                        {
+                            "refinement": 2,
+                            "peak_A": 22.107307360576417,
+                            "copper_loss_W": 3807.283958332702
+                        }
+                    ],
+                    "peak_change_fraction": 0.008472746786591823,
+                    "loss_change_fraction": 0.09995531909388311
+                }
+            ],
+            "mesh_check_pass": false
+        },
+        {
+            "name": "parquet_5",
+            "pattern": "herringbone",
+            "rotation_deg": 0,
+            "dimensions_mm": [
+                5,
+                10,
+                1
+            ],
+            "conductor_width_mm": 0.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 0.5345121338912133,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 4.218000000000001,
+            "coil_counts": [
+                28,
+                31,
+                32,
+                36
+            ],
+            "augmented_rank_min": 7,
+            "pose_count": 640,
+            "demand_count": 11520,
+            "phase_samples": 8,
+            "mesh_refinement": 1,
+            "yaws_deg": [
+                0,
+                22.5,
+                45,
+                67.5,
+                90
+            ],
+            "lattice_repeat_mm": 20.0,
+            "coil_density_per_m2": 20000.0,
+            "copper_volume_per_m2_mm3": 1416792.0,
+            "nominal": {
+                "peak_current_A": 2.2219812142430504,
+                "worst_copper_loss_W": 28.309092296230155,
+                "worst_current_pose": {
+                    "peak_A": 2.2219812142430504,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        10.0,
+                        17.5
+                    ],
+                    "world_xy_mm": [
+                        10.0,
+                        17.5
+                    ],
+                    "yaw_deg": 0.0,
+                    "thrust_N": [
+                        0.03834859821828354,
+                        0.038348598218283535
+                    ],
+                    "loss_W": 12.548105202917599
+                },
+                "worst_loss_pose": {
+                    "peak_A": 1.9479266788572847,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        7.5
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        7.5
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        0.03834859821828354,
+                        0.038348598218283535
+                    ],
+                    "loss_W": 28.309092296230155
+                }
+            },
+            "hot_heavy": {
+                "peak_current_A": 2.840506530422503,
+                "worst_copper_loss_W": 64.74299367650563,
+                "worst_current_pose": {
+                    "peak_A": 2.840506530422503,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        7.5
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        7.5
+                    ],
+                    "yaw_deg": 0.0,
+                    "thrust_N": [
+                        0.04087260302917597,
+                        0.04087260302917597
+                    ],
+                    "loss_W": 26.733857105260306
+                },
+                "worst_loss_pose": {
+                    "peak_A": 2.5142651326586463,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        0.0,
+                        7.5
+                    ],
+                    "world_xy_mm": [
+                        0.0,
+                        7.5
+                    ],
+                    "yaw_deg": 90.0,
+                    "thrust_N": [
+                        0.04087260302917597,
+                        0.04087260302917597
+                    ],
+                    "loss_W": 64.74299367650563
+                }
+            },
+            "loss_allocation_limit_A": 5.5,
+            "static_current_reserve_pass": true,
+            "status": "Static screen only; dynamics, neighbours, edges and thermal acceptance unqualified",
+            "electrical_screen": {
+                "estimated_inductance_mH": 0.04839750839189188,
+                "assumed_minimum_mH": 0.02419875419594594,
+                "pwm_frequency_Hz": 160000,
+                "ripple_peak_A": 1.29104710606176,
+                "ripple_allowance_A": 0.5,
+                "ripple_pass": false,
+                "status": "Existing approximate independent-RL screen; actual self/mutual inductance unmeasured"
+            },
+            "mesh_checks": [
+                {
+                    "stress": "nominal",
+                    "metric": "worst_current_pose",
+                    "values": [
+                        {
+                            "refinement": 1,
+                            "peak_A": 2.2219812142412354,
+                            "copper_loss_W": 12.548105202917403
+                        },
+                        {
+                            "refinement": 2,
+                            "peak_A": 2.215430614376046,
+                            "copper_loss_W": 12.463842773990587
+                        }
+                    ],
+                    "peak_change_fraction": 0.0029480896702478443,
+                    "loss_change_fraction": 0.006715151615657944
+                },
+                {
+                    "stress": "nominal",
+                    "metric": "worst_loss_pose",
+                    "values": [
+                        {
+                            "refinement": 1,
+                            "peak_A": 1.947926678857098,
+                            "copper_loss_W": 28.309092296229643
+                        },
+                        {
+                            "refinement": 2,
+                            "peak_A": 1.9427169110084095,
+                            "copper_loss_W": 28.153777773620465
+                        }
+                    ],
+                    "peak_change_fraction": 0.0026745194802429983,
+                    "loss_change_fraction": 0.0054863829961041555
+                },
+                {
+                    "stress": "hot_heavy",
+                    "metric": "worst_current_pose",
+                    "values": [
+                        {
+                            "refinement": 1,
+                            "peak_A": 2.8405065304224495,
+                            "copper_loss_W": 26.73385710525978
+                        },
+                        {
+                            "refinement": 2,
+                            "peak_A": 2.8321231584174313,
+                            "copper_loss_W": 26.547010630357697
+                        }
+                    ],
+                    "peak_change_fraction": 0.0029513651580204137,
+                    "loss_change_fraction": 0.006989132700395917
+                },
+                {
+                    "stress": "hot_heavy",
+                    "metric": "worst_loss_pose",
+                    "values": [
+                        {
+                            "refinement": 1,
+                            "peak_A": 2.5142651326589105,
+                            "copper_loss_W": 64.74299367650434
+                        },
+                        {
+                            "refinement": 2,
+                            "peak_A": 2.507662200264482,
+                            "copper_loss_W": 64.38819292002273
+                        }
+                    ],
+                    "peak_change_fraction": 0.00262618779088164,
+                    "loss_change_fraction": 0.0054801413455548564
+                }
+            ],
+            "mesh_check_pass": true
+        },
+        {
+            "name": "square_7_5",
+            "pattern": "square",
+            "rotation_deg": 45,
+            "dimensions_mm": [
+                7.5,
+                7.5,
+                1
+            ],
+            "conductor_width_mm": 0.956,
+            "conductor_thickness_mm": 0.05,
+            "turns": 57,
+            "resistance_20C_ohm": 0.5345121338912133,
+            "coil_height_mm": 4.218000000000001,
+            "bed_height_mm": 4.218000000000001,
+            "coil_counts": [
+                25,
+                30,
+                36
+            ],
+            "augmented_rank_min": 7,
+            "pose_count": 640,
+            "demand_count": 11520,
+            "phase_samples": 8,
+            "mesh_refinement": 1,
+            "yaws_deg": [
+                0,
+                22.5,
+                45,
+                67.5,
+                90
+            ],
+            "lattice_repeat_mm": 7.5,
+            "coil_density_per_m2": 17777.777777777777,
+            "copper_volume_per_m2_mm3": 1259370.6666666667,
+            "nominal": {
+                "peak_current_A": 2.2998193161864315,
+                "worst_copper_loss_W": 26.994542940971126,
+                "worst_current_pose": {
+                    "peak_A": 2.2998193161864315,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        4.6875,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        3.314563036811941,
+                        3.3145630368119416
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        0.03834859821828354,
+                        0.038348598218283535
+                    ],
+                    "loss_W": 22.384033865691805
+                },
+                "worst_loss_pose": {
+                    "peak_A": 2.053441629247888,
+                    "hot": false,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        4.6875,
+                        6.5625
+                    ],
+                    "world_xy_mm": [
+                        -1.325825214724777,
+                        7.954951288348659
+                    ],
+                    "yaw_deg": 22.5,
+                    "thrust_N": [
+                        0.05423310769829329,
+                        0.0
+                    ],
+                    "loss_W": 26.994542940971126
+                }
+            },
+            "hot_heavy": {
+                "peak_current_A": 2.9773015689495828,
+                "worst_copper_loss_W": 61.27026961506914,
+                "worst_current_pose": {
+                    "peak_A": 2.9773015689495828,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        4.6875,
+                        0.0
+                    ],
+                    "world_xy_mm": [
+                        3.314563036811941,
+                        3.3145630368119416
+                    ],
+                    "yaw_deg": 45.0,
+                    "thrust_N": [
+                        0.04087260302917597,
+                        0.04087260302917597
+                    ],
+                    "loss_W": 49.18478616548452
+                },
+                "worst_loss_pose": {
+                    "peak_A": 2.611923959142871,
+                    "hot": true,
+                    "gap_mm": 4.5,
+                    "local_phase_mm": [
+                        4.6875,
+                        6.5625
+                    ],
+                    "world_xy_mm": [
+                        -1.325825214724777,
+                        7.954951288348659
+                    ],
+                    "yaw_deg": 22.5,
+                    "thrust_N": [
+                        0.0578025895333523,
+                        0.0
+                    ],
+                    "loss_W": 61.27026961506914
+                }
+            },
+            "loss_allocation_limit_A": 5.5,
+            "static_current_reserve_pass": true,
+            "status": "Static screen only; dynamics, neighbours, edges and thermal acceptance unqualified",
+            "electrical_screen": {
+                "estimated_inductance_mH": 0.05444719694087837,
+                "assumed_minimum_mH": 0.027223598470439186,
+                "pwm_frequency_Hz": 160000,
+                "ripple_peak_A": 1.1476611505597343,
+                "ripple_allowance_A": 0.5,
+                "ripple_pass": false,
+                "status": "Existing approximate independent-RL screen; actual self/mutual inductance unmeasured"
+            },
+            "mesh_checks": [
+                {
+                    "stress": "nominal",
+                    "metric": "worst_current_pose",
+                    "values": [
+                        {
+                            "refinement": 1,
+                            "peak_A": 2.2998193161863525,
+                            "copper_loss_W": 22.384033865690704
+                        },
+                        {
+                            "refinement": 2,
+                            "peak_A": 2.294608027412844,
+                            "copper_loss_W": 22.252193323520785
+                        }
+                    ],
+                    "peak_change_fraction": 0.0022659557369706373,
+                    "loss_change_fraction": 0.0058899366825921895
+                },
+                {
+                    "stress": "nominal",
+                    "metric": "worst_loss_pose",
+                    "values": [
+                        {
+                            "refinement": 1,
+                            "peak_A": 2.053441629248005,
+                            "copper_loss_W": 26.99454294096993
+                        },
+                        {
+                            "refinement": 2,
+                            "peak_A": 2.0482206706636528,
+                            "copper_loss_W": 26.875424117199223
+                        }
+                    ],
+                    "peak_change_fraction": 0.002542540537791793,
+                    "loss_change_fraction": 0.004412700153182292
+                },
+                {
+                    "stress": "hot_heavy",
+                    "metric": "worst_current_pose",
+                    "values": [
+                        {
+                            "refinement": 1,
+                            "peak_A": 2.9773015689494944,
+                            "copper_loss_W": 49.184786165482194
+                        },
+                        {
+                            "refinement": 2,
+                            "peak_A": 2.9706135096140693,
+                            "copper_loss_W": 48.89151111769824
+                        }
+                    ],
+                    "peak_change_fraction": 0.002246349313477447,
+                    "loss_change_fraction": 0.005962718772370534
+                },
+                {
+                    "stress": "hot_heavy",
+                    "metric": "worst_loss_pose",
+                    "values": [
+                        {
+                            "refinement": 1,
+                            "peak_A": 2.611923959142828,
+                            "copper_loss_W": 61.27026961506642
+                        },
+                        {
+                            "refinement": 2,
+                            "peak_A": 2.6053285611320227,
+                            "copper_loss_W": 61.002003802504014
+                        }
+                    ],
+                    "peak_change_fraction": 0.00252511103461428,
+                    "loss_change_fraction": 0.00437840104585463
+                }
+            ],
+            "mesh_check_pass": true
+        }
+    ],
+    "refinement_source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "cfd2803cef1bd22fe9c28d046c30ff77e124445f0aba45f37926216adc208d48",
+        "methodology/design.py": "50cbebece93157a73656e86f8e7fc85f5eec0a009b63c4e6019870f1fdb2d77d",
+        "levitation_sim.py": "daa4922c3d3f399622b42cbc8d6bd635b27351ad47cb67732d5da02a0804dda0",
+        "methodology/coil_layouts.py": "9d06c41ec1a767504d3a403193c8ab6399df23579d14c0a3e6285ee6020bac66"
+    },
+    "check_source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "cfd2803cef1bd22fe9c28d046c30ff77e124445f0aba45f37926216adc208d48",
+        "methodology/design.py": "50cbebece93157a73656e86f8e7fc85f5eec0a009b63c4e6019870f1fdb2d77d",
+        "levitation_sim.py": "daa4922c3d3f399622b42cbc8d6bd635b27351ad47cb67732d5da02a0804dda0",
+        "methodology/coil_layouts.py": "fae6565cad458a1380f9b1a3d14026ea265147e7cc57b45cfd21f401c3792fef"
+    }
+}

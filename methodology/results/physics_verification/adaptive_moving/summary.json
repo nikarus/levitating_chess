@@ -1,0 +1,138 @@
+{
+    "scope": "Production adaptive integration against saved moving fine-step physical references; no controller feedback",
+    "status": "completed",
+    "physical_envelope_qualified": false,
+    "reused_evidence_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/results/physics_verification/moving_inputs/summary.json": "2de15077102f3261b6f84cd8f8238fa36289787582c6bc7f398959ae1b70554f",
+        "methodology/results/physics_verification/moving_inputs/translation_yaw/time_refined.json": "e43608074e4c79f1510889c6150b647db219be6d063a2b02771d3c8cd4de8946",
+        "methodology/results/physics_verification/moving_inputs/tilt_vertical/time_refined.json": "a6e7cfd7d60ad30ab60c7cf33b9d4f7e30957b075208764641217b28cca0f2b8"
+    },
+    "reuse_scope": "Physical dependencies unchanged; diagnostic runner gains an adaptive adapter and shares its unchanged field-filter calculation.",
+    "cases": {
+        "translation_yaw": {
+            "stop_reason": null,
+            "duration_s": 0.002,
+            "elapsed_s": 113.39432648196816,
+            "comparison": {
+                "differences": {
+                    "pose_position_m": 3.2832695472789094e-09,
+                    "pose_angle_rad": 8.614871380922434e-08,
+                    "current_trace_A": 9.405147078633824e-05
+                },
+                "limits": {
+                    "pose_position_m": 8.000000000000001e-06,
+                    "pose_angle_rad": 0.00025,
+                    "current_trace_A": 0.027500000000000004
+                },
+                "checks": {
+                    "pose_position_m": true,
+                    "pose_angle_rad": true,
+                    "current_trace_A": true
+                },
+                "converged": true,
+                "world_velocity_maximum_component_differences": [
+                    7.035808297417567e-06,
+                    7.816458029274997e-06,
+                    4.987479768079565e-06,
+                    0.00023608637676456046,
+                    0.00019131829039679277,
+                    2.0817356137570187e-05
+                ],
+                "wrench_maximum_component_differences": [
+                    3.3593190065361184e-06,
+                    4.321187924942807e-06,
+                    1.0295616570205057e-05,
+                    3.510033611889827e-08,
+                    5.8544146789007165e-08,
+                    2.0770123304571465e-08
+                ],
+                "analogue_field_T_maximum_difference": 2.2138046829392466e-07
+            },
+            "adaptation": {
+                "accepted": 99,
+                "rejected": 2,
+                "force_evaluations": 240,
+                "maximum_accepted_error": 0.9979644240154517
+            }
+        },
+        "tilt_vertical": {
+            "stop_reason": null,
+            "duration_s": 0.002,
+            "elapsed_s": 59.47878982697148,
+            "comparison": {
+                "differences": {
+                    "pose_position_m": 6.551364833174173e-11,
+                    "pose_angle_rad": 2.236775165907775e-09,
+                    "current_trace_A": 5.6273530280037676e-08
+                },
+                "limits": {
+                    "pose_position_m": 8.000000000000001e-06,
+                    "pose_angle_rad": 0.00025,
+                    "current_trace_A": 0.027500000000000004
+                },
+                "checks": {
+                    "pose_position_m": true,
+                    "pose_angle_rad": true,
+                    "current_trace_A": true
+                },
+                "converged": true,
+                "world_velocity_maximum_component_differences": [
+                    2.1483443300069786e-07,
+                    2.2448035776304363e-07,
+                    2.3534479967005778e-07,
+                    9.565239628139821e-06,
+                    8.784464303190909e-06,
+                    8.455404283098738e-06
+                ],
+                "wrench_maximum_component_differences": [
+                    3.598587875440224e-09,
+                    1.7923694526191317e-09,
+                    5.249688378450301e-09,
+                    3.585408736534812e-11,
+                    5.870062845769438e-11,
+                    4.27808554911719e-12
+                ],
+                "analogue_field_T_maximum_difference": 5.685445204905992e-10
+            },
+            "adaptation": {
+                "accepted": 41,
+                "rejected": 0,
+                "force_evaluations": 122,
+                "maximum_accepted_error": 0.015754645484483205
+            }
+        }
+    },
+    "active_case": null,
+    "verification": {
+        "cases": {
+            "translation_yaw": {
+                "saved_comparison_reproduced": true,
+                "sources_and_input_identity_match": true,
+                "accepted_fields_only": true,
+                "voltage_boundaries_preserved": true,
+                "accepted_interval_range_s": [
+                    4.999999999987653e-07,
+                    2.5000000000000282e-05
+                ],
+                "reference_elapsed_s": 272.17687578801997,
+                "observed_speed_ratio": 2.4005389767926992
+            },
+            "tilt_vertical": {
+                "saved_comparison_reproduced": true,
+                "sources_and_input_identity_match": true,
+                "accepted_fields_only": true,
+                "voltage_boundaries_preserved": true,
+                "accepted_interval_range_s": [
+                    1.2000000000000075e-05,
+                    5.000000000000013e-05
+                ],
+                "reference_elapsed_s": 272.39407322602347,
+                "observed_speed_ratio": 4.580283882541878
+            }
+        },
+        "fixed_runner_first_voltage_interval_exactly_reproduced": true,
+        "focused_tests_passed": 18,
+        "physical_envelope_qualified": false
+    }
+}

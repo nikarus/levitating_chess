@@ -1,0 +1,994 @@
+{
+  "status": "ready_for_bounded_airborne_control_investigation",
+  "physical_envelope_qualified": false,
+  "scope": "Mechanism-based numerical verification of the direct-field single-piece airborne implementation; empirical engineering verification, not a certified global trajectory bound or hardware validation.",
+  "source_sha256": {
+    "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+    "levitation_sim.py": "91eea3f343cbfb0722c8325f52f6c55ff49995a2e4ff726584ead98b1e4cd5a3",
+    "methodology/adaptive_airborne.py": "987f2334b809a0433725ca22a2d5fe5347874d8d99f467ad9460e0252a486125",
+    "methodology/airborne.py": "2e02c4b8ad6899c14c3f82273d4da0500cda42920367b816f3ea398f4e44541e",
+    "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+    "methodology/cad/magnetics.py": "52c5bd39106e0e8f977575c799fa12bc85937ddb58f747e4ddb9ca8ede93f7fb",
+    "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+    "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+    "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+    "methodology/coupling_verification.py": "5fae4a2be0251aa7a402e8434075f4da1987cc1b86f6e16dcc173fc751366fb9",
+    "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+    "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+    "methodology/motion.py": "347fb61e8c224e9772a120dae2adcb465b344de1c724e28c51f8d6980ecf0654",
+    "methodology/numerical_accuracy.py": "81b7a572caa622a554bdfa387c977319832c48b279b9e9f3b59a74414fe67ea3",
+    "methodology/physics_verification.py": "faf8429b6463a146253bf064e1987207e56ef65b387acc24b32a8b83ceb2b5c9",
+    "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+    "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+    "methodology/sensing.py": "5835a7ec568addaf5ba0cda8e12293b82392fb520875b1149b0e2f1eadc52cc0",
+    "methodology/tests/test_adaptive_airborne.py": "80d8cf4c98dc0b966af2f51faebff3ce8de507403ec8a8d8a2a44dab8d657590",
+    "methodology/tests/test_airborne.py": "6c0b9cc793c5f5921f767eba4163d9c184244445c01309ede20b1c736d05c252",
+    "methodology/tests/test_electrical.py": "c82328b3f49835980eaed8403179c662993db0b7b25b959a95e83ac10b937e81",
+    "methodology/tests/test_motion.py": "ed05927b85d91db72a134a43728229e34213ffbd84ce9a3770f7de483d5a631e",
+    "methodology/tests/test_physics_verification.py": "4c1311e93b5d258bc93327dc8d1596a4a5a9c42e73cc7bc6f85b8237732c20aa",
+    "methodology/tests/test_sensing.py": "d0ef1221441b99b55d99e0a1107ad00ff962b656603163d56931b7b23411c00e",
+    "model.py": "ce591742b96c5490f685f22ce372c22ab3cc2ea1ef953576cb3953d25b85c886"
+  },
+  "parameters": {
+    "Inputs": {
+      "magnet_lateral_edge": 5,
+      "magnet_thickness": 4,
+      "magnets_per_period": 4,
+      "periods_per_side": 1,
+      "coils_per_period": 2,
+      "coil_outer_length": 15,
+      "winding_radial_width": 1.0,
+      "control_cells_per_side": 4,
+      "magnet_to_coil_distance": 3.5,
+      "max_flight_gap": 4.5,
+      "plastic_wall_thickness": 1.0,
+      "piece_shell_shape_factor": 0.6,
+      "worst_phase_dwell": 0.5,
+      "cruise_duration": 1.5,
+      "selected_bus_voltage": 40,
+      "landing_dwell": 0.5,
+      "events_back_to_back": 2,
+      "sustained_event_period": 300,
+      "play_move_period": 6,
+      "sustained_moves_per_minute": 10,
+      "replay_capture_fraction": 0.25,
+      "replay_knight_gap_fraction": 0.15,
+      "hammer_visit_period": 5,
+      "hammer_dwell": 1.0,
+      "cascade_exchanges": 10,
+      "coil_bed_temp_limit": 105,
+      "force_safety_factor": 1.3,
+      "min_maneuver_accel_g": 0.2,
+      "min_visible_hover_height": 3,
+      "min_level_hover_endurance": 30,
+      "min_showpiece_hover_endurance": 3,
+      "tilt_rim_clearance": 1.0,
+      "target_tilt_time": 0.3,
+      "target_yaw_angle_deg": 90,
+      "target_yaw_time": 0.5,
+      "ambient_temperature": 35,
+      "max_surface_temperature": 50,
+      "control_loop_bandwidth_margin": 5,
+      "pieces_levitating_simultaneously": 1,
+      "drive_look_ahead_factor": 1.5,
+      "active_cooling_fans": 2,
+      "reset_duration": 8.0,
+      "reset_breakaway_duration": 0.5,
+      "production_boards": 100,
+      "piece_count": 32,
+      "max_tip_position_error": 0.001,
+      "max_surface_flatness_fraction": 0.25,
+      "platform_side_limits": [
+        20,
+        50
+      ],
+      "trajectory_force_margin": 1.05,
+      "selected_conductor_thickness": 0.05,
+      "selected_winding_layers": 57,
+      "standard_bus_voltages": [
+        24,
+        30,
+        40,
+        48
+      ],
+      "winding_conductor_thicknesses": [
+        0.05,
+        0.07,
+        0.1,
+        0.15,
+        0.2,
+        0.3,
+        0.4,
+        0.5
+      ],
+      "coil_layout_candidates": [
+        [
+          "stacked_reference",
+          "stacked",
+          10.0,
+          15,
+          1.0
+        ],
+        [
+          "parquet_5",
+          "herringbone",
+          5,
+          10,
+          1
+        ],
+        [
+          "parquet_7_5",
+          "herringbone",
+          7.5,
+          15,
+          1
+        ],
+        [
+          "parquet_10",
+          "herringbone",
+          10,
+          20,
+          1
+        ],
+        [
+          "parquet_wide_wall",
+          "herringbone",
+          7.5,
+          15,
+          2
+        ],
+        [
+          "square_7_5",
+          "square",
+          7.5,
+          7.5,
+          1
+        ],
+        [
+          "square_10",
+          "square",
+          10,
+          10,
+          1
+        ],
+        [
+          "square_12_5",
+          "square",
+          12.5,
+          12.5,
+          1
+        ],
+        [
+          "square_wide_wall",
+          "square",
+          10,
+          10,
+          2
+        ]
+      ],
+      "prototype_layouts": [
+        [
+          "parquet_5",
+          0
+        ],
+        [
+          "square_7_5",
+          45
+        ]
+      ],
+      "prototype_wire_diameter": 0.25,
+      "prototype_radial_turns": 4,
+      "prototype_axial_layers": 14,
+      "prototype_inner_corner_radius": 1.0,
+      "prototype_coil_spacing": 0.3,
+      "cad_coil_layout": "square_7_5"
+    },
+    "Fixed": {
+      "base_corner_standoff": 8,
+      "square_fill_ratio": 0.8,
+      "max_chess_square_size": 60,
+      "resting_friction_coefficient": 0.4,
+      "captured_side_areas": 2,
+      "herringbone_orientation_families": 2,
+      "reference_king_height": 95,
+      "reference_king_base_diameter": 44,
+      "rectangular_wire_film": 0.012,
+      "turns_per_radial_layer": 1,
+      "nominal_coil_height_for_field": 1.0,
+      "potting_thickness": 0.5,
+      "potting_thermal_conductivity": 2.5,
+      "potting_volumetric_heat_capacity": 2300000.0,
+      "coil_bed_through_conductivity": 2.0,
+      "potting_cover_thickness": 0.2,
+      "playing_surface_thickness": 0.1,
+      "playing_surface_conductivity": 0.2,
+      "piece_bottom_skin": 0.1,
+      "surface_flatness_budget": 0.3,
+      "max_touch_temperature": 77,
+      "prolonged_touch_temperature": 48,
+      "magnet_max_operating_temperature": 150,
+      "pcb_via_effective_thermal_conductivity": 10,
+      "thermal_pad_conductivity": 5.0,
+      "baseplate_thickness": 4.0,
+      "aluminium_thermal_conductivity": 167,
+      "aluminium_density": 2700,
+      "aluminium_heat_capacity": 900,
+      "fin_height": 60,
+      "fin_thickness": 2,
+      "fin_channel_width": 8,
+      "natural_convection_coefficient": 2,
+      "forced_convection_coefficient": 8,
+      "cooling_fan_size": 200,
+      "cooling_fan_speed": 550,
+      "cooling_fan_airflow": 100.8,
+      "cooling_fan_static_pressure": 0.51,
+      "cooling_fan_noise": 10.7,
+      "cooling_fan_installation_noise": 3,
+      "cooling_fan_airflow_fraction": 0.25,
+      "cooling_fan_power": 0.96,
+      "cooling_fan_mass": 0.37,
+      "cooling_fan_price": 39.95,
+      "cooling_fan_url": "https://www.coolerguys.com/products/noctua-nf-a20-pwm-200mm-cooling-fan",
+      "mosfet_voltage_rating": 60,
+      "min_mosfet_voltage_headroom": 1.5,
+      "driver_channel_current": 5.5,
+      "driver_peak_current": 6.5,
+      "driver_max_ripple_current": 0.5,
+      "driver_pwm_frequency": 160000,
+      "current_regulator_rate": 20000,
+      "driver_switching_time": 1e-07,
+      "driver_hot_resistance": 0.08,
+      "driver_mosfet_gate_charge": 3e-08,
+      "gate_drive_voltage": 10,
+      "logic_gate_voltage": 5,
+      "current_command_rate": 4000,
+      "pose_feedback_rate": 1000,
+      "pose_controller_frequency": 20,
+      "pose_controller_damping": 1,
+      "pose_observer_frequency_ratio": 1,
+      "pose_observer_ratio_candidates": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "qualification_sensor_latency": 0.001,
+      "qualification_position_error": 0.00016,
+      "qualification_angle_error": 0.005,
+      "qualification_mass_fraction": 0.1,
+      "qualification_com_fraction": 0.2,
+      "qualification_inertia_fraction": 0.25,
+      "qualification_inductance_factors": [
+        0.5,
+        2
+      ],
+      "qualification_recovery_duration": 0.25,
+      "qualification_initial_error_fraction": 0.25,
+      "qualification_noise_bias_fraction": 0.5,
+      "qualification_integration_substeps": 2,
+      "qualification_field_rate": 4000,
+      "qualification_refinement_factor": 2,
+      "qualification_parallel_workers": 3,
+      "qualification_convergence_fraction": 0.05,
+      "qualification_current_reserve_fraction": 0.1,
+      "qualification_current_transient_allowance": 0.1,
+      "setpoint_filter_passive_price": 0.003,
+      "setpoint_filter_cutoff": 1000,
+      "max_setpoint_bits": 12,
+      "max_current_command_error": 0.005,
+      "current_loop_bandwidth": 2000,
+      "min_current_loop_samples": 8,
+      "min_setpoint_serial_headroom": 1.2,
+      "current_sense_resistance": 0.02,
+      "current_feedback_bits": 16,
+      "current_feedback_gain_bound": 0.005,
+      "current_feedback_noise": 0.001,
+      "current_feedback_seed": 1730,
+      "airborne_check_duration": 0.002,
+      "airborne_checkpoint_interval": 0.001,
+      "airborne_video_min_duration": 6,
+      "airborne_refinement_duration": 0.05,
+      "airborne_refinement_screen_duration": 0.01,
+      "airborne_hover_duration": 1,
+      "adaptive_max_step": 5e-05,
+      "adaptive_min_step": 1.953125e-07,
+      "adaptive_clock_tolerance": 1e-12,
+      "adaptive_max_retries": 8,
+      "adaptive_growth_threshold": 0.125,
+      "adaptive_position_tolerance": 1e-08,
+      "adaptive_angle_tolerance": 1e-07,
+      "adaptive_velocity_tolerance": 1e-05,
+      "adaptive_angular_velocity_tolerance": 0.0001,
+      "adaptive_current_tolerance": 0.0001,
+      "adaptive_field_tolerance": 1e-07,
+      "adaptive_reference_step": 6.25e-06,
+      "adaptive_benchmark_duration": 0.002,
+      "adaptive_sensitivity_duration": 0.013,
+      "comparator_input_offset": 0.005,
+      "current_sense_offset_residual": 0.001,
+      "max_current_offset_fraction": 0.05,
+      "current_shunt_price": 0.0418,
+      "current_shunt_power_rating": 2,
+      "current_comparator_channels_per_ic": 2,
+      "current_comparator_price": 0.0198,
+      "current_frontend_passives_per_channel": 4,
+      "current_frontend_passive_price": 0.0035,
+      "driver_gate_passive_price": 0.0012,
+      "driver_decoupling_price": 0.0197,
+      "shift_register_outputs": 8,
+      "gate_driver_half_bridges": 3,
+      "gate_driver_price": 0.2254,
+      "power_mosfet_price": 0.075,
+      "shift_register_clock_rating": 20000000,
+      "shift_register_power_capacitance": 4.2e-11,
+      "shift_register_price": 0.028,
+      "driver_serial_clock": 40000000,
+      "smt_assembly_cost_per_joint": 0.0017,
+      "max_bus_current": 120,
+      "bus_distribution_price": 36.96,
+      "rail_clamp_price": 5.0,
+      "rail_bulk_capacitor_price": 4.0,
+      "driver_channels_per_bulk_capacitor": 29,
+      "bulk_capacitor_price": 0.25,
+      "supercap_cell_capacitance": 350,
+      "supercap_cell_max_voltage": 2.7,
+      "supercap_cell_working_voltage": 2.4,
+      "supercap_cell_esr": 0.0032,
+      "supercap_eol_capacitance_fraction": 0.8,
+      "supercap_eol_esr_factor": 2.0,
+      "supercap_cell_price": 7.65,
+      "supercap_cell_mass_kg": 0.065,
+      "supercap_balancer_price_per_cell": 0.15,
+      "supercap_oring_price": 4.0,
+      "supercap_management_price_per_rail": 20.0,
+      "midpoint_balancer_price": 40.0,
+      "midpoint_balancer_mass_kg": 0.3,
+      "midpoint_balancer_current_rating": 5.0,
+      "bus_droop_fraction": 0.1,
+      "radiator_aluminium_price_per_kg": 12.0,
+      "playing_surface_price": 12.0,
+      "motor_pcb_price_per_cm2": 0.01063,
+      "usable_bus_voltage_fraction": 0.9,
+      "hall_pitch_candidates": [
+        30.0,
+        25.0,
+        24.0,
+        20.0,
+        16.666666666666668,
+        16.0,
+        15.0,
+        14.285714285714286,
+        12.5,
+        12.0,
+        10.0
+      ],
+      "hall_observation_window_side": 4,
+      "hall_sensor_mux_channels": 16,
+      "hall_sensor_price": 0.34758,
+      "hall_sensor_mux_price": 0.2527,
+      "magnet_cost_per_kg": 384.0,
+      "hall_adc_sample_rate": 500000,
+      "hall_adc_native_bits": 16,
+      "hall_adc_precision_candidates": [
+        12,
+        14,
+        16
+      ],
+      "hall_samples_per_sensor": 16,
+      "hall_max_condition": 16384,
+      "hall_package_standoff": 0.6,
+      "hall_power_settle_time": 0.0001,
+      "hall_gate_switch_price": 0.0206,
+      "thermal_sensor_area_mm2": 5000,
+      "thermal_sensor_price": 0.0091,
+      "hall_supply_voltage": 5,
+      "hall_supply_current": 0.01,
+      "hall_sensitivity": 12.5,
+      "hall_output_noise": 1.84e-05,
+      "hall_linear_range": 0.169,
+      "hall_sensor_bandwidth": 20000,
+      "coil_field_subtraction_error": 0.005,
+      "position_error_gap_fraction": 0.1,
+      "flight_position_error_gap_fraction": 0.25,
+      "pcb_copper_plane_thickness": 0.07,
+      "radiator_standoff_below_pcb": 1.3,
+      "radiator_slot_pitch": 5,
+      "radiator_slot_web_thickness": 0.5,
+      "radiator_slotting_price": 200.0,
+      "potting_epoxy_price": 45.0,
+      "gap_filler_pad_price": 336.43,
+      "gap_filler_density": 3.4,
+      "windings_per_coil_body": 1,
+      "pcb_thickness": 1.6,
+      "frame_enclosure_mass_kg": 1.0,
+      "board_electronics_mass_kg": 0.3,
+      "blocker_hops_per_gap_move": 4,
+      "potting_density": 1.8,
+      "bus_distribution_mass_kg": 0.8,
+      "ac_input_price": 8.0,
+      "emi_filter_price": 12.0,
+      "enclosure_price": 40.0,
+      "piece_control_flops": 20000,
+      "setpoint_dma_words_flops": 4,
+      "board_setpoint_fpga_count": 1,
+      "board_setpoint_fpga_price": 25.0,
+      "board_setpoint_fpga_power": 1.0,
+      "board_setpoint_fpga_solder_joints": 144,
+      "control_node_adc_engines": 2,
+      "min_hall_scan_headroom": 1.1,
+      "min_control_compute_headroom": 2.0,
+      "control_node_mcu_price": 3.13,
+      "control_node_mcu_solder_joints": 32,
+      "node_mcu_throughput_mflops": 170,
+      "control_node_mcu_power": 0.4,
+      "host_power": 8,
+      "psu_sizing_margin": 1.1,
+      "psu_family": "Mean Well UHP-2500-36 adjusted to 40V",
+      "psu_rating": 2498.4,
+      "psu_price": 589.0,
+      "psu_mass_kg": 4.07,
+      "psu_url": "https://www.digikey.com/en/products/detail/mean-well-usa-inc/UHP-2500-36/11494555",
+      "sliding_friction_coefficient": 0.3,
+      "minimum_contact_normal_fraction": 0.1,
+      "coil_winding_clearance": 0.02,
+      "material_reference_temperature": 20.0,
+      "thermal_trace_step": 0.05,
+      "shunt_power_derating": 0.5,
+      "max_control_delay_fraction": 0.1,
+      "field_grid_samples": 41,
+      "matrix_rank_tolerance": 1e-09,
+      "singular_value_tolerance": 1e-12,
+      "hall_rank_tolerance": 1e-06,
+      "allocator_tolerance": 1e-11,
+      "allocator_residual_tolerance": 1e-07,
+      "allocator_limit_tolerance": 1e-08,
+      "allocator_max_iterations": 300,
+      "position_derivative_step": 2e-05,
+      "hall_position_derivative_step": 1e-05,
+      "angle_derivative_step": 0.0001,
+      "nominal_force_mesh": 16,
+      "pose_force_mesh": 12,
+      "verification_force_mesh": 8,
+      "force_field_batch_points": 1024,
+      "force_field_workers": 3,
+      "atlas_grid_spacings": [
+        0.001,
+        0.0005,
+        0.00025,
+        0.0002
+      ],
+      "atlas_spline_orders": [
+        3,
+        5
+      ],
+      "atlas_padding_cells": 12,
+      "atlas_max_storage_bytes": 805306368,
+      "atlas_validation_points": 4096,
+      "atlas_validation_seed": 1740,
+      "atlas_validation_poses": 8,
+      "atlas_field_tolerance": 1e-07,
+      "atlas_matrix_relative_tolerance": 0.0001,
+      "atlas_gradient_relative_tolerance": 0.001,
+      "atlas_minimum_speedup": 2.0,
+      "current_demand_mesh_refinements": [
+        1,
+        2
+      ],
+      "active_window_phase_samples": 6,
+      "active_window_handoff_offsets": [
+        0.001,
+        0.0001,
+        1e-05
+      ],
+      "active_window_transition_fraction": 0.5,
+      "coil_radial_filaments": 2,
+      "max_coil_axial_filaments": 4,
+      "axial_filament_spacing": 0.001,
+      "coil_coupling_heights_mm": [
+        0.05,
+        0.5,
+        1.0,
+        2.0,
+        3.0,
+        4.0,
+        5.0,
+        7.0,
+        10.0
+      ],
+      "pose_yaws_deg": [
+        0,
+        45,
+        90
+      ],
+      "pose_phase_fractions": [
+        0.0,
+        0.25,
+        0.5
+      ],
+      "pose_tilt_fractions": [
+        1.0,
+        0.5
+      ],
+      "maximum_rim_sine": 0.95,
+      "horizontal_force_directions": 8,
+      "neighbour_yaws_deg": [
+        0,
+        15,
+        30,
+        45,
+        60,
+        75,
+        90
+      ],
+      "neighbour_force_mesh": [
+        4,
+        4,
+        4
+      ],
+      "eddy_force_mesh": [
+        3,
+        3,
+        3
+      ],
+      "mode_counts": [
+        6,
+        8,
+        10,
+        12,
+        16,
+        20,
+        23
+      ],
+      "setpoint_snr_bits_coefficient": 6.02,
+      "setpoint_snr_offset": 13.0,
+      "setpoint_snr_oversampling_coefficient": 15.0,
+      "wire_price_per_kg": 18.74,
+      "piece_plastic_price": 1.4,
+      "host_price": 61.96,
+      "host_carrier_price": 25.0,
+      "report_scientific_lower_bound": 0.001,
+      "report_scientific_upper_bound": 1000000.0,
+      "report_precision": 4,
+      "report_label_width": 42,
+      "power_mosfet_solder_joints": 8,
+      "gate_driver_solder_joints": 20,
+      "shift_register_solder_joints": 16,
+      "setpoint_filter_solder_joints": 4,
+      "comparator_solder_joints": 8,
+      "passive_solder_joints": 2,
+      "hall_sensor_solder_joints": 3,
+      "hall_mux_solder_joints": 24,
+      "gate_switch_solder_joints": 3,
+      "coil_solder_joints": 2,
+      "gate_passives_per_half_bridge": 2,
+      "driver_half_bridges_per_coil": 1,
+      "coil_bus_voltage_fraction": 0.5,
+      "minimum_axial_filaments": 1,
+      "force_gradient_step": 1e-05,
+      "thermal_convergence_tolerance": 1e-08,
+      "thermal_max_iterations": 100,
+      "cad_geometry_tolerance": 0.001,
+      "cad_exploded_layer_spacing": 5,
+      "cad_preview_size": [
+        1600,
+        1000
+      ],
+      "cad_preview_margin": 1.2,
+      "cad_overlay_transparency": 85,
+      "cad_detailed_coil_cell": [
+        -3,
+        -3
+      ],
+      "cad_patch_cells_per_side": 9,
+      "cad_king_profile": [
+        [
+          0,
+          0.5
+        ],
+        [
+          0.06,
+          0.5
+        ],
+        [
+          0.09,
+          0.43
+        ],
+        [
+          0.13,
+          0.45
+        ],
+        [
+          0.17,
+          0.36
+        ],
+        [
+          0.24,
+          0.3
+        ],
+        [
+          0.58,
+          0.14
+        ],
+        [
+          0.64,
+          0.23
+        ],
+        [
+          0.68,
+          0.25
+        ],
+        [
+          0.74,
+          0.17
+        ],
+        [
+          0.82,
+          0.2
+        ],
+        [
+          0.85,
+          0.12
+        ]
+      ],
+      "cad_king_cross_width_fraction": 0.4,
+      "cad_king_cross_thickness_fraction": 0.12,
+      "cad_king_crossbar_height_fraction": 0.55,
+      "layout_screen_window_side": 45,
+      "layout_screen_phase_samples": 4,
+      "layout_screen_rotations_deg": [
+        0,
+        45
+      ],
+      "layout_refinement_phase_samples": 8,
+      "layout_refinement_yaws_deg": [
+        0,
+        22.5,
+        45,
+        67.5,
+        90
+      ],
+      "layout_plot_dpi": 160,
+      "layout_plot_size": [
+        1600,
+        700
+      ],
+      "prototype_wire_outer_diameter": 0.297,
+      "prototype_wire_resistance_per_m": [
+        0.3345,
+        0.3628
+      ],
+      "prototype_turn_spacing": 0.01,
+      "prototype_lead_length": 25,
+      "prototype_lead_separation": 1.2,
+      "winding_lead_bend_radius": 0.8,
+      "winding_layer_transition_bulge": 0.2,
+      "winding_terminal_pad_size": [
+        0.8,
+        0.4,
+        0.035
+      ],
+      "winding_path_sample_pitch": 0.05,
+      "winding_magnetic_segment_length": 0.25,
+      "winding_force_quadrature_order": 16,
+      "hall_conductor_refinement": 8,
+      "motion_time_step": 3.125e-05,
+      "motion_contact_time_constant": 0.0005,
+      "motion_contact_damping_ratio": 1,
+      "motion_contact_impedance": [
+        0.9,
+        0.95,
+        0.001,
+        0.5,
+        2
+      ],
+      "motion_solver_iterations": 100,
+      "motion_solver_tolerance": 1e-10,
+      "coupling_excitation_fraction": 0.5,
+      "coupling_flux_orders": [
+        8,
+        16,
+        32
+      ],
+      "coupling_refinements": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "coupling_relative_tolerance": 0.0001,
+      "adaptive_energy_relative_tolerance": 0.0001,
+      "coupling_order_bounds": [
+        0.75,
+        1.25
+      ],
+      "coupling_variable_duration": 0.01,
+      "coupling_reference_tolerance": 1e-10,
+      "motion_verification_tolerance": 1e-09,
+      "motion_check_duration": 0.01,
+      "motion_check_orientation_deg": [
+        3,
+        -2,
+        17
+      ],
+      "motion_magnetic_check_steps": 4,
+      "motion_contact_penetration_limit": 5e-05,
+      "motion_mesh_angular_tolerance": 0.1,
+      "motion_preview_background": [
+        0.92,
+        0.94,
+        0.97
+      ],
+      "motion_video_frame_rate": 30,
+      "motion_video_slowdown": 20,
+      "motion_video_font_size": 24,
+      "motion_video_side_azimuths": [
+        0,
+        90
+      ],
+      "motion_video_gap_distance_radii": 3,
+      "motion_video_surface_opacity": 0.35,
+      "hall_virtual_seed": 1729,
+      "hall_validation_noise_seeds": [
+        1731,
+        1732
+      ],
+      "hall_calibrated_offset_bound": 5e-05,
+      "hall_calibrated_gain_bound": 0.005,
+      "hall_pose_tilt_bound_deg": 10,
+      "hall_initial_yaws_deg": [
+        -180,
+        -135,
+        -90,
+        -45,
+        0,
+        45,
+        90,
+        135
+      ],
+      "hall_initial_xy_fractions": [
+        -0.5,
+        0,
+        0.5
+      ],
+      "hall_initial_fit_count": 8,
+      "hall_fit_max_evaluations": 200,
+      "hall_fit_tolerance": 1e-08,
+      "hall_fit_residual_limit": 5,
+      "hall_fit_ambiguity_margin": 1,
+      "hall_tracking_duration": 0.1,
+      "hall_tracking_velocity": [
+        0.02,
+        -0.01,
+        0,
+        0,
+        0,
+        0.5
+      ],
+      "hall_tracking_acquisition_duration": 0.025,
+      "hall_tracking_max_scan_gap": 0.003,
+      "hall_tracking_dropout_interval": [
+        0.04,
+        0.045
+      ],
+      "hall_field_batch_frames": 64,
+      "king_magnet_pocket_clearance": 0.1,
+      "king_magnet_bond_thickness": 0.1,
+      "king_bond_density": 0.0012,
+      "prototype_corner_segments": 4,
+      "prototype_handoff_taper": 5.0,
+      "prototype_path_samples": 33,
+      "prototype_path_angles_deg": [
+        0,
+        45,
+        90
+      ],
+      "prototype_path_offsets": [
+        0.0,
+        0.5
+      ],
+      "prototype_path_yaws_deg": [
+        0,
+        45,
+        90
+      ]
+    },
+    "Constants": {
+      "board_squares_per_side": 8,
+      "ndfeb_remanence_br": 1.36,
+      "ndfeb_br_tempco": -0.0011,
+      "ndfeb_density": 0.0075,
+      "plastic_density": 0.0012,
+      "copper_resistivity": 1.724e-08,
+      "copper_resistivity_tempco": 0.00393,
+      "aluminium_resistivity": 2.82e-08,
+      "copper_density": 8960,
+      "gravity": 9.80665,
+      "vacuum_permeability": 1.25663706e-06,
+      "fr4_density": 0.00185
+    }
+  },
+  "dependencies": {
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "mujoco": "3.15.0",
+    "magpylib": "5.2.3",
+    "build123d": "0.13.0"
+  },
+  "evidence": {
+    "curved_force": {
+      "path": "methodology/results/physics_verification/implementation_verification/curved_force/summary.json",
+      "sha256": "5239678e0394e085cb334f1e8400a4099bfefb687461c7f4b56cac67c6d5eb19"
+    },
+    "independent_coupling": {
+      "path": "methodology/results/physics_verification/implementation_verification/independent_coupling/summary.json",
+      "sha256": "9f702081a65f50e44e592131ff81c7973ea758367af66a631bbfe84216296a02"
+    },
+    "variable_coupling": {
+      "path": "methodology/results/physics_verification/implementation_verification/coupling/summary.json",
+      "sha256": "d9d55ea4f5d8ba665afd4e07bf7ec668011d0318d1006374480a15a575463b3b"
+    },
+    "combined_sensor_budget": {
+      "path": "methodology/results/physics_verification/combined_sensor_budget/summary.json",
+      "sha256": "7e440936a06141aa8212828b035f3daa1e563e7e0c053e8656e6bc7564baf0c4"
+    }
+  },
+  "regression": {
+    "modules": [
+      "methodology.tests.test_physics_verification.PhysicalMatrixTests",
+      "methodology.tests.test_adaptive_airborne",
+      "methodology.tests.test_airborne.AirborneCheckpointTests"
+    ],
+    "log": "regression.log",
+    "sha256": "1f0ae9ff312aa904cacedff1c3a443582af3714528f149c69b91e75037324de4",
+    "result": ".....................\n----------------------------------------------------------------------\nRan 21 tests in 935.571s\n\nOK"
+  },
+  "scope_and_guards": {
+    "geometry": "Current square-coil CAD and magnet-heavy approximate king mass properties; rigid permanent magnet and filament current assumptions.",
+    "magnetic_backend": "Direct analytical magnet fields with curved CAD force quadrature; no atlas enabled by this verification.",
+    "equivalent_upright_gap_m": [
+      0.0035,
+      0.0045
+    ],
+    "gap_and_contact_guard": "Shared motion.airborne_observation enforces inclusive COM-equivalent gap limits and separate tilted-bottom clearance/contact rejection.",
+    "currents_A": 5.5,
+    "electrical_guard": "Shared current limit; CoilDrivers enforces its supported averaged RL/clamp regime and rejects unsupported off-state induced conduction.",
+    "patch_guard": "MotionPlant rejects coils outside the CAD patch; local airborne advance rejects changed physical window identities.",
+    "time_and_error_guard": "Event-aligned adaptive local estimates, accumulated absolute work-defect allowance, minimum-step failure and source-safe checkpoint restoration.",
+    "benchmark_horizon_s": 0.01,
+    "sensing": "Causal Hall/current measurements, configured filter, scan, noise/calibration and quantization models. Reference comparisons include separate magnet and coil discrepancies without cancellation."
+  },
+  "retained_sensor_evidence_applicability": {
+    "source_snapshot": "methodology/results/physics_verification/variable_coupling_energy_budget/source_snapshot.zip",
+    "reviewed_source_changes": {
+      "methodology/motion.py": [
+        "airborne_observation"
+      ],
+      "methodology/airborne.py": [
+        "observe_physics"
+      ],
+      "methodology/physics_verification.py": [
+        "observe"
+      ]
+    },
+    "verification": "AST comparison confirms only observation guards changed since the saved coupling inputs. Sensor-reference calculation sources still match exactly. Final nominal-adaptive sampled position, yaw, current and times exactly reproduce the field-budget inputs; independent reference and CAD parameter roundoff remain recorded rather than replaced.",
+    "coupling_replay": [
+      {
+        "switched": false,
+        "fixed_step_s": 6.25e-06,
+        "tolerance_scale": 1,
+        "maximum_state_replay_difference": [
+          0.0,
+          5.204170427930421e-18,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "switched": false,
+        "fixed_step_s": 3.125e-06,
+        "tolerance_scale": 1,
+        "maximum_state_replay_difference": [
+          0.0,
+          3.0357660829594124e-18,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "switched": false,
+        "fixed_step_s": null,
+        "tolerance_scale": 1,
+        "maximum_state_replay_difference": [
+          0.0,
+          3.903127820947816e-18,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "switched": false,
+        "fixed_step_s": null,
+        "tolerance_scale": 0.5,
+        "maximum_state_replay_difference": [
+          0.0,
+          4.336808689942018e-18,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "switched": true,
+        "fixed_step_s": 6.25e-06,
+        "tolerance_scale": 1,
+        "maximum_state_replay_difference": [
+          0.0,
+          2.168404344971009e-18,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "switched": true,
+        "fixed_step_s": 3.125e-06,
+        "tolerance_scale": 1,
+        "maximum_state_replay_difference": [
+          0.0,
+          6.938893903907228e-18,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "switched": true,
+        "fixed_step_s": null,
+        "tolerance_scale": 1,
+        "maximum_state_replay_difference": [
+          0.0,
+          3.469446951953614e-18,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "switched": true,
+        "fixed_step_s": null,
+        "tolerance_scale": 0.5,
+        "maximum_state_replay_difference": [
+          1.734723475976807e-18,
+          8.673617379884035e-19,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  },
+  "exclusions": [
+    "No rigorous continuous-domain or arbitrary-duration global error certificate.",
+    "No controlled hover, disturbance recovery or full-flight pass is established by this record.",
+    "The combined field budget is demonstrated for the bounded manufactured powered/switched motions; it does not bound every future CAD-force trajectory.",
+    "No contact, takeoff/landing, whole-board interactions, mutual inductance, PWM, thermal feedback or unknown component-property validation.",
+    "Cached magnetics require new matching atlas evidence and allocation before use.",
+    "The lower gap bound equals nominal hover height; release there with zero current can immediately exit the supported domain. Discuss an interior release/reference before flight studies."
+  ],
+  "user_review_required_before_control_runs": true,
+  "source_snapshot": {
+    "path": "methodology/results/physics_verification/implementation_verification/source_snapshot.zip",
+    "sha256": "ff19727198ddcd81b9bfa062971d3b644bba7064c137f40c83c560996c98e5ad"
+  }
+}

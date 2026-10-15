@@ -1,0 +1,2710 @@
+{
+    "scope": "ADC precision comparison on fixed recorded analog fields and measured currents, with common recorded estimator priors",
+    "capture_sha256": "b79251ec7009c893f684a400b3b54da7f0f9d4b6c6e2156eb11154e9171321c4",
+    "recordings_summary_sha256": "0b77f31a63d32fdd37ee080df8143386f425d9106b885e77fd6a0949ffa89acd",
+    "recorded_source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "3274521eb3162a019951348440a3270512f3e37405489404aa7c469a07b7da3e",
+        "levitation_sim.py": "68903a2bac1a41ff01592cc2fbc97f235aacfb546ca72bea740aaf4ec22e744b",
+        "methodology/design.py": "3734c9577def9d325aaa813a96a8fcd0ef21c067a864c69e5d60ef1a20cd2568",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+        "methodology/motion.py": "f2fed6e79411025341767203f22136ee219fc10f7f252b5241671919ad65cc49",
+        "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+        "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+        "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+        "methodology/airborne.py": "dbdcd50823d328872e8a94fdca98734117faa4fe89ef0899e570db3225965fcd",
+        "methodology/electrical.py": "e6670b479f4d8e24e8de53876b7839273dda1243a014d8bb2d81f57801038d2d",
+        "methodology/sensing.py": "ca77b63cd177552b3bdf4887385e6ba4a8874b1125d5058103c30f33c87c0d0e",
+        "methodology/qualification.py": "97efa1056a8b49937ee7158d3d5cc81fbdd34b822901a26ea8af32833cab2b04",
+        "methodology/airborne_diagnostics.py": "8ec90bd428f3b7b77b99bf71c2672488eeb883e1bab9eb4c0be10dea4b8eb440"
+    },
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "5e9e1ff54760fc797863660f299f6cbeefdd604bce7b8127f37052361f0ad9d9",
+        "levitation_sim.py": "68903a2bac1a41ff01592cc2fbc97f235aacfb546ca72bea740aaf4ec22e744b",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+        "methodology/motion.py": "f2fed6e79411025341767203f22136ee219fc10f7f252b5241671919ad65cc49",
+        "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+        "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+        "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+        "methodology/airborne.py": "07ee117463b27c2482e7c67eb080f3f544763dc84bcefce2b3d7a2c7a038928b",
+        "methodology/electrical.py": "e6670b479f4d8e24e8de53876b7839273dda1243a014d8bb2d81f57801038d2d",
+        "methodology/sensing.py": "bbdf7633e434ef39115be4c8ab42688646403b4b171ed3583d054f232c166027",
+        "methodology/qualification.py": "97efa1056a8b49937ee7158d3d5cc81fbdd34b822901a26ea8af32833cab2b04",
+        "methodology/airborne_diagnostics.py": "0db6f0c46d5adb6034165bbdc100574fcc1e20c923f9c4e98ad5c8bdb5c09a53"
+    },
+    "exact_reference_pose_and_ADC_replay": true,
+    "identical_noise_and_scan_timing": true,
+    "samples_per_sensor": 16,
+    "sensor_mean_noise_rms_T": 1.1329775710861465e-05,
+    "candidates": [
+        {
+            "native_bits": 12,
+            "all_fits_accepted": true,
+            "maximum_position_error_m": 4.613788800247305e-05,
+            "maximum_angle_error_rad": 0.003144355701080423,
+            "differential_rounding_rms_T": 1.7828216102783193e-05,
+            "differential_rounding_peak_T": 5.6364260735120687e-05,
+            "trace": [
+                {
+                    "start_time_s": 0.0,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    2.142976313826355e-05,
+                                    4.315377127624204e-05,
+                                    1.1644958565336717e-05,
+                                    0.00031091229970240086,
+                                    0.0023933406816747725,
+                                    -0.0011881389517453401
+                                ],
+                                "best_candidate": [
+                                    2.142976313826355e-05,
+                                    4.315377127624204e-05,
+                                    1.1644958565336717e-05,
+                                    0.00031091229970240086,
+                                    0.0023933406816747725,
+                                    -0.0011881389517453401
+                                ],
+                                "normalized_residual_rms": 0.4070617960460971,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.41059370042956,
+                                    "position_noise_gain": 0.43551654003511153,
+                                    "tilt_noise_gain": 22.266298537019463
+                                },
+                                "sample_midpoint_s": 0.00035499999999999996,
+                                "available_time_s": 0.0016120000000000002,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 2.2906007355765476e-05,
+                            "angle_error_rad": 0.0025709896642320735
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    2.142976313826355e-05,
+                                    4.315377127624204e-05,
+                                    1.1644958565336717e-05,
+                                    0.00031091229970240086,
+                                    0.0023933406816747725,
+                                    -0.0011881389517453401
+                                ],
+                                "best_candidate": [
+                                    2.142976313826355e-05,
+                                    4.315377127624204e-05,
+                                    1.1644958565336717e-05,
+                                    0.00031091229970240086,
+                                    0.0023933406816747725,
+                                    -0.0011881389517453401
+                                ],
+                                "normalized_residual_rms": 0.4070617960460971,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.41059370042956,
+                                    "position_noise_gain": 0.43551654003511153,
+                                    "tilt_noise_gain": 22.266298537019463
+                                },
+                                "sample_midpoint_s": 0.00035499999999999996,
+                                "available_time_s": 0.0016120000000000002,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 2.2906007355765476e-05,
+                            "angle_error_rad": 0.0025709896642320735
+                        }
+                    },
+                    "differential_rounding_T": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        -5.421010862427522e-20,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                {
+                    "start_time_s": 0.001,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -1.925179378803494e-06,
+                                    5.3187248483387353e-05,
+                                    1.0960074186371735e-05,
+                                    -0.0003366735417682406,
+                                    0.0013422663315478132,
+                                    -0.0008257276287784413
+                                ],
+                                "best_candidate": [
+                                    -1.925179378803494e-06,
+                                    5.3187248483387353e-05,
+                                    1.0960074186371735e-05,
+                                    -0.0003366735417682406,
+                                    0.0013422663315478132,
+                                    -0.0008257276287784413
+                                ],
+                                "normalized_residual_rms": 0.43952045619159835,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.2198439137316,
+                                    "position_noise_gain": 0.4353766736459423,
+                                    "tilt_noise_gain": 22.270696736806116
+                                },
+                                "sample_midpoint_s": 0.0013549999999999999,
+                                "available_time_s": 0.002612,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 4.032877457844379e-05,
+                            "angle_error_rad": 0.001962668107015649
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -1.939785209048842e-06,
+                                    5.318750187428365e-05,
+                                    1.0963090156504368e-05,
+                                    -0.0003366929721649099,
+                                    0.001341294629167757,
+                                    -0.0008255851485676066
+                                ],
+                                "best_candidate": [
+                                    -1.939785209048842e-06,
+                                    5.318750187428365e-05,
+                                    1.0963090156504368e-05,
+                                    -0.0003366929721649099,
+                                    0.001341294629167757,
+                                    -0.0008255851485676066
+                                ],
+                                "normalized_residual_rms": 0.43936554775607606,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.21954708535793,
+                                    "position_noise_gain": 0.4353770702602555,
+                                    "tilt_noise_gain": 22.2707121661406
+                                },
+                                "sample_midpoint_s": 0.0013549999999999999,
+                                "available_time_s": 0.002612,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 4.033735445032572e-05,
+                            "angle_error_rad": 0.0019622565620684737
+                        }
+                    },
+                    "differential_rounding_T": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        5.421010862427522e-20,
+                        1.0842021724855044e-19,
+                        -7.047314121155779e-19,
+                        0.0,
+                        0.0,
+                        0.0,
+                        2.168404344971009e-19,
+                        6.201636426617085e-17,
+                        0.0,
+                        0.0,
+                        -1.7816152199368052e-16,
+                        0.0,
+                        0.0
+                    ]
+                },
+                {
+                    "start_time_s": 0.002,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    1.166365988828809e-06,
+                                    3.9127853846920746e-05,
+                                    5.363588323917958e-06,
+                                    0.00047324201335845114,
+                                    0.0013096566154856143,
+                                    -0.0006000178810087154
+                                ],
+                                "best_candidate": [
+                                    1.166365988828809e-06,
+                                    3.9127853846920746e-05,
+                                    5.363588323917958e-06,
+                                    0.00047324201335845114,
+                                    0.0013096566154856143,
+                                    -0.0006000178810087154
+                                ],
+                                "normalized_residual_rms": 0.41222836015269504,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.3430606180345,
+                                    "position_noise_gain": 0.43492280556305535,
+                                    "tilt_noise_gain": 22.23995868678652
+                                },
+                                "sample_midpoint_s": 0.002355,
+                                "available_time_s": 0.0036119999999999998,
+                                "age_at_delivery_s": 0.0012569999999999999
+                            },
+                            "position_error_m": 3.032980527312402e-05,
+                            "angle_error_rad": 0.0014462257712573219
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    6.649753217480506e-06,
+                                    3.60119869985576e-05,
+                                    5.089437295871859e-06,
+                                    0.0005111688229349807,
+                                    0.0016737084097601552,
+                                    -0.0005385395146209602
+                                ],
+                                "best_candidate": [
+                                    6.649753217480506e-06,
+                                    3.60119869985576e-05,
+                                    5.089437295871859e-06,
+                                    0.0005111688229349807,
+                                    0.0016737084097601552,
+                                    -0.0005385395146209602
+                                ],
+                                "normalized_residual_rms": 0.43797546432531137,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.4099699275924,
+                                    "position_noise_gain": 0.43506771742084566,
+                                    "tilt_noise_gain": 22.24616329889931
+                                },
+                                "sample_midpoint_s": 0.002355,
+                                "available_time_s": 0.0036119999999999998,
+                                "age_at_delivery_s": 0.0012569999999999999
+                            },
+                            "position_error_m": 2.4951853693471622e-05,
+                            "angle_error_rad": 0.0015821498715365286
+                        }
+                    },
+                    "differential_rounding_T": [
+                        -5.142156132558753e-06,
+                        -1.4163164255763484e-06,
+                        -2.4145710861352055e-05,
+                        5.971893148234151e-07,
+                        -1.091331240718753e-06,
+                        2.5831941215557083e-05,
+                        -3.3279220964116136e-06,
+                        2.0025275146709682e-05,
+                        -3.739845763579342e-07,
+                        2.224886680680686e-05,
+                        1.701066299872027e-05,
+                        -9.859892864126684e-06,
+                        3.169519657741254e-06,
+                        -1.9250519188414246e-06,
+                        -4.282696623938856e-06,
+                        3.412054243454369e-06
+                    ]
+                },
+                {
+                    "start_time_s": 0.003,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    3.7187516593761563e-06,
+                                    3.803781391092824e-05,
+                                    6.066568476855917e-06,
+                                    0.00021044593553755345,
+                                    0.0011836392127604631,
+                                    -9.161963198966224e-05
+                                ],
+                                "best_candidate": [
+                                    3.7187516593761563e-06,
+                                    3.803781391092824e-05,
+                                    6.066568476855917e-06,
+                                    0.00021044593553755345,
+                                    0.0011836392127604631,
+                                    -9.161963198966224e-05
+                                ],
+                                "normalized_residual_rms": 0.47348042710896754,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.3802358708768,
+                                    "position_noise_gain": 0.4355504449247758,
+                                    "tilt_noise_gain": 22.256820979332975
+                                },
+                                "sample_midpoint_s": 0.003355,
+                                "available_time_s": 0.004612,
+                                "age_at_delivery_s": 0.0012569999999999999
+                            },
+                            "position_error_m": 2.7285121219370205e-05,
+                            "angle_error_rad": 0.0010706007551935454
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    3.5379211872708857e-06,
+                                    3.885334513886632e-05,
+                                    4.638325905773748e-06,
+                                    9.148885886492853e-05,
+                                    0.0013176575168552715,
+                                    0.00019282972978934814
+                                ],
+                                "best_candidate": [
+                                    3.5379211872708857e-06,
+                                    3.885334513886632e-05,
+                                    4.638325905773748e-06,
+                                    9.148885886492853e-05,
+                                    0.0013176575168552715,
+                                    0.00019282972978934814
+                                ],
+                                "normalized_residual_rms": 0.44695923846499597,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.4507325352244,
+                                    "position_noise_gain": 0.4354410051172901,
+                                    "tilt_noise_gain": 22.25435275610481
+                                },
+                                "sample_midpoint_s": 0.003355,
+                                "available_time_s": 0.004612,
+                                "age_at_delivery_s": 0.0012569999999999999
+                            },
+                            "position_error_m": 2.8457845266988407e-05,
+                            "angle_error_rad": 0.0010327045358040987
+                        }
+                    },
+                    "differential_rounding_T": [
+                        1.0589644595167692e-07,
+                        -1.0395991406682726e-06,
+                        -1.0991450265078113e-05,
+                        5.964229059515292e-07,
+                        -1.3342474048710407e-05,
+                        2.4454519105646957e-05,
+                        2.2001490198293857e-05,
+                        -1.3848265244800415e-05,
+                        5.404940289709353e-08,
+                        4.869749934985432e-07,
+                        1.5631243373289468e-05,
+                        -3.878895530899564e-07,
+                        -1.5079213372027223e-06,
+                        2.418966742326348e-07,
+                        -4.768038062885106e-06,
+                        -1.172680928753075e-06
+                    ]
+                },
+                {
+                    "start_time_s": 0.004,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    3.197778893119747e-05,
+                                    3.067614080625343e-05,
+                                    1.0079971673744727e-05,
+                                    0.0008267219877744076,
+                                    0.002609966864445917,
+                                    -0.001245526232344108
+                                ],
+                                "best_candidate": [
+                                    3.197778893119747e-05,
+                                    3.067614080625343e-05,
+                                    1.0079971673744727e-05,
+                                    0.0008267219877744076,
+                                    0.002609966864445917,
+                                    -0.001245526232344108
+                                ],
+                                "normalized_residual_rms": 0.5708043881556227,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.5063306257906,
+                                    "position_noise_gain": 0.4357999977915206,
+                                    "tilt_noise_gain": 22.26462881627316
+                                },
+                                "sample_midpoint_s": 0.004355,
+                                "available_time_s": 0.005612000000000001,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 1.4253816944006388e-05,
+                            "angle_error_rad": 0.002904657546787346
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    2.558281998697702e-05,
+                                    2.474875187714073e-05,
+                                    2.761752956065599e-06,
+                                    0.001106993984200784,
+                                    0.0022105804565864724,
+                                    -0.001847324536672008
+                                ],
+                                "best_candidate": [
+                                    2.558281998697702e-05,
+                                    2.474875187714073e-05,
+                                    2.761752956065599e-06,
+                                    0.001106993984200784,
+                                    0.0022105804565864724,
+                                    -0.001847324536672008
+                                ],
+                                "normalized_residual_rms": 0.6359923256743798,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.56707295950264,
+                                    "position_noise_gain": 0.4350342671019918,
+                                    "tilt_noise_gain": 22.232638309888642
+                                },
+                                "sample_midpoint_s": 0.004355,
+                                "available_time_s": 0.005612000000000001,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 1.3605818031413691e-05,
+                            "angle_error_rad": 0.003144355701080423
+                        }
+                    },
+                    "differential_rounding_T": [
+                        -9.812415806828514e-06,
+                        -7.035537373930418e-06,
+                        1.7261934061489392e-05,
+                        8.789162846653602e-06,
+                        -4.39135407131203e-06,
+                        -5.2711523920301664e-05,
+                        -1.4221923585315836e-06,
+                        -3.0341305998903272e-05,
+                        3.710876210096422e-07,
+                        4.7770203023245715e-06,
+                        3.208148496253952e-05,
+                        -1.6443856363103515e-05,
+                        -2.2949710367562035e-05,
+                        1.9005562249374065e-05,
+                        -2.014280266017648e-05,
+                        1.8925300599412704e-06
+                    ]
+                },
+                {
+                    "start_time_s": 0.005,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    7.347689209101994e-06,
+                                    3.1505943990042355e-05,
+                                    4.4756242458601405e-06,
+                                    0.0006350996011603241,
+                                    0.0013126277392973757,
+                                    7.747646358559671e-05
+                                ],
+                                "best_candidate": [
+                                    7.347689209101994e-06,
+                                    3.1505943990042355e-05,
+                                    4.4756242458601405e-06,
+                                    0.0006350996011603241,
+                                    0.0013126277392973757,
+                                    7.747646358559671e-05
+                                ],
+                                "normalized_residual_rms": 0.5731519254141584,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.42445938879195,
+                                    "position_noise_gain": 0.43539077792323005,
+                                    "tilt_noise_gain": 22.244946617462304
+                                },
+                                "sample_midpoint_s": 0.005355,
+                                "available_time_s": 0.006612000000000001,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 2.2907890440119814e-05,
+                            "angle_error_rad": 0.0012265267726538714
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    2.4794020727586683e-05,
+                                    2.7308241345797212e-05,
+                                    6.015946953904351e-06,
+                                    0.0010536395800824325,
+                                    0.002018590904820025,
+                                    0.0002122391789419722
+                                ],
+                                "best_candidate": [
+                                    2.4794020727586683e-05,
+                                    2.7308241345797212e-05,
+                                    6.015946953904351e-06,
+                                    0.0010536395800824325,
+                                    0.002018590904820025,
+                                    0.0002122391789419722
+                                ],
+                                "normalized_residual_rms": 0.5942196549137295,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.59024427467034,
+                                    "position_noise_gain": 0.4355151198110166,
+                                    "tilt_noise_gain": 22.23820133324794
+                                },
+                                "sample_midpoint_s": 0.005355,
+                                "available_time_s": 0.006612000000000001,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 1.2300586552113413e-05,
+                            "angle_error_rad": 0.0018221855051499182
+                        }
+                    },
+                    "differential_rounding_T": [
+                        2.3617342260462133e-06,
+                        3.9579836224880446e-05,
+                        -5.6364260735120687e-05,
+                        2.6950086031588894e-06,
+                        3.232332091148717e-05,
+                        -3.260709002102707e-05,
+                        7.979213087251809e-06,
+                        3.41916986520091e-05,
+                        2.0623018628251498e-06,
+                        1.8367874869511805e-05,
+                        1.132531304123889e-05,
+                        -8.893352292237784e-06,
+                        -1.319619280723696e-05,
+                        -1.46856590333463e-07,
+                        5.090396860366068e-05,
+                        6.406650063668852e-06
+                    ]
+                },
+                {
+                    "start_time_s": 0.006,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    4.82509947051588e-06,
+                                    2.5410505450352924e-05,
+                                    1.2745189808562998e-06,
+                                    0.0007418035171239531,
+                                    0.0011373667363396153,
+                                    -0.00014256828463153254
+                                ],
+                                "best_candidate": [
+                                    4.82509947051588e-06,
+                                    2.5410505450352924e-05,
+                                    1.2745189808562998e-06,
+                                    0.0007418035171239531,
+                                    0.0011373667363396153,
+                                    -0.00014256828463153254
+                                ],
+                                "normalized_residual_rms": 0.5133459260856645,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.42885672196286,
+                                    "position_noise_gain": 0.43534413563862784,
+                                    "tilt_noise_gain": 22.242603094092782
+                                },
+                                "sample_midpoint_s": 0.0063549999999999995,
+                                "available_time_s": 0.007612000000000001,
+                                "age_at_delivery_s": 0.0012570000000000012
+                            },
+                            "position_error_m": 2.491692178912239e-05,
+                            "angle_error_rad": 0.001481017144798896
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -1.302614878612873e-06,
+                                    2.1320012126372205e-05,
+                                    3.76083697843445e-08,
+                                    0.001250814909811948,
+                                    0.0010511938908158108,
+                                    -0.00011566424013977491
+                                ],
+                                "best_candidate": [
+                                    -1.302614878612873e-06,
+                                    2.1320012126372205e-05,
+                                    3.76083697843445e-08,
+                                    0.001250814909811948,
+                                    0.0010511938908158108,
+                                    -0.00011566424013977491
+                                ],
+                                "normalized_residual_rms": 0.536095487146305,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.34807869205645,
+                                    "position_noise_gain": 0.43479036821108086,
+                                    "tilt_noise_gain": 22.22532200647609
+                                },
+                                "sample_midpoint_s": 0.0063549999999999995,
+                                "available_time_s": 0.007612000000000001,
+                                "age_at_delivery_s": 0.0012570000000000012
+                            },
+                            "position_error_m": 2.9366796454664325e-05,
+                            "angle_error_rad": 0.0015295024139105608
+                        }
+                    },
+                    "differential_rounding_T": [
+                        -6.270794983369505e-06,
+                        1.1689086627175542e-05,
+                        -1.061243431876296e-05,
+                        -1.227130728309058e-06,
+                        4.2185619861405616e-05,
+                        -3.689321232233574e-05,
+                        4.0895929583260405e-05,
+                        4.865125201562654e-06,
+                        -1.3764492033762718e-05,
+                        1.4959492121289666e-05,
+                        2.071237144182195e-06,
+                        3.181784642743617e-05,
+                        3.689190667280763e-06,
+                        -2.164292781632222e-05,
+                        -3.736256837619233e-05,
+                        7.640954152527226e-06
+                    ]
+                },
+                {
+                    "start_time_s": 0.007,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    2.1944263620840627e-05,
+                                    3.636168269506548e-05,
+                                    8.858382302684188e-06,
+                                    0.0002348602780819845,
+                                    0.0015539448034550196,
+                                    -0.0007236162311886398
+                                ],
+                                "best_candidate": [
+                                    2.1944263620840627e-05,
+                                    3.636168269506548e-05,
+                                    8.858382302684188e-06,
+                                    0.0002348602780819845,
+                                    0.0015539448034550196,
+                                    -0.0007236162311886398
+                                ],
+                                "normalized_residual_rms": 0.45509596831537613,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.47336854742946,
+                                    "position_noise_gain": 0.436176538131552,
+                                    "tilt_noise_gain": 22.267197499808205
+                                },
+                                "sample_midpoint_s": 0.007355,
+                                "available_time_s": 0.008612000000000002,
+                                "age_at_delivery_s": 0.0012570000000000012
+                            },
+                            "position_error_m": 2.2710718998319166e-05,
+                            "angle_error_rad": 0.0024889352381440933
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    2.1183608209539896e-07,
+                                    3.478728249903616e-05,
+                                    8.706293833586193e-06,
+                                    0.0004897297109783127,
+                                    0.0003947719175233946,
+                                    -0.00033992564069095383
+                                ],
+                                "best_candidate": [
+                                    2.1183608209539896e-07,
+                                    3.478728249903616e-05,
+                                    8.706293833586193e-06,
+                                    0.0004897297109783127,
+                                    0.0003947719175233946,
+                                    -0.00033992564069095383
+                                ],
+                                "normalized_residual_rms": 0.5839871151023197,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.17796240727466,
+                                    "position_noise_gain": 0.4359517754227256,
+                                    "tilt_noise_gain": 22.26017069088087
+                                },
+                                "sample_midpoint_s": 0.007355,
+                                "available_time_s": 0.008612000000000002,
+                                "age_at_delivery_s": 0.0012570000000000012
+                            },
+                            "position_error_m": 3.1646887032170773e-05,
+                            "angle_error_rad": 0.0015753301712873704
+                        }
+                    },
+                    "differential_rounding_T": [
+                        -1.0549929961512958e-06,
+                        1.2263460469855538e-05,
+                        2.8546799354136872e-05,
+                        5.1993116579317606e-06,
+                        1.5002200497308226e-05,
+                        -4.065892951341161e-05,
+                        3.209807868825436e-05,
+                        -1.4145308686588681e-05,
+                        1.1901483509885082e-05,
+                        2.908746851588268e-05,
+                        -5.9154153137416766e-06,
+                        4.7465933712985056e-05,
+                        2.3085841469490224e-05,
+                        9.421061071803447e-06,
+                        -2.7665699119984113e-05,
+                        2.6510085700737694e-05
+                    ]
+                },
+                {
+                    "start_time_s": 0.008,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -1.3744753103726319e-05,
+                                    3.476918652729657e-05,
+                                    3.013631300994823e-06,
+                                    0.00024388586290436493,
+                                    -0.00039700628362670176,
+                                    0.00030192530953140944
+                                ],
+                                "best_candidate": [
+                                    -1.3744753103726319e-05,
+                                    3.476918652729657e-05,
+                                    3.013631300994823e-06,
+                                    0.00024388586290436493,
+                                    -0.00039700628362670176,
+                                    0.00030192530953140944
+                                ],
+                                "normalized_residual_rms": 0.629516903481614,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.2069874207282,
+                                    "position_noise_gain": 0.43565258878079693,
+                                    "tilt_noise_gain": 22.244807861421794
+                                },
+                                "sample_midpoint_s": 0.008355,
+                                "available_time_s": 0.009611999999999999,
+                                "age_at_delivery_s": 0.0012569999999999994
+                            },
+                            "position_error_m": 4.613788800247305e-05,
+                            "angle_error_rad": 0.001155008596040299
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -4.0582010240842746e-06,
+                                    3.551798242229705e-05,
+                                    7.024565042037434e-06,
+                                    4.1516781552975746e-05,
+                                    -4.012350405654162e-06,
+                                    0.0006475315403220659
+                                ],
+                                "best_candidate": [
+                                    -4.0582010240842746e-06,
+                                    3.551798242229705e-05,
+                                    7.024565042037434e-06,
+                                    4.1516781552975746e-05,
+                                    -4.012350405654162e-06,
+                                    0.0006475315403220659
+                                ],
+                                "normalized_residual_rms": 0.6495697474031308,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.2402055486804,
+                                    "position_noise_gain": 0.43639555851274386,
+                                    "tilt_noise_gain": 22.270323323053063
+                                },
+                                "sample_midpoint_s": 0.008355,
+                                "available_time_s": 0.009611999999999999,
+                                "age_at_delivery_s": 0.0012569999999999994
+                            },
+                            "position_error_m": 3.719333223517002e-05,
+                            "angle_error_rad": 0.0009719917452736597
+                        }
+                    },
+                    "differential_rounding_T": [
+                        1.5016826078016833e-06,
+                        1.547178364781022e-05,
+                        -2.8048278723376546e-06,
+                        7.357722820883813e-06,
+                        -2.2763547102829863e-05,
+                        3.2987155189062584e-05,
+                        -4.154593143368533e-05,
+                        5.583386088715771e-07,
+                        -2.0792930068716914e-05,
+                        -1.7854205239264693e-06,
+                        -2.37943319354302e-06,
+                        -5.356136424499445e-06,
+                        3.156661836516962e-06,
+                        -5.363742227229801e-06,
+                        -2.9781749111458694e-05,
+                        -1.0382409095378419e-07
+                    ]
+                }
+            ]
+        },
+        {
+            "native_bits": 14,
+            "all_fits_accepted": true,
+            "maximum_position_error_m": 4.3611058991089384e-05,
+            "maximum_angle_error_rad": 0.002303591967236816,
+            "differential_rounding_rms_T": 1.8977428666944469e-06,
+            "differential_rounding_peak_T": 6.760657994328514e-06,
+            "trace": [
+                {
+                    "start_time_s": 0.0,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    4.971822265649474e-06,
+                                    3.202026556969126e-05,
+                                    1.2707743783750223e-05,
+                                    0.0008130779597449992,
+                                    0.0016727126617408705,
+                                    -0.0005996442309672241
+                                ],
+                                "best_candidate": [
+                                    4.971822265649474e-06,
+                                    3.202026556969126e-05,
+                                    1.2707743783750223e-05,
+                                    0.0008130779597449992,
+                                    0.0016727126617408705,
+                                    -0.0005996442309672241
+                                ],
+                                "normalized_residual_rms": 0.5085739221034727,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.0861712493743,
+                                    "position_noise_gain": 0.4358091318127159,
+                                    "tilt_noise_gain": 22.28277085517481
+                                },
+                                "sample_midpoint_s": 0.00035499999999999996,
+                                "available_time_s": 0.0016120000000000002,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 2.2486491616902028e-05,
+                            "angle_error_rad": 0.0016309902355549665
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    4.971822265649474e-06,
+                                    3.202026556969126e-05,
+                                    1.2707743783750223e-05,
+                                    0.0008130779597449992,
+                                    0.0016727126617408705,
+                                    -0.0005996442309672241
+                                ],
+                                "best_candidate": [
+                                    4.971822265649474e-06,
+                                    3.202026556969126e-05,
+                                    1.2707743783750223e-05,
+                                    0.0008130779597449992,
+                                    0.0016727126617408705,
+                                    -0.0005996442309672241
+                                ],
+                                "normalized_residual_rms": 0.5085739221034727,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.0861712493743,
+                                    "position_noise_gain": 0.4358091318127159,
+                                    "tilt_noise_gain": 22.28277085517481
+                                },
+                                "sample_midpoint_s": 0.00035499999999999996,
+                                "available_time_s": 0.0016120000000000002,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 2.2486491616902028e-05,
+                            "angle_error_rad": 0.0016309902355549665
+                        }
+                    },
+                    "differential_rounding_T": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        -5.421010862427522e-20,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                {
+                    "start_time_s": 0.001,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -7.725512811035335e-06,
+                                    4.503888267435318e-05,
+                                    9.405979667268934e-06,
+                                    -1.2539224585454012e-05,
+                                    0.0010333365262850936,
+                                    0.00022600897694050357
+                                ],
+                                "best_candidate": [
+                                    -7.725512811035335e-06,
+                                    4.503888267435318e-05,
+                                    9.405979667268934e-06,
+                                    -1.2539224585454012e-05,
+                                    0.0010333365262850936,
+                                    0.00022600897694050357
+                                ],
+                                "normalized_residual_rms": 0.5477441677924959,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.18817435944226,
+                                    "position_noise_gain": 0.43549890481230796,
+                                    "tilt_noise_gain": 22.26984925539158
+                                },
+                                "sample_midpoint_s": 0.0013549999999999999,
+                                "available_time_s": 0.002612,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 3.945812606370471e-05,
+                            "angle_error_rad": 0.0009279463962041001
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -7.738633877023442e-06,
+                                    4.503137008679662e-05,
+                                    9.410081499633495e-06,
+                                    -1.2238104459874407e-05,
+                                    0.0010324844129295874,
+                                    0.00022615131302087773
+                                ],
+                                "best_candidate": [
+                                    -7.738633877023442e-06,
+                                    4.503137008679662e-05,
+                                    9.410081499633495e-06,
+                                    -1.2238104459874407e-05,
+                                    0.0010324844129295874,
+                                    0.00022615131302087773
+                                ],
+                                "normalized_residual_rms": 0.5475442125479778,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.1878008240993,
+                                    "position_noise_gain": 0.4354996030421016,
+                                    "tilt_noise_gain": 22.269877770524413
+                                },
+                                "sample_midpoint_s": 0.0013549999999999999,
+                                "available_time_s": 0.002612,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 3.9463075384107497e-05,
+                            "angle_error_rad": 0.0009273444446045709
+                        }
+                    },
+                    "differential_rounding_T": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        5.421010862427522e-20,
+                        1.0842021724855044e-19,
+                        -7.047314121155779e-19,
+                        0.0,
+                        0.0,
+                        0.0,
+                        2.168404344971009e-19,
+                        6.201636426617085e-17,
+                        0.0,
+                        0.0,
+                        -1.7816152199368052e-16,
+                        0.0,
+                        0.0
+                    ]
+                },
+                {
+                    "start_time_s": 0.002,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -3.636573640716236e-06,
+                                    2.7382124036907772e-05,
+                                    5.119094399329309e-06,
+                                    0.001126323920253206,
+                                    0.0011978823789893693,
+                                    -0.0006598324011881396
+                                ],
+                                "best_candidate": [
+                                    -3.636573640716236e-06,
+                                    2.7382124036907772e-05,
+                                    5.119094399329309e-06,
+                                    0.001126323920253206,
+                                    0.0011978823789893693,
+                                    -0.0006598324011881396
+                                ],
+                                "normalized_residual_rms": 0.49389948921993726,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.18326720021156,
+                                    "position_noise_gain": 0.4349092229276391,
+                                    "tilt_noise_gain": 22.24314254943718
+                                },
+                                "sample_midpoint_s": 0.002355,
+                                "available_time_s": 0.0036119999999999998,
+                                "age_at_delivery_s": 0.0012569999999999999
+                            },
+                            "position_error_m": 3.0256624237269006e-05,
+                            "angle_error_rad": 0.0015066486975711165
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -3.576923211138994e-06,
+                                    2.68273090373697e-05,
+                                    5.1414092053450175e-06,
+                                    0.0011397487365884312,
+                                    0.0012029408915487227,
+                                    -0.0006819773217744806
+                                ],
+                                "best_candidate": [
+                                    -3.576923211138994e-06,
+                                    2.68273090373697e-05,
+                                    5.1414092053450175e-06,
+                                    0.0011397487365884312,
+                                    0.0012029408915487227,
+                                    -0.0006819773217744806
+                                ],
+                                "normalized_residual_rms": 0.5081713574714698,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.17780416806386,
+                                    "position_noise_gain": 0.4349341120240937,
+                                    "tilt_noise_gain": 22.244342786793883
+                                },
+                                "sample_midpoint_s": 0.002355,
+                                "available_time_s": 0.0036119999999999998,
+                                "age_at_delivery_s": 0.0012569999999999999
+                            },
+                            "position_error_m": 3.0112923087150458e-05,
+                            "angle_error_rad": 0.0015321375890669704
+                        }
+                    },
+                    "differential_rounding_T": [
+                        -5.645194138087528e-07,
+                        1.0956248067365169e-07,
+                        -1.257527267602055e-06,
+                        5.971893148234151e-07,
+                        -1.091331240718753e-06,
+                        1.4178787155570813e-06,
+                        -1.8020431901616135e-06,
+                        1.8884936545968142e-07,
+                        -3.739845763579342e-07,
+                        2.4124410255568573e-06,
+                        2.2599502997027593e-07,
+                        8.212594796233173e-07,
+                        1.1776184524125397e-07,
+                        -3.9917301259142325e-07,
+                        -1.230938811438856e-06,
+                        1.8861753372043692e-06
+                    ]
+                },
+                {
+                    "start_time_s": 0.003,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -1.9046347696723798e-06,
+                                    3.5922012631636194e-05,
+                                    6.7448308756928235e-06,
+                                    0.0003644048816823657,
+                                    0.0010076732870653324,
+                                    0.00035405001740738804
+                                ],
+                                "best_candidate": [
+                                    -1.9046347696723798e-06,
+                                    3.5922012631636194e-05,
+                                    6.7448308756928235e-06,
+                                    0.0003644048816823657,
+                                    0.0010076732870653324,
+                                    0.00035405001740738804
+                                ],
+                                "normalized_residual_rms": 0.572946200031826,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.2875294647431,
+                                    "position_noise_gain": 0.43557656512259013,
+                                    "tilt_noise_gain": 22.25994250454896
+                                },
+                                "sample_midpoint_s": 0.003355,
+                                "available_time_s": 0.004612,
+                                "age_at_delivery_s": 0.0012569999999999999
+                            },
+                            "position_error_m": 3.0311549807756717e-05,
+                            "angle_error_rad": 0.0005970320544764248
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -1.2926298395539132e-06,
+                                    3.474755580834869e-05,
+                                    6.608870716634062e-06,
+                                    0.00042899836050049224,
+                                    0.0010442343113912396,
+                                    0.00041891463597682686
+                                ],
+                                "best_candidate": [
+                                    -1.2926298395539132e-06,
+                                    3.474755580834869e-05,
+                                    6.608870716634062e-06,
+                                    0.00042899836050049224,
+                                    0.0010442343113912396,
+                                    0.00041891463597682686
+                                ],
+                                "normalized_residual_rms": 0.5646158252538912,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.29467260577593,
+                                    "position_noise_gain": 0.4355765582645232,
+                                    "tilt_noise_gain": 22.25930047542563
+                                },
+                                "sample_midpoint_s": 0.003355,
+                                "available_time_s": 0.004612,
+                                "age_at_delivery_s": 0.0012569999999999999
+                            },
+                            "position_error_m": 2.9315558122377907e-05,
+                            "angle_error_rad": 0.0005572037720676481
+                        }
+                    },
+                    "differential_rounding_T": [
+                        1.0589644595167692e-07,
+                        4.862797655817275e-07,
+                        2.741459891171887e-06,
+                        5.964229059515292e-07,
+                        -1.1354427987104063e-06,
+                        -1.4854223006030462e-06,
+                        6.391855107938587e-07,
+                        1.4105238176995855e-06,
+                        5.404940289709353e-08,
+                        4.869749934985432e-07,
+                        3.7245431078946763e-07,
+                        -3.878895530899564e-07,
+                        1.7957569047277785e-08,
+                        -4.335740044517366e-06,
+                        -3.2421591566351067e-06,
+                        -1.172680928753075e-06
+                    ]
+                },
+                {
+                    "start_time_s": 0.004,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    1.4850019414055814e-05,
+                                    3.422014274404346e-05,
+                                    5.994520736646234e-06,
+                                    0.0005907420222986485,
+                                    0.0018219896348448455,
+                                    -0.0011359026410456112
+                                ],
+                                "best_candidate": [
+                                    1.4850019414055814e-05,
+                                    3.422014274404346e-05,
+                                    5.994520736646234e-06,
+                                    0.0005907420222986485,
+                                    0.0018219896348448455,
+                                    -0.0011359026410456112
+                                ],
+                                "normalized_residual_rms": 0.48390442797920585,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.43399002745383,
+                                    "position_noise_gain": 0.43527928981067526,
+                                    "tilt_noise_gain": 22.24896282770998
+                                },
+                                "sample_midpoint_s": 0.004355,
+                                "available_time_s": 0.005612000000000001,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 1.8440598941649535e-05,
+                            "angle_error_rad": 0.002303591967236816
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    1.2704672060026754e-05,
+                                    3.221968664826487e-05,
+                                    4.926918873574059e-06,
+                                    0.0006381160045195672,
+                                    0.0017037738127916023,
+                                    -0.0011026035532488434
+                                ],
+                                "best_candidate": [
+                                    1.2704672060026754e-05,
+                                    3.221968664826487e-05,
+                                    4.926918873574059e-06,
+                                    0.0006381160045195672,
+                                    0.0017037738127916023,
+                                    -0.0011026035532488434
+                                ],
+                                "normalized_residual_rms": 0.4978470684417546,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.42483271768566,
+                                    "position_noise_gain": 0.43525014892365427,
+                                    "tilt_noise_gain": 22.247509085769362
+                                },
+                                "sample_midpoint_s": 0.004355,
+                                "available_time_s": 0.005612000000000001,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 1.875992331722804e-05,
+                            "angle_error_rad": 0.002210941822065367
+                        }
+                    },
+                    "differential_rounding_T": [
+                        -6.760657994328514e-06,
+                        2.1197360635695766e-06,
+                        -1.0486128135106239e-06,
+                        2.6856472216536014e-06,
+                        -1.3395962588120408e-06,
+                        -3.883398920301621e-06,
+                        -1.4221923585315836e-06,
+                        1.7021510323467497e-06,
+                        3.4228454335096424e-06,
+                        4.7770203023245715e-06,
+                        1.5639068375395207e-06,
+                        -1.185067300603512e-06,
+                        2.9902310386879677e-06,
+                        -8.308635318759463e-07,
+                        1.2195020273235172e-06,
+                        3.6665115369127075e-07
+                    ]
+                },
+                {
+                    "start_time_s": 0.005,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    4.6780612986769276e-07,
+                                    2.7040296030945324e-05,
+                                    3.591681799625553e-06,
+                                    0.0007109909647064571,
+                                    0.0009297900215333034,
+                                    -1.6449188157339933e-05
+                                ],
+                                "best_candidate": [
+                                    4.6780612986769276e-07,
+                                    2.7040296030945324e-05,
+                                    3.591681799625553e-06,
+                                    0.0007109909647064571,
+                                    0.0009297900215333034,
+                                    -1.6449188157339933e-05
+                                ],
+                                "normalized_residual_rms": 0.5620893201689435,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.31663036821067,
+                                    "position_noise_gain": 0.4355136289958383,
+                                    "tilt_noise_gain": 22.25156709509871
+                                },
+                                "sample_midpoint_s": 0.005355,
+                                "available_time_s": 0.006612000000000001,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 2.686481458480281e-05,
+                            "angle_error_rad": 0.0010451526086398845
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    7.434758749581369e-07,
+                                    2.6908002939946108e-05,
+                                    3.1893113266028493e-06,
+                                    0.0006745859732803968,
+                                    0.0009166301138432356,
+                                    6.588386222184407e-05
+                                ],
+                                "best_candidate": [
+                                    7.434758749581369e-07,
+                                    2.6908002939946108e-05,
+                                    3.1893113266028493e-06,
+                                    0.0006745859732803968,
+                                    0.0009166301138432356,
+                                    6.588386222184407e-05
+                                ],
+                                "normalized_residual_rms": 0.5599507102544468,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.3381763950686,
+                                    "position_noise_gain": 0.435541247210909,
+                                    "tilt_noise_gain": 22.251392588476918
+                                },
+                                "sample_midpoint_s": 0.005355,
+                                "available_time_s": 0.006612000000000001,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 2.6648892053410757e-05,
+                            "angle_error_rad": 0.0009710896036573544
+                        }
+                    },
+                    "differential_rounding_T": [
+                        -2.2159024927037874e-06,
+                        6.010500287380443e-06,
+                        -1.432620110120692e-06,
+                        -3.5674920934111076e-07,
+                        2.7986388023714965e-07,
+                        2.488124822722939e-06,
+                        -2.7019392564981803e-06,
+                        6.223627145090984e-07,
+                        -9.894559496748504e-07,
+                        1.5832069007618108e-06,
+                        2.170039603738896e-06,
+                        1.7878000515122173e-06,
+                        5.367173490130405e-07,
+                        2.904901222166526e-06,
+                        -9.759142088393242e-07,
+                        -1.2227444675811483e-06
+                    ]
+                },
+                {
+                    "start_time_s": 0.006,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -2.8698637216941497e-06,
+                                    1.890918437044578e-05,
+                                    -2.664466640032745e-07,
+                                    0.001052924749785311,
+                                    0.000934876925992453,
+                                    -7.640053818734608e-05
+                                ],
+                                "best_candidate": [
+                                    -2.8698637216941497e-06,
+                                    1.890918437044578e-05,
+                                    -2.664466640032745e-07,
+                                    0.001052924749785311,
+                                    0.000934876925992453,
+                                    -7.640053818734608e-05
+                                ],
+                                "normalized_residual_rms": 0.5080786153469765,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.3248407104697,
+                                    "position_noise_gain": 0.43518591329283607,
+                                    "tilt_noise_gain": 22.24185664314618
+                                },
+                                "sample_midpoint_s": 0.0063549999999999995,
+                                "available_time_s": 0.007612000000000001,
+                                "age_at_delivery_s": 0.0012570000000000012
+                            },
+                            "position_error_m": 3.081319313141703e-05,
+                            "angle_error_rad": 0.0013632611464440465
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -2.6156479004708505e-06,
+                                    1.6580839444525268e-05,
+                                    -1.0752771163792733e-06,
+                                    0.0011303319997482087,
+                                    0.0009568955703816813,
+                                    -0.00017817045704413053
+                                ],
+                                "best_candidate": [
+                                    -2.6156479004708505e-06,
+                                    1.6580839444525268e-05,
+                                    -1.0752771163792733e-06,
+                                    0.0011303319997482087,
+                                    0.0009568955703816813,
+                                    -0.00017817045704413053
+                                ],
+                                "normalized_residual_rms": 0.49227036321044787,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.33111207340426,
+                                    "position_noise_gain": 0.43516330199884956,
+                                    "tilt_noise_gain": 22.24121293511911
+                                },
+                                "sample_midpoint_s": 0.0063549999999999995,
+                                "available_time_s": 0.007612000000000001,
+                                "age_at_delivery_s": 0.0012570000000000012
+                            },
+                            "position_error_m": 3.0752221563732394e-05,
+                            "angle_error_rad": 0.0014832644734204695
+                        }
+                    },
+                    "differential_rounding_T": [
+                        -3.2190371708695047e-06,
+                        -5.179446228244587e-07,
+                        4.64635474373704e-06,
+                        -1.227130728309058e-06,
+                        -5.38989513594395e-07,
+                        -1.7979974785857283e-06,
+                        -1.8286797917395995e-06,
+                        1.8133673890626513e-06,
+                        -1.5574607837627155e-06,
+                        1.226581965039664e-06,
+                        -9.805206683177943e-07,
+                        -2.2561060381384073e-07,
+                        -3.940203863969237e-06,
+                        -1.8065020350722352e-06,
+                        7.844042800576778e-07,
+                        -4.5660770974727744e-06
+                    ]
+                },
+                {
+                    "start_time_s": 0.007,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    7.758712626046002e-06,
+                                    3.031242934132976e-05,
+                                    6.6889194549446205e-06,
+                                    0.000570402237833762,
+                                    0.000909532522004623,
+                                    -0.00037457027744376866
+                                ],
+                                "best_candidate": [
+                                    7.758712626046002e-06,
+                                    3.031242934132976e-05,
+                                    6.6889194549446205e-06,
+                                    0.000570402237833762,
+                                    0.000909532522004623,
+                                    -0.00037457027744376866
+                                ],
+                                "normalized_residual_rms": 0.5726307415350873,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.31375436266313,
+                                    "position_noise_gain": 0.4359305645702924,
+                                    "tilt_noise_gain": 22.25980357536789
+                                },
+                                "sample_midpoint_s": 0.007355,
+                                "available_time_s": 0.008612000000000002,
+                                "age_at_delivery_s": 0.0012570000000000012
+                            },
+                            "position_error_m": 2.4250179463424095e-05,
+                            "angle_error_rad": 0.00179857146757414
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    6.121440482030341e-06,
+                                    3.144096781566872e-05,
+                                    6.507561109092833e-06,
+                                    0.0005112984164841733,
+                                    0.0008010152359948624,
+                                    -0.0003247096919313056
+                                ],
+                                "best_candidate": [
+                                    6.121440482030341e-06,
+                                    3.144096781566872e-05,
+                                    6.507561109092833e-06,
+                                    0.0005112984164841733,
+                                    0.0008010152359948624,
+                                    -0.0003247096919313056
+                                ],
+                                "normalized_residual_rms": 0.5578517492968629,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.30905274169675,
+                                    "position_noise_gain": 0.43590648340625887,
+                                    "tilt_noise_gain": 22.258416556606143
+                                },
+                                "sample_midpoint_s": 0.007355,
+                                "available_time_s": 0.008612000000000002,
+                                "age_at_delivery_s": 0.0012570000000000012
+                            },
+                            "position_error_m": 2.5840506827214955e-05,
+                            "angle_error_rad": 0.001713613328885938
+                        }
+                    },
+                    "differential_rounding_T": [
+                        1.9967648163487043e-06,
+                        -1.4694496863944538e-06,
+                        2.606857947886883e-06,
+                        -2.4300828733182394e-06,
+                        -6.360104190191807e-06,
+                        5.398009553383792e-07,
+                        5.4621657004339744e-08,
+                        -1.9382774365886164e-06,
+                        1.2203311661350812e-06,
+                        9.576929713270201e-08,
+                        -2.863657501241633e-06,
+                        -1.36219128701496e-06,
+                        1.9765787574022422e-07,
+                        1.7916665405534474e-06,
+                        -1.7257577137341242e-06,
+                        -9.557346117623105e-07
+                    ]
+                },
+                {
+                    "start_time_s": 0.008,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -1.6853052225101078e-05,
+                                    1.5889856641964483e-05,
+                                    2.448711736881425e-06,
+                                    0.0009894807792768037,
+                                    -0.00033817664684287417,
+                                    0.000384067723138539
+                                ],
+                                "best_candidate": [
+                                    -1.6853052225101078e-05,
+                                    1.5889856641964483e-05,
+                                    2.448711736881425e-06,
+                                    0.0009894807792768037,
+                                    -0.00033817664684287417,
+                                    0.000384067723138539
+                                ],
+                                "normalized_residual_rms": 0.7295095684427046,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.04166980875635,
+                                    "position_noise_gain": 0.4360081691057458,
+                                    "tilt_noise_gain": 22.264290095189377
+                                },
+                                "sample_midpoint_s": 0.008355,
+                                "available_time_s": 0.009611999999999999,
+                                "age_at_delivery_s": 0.0012569999999999994
+                            },
+                            "position_error_m": 4.3611058991089384e-05,
+                            "angle_error_rad": 0.001045128563297388
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -1.7349949778285157e-05,
+                                    1.837077296278347e-05,
+                                    3.633785173302245e-06,
+                                    0.0008764757381682977,
+                                    -0.0004108406198613512,
+                                    0.0004962783609338082
+                                ],
+                                "best_candidate": [
+                                    -1.7349949778285157e-05,
+                                    1.837077296278347e-05,
+                                    3.633785173302245e-06,
+                                    0.0008764757381682977,
+                                    -0.0004108406198613512,
+                                    0.0004962783609338082
+                                ],
+                                "normalized_residual_rms": 0.7133211580142357,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.02145653158846,
+                                    "position_noise_gain": 0.4361201174676022,
+                                    "tilt_noise_gain": 22.26791494518589
+                                },
+                                "sample_midpoint_s": 0.008355,
+                                "available_time_s": 0.009611999999999999,
+                                "age_at_delivery_s": 0.0012569999999999994
+                            },
+                            "position_error_m": 4.354355433799636e-05,
+                            "angle_error_rad": 0.0009078314027841926
+                        }
+                    },
+                    "differential_rounding_T": [
+                        3.027561514051683e-06,
+                        -1.312884320939776e-06,
+                        -1.278948966087687e-06,
+                        -3.323429522866188e-06,
+                        -2.9271213215798517e-06,
+                        9.436981578125891e-07,
+                        -4.924837683685339e-06,
+                        5.583386088715771e-07,
+                        5.693746187830879e-07,
+                        -2.595416176764476e-07,
+                        2.1982035252069907e-06,
+                        -2.3043786119994556e-06,
+                        1.6307829302669605e-06,
+                        7.397733977702317e-07,
+                        7.358290135413056e-07,
+                        -1.0382409095378419e-07
+                    ]
+                }
+            ]
+        },
+        {
+            "native_bits": 16,
+            "all_fits_accepted": true,
+            "maximum_position_error_m": 4.3765574437029836e-05,
+            "maximum_angle_error_rad": 0.0023449505215065057,
+            "differential_rounding_rms_T": 5.616404632368852e-07,
+            "differential_rounding_peak_T": 1.8015515490160133e-06,
+            "trace": [
+                {
+                    "start_time_s": 0.0,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    5.698397020740149e-06,
+                                    3.1332635965099855e-05,
+                                    1.2884740857767895e-05,
+                                    0.000875642483452525,
+                                    0.0017150294635405686,
+                                    -0.0006048407808240512
+                                ],
+                                "best_candidate": [
+                                    5.698397020740149e-06,
+                                    3.1332635965099855e-05,
+                                    1.2884740857767895e-05,
+                                    0.000875642483452525,
+                                    0.0017150294635405686,
+                                    -0.0006048407808240512
+                                ],
+                                "normalized_residual_rms": 0.5264601948134247,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.0842299859873,
+                                    "position_noise_gain": 0.4358048227644024,
+                                    "tilt_noise_gain": 22.282423076451416
+                                },
+                                "sample_midpoint_s": 0.00035499999999999996,
+                                "available_time_s": 0.0016120000000000002,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 2.1553705114188275e-05,
+                            "angle_error_rad": 0.0016648699299235345
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    5.698397020740149e-06,
+                                    3.1332635965099855e-05,
+                                    1.2884740857767895e-05,
+                                    0.000875642483452525,
+                                    0.0017150294635405686,
+                                    -0.0006048407808240512
+                                ],
+                                "best_candidate": [
+                                    5.698397020740149e-06,
+                                    3.1332635965099855e-05,
+                                    1.2884740857767895e-05,
+                                    0.000875642483452525,
+                                    0.0017150294635405686,
+                                    -0.0006048407808240512
+                                ],
+                                "normalized_residual_rms": 0.5264601948134247,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.0842299859873,
+                                    "position_noise_gain": 0.4358048227644024,
+                                    "tilt_noise_gain": 22.282423076451416
+                                },
+                                "sample_midpoint_s": 0.00035499999999999996,
+                                "available_time_s": 0.0016120000000000002,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 2.1553705114188275e-05,
+                            "angle_error_rad": 0.0016648699299235345
+                        }
+                    },
+                    "differential_rounding_T": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        -5.421010862427522e-20,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0
+                    ]
+                },
+                {
+                    "start_time_s": 0.001,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -8.80976836620438e-06,
+                                    4.268785223898191e-05,
+                                    9.249277925583376e-06,
+                                    0.00010527815604313953,
+                                    0.0010116829927178674,
+                                    0.00020968756553377683
+                                ],
+                                "best_candidate": [
+                                    -8.80976836620438e-06,
+                                    4.268785223898191e-05,
+                                    9.249277925583376e-06,
+                                    0.00010527815604313953,
+                                    0.0010116829927178674,
+                                    0.00020968756553377683
+                                ],
+                                "normalized_residual_rms": 0.5544286421740374,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.1574612820256,
+                                    "position_noise_gain": 0.4354958701106246,
+                                    "tilt_noise_gain": 22.270725391584396
+                                },
+                                "sample_midpoint_s": 0.0013549999999999999,
+                                "available_time_s": 0.002612,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 3.9121054326335606e-05,
+                            "angle_error_rad": 0.0008409190391828753
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -8.823123771620914e-06,
+                                    4.267940274500353e-05,
+                                    9.253339236887285e-06,
+                                    0.00010560862040954889,
+                                    0.0010108223674555857,
+                                    0.00020980110957647994
+                                ],
+                                "best_candidate": [
+                                    -8.823123771620914e-06,
+                                    4.267940274500353e-05,
+                                    9.253339236887285e-06,
+                                    0.00010560862040954889,
+                                    0.0010108223674555857,
+                                    0.00020980110957647994
+                                ],
+                                "normalized_residual_rms": 0.5542269849086704,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.15707756568884,
+                                    "position_noise_gain": 0.4354965934157992,
+                                    "tilt_noise_gain": 22.27075522488358
+                                },
+                                "sample_midpoint_s": 0.0013549999999999999,
+                                "available_time_s": 0.002612,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 3.912657678715151e-05,
+                            "angle_error_rad": 0.0008403091206279868
+                        }
+                    },
+                    "differential_rounding_T": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        5.421010862427522e-20,
+                        1.0842021724855044e-19,
+                        -7.047314121155779e-19,
+                        0.0,
+                        0.0,
+                        0.0,
+                        2.168404344971009e-19,
+                        6.201636426617085e-17,
+                        0.0,
+                        0.0,
+                        -1.7816152199368052e-16,
+                        0.0,
+                        0.0
+                    ]
+                },
+                {
+                    "start_time_s": 0.002,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -4.161717887768487e-06,
+                                    2.6634387480636704e-05,
+                                    5.569910370145806e-06,
+                                    0.0011688787473978367,
+                                    0.0011684267046025204,
+                                    -0.0006082378731858708
+                                ],
+                                "best_candidate": [
+                                    -4.161717887768487e-06,
+                                    2.6634387480636704e-05,
+                                    5.569910370145806e-06,
+                                    0.0011688787473978367,
+                                    0.0011684267046025204,
+                                    -0.0006082378731858708
+                                ],
+                                "normalized_residual_rms": 0.509547324698837,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.1582377998456,
+                                    "position_noise_gain": 0.43496820174891176,
+                                    "tilt_noise_gain": 22.245469817433026
+                                },
+                                "sample_midpoint_s": 0.002355,
+                                "available_time_s": 0.0036119999999999998,
+                                "age_at_delivery_s": 0.0012569999999999999
+                            },
+                            "position_error_m": 3.043160094453114e-05,
+                            "angle_error_rad": 0.0014640654239599204
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -4.0166816827737945e-06,
+                                    2.6965563551992612e-05,
+                                    5.6094970239798055e-06,
+                                    0.0011583693666177423,
+                                    0.0011746933467240443,
+                                    -0.0006493501308880475
+                                ],
+                                "best_candidate": [
+                                    -4.0166816827737945e-06,
+                                    2.6965563551992612e-05,
+                                    5.6094970239798055e-06,
+                                    0.0011583693666177423,
+                                    0.0011746933467240443,
+                                    -0.0006493501308880475
+                                ],
+                                "normalized_residual_rms": 0.5199691576565426,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.1589947930256,
+                                    "position_noise_gain": 0.43495792214343376,
+                                    "tilt_noise_gain": 22.24523854110008
+                                },
+                                "sample_midpoint_s": 0.002355,
+                                "available_time_s": 0.0036119999999999998,
+                                "age_at_delivery_s": 0.0012569999999999999
+                            },
+                            "position_error_m": 3.0326932524766245e-05,
+                            "angle_error_rad": 0.0014993555488617472
+                        }
+                    },
+                    "differential_rounding_T": [
+                        -1.8304968724625293e-07,
+                        1.0956248067365169e-07,
+                        -8.76057541039553e-07,
+                        5.971893148234151e-07,
+                        5.307793896874627e-08,
+                        -4.894699172554187e-07,
+                        -2.761642839116134e-07,
+                        -1.9262036110282061e-07,
+                        7.48515020456582e-09,
+                        -2.5784706038064e-07,
+                        1.3704042096577719e-06,
+                        8.212594796233173e-07,
+                        4.992315718037539e-07,
+                        -1.1621124657164205e-06,
+                        -8.652963175135587e-08,
+                        7.417661575168686e-07
+                    ]
+                },
+                {
+                    "start_time_s": 0.003,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -2.6591954912113383e-06,
+                                    3.630396188243224e-05,
+                                    6.137804625657043e-06,
+                                    0.0003304871552632151,
+                                    0.0009762789930173088,
+                                    0.0002858576248833134
+                                ],
+                                "best_candidate": [
+                                    -2.6591954912113383e-06,
+                                    3.630396188243224e-05,
+                                    6.137804625657043e-06,
+                                    0.0003304871552632151,
+                                    0.0009762789930173088,
+                                    0.0002858576248833134
+                                ],
+                                "normalized_residual_rms": 0.5613632943546157,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.2961221880533,
+                                    "position_noise_gain": 0.43550936275259344,
+                                    "tilt_noise_gain": 22.257818697114036
+                                },
+                                "sample_midpoint_s": 0.003355,
+                                "available_time_s": 0.004612,
+                                "age_at_delivery_s": 0.0012569999999999999
+                            },
+                            "position_error_m": 3.130990879970442e-05,
+                            "angle_error_rad": 0.0006382287721527533
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -3.011844557126738e-06,
+                                    3.578231591504113e-05,
+                                    6.215905236166974e-06,
+                                    0.00034423126743491494,
+                                    0.0009517396515376967,
+                                    0.0003577986788133926
+                                ],
+                                "best_candidate": [
+                                    -3.011844557126738e-06,
+                                    3.578231591504113e-05,
+                                    6.215905236166974e-06,
+                                    0.00034423126743491494,
+                                    0.0009517396515376967,
+                                    0.0003577986788133926
+                                ],
+                                "normalized_residual_rms": 0.5531606210475811,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.2888074075097,
+                                    "position_noise_gain": 0.4355482895043435,
+                                    "tilt_noise_gain": 22.25897265696474
+                                },
+                                "sample_midpoint_s": 0.003355,
+                                "available_time_s": 0.004612,
+                                "age_at_delivery_s": 0.0012569999999999999
+                            },
+                            "position_error_m": 3.133344629100901e-05,
+                            "angle_error_rad": 0.000572497092098757
+                        }
+                    },
+                    "differential_rounding_T": [
+                        -2.755732806108231e-07,
+                        1.6306889452692277e-06,
+                        8.341112583593869e-07,
+                        -1.6651654717347087e-07,
+                        8.966380977093008e-09,
+                        4.045660564695519e-08,
+                        -5.052236688936423e-07,
+                        2.6611463801208614e-07,
+                        5.404940289709353e-08,
+                        4.869749934985432e-07,
+                        -3.9048514233553305e-07,
+                        -6.419826527456394e-09,
+                        7.80897022172278e-07,
+                        2.418966742326348e-07,
+                        -1.3348105238226063e-06,
+                        -4.09741475628075e-07
+                    ]
+                },
+                {
+                    "start_time_s": 0.004,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    1.56310191044931e-05,
+                                    3.362514488037218e-05,
+                                    6.043241836979592e-06,
+                                    0.0006361340308378207,
+                                    0.0018542701083437152,
+                                    -0.0011648305271913114
+                                ],
+                                "best_candidate": [
+                                    1.56310191044931e-05,
+                                    3.362514488037218e-05,
+                                    6.043241836979592e-06,
+                                    0.0006361340308378207,
+                                    0.0018542701083437152,
+                                    -0.0011648305271913114
+                                ],
+                                "normalized_residual_rms": 0.4878185858416651,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.43642614506297,
+                                    "position_noise_gain": 0.43527741424784444,
+                                    "tilt_noise_gain": 22.248495823871835
+                                },
+                                "sample_midpoint_s": 0.004355,
+                                "available_time_s": 0.005612000000000001,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 1.7639077892699728e-05,
+                            "angle_error_rad": 0.0023449505215065057
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    1.5681586347481542e-05,
+                                    3.253878351463326e-05,
+                                    5.349257677861556e-06,
+                                    0.0006734279220104968,
+                                    0.001866180786943111,
+                                    -0.0011190007354953029
+                                ],
+                                "best_candidate": [
+                                    1.5681586347481542e-05,
+                                    3.253878351463326e-05,
+                                    5.349257677861556e-06,
+                                    0.0006734279220104968,
+                                    0.001866180786943111,
+                                    -0.0011190007354953029
+                                ],
+                                "normalized_residual_rms": 0.49207125687208086,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.45402604976346,
+                                    "position_noise_gain": 0.43523589330546897,
+                                    "tilt_noise_gain": 22.24638455320723
+                                },
+                                "sample_midpoint_s": 0.004355,
+                                "available_time_s": 0.005612000000000001,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 1.723353737052157e-05,
+                            "angle_error_rad": 0.0023156334261956457
+                        }
+                    },
+                    "differential_rounding_T": [
+                        -1.8015515490160133e-06,
+                        5.93857157319582e-07,
+                        9.57963661768653e-08,
+                        1.5359135716100697e-08,
+                        -1.9518707912452452e-07,
+                        -4.501713812391536e-07,
+                        -1.0407226319690782e-06,
+                        1.76272126096728e-07,
+                        -1.0382105552858117e-08,
+                        5.808533101370932e-07,
+                        4.1949765785203154e-07,
+                        3.4081160564648587e-07,
+                        -1.205935953499531e-06,
+                        -4.49393805313468e-07,
+                        8.380323007610186e-07,
+                        -1.4818572871229586e-08
+                    ]
+                },
+                {
+                    "start_time_s": 0.005,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    7.755683479489471e-07,
+                                    2.6636151852506945e-05,
+                                    4.170007035883827e-06,
+                                    0.0007245965168223746,
+                                    0.0009283216258260345,
+                                    9.741854407988073e-05
+                                ],
+                                "best_candidate": [
+                                    7.755683479489471e-07,
+                                    2.6636151852506945e-05,
+                                    4.170007035883827e-06,
+                                    0.0007245965168223746,
+                                    0.0009283216258260345,
+                                    9.741854407988073e-05
+                                ],
+                                "normalized_residual_rms": 0.5734171125487262,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.30548642406205,
+                                    "position_noise_gain": 0.4356103327238635,
+                                    "tilt_noise_gain": 22.254585548949226
+                                },
+                                "sample_midpoint_s": 0.005355,
+                                "available_time_s": 0.006612000000000001,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 2.6239189904291227e-05,
+                            "angle_error_rad": 0.0009509412582130386
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    8.768980266359131e-07,
+                                    2.6488355707408377e-05,
+                                    3.6539012216039806e-06,
+                                    0.0007326714881610657,
+                                    0.000912245593031864,
+                                    0.00013574482573372676
+                                ],
+                                "best_candidate": [
+                                    8.768980266359131e-07,
+                                    2.6488355707408377e-05,
+                                    3.6539012216039806e-06,
+                                    0.0007326714881610657,
+                                    0.000912245593031864,
+                                    0.00013574482573372676
+                                ],
+                                "normalized_residual_rms": 0.5724130702315665,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.32479480442066,
+                                    "position_noise_gain": 0.4355658648118993,
+                                    "tilt_noise_gain": 22.25166910729753
+                                },
+                                "sample_midpoint_s": 0.005355,
+                                "available_time_s": 0.006612000000000001,
+                                "age_at_delivery_s": 0.0012570000000000003
+                            },
+                            "position_error_m": 2.6210288494426473e-05,
+                            "angle_error_rad": 0.0009149582099287836
+                        }
+                    },
+                    "differential_rounding_T": [
+                        4.543855932337133e-07,
+                        -9.301533761955531e-08,
+                        9.32587961293297e-08,
+                        2.4720517221389155e-08,
+                        -1.0160584632535577e-07,
+                        -5.636329897770504e-07,
+                        3.4981855600180883e-07,
+                        -1.4057673861591247e-07,
+                        -6.079862231123505e-07,
+                        1.2017371741993054e-06,
+                        -1.1877875563610961e-07,
+                        1.0248605983872166e-06,
+                        -2.2622210411195846e-07,
+                        -5.283263168959684e-07,
+                        9.314344239731758e-07,
+                        -4.598050144561484e-07
+                    ]
+                },
+                {
+                    "start_time_s": 0.006,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -2.6983062206306793e-06,
+                                    1.77753863794714e-05,
+                                    -1.9926531162279794e-07,
+                                    0.0011186847713300489,
+                                    0.0009135521294993153,
+                                    -0.00013575048615004613
+                                ],
+                                "best_candidate": [
+                                    -2.6983062206306793e-06,
+                                    1.77753863794714e-05,
+                                    -1.9926531162279794e-07,
+                                    0.0011186847713300489,
+                                    0.0009135521294993153,
+                                    -0.00013575048615004613
+                                ],
+                                "normalized_residual_rms": 0.5141405089891508,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.3121583630286,
+                                    "position_noise_gain": 0.43520575769329733,
+                                    "tilt_noise_gain": 22.242019856274343
+                                },
+                                "sample_midpoint_s": 0.0063549999999999995,
+                                "available_time_s": 0.007612000000000001,
+                                "age_at_delivery_s": 0.0012570000000000012
+                            },
+                            "position_error_m": 3.057864607000468e-05,
+                            "angle_error_rad": 0.0014198623108887872
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -2.6532096137884804e-06,
+                                    1.767147763854855e-05,
+                                    -1.8767406788995742e-07,
+                                    0.0011156246031542288,
+                                    0.0009115190818868867,
+                                    -0.00013786404845625062
+                                ],
+                                "best_candidate": [
+                                    -2.6532096137884804e-06,
+                                    1.767147763854855e-05,
+                                    -1.8767406788995742e-07,
+                                    0.0011156246031542288,
+                                    0.0009115190818868867,
+                                    -0.00013786404845625062
+                                ],
+                                "normalized_residual_rms": 0.5082600602136774,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.31158130139346,
+                                    "position_noise_gain": 0.43522013992933445,
+                                    "tilt_noise_gain": 22.242522877778065
+                                },
+                                "sample_midpoint_s": 0.0063549999999999995,
+                                "available_time_s": 0.007612000000000001,
+                                "age_at_delivery_s": 0.0012570000000000012
+                            },
+                            "position_error_m": 3.033493880489302e-05,
+                            "angle_error_rad": 0.0014231018813703734
+                        }
+                    },
+                    "differential_rounding_T": [
+                        -1.6727935836950452e-07,
+                        2.44994830300542e-07,
+                        -3.12751701575463e-07,
+                        -8.456610017465579e-07,
+                        6.054196660931077e-07,
+                        4.908208807893042e-07,
+                        4.601385676353991e-07,
+                        2.874884828126499e-07,
+                        -7.945213306377157e-07,
+                        -6.80766667772836e-07,
+                        9.268279644947057e-07,
+                        -6.070803303763326e-07,
+                        -8.884460514692377e-07,
+                        -1.0435625819472244e-06,
+                        4.0293455349517913e-07,
+                        -1.1328495584102748e-06
+                    ]
+                },
+                {
+                    "start_time_s": 0.007,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    7.836355723997536e-06,
+                                    3.056822625236994e-05,
+                                    6.822332840225783e-06,
+                                    0.0005485507871253693,
+                                    0.0008887856491870628,
+                                    -0.000343919606520174
+                                ],
+                                "best_candidate": [
+                                    7.836355723997536e-06,
+                                    3.056822625236994e-05,
+                                    6.822332840225783e-06,
+                                    0.0005485507871253693,
+                                    0.0008887856491870628,
+                                    -0.000343919606520174
+                                ],
+                                "normalized_residual_rms": 0.5708683265375359,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.3145226691438,
+                                    "position_noise_gain": 0.4359657518015625,
+                                    "tilt_noise_gain": 22.26051430630177
+                                },
+                                "sample_midpoint_s": 0.007355,
+                                "available_time_s": 0.008612000000000002,
+                                "age_at_delivery_s": 0.0012570000000000012
+                            },
+                            "position_error_m": 2.4318328349259037e-05,
+                            "angle_error_rad": 0.0017629279505936939
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    7.29018803555778e-06,
+                                    3.091666720397504e-05,
+                                    6.804765447813303e-06,
+                                    0.000570521900827537,
+                                    0.0008509288167032369,
+                                    -0.00036720731290396363
+                                ],
+                                "best_candidate": [
+                                    7.29018803555778e-06,
+                                    3.091666720397504e-05,
+                                    6.804765447813303e-06,
+                                    0.000570521900827537,
+                                    0.0008509288167032369,
+                                    -0.00036720731290396363
+                                ],
+                                "normalized_residual_rms": 0.5743108600911255,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.3082013513631,
+                                    "position_noise_gain": 0.4359114658913679,
+                                    "tilt_noise_gain": 22.25817712143546
+                                },
+                                "sample_midpoint_s": 0.007355,
+                                "available_time_s": 0.008612000000000002,
+                                "age_at_delivery_s": 0.0012570000000000012
+                            },
+                            "position_error_m": 2.460247750725744e-05,
+                            "angle_error_rad": 0.0017709128398283552
+                        }
+                    },
+                    "differential_rounding_T": [
+                        4.7088591009870426e-07,
+                        -3.250405067069511e-07,
+                        1.0809790416369154e-06,
+                        6.216749391817599e-07,
+                        -1.0195280183167852e-06,
+                        -6.0460822434911e-07,
+                        1.199030836691829e-06,
+                        -4.1239853033859467e-07,
+                        -3.055477401149202e-07,
+                        -2.857004294297763e-07,
+                        1.8810031125835597e-07,
+                        -2.1778210732744372e-07,
+                        -5.652815773847731e-07,
+                        -8.786215453841176e-07,
+                        -9.628182606091133e-07,
+                        1.8867456792518884e-07
+                    ]
+                },
+                {
+                    "start_time_s": 0.008,
+                    "cases": {
+                        "baseline": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -1.669355518467286e-05,
+                                    1.6619754860352473e-05,
+                                    2.9889649017019186e-06,
+                                    0.00095137976369809,
+                                    -0.0003510652044142431,
+                                    0.0004610968928793293
+                                ],
+                                "best_candidate": [
+                                    -1.669355518467286e-05,
+                                    1.6619754860352473e-05,
+                                    2.9889649017019186e-06,
+                                    0.00095137976369809,
+                                    -0.0003510652044142431,
+                                    0.0004610968928793293
+                                ],
+                                "normalized_residual_rms": 0.7342297479614195,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 350.0361350489766,
+                                    "position_noise_gain": 0.4360762764374478,
+                                    "tilt_noise_gain": 22.2663739478068
+                                },
+                                "sample_midpoint_s": 0.008355,
+                                "available_time_s": 0.009611999999999999,
+                                "age_at_delivery_s": 0.0012569999999999994
+                            },
+                            "position_error_m": 4.336683957370094e-05,
+                            "angle_error_rad": 0.000962174186690394
+                        },
+                        "changed_count": {
+                            "estimate": {
+                                "accepted": true,
+                                "reason": "accepted",
+                                "pose": [
+                                    -1.7787006337704664e-05,
+                                    1.726952415152773e-05,
+                                    3.8878481323294e-06,
+                                    0.0009437233569981044,
+                                    -0.0004256478507947422,
+                                    0.0004523389359997819
+                                ],
+                                "best_candidate": [
+                                    -1.7787006337704664e-05,
+                                    1.726952415152773e-05,
+                                    3.8878481323294e-06,
+                                    0.0009437233569981044,
+                                    -0.0004256478507947422,
+                                    0.0004523389359997819
+                                ],
+                                "normalized_residual_rms": 0.7289096988634148,
+                                "competing_poses": [],
+                                "converged": true,
+                                "refined_seeds": 1,
+                                "observability": {
+                                    "rank6": 6,
+                                    "cond6": 349.9958337110824,
+                                    "position_noise_gain": 0.43614129761387865,
+                                    "tilt_noise_gain": 22.26932153928463
+                                },
+                                "sample_midpoint_s": 0.008355,
+                                "available_time_s": 0.009611999999999999,
+                                "age_at_delivery_s": 0.0012569999999999994
+                            },
+                            "position_error_m": 4.3765574437029836e-05,
+                            "angle_error_rad": 0.0009707000984551895
+                        }
+                    },
+                    "differential_rounding_T": [
+                        3.5727342811418313e-07,
+                        -9.31414594377284e-07,
+                        -1.3453978640014371e-07,
+                        1.0979801619631237e-07,
+                        -2.5683323564234086e-07,
+                        -1.3451202015624163e-06,
+                        -3.47200964935328e-07,
+                        -2.0460084425343375e-07,
+                        1.879048922205893e-07,
+                        1.2192810888603071e-07,
+                        -8.535542872930256e-07,
+                        -3.970299791869556e-07,
+                        1.0490402401695911e-07,
+                        7.397733977702317e-07,
+                        -4.085801661461903e-07,
+                        -1.0382409095378419e-07
+                    ]
+                }
+            ]
+        }
+    ],
+    "limitations": [
+        "The recorded physical trajectories and current histories belong to the original ADC, not to newly coupled candidate trials.",
+        "All candidate fits use the same baseline prior pose/velocity; this isolates conversion effects without establishing candidate observer or feedback stability.",
+        "The deliberate first-packet count intervention is omitted when redigitizing analog fields; later recorded physical fields retain its consequences.",
+        "True poses are interpolated from saved traces for scoring only and are not supplied to the estimator.",
+        "Converter precision is ideal native quantization; ADC noise, nonlinearity, reference accuracy and mux settling are not component-qualified.",
+        "No hardware rate, analog sensor noise, calibration error or flight acceptance limit is changed."
+    ]
+}

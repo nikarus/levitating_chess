@@ -1,0 +1,26 @@
+{
+    "scope": "Independent coupling references; not full physical-envelope qualification",
+    "status": "setup_failed",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "381d640d6302875669886d5c766bbd8f6d4b650ed7e5bfec1544f853ec52a0e1",
+        "levitation_sim.py": "85cc7c37ab8a72a429a145d1820e2e5cb8d8d79233f14861050d7cfdb0ad7b8d",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+        "methodology/coupling_verification.py": "fc93dfcb6ef6c08c20337dbc12f3d3b52483323cb1e9aedb977847a3b2e31439",
+        "methodology/motion.py": "bc9fcd626da4ade079f437e7878c97b78803a933264d34ceef4e36c3f70c7d4f",
+        "methodology/airborne.py": "9f430e7eba96a811324c0a83d239c8788854d90b8e5fba12e9afad4791b55ed8",
+        "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/physics_verification.py": "6bc4afa307a3b160150d69303aae133373f3214831949406905df5df27eea23c"
+    },
+    "physical_envelope_qualified": false,
+    "checks": {},
+    "active_check": "flux",
+    "failure": "Synthetic flux winding requested long_pitch; CAD square array exposes short_pitch for both axes. No physics checks executed."
+}

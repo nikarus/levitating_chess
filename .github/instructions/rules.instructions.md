@@ -5,6 +5,8 @@ description: Load always and keep in memory
 We are working on levitating chess idea. Please read the PRODUCT_VISION.md.
 You can also refer to the articles in the articles/ folder.
 
+Read and follow the workspace organization rules in [methodology/README.md](methodology/README.md). Read other project material selectively for the task; do not load all documentation by default.
+
 IMPORTANT: It is absolutely forbidden for AI to modify PRODUCT_VISION.md and PRODUCT_TESTING.md.
 AI can only propose the modification to the user even when the user asks for it. The user is the only one who can modify these files.
 

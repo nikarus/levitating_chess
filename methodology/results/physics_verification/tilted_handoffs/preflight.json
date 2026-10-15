@@ -1,0 +1,2173 @@
+{
+    "scope": "Tilted handoff initial feasibility and upright atlas coverage; not trajectory qualification",
+    "status": "completed",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/physics_verification.py": "6bc4afa307a3b160150d69303aae133373f3214831949406905df5df27eea23c"
+    },
+    "atlas_identity": "1399b9f3f61fd12e071d90f2d11f0aea528ed9955eca4b4c116d83965dc5e43d",
+    "cases": [
+        {
+            "name": "lower_gap_tilt_axis_0_sign_-1",
+            "stop_reason": null,
+            "scenario": {
+                "name": "lower_gap_tilt_axis_0_sign_-1",
+                "pose": [
+                    0.004454772721475249,
+                    -5.768882040742208e-05,
+                    0.0,
+                    -0.09498456183672835,
+                    0.0,
+                    0.0
+                ],
+                "world_velocity": [
+                    -9.498752425416282e-17,
+                    1.1537764081484763,
+                    0.003999999999999998,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "duration_s": 0.0001,
+                "switch_time_s": 5e-05,
+                "selected_before": [
+                    [
+                        "x",
+                        -2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -2,
+                        0
+                    ],
+                    [
+                        "x",
+                        -2,
+                        1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        0
+                    ],
+                    [
+                        "x",
+                        -1,
+                        1
+                    ],
+                    [
+                        "x",
+                        0,
+                        -2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -1
+                    ],
+                    [
+                        "x",
+                        0,
+                        0
+                    ],
+                    [
+                        "x",
+                        0,
+                        1
+                    ],
+                    [
+                        "x",
+                        1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        1,
+                        0
+                    ],
+                    [
+                        "x",
+                        1,
+                        1
+                    ],
+                    [
+                        "x",
+                        2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        2,
+                        0
+                    ],
+                    [
+                        "x",
+                        2,
+                        1
+                    ]
+                ],
+                "selected_after": [
+                    [
+                        "x",
+                        -1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        0
+                    ],
+                    [
+                        "x",
+                        -1,
+                        1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -1
+                    ],
+                    [
+                        "x",
+                        0,
+                        0
+                    ],
+                    [
+                        "x",
+                        0,
+                        1
+                    ],
+                    [
+                        "x",
+                        0,
+                        2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        1,
+                        0
+                    ],
+                    [
+                        "x",
+                        1,
+                        1
+                    ],
+                    [
+                        "x",
+                        1,
+                        2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        2,
+                        0
+                    ],
+                    [
+                        "x",
+                        2,
+                        1
+                    ],
+                    [
+                        "x",
+                        2,
+                        2
+                    ]
+                ],
+                "initial_gap_m": 0.0035,
+                "tilt_axis": 0,
+                "tilt_sign": -1
+            },
+            "peak_initial_current_A": 1.1970407416680915,
+            "physical_source_sha256": {
+                "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+                "model.py": "7474a0aa7ef3699af0e89ad198235d81001253da2d53fc49a200129f3809ea52",
+                "levitation_sim.py": "85cc7c37ab8a72a429a145d1820e2e5cb8d8d79233f14861050d7cfdb0ad7b8d",
+                "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+                "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+                "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+                "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+                "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+                "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+                "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+                "methodology/motion.py": "bc9fcd626da4ade079f437e7878c97b78803a933264d34ceef4e36c3f70c7d4f",
+                "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+                "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+                "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+                "methodology/physics_verification.py": "6bc4afa307a3b160150d69303aae133373f3214831949406905df5df27eea23c",
+                "methodology/airborne.py": "9f430e7eba96a811324c0a83d239c8788854d90b8e5fba12e9afad4791b55ed8",
+                "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+                "methodology/sensing.py": "be69e4f85550a49fb425141f7239fd80ec3c5b9c1758175df778527727f81da0",
+                "methodology/magnetic_atlas.py": "a41022ce4060c56026e4408d04d58807ffd594d8560f38c49abf119388b46a73",
+                "methodology/airborne_inputs.py": "fbc3cc1dfc1101289b4a2addf4ac8220945b9ac8fc81ea10a4dab1b78381ca4c",
+                "methodology/airborne_verification.py": "f19ac1f8740a89035f27e4241babace84a8a2610b3bd6d5e535384eb9251de15",
+                "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061"
+            },
+            "query_bounds_m": [
+                [
+                    -0.05278033118896143,
+                    -0.046305600978809806,
+                    -0.012121399772725926
+                ],
+                [
+                    0.04387078574601093,
+                    0.050288360855073024,
+                    0.0010181761334015391
+                ]
+            ],
+            "outside_upright_atlas_points": 74947
+        },
+        {
+            "name": "lower_gap_tilt_axis_0_sign_1",
+            "stop_reason": null,
+            "scenario": {
+                "name": "lower_gap_tilt_axis_0_sign_1",
+                "pose": [
+                    0.004454772721475249,
+                    -5.768882040742208e-05,
+                    0.0,
+                    0.09498456183672835,
+                    0.0,
+                    0.0
+                ],
+                "world_velocity": [
+                    -9.498752425416282e-17,
+                    1.1537764081484763,
+                    0.003999999999999998,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "duration_s": 0.0001,
+                "switch_time_s": 5e-05,
+                "selected_before": [
+                    [
+                        "x",
+                        -2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -2,
+                        0
+                    ],
+                    [
+                        "x",
+                        -2,
+                        1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        0
+                    ],
+                    [
+                        "x",
+                        -1,
+                        1
+                    ],
+                    [
+                        "x",
+                        0,
+                        -2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -1
+                    ],
+                    [
+                        "x",
+                        0,
+                        0
+                    ],
+                    [
+                        "x",
+                        0,
+                        1
+                    ],
+                    [
+                        "x",
+                        1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        1,
+                        0
+                    ],
+                    [
+                        "x",
+                        1,
+                        1
+                    ],
+                    [
+                        "x",
+                        2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        2,
+                        0
+                    ],
+                    [
+                        "x",
+                        2,
+                        1
+                    ]
+                ],
+                "selected_after": [
+                    [
+                        "x",
+                        -1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        0
+                    ],
+                    [
+                        "x",
+                        -1,
+                        1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -1
+                    ],
+                    [
+                        "x",
+                        0,
+                        0
+                    ],
+                    [
+                        "x",
+                        0,
+                        1
+                    ],
+                    [
+                        "x",
+                        0,
+                        2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        1,
+                        0
+                    ],
+                    [
+                        "x",
+                        1,
+                        1
+                    ],
+                    [
+                        "x",
+                        1,
+                        2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        2,
+                        0
+                    ],
+                    [
+                        "x",
+                        2,
+                        1
+                    ],
+                    [
+                        "x",
+                        2,
+                        2
+                    ]
+                ],
+                "initial_gap_m": 0.0035,
+                "tilt_axis": 0,
+                "tilt_sign": 1
+            },
+            "peak_initial_current_A": 1.3619636093456153,
+            "physical_source_sha256": {
+                "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+                "model.py": "7474a0aa7ef3699af0e89ad198235d81001253da2d53fc49a200129f3809ea52",
+                "levitation_sim.py": "85cc7c37ab8a72a429a145d1820e2e5cb8d8d79233f14861050d7cfdb0ad7b8d",
+                "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+                "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+                "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+                "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+                "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+                "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+                "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+                "methodology/motion.py": "bc9fcd626da4ade079f437e7878c97b78803a933264d34ceef4e36c3f70c7d4f",
+                "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+                "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+                "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+                "methodology/physics_verification.py": "6bc4afa307a3b160150d69303aae133373f3214831949406905df5df27eea23c",
+                "methodology/airborne.py": "9f430e7eba96a811324c0a83d239c8788854d90b8e5fba12e9afad4791b55ed8",
+                "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+                "methodology/sensing.py": "be69e4f85550a49fb425141f7239fd80ec3c5b9c1758175df778527727f81da0",
+                "methodology/magnetic_atlas.py": "a41022ce4060c56026e4408d04d58807ffd594d8560f38c49abf119388b46a73",
+                "methodology/airborne_inputs.py": "fbc3cc1dfc1101289b4a2addf4ac8220945b9ac8fc81ea10a4dab1b78381ca4c",
+                "methodology/airborne_verification.py": "f19ac1f8740a89035f27e4241babace84a8a2610b3bd6d5e535384eb9251de15",
+                "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061"
+            },
+            "query_bounds_m": [
+                [
+                    -0.05278033118896143,
+                    -0.050173503295466576,
+                    -0.012132342395868903
+                ],
+                [
+                    0.04387078574601093,
+                    0.046420458538416254,
+                    0.0010072335102585628
+                ]
+            ],
+            "outside_upright_atlas_points": 74183
+        },
+        {
+            "name": "lower_gap_tilt_axis_1_sign_-1",
+            "stop_reason": null,
+            "scenario": {
+                "name": "lower_gap_tilt_axis_1_sign_-1",
+                "pose": [
+                    0.004454772721475249,
+                    -5.768882040742208e-05,
+                    0.0,
+                    0.0,
+                    -0.09498456183672835,
+                    0.0
+                ],
+                "world_velocity": [
+                    -9.498752425416282e-17,
+                    1.1537764081484763,
+                    0.003999999999999998,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "duration_s": 0.0001,
+                "switch_time_s": 5e-05,
+                "selected_before": [
+                    [
+                        "x",
+                        -2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -2,
+                        0
+                    ],
+                    [
+                        "x",
+                        -2,
+                        1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        0
+                    ],
+                    [
+                        "x",
+                        -1,
+                        1
+                    ],
+                    [
+                        "x",
+                        0,
+                        -2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -1
+                    ],
+                    [
+                        "x",
+                        0,
+                        0
+                    ],
+                    [
+                        "x",
+                        0,
+                        1
+                    ],
+                    [
+                        "x",
+                        1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        1,
+                        0
+                    ],
+                    [
+                        "x",
+                        1,
+                        1
+                    ],
+                    [
+                        "x",
+                        2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        2,
+                        0
+                    ],
+                    [
+                        "x",
+                        2,
+                        1
+                    ]
+                ],
+                "selected_after": [
+                    [
+                        "x",
+                        -1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        0
+                    ],
+                    [
+                        "x",
+                        -1,
+                        1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -1
+                    ],
+                    [
+                        "x",
+                        0,
+                        0
+                    ],
+                    [
+                        "x",
+                        0,
+                        1
+                    ],
+                    [
+                        "x",
+                        0,
+                        2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        1,
+                        0
+                    ],
+                    [
+                        "x",
+                        1,
+                        1
+                    ],
+                    [
+                        "x",
+                        1,
+                        2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        2,
+                        0
+                    ],
+                    [
+                        "x",
+                        2,
+                        1
+                    ],
+                    [
+                        "x",
+                        2,
+                        2
+                    ]
+                ],
+                "initial_gap_m": 0.0035,
+                "tilt_axis": 1,
+                "tilt_sign": -1
+            },
+            "peak_initial_current_A": 1.2976352844518528,
+            "physical_source_sha256": {
+                "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+                "model.py": "7474a0aa7ef3699af0e89ad198235d81001253da2d53fc49a200129f3809ea52",
+                "levitation_sim.py": "85cc7c37ab8a72a429a145d1820e2e5cb8d8d79233f14861050d7cfdb0ad7b8d",
+                "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+                "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+                "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+                "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+                "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+                "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+                "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+                "methodology/motion.py": "bc9fcd626da4ade079f437e7878c97b78803a933264d34ceef4e36c3f70c7d4f",
+                "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+                "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+                "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+                "methodology/physics_verification.py": "6bc4afa307a3b160150d69303aae133373f3214831949406905df5df27eea23c",
+                "methodology/airborne.py": "9f430e7eba96a811324c0a83d239c8788854d90b8e5fba12e9afad4791b55ed8",
+                "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+                "methodology/sensing.py": "be69e4f85550a49fb425141f7239fd80ec3c5b9c1758175df778527727f81da0",
+                "methodology/magnetic_atlas.py": "a41022ce4060c56026e4408d04d58807ffd594d8560f38c49abf119388b46a73",
+                "methodology/airborne_inputs.py": "fbc3cc1dfc1101289b4a2addf4ac8220945b9ac8fc81ea10a4dab1b78381ca4c",
+                "methodology/airborne_verification.py": "f19ac1f8740a89035f27e4241babace84a8a2610b3bd6d5e535384eb9251de15",
+                "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061"
+            },
+            "query_bounds_m": [
+                [
+                    -0.054665624271924736,
+                    -0.04826786964707876,
+                    -0.011704372420479652
+                ],
+                [
+                    0.041928337561958094,
+                    0.0483832472878936,
+                    0.0014352034856478142
+                ]
+            ],
+            "outside_upright_atlas_points": 95936
+        },
+        {
+            "name": "lower_gap_tilt_axis_1_sign_1",
+            "stop_reason": null,
+            "scenario": {
+                "name": "lower_gap_tilt_axis_1_sign_1",
+                "pose": [
+                    0.004454772721475249,
+                    -5.768882040742208e-05,
+                    0.0,
+                    0.0,
+                    0.09498456183672835,
+                    0.0
+                ],
+                "world_velocity": [
+                    -9.498752425416282e-17,
+                    1.1537764081484763,
+                    0.003999999999999998,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "duration_s": 0.0001,
+                "switch_time_s": 5e-05,
+                "selected_before": [
+                    [
+                        "x",
+                        -2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -2,
+                        0
+                    ],
+                    [
+                        "x",
+                        -2,
+                        1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        0
+                    ],
+                    [
+                        "x",
+                        -1,
+                        1
+                    ],
+                    [
+                        "x",
+                        0,
+                        -2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -1
+                    ],
+                    [
+                        "x",
+                        0,
+                        0
+                    ],
+                    [
+                        "x",
+                        0,
+                        1
+                    ],
+                    [
+                        "x",
+                        1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        1,
+                        0
+                    ],
+                    [
+                        "x",
+                        1,
+                        1
+                    ],
+                    [
+                        "x",
+                        2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        2,
+                        0
+                    ],
+                    [
+                        "x",
+                        2,
+                        1
+                    ]
+                ],
+                "selected_after": [
+                    [
+                        "x",
+                        -1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        0
+                    ],
+                    [
+                        "x",
+                        -1,
+                        1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -1
+                    ],
+                    [
+                        "x",
+                        0,
+                        0
+                    ],
+                    [
+                        "x",
+                        0,
+                        1
+                    ],
+                    [
+                        "x",
+                        0,
+                        2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        1,
+                        0
+                    ],
+                    [
+                        "x",
+                        1,
+                        1
+                    ],
+                    [
+                        "x",
+                        1,
+                        2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        2,
+                        0
+                    ],
+                    [
+                        "x",
+                        2,
+                        1
+                    ],
+                    [
+                        "x",
+                        2,
+                        2
+                    ]
+                ],
+                "initial_gap_m": 0.0035,
+                "tilt_axis": 1,
+                "tilt_sign": 1
+            },
+            "peak_initial_current_A": 1.1008863501160255,
+            "physical_source_sha256": {
+                "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+                "model.py": "7474a0aa7ef3699af0e89ad198235d81001253da2d53fc49a200129f3809ea52",
+                "levitation_sim.py": "85cc7c37ab8a72a429a145d1820e2e5cb8d8d79233f14861050d7cfdb0ad7b8d",
+                "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+                "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+                "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+                "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+                "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+                "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+                "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+                "methodology/motion.py": "bc9fcd626da4ade079f437e7878c97b78803a933264d34ceef4e36c3f70c7d4f",
+                "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+                "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+                "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+                "methodology/physics_verification.py": "6bc4afa307a3b160150d69303aae133373f3214831949406905df5df27eea23c",
+                "methodology/airborne.py": "9f430e7eba96a811324c0a83d239c8788854d90b8e5fba12e9afad4791b55ed8",
+                "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+                "methodology/sensing.py": "be69e4f85550a49fb425141f7239fd80ec3c5b9c1758175df778527727f81da0",
+                "methodology/magnetic_atlas.py": "a41022ce4060c56026e4408d04d58807ffd594d8560f38c49abf119388b46a73",
+                "methodology/airborne_inputs.py": "fbc3cc1dfc1101289b4a2addf4ac8220945b9ac8fc81ea10a4dab1b78381ca4c",
+                "methodology/airborne_verification.py": "f19ac1f8740a89035f27e4241babace84a8a2610b3bd6d5e535384eb9251de15",
+                "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061"
+            },
+            "query_bounds_m": [
+                [
+                    -0.050797721955267966,
+                    -0.04826786964707876,
+                    -0.012549369748115177
+                ],
+                [
+                    0.045796239878614864,
+                    0.0483832472878936,
+                    0.0005902061580122886
+                ]
+            ],
+            "outside_upright_atlas_points": 57642
+        },
+        {
+            "name": "upper_gap_tilt_axis_0_sign_-1",
+            "stop_reason": null,
+            "scenario": {
+                "name": "upper_gap_tilt_axis_0_sign_-1",
+                "pose": [
+                    0.004454772721475249,
+                    -5.768882040742208e-05,
+                    0.0009999999999999996,
+                    -0.1404660220987088,
+                    0.0,
+                    0.0
+                ],
+                "world_velocity": [
+                    -9.498752425416282e-17,
+                    1.1537764081484763,
+                    -0.003999999999999998,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "duration_s": 0.0001,
+                "switch_time_s": 5e-05,
+                "selected_before": [
+                    [
+                        "x",
+                        -2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -2,
+                        0
+                    ],
+                    [
+                        "x",
+                        -2,
+                        1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        0
+                    ],
+                    [
+                        "x",
+                        -1,
+                        1
+                    ],
+                    [
+                        "x",
+                        0,
+                        -2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -1
+                    ],
+                    [
+                        "x",
+                        0,
+                        0
+                    ],
+                    [
+                        "x",
+                        0,
+                        1
+                    ],
+                    [
+                        "x",
+                        1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        1,
+                        0
+                    ],
+                    [
+                        "x",
+                        1,
+                        1
+                    ],
+                    [
+                        "x",
+                        2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        2,
+                        0
+                    ],
+                    [
+                        "x",
+                        2,
+                        1
+                    ]
+                ],
+                "selected_after": [
+                    [
+                        "x",
+                        -1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        0
+                    ],
+                    [
+                        "x",
+                        -1,
+                        1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -1
+                    ],
+                    [
+                        "x",
+                        0,
+                        0
+                    ],
+                    [
+                        "x",
+                        0,
+                        1
+                    ],
+                    [
+                        "x",
+                        0,
+                        2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        1,
+                        0
+                    ],
+                    [
+                        "x",
+                        1,
+                        1
+                    ],
+                    [
+                        "x",
+                        1,
+                        2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        2,
+                        0
+                    ],
+                    [
+                        "x",
+                        2,
+                        1
+                    ],
+                    [
+                        "x",
+                        2,
+                        2
+                    ]
+                ],
+                "initial_gap_m": 0.0045,
+                "tilt_axis": 0,
+                "tilt_sign": -1
+            },
+            "peak_initial_current_A": 1.839137869494927,
+            "physical_source_sha256": {
+                "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+                "model.py": "7474a0aa7ef3699af0e89ad198235d81001253da2d53fc49a200129f3809ea52",
+                "levitation_sim.py": "85cc7c37ab8a72a429a145d1820e2e5cb8d8d79233f14861050d7cfdb0ad7b8d",
+                "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+                "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+                "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+                "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+                "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+                "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+                "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+                "methodology/motion.py": "bc9fcd626da4ade079f437e7878c97b78803a933264d34ceef4e36c3f70c7d4f",
+                "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+                "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+                "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+                "methodology/physics_verification.py": "6bc4afa307a3b160150d69303aae133373f3214831949406905df5df27eea23c",
+                "methodology/airborne.py": "9f430e7eba96a811324c0a83d239c8788854d90b8e5fba12e9afad4791b55ed8",
+                "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+                "methodology/sensing.py": "be69e4f85550a49fb425141f7239fd80ec3c5b9c1758175df778527727f81da0",
+                "methodology/magnetic_atlas.py": "a41022ce4060c56026e4408d04d58807ffd594d8560f38c49abf119388b46a73",
+                "methodology/airborne_inputs.py": "fbc3cc1dfc1101289b4a2addf4ac8220945b9ac8fc81ea10a4dab1b78381ca4c",
+                "methodology/airborne_verification.py": "f19ac1f8740a89035f27e4241babace84a8a2610b3bd6d5e535384eb9251de15",
+                "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061"
+            },
+            "query_bounds_m": [
+                [
+                    -0.05278033118896143,
+                    -0.045076966829836286,
+                    -0.015171881677310166
+                ],
+                [
+                    0.04387078574601093,
+                    0.051180977786649255,
+                    0.0023114076934235696
+                ]
+            ],
+            "outside_upright_atlas_points": 98209
+        },
+        {
+            "name": "upper_gap_tilt_axis_0_sign_1",
+            "stop_reason": null,
+            "scenario": {
+                "name": "upper_gap_tilt_axis_0_sign_1",
+                "pose": [
+                    0.004454772721475249,
+                    -5.768882040742208e-05,
+                    0.0009999999999999996,
+                    0.1404660220987088,
+                    0.0,
+                    0.0
+                ],
+                "world_velocity": [
+                    -9.498752425416282e-17,
+                    1.1537764081484763,
+                    -0.003999999999999998,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "duration_s": 0.0001,
+                "switch_time_s": 5e-05,
+                "selected_before": [
+                    [
+                        "x",
+                        -2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -2,
+                        0
+                    ],
+                    [
+                        "x",
+                        -2,
+                        1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        0
+                    ],
+                    [
+                        "x",
+                        -1,
+                        1
+                    ],
+                    [
+                        "x",
+                        0,
+                        -2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -1
+                    ],
+                    [
+                        "x",
+                        0,
+                        0
+                    ],
+                    [
+                        "x",
+                        0,
+                        1
+                    ],
+                    [
+                        "x",
+                        1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        1,
+                        0
+                    ],
+                    [
+                        "x",
+                        1,
+                        1
+                    ],
+                    [
+                        "x",
+                        2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        2,
+                        0
+                    ],
+                    [
+                        "x",
+                        2,
+                        1
+                    ]
+                ],
+                "selected_after": [
+                    [
+                        "x",
+                        -1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        0
+                    ],
+                    [
+                        "x",
+                        -1,
+                        1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -1
+                    ],
+                    [
+                        "x",
+                        0,
+                        0
+                    ],
+                    [
+                        "x",
+                        0,
+                        1
+                    ],
+                    [
+                        "x",
+                        0,
+                        2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        1,
+                        0
+                    ],
+                    [
+                        "x",
+                        1,
+                        1
+                    ],
+                    [
+                        "x",
+                        1,
+                        2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        2,
+                        0
+                    ],
+                    [
+                        "x",
+                        2,
+                        1
+                    ],
+                    [
+                        "x",
+                        2,
+                        2
+                    ]
+                ],
+                "initial_gap_m": 0.0045,
+                "tilt_axis": 0,
+                "tilt_sign": 1
+            },
+            "peak_initial_current_A": 1.915496931873378,
+            "physical_source_sha256": {
+                "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+                "model.py": "7474a0aa7ef3699af0e89ad198235d81001253da2d53fc49a200129f3809ea52",
+                "levitation_sim.py": "85cc7c37ab8a72a429a145d1820e2e5cb8d8d79233f14861050d7cfdb0ad7b8d",
+                "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+                "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+                "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+                "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+                "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+                "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+                "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+                "methodology/motion.py": "bc9fcd626da4ade079f437e7878c97b78803a933264d34ceef4e36c3f70c7d4f",
+                "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+                "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+                "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+                "methodology/physics_verification.py": "6bc4afa307a3b160150d69303aae133373f3214831949406905df5df27eea23c",
+                "methodology/airborne.py": "9f430e7eba96a811324c0a83d239c8788854d90b8e5fba12e9afad4791b55ed8",
+                "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+                "methodology/sensing.py": "be69e4f85550a49fb425141f7239fd80ec3c5b9c1758175df778527727f81da0",
+                "methodology/magnetic_atlas.py": "a41022ce4060c56026e4408d04d58807ffd594d8560f38c49abf119388b46a73",
+                "methodology/airborne_inputs.py": "fbc3cc1dfc1101289b4a2addf4ac8220945b9ac8fc81ea10a4dab1b78381ca4c",
+                "methodology/airborne_verification.py": "f19ac1f8740a89035f27e4241babace84a8a2610b3bd6d5e535384eb9251de15",
+                "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061"
+            },
+            "query_bounds_m": [
+                [
+                    -0.05278033118896143,
+                    -0.05106673651654312,
+                    -0.01518803507337837
+                ],
+                [
+                    0.04387078574601093,
+                    0.04519120809994242,
+                    0.0022952542973553656
+                ]
+            ],
+            "outside_upright_atlas_points": 97840
+        },
+        {
+            "name": "upper_gap_tilt_axis_1_sign_-1",
+            "stop_reason": null,
+            "scenario": {
+                "name": "upper_gap_tilt_axis_1_sign_-1",
+                "pose": [
+                    0.004454772721475249,
+                    -5.768882040742208e-05,
+                    0.0009999999999999996,
+                    0.0,
+                    -0.1404660220987088,
+                    0.0
+                ],
+                "world_velocity": [
+                    -9.498752425416282e-17,
+                    1.1537764081484763,
+                    -0.003999999999999998,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "duration_s": 0.0001,
+                "switch_time_s": 5e-05,
+                "selected_before": [
+                    [
+                        "x",
+                        -2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -2,
+                        0
+                    ],
+                    [
+                        "x",
+                        -2,
+                        1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        0
+                    ],
+                    [
+                        "x",
+                        -1,
+                        1
+                    ],
+                    [
+                        "x",
+                        0,
+                        -2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -1
+                    ],
+                    [
+                        "x",
+                        0,
+                        0
+                    ],
+                    [
+                        "x",
+                        0,
+                        1
+                    ],
+                    [
+                        "x",
+                        1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        1,
+                        0
+                    ],
+                    [
+                        "x",
+                        1,
+                        1
+                    ],
+                    [
+                        "x",
+                        2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        2,
+                        0
+                    ],
+                    [
+                        "x",
+                        2,
+                        1
+                    ]
+                ],
+                "selected_after": [
+                    [
+                        "x",
+                        -1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        0
+                    ],
+                    [
+                        "x",
+                        -1,
+                        1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -1
+                    ],
+                    [
+                        "x",
+                        0,
+                        0
+                    ],
+                    [
+                        "x",
+                        0,
+                        1
+                    ],
+                    [
+                        "x",
+                        0,
+                        2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        1,
+                        0
+                    ],
+                    [
+                        "x",
+                        1,
+                        1
+                    ],
+                    [
+                        "x",
+                        1,
+                        2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        2,
+                        0
+                    ],
+                    [
+                        "x",
+                        2,
+                        1
+                    ],
+                    [
+                        "x",
+                        2,
+                        2
+                    ]
+                ],
+                "initial_gap_m": 0.0045,
+                "tilt_axis": 1,
+                "tilt_sign": -1
+            },
+            "peak_initial_current_A": 1.7728307651019577,
+            "physical_source_sha256": {
+                "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+                "model.py": "7474a0aa7ef3699af0e89ad198235d81001253da2d53fc49a200129f3809ea52",
+                "levitation_sim.py": "85cc7c37ab8a72a429a145d1820e2e5cb8d8d79233f14861050d7cfdb0ad7b8d",
+                "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+                "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+                "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+                "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+                "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+                "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+                "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+                "methodology/motion.py": "bc9fcd626da4ade079f437e7878c97b78803a933264d34ceef4e36c3f70c7d4f",
+                "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+                "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+                "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+                "methodology/physics_verification.py": "6bc4afa307a3b160150d69303aae133373f3214831949406905df5df27eea23c",
+                "methodology/airborne.py": "9f430e7eba96a811324c0a83d239c8788854d90b8e5fba12e9afad4791b55ed8",
+                "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+                "methodology/sensing.py": "be69e4f85550a49fb425141f7239fd80ec3c5b9c1758175df778527727f81da0",
+                "methodology/magnetic_atlas.py": "a41022ce4060c56026e4408d04d58807ffd594d8560f38c49abf119388b46a73",
+                "methodology/airborne_inputs.py": "fbc3cc1dfc1101289b4a2addf4ac8220945b9ac8fc81ea10a4dab1b78381ca4c",
+                "methodology/airborne_verification.py": "f19ac1f8740a89035f27e4241babace84a8a2610b3bd6d5e535384eb9251de15",
+                "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061"
+            },
+            "query_bounds_m": [
+                [
+                    -0.05553475418624955,
+                    -0.04826786964707876,
+                    -0.014556269871613283
+                ],
+                [
+                    0.04072319043023599,
+                    0.0483832472878936,
+                    0.0029270194991204515
+                ]
+            ],
+            "outside_upright_atlas_points": 111433
+        },
+        {
+            "name": "upper_gap_tilt_axis_1_sign_1",
+            "stop_reason": null,
+            "scenario": {
+                "name": "upper_gap_tilt_axis_1_sign_1",
+                "pose": [
+                    0.004454772721475249,
+                    -5.768882040742208e-05,
+                    0.0009999999999999996,
+                    0.0,
+                    0.1404660220987088,
+                    0.0
+                ],
+                "world_velocity": [
+                    -9.498752425416282e-17,
+                    1.1537764081484763,
+                    -0.003999999999999998,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "duration_s": 0.0001,
+                "switch_time_s": 5e-05,
+                "selected_before": [
+                    [
+                        "x",
+                        -2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -2,
+                        0
+                    ],
+                    [
+                        "x",
+                        -2,
+                        1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        0
+                    ],
+                    [
+                        "x",
+                        -1,
+                        1
+                    ],
+                    [
+                        "x",
+                        0,
+                        -2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -1
+                    ],
+                    [
+                        "x",
+                        0,
+                        0
+                    ],
+                    [
+                        "x",
+                        0,
+                        1
+                    ],
+                    [
+                        "x",
+                        1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        1,
+                        0
+                    ],
+                    [
+                        "x",
+                        1,
+                        1
+                    ],
+                    [
+                        "x",
+                        2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        2,
+                        0
+                    ],
+                    [
+                        "x",
+                        2,
+                        1
+                    ]
+                ],
+                "selected_after": [
+                    [
+                        "x",
+                        -1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        -1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        0
+                    ],
+                    [
+                        "x",
+                        -1,
+                        1
+                    ],
+                    [
+                        "x",
+                        -1,
+                        2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -2
+                    ],
+                    [
+                        "x",
+                        0,
+                        -1
+                    ],
+                    [
+                        "x",
+                        0,
+                        0
+                    ],
+                    [
+                        "x",
+                        0,
+                        1
+                    ],
+                    [
+                        "x",
+                        0,
+                        2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -2
+                    ],
+                    [
+                        "x",
+                        1,
+                        -1
+                    ],
+                    [
+                        "x",
+                        1,
+                        0
+                    ],
+                    [
+                        "x",
+                        1,
+                        1
+                    ],
+                    [
+                        "x",
+                        1,
+                        2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -2
+                    ],
+                    [
+                        "x",
+                        2,
+                        -1
+                    ],
+                    [
+                        "x",
+                        2,
+                        0
+                    ],
+                    [
+                        "x",
+                        2,
+                        1
+                    ],
+                    [
+                        "x",
+                        2,
+                        2
+                    ]
+                ],
+                "initial_gap_m": 0.0045,
+                "tilt_axis": 1,
+                "tilt_sign": 1
+            },
+            "peak_initial_current_A": 1.5575422520740112,
+            "physical_source_sha256": {
+                "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+                "model.py": "7474a0aa7ef3699af0e89ad198235d81001253da2d53fc49a200129f3809ea52",
+                "levitation_sim.py": "85cc7c37ab8a72a429a145d1820e2e5cb8d8d79233f14861050d7cfdb0ad7b8d",
+                "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+                "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+                "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+                "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+                "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+                "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+                "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+                "methodology/motion.py": "bc9fcd626da4ade079f437e7878c97b78803a933264d34ceef4e36c3f70c7d4f",
+                "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+                "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+                "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+                "methodology/physics_verification.py": "6bc4afa307a3b160150d69303aae133373f3214831949406905df5df27eea23c",
+                "methodology/airborne.py": "9f430e7eba96a811324c0a83d239c8788854d90b8e5fba12e9afad4791b55ed8",
+                "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+                "methodology/sensing.py": "be69e4f85550a49fb425141f7239fd80ec3c5b9c1758175df778527727f81da0",
+                "methodology/magnetic_atlas.py": "a41022ce4060c56026e4408d04d58807ffd594d8560f38c49abf119388b46a73",
+                "methodology/airborne_inputs.py": "fbc3cc1dfc1101289b4a2addf4ac8220945b9ac8fc81ea10a4dab1b78381ca4c",
+                "methodology/airborne_verification.py": "f19ac1f8740a89035f27e4241babace84a8a2610b3bd6d5e535384eb9251de15",
+                "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061"
+            },
+            "query_bounds_m": [
+                [
+                    -0.04954498449954271,
+                    -0.04826786964707876,
+                    -0.01580364687907525
+                ],
+                [
+                    0.04671296011694283,
+                    0.0483832472878936,
+                    0.0016796424916584837
+                ]
+            ],
+            "outside_upright_atlas_points": 91636
+        }
+    ],
+    "backend_decision": "Direct fields for the short tilted reference batch; every tilted initial pose exceeds the upright cache domain.",
+    "query_points": 443977
+}

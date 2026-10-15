@@ -1,0 +1,950 @@
+{
+    "scope": "Sampled magnetic atlas accuracy and cost, followed by gated short coupled comparisons; not flight qualification",
+    "status": "no_candidate_passed",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "e52acd69308e66ef257256c3ddf975a7bd723026caf7f33f07bd2354e00c9a8b",
+        "levitation_sim.py": "85cc7c37ab8a72a429a145d1820e2e5cb8d8d79233f14861050d7cfdb0ad7b8d",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+        "methodology/magnetic_atlas.py": "5accee0bc5a32368c3b74f733bffb7dca3e13272e91a84746580e6c22098c805"
+    },
+    "interpolation": "Separable tensor B-spline, not-a-knot boundaries, exterior samples only",
+    "environment": {
+        "python": "3.14.4",
+        "numpy": "2.4.6",
+        "scipy": "1.17.1",
+        "magpylib": "5.2.3"
+    },
+    "candidates": [
+        {
+            "spacing_m": 0.001,
+            "spline_order": 3,
+            "grid_shape": [
+                88,
+                83,
+                27
+            ],
+            "coefficient_bytes": 4732992,
+            "grid_build_s": 3.2831721319817007,
+            "coefficient_build_s": 0.09696529910434037,
+            "probe_error_T": 0.0006663173920521889,
+            "poses": [
+                {
+                    "force_relative": 8.630198971372304e-05,
+                    "torque_relative": 0.0001271397683017958,
+                    "field_error_T": 0.0002930529523787519,
+                    "gradient_relative": 2.4908065515772985e-05,
+                    "elapsed_s": 0.1589418820803985
+                },
+                {
+                    "force_relative": 7.227030262242022e-05,
+                    "torque_relative": 0.00010760850585961085,
+                    "field_error_T": 0.0007643274602737045,
+                    "gradient_relative": 0.00015127103929293975,
+                    "elapsed_s": 0.12804969807621092
+                },
+                {
+                    "force_relative": 8.165644728579649e-05,
+                    "torque_relative": 8.639007950809782e-05,
+                    "field_error_T": 0.00028704999669790747,
+                    "gradient_relative": 0.00012432344096246364,
+                    "elapsed_s": 0.14840064500458539
+                },
+                {
+                    "force_relative": 8.535258395287408e-05,
+                    "torque_relative": 0.00011306371666993048,
+                    "field_error_T": 0.0006399838977779081,
+                    "gradient_relative": 0.0001623196006101457,
+                    "elapsed_s": 0.145409164018929
+                },
+                {
+                    "force_relative": 6.224480592250435e-05,
+                    "torque_relative": 0.00011286152946922206,
+                    "field_error_T": 0.0002750829032122975,
+                    "gradient_relative": 0.00016271131309375877,
+                    "elapsed_s": 0.1459241680568084
+                },
+                {
+                    "force_relative": 0.0001256325722666058,
+                    "torque_relative": 0.00013117308676692586,
+                    "field_error_T": 0.00037296603459328616,
+                    "gradient_relative": 0.00013176964332382802,
+                    "elapsed_s": 0.138070500921458
+                },
+                {
+                    "force_relative": 9.279724668758425e-05,
+                    "torque_relative": 5.8047398315976626e-05,
+                    "field_error_T": 0.00027907388388746383,
+                    "gradient_relative": 0.00015971399328406122,
+                    "elapsed_s": 0.1410118129570037
+                },
+                {
+                    "force_relative": 0.00013318970329631005,
+                    "torque_relative": 0.00016905902703901685,
+                    "field_error_T": 0.00034034030435276127,
+                    "gradient_relative": 0.0001186306398013669,
+                    "elapsed_s": 0.13536946498788893
+                },
+                {
+                    "force_relative": 9.659902558277566e-05,
+                    "torque_relative": 0.0002025484930725257,
+                    "field_error_T": 0.00033399342403045976,
+                    "gradient_relative": 0.0001742550164058789,
+                    "elapsed_s": 0.14123468496836722
+                },
+                {
+                    "force_relative": 5.0759037551709016e-05,
+                    "torque_relative": 7.661980709811616e-05,
+                    "field_error_T": 7.134056038310852e-05,
+                    "gradient_relative": 0.00014972038999372804,
+                    "elapsed_s": 0.14058886200655252
+                },
+                {
+                    "force_relative": 8.083843862129017e-05,
+                    "torque_relative": 0.00015334761692526561,
+                    "field_error_T": 0.0002800678134557564,
+                    "gradient_relative": 0.00018442135637993965,
+                    "elapsed_s": 0.15228092297911644
+                },
+                {
+                    "force_relative": 7.148571839756822e-05,
+                    "torque_relative": 9.065968908365198e-05,
+                    "field_error_T": 0.0003316336642123556,
+                    "gradient_relative": 0.000145255363337277,
+                    "elapsed_s": 0.14383564505260438
+                },
+                {
+                    "force_relative": 6.254135168050729e-05,
+                    "torque_relative": 6.750051724256551e-05,
+                    "field_error_T": 8.14238737353438e-05,
+                    "gradient_relative": 0.00014987441115296005,
+                    "elapsed_s": 0.14917064597830176
+                },
+                {
+                    "force_relative": 6.043166116017533e-05,
+                    "torque_relative": 0.00010805914810712666,
+                    "field_error_T": 0.00029684335850331436,
+                    "gradient_relative": 0.00013801186226214111,
+                    "elapsed_s": 0.15047634905204177
+                },
+                {
+                    "force_relative": 4.774043409954674e-05,
+                    "torque_relative": 6.825193439924332e-05,
+                    "field_error_T": 0.00012045822851065474,
+                    "gradient_relative": 0.00013779882632079948,
+                    "elapsed_s": 0.16574211895931512
+                }
+            ],
+            "median_matrix_s": 0.145409164018929,
+            "speedup": 16.228956022254543,
+            "checks": {
+                "field": false,
+                "force": false,
+                "torque": false,
+                "gradient": true,
+                "speed": true
+            },
+            "passed": false
+        },
+        {
+            "spacing_m": 0.001,
+            "spline_order": 5,
+            "grid_shape": [
+                88,
+                83,
+                27
+            ],
+            "coefficient_bytes": 4732992,
+            "grid_build_s": 3.2831721319817007,
+            "coefficient_build_s": 0.11446415004320443,
+            "probe_error_T": 0.00033664403310293867,
+            "poses": [
+                {
+                    "force_relative": 2.4243956871163886e-05,
+                    "torque_relative": 2.958034814682859e-05,
+                    "field_error_T": 0.00019147185001868543,
+                    "gradient_relative": 0.00014727005882053017,
+                    "elapsed_s": 0.37844193005003035
+                },
+                {
+                    "force_relative": 1.654638224991339e-05,
+                    "torque_relative": 1.724070380059492e-05,
+                    "field_error_T": 0.0003799188330688712,
+                    "gradient_relative": 3.753835193442312e-05,
+                    "elapsed_s": 0.3234194590477273
+                },
+                {
+                    "force_relative": 1.151520171521295e-05,
+                    "torque_relative": 1.323052968642108e-05,
+                    "field_error_T": 0.00019242584022301793,
+                    "gradient_relative": 1.673458458466232e-05,
+                    "elapsed_s": 0.34152766200713813
+                },
+                {
+                    "force_relative": 1.961102992665338e-05,
+                    "torque_relative": 1.481647145348944e-05,
+                    "field_error_T": 0.00032589961795010053,
+                    "gradient_relative": 0.00021192008150455017,
+                    "elapsed_s": 0.34960634203162044
+                },
+                {
+                    "force_relative": 1.3652778754158416e-05,
+                    "torque_relative": 2.1382693462462563e-05,
+                    "field_error_T": 0.00018293870947187947,
+                    "gradient_relative": 0.00010638179918981485,
+                    "elapsed_s": 0.3135051460703835
+                },
+                {
+                    "force_relative": 2.1578861275920486e-05,
+                    "torque_relative": 2.5817972190319642e-05,
+                    "field_error_T": 0.00018968193923766136,
+                    "gradient_relative": 2.7555353852232993e-05,
+                    "elapsed_s": 0.29857914801687
+                },
+                {
+                    "force_relative": 8.085282979792258e-06,
+                    "torque_relative": 1.2849372549697055e-05,
+                    "field_error_T": 0.00018925042415020296,
+                    "gradient_relative": 1.390373032226843e-05,
+                    "elapsed_s": 0.30260770895984024
+                },
+                {
+                    "force_relative": 3.419844991944264e-05,
+                    "torque_relative": 2.507095124837575e-05,
+                    "field_error_T": 0.00022221980103183305,
+                    "gradient_relative": 8.883677459908988e-05,
+                    "elapsed_s": 0.3050075749633834
+                },
+                {
+                    "force_relative": 3.821012607628043e-05,
+                    "torque_relative": 4.494557025254019e-05,
+                    "field_error_T": 0.00022026005097075426,
+                    "gradient_relative": 0.00012536505820393918,
+                    "elapsed_s": 0.29909089603461325
+                },
+                {
+                    "force_relative": 1.2001107300696832e-05,
+                    "torque_relative": 1.9047729066270018e-05,
+                    "field_error_T": 8.656733529289012e-05,
+                    "gradient_relative": 2.6605850122891154e-05,
+                    "elapsed_s": 0.303652542992495
+                },
+                {
+                    "force_relative": 2.1519472866526394e-05,
+                    "torque_relative": 2.7296025927505976e-05,
+                    "field_error_T": 0.0001928719396029443,
+                    "gradient_relative": 0.00021771587671148542,
+                    "elapsed_s": 0.3063874060753733
+                },
+                {
+                    "force_relative": 1.1989824141294344e-05,
+                    "torque_relative": 1.539119600498293e-05,
+                    "field_error_T": 0.00022106654897538443,
+                    "gradient_relative": 6.438022989125905e-05,
+                    "elapsed_s": 0.31088425300549716
+                },
+                {
+                    "force_relative": 9.708227730660863e-06,
+                    "torque_relative": 1.3041557877375171e-05,
+                    "field_error_T": 8.787471648125435e-05,
+                    "gradient_relative": 7.426813885131639e-05,
+                    "elapsed_s": 0.29640231002122164
+                },
+                {
+                    "force_relative": 1.2313143031612577e-05,
+                    "torque_relative": 2.216334846741447e-05,
+                    "field_error_T": 0.00019859774024442485,
+                    "gradient_relative": 0.00013038107271145128,
+                    "elapsed_s": 0.3046616750070825
+                },
+                {
+                    "force_relative": 1.9064352399420784e-05,
+                    "torque_relative": 2.522503539887344e-05,
+                    "field_error_T": 8.844899435016981e-05,
+                    "gradient_relative": 9.558508286713724e-05,
+                    "elapsed_s": 0.3048699500504881
+                }
+            ],
+            "median_matrix_s": 0.3050075749633834,
+            "speedup": 7.736984658100044,
+            "checks": {
+                "field": false,
+                "force": true,
+                "torque": true,
+                "gradient": true,
+                "speed": true
+            },
+            "passed": false
+        },
+        {
+            "spacing_m": 0.0005,
+            "spline_order": 3,
+            "grid_shape": [
+                150,
+                140,
+                42
+            ],
+            "coefficient_bytes": 21168000,
+            "grid_build_s": 12.745683689950965,
+            "coefficient_build_s": 0.40880554902832955,
+            "probe_error_T": 1.0779175529492333e-05,
+            "poses": [
+                {
+                    "force_relative": 4.679657105772196e-06,
+                    "torque_relative": 5.995385155749559e-06,
+                    "field_error_T": 3.963170914288329e-06,
+                    "gradient_relative": 1.1336220895342228e-06,
+                    "elapsed_s": 0.13786034705117345
+                },
+                {
+                    "force_relative": 5.9917303286230415e-06,
+                    "torque_relative": 8.374570192446147e-06,
+                    "field_error_T": 1.7841164394578866e-05,
+                    "gradient_relative": 1.3910552709938207e-05,
+                    "elapsed_s": 0.1354988949606195
+                },
+                {
+                    "force_relative": 5.3972294368819835e-06,
+                    "torque_relative": 5.4374415575891806e-06,
+                    "field_error_T": 2.956946460265756e-06,
+                    "gradient_relative": 1.7835915050292487e-05,
+                    "elapsed_s": 0.14006573404185474
+                },
+                {
+                    "force_relative": 3.9863935368796114e-06,
+                    "torque_relative": 5.674846174791074e-06,
+                    "field_error_T": 1.0534204296676057e-05,
+                    "gradient_relative": 2.2440505332242517e-05,
+                    "elapsed_s": 0.12915615702513605
+                },
+                {
+                    "force_relative": 3.5799239996846298e-06,
+                    "torque_relative": 6.234439069294586e-06,
+                    "field_error_T": 2.754486776004221e-06,
+                    "gradient_relative": 2.6651801771669465e-05,
+                    "elapsed_s": 0.1284146560356021
+                },
+                {
+                    "force_relative": 5.169754742572566e-06,
+                    "torque_relative": 7.143444203117864e-06,
+                    "field_error_T": 6.477422512464153e-06,
+                    "gradient_relative": 1.8799940450621693e-05,
+                    "elapsed_s": 0.12899889796972275
+                },
+                {
+                    "force_relative": 4.861635279502684e-06,
+                    "torque_relative": 3.4896875714414843e-06,
+                    "field_error_T": 2.786157655139084e-06,
+                    "gradient_relative": 2.1064159889847385e-05,
+                    "elapsed_s": 0.1366648580878973
+                },
+                {
+                    "force_relative": 4.761825663945427e-06,
+                    "torque_relative": 7.559106629050704e-06,
+                    "field_error_T": 7.0765850086965905e-06,
+                    "gradient_relative": 1.3232406622381699e-05,
+                    "elapsed_s": 0.14885127695742995
+                },
+                {
+                    "force_relative": 3.781106974189115e-06,
+                    "torque_relative": 7.313761661071839e-06,
+                    "field_error_T": 5.202637906260269e-06,
+                    "gradient_relative": 2.39500769661401e-05,
+                    "elapsed_s": 0.1467963990289718
+                },
+                {
+                    "force_relative": 3.213679872630646e-06,
+                    "torque_relative": 5.306536040392403e-06,
+                    "field_error_T": 2.11115684244264e-06,
+                    "gradient_relative": 1.6801682461922854e-05,
+                    "elapsed_s": 0.1438621630659327
+                },
+                {
+                    "force_relative": 3.5902430187584582e-06,
+                    "torque_relative": 6.872082555291499e-06,
+                    "field_error_T": 3.285839882504534e-06,
+                    "gradient_relative": 2.6309850800259215e-05,
+                    "elapsed_s": 0.14682151400484145
+                },
+                {
+                    "force_relative": 3.7248341606736785e-06,
+                    "torque_relative": 5.10131220167152e-06,
+                    "field_error_T": 3.5750188281398614e-06,
+                    "gradient_relative": 1.8843611003354153e-05,
+                    "elapsed_s": 0.14601264102384448
+                },
+                {
+                    "force_relative": 4.619494821500699e-06,
+                    "torque_relative": 4.685794920797108e-06,
+                    "field_error_T": 2.076613698492944e-06,
+                    "gradient_relative": 1.992595924582192e-05,
+                    "elapsed_s": 0.13925774593371898
+                },
+                {
+                    "force_relative": 3.3398172822171818e-06,
+                    "torque_relative": 6.3888453671714705e-06,
+                    "field_error_T": 3.859816706267658e-06,
+                    "gradient_relative": 2.1992816252273843e-05,
+                    "elapsed_s": 0.13247639895416796
+                },
+                {
+                    "force_relative": 3.14682823139073e-06,
+                    "torque_relative": 4.406513834298118e-06,
+                    "field_error_T": 2.192100882823769e-06,
+                    "gradient_relative": 2.1520811220936417e-05,
+                    "elapsed_s": 0.1321490410482511
+                }
+            ],
+            "median_matrix_s": 0.13786034705117345,
+            "speedup": 17.117604725164586,
+            "checks": {
+                "field": false,
+                "force": true,
+                "torque": true,
+                "gradient": true,
+                "speed": true
+            },
+            "passed": false
+        },
+        {
+            "spacing_m": 0.0005,
+            "spline_order": 5,
+            "grid_shape": [
+                150,
+                140,
+                42
+            ],
+            "coefficient_bytes": 21168000,
+            "grid_build_s": 12.745683689950965,
+            "coefficient_build_s": 0.4154582959599793,
+            "probe_error_T": 1.5653509663120027e-05,
+            "poses": [
+                {
+                    "force_relative": 2.8812120300165602e-08,
+                    "torque_relative": 4.839130491575592e-08,
+                    "field_error_T": 6.465385397514307e-06,
+                    "gradient_relative": 6.065466088012297e-08,
+                    "elapsed_s": 0.3302717780461535
+                },
+                {
+                    "force_relative": 5.955878807177811e-07,
+                    "torque_relative": 9.879930169163634e-07,
+                    "field_error_T": 2.6969924147499708e-05,
+                    "gradient_relative": 1.8624070220254332e-08,
+                    "elapsed_s": 0.32964053796604276
+                },
+                {
+                    "force_relative": 4.8213524003241567e-08,
+                    "torque_relative": 8.122197905619512e-08,
+                    "field_error_T": 5.496806544106158e-06,
+                    "gradient_relative": 2.252379940381146e-08,
+                    "elapsed_s": 0.3041791779687628
+                },
+                {
+                    "force_relative": 2.176093050929058e-07,
+                    "torque_relative": 2.8817953921161874e-07,
+                    "field_error_T": 1.6096727237125557e-05,
+                    "gradient_relative": 1.193428668232542e-07,
+                    "elapsed_s": 0.31007726897951216
+                },
+                {
+                    "force_relative": 1.0986101650075038e-07,
+                    "torque_relative": 1.770758363419943e-07,
+                    "field_error_T": 5.779956786580277e-06,
+                    "gradient_relative": 4.4709243197356045e-08,
+                    "elapsed_s": 0.3080419859616086
+                },
+                {
+                    "force_relative": 2.983403890500616e-07,
+                    "torque_relative": 3.547050575081737e-07,
+                    "field_error_T": 1.1612105506152714e-05,
+                    "gradient_relative": 1.875346635327098e-08,
+                    "elapsed_s": 0.30695615196600556
+                },
+                {
+                    "force_relative": 6.1774425957077e-08,
+                    "torque_relative": 8.511440481010369e-08,
+                    "field_error_T": 6.38171758031025e-06,
+                    "gradient_relative": 2.051307487874861e-08,
+                    "elapsed_s": 0.3274824940599501
+                },
+                {
+                    "force_relative": 3.011673868382224e-07,
+                    "torque_relative": 3.678312629394786e-07,
+                    "field_error_T": 1.101394859845429e-05,
+                    "gradient_relative": 3.136279981657113e-08,
+                    "elapsed_s": 0.3343482440104708
+                },
+                {
+                    "force_relative": 4.2859638141599965e-07,
+                    "torque_relative": 3.813139908689867e-07,
+                    "field_error_T": 1.560459303022766e-05,
+                    "gradient_relative": 6.49875197438655e-08,
+                    "elapsed_s": 0.35600892000366
+                },
+                {
+                    "force_relative": 7.060387308496403e-08,
+                    "torque_relative": 1.323479044332442e-07,
+                    "field_error_T": 3.069342415962666e-06,
+                    "gradient_relative": 1.8030617972803504e-08,
+                    "elapsed_s": 0.34652701194863766
+                },
+                {
+                    "force_relative": 7.379906419247225e-08,
+                    "torque_relative": 1.1965716096916376e-07,
+                    "field_error_T": 5.683004215122241e-06,
+                    "gradient_relative": 8.716544938482488e-08,
+                    "elapsed_s": 0.33698490203823894
+                },
+                {
+                    "force_relative": 1.41446923468652e-07,
+                    "torque_relative": 1.4493118267390282e-07,
+                    "field_error_T": 7.109840980195208e-06,
+                    "gradient_relative": 1.958374414789558e-08,
+                    "elapsed_s": 0.33874010597355664
+                },
+                {
+                    "force_relative": 7.586224306041504e-08,
+                    "torque_relative": 8.981651981577961e-08,
+                    "field_error_T": 3.028246106524577e-06,
+                    "gradient_relative": 3.082928116048527e-08,
+                    "elapsed_s": 0.32351702998857945
+                },
+                {
+                    "force_relative": 6.00125543953378e-08,
+                    "torque_relative": 1.1839347361085826e-07,
+                    "field_error_T": 6.52321602002829e-06,
+                    "gradient_relative": 4.500541855440565e-08,
+                    "elapsed_s": 0.3039078810252249
+                },
+                {
+                    "force_relative": 5.138206071873727e-08,
+                    "torque_relative": 6.421903246550101e-08,
+                    "field_error_T": 2.7681019557812556e-06,
+                    "gradient_relative": 2.925196487659274e-08,
+                    "elapsed_s": 0.30290176603011787
+                }
+            ],
+            "median_matrix_s": 0.3274824940599501,
+            "speedup": 7.206000231768101,
+            "checks": {
+                "field": false,
+                "force": true,
+                "torque": true,
+                "gradient": true,
+                "speed": true
+            },
+            "passed": false
+        },
+        {
+            "spacing_m": 0.00025,
+            "spline_order": 3,
+            "grid_shape": [
+                275,
+                253,
+                71
+            ],
+            "coefficient_bytes": 118555800,
+            "grid_build_s": 70.91544160095509,
+            "coefficient_build_s": 4.352776831947267,
+            "probe_error_T": 3.296677180353335e-07,
+            "poses": [
+                {
+                    "force_relative": 2.8491040421031247e-07,
+                    "torque_relative": 3.63563344455363e-07,
+                    "field_error_T": 2.1143191486580178e-07,
+                    "gradient_relative": 1.4956303754682076e-07,
+                    "elapsed_s": 0.18391216499730945
+                },
+                {
+                    "force_relative": 3.666132379150857e-07,
+                    "torque_relative": 4.878460282215138e-07,
+                    "field_error_T": 3.296677171824634e-07,
+                    "gradient_relative": 1.530316661464599e-06,
+                    "elapsed_s": 0.16715529491193593
+                },
+                {
+                    "force_relative": 3.426786304052771e-07,
+                    "torque_relative": 3.3737959064578725e-07,
+                    "field_error_T": 1.684740533419172e-07,
+                    "gradient_relative": 2.260327824416199e-06,
+                    "elapsed_s": 0.1676934149581939
+                },
+                {
+                    "force_relative": 2.584305148977754e-07,
+                    "torque_relative": 3.670962654291355e-07,
+                    "field_error_T": 2.971955140167628e-07,
+                    "gradient_relative": 3.0425730552389498e-06,
+                    "elapsed_s": 0.16329529194626957
+                },
+                {
+                    "force_relative": 2.2649072280318622e-07,
+                    "torque_relative": 3.941363809535364e-07,
+                    "field_error_T": 1.43477511088495e-07,
+                    "gradient_relative": 2.504403876589229e-06,
+                    "elapsed_s": 0.16335393104236573
+                },
+                {
+                    "force_relative": 3.3037308706633897e-07,
+                    "torque_relative": 4.520729257336788e-07,
+                    "field_error_T": 2.777541943832598e-07,
+                    "gradient_relative": 1.7566116081273637e-06,
+                    "elapsed_s": 0.16195785498712212
+                },
+                {
+                    "force_relative": 2.9392529805152494e-07,
+                    "torque_relative": 2.2099995282572913e-07,
+                    "field_error_T": 1.5080874663655653e-07,
+                    "gradient_relative": 2.1434462619849385e-06,
+                    "elapsed_s": 0.16710104001685977
+                },
+                {
+                    "force_relative": 2.9576667022050374e-07,
+                    "torque_relative": 4.711854708078473e-07,
+                    "field_error_T": 2.7180915796602303e-07,
+                    "gradient_relative": 2.4496000560420353e-06,
+                    "elapsed_s": 0.17038238199893385
+                },
+                {
+                    "force_relative": 2.2014386890088594e-07,
+                    "torque_relative": 4.575308930373258e-07,
+                    "field_error_T": 3.006773938817464e-07,
+                    "gradient_relative": 2.042438002959962e-06,
+                    "elapsed_s": 0.1708842330845073
+                },
+                {
+                    "force_relative": 2.0889301337607525e-07,
+                    "torque_relative": 3.4218961031572527e-07,
+                    "field_error_T": 1.1741102053011816e-07,
+                    "gradient_relative": 2.2082066370832817e-06,
+                    "elapsed_s": 0.17001460294704884
+                },
+                {
+                    "force_relative": 2.2384504954084673e-07,
+                    "torque_relative": 4.4835153961376954e-07,
+                    "field_error_T": 2.2158975277262623e-07,
+                    "gradient_relative": 2.8211022198586653e-06,
+                    "elapsed_s": 0.16330385697074234
+                },
+                {
+                    "force_relative": 2.348534144175046e-07,
+                    "torque_relative": 3.1406096298419653e-07,
+                    "field_error_T": 2.0166647152126399e-07,
+                    "gradient_relative": 2.4402942550257364e-06,
+                    "elapsed_s": 0.1712443339638412
+                },
+                {
+                    "force_relative": 2.99909665590657e-07,
+                    "torque_relative": 2.890871298409703e-07,
+                    "field_error_T": 1.2360172729117982e-07,
+                    "gradient_relative": 2.674863404682615e-06,
+                    "elapsed_s": 0.17001037998124957
+                },
+                {
+                    "force_relative": 2.0634378208047751e-07,
+                    "torque_relative": 3.9930360251969127e-07,
+                    "field_error_T": 2.154636261260368e-07,
+                    "gradient_relative": 2.312172603371655e-06,
+                    "elapsed_s": 0.1636520940810442
+                },
+                {
+                    "force_relative": 1.8971126091068434e-07,
+                    "torque_relative": 2.8880320564580235e-07,
+                    "field_error_T": 1.1913745028179945e-07,
+                    "gradient_relative": 2.3952413578120373e-06,
+                    "elapsed_s": 0.16814660001546144
+                }
+            ],
+            "median_matrix_s": 0.1676934149581939,
+            "speedup": 14.072341055755267,
+            "checks": {
+                "field": false,
+                "force": true,
+                "torque": true,
+                "gradient": true,
+                "speed": true
+            },
+            "passed": false
+        },
+        {
+            "spacing_m": 0.00025,
+            "spline_order": 5,
+            "grid_shape": [
+                275,
+                253,
+                71
+            ],
+            "coefficient_bytes": 118555800,
+            "grid_build_s": 70.91544160095509,
+            "coefficient_build_s": 5.169906233088113,
+            "probe_error_T": 8.517799596603661e-08,
+            "poses": [
+                {
+                    "force_relative": 4.4992639534957887e-11,
+                    "torque_relative": 8.135103556878029e-11,
+                    "field_error_T": 8.614612338673955e-09,
+                    "gradient_relative": 1.8680529004336449e-10,
+                    "elapsed_s": 0.3593664950458333
+                },
+                {
+                    "force_relative": 9.43433496889008e-10,
+                    "torque_relative": 1.243955005230116e-09,
+                    "field_error_T": 1.0046732130774608e-07,
+                    "gradient_relative": 5.33608113486184e-10,
+                    "elapsed_s": 0.36442944104783237
+                },
+                {
+                    "force_relative": 6.090197092245512e-11,
+                    "torque_relative": 8.660703071770594e-11,
+                    "field_error_T": 1.4660549508884206e-08,
+                    "gradient_relative": 5.998605288672852e-10,
+                    "elapsed_s": 0.36373824800830334
+                },
+                {
+                    "force_relative": 2.528015967600918e-10,
+                    "torque_relative": 2.851121087078223e-10,
+                    "field_error_T": 9.765384527620629e-08,
+                    "gradient_relative": 1.1130163586430097e-09,
+                    "elapsed_s": 0.3374282430158928
+                },
+                {
+                    "force_relative": 5.941855608205768e-11,
+                    "torque_relative": 7.837340541616495e-11,
+                    "field_error_T": 7.060288961627305e-09,
+                    "gradient_relative": 6.288197806234402e-10,
+                    "elapsed_s": 0.42772805492859334
+                },
+                {
+                    "force_relative": 3.405847846510527e-10,
+                    "torque_relative": 4.3140397923939246e-10,
+                    "field_error_T": 4.30814391844865e-08,
+                    "gradient_relative": 4.3536287727237585e-10,
+                    "elapsed_s": 0.41318300599232316
+                },
+                {
+                    "force_relative": 8.547288378492675e-11,
+                    "torque_relative": 1.2935659902805493e-10,
+                    "field_error_T": 7.48184019623555e-09,
+                    "gradient_relative": 4.774978704367258e-10,
+                    "elapsed_s": 0.3769656280055642
+                },
+                {
+                    "force_relative": 3.4251139219146953e-10,
+                    "torque_relative": 5.43166139234726e-10,
+                    "field_error_T": 5.896998867232349e-08,
+                    "gradient_relative": 8.212628476978767e-10,
+                    "elapsed_s": 0.3855173969641328
+                },
+                {
+                    "force_relative": 6.132136675486205e-10,
+                    "torque_relative": 8.694239416631835e-10,
+                    "field_error_T": 5.51063332128816e-08,
+                    "gradient_relative": 6.922212726853181e-10,
+                    "elapsed_s": 0.33722592308185995
+                },
+                {
+                    "force_relative": 4.6577545292634794e-11,
+                    "torque_relative": 6.999911803002005e-11,
+                    "field_error_T": 1.2413225024969441e-09,
+                    "gradient_relative": 6.154367440026341e-10,
+                    "elapsed_s": 0.3932100589154288
+                },
+                {
+                    "force_relative": 4.41717059605185e-11,
+                    "torque_relative": 9.748354996045397e-11,
+                    "field_error_T": 1.5478240836045486e-08,
+                    "gradient_relative": 8.233521876947479e-10,
+                    "elapsed_s": 0.331148303928785
+                },
+                {
+                    "force_relative": 8.32401301972528e-11,
+                    "torque_relative": 2.1217174541476622e-10,
+                    "field_error_T": 1.8498823781580927e-08,
+                    "gradient_relative": 8.038490552116867e-10,
+                    "elapsed_s": 0.3532575499266386
+                },
+                {
+                    "force_relative": 5.922547901559683e-11,
+                    "torque_relative": 7.80574219515934e-11,
+                    "field_error_T": 1.140741206167722e-09,
+                    "gradient_relative": 9.274021723844911e-10,
+                    "elapsed_s": 0.33029343793168664
+                },
+                {
+                    "force_relative": 6.243642680442381e-11,
+                    "torque_relative": 9.237684578772895e-11,
+                    "field_error_T": 1.1115597343493366e-08,
+                    "gradient_relative": 6.903369075594342e-10,
+                    "elapsed_s": 0.35904518398456275
+                },
+                {
+                    "force_relative": 3.022373636138776e-11,
+                    "torque_relative": 3.48037248342371e-11,
+                    "field_error_T": 1.5354803521578721e-09,
+                    "gradient_relative": 7.934740436251903e-10,
+                    "elapsed_s": 0.3277830979786813
+                }
+            ],
+            "median_matrix_s": 0.3593664950458333,
+            "speedup": 6.56666372805574,
+            "checks": {
+                "field": false,
+                "force": true,
+                "torque": true,
+                "gradient": true,
+                "speed": true
+            },
+            "passed": false
+        }
+    ],
+    "coupled": {},
+    "bounds_m": [
+        [
+            -0.03235422873318823,
+            -0.027731206826694648,
+            -0.014503954595148472
+        ],
+        [
+            0.02990928268127806,
+            0.029194878125547732,
+            -0.0013156224053323209
+        ]
+    ],
+    "poses": [
+        [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        [
+            0.0039,
+            -0.0039,
+            0.0009999999999999996,
+            0.09932447675229641,
+            -0.09932447675229641,
+            0.0
+        ],
+        [
+            0.0039,
+            -0.0039,
+            0.0009999999999999996,
+            0.04966223837614821,
+            -0.04966223837614821,
+            0.0
+        ],
+        [
+            0.0039,
+            -0.0039,
+            0.0009999999999999996,
+            0.09932447675229641,
+            -0.09932447675229641,
+            0.7853981633974483
+        ],
+        [
+            0.0039,
+            -0.0039,
+            0.0009999999999999996,
+            0.04966223837614821,
+            -0.04966223837614821,
+            0.7853981633974483
+        ],
+        [
+            0.0039,
+            -0.0039,
+            0.0009999999999999996,
+            0.09932447675229641,
+            -0.09932447675229641,
+            1.5707963267948966
+        ],
+        [
+            0.0039,
+            -0.0039,
+            0.0009999999999999996,
+            0.04966223837614821,
+            -0.04966223837614821,
+            1.5707963267948966
+        ],
+        [
+            0.0004886269159528394,
+            -0.0019037976908889728,
+            0.0004099956667960795,
+            -0.022988567282281176,
+            0.08719470030490244,
+            2.4544418272062742
+        ],
+        [
+            -0.0024604909344284175,
+            -0.003364758476957644,
+            2.7855515244237274e-05,
+            0.0004157927091918405,
+            0.04409800252626382,
+            0.6622910649734526
+        ],
+        [
+            0.0005971791410374159,
+            -0.002755544331090244,
+            0.0007905076465106711,
+            0.00015950539469024815,
+            0.002551571962315358,
+            -0.07488956852520579
+        ],
+        [
+            -0.0034549729073343172,
+            -0.0023471142216349153,
+            0.0009752932866102762,
+            0.10776602959306991,
+            0.009332652961901259,
+            -0.4020569160972247
+        ],
+        [
+            -0.0022134952576639707,
+            -0.0017439708337478941,
+            0.0006571220732073898,
+            0.018286516112978532,
+            0.08521095926300147,
+            -0.1300929998340674
+        ],
+        [
+            -0.00023031091800335872,
+            0.0019480281750343465,
+            0.0007554710927465632,
+            -0.0023999039248189455,
+            0.006340627645282787,
+            0.1963016972800693
+        ],
+        [
+            -0.003471787151645045,
+            0.0014112671903776077,
+            0.00067115143236916,
+            0.009627797508356512,
+            -0.06043592318394356,
+            -1.3583300280879156
+        ],
+        [
+            0.0002160518960129124,
+            -0.002082579043132036,
+            0.0009377981277081423,
+            -0.04109976600518558,
+            0.012499661242153747,
+            -0.4005981607509632
+        ]
+    ],
+    "wire_points": 137025,
+    "probe_count": 61446,
+    "direct_median_matrix_s": 2.3598389280959964,
+    "limits": {
+        "field_T": 1e-07,
+        "matrix_relative": 0.0001,
+        "gradient_relative": 0.001,
+        "minimum_speedup": 2.0
+    }
+}

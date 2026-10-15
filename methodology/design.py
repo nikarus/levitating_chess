@@ -83,18 +83,27 @@ class BoardGeometry:
         ]
 
 
-class CoilBed:
+class CoilGeometry:
+    def __init__(self, width, length, wall, corner_radius=0):
+        self.outer_width = width
+        self.outer_length = length
+        self.aspect_ratio = length / width
+        self.footprint_area = width * length
+        self.winding_radial_width = wall
+        self.corner_radius = corner_radius
+        self.conductor_radial_width = (wall - Fixed.coil_winding_clearance) / Fixed.turns_per_radial_layer - 2 * Fixed.rectangular_wire_film
+
+
+class CoilBed(CoilGeometry):
     def __init__(self, board):
         short_pitch = Fraction(str(board.period_length)) / Inputs.coils_per_period
         long_pitch = Fraction(str(Inputs.coil_outer_length))
-        self.outer_width = float(short_pitch)
-        self.outer_length = Inputs.coil_outer_length
+        super().__init__(float(short_pitch), Inputs.coil_outer_length, Inputs.winding_radial_width)
         denominator = lcm(short_pitch.denominator, long_pitch.denominator)
         self.lattice_repeat = lcm(int(short_pitch * denominator), int(long_pitch * denominator)) / denominator
         self.columns = Inputs.coils_per_period * Inputs.periods_per_side
         self.rows = ceil(board.platform_side / self.outer_length)
         self.outer_height = 0.0
-        self.aspect_ratio = self.outer_length / self.outer_width
         self.bodies_per_orientation = ceil(board.platform_side ** 2 / (self.outer_width * self.outer_length))
         self.bodies_under_platform = Fixed.herringbone_orientation_families * self.bodies_per_orientation
         self.control_cells_per_side = Inputs.control_cells_per_side
@@ -102,9 +111,6 @@ class CoilBed:
         self.control_rows = max(1, round(self.control_cells_per_side * self.outer_width / self.outer_length))
         self.control_bed_per_orientation = self.control_columns * self.control_rows
         self.control_bed_bodies = Fixed.herringbone_orientation_families * self.control_bed_per_orientation
-        self.footprint_area = self.outer_width * self.outer_length
-        self.winding_radial_width = Inputs.winding_radial_width
-        self.conductor_radial_width = (self.winding_radial_width - Fixed.coil_winding_clearance) / Fixed.turns_per_radial_layer - 2 * Fixed.rectangular_wire_film
         self.body_density = Fixed.herringbone_orientation_families / (self.outer_width * self.outer_length)
         self.coil_spacing = sqrt(1 / self.body_density)
         self.total_bodies = ceil(board.motor_area * self.body_density)
@@ -237,9 +243,10 @@ class NeighbourSnap:
 
 
 class WindingGeometry:
-    def __init__(self, coil, conductor_thickness, layers):
-        self.wire = rectangular_wire(coil.conductor_radial_width, conductor_thickness)
-        self.turns_per_layer = Fixed.turns_per_radial_layer
+    def __init__(self, coil, conductor_thickness, layers, *, wire=None, radial_turns=None, lead_length=0,
+                 connection_length=0, resistance_per_m=None, path_length_mm=None):
+        self.wire = rectangular_wire(coil.conductor_radial_width, conductor_thickness) if wire is None else wire
+        self.turns_per_layer = Fixed.turns_per_radial_layer if radial_turns is None else radial_turns
         self.radial_width = coil.winding_radial_width
         self.layers = layers
         self.turns = self.turns_per_layer * self.layers
@@ -247,9 +254,16 @@ class WindingGeometry:
         self.inner_window_length = coil.outer_length - 2 * self.radial_width
         self.coil_height = self.layers * self.wire.axial_pitch
         self.average_length_per_turn = 2 * ((coil.outer_length - self.radial_width) + (coil.outer_width - self.radial_width))
-        self.length_per_winding = self.turns * self.average_length_per_turn / 1000
+        if coil.corner_radius:
+            if not self.radial_width < coil.corner_radius <= min(coil.outer_width, coil.outer_length) / 2:
+                raise ValueError('Rounded winding requires a positive inner radius and fitting outer radius')
+            self.average_length_per_turn -= (8 - 2 * pi) * (coil.corner_radius - self.radial_width / 2)
+        self.lead_length = lead_length
+        self.connection_length = connection_length
+        self.length_per_winding = ((self.turns * self.average_length_per_turn + 2 * lead_length + connection_length)
+                                   if path_length_mm is None else path_length_mm) / 1000
         self.cross_section_area = self.wire.copper_area
-        self.resistance = Constants.copper_resistivity * self.length_per_winding / self.cross_section_area
+        self.resistance = (Constants.copper_resistivity / self.cross_section_area if resistance_per_m is None else resistance_per_m) * self.length_per_winding
 
 
 class CoilConfiguration(WindingGeometry):
@@ -643,9 +657,13 @@ def split_rail_ripple_peak(resistance, inductance, rail_voltage, frequency):
         1 - extremum_duty - (extremum_decay - exp(-decay_exponent)) / period_decay_loss)
 
 
+def winding_inductance(coil, config):
+    return Constants.vacuum_permeability * config.turns ** 2 * coil.footprint_area / 1000000 / (config.coil_height / 1000)
+
+
 class Control:
     def __init__(self, coil, config, allocations):
-        self.inductance = Constants.vacuum_permeability * config.turns ** 2 * coil.footprint_area / 1000000 / (config.coil_height / 1000)
+        self.inductance = winding_inductance(coil, config)
         self.minimum_inductance = self.inductance * min(Fixed.qualification_inductance_factors)
         self.current_ripple_peak = split_rail_ripple_peak(
             config.resistance, self.minimum_inductance, config.bus_voltage * Fixed.coil_bus_voltage_fraction,
@@ -808,7 +826,7 @@ class BoardControl:
         self.hall_sensors_y = ceil(board.motor_height / hall_pitch)
         self.hall_total_sensors = self.hall_sensors_x * self.hall_sensors_y
         self.hall_muxes = ceil(self.hall_total_sensors / Fixed.hall_sensor_mux_channels)
-        self.hall_oversampling_factor = 4 ** max(0, Fixed.hall_interpolation_bits - Fixed.hall_adc_native_bits)
+        self.hall_oversampling_factor = Fixed.hall_samples_per_sensor
         self.hall_group_burst_time = (
             Fixed.hall_sensor_mux_channels * self.hall_oversampling_factor / Fixed.hall_adc_sample_rate
         )
@@ -1368,7 +1386,7 @@ def select_hall_pitch(board, coil, control, driver, config, piece):
     for pitch in Fixed.hall_pitch_candidates:
         architecture = BoardControl(board, coil, control, driver, pitch)
         sensing = HallSensing(coil, config, control, architecture)
-        if (sensing.worst_rank == 6 and sensing.worst_condition <= 2 ** Fixed.hall_interpolation_bits
+        if (sensing.worst_rank == 6 and sensing.worst_condition <= Fixed.hall_max_condition
                 and sensing.total_position_error_um <= sensing.required_position_error_um
                 and sensing.flight_position_error_um <= sensing.required_flight_position_error_um
                 and sensing.saturation_field <= Fixed.hall_linear_range

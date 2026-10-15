@@ -1,0 +1,170 @@
+{
+    "scope": "Bounded single-count response extension; operating stops retained, inter-run current comparison reported without stopping",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/count_response.py": "c4b6c2beb21326145f3e5ceeae365cbe6f9045b6875825980f2445a891a54dba"
+    },
+    "inputs_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/results/hover/initial_reference.json": "6e0822f2c4d735920f1bada8591e03089522189891893f000f4d9db7c1c17c1d",
+        "methodology/results/hover/count_response/changed_count.json": "c32cb1fc06805f4893d272a4abf4c9c70b394d405b1823c5e871cfb3bcf901e3",
+        "methodology/results/hover/initial_reference_checkpoint.json": "b347364411ff9e5ddc355a370af94c42e29ec0ca77df1bd3058ff578e86931b2",
+        "methodology/results/hover/count_response/changed_count_checkpoint.json": "012609caa347f1b74687f72ce616207d9e3715b3a3beb4778f1f1f32f499c261"
+    },
+    "target_duration_s": 0.05,
+    "status": "completed",
+    "cases": {
+        "baseline": {
+            "name": "baseline",
+            "resumed_time_s": 0.029,
+            "original_stop_reason": "peer_trial_failed",
+            "duration_completed_s": 0.05,
+            "stop_reason": null,
+            "reached_target": true,
+            "elapsed_s": 1506.4221750900615
+        },
+        "changed_count": {
+            "name": "changed_count",
+            "resumed_time_s": 0.018,
+            "original_stop_reason": "count_response_comparison_failed",
+            "duration_completed_s": 0.05,
+            "stop_reason": null,
+            "reached_target": true,
+            "elapsed_s": 2189.924736693036
+        }
+    },
+    "numerical_qualification_passed": false,
+    "flight_qualification_passed": false,
+    "additional_count_interventions": 0,
+    "response": {
+        "common_duration_s": 0.05,
+        "different_input_comparison": {
+            "differences": {
+                "pose_position_m": 3.88227296270138e-07,
+                "pose_angle_rad": 1.645706208017975e-05,
+                "estimated_pose_position_m": 5.254541321742614e-07,
+                "estimated_pose_angle_rad": 3.395519060041546e-05,
+                "current_trace_A": 0.03645445052293639
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "estimated_pose_position_m": true,
+                "estimated_pose_angle_rad": true,
+                "current_trace_A": false
+            },
+            "converged": false
+        },
+        "maxima": {
+            "current_difference_A": {
+                "time_s": 0.0395,
+                "current_difference_A": 0.03645445052293639,
+                "position_difference_m": 3.171085838840383e-07,
+                "orientation_difference_rad": 1.374251346499676e-05,
+                "force_difference_N": 0.0004901806347375534,
+                "force_difference_weight_fraction": 0.00219906134753461,
+                "torque_difference_Nm": 7.947715574440687e-06,
+                "copper_loss_W": [
+                    2.822417620861302,
+                    2.878542924457752
+                ]
+            },
+            "position_difference_m": {
+                "time_s": 0.03075,
+                "current_difference_A": 0.010032925033981732,
+                "position_difference_m": 3.88227296270138e-07,
+                "orientation_difference_rad": 1.4444319125996915e-05,
+                "force_difference_N": 0.0007514284920195918,
+                "force_difference_weight_fraction": 0.0033710784048440255,
+                "torque_difference_Nm": 8.32374036294688e-06,
+                "copper_loss_W": [
+                    2.7045356513444228,
+                    2.678639264905897
+                ]
+            },
+            "orientation_difference_rad": {
+                "time_s": 0.02775,
+                "current_difference_A": 0.01685345978187547,
+                "position_difference_m": 3.378649951670217e-07,
+                "orientation_difference_rad": 1.645706208017975e-05,
+                "force_difference_N": 0.00020012237102357176,
+                "force_difference_weight_fraction": 0.0008977942817560306,
+                "torque_difference_Nm": 1.1389313442716005e-05,
+                "copper_loss_W": [
+                    2.3103086508012436,
+                    2.3063433685572816
+                ]
+            },
+            "force_difference_N": {
+                "time_s": 0.0325,
+                "current_difference_A": 0.009818725184701171,
+                "position_difference_m": 3.767914677970089e-07,
+                "orientation_difference_rad": 1.2874965576253716e-05,
+                "force_difference_N": 0.0007967483984998584,
+                "force_difference_weight_fraction": 0.0035743937697359845,
+                "torque_difference_Nm": 7.5960061767609415e-06,
+                "copper_loss_W": [
+                    2.6081631299033927,
+                    2.612745170562053
+                ]
+            },
+            "torque_difference_Nm": {
+                "time_s": 0.04875,
+                "current_difference_A": 0.030041245303761954,
+                "position_difference_m": 1.6882342320901451e-07,
+                "orientation_difference_rad": 9.004231518632193e-06,
+                "force_difference_N": 0.0005896303837282073,
+                "force_difference_weight_fraction": 0.0026452154456957045,
+                "torque_difference_Nm": 1.469067531660408e-05,
+                "copper_loss_W": [
+                    2.753617894671842,
+                    2.786596231982308
+                ]
+            }
+        },
+        "endpoint": {
+            "time_s": 0.05,
+            "current_difference_A": 0.026858207305217152,
+            "position_difference_m": 1.7638077405071654e-07,
+            "orientation_difference_rad": 8.733908231575684e-06,
+            "force_difference_N": 0.0004265502347595968,
+            "force_difference_weight_fraction": 0.0019136009617023348,
+            "torque_difference_Nm": 1.462009729512347e-05,
+            "copper_loss_W": [
+                2.4424825357848508,
+                2.4280742998668
+            ]
+        },
+        "sampled_copper_energy_J": [
+            0.13032432513300213,
+            0.13042698062415328
+        ],
+        "sampled_copper_energy_relative_difference": 0.0007876924821700769,
+        "energy_scope": "Trapezoidal integral of copper losses at command-time observations, including final endpoint; not integration-step energy or a thermal qualification"
+    },
+    "verification": {
+        "report_checkpoint_consistency": true,
+        "current_sources_match": true,
+        "exact_preservation_of_resumed_histories": true,
+        "identical_integration_intervals": true,
+        "identical_hardware_clocks": true,
+        "matching_sensor_calibration_and_final_noise_states": true,
+        "unchanged_hardware_geometry_and_magnetics": true,
+        "strictly_increasing_field_times": true,
+        "hall_packets": [
+            49,
+            49
+        ],
+        "current_readouts": [
+            1000,
+            1000
+        ]
+    }
+}

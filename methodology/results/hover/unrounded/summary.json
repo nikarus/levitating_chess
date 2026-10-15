@@ -1,0 +1,119 @@
+{
+    "scope": "Adaptive versus fine integration with command rounding disabled in both; original rounded pair retained separately",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "7474a0aa7ef3699af0e89ad198235d81001253da2d53fc49a200129f3809ea52",
+        "levitation_sim.py": "85cc7c37ab8a72a429a145d1820e2e5cb8d8d79233f14861050d7cfdb0ad7b8d",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+        "methodology/motion.py": "d05c5d934a16a87f49330e28720b5c2161eabfe186a4563d2c08c2bf6a05ba09",
+        "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+        "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+        "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+        "methodology/airborne.py": "9fd7e48b4471aaaa062bf2c7ac5e82d87197bfdcc8f4675f087161f7836b4564",
+        "methodology/electrical.py": "e6670b479f4d8e24e8de53876b7839273dda1243a014d8bb2d81f57801038d2d",
+        "methodology/sensing.py": "d2e1c2fdba41f15fde20b6aebbfa878fb9a9e803bcd4cd1608220a16ff673dc8",
+        "methodology/qualification.py": "97efa1056a8b49937ee7158d3d5cc81fbdd34b822901a26ea8af32833cab2b04",
+        "methodology/adaptive_airborne.py": "172790317901dc649b7cc8c90c17875dd8be63d586947708083b9a5564d90d0e",
+        "methodology/magnetic_atlas.py": "a41022ce4060c56026e4408d04d58807ffd594d8560f38c49abf119388b46a73",
+        "methodology/hover.py": "108df953300f19ba831dfb18f9e7a0fdbec6b29df7d6f9035a3af3dfee8d25c9",
+        "methodology/command_precision.py": "f4a2bfbd030ac5343435527b7182d7a6580bb2f446a988633d8ad0a2235d2541"
+    },
+    "inputs_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/results/hover/adaptive.json": "d2d7a43e4cc5cbef3dd790e4ece027387a454f208f0afb91f181a54569f1901c",
+        "methodology/results/hover/initial_reference.json": "6e0822f2c4d735920f1bada8591e03089522189891893f000f4d9db7c1c17c1d",
+        "methodology/results/hover/initial_reference_start.json": "96180f1667f1be048218d087e660fa35ca8b9096900af110eb6243ead1a6fb44"
+    },
+    "atlas_identity": "d53ee8b059a4aed1740b625c2625d443d72abe0392829c14f2bb0f76199f0db9",
+    "target_duration_s": 0.029,
+    "original_command_step_A": 0.01,
+    "diagnostic_command_step_A": 0.0,
+    "status": "failed",
+    "active_window": null,
+    "windows": {
+        "initial_reference": {
+            "start_s": 0.0,
+            "end_s": 0.029,
+            "scope": "Independent integration from release",
+            "comparison": {
+                "differences": {
+                    "pose_position_m": 1.2859163099250217e-07,
+                    "pose_angle_rad": 1.0738127441188529e-05,
+                    "estimated_pose_position_m": 5.558610240409804e-07,
+                    "estimated_pose_angle_rad": 2.5925442457647675e-05,
+                    "current_trace_A": 0.03938888449593965,
+                    "peak_current_A": 0.009660831342617415,
+                    "peak_required_current_A": 0.00034737829241726637,
+                    "peak_voltage_V": 0.005396144347901144,
+                    "peak_copper_loss_W": 0.002415824784729459
+                },
+                "limits": {
+                    "pose_position_m": 8.000000000000001e-06,
+                    "pose_angle_rad": 0.00025,
+                    "estimated_pose_position_m": 8.000000000000001e-06,
+                    "estimated_pose_angle_rad": 0.00025,
+                    "current_trace_A": 0.027500000000000004,
+                    "peak_current_A": 0.027500000000000004,
+                    "peak_required_current_A": 0.027500000000000004,
+                    "peak_voltage_V": 0.0479738158985306,
+                    "peak_copper_loss_W": 0.21822973848188423
+                },
+                "checks": {
+                    "pose_position_m": true,
+                    "pose_angle_rad": true,
+                    "estimated_pose_position_m": true,
+                    "estimated_pose_angle_rad": true,
+                    "current_trace_A": false,
+                    "peak_current_A": true,
+                    "peak_required_current_A": true,
+                    "peak_voltage_V": true,
+                    "peak_copper_loss_W": true,
+                    "both_prefixes_within_limits": true
+                },
+                "converged": false
+            },
+            "compared_through_s": 0.018,
+            "kind": "complete",
+            "reached_end": false,
+            "stop_reason": "peer_trial_failed",
+            "elapsed_s": 1333.652021947084,
+            "duration_completed_s": 0.018
+        }
+    },
+    "duration_completed_s": 0.018,
+    "stop_reason": "numerical_comparison_failed",
+    "control_qualification_passed": false,
+    "elapsed_s": 1351.9978194870055,
+    "verification": {
+        "matching_saved_report_checkpoint_and_sources": true,
+        "matching_hall_calibration_and_final_noise_state": true,
+        "matching_current_calibration_and_final_noise_state": true,
+        "matching_current_sample_times": true,
+        "chronological_field_times": true,
+        "unchanged_model_settings": {
+            "hardware_rates_Hz": true,
+            "hall_conversion": true,
+            "control_dynamics_Hz": true,
+            "mechanical_properties": true,
+            "wire_segments_mm": true,
+            "atlas": true,
+            "tolerance_scale": true,
+            "fixed_reference_step_s": true
+        },
+        "common_horizon_s": 0.018,
+        "rounded": {
+            "maximum_difference_A": 0.02006365051274661,
+            "first_crossing_s": null
+        },
+        "unrounded": {
+            "maximum_difference_A": 0.03938888449593965,
+            "first_crossing_s": 0.01725
+        }
+    }
+}

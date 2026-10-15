@@ -1,0 +1,155 @@
+{
+    "scope": "Persistent physical coils and prescribed current decay; not moving-flight qualification",
+    "status": "completed",
+    "physical_envelope_qualified": false,
+    "cases": {
+        "reference": {
+            "stop_reason": null,
+            "duration_s": 0.0001,
+            "elapsed_s": 115.34678433591034,
+            "comparison": null
+        },
+        "time_refined": {
+            "stop_reason": null,
+            "duration_s": 0.0001,
+            "elapsed_s": 214.6517224740237,
+            "comparison": {
+                "differences": {
+                    "pose_position_m": 1.888714987135078e-12,
+                    "pose_angle_rad": 4.42166027712385e-11,
+                    "current_trace_A": 1.204083388550714e-09
+                },
+                "limits": {
+                    "pose_position_m": 8.000000000000001e-06,
+                    "pose_angle_rad": 0.00025,
+                    "current_trace_A": 0.027500000000000004
+                },
+                "checks": {
+                    "pose_position_m": true,
+                    "pose_angle_rad": true,
+                    "current_trace_A": true
+                },
+                "converged": true,
+                "world_velocity_maximum_component_differences": [
+                    8.452380622044536e-14,
+                    1.462212914869743e-13,
+                    2.2904960816228496e-13,
+                    4.06662544249006e-12,
+                    2.341103705124102e-12,
+                    1.0516633272778311e-12
+                ],
+                "wrench_maximum_component_differences": [
+                    7.100743192219039e-11,
+                    1.269715351468522e-10,
+                    2.19056994765765e-11,
+                    2.1180041583562315e-12,
+                    1.166853661027499e-12,
+                    5.5642011257103275e-14
+                ],
+                "analogue_field_T_maximum_difference": 8.918456251283402e-12
+            }
+        },
+        "wire_refined": {
+            "stop_reason": null,
+            "duration_s": 0.0001,
+            "elapsed_s": 411.58472173893824,
+            "comparison": {
+                "differences": {
+                    "pose_position_m": 1.7131249677163318e-11,
+                    "pose_angle_rad": 1.6978055838829885e-11,
+                    "current_trace_A": 1.6881376296851158e-08
+                },
+                "limits": {
+                    "pose_position_m": 8.000000000000001e-06,
+                    "pose_angle_rad": 0.00025,
+                    "current_trace_A": 0.027500000000000004
+                },
+                "checks": {
+                    "pose_position_m": true,
+                    "pose_angle_rad": true,
+                    "current_trace_A": true
+                },
+                "converged": true,
+                "world_velocity_maximum_component_differences": [
+                    4.2189784553649315e-09,
+                    2.0400782316730952e-10,
+                    3.322129219015784e-07,
+                    2.758160571734301e-07,
+                    4.468434941375871e-08,
+                    1.7421773234212033e-07
+                ],
+                "wrench_maximum_component_differences": [
+                    9.590081236982224e-07,
+                    4.643930140611698e-08,
+                    7.563166429885859e-05,
+                    3.86395736251944e-08,
+                    6.849877348246812e-09,
+                    5.096437557627258e-09
+                ],
+                "analogue_field_T_maximum_difference": 7.061946562109123e-07
+            }
+        }
+    },
+    "active_case": null,
+    "verification": {
+        "cases": {
+            "reference": {
+                "source_inputs_and_checkpoint_verified": true,
+                "persistent_physical_coils": 81,
+                "outgoing_coils": 5,
+                "stored_current_preserved_at_switch": true,
+                "zero_crossing_shorter_than_physics_step": true,
+                "final_outgoing_current_zero": true,
+                "raw_samples": 17
+            },
+            "time_refined": {
+                "source_inputs_and_checkpoint_verified": true,
+                "persistent_physical_coils": 81,
+                "outgoing_coils": 5,
+                "stored_current_preserved_at_switch": true,
+                "zero_crossing_shorter_than_physics_step": true,
+                "final_outgoing_current_zero": true,
+                "raw_samples": 33
+            },
+            "wire_refined": {
+                "source_inputs_and_checkpoint_verified": true,
+                "persistent_physical_coils": 81,
+                "outgoing_coils": 5,
+                "stored_current_preserved_at_switch": true,
+                "zero_crossing_shorter_than_physics_step": true,
+                "final_outgoing_current_zero": true,
+                "raw_samples": 33
+            }
+        },
+        "physical_envelope_qualified": false,
+        "remaining": "Moving transfer, adaptive zero-crossing treatment, gap extremes, realistic switching hardware and global sensor accuracy remain unqualified.",
+        "regression_tests": {
+            "component_suite_passed": 76,
+            "coupled_suite_passed": 30,
+            "post_refactor_targeted_suite_passed": 11,
+            "post_refactor_new_tests": 1,
+            "unique_tests_passed": 107
+        },
+        "regression_test_sources_sha256": {
+            "methodology/tests/test_electrical.py": "0c1a4ddcc6a2d5f6e35e4184d8c7a98233c4420eb51b29c79980bc369320c214",
+            "methodology/tests/test_model.py": "aee40800cacc933f4b48cd9d0db7b842c266e823fbdd1e3bfd5b6237f001df47",
+            "methodology/tests/test_physics_verification.py": "b2d551c8c96772c96d1ed2dc1dd768dca6aedea8fff86cccffe78d89a97571ce",
+            "methodology/tests/test_motion.py": "17914031fdc78ef31e899139dbd618926ca633a5f28d00b79a5407770e99a850",
+            "methodology/tests/test_sensing.py": "64a6aba5245334b23622b2b288632e6e0c2870d9f0c50737108b1f1ec86d712a",
+            "methodology/tests/test_airborne.py": "9406c973cbed31633602d46948e41bcc1a3777c538fefc4c1810400c643ffa9a",
+            "methodology/tests/test_adaptive_airborne.py": "e68f57ce813b2a7b8ff7e4e19f8e3d694b19737ae31aa9c2e9db4a86b13d369f",
+            "methodology/tests/test_airborne_inputs.py": "8f6502ed53ba19e9621f2b5d02b80069de2e8a5c42c57e126eb3c42783680d77"
+        },
+        "post_run_runner_refactor": {
+            "description": "Extracted the shared prescribed-trial execution loop. Physical trial classes and comparison calculations are AST-identical to the saved run source. Original report/checkpoint hashes remain unchanged; the simulation was not rerun after this orchestration refactor.",
+            "original_runner_sha256": "21b8773a1c9e655f313af2e21bbbe49b530821bb8a42e1a1d8673496443464fb",
+            "current_runner_sha256": "99d2e9d7459163248e4a28a409a2718183e68aaa135b839a29e523b7a984fe36",
+            "physical_definitions_unchanged": true,
+            "other_recorded_source_hashes_match": true,
+            "targeted_test_sources_sha256": {
+                "methodology/tests/test_physics_verification.py": "164dbdab9493f9c8205696f6c8ef148c33a777612909adfd2fc27bac5fc1816e",
+                "methodology/tests/test_airborne_inputs.py": "8f6502ed53ba19e9621f2b5d02b80069de2e8a5c42c57e126eb3c42783680d77"
+            }
+        }
+    }
+}

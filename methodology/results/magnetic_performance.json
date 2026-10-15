@@ -1,0 +1,125 @@
+{
+    "scope": "Runtime and numerical equivalence of direct force evaluation; not flight qualification",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "53ae3cce5266a25c248974160ac843260bcac1d08e39fc0eaf5dcf79596bac53",
+        "levitation_sim.py": "fb0094cef65b6c2ef2d58974eaf60deb13529624385c7fe16aac9d2cbea69d00",
+        "methodology/design.py": "3734c9577def9d325aaa813a96a8fcd0ef21c067a864c69e5d60ef1a20cd2568",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+        "methodology/benchmark_magnetics.py": "af24b5d84571453e02e52f8b090cc1d1edc1398559cb784999e10cf12f4e78aa"
+    },
+    "environment": {
+        "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+        "python": "3.14.4",
+        "numpy": "2.4.6",
+        "magpylib": "5.2.3"
+    },
+    "workers": 3,
+    "batch_points": 1024,
+    "matrices": [
+        {
+            "pose": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "timings_s": {
+                "library": [
+                    3.599695320997853,
+                    3.6354615320451558
+                ],
+                "cached_serial": [
+                    1.5842039120034315,
+                    1.6931997679639608
+                ],
+                "cached_parallel": [
+                    0.9802085320116021,
+                    0.97849338297965
+                ]
+            },
+            "max_absolute_matrix_differences": {
+                "library": 0.0,
+                "cached_serial": 0.0,
+                "cached_parallel": 0.0
+            },
+            "coil_count": 25,
+            "wire_quadrature_points": 72075,
+            "passed": true
+        },
+        {
+            "pose": [
+                0.0039,
+                -0.0039,
+                0.0009999999999999996,
+                0.0702330110493544,
+                -0.0702330110493544,
+                1.5707963267948966
+            ],
+            "timings_s": {
+                "library": [
+                    3.756623558991123,
+                    3.5288840630091727
+                ],
+                "cached_serial": [
+                    1.5889991539879702,
+                    1.6598107329919003
+                ],
+                "cached_parallel": [
+                    0.9928686880157329,
+                    0.9642793150269426
+                ]
+            },
+            "max_absolute_matrix_differences": {
+                "library": 0.0,
+                "cached_serial": 0.0,
+                "cached_parallel": 0.0
+            },
+            "coil_count": 25,
+            "wire_quadrature_points": 72075,
+            "passed": true
+        }
+    ],
+    "coupled": {
+        "duration_s": 0.002,
+        "disturbed": true,
+        "steps": 80,
+        "delivered_scans": 1,
+        "stop_reason": null,
+        "physics_time_step_s": 2.5e-05,
+        "states_exactly_equal": true,
+        "max_absolute_trajectory_difference": 0.0,
+        "timings_s": {
+            "library": 320.01250821800204,
+            "optimized": 95.41381302999798
+        },
+        "passed": true,
+        "source_sha256": {
+            "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+            "model.py": "53ae3cce5266a25c248974160ac843260bcac1d08e39fc0eaf5dcf79596bac53",
+            "levitation_sim.py": "fb0094cef65b6c2ef2d58974eaf60deb13529624385c7fe16aac9d2cbea69d00",
+            "methodology/design.py": "3734c9577def9d325aaa813a96a8fcd0ef21c067a864c69e5d60ef1a20cd2568",
+            "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+            "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+            "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+            "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+            "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+            "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+            "methodology/motion.py": "7f0616862fe109c36fdef4ae9f1a45912e64d3cf0758daecdcca7350a98af9b5",
+            "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+            "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+            "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+            "methodology/airborne.py": "cc7f7f4cf1f4e189f1e235a50483d772521f62f3a1558d63afc590ae41b32003",
+            "methodology/electrical.py": "0146b05eda7df7b7d75db50b7bd211cad15ebda6cbb77f0a4087824f9dcde2dc",
+            "methodology/sensing.py": "283f377a62d583dc3e0b2de308d8a981867177df559d76c42f4957ac054f05bd",
+            "methodology/qualification.py": "a44b1d88f88aba5b07629b6e4bd6a4c5520fd398a7e960c2d0e43f61923e7546"
+        }
+    }
+}

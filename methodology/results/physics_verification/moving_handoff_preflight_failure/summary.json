@@ -1,0 +1,21 @@
+{
+    "scope": "Moving prescribed handoff, independent time/conductor refinement and adaptive comparison",
+    "status": "preflight_failed",
+    "physical_envelope_qualified": false,
+    "cases": {
+        "reference": {
+            "stop_reason": null,
+            "duration_s": 0.0001,
+            "elapsed_s": 114.63199576595798,
+            "comparison": null,
+            "geometric_handoff_crossed": true
+        }
+    },
+    "active_case": null,
+    "stop_reason": "Mechanical-property preflight compared serialized coil-identity lists with in-memory tuples. Separate reconstruction also showed CAD roundoff; comparisons now canonicalize representation and reuse recorded mass/inertia.",
+    "configuration_preflight_after_correction": {
+        "time_refined": true,
+        "wire_refined": true,
+        "adaptive": true
+    }
+}

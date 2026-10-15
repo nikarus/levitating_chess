@@ -6,6 +6,7 @@ import unittest
 from unittest.mock import patch
 
 import numpy as np
+from scipy.integrate import quad
 
 import levitation_sim
 import model
@@ -33,6 +34,13 @@ class ModelMigrationTests(unittest.TestCase):
                                + magnets.magnet_mass * (piece.magnet_com_height - piece.com_height), 0)
         self.assertLess(piece.com_height, piece.shell_com_height)
         self.assertGreater(piece.com_height, piece.magnet_com_height)
+
+    def test_centered_jacobian_resolves_small_coordinates_without_relative_steps(self):
+        point = np.array([1e-14, 2e-15, -3e-16])
+        matrix = np.array([[1, 2, 3], [-4, 5, 6]])
+        function = lambda value: matrix @ value + value @ value
+        result = levitation_sim.centered_jacobian(function, point, np.full(3, model.Fixed.hall_position_derivative_step))
+        np.testing.assert_allclose(result, matrix + 2 * point, rtol=0, atol=1e-12)
 
     def test_piece_inertias_reduce_to_the_magnet_block_without_shell(self):
         board = design.BoardGeometry()
@@ -242,6 +250,30 @@ class ModelMigrationTests(unittest.TestCase):
         np.testing.assert_allclose(qualification.rl_step(current, voltage, back_emf, resistance, inductance, period), current)
         first_half = qualification.rl_step(current, voltage, back_emf, resistance, inductance, period / 2)
         np.testing.assert_allclose(qualification.rl_step(first_half, voltage, back_emf, resistance, inductance, period / 2), current)
+
+    def test_rl_interval_impulse_matches_quadrature_and_subdivision(self):
+        currents = np.array([1., -1., 0.])
+        voltages = np.array([-2., 2., 1.])
+        resistance, inductance, period = 2., 1., 1.
+        with np.errstate(divide='raise', invalid='raise'):
+            unchanged, mean_at_zero = qualification.rl_interval(currents, voltages, 0., resistance, inductance, 0.)
+        np.testing.assert_array_equal(unchanged, currents)
+        np.testing.assert_array_equal(mean_at_zero, currents)
+        for enabled in (True, False):
+            final, average = qualification.rl_interval(currents, voltages, 0., resistance, inductance, period, enabled)
+            expected = []
+            for initial, voltage in zip(currents, voltages):
+                equilibrium = voltage / resistance
+                stop = period
+                if not enabled:
+                    stop = 0. if initial == 0 else min(period, inductance / resistance * np.log1p(-initial / equilibrium))
+                expected.append(quad(lambda time: equilibrium + (initial - equilibrium)
+                    * np.exp(-resistance * time / inductance), 0, stop)[0] / period)
+            np.testing.assert_allclose(average, expected, atol=model.Fixed.motion_verification_tolerance, rtol=0)
+            midpoint, first_average = qualification.rl_interval(currents, voltages, 0., resistance, inductance, period / 2, enabled)
+            refined_final, second_average = qualification.rl_interval(midpoint, voltages, 0., resistance, inductance, period / 2, enabled)
+            np.testing.assert_allclose(final, refined_final, atol=model.Fixed.motion_verification_tolerance, rtol=0)
+            np.testing.assert_allclose(average, (first_average + second_average) / 2, atol=model.Fixed.motion_verification_tolerance, rtol=0)
 
     def test_pose_observer_recovers_constant_velocity_without_true_velocity_input(self):
         position, velocity, disturbance = np.zeros(6), np.zeros(6), np.zeros(6)

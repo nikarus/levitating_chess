@@ -53,6 +53,24 @@ class Inputs:
     selected_winding_layers = 57                # axial layers; adopted prototype winding, with turns per layer defined in Fixed
     standard_bus_voltages = (24, 30, 40, 48)    # V; bus candidates for the preliminary winding screen
     winding_conductor_thicknesses = (selected_conductor_thickness, 0.07, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5) # mm; bare rectangular-copper thickness candidates; supplier availability unverified
+    coil_layout_candidates = (
+        ('stacked_reference', 'stacked', magnets_per_period * magnet_lateral_edge / coils_per_period, coil_outer_length, winding_radial_width),
+        ('parquet_5', 'herringbone', 5, 10, 1),
+        ('parquet_7_5', 'herringbone', 7.5, 15, 1),
+        ('parquet_10', 'herringbone', 10, 20, 1),
+        ('parquet_wide_wall', 'herringbone', 7.5, 15, 2),
+        ('square_7_5', 'square', 7.5, 7.5, 1),
+        ('square_10', 'square', 10, 10, 1),
+        ('square_12_5', 'square', 12.5, 12.5, 1),
+        ('square_wide_wall', 'square', 10, 10, 2),
+    )                                          # exploratory layouts: name, pattern, short/long outer dimensions and winding wall in mm; not adopted hardware
+    prototype_layouts = (('parquet_5', 0), ('square_7_5', 45)) # shortlisted footprint names and lattice rotations in degrees
+    prototype_wire_diameter = 0.25              # mm; nominal bare round copper, Elektrisola IEC technical-data row
+    prototype_radial_turns = 4                  # turns across the winding wall; rectangular round-wire packing assumption
+    prototype_axial_layers = 14                 # even layer count brings both winding ends to the inner window; 56 turns total
+    prototype_inner_corner_radius = 1.0         # mm; proposed winding-window radius; continuous conductor bends still need virtual detailing
+    prototype_coil_spacing = 0.3                # mm; minimum nominal assembly gap between winding envelopes
+    cad_coil_layout = 'square_7_5'              # candidate shown in the integrated virtual assembly; main hardware targets remain under review
 
 
 class Fixed:
@@ -119,7 +137,8 @@ class Fixed:
     pose_feedback_rate = 1000                  # Hz; conservative candidate pose-estimation/feedback rate, to be tested rather than minimized
     pose_controller_frequency = 20             # Hz; natural frequency of the candidate six-axis critically damped pose controller
     pose_controller_damping = 1                 # ratio; candidate second-order pose-controller damping
-    pose_observer_frequency_ratio = 2           # ratio; position/velocity/disturbance observer pole frequency divided by pose-controller natural frequency
+    pose_observer_frequency_ratio = 1           # ratio; observer pole frequency / pose-controller frequency; recorded-noise screen selected, coupled validation pending
+    pose_observer_ratio_candidates = (0.5, 1., 2.) # ratios; recorded-sensor screening candidates relative to the unchanged pose-controller frequency
     qualification_sensor_latency = 0.001        # s; assumed maximum additional pose-estimate age at the feedback tick
     qualification_position_error = 0.00016      # m; bounded vector magnitude of injected position error, provisional sensing requirement
     qualification_angle_error = 0.005           # rad; bounded vector magnitude of injected orientation error, provisional sensing requirement
@@ -145,6 +164,30 @@ class Fixed:
     min_current_loop_samples = 8                # ratio; current-regulator samples per current-loop bandwidth
     min_setpoint_serial_headroom = 1.2          # ratio (parallel logical-board serializer lanes are sized above the quantization minimum)
     current_sense_resistance = 0.02             # ohm
+    current_feedback_bits = 16                 # bits; provisional bipolar current-feedback precision candidate; coupled refinement and component qualification pending
+    current_feedback_gain_bound = 0.005        # fraction; provisional residual current-sense gain error after calibration
+    current_feedback_noise = 0.001             # A RMS; provisional independent noise per channel and regulator-rate sample
+    current_feedback_seed = 1730               # deterministic seed for virtual current-sense calibration and noise
+    airborne_check_duration = 0.002            # s; short coupled-interface run after sensor acquisition, not hover qualification
+    airborne_checkpoint_interval = 0.001       # s simulated; maximum progress between atomic coupled checkpoints
+    airborne_video_min_duration = 6            # s playback; minimum length for inspecting short or failed airborne trials, with slowdown labeled
+    airborne_refinement_duration = 0.05        # s; initial recovery interval compared independently at finer time and magnetic resolution
+    airborne_refinement_screen_duration = 0.01 # s; several Hall updates must converge before the longer refinement batch is allowed
+    airborne_hover_duration = 1                # s; extended nominal hover after the local numerical comparisons pass
+    adaptive_max_step = 1 / current_regulator_rate # s; largest attempted interval, also clipped to hardware events
+    adaptive_min_step = adaptive_max_step / 256 # s; smallest attempted interval before an explicit accuracy failure
+    adaptive_clock_tolerance = 1e-12           # s; event-time roundoff snapping only, far below the minimum physical step
+    adaptive_max_retries = 8                   # count; rejected attempts allowed at one physical time
+    adaptive_growth_threshold = 0.125          # normalized local error; allow doubling below this threshold
+    adaptive_position_tolerance = 1e-8         # m; provisional local full-step/half-step position difference budget
+    adaptive_angle_tolerance = 1e-7            # rad; provisional local orientation difference budget
+    adaptive_velocity_tolerance = 1e-5         # m/s; provisional local linear-velocity difference budget
+    adaptive_angular_velocity_tolerance = 1e-4  # rad/s; provisional local world angular-velocity difference budget
+    adaptive_current_tolerance = 1e-4          # A; provisional local physical-current difference budget
+    adaptive_field_tolerance = 1e-7            # T; provisional local analogue Hall endpoint/path/filter difference budget
+    adaptive_reference_step = 1 / current_regulator_rate / 8 # s; fixed 6.25 us reference with the same exact hardware event scheduling
+    adaptive_benchmark_duration = airborne_check_duration # s; initial coupled benchmark; longer sensitivity checks follow only after this passes
+    adaptive_sensitivity_duration = 0.013      # s; bounded qualification through the previously divergent 12.25 ms interval
     comparator_input_offset = 0.005             # V (LM393 raw, removed by idle zero-calibration)
     current_sense_offset_residual = 0.001       # V (post-calibration drift: comparator + level-shift divider tempco over the operating range)
     max_current_offset_fraction = 0.05          # ratio of driver limit
@@ -197,8 +240,10 @@ class Fixed:
     hall_sensor_mux_price = 0.2527              # USD
     magnet_cost_per_kg = 384.0                  # USD/kg; historical magnet cost allowance, production sourcing outstanding
     hall_adc_sample_rate = 500000               # samples/s
-    hall_adc_native_bits = 12                   # bits (MCU SAR ADC native resolution)
-    hall_interpolation_bits = 14                # bits (effective, via oversampling above native)
+    hall_adc_native_bits = 16                   # bits; provisional external-converter target from fixed-timing replay, pending coupled and component qualification
+    hall_adc_precision_candidates = (12, 14, 16) # bits; native-conversion candidates screened with unchanged sampling and physical noise
+    hall_samples_per_sensor = 16                # count; samples averaged per Hall scan channel, independent of native ADC precision
+    hall_max_condition = 16384                  # dimensionless; retained static Hall observability condition limit, independent of ADC precision
     hall_package_standoff = 0.6                 # mm (SOT-23 sensing element below PCB underside)
     hall_power_settle_time = 0.0001             # s (gated sensor group power-up + RC settle before burst)
     hall_gate_switch_price = 0.0206             # USD (GOODWORK AO3401A catalog tier; production RFQ needed)
@@ -272,6 +317,19 @@ class Fixed:
     nominal_force_mesh = 16                     # magpylib-force polyline meshing setting for nominal actuation calculations
     pose_force_mesh = 12                        # magpylib-force polyline meshing setting for the flight pose sweep
     verification_force_mesh = 8                 # magpylib-force polyline meshing setting for selected-coil authority and contact checks
+    force_field_batch_points = 1024             # wire quadrature points per direct magnetic-field batch; changes memory use, not mesh resolution
+    force_field_workers = 3                     # CPU threads per force evaluation; independent batches retain their original summation order
+    atlas_grid_spacings = (0.001, 0.0005, 0.00025, 0.0002) # m; coarse-to-fine candidates for the local magnetic-field atlas screen
+    atlas_spline_orders = (3, 5)               # polynomial degrees; standard cubic and quintic interpolation candidates
+    atlas_padding_cells = 12                  # cells; sampled guard region around the query domain to reduce spline boundary effects
+    atlas_max_storage_bytes = 768 * 1024 ** 2  # bytes; cap on three simultaneous grid-sized arrays during atlas construction
+    atlas_validation_points = 4096            # points; independent random probes plus explicit domain-face probes
+    atlas_validation_seed = 1740              # seed; reproducible off-grid field and pose validation
+    atlas_validation_poses = 8                 # poses; random combined six-axis configurations in addition to nominal and extreme cases
+    atlas_field_tolerance = adaptive_field_tolerance # T; maximum sampled vector-field interpolation error, independently of time integration
+    atlas_matrix_relative_tolerance = 1e-4     # ratio; force and COM-torque column errors relative to the largest direct column norm in each block
+    atlas_gradient_relative_tolerance = 1e-3   # ratio; field-Jacobian error relative to the largest direct derivative norm
+    atlas_minimum_speedup = 2.0                # ratio; required median actuator-matrix speedup before coupled feasibility trials
     current_demand_mesh_refinements = (1, 2)    # diagnostic multipliers for segment, radial and axial resolution at the worst flight pose
     active_window_phase_samples = 6             # equally spaced samples across the combined coil-lattice repeat; handoff planes are additionally sampled
     active_window_handoff_offsets = (0.001, 0.0001, 0.00001) # m; shrinking distances on either side of a coil-window handoff for continuity diagnosis
@@ -322,6 +380,86 @@ class Fixed:
     cad_preview_size = (1600, 1000)             # pixels; exported FreeCAD preview width and height
     cad_preview_margin = 1.2                    # ratio; camera-height expansion after fitting the CAD preview
     cad_overlay_transparency = 85               # percent; translucent stack overlays in FreeCAD, with no physical meaning
+    cad_detailed_coil_cell = (-3, -3)           # lattice indices; one foreground coil resolved into conductor, enamel and terminals
+    cad_patch_cells_per_side = 9                # odd count of physical square coils per side in the representative CAD patch, not the active control window
+    cad_king_profile = ((0, 0.5), (0.06, 0.5), (0.09, 0.43), (0.13, 0.45), (0.17, 0.36), (0.24, 0.3),
+                        (0.58, 0.14), (0.64, 0.23), (0.68, 0.25), (0.74, 0.17), (0.82, 0.2), (0.85, 0.12)) # candidate outer profile: (fraction of king height, radius / base diameter); CAD hollows this shape
+    cad_king_cross_width_fraction = 0.4         # fraction of base diameter; candidate crown cross width
+    cad_king_cross_thickness_fraction = 0.12    # fraction of base diameter; candidate crown stem and bar thickness
+    cad_king_crossbar_height_fraction = 0.55    # fraction of crown height; visual crossbar centre
+    layout_screen_window_side = 45              # mm; common square local support window for the layout comparison
+    layout_screen_phase_samples = 4             # samples per local lattice axis for the initial static comparison
+    layout_screen_rotations_deg = (0, 45)       # deg; single-layer coil-array rotations relative to the existing magnet axes
+    layout_refinement_phase_samples = 8        # samples per lattice axis for shortlisted layouts, including between the coarse parquet phases
+    layout_refinement_yaws_deg = (0, 22.5, 45, 67.5, 90) # deg; additional yaw checks for the layout shortlist
+    layout_plot_dpi = 160                       # pixels per inch; layout comparison diagram export resolution
+    layout_plot_size = (1600, 700)              # pixels; wide format for the same-scale geometry comparison
+    prototype_wire_outer_diameter = 0.297       # mm; maximum Grade 2 overall diameter for 0.250 mm wire, Elektrisola IEC table
+    prototype_wire_resistance_per_m = (0.3345, 0.3628) # ohm/m at 20 C; manufacturer's minimum/maximum for the selected round wire
+    prototype_turn_spacing = 0.01               # mm; extra packing allowance beyond maximum insulated wire diameter
+    prototype_lead_length = 25                  # mm per end; free lead allowance included in resistance, excluded from turn coupling
+    prototype_lead_separation = 1.2             # mm; spacing between the two inner-window lead paths
+    winding_lead_bend_radius = 0.8              # mm; provisional centreline bend radius for free leads, not a supplier-qualified limit
+    winding_layer_transition_bulge = 0.2       # mm; local end-turn excursion into the inter-coil gap or inner window to separate layer crossovers
+    winding_terminal_pad_size = (0.8, 0.4, 0.035) # mm; width, stripped-contact length and copper thickness of provisional PCB pads
+    winding_path_sample_pitch = 0.05           # mm; maximum chord length for conductor clearance screening
+    winding_magnetic_segment_length = 0.25    # mm; reference CAD chord length for Hall-field polylines and legacy force comparisons
+    winding_force_quadrature_order = 16       # Gauss nodes per curved CAD edge for force/torque; magnetic refinement multiplies the order
+    hall_conductor_refinement = 8             # factor relative to reference chord length for the precomputed coil-to-Hall map; independently checked against curved CAD wire
+    motion_time_step = 1 / 32000              # s; numerical motion step with direct magnetics per step, independently refined from hardware rates
+    motion_contact_time_constant = 0.0005      # s; provisional stiff-board contact response, not measured material compliance
+    motion_contact_damping_ratio = 1           # dimensionless; provisional critically damped contact, not airborne stabilizing drag
+    motion_contact_impedance = (0.9, 0.95, 0.001, 0.5, 2) # MuJoCo solimp: lower/upper impedance, width (m), midpoint and power; numerical contact assumptions
+    motion_solver_iterations = 100             # iterations; MuJoCo contact solver cap for interface verification
+    motion_solver_tolerance = 1e-10            # MuJoCo solver stopping tolerance; convergence is checked independently
+    coupling_excitation_fraction = 0.5         # fraction of current rating and initial resistive drop used for reference current/back-EMF stimuli
+    coupling_flux_orders = (8, 16, 32)         # Gauss orders for independent magnetic flux and curved-wire field references
+    coupling_refinements = (1, 2, 4, 8, 16)           # factors for independent coupling mesh, derivative and time refinement
+    coupling_relative_tolerance = 1e-4         # dimensionless independent-reference error limit for reduced coupling verification
+    adaptive_energy_relative_tolerance = coupling_relative_tolerance # accumulated absolute mechanical-work defect / gravity energy across the permitted flight-gap span
+    coupling_order_bounds = (0.75, 1.25)       # observed first-order range for the smooth held-back-EMF benchmark
+    coupling_variable_duration = airborne_refinement_screen_duration # s; bounded independent variable-coupling integration benchmark
+    coupling_reference_tolerance = 1e-10      # dimensionless local tolerance on scaled independent ODE reference states
+    motion_verification_tolerance = 1e-9       # absolute SI numerical comparison tolerance for known-force interface checks, not a physical accuracy claim
+    motion_check_duration = 0.01               # s; short airborne known-force/torque verification, not a levitation acceptance duration
+    motion_check_orientation_deg = (3, -2, 17) # deg; mixed-axis pose for verifying world/body force and inertia transforms
+    motion_magnetic_check_steps = 4            # direct force evaluations in the prescribed-current interface check; not a closed-loop trial
+    motion_contact_penetration_limit = 0.00005  # m; numerical contact-check allowance, not an adopted manufacturing clearance
+    motion_mesh_angular_tolerance = 0.1         # rad; CAD triangulation angular tolerance for MuJoCo display/collision meshes
+    motion_preview_background = (0.92, 0.94, 0.97) # RGB fractions; light background for the MuJoCo assembly preview
+    motion_video_frame_rate = 30                # frames/s; encoded diagnostic video playback rate, independent of the physics step
+    motion_video_slowdown = 20                  # ratio; playback seconds per simulated second to expose contact motion
+    motion_video_font_size = 24                 # pixels; diagnostic labels in the rendered motion video
+    motion_video_side_azimuths = (0, 90)         # deg; perpendicular side cameras for inspecting the piece-to-board gap
+    motion_video_gap_distance_radii = 3         # base radii; side-camera distance for a close view of the gap
+    motion_video_surface_opacity = 0.35         # alpha; playing-surface visibility in the video gap views
+    hall_virtual_seed = 1729                    # deterministic seed for reproducible virtual Hall calibration errors and noise
+    hall_validation_noise_seeds = (1731, 1732)   # seeds; independent post-release Hall noise for observer screening, with calibration and recorded current readings held fixed
+    hall_calibrated_offset_bound = 0.00005      # T; provisional residual offset bound after calibration, not a guaranteed sensor specification
+    hall_calibrated_gain_bound = 0.005          # fraction; provisional residual Hall sensitivity error after calibration
+    hall_pose_tilt_bound_deg = 10               # deg; roll/pitch search bounds for local upright-piece initialization
+    hall_initial_yaws_deg = (-180, -135, -90, -45, 0, 45, 90, 135) # deg; fixed initial yaw search grid, never derived from true pose
+    hall_initial_xy_fractions = (-0.5, 0, 0.5) # half-window fractions; fixed lateral initialization grid within the selected sensor patch
+    hall_initial_fit_count = 8                  # candidates; lowest-residual coarse seeds refined for local initialization
+    hall_fit_max_evaluations = 200              # evaluations per local least-squares solve; failed convergence is rejected
+    hall_fit_tolerance = 1e-8                   # dimensionless; scaled least-squares stopping tolerances
+    hall_fit_residual_limit = 5                 # modeled uncertainty multiples; maximum RMS field residual for accepting a static pose
+    hall_fit_ambiguity_margin = 1               # modeled uncertainty multiples; rival fit RMS margin considered indistinguishable
+    hall_tracking_duration = 0.1               # s; local moving-scan diagnostic duration, not a full-board travel trial
+    hall_tracking_velocity = (0.02, -0.01, 0, 0, 0, 0.5) # m/s then rad/s; imposed initial linear/body angular velocity for sensor-only motion checks
+    hall_tracking_acquisition_duration = 0.025  # s; observer acquisition interval before estimates are marked usable
+    hall_tracking_max_scan_gap = 3 / pose_feedback_rate # s; maximum delivery or measurement gap before tracking is invalidated
+    hall_tracking_dropout_interval = (0.04, 0.045) # s; deliberately omitted scan-start interval for the loss/reacquisition diagnostic
+    hall_field_batch_frames = 64                # poses per vectorized magnetic field evaluation; limits working memory without changing physics
+    king_magnet_pocket_clearance = 0.1          # mm per side; adhesive space outside the unchanged contiguous Halbach array
+    king_magnet_bond_thickness = 0.1            # mm; adhesive layer above magnets under the shell's structural roof
+    king_bond_density = 0.0012                  # g/mm3; provisional unfilled adhesive density for CAD mass accounting
+    prototype_corner_segments = 4              # segments per quarter-circle in the rounded-coil magnetic approximation
+    prototype_handoff_taper = 5.0              # mm; distance over which a winding's allowed current smoothly reaches zero at the window boundary
+    prototype_path_samples = 33                # samples over one lattice repeat; the most demanding path is rerun at twice the spatial resolution
+    prototype_path_angles_deg = (0, 45, 90)     # deg in lattice coordinates; straight motion paths across local coil transitions
+    prototype_path_offsets = (0.0, 0.5)         # fractions of the short lattice pitch transverse to each handoff path
+    prototype_path_yaws_deg = (0, 45, 90)        # deg; held piece orientations for the prescribed-motion handoff screen
 
 
 class Constants:

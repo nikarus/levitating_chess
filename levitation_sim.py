@@ -1,3 +1,5 @@
+from concurrent.futures import ThreadPoolExecutor
+
 import numpy as np
 import magpylib as magpy
 from magpylib_force import getFT
@@ -122,9 +124,24 @@ def magnet_layout_from_geometry():
     return MagnetLayout(G.magnet_lateral_edge, G.magnet_thickness, G.periods_per_side, G.magnets_per_period, G.remanence)
 
 
+def rounded_rectangle_outline(width, length, radius, segments):
+    if radius == 0:
+        return np.array([[-width / 2, -length / 2, 0], [width / 2, -length / 2, 0],
+                         [width / 2, length / 2, 0], [-width / 2, length / 2, 0], [-width / 2, -length / 2, 0]])
+    if not 0 < radius <= min(width, length) / 2 or segments < 1:
+        raise ValueError('Invalid rounded rectangle')
+    centers = [(width / 2 - radius, -length / 2 + radius), (width / 2 - radius, length / 2 - radius),
+               (-width / 2 + radius, length / 2 - radius), (-width / 2 + radius, -length / 2 + radius)]
+    vertices = []
+    for index, center in enumerate(centers):
+        angles = np.linspace((index - 1) * np.pi / 2, index * np.pi / 2, segments + 1)
+        vertices.extend(np.column_stack((center[0] + radius * np.cos(angles), center[1] + radius * np.sin(angles), np.zeros(len(angles)))))
+    return np.vstack((vertices, vertices[0]))
+
+
 class CoilArray:
     def __init__(self, cells_per_side, short, long, radial_width, height, turns,
-                 gap, layer_gap, meshing, filaments_radial, filaments_axial, lattice_cells):
+                 gap, layer_gap, meshing, filaments_radial, filaments_axial, lattice_cells, corner_radius=0, corner_segments=1):
         self.cells_per_side = cells_per_side
         self.short = short
         self.long = long
@@ -137,10 +154,16 @@ class CoilArray:
         self.filaments_radial = filaments_radial
         self.filaments_axial = filaments_axial
         self.lattice_cells = lattice_cells
+        self.corner_radius = corner_radius
+        self.corner_segments = corner_segments
         self.turns_per_filament = turns / (filaments_radial * filaments_axial)
         self.windings_by_identity = {}
+        self.force_quadrature = None
         self.coils = []
         self.build()
+
+    def create_force_quadrature(self):
+        return CoilForceQuadrature(self.coils)
 
     def winding(self, orientation, center_x, center_y, z_top):
         extent_x = self.short / 2 if orientation == "x" else self.long / 2
@@ -150,10 +173,8 @@ class CoilArray:
             inset = self.radial_width * (radial_index + 0.5) / self.filaments_radial
             half_x = extent_x - inset
             half_y = extent_y - inset
-            outline = np.array([
-                [-half_x, -half_y, 0.0], [half_x, -half_y, 0.0],
-                [half_x, half_y, 0.0], [-half_x, half_y, 0.0], [-half_x, -half_y, 0.0],
-            ])
+            outline = rounded_rectangle_outline(2 * half_x, 2 * half_y,
+                                                self.corner_radius - inset if self.corner_radius else 0, self.corner_segments)
             for axial_index in range(self.filaments_axial):
                 z = z_top - self.height * (axial_index + 0.5) / self.filaments_axial
                 loop = magpy.current.Polyline(
@@ -254,11 +275,83 @@ def place_piece(layout, x=0.0, y=0.0, z=0.0, roll=0.0, pitch=0.0, yaw=0.0):
     return collection, center_of_mass
 
 
-def actuator_matrix(layout, array, center_of_mass):
-    filaments = [filament for coil in array.coils for filament in coil]
-    force_torque = np.asarray(getFT(layout.collection, filaments, anchor=center_of_mass, eps=G.settings.force_gradient_step))
-    per_coil = force_torque.reshape(len(array.coils), -1, 6).sum(axis=1)
-    return -per_coil.T
+class CoilForceQuadrature:
+    def __init__(self, coils):
+        points, vectors = [], []
+        for filament in (filament for coil in coils for filament in coil):
+            vertices = filament.orientation.apply(filament.vertices)
+            mesh = filament.meshing
+            vectors_per_segment = np.diff(vertices, axis=0) / mesh
+            positions = np.linspace(vertices[:-1] + vectors_per_segment / 2,
+                                    vertices[1:] - vectors_per_segment / 2, mesh, axis=1)
+            points.append(positions.reshape(-1, 3) + filament.position)
+            vectors.append(np.repeat(vectors_per_segment, mesh, axis=0))
+        self.set_samples(coils, points, vectors)
+
+    @classmethod
+    def from_samples(cls, coils, points, vectors):
+        quadrature = cls.__new__(cls)
+        quadrature.set_samples(coils, points, vectors)
+        return quadrature
+
+    def set_samples(self, coils, points, vectors):
+        self.coils = tuple(tuple(coil) for coil in coils)
+        self.filaments = [filament for coil in coils for filament in coil]
+        self.states = [self.filament_state(filament) for filament in self.filaments]
+        if len(points) != len(self.filaments) or len(vectors) != len(points) or not points:
+            raise ValueError('Force quadrature requires samples for every filament')
+        if any(p.ndim != 2 or p.shape[1] != 3 or p.shape != v.shape or not len(p)
+               or not np.isfinite(p).all() or not np.isfinite(v).all() for p, v in zip(points, vectors)):
+            raise ValueError('Force quadrature requires finite matching point and line-element arrays')
+        sizes = [len(p) for p in points]
+        self.points = np.concatenate(points)
+        self.vectors = np.concatenate(vectors)
+        self.currents = np.concatenate([np.full(size, filament.current) for size, filament in zip(sizes, self.filaments)])
+        self.filament_bounds = np.r_[0, np.cumsum(sizes)]
+        self.coil_bounds = np.r_[0, np.cumsum([len(coil) for coil in coils])]
+
+    @staticmethod
+    def filament_state(filament):
+        return (filament.vertices.copy(), filament.position.copy(), filament.orientation.as_quat().copy(),
+                filament.current, filament.meshing)
+
+    def matches(self, coils):
+        return self.coils == tuple(tuple(coil) for coil in coils) and all(
+            all(np.array_equal(before, after) for before, after in zip(state, self.filament_state(filament)))
+            for state, filament in zip(self.states, self.filaments))
+
+    def matrix(self, sources, center_of_mass, field_evaluator=None):
+        fields = (magnetic_field if field_evaluator is None else field_evaluator)(sources, self.points)
+        forces = (self.currents * np.cross(self.vectors, fields).T).T
+        torques = np.cross(center_of_mass - self.points, forces)
+        per_filament = np.array([np.r_[forces[start:end].sum(axis=0), -torques[start:end].sum(axis=0)]
+                                for start, end in zip(self.filament_bounds[:-1], self.filament_bounds[1:])])
+        return -np.array([per_filament[start:end].sum(axis=0)
+                         for start, end in zip(self.coil_bounds[:-1], self.coil_bounds[1:])]).T
+
+
+def magnetic_field(sources, points):
+    batch_size = G.settings.force_field_batch_points
+    workers = G.settings.force_field_workers
+    if batch_size < 1 or workers < 1:
+        raise ValueError('Magnetic field batch size and worker count must be positive')
+    batches = [points[start:start + batch_size] for start in range(0, len(points), batch_size)]
+
+    def field(points):
+        return magpy.getB(sources, points, sumup=True).reshape(-1, 3)
+
+    if workers == 1:
+        fields = np.concatenate([field(points) for points in batches])
+    else:
+        with ThreadPoolExecutor(max_workers=workers) as executor:
+            fields = np.concatenate(list(executor.map(field, batches)))
+    return fields
+
+
+def actuator_matrix(layout, array, center_of_mass, field_evaluator=None):
+    if array.force_quadrature is None or not array.force_quadrature.matches(array.coils):
+        array.force_quadrature = array.create_force_quadrature()
+    return array.force_quadrature.matrix(layout.collection, center_of_mass, field_evaluator)
 
 
 def window_components(layout, array, position, center_of_mass, half_extents=None):
@@ -295,8 +388,11 @@ def allocate_window_components(components, target, current_limit):
     return currents, required_peak
 
 
-def min_peak_current(matrix, target, contact_inequality=None, contact_bounds=None):
+def min_peak_current(matrix, target, contact_inequality=None, contact_bounds=None, current_factors=1.0):
     coil_count = matrix.shape[1]
+    factors = np.broadcast_to(np.asarray(current_factors, dtype=float), (coil_count,))
+    if np.any(factors <= 0):
+        raise ValueError('Current-capacity factors must be positive')
     objective = np.zeros(coil_count + 1)
     objective[-1] = 1.0
     inequality = np.zeros((2 * coil_count, coil_count + 1))
@@ -306,9 +402,10 @@ def min_peak_current(matrix, target, contact_inequality=None, contact_bounds=Non
     inequality[coil_count:, -1] = -1.0
     equality = np.hstack([np.array(matrix), np.zeros((matrix.shape[0], 1))])
     equality = np.vstack([equality, np.append(np.ones(coil_count), 0.0)])
+    equality[:, :coil_count] *= factors
     inequality_bounds = np.zeros(2 * coil_count)
     if contact_inequality is not None:
-        inequality = np.vstack((inequality, np.column_stack((contact_inequality, np.zeros(len(contact_bounds))))))
+        inequality = np.vstack((inequality, np.column_stack((contact_inequality * factors, np.zeros(len(contact_bounds))))))
         inequality_bounds = np.concatenate((inequality_bounds, contact_bounds))
     equality_norms = np.linalg.norm(equality, axis=1)
     inequality_norms = np.linalg.norm(inequality, axis=1)
@@ -325,8 +422,8 @@ def min_peak_current(matrix, target, contact_inequality=None, contact_bounds=Non
     )
     if not result.success:
         raise RuntimeError(result.message)
-    currents = result.x[:coil_count]
-    return float(np.max(np.abs(currents))), currents
+    currents = result.x[:coil_count] * factors
+    return float(np.max(np.abs(result.x[:coil_count]))), currents
 
 
 def min_loss_current(matrix, target, current_limit, resistances=1.0, initial_currents=None, contact_inequality=None, contact_bounds=None):
@@ -346,7 +443,7 @@ def min_loss_current(matrix, target, current_limit, resistances=1.0, initial_cur
     scaled_equality /= row_norms[:, None]
     scaled_expected = expected / row_norms
     objective_weights = weights * limits ** 2
-    objective_weights /= np.max(objective_weights)
+    objective_weights /= np.sum(objective_weights)
     if initial_currents is None:
         _, initial_currents = min_peak_current(matrix, target, contact_inequality, contact_bounds)
     constraints = [{"type": "eq", "fun": lambda currents: scaled_equality @ currents - scaled_expected,
@@ -497,18 +594,21 @@ def analyze(layout, cells_per_side, weight, characteristic_length,
     return array, Controllability(wrench_matrix, weight, characteristic_length)
 
 
-def open_loop_stiffness(layout, array, currents):
-    steps = [G.settings.position_derivative_step] * 3 + [G.settings.angle_derivative_step] * 3
+def open_loop_stiffness(layout, array, currents, pose=None, refinement=1):
+    pose = np.zeros(6) if pose is None else np.asarray(pose)
+    if pose.shape != (6,) or not np.isfinite(pose).all() or not np.isfinite(refinement) or refinement < 1:
+        raise ValueError('Stiffness requires a finite six-axis pose and positive refinement')
+    steps = np.array([G.settings.position_derivative_step] * 3 + [G.settings.angle_derivative_step] * 3) / refinement
     jacobian = np.zeros((6, 6))
     for axis_index, step in enumerate(steps):
         forward = np.zeros(6)
         forward[axis_index] = step
-        _, center = place_piece(layout, *forward)
+        _, center = place_piece(layout, *(pose + forward))
         positive = actuator_matrix(layout, array, center) @ currents
-        _, center = place_piece(layout, *(-forward))
+        _, center = place_piece(layout, *(pose - forward))
         negative = actuator_matrix(layout, array, center) @ currents
         jacobian[:, axis_index] = (positive - negative) / (2 * step)
-    place_piece(layout)
+    place_piece(layout, *pose)
     generalized_mass = np.concatenate((np.full(3, G.weight / G.gravity), G.inertias))
     acceleration_gradient = jacobian / generalized_mass[:, None]
     state_matrix = np.block([[np.zeros((6, 6)), np.eye(6)], [acceleration_gradient, np.zeros((6, 6))]])
@@ -521,23 +621,30 @@ def local_hall_points(sensor_pitch, window_side, plane_z):
     return np.array([[x, y, plane_z] for x in offsets for y in offsets])
 
 
-def hall_jacobian(layout, points, pose):
-    sensor_axis = np.array([0.0, 0.0, 1.0])
-
-    def field_at_pose(dx, dy, dz, droll, dpitch, dyaw):
-        place_piece(layout, x=dx, y=dy, z=dz, roll=droll, pitch=dpitch, yaw=dyaw)
-        return layout.collection.getB(points) @ sensor_axis
-
-    baseline = field_at_pose(*pose)
-    position_step, angle_step = G.settings.hall_position_derivative_step, G.settings.angle_derivative_step
-    columns = []
-    for axis_index, step in enumerate([position_step, position_step, position_step,
-                                       angle_step, angle_step, angle_step]):
-        offsets = list(pose)
-        offsets[axis_index] += step
-        columns.append((field_at_pose(*offsets) - baseline) / step)
+def hall_field(layout, points, pose):
+    pose = np.asarray(pose)
+    rotation = Rotation.from_euler('xyz', pose[..., 3:])
+    center = pose[..., :3] + [0, 0, layout.center_of_mass_height]
+    local_points = rotation.inv().apply(points - center) + [0, 0, layout.center_of_mass_height]
     place_piece(layout)
-    return np.array(columns).T
+    return rotation.apply(layout.collection.getB(local_points))[:, 2]
+
+
+def centered_jacobian(evaluate, point, steps):
+    point = np.asarray(point, dtype=float)
+    columns = []
+    for axis_index, step in enumerate(steps):
+        offset = np.zeros_like(point)
+        offset[axis_index] = step
+        columns.append((evaluate(point + offset) - evaluate(point - offset)) / (2 * step))
+    return np.stack(columns, axis=-1)
+
+
+def hall_jacobian(layout, points, pose):
+    steps = [G.settings.hall_position_derivative_step] * 3 + [G.settings.angle_derivative_step] * 3
+    jacobian = centered_jacobian(lambda candidate: hall_field(layout, points, candidate), pose, steps)
+    place_piece(layout)
+    return jacobian
 
 
 def hall_metrics(jacobian):
@@ -969,9 +1076,14 @@ def drag_components_at_speed(speed, response):
 
 def conductive_sheet_response(gap, coil_height):
     settings = G.settings
-    constants = G.constants
     pcb_depth = gap + 2 * coil_height + settings.pcb_thickness / 2000
     plate_depth = gap + 2 * coil_height + settings.pcb_thickness / 1000 + settings.radiator_standoff_below_pcb / 1000
+    return conductive_sheet_response_at_depths(pcb_depth, plate_depth)
+
+
+def conductive_sheet_response_at_depths(pcb_depth, plate_depth):
+    settings = G.settings
+    constants = G.constants
     slot_thickness = (settings.baseplate_thickness - settings.radiator_slot_web_thickness) / 1000
     slot_factor = min(1.0, (settings.radiator_slot_pitch / 1000 / (G.magnets_per_period * G.magnet_lateral_edge / 2)) ** 2)
     sheets = (("pcb_copper", pcb_depth, constants.copper_resistivity, settings.pcb_copper_plane_thickness / 1000, 1.0),

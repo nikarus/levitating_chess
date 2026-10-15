@@ -1,0 +1,16 @@
+{
+    "scope": "Moving prescribed handoff, independent time/conductor refinement and adaptive comparison",
+    "status": "preflight_failed",
+    "physical_envelope_qualified": false,
+    "cases": {
+        "reference": {
+            "stop_reason": null,
+            "duration_s": 0.0001,
+            "elapsed_s": 114.4367169860052,
+            "comparison": null,
+            "geometric_handoff_crossed": true
+        }
+    },
+    "active_case": null,
+    "stop_reason": "Mechanical properties match after recorded reconstruction; comparison rejected tuple/list representation of coil identities."
+}

@@ -1,0 +1,1483 @@
+{
+    "scope": "Observer comparison on identical recorded Hall/current inputs; physical motion is not rerun",
+    "baseline_sha256": "c194c1b85f48e7311f02a4273bcde8fce5de6b322321b3fcabb0e40078f35e9a",
+    "baseline_source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "53ae3cce5266a25c248974160ac843260bcac1d08e39fc0eaf5dcf79596bac53",
+        "levitation_sim.py": "fb0094cef65b6c2ef2d58974eaf60deb13529624385c7fe16aac9d2cbea69d00",
+        "methodology/design.py": "3734c9577def9d325aaa813a96a8fcd0ef21c067a864c69e5d60ef1a20cd2568",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+        "methodology/motion.py": "7f0616862fe109c36fdef4ae9f1a45912e64d3cf0758daecdcca7350a98af9b5",
+        "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+        "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+        "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+        "methodology/airborne.py": "cc7f7f4cf1f4e189f1e235a50483d772521f62f3a1558d63afc590ae41b32003",
+        "methodology/electrical.py": "0146b05eda7df7b7d75db50b7bd211cad15ebda6cbb77f0a4087824f9dcde2dc",
+        "methodology/sensing.py": "283f377a62d583dc3e0b2de308d8a981867177df559d76c42f4957ac054f05bd",
+        "methodology/qualification.py": "a44b1d88f88aba5b07629b6e4bd6a4c5520fd398a7e960c2d0e43f61923e7546"
+    },
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "53ae3cce5266a25c248974160ac843260bcac1d08e39fc0eaf5dcf79596bac53",
+        "levitation_sim.py": "fb0094cef65b6c2ef2d58974eaf60deb13529624385c7fe16aac9d2cbea69d00",
+        "methodology/design.py": "3734c9577def9d325aaa813a96a8fcd0ef21c067a864c69e5d60ef1a20cd2568",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+        "methodology/motion.py": "7f0616862fe109c36fdef4ae9f1a45912e64d3cf0758daecdcca7350a98af9b5",
+        "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+        "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+        "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+        "methodology/airborne.py": "2214ae8abdd119ef50ee3eb4edadf11e85c4c9a69be3368ca04b07fb86e00de2",
+        "methodology/electrical.py": "0146b05eda7df7b7d75db50b7bd211cad15ebda6cbb77f0a4087824f9dcde2dc",
+        "methodology/sensing.py": "aca2a45c917f50d1dff339b8ba8e7e7c53d46d5e8802ae793cc777882923d8e5",
+        "methodology/qualification.py": "e0833bef77bcf2b718d3796845366ba6e34cbd50a316d5cd3c19bf4d200b5eb6",
+        "methodology/airborne_diagnostics.py": "071493fffa87f10bf578131a2e81d3e823e6d33013c729c39181fd2ac28bfe68"
+    },
+    "duration_s": 0.03180000000000058,
+    "noise_stream_reproduced": true,
+    "peaks": {
+        "without_current_input": {
+            "position_m": 0.00010256821738878027,
+            "orientation_rad": 0.005551230652813085
+        },
+        "measured_current_input": {
+            "position_m": 6.119145282085837e-05,
+            "orientation_rad": 0.003674441379700967
+        }
+    },
+    "trace": [
+        {
+            "time_s": 0.0,
+            "without_current_input": {
+                "position_m": 2.1765336883346525e-05,
+                "orientation_rad": 0.0008845507612553574
+            },
+            "measured_current_input": {
+                "position_m": 2.1765336883346525e-05,
+                "orientation_rad": 0.0008845507612553574
+            }
+        },
+        {
+            "time_s": 0.00025,
+            "without_current_input": {
+                "position_m": 2.2173299420200486e-05,
+                "orientation_rad": 0.0009230048029385186
+            },
+            "measured_current_input": {
+                "position_m": 2.2151549118814962e-05,
+                "orientation_rad": 0.000922760921309658
+            }
+        },
+        {
+            "time_s": 0.0005,
+            "without_current_input": {
+                "position_m": 2.2645890568510658e-05,
+                "orientation_rad": 0.0009642558073252702
+            },
+            "measured_current_input": {
+                "position_m": 2.256672155906267e-05,
+                "orientation_rad": 0.0009618785989830468
+            }
+        },
+        {
+            "time_s": 0.00075,
+            "without_current_input": {
+                "position_m": 2.3176971101267775e-05,
+                "orientation_rad": 0.0010095548712811967
+            },
+            "measured_current_input": {
+                "position_m": 2.3013858402317446e-05,
+                "orientation_rad": 0.0010016701102082567
+            }
+        },
+        {
+            "time_s": 0.001,
+            "without_current_input": {
+                "position_m": 2.3766096963478424e-05,
+                "orientation_rad": 0.0010592804941939953
+            },
+            "measured_current_input": {
+                "position_m": 2.3493809816796707e-05,
+                "orientation_rad": 0.0010420708573559536
+            }
+        },
+        {
+            "time_s": 0.00125,
+            "without_current_input": {
+                "position_m": 2.441479697180391e-05,
+                "orientation_rad": 0.0011136105564998283
+            },
+            "measured_current_input": {
+                "position_m": 2.4006890427959004e-05,
+                "orientation_rad": 0.0010830530848194603
+            }
+        },
+        {
+            "time_s": 0.0015,
+            "without_current_input": {
+                "position_m": 2.5123986165166377e-05,
+                "orientation_rad": 0.0011727076105847818
+            },
+            "measured_current_input": {
+                "position_m": 2.45527794908088e-05,
+                "orientation_rad": 0.0011246246340431427
+            }
+        },
+        {
+            "time_s": 0.00175,
+            "without_current_input": {
+                "position_m": 3.3369564033087595e-05,
+                "orientation_rad": 0.0010140440197144533
+            },
+            "measured_current_input": {
+                "position_m": 3.464770980179716e-05,
+                "orientation_rad": 0.001054847639403349
+            }
+        },
+        {
+            "time_s": 0.002,
+            "without_current_input": {
+                "position_m": 3.427345845872119e-05,
+                "orientation_rad": 0.001060653551455515
+            },
+            "measured_current_input": {
+                "position_m": 3.574204386284929e-05,
+                "orientation_rad": 0.00112254901177403
+            }
+        },
+        {
+            "time_s": 0.0022500000000000003,
+            "without_current_input": {
+                "position_m": 3.525411386270643e-05,
+                "orientation_rad": 0.0011105711744650746
+            },
+            "measured_current_input": {
+                "position_m": 3.6878579283414573e-05,
+                "orientation_rad": 0.00119274062212423
+            }
+        },
+        {
+            "time_s": 0.0025,
+            "without_current_input": {
+                "position_m": 3.634188778878541e-05,
+                "orientation_rad": 0.0011666576424791343
+            },
+            "measured_current_input": {
+                "position_m": 3.8049655163000757e-05,
+                "orientation_rad": 0.0012647585104027688
+            }
+        },
+        {
+            "time_s": 0.0027500000000000003,
+            "without_current_input": {
+                "position_m": 4.750310042260712e-05,
+                "orientation_rad": 0.0014216928738643943
+            },
+            "measured_current_input": {
+                "position_m": 4.91039168101325e-05,
+                "orientation_rad": 0.0015304971363825698
+            }
+        },
+        {
+            "time_s": 0.003,
+            "without_current_input": {
+                "position_m": 4.930108489184206e-05,
+                "orientation_rad": 0.0014959838695789845
+            },
+            "measured_current_input": {
+                "position_m": 5.082763647324753e-05,
+                "orientation_rad": 0.0016139255719510618
+            }
+        },
+        {
+            "time_s": 0.0032500000000000003,
+            "without_current_input": {
+                "position_m": 5.124798459649254e-05,
+                "orientation_rad": 0.001577800786046905
+            },
+            "measured_current_input": {
+                "position_m": 5.2592648883128206e-05,
+                "orientation_rad": 0.001699184230132383
+            }
+        },
+        {
+            "time_s": 0.0035,
+            "without_current_input": {
+                "position_m": 5.3361077536159553e-05,
+                "orientation_rad": 0.0016676183320464548
+            },
+            "measured_current_input": {
+                "position_m": 5.43947440052719e-05,
+                "orientation_rad": 0.0017861814349573427
+            }
+        },
+        {
+            "time_s": 0.0037500000000000003,
+            "without_current_input": {
+                "position_m": 4.7000701974679025e-05,
+                "orientation_rad": 0.0017530590893365698
+            },
+            "measured_current_input": {
+                "position_m": 4.69261479497427e-05,
+                "orientation_rad": 0.0017972724763548012
+            }
+        },
+        {
+            "time_s": 0.004,
+            "without_current_input": {
+                "position_m": 4.9027746493299755e-05,
+                "orientation_rad": 0.0018610870742515606
+            },
+            "measured_current_input": {
+                "position_m": 4.833831682040779e-05,
+                "orientation_rad": 0.0018864991922512197
+            }
+        },
+        {
+            "time_s": 0.00425,
+            "without_current_input": {
+                "position_m": 5.121049697074733e-05,
+                "orientation_rad": 0.0019779252854169125
+            },
+            "measured_current_input": {
+                "position_m": 4.977552295804692e-05,
+                "orientation_rad": 0.0019775226529573087
+            }
+        },
+        {
+            "time_s": 0.0045000000000000005,
+            "without_current_input": {
+                "position_m": 5.354275279157852e-05,
+                "orientation_rad": 0.0021038637663685737
+            },
+            "measured_current_input": {
+                "position_m": 5.124039225480131e-05,
+                "orientation_rad": 0.0020703542409382636
+            }
+        },
+        {
+            "time_s": 0.00475,
+            "without_current_input": {
+                "position_m": 4.222601352017493e-05,
+                "orientation_rad": 0.0015592260992881646
+            },
+            "measured_current_input": {
+                "position_m": 3.800358819945209e-05,
+                "orientation_rad": 0.0013981420951336085
+            }
+        },
+        {
+            "time_s": 0.005,
+            "without_current_input": {
+                "position_m": 4.416941462228691e-05,
+                "orientation_rad": 0.0016695003871961846
+            },
+            "measured_current_input": {
+                "position_m": 3.87472686381813e-05,
+                "orientation_rad": 0.0014550749766600853
+            }
+        },
+        {
+            "time_s": 0.00525,
+            "without_current_input": {
+                "position_m": 4.622634360620082e-05,
+                "orientation_rad": 0.0017868237727447502
+            },
+            "measured_current_input": {
+                "position_m": 3.949960743666689e-05,
+                "orientation_rad": 0.0015128378303222553
+            }
+        },
+        {
+            "time_s": 0.0055000000000000005,
+            "without_current_input": {
+                "position_m": 4.838211391352789e-05,
+                "orientation_rad": 0.0019105210501355232
+            },
+            "measured_current_input": {
+                "position_m": 4.0264475300281215e-05,
+                "orientation_rad": 0.0015716076669353048
+            }
+        },
+        {
+            "time_s": 0.00575,
+            "without_current_input": {
+                "position_m": 4.249719824501235e-05,
+                "orientation_rad": 0.0029439246486595598
+            },
+            "measured_current_input": {
+                "position_m": 3.3926010739783845e-05,
+                "orientation_rad": 0.0026106243384885113
+            }
+        },
+        {
+            "time_s": 0.006,
+            "without_current_input": {
+                "position_m": 4.4590149687948755e-05,
+                "orientation_rad": 0.00312634520200718
+            },
+            "measured_current_input": {
+                "position_m": 3.446898053630715e-05,
+                "orientation_rad": 0.002722519001912044
+            }
+        },
+        {
+            "time_s": 0.00625,
+            "without_current_input": {
+                "position_m": 4.6776388373246236e-05,
+                "orientation_rad": 0.003318403844122547
+            },
+            "measured_current_input": {
+                "position_m": 3.502401288066249e-05,
+                "orientation_rad": 0.0028367807776585887
+            }
+        },
+        {
+            "time_s": 0.006500000000000001,
+            "without_current_input": {
+                "position_m": 4.905104447445266e-05,
+                "orientation_rad": 0.0035215846198509075
+            },
+            "measured_current_input": {
+                "position_m": 3.5592586834007245e-05,
+                "orientation_rad": 0.0029531284765045643
+            }
+        },
+        {
+            "time_s": 0.00675,
+            "without_current_input": {
+                "position_m": 2.9614813584645124e-05,
+                "orientation_rad": 0.0037101563999084007
+            },
+            "measured_current_input": {
+                "position_m": 1.8813565314447185e-05,
+                "orientation_rad": 0.003215099421261171
+            }
+        },
+        {
+            "time_s": 0.007,
+            "without_current_input": {
+                "position_m": 3.111601860493676e-05,
+                "orientation_rad": 0.003937938959700525
+            },
+            "measured_current_input": {
+                "position_m": 1.872899050490816e-05,
+                "orientation_rad": 0.003346827021435889
+            }
+        },
+        {
+            "time_s": 0.00725,
+            "without_current_input": {
+                "position_m": 3.2674247498865436e-05,
+                "orientation_rad": 0.004178007878626156
+            },
+            "measured_current_input": {
+                "position_m": 1.86699481150125e-05,
+                "orientation_rad": 0.003481010068787937
+            }
+        },
+        {
+            "time_s": 0.007500000000000001,
+            "without_current_input": {
+                "position_m": 3.427143104874052e-05,
+                "orientation_rad": 0.004430745112786872
+            },
+            "measured_current_input": {
+                "position_m": 1.8643777310025138e-05,
+                "orientation_rad": 0.0036176974818168963
+            }
+        },
+        {
+            "time_s": 0.00775,
+            "without_current_input": {
+                "position_m": 2.9973828758087113e-05,
+                "orientation_rad": 0.0035805513409043845
+            },
+            "measured_current_input": {
+                "position_m": 1.8495159600828997e-05,
+                "orientation_rad": 0.0029186647044146074
+            }
+        },
+        {
+            "time_s": 0.008,
+            "without_current_input": {
+                "position_m": 3.113670521818486e-05,
+                "orientation_rad": 0.0038031280624375155
+            },
+            "measured_current_input": {
+                "position_m": 1.8384451615798793e-05,
+                "orientation_rad": 0.003019932813920555
+            }
+        },
+        {
+            "time_s": 0.00825,
+            "without_current_input": {
+                "position_m": 3.232726863299198e-05,
+                "orientation_rad": 0.004035703098662555
+            },
+            "measured_current_input": {
+                "position_m": 1.8300849992410818e-05,
+                "orientation_rad": 0.003122742313618773
+            }
+        },
+        {
+            "time_s": 0.0085,
+            "without_current_input": {
+                "position_m": 3.354861126922765e-05,
+                "orientation_rad": 0.0042770682917995
+            },
+            "measured_current_input": {
+                "position_m": 1.8247210018664924e-05,
+                "orientation_rad": 0.0032274381330533505
+            }
+        },
+        {
+            "time_s": 0.00875,
+            "without_current_input": {
+                "position_m": 3.9645577293010186e-05,
+                "orientation_rad": 0.0028885428312102274
+            },
+            "measured_current_input": {
+                "position_m": 2.9605004002335805e-05,
+                "orientation_rad": 0.0020261435281131415
+            }
+        },
+        {
+            "time_s": 0.009000000000000001,
+            "without_current_input": {
+                "position_m": 4.06885271370896e-05,
+                "orientation_rad": 0.0030609657885315744
+            },
+            "measured_current_input": {
+                "position_m": 2.99073440154543e-05,
+                "orientation_rad": 0.002065139087197826
+            }
+        },
+        {
+            "time_s": 0.009250000000000001,
+            "without_current_input": {
+                "position_m": 4.173256078991838e-05,
+                "orientation_rad": 0.003236712330538023
+            },
+            "measured_current_input": {
+                "position_m": 3.0222266059565638e-05,
+                "orientation_rad": 0.0021041841700070096
+            }
+        },
+        {
+            "time_s": 0.0095,
+            "without_current_input": {
+                "position_m": 4.278799039447599e-05,
+                "orientation_rad": 0.0034137162638712784
+            },
+            "measured_current_input": {
+                "position_m": 3.054659468651654e-05,
+                "orientation_rad": 0.0021437471223274386
+            }
+        },
+        {
+            "time_s": 0.00975,
+            "without_current_input": {
+                "position_m": 4.955522075597449e-05,
+                "orientation_rad": 0.002549472045036052
+            },
+            "measured_current_input": {
+                "position_m": 4.48035787888383e-05,
+                "orientation_rad": 0.0016406636967778072
+            }
+        },
+        {
+            "time_s": 0.01,
+            "without_current_input": {
+                "position_m": 5.052762055043806e-05,
+                "orientation_rad": 0.0026747658669916885
+            },
+            "measured_current_input": {
+                "position_m": 4.590538957039342e-05,
+                "orientation_rad": 0.001658285640212446
+            }
+        },
+        {
+            "time_s": 0.01025,
+            "without_current_input": {
+                "position_m": 5.1498955163707236e-05,
+                "orientation_rad": 0.0027985563790162878
+            },
+            "measured_current_input": {
+                "position_m": 4.703742284238265e-05,
+                "orientation_rad": 0.0016764232609430222
+            }
+        },
+        {
+            "time_s": 0.0105,
+            "without_current_input": {
+                "position_m": 5.247700368165726e-05,
+                "orientation_rad": 0.0029196889232053044
+            },
+            "measured_current_input": {
+                "position_m": 4.819564899190076e-05,
+                "orientation_rad": 0.0016953849289550642
+            }
+        },
+        {
+            "time_s": 0.010750000000000001,
+            "without_current_input": {
+                "position_m": 5.588577738149564e-05,
+                "orientation_rad": 0.0007322279675259929
+            },
+            "measured_current_input": {
+                "position_m": 5.569008825915206e-05,
+                "orientation_rad": 0.00034334367284806223
+            }
+        },
+        {
+            "time_s": 0.011000000000000001,
+            "without_current_input": {
+                "position_m": 5.69223578575291e-05,
+                "orientation_rad": 0.0007296834933925822
+            },
+            "measured_current_input": {
+                "position_m": 5.726783118610856e-05,
+                "orientation_rad": 0.00039448658436293
+            }
+        },
+        {
+            "time_s": 0.011250000000000001,
+            "without_current_input": {
+                "position_m": 5.7979119705627275e-05,
+                "orientation_rad": 0.0007217639023710801
+            },
+            "measured_current_input": {
+                "position_m": 5.887927552437204e-05,
+                "orientation_rad": 0.0004574016773926826
+            }
+        },
+        {
+            "time_s": 0.0115,
+            "without_current_input": {
+                "position_m": 5.906095424726287e-05,
+                "orientation_rad": 0.0007084132136679398
+            },
+            "measured_current_input": {
+                "position_m": 6.0522461561679415e-05,
+                "orientation_rad": 0.0005287285035943911
+            }
+        },
+        {
+            "time_s": 0.01175,
+            "without_current_input": {
+                "position_m": 2.736572308355425e-05,
+                "orientation_rad": 0.001076554547806734
+            },
+            "measured_current_input": {
+                "position_m": 2.7561299808975737e-05,
+                "orientation_rad": 0.001175510333604403
+            }
+        },
+        {
+            "time_s": 0.012,
+            "without_current_input": {
+                "position_m": 2.6917807620232528e-05,
+                "orientation_rad": 0.0010470695401101028
+            },
+            "measured_current_input": {
+                "position_m": 2.7400435612417677e-05,
+                "orientation_rad": 0.0012300248423408248
+            }
+        },
+        {
+            "time_s": 0.01225,
+            "without_current_input": {
+                "position_m": 2.6408882298519803e-05,
+                "orientation_rad": 0.001016626326210818
+            },
+            "measured_current_input": {
+                "position_m": 2.7222150170400157e-05,
+                "orientation_rad": 0.0012892786241590923
+            }
+        },
+        {
+            "time_s": 0.0125,
+            "without_current_input": {
+                "position_m": 2.5811752324082545e-05,
+                "orientation_rad": 0.0009927935197583235
+            },
+            "measured_current_input": {
+                "position_m": 2.7037617426183858e-05,
+                "orientation_rad": 0.0013527089534343844
+            }
+        },
+        {
+            "time_s": 0.012750000000000001,
+            "without_current_input": {
+                "position_m": 1.5716159017437472e-05,
+                "orientation_rad": 0.0012503300752190517
+            },
+            "measured_current_input": {
+                "position_m": 1.5686285338961262e-05,
+                "orientation_rad": 0.0014796888052414714
+            }
+        },
+        {
+            "time_s": 0.013000000000000001,
+            "without_current_input": {
+                "position_m": 1.5200925382506729e-05,
+                "orientation_rad": 0.0012022148185611588
+            },
+            "measured_current_input": {
+                "position_m": 1.4973914781995895e-05,
+                "orientation_rad": 0.0015164039440629063
+            }
+        },
+        {
+            "time_s": 0.013250000000000001,
+            "without_current_input": {
+                "position_m": 1.4933744718119069e-05,
+                "orientation_rad": 0.0011620999130178805
+            },
+            "measured_current_input": {
+                "position_m": 1.4260072328572997e-05,
+                "orientation_rad": 0.0015550365168695802
+            }
+        },
+        {
+            "time_s": 0.0135,
+            "without_current_input": {
+                "position_m": 1.5034353681556244e-05,
+                "orientation_rad": 0.0011385965722493887
+            },
+            "measured_current_input": {
+                "position_m": 1.3552149306868894e-05,
+                "orientation_rad": 0.0015954739611676995
+            }
+        },
+        {
+            "time_s": 0.01375,
+            "without_current_input": {
+                "position_m": 2.316840398184048e-05,
+                "orientation_rad": 0.00043735171220692115
+            },
+            "measured_current_input": {
+                "position_m": 3.2021053206594204e-05,
+                "orientation_rad": 0.0011837044596312008
+            }
+        },
+        {
+            "time_s": 0.014,
+            "without_current_input": {
+                "position_m": 2.1385599260091713e-05,
+                "orientation_rad": 0.00036005460166136256
+            },
+            "measured_current_input": {
+                "position_m": 3.222338802662532e-05,
+                "orientation_rad": 0.0011918853794320322
+            }
+        },
+        {
+            "time_s": 0.01425,
+            "without_current_input": {
+                "position_m": 1.9459229514689875e-05,
+                "orientation_rad": 0.0003945326786766109
+            },
+            "measured_current_input": {
+                "position_m": 3.244120636736781e-05,
+                "orientation_rad": 0.0012007795560707074
+            }
+        },
+        {
+            "time_s": 0.0145,
+            "without_current_input": {
+                "position_m": 1.743810237698659e-05,
+                "orientation_rad": 0.0005440911916107615
+            },
+            "measured_current_input": {
+                "position_m": 3.266647354618711e-05,
+                "orientation_rad": 0.0012102417021100885
+            }
+        },
+        {
+            "time_s": 0.014750000000000001,
+            "without_current_input": {
+                "position_m": 2.197098391870726e-05,
+                "orientation_rad": 0.0009160799126075634
+            },
+            "measured_current_input": {
+                "position_m": 3.612758485016028e-05,
+                "orientation_rad": 0.0007461412539997455
+            }
+        },
+        {
+            "time_s": 0.015000000000000001,
+            "without_current_input": {
+                "position_m": 2.0347050047626e-05,
+                "orientation_rad": 0.001180693376257863
+            },
+            "measured_current_input": {
+                "position_m": 3.6547684345892604e-05,
+                "orientation_rad": 0.0007352320752414439
+            }
+        },
+        {
+            "time_s": 0.015250000000000001,
+            "without_current_input": {
+                "position_m": 1.8846318450566757e-05,
+                "orientation_rad": 0.001474382262304573
+            },
+            "measured_current_input": {
+                "position_m": 3.6980855915999895e-05,
+                "orientation_rad": 0.0007253671888937681
+            }
+        },
+        {
+            "time_s": 0.0155,
+            "without_current_input": {
+                "position_m": 1.7592868770617414e-05,
+                "orientation_rad": 0.001794617026897026
+            },
+            "measured_current_input": {
+                "position_m": 3.742537904673207e-05,
+                "orientation_rad": 0.0007166743357743915
+            }
+        },
+        {
+            "time_s": 0.01575,
+            "without_current_input": {
+                "position_m": 1.0325880146908413e-05,
+                "orientation_rad": 0.0013811272782122512
+            },
+            "measured_current_input": {
+                "position_m": 1.2105767012032552e-05,
+                "orientation_rad": 0.0016781367566405657
+            }
+        },
+        {
+            "time_s": 0.016,
+            "without_current_input": {
+                "position_m": 1.3805521952790478e-05,
+                "orientation_rad": 0.001573660034024848
+            },
+            "measured_current_input": {
+                "position_m": 1.118979246555573e-05,
+                "orientation_rad": 0.0017170785567744875
+            }
+        },
+        {
+            "time_s": 0.01625,
+            "without_current_input": {
+                "position_m": 1.768587563088933e-05,
+                "orientation_rad": 0.0018109084060889083
+            },
+            "measured_current_input": {
+                "position_m": 1.0253125637557227e-05,
+                "orientation_rad": 0.001757751789587105
+            }
+        },
+        {
+            "time_s": 0.0165,
+            "without_current_input": {
+                "position_m": 2.1910218898804426e-05,
+                "orientation_rad": 0.002085646608414921
+            },
+            "measured_current_input": {
+                "position_m": 9.30334724258077e-06,
+                "orientation_rad": 0.0017997160764548997
+            }
+        },
+        {
+            "time_s": 0.01675,
+            "without_current_input": {
+                "position_m": 1.0087854571420789e-05,
+                "orientation_rad": 0.0006676015191285033
+            },
+            "measured_current_input": {
+                "position_m": 1.8826394732359957e-05,
+                "orientation_rad": 0.0018013039591258993
+            }
+        },
+        {
+            "time_s": 0.017,
+            "without_current_input": {
+                "position_m": 1.3159774173985956e-05,
+                "orientation_rad": 0.0008908117779848876
+            },
+            "measured_current_input": {
+                "position_m": 1.83978761264934e-05,
+                "orientation_rad": 0.0018370144488588233
+            }
+        },
+        {
+            "time_s": 0.01725,
+            "without_current_input": {
+                "position_m": 1.680241666793235e-05,
+                "orientation_rad": 0.0011558982796044917
+            },
+            "measured_current_input": {
+                "position_m": 1.797463189978022e-05,
+                "orientation_rad": 0.0018738817758352144
+            }
+        },
+        {
+            "time_s": 0.0175,
+            "without_current_input": {
+                "position_m": 2.082503583806253e-05,
+                "orientation_rad": 0.0014452468973311077
+            },
+            "measured_current_input": {
+                "position_m": 1.7551249761172588e-05,
+                "orientation_rad": 0.0019115187069545757
+            }
+        },
+        {
+            "time_s": 0.017750000000000002,
+            "without_current_input": {
+                "position_m": 1.5113977226126904e-05,
+                "orientation_rad": 0.00027823155054122116
+            },
+            "measured_current_input": {
+                "position_m": 3.28351921879684e-05,
+                "orientation_rad": 0.002526195759451341
+            }
+        },
+        {
+            "time_s": 0.018000000000000002,
+            "without_current_input": {
+                "position_m": 1.5899104115683392e-05,
+                "orientation_rad": 0.0003371332958847036
+            },
+            "measured_current_input": {
+                "position_m": 3.321604560789461e-05,
+                "orientation_rad": 0.0026034383076532345
+            }
+        },
+        {
+            "time_s": 0.018250000000000002,
+            "without_current_input": {
+                "position_m": 1.745228897593569e-05,
+                "orientation_rad": 0.0005241939783172638
+            },
+            "measured_current_input": {
+                "position_m": 3.361587347111261e-05,
+                "orientation_rad": 0.0026831774122422127
+            }
+        },
+        {
+            "time_s": 0.018500000000000003,
+            "without_current_input": {
+                "position_m": 1.9648746630916353e-05,
+                "orientation_rad": 0.0007516249196377805
+            },
+            "measured_current_input": {
+                "position_m": 3.402642672879155e-05,
+                "orientation_rad": 0.0027648531628596635
+            }
+        },
+        {
+            "time_s": 0.01875,
+            "without_current_input": {
+                "position_m": 1.2049720333670507e-05,
+                "orientation_rad": 0.0005712574083812383
+            },
+            "measured_current_input": {
+                "position_m": 2.6002042466402258e-05,
+                "orientation_rad": 0.0026468975134368153
+            }
+        },
+        {
+            "time_s": 0.019,
+            "without_current_input": {
+                "position_m": 1.4316499654477288e-05,
+                "orientation_rad": 0.0004929912238679149
+            },
+            "measured_current_input": {
+                "position_m": 2.6026024777915486e-05,
+                "orientation_rad": 0.0027155527226294883
+            }
+        },
+        {
+            "time_s": 0.01925,
+            "without_current_input": {
+                "position_m": 1.7023642271149882e-05,
+                "orientation_rad": 0.0004785695323840622
+            },
+            "measured_current_input": {
+                "position_m": 2.605638944144612e-05,
+                "orientation_rad": 0.002785804450406622
+            }
+        },
+        {
+            "time_s": 0.0195,
+            "without_current_input": {
+                "position_m": 2.000474682399126e-05,
+                "orientation_rad": 0.0005300053458592911
+            },
+            "measured_current_input": {
+                "position_m": 2.609287624826215e-05,
+                "orientation_rad": 0.0028572665622071066
+            }
+        },
+        {
+            "time_s": 0.01975,
+            "without_current_input": {
+                "position_m": 1.112393282852584e-05,
+                "orientation_rad": 0.0008175421952033114
+            },
+            "measured_current_input": {
+                "position_m": 3.471454361886549e-05,
+                "orientation_rad": 0.0024007341920954978
+            }
+        },
+        {
+            "time_s": 0.02,
+            "without_current_input": {
+                "position_m": 1.0647061278779802e-05,
+                "orientation_rad": 0.0008552612757758324
+            },
+            "measured_current_input": {
+                "position_m": 3.511489691031221e-05,
+                "orientation_rad": 0.0024562585083974997
+            }
+        },
+        {
+            "time_s": 0.02025,
+            "without_current_input": {
+                "position_m": 1.070840181467482e-05,
+                "orientation_rad": 0.0009221576403685997
+            },
+            "measured_current_input": {
+                "position_m": 3.5527129742028767e-05,
+                "orientation_rad": 0.0025134305184964355
+            }
+        },
+        {
+            "time_s": 0.0205,
+            "without_current_input": {
+                "position_m": 1.1276652166685522e-05,
+                "orientation_rad": 0.0010118207650451246
+            },
+            "measured_current_input": {
+                "position_m": 3.594239890174554e-05,
+                "orientation_rad": 0.002571972517725547
+            }
+        },
+        {
+            "time_s": 0.02075,
+            "without_current_input": {
+                "position_m": 5.963351013220165e-06,
+                "orientation_rad": 0.0005631573113975585
+            },
+            "measured_current_input": {
+                "position_m": 2.6219688121754186e-05,
+                "orientation_rad": 0.0017708185127238282
+            }
+        },
+        {
+            "time_s": 0.021,
+            "without_current_input": {
+                "position_m": 5.574614207388276e-06,
+                "orientation_rad": 0.0005640046491530368
+            },
+            "measured_current_input": {
+                "position_m": 2.612790325776529e-05,
+                "orientation_rad": 0.0017794600201357187
+            }
+        },
+        {
+            "time_s": 0.02125,
+            "without_current_input": {
+                "position_m": 5.6849496556069624e-06,
+                "orientation_rad": 0.000586867466536619
+            },
+            "measured_current_input": {
+                "position_m": 2.6030941627230365e-05,
+                "orientation_rad": 0.0017880808105574658
+            }
+        },
+        {
+            "time_s": 0.021500000000000002,
+            "without_current_input": {
+                "position_m": 6.179732812878406e-06,
+                "orientation_rad": 0.0006276162395576684
+            },
+            "measured_current_input": {
+                "position_m": 2.59280555422412e-05,
+                "orientation_rad": 0.0017965694252624345
+            }
+        },
+        {
+            "time_s": 0.021750000000000002,
+            "without_current_input": {
+                "position_m": 2.108650906559854e-05,
+                "orientation_rad": 0.000766293252853366
+            },
+            "measured_current_input": {
+                "position_m": 3.3333609999419006e-05,
+                "orientation_rad": 0.0006151131533886295
+            }
+        },
+        {
+            "time_s": 0.022000000000000002,
+            "without_current_input": {
+                "position_m": 2.151822007636664e-05,
+                "orientation_rad": 0.0008454905759949966
+            },
+            "measured_current_input": {
+                "position_m": 3.3609680322495004e-05,
+                "orientation_rad": 0.0005776252077846439
+            }
+        },
+        {
+            "time_s": 0.022250000000000002,
+            "without_current_input": {
+                "position_m": 2.2155131224204504e-05,
+                "orientation_rad": 0.0009261237433470216
+            },
+            "measured_current_input": {
+                "position_m": 3.3895027351485734e-05,
+                "orientation_rad": 0.0005439520447903548
+            }
+        },
+        {
+            "time_s": 0.022500000000000003,
+            "without_current_input": {
+                "position_m": 2.3020033089302396e-05,
+                "orientation_rad": 0.0010086655322923998
+            },
+            "measured_current_input": {
+                "position_m": 3.418362449972903e-05,
+                "orientation_rad": 0.0005155780453599776
+            }
+        },
+        {
+            "time_s": 0.02275,
+            "without_current_input": {
+                "position_m": 3.4323482632034825e-05,
+                "orientation_rad": 0.00122243629095764
+            },
+            "measured_current_input": {
+                "position_m": 3.801331114767366e-05,
+                "orientation_rad": 0.0008529019275065637
+            }
+        },
+        {
+            "time_s": 0.023,
+            "without_current_input": {
+                "position_m": 3.615937050501885e-05,
+                "orientation_rad": 0.0013447723901538352
+            },
+            "measured_current_input": {
+                "position_m": 3.8482040018520604e-05,
+                "orientation_rad": 0.0008472021353767866
+            }
+        },
+        {
+            "time_s": 0.02325,
+            "without_current_input": {
+                "position_m": 3.8307187651172126e-05,
+                "orientation_rad": 0.0014802391829119776
+            },
+            "measured_current_input": {
+                "position_m": 3.89582597705572e-05,
+                "orientation_rad": 0.0008460212510774944
+            }
+        },
+        {
+            "time_s": 0.0235,
+            "without_current_input": {
+                "position_m": 4.0789542428160655e-05,
+                "orientation_rad": 0.0016302355093975756
+            },
+            "measured_current_input": {
+                "position_m": 3.943858035307431e-05,
+                "orientation_rad": 0.0008495500540411776
+            }
+        },
+        {
+            "time_s": 0.02375,
+            "without_current_input": {
+                "position_m": 4.1630127268469736e-05,
+                "orientation_rad": 0.0016950098676360619
+            },
+            "measured_current_input": {
+                "position_m": 3.513461708248514e-05,
+                "orientation_rad": 0.0008641338846255482
+            }
+        },
+        {
+            "time_s": 0.024,
+            "without_current_input": {
+                "position_m": 4.457695352106128e-05,
+                "orientation_rad": 0.0018883628646217947
+            },
+            "measured_current_input": {
+                "position_m": 3.540832417613481e-05,
+                "orientation_rad": 0.0008488611552362567
+            }
+        },
+        {
+            "time_s": 0.02425,
+            "without_current_input": {
+                "position_m": 4.7880838816697026e-05,
+                "orientation_rad": 0.0021025911780112845
+            },
+            "measured_current_input": {
+                "position_m": 3.568465133458239e-05,
+                "orientation_rad": 0.0008354866688869402
+            }
+        },
+        {
+            "time_s": 0.0245,
+            "without_current_input": {
+                "position_m": 5.155080181800947e-05,
+                "orientation_rad": 0.002338514215635039
+            },
+            "measured_current_input": {
+                "position_m": 3.596471268600666e-05,
+                "orientation_rad": 0.0008242101966876965
+            }
+        },
+        {
+            "time_s": 0.02475,
+            "without_current_input": {
+                "position_m": 3.750749196453204e-05,
+                "orientation_rad": 0.002747753845644588
+            },
+            "measured_current_input": {
+                "position_m": 2.101600238771958e-05,
+                "orientation_rad": 0.001293238165045251
+            }
+        },
+        {
+            "time_s": 0.025,
+            "without_current_input": {
+                "position_m": 4.1015035941068955e-05,
+                "orientation_rad": 0.0030400491180199054
+            },
+            "measured_current_input": {
+                "position_m": 2.0628026946367267e-05,
+                "orientation_rad": 0.001292028123503552
+            }
+        },
+        {
+            "time_s": 0.02525,
+            "without_current_input": {
+                "position_m": 4.4880939812135995e-05,
+                "orientation_rad": 0.003358353594596227
+            },
+            "measured_current_input": {
+                "position_m": 2.0247216565194967e-05,
+                "orientation_rad": 0.0012911236101422086
+            }
+        },
+        {
+            "time_s": 0.025500000000000002,
+            "without_current_input": {
+                "position_m": 4.9090377406477244e-05,
+                "orientation_rad": 0.0037035630856369936
+            },
+            "measured_current_input": {
+                "position_m": 1.988005464831479e-05,
+                "orientation_rad": 0.0012904068145918866
+            }
+        },
+        {
+            "time_s": 0.025750000000000002,
+            "without_current_input": {
+                "position_m": 4.787571048342735e-05,
+                "orientation_rad": 0.003356113991341499
+            },
+            "measured_current_input": {
+                "position_m": 1.8576988697599556e-05,
+                "orientation_rad": 0.0012723554249003336
+            }
+        },
+        {
+            "time_s": 0.026000000000000002,
+            "without_current_input": {
+                "position_m": 5.2580966843314836e-05,
+                "orientation_rad": 0.003718001499164482
+            },
+            "measured_current_input": {
+                "position_m": 1.813627164007535e-05,
+                "orientation_rad": 0.0012706081495667697
+            }
+        },
+        {
+            "time_s": 0.026250000000000002,
+            "without_current_input": {
+                "position_m": 5.7625871173252526e-05,
+                "orientation_rad": 0.004105797591556466
+            },
+            "measured_current_input": {
+                "position_m": 1.770841196043333e-05,
+                "orientation_rad": 0.0012688154708173577
+            }
+        },
+        {
+            "time_s": 0.026500000000000003,
+            "without_current_input": {
+                "position_m": 6.300814055178296e-05,
+                "orientation_rad": 0.004519102763135056
+            },
+            "measured_current_input": {
+                "position_m": 1.72976261361717e-05,
+                "orientation_rad": 0.0012671943841871486
+            }
+        },
+        {
+            "time_s": 0.026750000000000003,
+            "without_current_input": {
+                "position_m": 5.849585066015568e-05,
+                "orientation_rad": 0.0034500663086782395
+            },
+            "measured_current_input": {
+                "position_m": 1.847306389100448e-05,
+                "orientation_rad": 0.0008839939530676432
+            }
+        },
+        {
+            "time_s": 0.027,
+            "without_current_input": {
+                "position_m": 6.405357264189146e-05,
+                "orientation_rad": 0.0038386433725244905
+            },
+            "measured_current_input": {
+                "position_m": 1.8129414674989142e-05,
+                "orientation_rad": 0.0008680237755040695
+            }
+        },
+        {
+            "time_s": 0.02725,
+            "without_current_input": {
+                "position_m": 6.993002716324378e-05,
+                "orientation_rad": 0.004249091772858267
+            },
+            "measured_current_input": {
+                "position_m": 1.780489628853604e-05,
+                "orientation_rad": 0.0008525314084706906
+            }
+        },
+        {
+            "time_s": 0.0275,
+            "without_current_input": {
+                "position_m": 7.611939336544095e-05,
+                "orientation_rad": 0.004679889359350968
+            },
+            "measured_current_input": {
+                "position_m": 1.7505712259251205e-05,
+                "orientation_rad": 0.0008380802623718292
+            }
+        },
+        {
+            "time_s": 0.02775,
+            "without_current_input": {
+                "position_m": 7.086061515094977e-05,
+                "orientation_rad": 0.003760860604244231
+            },
+            "measured_current_input": {
+                "position_m": 2.5655517425617466e-05,
+                "orientation_rad": 0.0009703344410392633
+            }
+        },
+        {
+            "time_s": 0.028,
+            "without_current_input": {
+                "position_m": 7.710178524851334e-05,
+                "orientation_rad": 0.004161397042737839
+            },
+            "measured_current_input": {
+                "position_m": 2.5925856148605234e-05,
+                "orientation_rad": 0.0009709566734940495
+            }
+        },
+        {
+            "time_s": 0.02825,
+            "without_current_input": {
+                "position_m": 8.363264023351887e-05,
+                "orientation_rad": 0.0045784748545932554
+            },
+            "measured_current_input": {
+                "position_m": 2.6232197529187382e-05,
+                "orientation_rad": 0.0009734474411105343
+            }
+        },
+        {
+            "time_s": 0.0285,
+            "without_current_input": {
+                "position_m": 9.04438081649781e-05,
+                "orientation_rad": 0.005010568707515135
+            },
+            "measured_current_input": {
+                "position_m": 2.6578174940946405e-05,
+                "orientation_rad": 0.0009781782208046264
+            }
+        },
+        {
+            "time_s": 0.02875,
+            "without_current_input": {
+                "position_m": 7.970001341934846e-05,
+                "orientation_rad": 0.004086718453017111
+            },
+            "measured_current_input": {
+                "position_m": 3.180177584423618e-05,
+                "orientation_rad": 0.0010902232842457057
+            }
+        },
+        {
+            "time_s": 0.029,
+            "without_current_input": {
+                "position_m": 8.615093611831934e-05,
+                "orientation_rad": 0.004474190126196907
+            },
+            "measured_current_input": {
+                "position_m": 3.2386243883098976e-05,
+                "orientation_rad": 0.0010924719057242148
+            }
+        },
+        {
+            "time_s": 0.02925,
+            "without_current_input": {
+                "position_m": 9.283372423518667e-05,
+                "orientation_rad": 0.004872404471573893
+            },
+            "measured_current_input": {
+                "position_m": 3.299885123916557e-05,
+                "orientation_rad": 0.0010955072751679769
+            }
+        },
+        {
+            "time_s": 0.029500000000000002,
+            "without_current_input": {
+                "position_m": 9.97283766246114e-05,
+                "orientation_rad": 0.005279755342065222
+            },
+            "measured_current_input": {
+                "position_m": 3.364424165021821e-05,
+                "orientation_rad": 0.0010996848463019349
+            }
+        },
+        {
+            "time_s": 0.029750000000000002,
+            "without_current_input": {
+                "position_m": 7.71434623178629e-05,
+                "orientation_rad": 0.004315757098882
+            },
+            "measured_current_input": {
+                "position_m": 2.7401728206698305e-05,
+                "orientation_rad": 0.0011665313755781354
+            }
+        },
+        {
+            "time_s": 0.030000000000000002,
+            "without_current_input": {
+                "position_m": 8.282749394834697e-05,
+                "orientation_rad": 0.00467355117226857
+            },
+            "measured_current_input": {
+                "position_m": 2.7516665307309003e-05,
+                "orientation_rad": 0.0011638333219872602
+            }
+        },
+        {
+            "time_s": 0.030250000000000003,
+            "without_current_input": {
+                "position_m": 8.862854410280452e-05,
+                "orientation_rad": 0.005036499206177021
+            },
+            "measured_current_input": {
+                "position_m": 2.7630896545985307e-05,
+                "orientation_rad": 0.0011607568892305173
+            }
+        },
+        {
+            "time_s": 0.030500000000000003,
+            "without_current_input": {
+                "position_m": 9.451078458260832e-05,
+                "orientation_rad": 0.005403126543670751
+            },
+            "measured_current_input": {
+                "position_m": 2.775361083280403e-05,
+                "orientation_rad": 0.0011577542524389348
+            }
+        },
+        {
+            "time_s": 0.030750000000000003,
+            "without_current_input": {
+                "position_m": 7.697484205384916e-05,
+                "orientation_rad": 0.003341236502768612
+            },
+            "measured_current_input": {
+                "position_m": 3.1812930485776286e-05,
+                "orientation_rad": 0.0005565681155644363
+            }
+        },
+        {
+            "time_s": 0.031,
+            "without_current_input": {
+                "position_m": 8.159683434204579e-05,
+                "orientation_rad": 0.0035937498561838125
+            },
+            "measured_current_input": {
+                "position_m": 3.216564599734312e-05,
+                "orientation_rad": 0.0005272351804963661
+            }
+        },
+        {
+            "time_s": 0.03125,
+            "without_current_input": {
+                "position_m": 8.621488351196488e-05,
+                "orientation_rad": 0.0038426593932955524
+            },
+            "measured_current_input": {
+                "position_m": 3.253094184077874e-05,
+                "orientation_rad": 0.0004979229912204672
+            }
+        },
+        {
+            "time_s": 0.0315,
+            "without_current_input": {
+                "position_m": 9.079547440165495e-05,
+                "orientation_rad": 0.004084955941879976
+            },
+            "measured_current_input": {
+                "position_m": 3.29144762421775e-05,
+                "orientation_rad": 0.00046950869006211996
+            }
+        },
+        {
+            "time_s": 0.03175,
+            "without_current_input": {
+                "position_m": 7.357208342285702e-05,
+                "orientation_rad": 0.0024993520849879297
+            },
+            "measured_current_input": {
+                "position_m": 3.526875159716607e-05,
+                "orientation_rad": 0.0006458930911018814
+            }
+        },
+        {
+            "time_s": 0.0318,
+            "without_current_input": {
+                "position_m": 7.425056812513922e-05,
+                "orientation_rad": 0.002525089115506542
+            },
+            "measured_current_input": {
+                "position_m": 3.5363834646323376e-05,
+                "orientation_rad": 0.0006455888632834549
+            }
+        }
+    ],
+    "limitations": [
+        "Errors use linear interpolation of the saved pose trace for scoring only.",
+        "The recorded physical trajectory belongs to the failed controller run; improved estimation does not prove corrected flight.",
+        "Nominal acceleration holds the allocation matrix between command ticks and uses measured currents with their original errors."
+    ]
+}

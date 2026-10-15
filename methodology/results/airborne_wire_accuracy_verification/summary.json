@@ -1,0 +1,212 @@
+{
+    "scope": "Short numerical screen only; not hover qualification",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/airborne_verification.py": "013e2ca8b3356b9287c7e15e3e75efc3ccf881d2b07f8abf26a58535c8e9bdf1"
+    },
+    "started_utc": "2026-10-13T06:23:56.828445+00:00",
+    "deadline_utc": "2026-10-13T09:23:53+00:00",
+    "status": "completed",
+    "active_case": null,
+    "cases": {
+        "screen_baseline": {
+            "status": "completed",
+            "intended_duration_s": 0.01,
+            "time_refinement": 1,
+            "magnetic_refinement": 1,
+            "duration_completed_s": 0.01000000000000003,
+            "elapsed_s": 911.4960352239432,
+            "passed": true,
+            "stop_reason": null,
+            "peaks": {
+                "current_A": 1.6167489807569204,
+                "voltage_V": 0.9026650939767722,
+                "copper_loss_W": 4.332895486399793,
+                "back_emf_V": 0.0001596038613043892,
+                "position_error_m": 3.9999999999066356e-05,
+                "angle_error_rad": 0.0015316103964550898,
+                "estimated_position_error_m": 3.5239913121712905e-05,
+                "estimated_angle_error_rad": 0.0022697505946006336,
+                "required_current_A": 1.0952596302422382
+            }
+        },
+        "screen_repeat": {
+            "status": "completed",
+            "intended_duration_s": 0.01,
+            "time_refinement": 1,
+            "magnetic_refinement": 1,
+            "duration_completed_s": 0.01000000000000003,
+            "elapsed_s": 909.5291711520404,
+            "passed": true,
+            "stop_reason": null,
+            "peaks": {
+                "current_A": 1.6167489807569204,
+                "voltage_V": 0.9026650939767722,
+                "copper_loss_W": 4.332895486399793,
+                "back_emf_V": 0.0001596038613043892,
+                "position_error_m": 3.9999999999066356e-05,
+                "angle_error_rad": 0.0015316103964550898,
+                "estimated_position_error_m": 3.5239913121712905e-05,
+                "estimated_angle_error_rad": 0.0022697505946006336,
+                "required_current_A": 1.0952596302422382
+            }
+        },
+        "screen_magnetic_refined": {
+            "status": "completed",
+            "intended_duration_s": 0.01,
+            "time_refinement": 1,
+            "magnetic_refinement": 2,
+            "duration_completed_s": 0.01000000000000003,
+            "elapsed_s": 1616.9060637119692,
+            "passed": true,
+            "stop_reason": null,
+            "peaks": {
+                "current_A": 1.6167487875298272,
+                "voltage_V": 0.9021925062066719,
+                "copper_loss_W": 4.304529914335633,
+                "back_emf_V": 0.00015976797086491941,
+                "position_error_m": 3.9999999999066356e-05,
+                "angle_error_rad": 0.0015275656520083278,
+                "estimated_position_error_m": 3.5382065050436955e-05,
+                "estimated_angle_error_rad": 0.0022594305228415172,
+                "required_current_A": 1.093437934771039
+            }
+        },
+        "screen_time_refined": {
+            "status": "completed",
+            "intended_duration_s": 0.01,
+            "time_refinement": 2,
+            "magnetic_refinement": 1,
+            "duration_completed_s": 0.010000000000000158,
+            "elapsed_s": 1696.331142031937,
+            "passed": true,
+            "stop_reason": null,
+            "peaks": {
+                "current_A": 1.6167485379441562,
+                "voltage_V": 0.9026650939767734,
+                "copper_loss_W": 4.332161736139998,
+                "back_emf_V": 0.00015981155110405848,
+                "position_error_m": 3.9999999999066356e-05,
+                "angle_error_rad": 0.0015296360604808079,
+                "estimated_position_error_m": 3.5404576516927475e-05,
+                "estimated_angle_error_rad": 0.0022572050348345983,
+                "required_current_A": 1.094875393171537
+            }
+        }
+    },
+    "comparisons": {
+        "screen_repeat": {
+            "differences": {
+                "pose_position_m": 0.0,
+                "pose_angle_rad": 0.0,
+                "estimated_pose_position_m": 0.0,
+                "estimated_pose_angle_rad": 0.0,
+                "current_trace_A": 0.0,
+                "peak_current_A": 0.0,
+                "peak_required_current_A": 0.0,
+                "peak_voltage_V": 0.0,
+                "peak_copper_loss_W": 0.0
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004,
+                "peak_current_A": 0.027500000000000004,
+                "peak_required_current_A": 0.027500000000000004,
+                "peak_voltage_V": 0.04513325469883861,
+                "peak_copper_loss_W": 0.21664477431998966
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "estimated_pose_position_m": true,
+                "estimated_pose_angle_rad": true,
+                "current_trace_A": true,
+                "peak_current_A": true,
+                "peak_required_current_A": true,
+                "peak_voltage_V": true,
+                "peak_copper_loss_W": true,
+                "both_trials_passed": true,
+                "identical_trace": true
+            },
+            "converged": true
+        },
+        "screen_magnetic_refined": {
+            "differences": {
+                "pose_position_m": 1.516075981863832e-07,
+                "pose_angle_rad": 5.342661804347968e-06,
+                "estimated_pose_position_m": 2.3617088196719195e-07,
+                "estimated_pose_angle_rad": 1.3403100701317892e-05,
+                "current_trace_A": 0.016331659265104603,
+                "peak_current_A": 1.9322709321478726e-07,
+                "peak_required_current_A": 0.0018216954711991473,
+                "peak_voltage_V": 0.00047258777010028563,
+                "peak_copper_loss_W": 0.02836557206416046
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004,
+                "peak_current_A": 0.027500000000000004,
+                "peak_required_current_A": 0.027500000000000004,
+                "peak_voltage_V": 0.04513325469883861,
+                "peak_copper_loss_W": 0.21664477431998966
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "estimated_pose_position_m": true,
+                "estimated_pose_angle_rad": true,
+                "current_trace_A": true,
+                "peak_current_A": true,
+                "peak_required_current_A": true,
+                "peak_voltage_V": true,
+                "peak_copper_loss_W": true,
+                "both_trials_passed": true
+            },
+            "converged": true
+        },
+        "screen_time_refined": {
+            "differences": {
+                "pose_position_m": 5.442158284437514e-08,
+                "pose_angle_rad": 3.976883967234003e-06,
+                "estimated_pose_position_m": 3.2671650593137713e-07,
+                "estimated_pose_angle_rad": 1.8504755758389797e-05,
+                "current_trace_A": 0.016467577938340083,
+                "peak_current_A": 4.428127642341906e-07,
+                "peak_required_current_A": 0.00038423707070123214,
+                "peak_voltage_V": 1.2212453270876722e-15,
+                "peak_copper_loss_W": 0.0007337502597950518
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004,
+                "peak_current_A": 0.027500000000000004,
+                "peak_required_current_A": 0.027500000000000004,
+                "peak_voltage_V": 0.04513325469883867,
+                "peak_copper_loss_W": 0.21664477431998966
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "estimated_pose_position_m": true,
+                "estimated_pose_angle_rad": true,
+                "current_trace_A": true,
+                "peak_current_A": true,
+                "peak_required_current_A": true,
+                "peak_voltage_V": true,
+                "peak_copper_loss_W": true,
+                "both_trials_passed": true
+            },
+            "converged": true
+        }
+    },
+    "finished_utc": "2026-10-13T07:49:31.564704+00:00"
+}

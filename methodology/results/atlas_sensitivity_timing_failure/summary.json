@@ -1,0 +1,71 @@
+{
+    "scope": "Bounded atlas/adaptive numerical qualification; not complete flight qualification",
+    "status": "failed",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "7474a0aa7ef3699af0e89ad198235d81001253da2d53fc49a200129f3809ea52",
+        "levitation_sim.py": "85cc7c37ab8a72a429a145d1820e2e5cb8d8d79233f14861050d7cfdb0ad7b8d",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+        "methodology/magnetic_atlas.py": "a41022ce4060c56026e4408d04d58807ffd594d8560f38c49abf119388b46a73",
+        "methodology/airborne_verification.py": "f19ac1f8740a89035f27e4241babace84a8a2610b3bd6d5e535384eb9251de15",
+        "methodology/adaptive_airborne.py": "ecb0a63885a2f83582a5b868da83ef672fe1cc09a4f23680901c6d6f6cc47f49",
+        "methodology/airborne.py": "9fd7e48b4471aaaa062bf2c7ac5e82d87197bfdcc8f4675f087161f7836b4564"
+    },
+    "evidence_sha256": "ecd457921f03b56eba146b812f3b33025c1874d58eaf8d1c876a3147a6d9fb19",
+    "atlas_identity": "d53ee8b059a4aed1740b625c2625d443d72abe0392829c14f2bb0f76199f0db9",
+    "selected": {
+        "spacing_m": 0.0002,
+        "spline_order": 5,
+        "coefficient_bytes": 213118800,
+        "speedup": 5.148966680367965
+    },
+    "cases": {},
+    "comparisons": {},
+    "active_case": "adaptive",
+    "mechanical_properties": {
+        "king_mass_kg": 0.022729931617873095,
+        "king_com_from_magnet_bottom_m": [
+            -1.604196504211961e-15,
+            -5.314237944483526e-18,
+            0.014742337541608919
+        ],
+        "king_inertia_kg_m2": [
+            [
+                1.3889676910660383e-05,
+                3.3395508580724707e-22,
+                2.048153646683204e-18
+            ],
+            [
+                3.3395508580724707e-22,
+                1.3899879217463629e-05,
+                -2.0179413695586845e-21
+            ],
+            [
+                2.048153646683204e-18,
+                -2.0179413695586845e-21,
+                2.925058257287493e-06
+            ]
+        ]
+    },
+    "failure": {
+        "kind": "duplicate_field_timestamps",
+        "message": "Moving scan is outside the supplied chronological field trace",
+        "last_checkpoint_time_s": 0.009000000000000001,
+        "last_field_times_s": [
+            0.008975,
+            0.009,
+            0.009000000000000001,
+            0.009000000000000001
+        ],
+        "checkpoint_clock_s": 0.009000000000000001,
+        "regulator_clock_s": 0.009,
+        "scope": "Scheduler implementation defect; not a physical control failure or a completed numerical comparison"
+    },
+    "shared_atlas_cache": "../atlas_sensitivity/atlas.npz"
+}

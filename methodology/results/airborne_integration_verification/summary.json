@@ -1,0 +1,254 @@
+{
+    "scope": "Local numerical comparisons followed by nominal sensor-controlled hover; not flight-envelope qualification",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/airborne_verification.py": "7530ecbc0f72d90dbe887be15e514dd44aaaeab562a4825408505d2609ede2c8"
+    },
+    "started_utc": "2026-10-12T15:30:01.881896+00:00",
+    "deadline_utc": "2026-10-12T23:00:00+02:00",
+    "status": "numerical_comparison_failed",
+    "active_case": null,
+    "cases": {
+        "baseline": {
+            "status": "completed",
+            "intended_duration_s": 0.05,
+            "time_refinement": 1,
+            "magnetic_refinement": 1,
+            "duration_completed_s": 0.04999999999999857,
+            "elapsed_s": 1820.926495888969,
+            "passed": true,
+            "stop_reason": null,
+            "peaks": {
+                "current_A": 2.1197328751357127,
+                "voltage_V": 1.1821399560561112,
+                "copper_loss_W": 6.65417743844685,
+                "back_emf_V": 0.00015398716607700243,
+                "position_error_m": 7.253028500395959e-05,
+                "angle_error_rad": 0.003234109451152142,
+                "estimated_position_error_m": 5.239929878157627e-05,
+                "estimated_angle_error_rad": 0.002838606057300722,
+                "required_current_A": 1.3576868078185467
+            }
+        },
+        "repeat": {
+            "status": "completed",
+            "intended_duration_s": 0.05,
+            "time_refinement": 1,
+            "magnetic_refinement": 1,
+            "duration_completed_s": 0.04999999999999857,
+            "elapsed_s": 1822.7966701670084,
+            "passed": true,
+            "stop_reason": null,
+            "peaks": {
+                "current_A": 2.1197328751357127,
+                "voltage_V": 1.1821399560561112,
+                "copper_loss_W": 6.65417743844685,
+                "back_emf_V": 0.00015398716607700243,
+                "position_error_m": 7.253028500395959e-05,
+                "angle_error_rad": 0.003234109451152142,
+                "estimated_position_error_m": 5.239929878157627e-05,
+                "estimated_angle_error_rad": 0.002838606057300722,
+                "required_current_A": 1.3576868078185467
+            }
+        },
+        "time_refined": {
+            "status": "completed",
+            "intended_duration_s": 0.05,
+            "time_refinement": 2,
+            "magnetic_refinement": 1,
+            "duration_completed_s": 0.04999999999999653,
+            "elapsed_s": 3991.412451753975,
+            "passed": true,
+            "stop_reason": null,
+            "peaks": {
+                "current_A": 1.94446091805802,
+                "voltage_V": 1.086844388469502,
+                "copper_loss_W": 5.4663703281803295,
+                "back_emf_V": 0.00015207931855927055,
+                "position_error_m": 6.559314743889045e-05,
+                "angle_error_rad": 0.003277831344409228,
+                "estimated_position_error_m": 4.725585308059487e-05,
+                "estimated_angle_error_rad": 0.0026311072221631543,
+                "required_current_A": 1.2381665324776427
+            }
+        },
+        "magnetic_refined": {
+            "status": "completed",
+            "intended_duration_s": 0.05,
+            "time_refinement": 1,
+            "magnetic_refinement": 2,
+            "duration_completed_s": 0.04999999999999857,
+            "elapsed_s": 4132.1394415249815,
+            "passed": true,
+            "stop_reason": null,
+            "peaks": {
+                "current_A": 2.176468191494891,
+                "voltage_V": 1.2196646296343778,
+                "copper_loss_W": 7.054633010872845,
+                "back_emf_V": 0.0001536466785551518,
+                "position_error_m": 7.060117271797948e-05,
+                "angle_error_rad": 0.0034569194019217608,
+                "estimated_position_error_m": 5.129787170369758e-05,
+                "estimated_angle_error_rad": 0.0024670399027415055,
+                "required_current_A": 1.2629162031575976
+            }
+        }
+    },
+    "comparisons": {
+        "repeat": {
+            "differences": {
+                "pose_position_m": 0.0,
+                "pose_angle_rad": 0.0,
+                "estimated_pose_position_m": 0.0,
+                "estimated_pose_angle_rad": 0.0,
+                "current_trace_A": 0.0,
+                "peak_current_A": 0.0,
+                "peak_required_current_A": 0.0,
+                "peak_voltage_V": 0.0,
+                "peak_copper_loss_W": 0.0
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004,
+                "peak_current_A": 0.027500000000000004,
+                "peak_required_current_A": 0.027500000000000004,
+                "peak_voltage_V": 0.059106997802805566,
+                "peak_copper_loss_W": 0.33270887192234255
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "estimated_pose_position_m": true,
+                "estimated_pose_angle_rad": true,
+                "current_trace_A": true,
+                "peak_current_A": true,
+                "peak_required_current_A": true,
+                "peak_voltage_V": true,
+                "peak_copper_loss_W": true,
+                "both_trials_passed": true,
+                "identical_trace": true
+            },
+            "converged": true
+        },
+        "time_refined": {
+            "differences": {
+                "pose_position_m": 1.5543755610793936e-05,
+                "pose_angle_rad": 0.0010963192893519815,
+                "estimated_pose_position_m": 2.8546212167952204e-05,
+                "estimated_pose_angle_rad": 0.001879856670079355,
+                "current_trace_A": 2.328518158602665,
+                "peak_current_A": 0.17527195707769283,
+                "peak_required_current_A": 0.11952027534090393,
+                "peak_voltage_V": 0.09529556758660918,
+                "peak_copper_loss_W": 1.1878071102665206
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004,
+                "peak_current_A": 0.027500000000000004,
+                "peak_required_current_A": 0.027500000000000004,
+                "peak_voltage_V": 0.059106997802805566,
+                "peak_copper_loss_W": 0.33270887192234255
+            },
+            "checks": {
+                "pose_position_m": false,
+                "pose_angle_rad": false,
+                "estimated_pose_position_m": false,
+                "estimated_pose_angle_rad": false,
+                "current_trace_A": false,
+                "peak_current_A": false,
+                "peak_required_current_A": false,
+                "peak_voltage_V": false,
+                "peak_copper_loss_W": false,
+                "both_trials_passed": true
+            },
+            "converged": false
+        },
+        "magnetic_refined": {
+            "differences": {
+                "pose_position_m": 1.4630511595858573e-05,
+                "pose_angle_rad": 0.0010606240881196984,
+                "estimated_pose_position_m": 2.4778249578252957e-05,
+                "estimated_pose_angle_rad": 0.0016235169903944587,
+                "current_trace_A": 1.8413122325316131,
+                "peak_current_A": 0.05673531635917817,
+                "peak_required_current_A": 0.09477060466094911,
+                "peak_voltage_V": 0.03752467357826661,
+                "peak_copper_loss_W": 0.4004555724259946
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004,
+                "peak_current_A": 0.027500000000000004,
+                "peak_required_current_A": 0.027500000000000004,
+                "peak_voltage_V": 0.06098323148171889,
+                "peak_copper_loss_W": 0.35273165054364225
+            },
+            "checks": {
+                "pose_position_m": false,
+                "pose_angle_rad": false,
+                "estimated_pose_position_m": false,
+                "estimated_pose_angle_rad": false,
+                "current_trace_A": false,
+                "peak_current_A": false,
+                "peak_required_current_A": false,
+                "peak_voltage_V": true,
+                "peak_copper_loss_W": false,
+                "both_trials_passed": true
+            },
+            "converged": false
+        }
+    },
+    "finished_utc": "2026-10-12T18:46:09.572572+00:00",
+    "video": {
+        "path": "/home/arseniy/projects/flying_chess/methodology/cad/output/airborne_integration.mp4",
+        "frames": 181,
+        "slowdown": 120.0,
+        "simulated_duration_s": 0.05,
+        "start_time_s": 0.0,
+        "end_time_s": 0.05,
+        "trial_finished": true,
+        "trial_stop_reason": null,
+        "trial_passed": true,
+        "views": [
+            "overview",
+            "side_0_deg_gap",
+            "side_90_deg_gap"
+        ],
+        "source_report_sha256": "e515e24b1b9028c4f8644f0f4fa30b10905b72aa2de1eb992c06c32566908eea",
+        "simulation_source_sha256": {
+            "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+            "model.py": "cc2a5ad210432d7202443234ef81795c1e1cc1468605b3213ed9d5ae04da4f24",
+            "levitation_sim.py": "68903a2bac1a41ff01592cc2fbc97f235aacfb546ca72bea740aaf4ec22e744b",
+            "methodology/design.py": "3734c9577def9d325aaa813a96a8fcd0ef21c067a864c69e5d60ef1a20cd2568",
+            "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+            "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+            "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+            "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+            "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+            "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+            "methodology/motion.py": "f2fed6e79411025341767203f22136ee219fc10f7f252b5241671919ad65cc49",
+            "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+            "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+            "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+            "methodology/airborne.py": "96241ca0058151b90735e035e25f4ce96c64c9a5f6bd6d6ab00d11cfa67bea8a",
+            "methodology/electrical.py": "e6670b479f4d8e24e8de53876b7839273dda1243a014d8bb2d81f57801038d2d",
+            "methodology/sensing.py": "ca77b63cd177552b3bdf4887385e6ba4a8874b1125d5058103c30f33c87c0d0e",
+            "methodology/qualification.py": "5a88466c525b3c565c1a32964f0b6fdbc732e3c5ccc4d9e0b62c5ecf714b0171",
+            "methodology/airborne_verification.py": "7530ecbc0f72d90dbe887be15e514dd44aaaeab562a4825408505d2609ede2c8"
+        },
+        "render_source_sha256": {
+            "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+            "methodology/airborne_video.py": "8294fd764f871a790998cc976aa88b28104ffda822a59c37e50928956024c0b6"
+        }
+    }
+}

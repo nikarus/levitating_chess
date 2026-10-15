@@ -1,0 +1,161 @@
+{
+    "scope": "Short adaptive-step accuracy and cost benchmark; not hover qualification",
+    "status": "completed",
+    "cases": {
+        "adaptive": {
+            "passed": true,
+            "finished": true,
+            "stop_reason": null,
+            "elapsed_s": 265.48103219200857,
+            "peaks": {
+                "current_A": 1.5930522342005997,
+                "voltage_V": 0.8956657859850435,
+                "copper_loss_W": 3.5936131486189713,
+                "back_emf_V": 0.00014991691872998786,
+                "position_error_m": 3.999999999907037e-05,
+                "angle_error_rad": 0.0012500008545232033,
+                "estimated_position_error_m": 2.1715005384419694e-05,
+                "estimated_angle_error_rad": 0.0008186668577917765,
+                "required_current_A": 1.0952602329027052
+            },
+            "adaptation": {
+                "accepted": 51,
+                "rejected": 0,
+                "force_evaluations": 102,
+                "maximum_accepted_error": 0.6721264174715252
+            }
+        },
+        "reference": {
+            "passed": true,
+            "finished": true,
+            "stop_reason": null,
+            "elapsed_s": 729.7517572669312,
+            "peaks": {
+                "current_A": 1.5930521143721688,
+                "voltage_V": 0.8956657859850449,
+                "copper_loss_W": 3.5737743783501905,
+                "back_emf_V": 0.0001499165546433179,
+                "position_error_m": 3.999999999907037e-05,
+                "angle_error_rad": 0.001250000814942788,
+                "estimated_position_error_m": 2.1715005384419694e-05,
+                "estimated_angle_error_rad": 0.0008187785460888665,
+                "required_current_A": 1.0933909717851216
+            },
+            "adaptation": {
+                "accepted": 338,
+                "rejected": 0,
+                "force_evaluations": 338,
+                "maximum_accepted_error": 0.0
+            }
+        },
+        "tighter": {
+            "passed": true,
+            "finished": true,
+            "stop_reason": null,
+            "elapsed_s": 482.229830962955,
+            "peaks": {
+                "current_A": 1.5930522391457183,
+                "voltage_V": 0.8956657859850422,
+                "copper_loss_W": 3.5936131660259667,
+                "back_emf_V": 0.0001499165925734185,
+                "position_error_m": 3.999999999907037e-05,
+                "angle_error_rad": 0.001250000802569301,
+                "estimated_position_error_m": 2.1715005384419694e-05,
+                "estimated_angle_error_rad": 0.0008185666955030016,
+                "required_current_A": 1.09487466986099
+            },
+            "adaptation": {
+                "accepted": 106,
+                "rejected": 1,
+                "force_evaluations": 213,
+                "maximum_accepted_error": 0.3408598306923349
+            }
+        }
+    },
+    "comparisons": {
+        "reference": {
+            "differences": {
+                "pose_position_m": 2.1484025348622446e-08,
+                "pose_angle_rad": 2.790587663862875e-07,
+                "estimated_pose_position_m": 6.526126194024339e-08,
+                "estimated_pose_angle_rad": 4.401619371151222e-06,
+                "current_trace_A": 0.006392049620320417,
+                "peak_current_A": 1.1982843095559303e-07,
+                "peak_required_current_A": 0.001869261117583676,
+                "peak_voltage_V": 1.3322676295501878e-15,
+                "peak_copper_loss_W": 0.01983877026878078
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004,
+                "peak_current_A": 0.027500000000000004,
+                "peak_required_current_A": 0.027500000000000004,
+                "peak_voltage_V": 0.044783289299252245,
+                "peak_copper_loss_W": 0.17968065743094858
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "estimated_pose_position_m": true,
+                "estimated_pose_angle_rad": true,
+                "current_trace_A": true,
+                "peak_current_A": true,
+                "peak_required_current_A": true,
+                "peak_voltage_V": true,
+                "peak_copper_loss_W": true,
+                "both_trials_passed": true
+            },
+            "converged": true
+        },
+        "tighter": {
+            "differences": {
+                "pose_position_m": 1.3343728420495939e-08,
+                "pose_angle_rad": 1.9820989125687006e-08,
+                "estimated_pose_position_m": 2.3078880700781306e-08,
+                "estimated_pose_angle_rad": 6.484131001569466e-07,
+                "current_trace_A": 4.941392171997627e-06,
+                "peak_current_A": 4.945118536880955e-09,
+                "peak_required_current_A": 0.00038556304171533107,
+                "peak_voltage_V": 1.3322676295501878e-15,
+                "peak_copper_loss_W": 1.7406995400648384e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004,
+                "peak_current_A": 0.027500000000000004,
+                "peak_required_current_A": 0.027500000000000004,
+                "peak_voltage_V": 0.04478328929925218,
+                "peak_copper_loss_W": 0.17968065830129834
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "estimated_pose_position_m": true,
+                "estimated_pose_angle_rad": true,
+                "current_trace_A": true,
+                "peak_current_A": true,
+                "peak_required_current_A": true,
+                "peak_voltage_V": true,
+                "peak_copper_loss_W": true,
+                "both_trials_passed": true
+            },
+            "converged": true
+        }
+    },
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/adaptive_airborne.py": "711f2abe38edbbf2aab259c44f9d4671ca2def8b22261a23f36eb61372a4f2a5",
+        "methodology/airborne_verification.py": "f19ac1f8740a89035f27e4241babace84a8a2610b3bd6d5e535384eb9251de15"
+    },
+    "active_case": null,
+    "post_run_review": {
+        "accepted": false,
+        "reason": "Subminimum roundoff intervals in reference and tighter runs distort runtime; retain as scheduler regression evidence. Numerical comparisons passed."
+    }
+}

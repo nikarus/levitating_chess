@@ -1,0 +1,741 @@
+{
+    "scope": "CAD/MuJoCo static and moving Hall readout/pose tracking screen; no feedback control",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "163c09a7c1ab742e22beb5ff3ccfdc4f8788181c0012573d9839a579d9c86578",
+        "levitation_sim.py": "fe3b0dd9b5b38d2d79324cdb9fe976881444855eac92b686f3f6611a1d30d3a4",
+        "methodology/design.py": "3734c9577def9d325aaa813a96a8fcd0ef21c067a864c69e5d60ef1a20cd2568",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+        "methodology/motion.py": "2efc3e4b032d9de25dde50007fe741b2529161fc07eaba179896a44d286e1399",
+        "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+        "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+        "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+        "methodology/sensing.py": "f86322e9db9cdd9ab5bcd6e578b13fc21165c664867c8d2f4007acc90ff7d2e9",
+        "methodology/qualification.py": "03e074c15ec00b3a84a28952ba16ac6fca01327031cc9d5480496f297d0ef1a4"
+    },
+    "sensor_pitch_m": 0.01,
+    "sensor_points_m": [
+        [
+            -0.015,
+            -0.015,
+            -0.009998
+        ],
+        [
+            -0.015,
+            -0.005,
+            -0.009998
+        ],
+        [
+            -0.015,
+            0.005,
+            -0.009998
+        ],
+        [
+            -0.015,
+            0.015,
+            -0.009998
+        ],
+        [
+            -0.005,
+            -0.015,
+            -0.009998
+        ],
+        [
+            -0.005,
+            -0.005,
+            -0.009998
+        ],
+        [
+            -0.005,
+            0.005,
+            -0.009998
+        ],
+        [
+            -0.005,
+            0.015,
+            -0.009998
+        ],
+        [
+            0.005,
+            -0.015,
+            -0.009998
+        ],
+        [
+            0.005,
+            -0.005,
+            -0.009998
+        ],
+        [
+            0.005,
+            0.005,
+            -0.009998
+        ],
+        [
+            0.005,
+            0.015,
+            -0.009998
+        ],
+        [
+            0.015,
+            -0.015,
+            -0.009998
+        ],
+        [
+            0.015,
+            -0.005,
+            -0.009998
+        ],
+        [
+            0.015,
+            0.005,
+            -0.009998
+        ],
+        [
+            0.015,
+            0.015,
+            -0.009998
+        ]
+    ],
+    "physical_coils": 81,
+    "scan_duration_s": 0.000612,
+    "records": [
+        {
+            "case": "rest",
+            "currents": "off",
+            "true_pose": [
+                0,
+                0,
+                -0.0031,
+                0,
+                0,
+                0
+            ],
+            "estimate": {
+                "accepted": true,
+                "reason": "accepted",
+                "pose": [
+                    -5.364509957037021e-06,
+                    -6.063281239320548e-06,
+                    -0.0030999999999999995,
+                    0.0004949343107069482,
+                    0.0001966873039573557,
+                    0.0005577801567370102
+                ],
+                "best_candidate": [
+                    -5.364509957037021e-06,
+                    -6.063281239320548e-06,
+                    -0.0030999999999999995,
+                    0.0004949343107069482,
+                    0.0001966873039573557,
+                    0.0005577801567370102
+                ],
+                "normalized_residual_rms": 0.5683474093043162,
+                "competing_poses": [],
+                "converged": true,
+                "refined_seeds": 8,
+                "observability": {
+                    "rank6": 6,
+                    "cond6": 550.0499491911885,
+                    "position_noise_gain": 0.2053154877739991,
+                    "tilt_noise_gain": 11.647324223040094
+                },
+                "sample_midpoint_s": 0.00035499999999999996,
+                "available_time_s": 0.0016120000000000002,
+                "age_at_delivery_s": 0.0012570000000000003
+            },
+            "elapsed_s": 19.157473247963935,
+            "position_error_m": 8.095761018350645e-06,
+            "angle_error_rad": 0.0007711746003138914,
+            "passed": true
+        },
+        {
+            "case": "rest",
+            "currents": "signed_channel_limit",
+            "true_pose": [
+                0,
+                0,
+                -0.0031,
+                0,
+                0,
+                0
+            ],
+            "estimate": {
+                "accepted": true,
+                "reason": "accepted",
+                "pose": [
+                    2.5843731400261506e-06,
+                    5.5371636485994185e-06,
+                    -0.0030917084434056515,
+                    0.0005131546459604849,
+                    5.9322919712391313e-05,
+                    0.0003149932525556543
+                ],
+                "best_candidate": [
+                    2.5843731400261506e-06,
+                    5.5371636485994185e-06,
+                    -0.0030917084434056515,
+                    0.0005131546459604849,
+                    5.9322919712391313e-05,
+                    0.0003149932525556543
+                ],
+                "normalized_residual_rms": 0.5313816474938716,
+                "competing_poses": [],
+                "converged": true,
+                "refined_seeds": 8,
+                "observability": {
+                    "rank6": 6,
+                    "cond6": 549.1840388601851,
+                    "position_noise_gain": 0.20493126104868326,
+                    "tilt_noise_gain": 11.624847036233115
+                },
+                "sample_midpoint_s": 0.00035499999999999996,
+                "available_time_s": 0.0016120000000000002,
+                "age_at_delivery_s": 0.0012570000000000003
+            },
+            "elapsed_s": 12.87031518400181,
+            "position_error_m": 1.0299955172501585e-05,
+            "angle_error_rad": 0.0006050273195272841,
+            "passed": true
+        },
+        {
+            "case": "hover",
+            "currents": "off",
+            "true_pose": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "estimate": {
+                "accepted": true,
+                "reason": "accepted",
+                "pose": [
+                    -2.2895841153870708e-05,
+                    -4.410412684116872e-06,
+                    2.3663952137964294e-07,
+                    0.00016447561531272658,
+                    -0.0002928454111636612,
+                    0.00027734383204644253
+                ],
+                "best_candidate": [
+                    -2.2895841153870708e-05,
+                    -4.410412684116872e-06,
+                    2.3663952137964294e-07,
+                    0.00016447561531272658,
+                    -0.0002928454111636612,
+                    0.00027734383204644253
+                ],
+                "normalized_residual_rms": 0.5991898427550366,
+                "competing_poses": [],
+                "converged": true,
+                "refined_seeds": 8,
+                "observability": {
+                    "rank6": 6,
+                    "cond6": 349.9242709036913,
+                    "position_noise_gain": 0.4381327436817857,
+                    "tilt_noise_gain": 22.368478044990454
+                },
+                "sample_midpoint_s": 0.00035499999999999996,
+                "available_time_s": 0.0016120000000000002,
+                "age_at_delivery_s": 0.0012570000000000003
+            },
+            "elapsed_s": 5.965272677014582,
+            "position_error_m": 2.331796046935875e-05,
+            "angle_error_rad": 0.0004355957089472452,
+            "passed": true
+        },
+        {
+            "case": "hover",
+            "currents": "signed_channel_limit",
+            "true_pose": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "estimate": {
+                "accepted": true,
+                "reason": "accepted",
+                "pose": [
+                    7.915076319519164e-07,
+                    1.0733365429726491e-05,
+                    1.0474013630414848e-05,
+                    0.0002411154810490761,
+                    -0.00020950343753980342,
+                    -6.5867878925749735e-06
+                ],
+                "best_candidate": [
+                    7.915076319519164e-07,
+                    1.0733365429726491e-05,
+                    1.0474013630414848e-05,
+                    0.0002411154810490761,
+                    -0.00020950343753980342,
+                    -6.5867878925749735e-06
+                ],
+                "normalized_residual_rms": 0.5318463325346301,
+                "competing_poses": [],
+                "converged": true,
+                "refined_seeds": 8,
+                "observability": {
+                    "rank6": 6,
+                    "cond6": 349.97576696358914,
+                    "position_noise_gain": 0.4385514898876411,
+                    "tilt_noise_gain": 22.352316765370976
+                },
+                "sample_midpoint_s": 0.00035499999999999996,
+                "available_time_s": 0.0016120000000000002,
+                "age_at_delivery_s": 0.0012570000000000003
+            },
+            "elapsed_s": 5.988941688963678,
+            "position_error_m": 1.5017875326077317e-05,
+            "angle_error_rad": 0.0003194861786929268,
+            "passed": true
+        },
+        {
+            "case": "offset_yaw",
+            "currents": "off",
+            "true_pose": [
+                0.0025,
+                -0.0025,
+                0,
+                0,
+                0,
+                1.5707963267948966
+            ],
+            "estimate": {
+                "accepted": true,
+                "reason": "accepted",
+                "pose": [
+                    0.0024817108449062017,
+                    -0.002517626961174163,
+                    1.7411394364480062e-06,
+                    -0.0002858964484467542,
+                    -0.0008842974557050566,
+                    1.5705059626085323
+                ],
+                "best_candidate": [
+                    0.0024817108449062017,
+                    -0.002517626961174163,
+                    1.7411394364480062e-06,
+                    -0.0002858964484467542,
+                    -0.0008842974557050566,
+                    1.5705059626085323
+                ],
+                "normalized_residual_rms": 0.7633124274615202,
+                "competing_poses": [],
+                "converged": true,
+                "refined_seeds": 8,
+                "observability": {
+                    "rank6": 6,
+                    "cond6": 372.4587400540037,
+                    "position_noise_gain": 0.5717195180297835,
+                    "tilt_noise_gain": 32.22495661454389
+                },
+                "sample_midpoint_s": 0.00035499999999999996,
+                "available_time_s": 0.0016120000000000002,
+                "age_at_delivery_s": 0.0012570000000000003
+            },
+            "elapsed_s": 9.755286765983328,
+            "position_error_m": 2.5460450129909644e-05,
+            "angle_error_rad": 0.0009737060787922931,
+            "passed": true
+        },
+        {
+            "case": "offset_yaw",
+            "currents": "signed_channel_limit",
+            "true_pose": [
+                0.0025,
+                -0.0025,
+                0,
+                0,
+                0,
+                1.5707963267948966
+            ],
+            "estimate": {
+                "accepted": true,
+                "reason": "accepted",
+                "pose": [
+                    0.002502168442530803,
+                    -0.0025124163353468067,
+                    1.2341403021238565e-05,
+                    0.0004166654546780524,
+                    -0.0010402363672413965,
+                    1.57020694449937
+                ],
+                "best_candidate": [
+                    0.002502168442530803,
+                    -0.0025124163353468067,
+                    1.2341403021238565e-05,
+                    0.0004166654546780524,
+                    -0.0010402363672413965,
+                    1.57020694449937
+                ],
+                "normalized_residual_rms": 0.3726208806721183,
+                "competing_poses": [],
+                "converged": true,
+                "refined_seeds": 8,
+                "observability": {
+                    "rank6": 6,
+                    "cond6": 371.8531851413661,
+                    "position_noise_gain": 0.5725158863636833,
+                    "tilt_noise_gain": 32.262885562371636
+                },
+                "sample_midpoint_s": 0.00035499999999999996,
+                "available_time_s": 0.0016120000000000002,
+                "age_at_delivery_s": 0.0012570000000000003
+            },
+            "elapsed_s": 9.384872445021756,
+            "position_error_m": 1.7640231148893497e-05,
+            "angle_error_rad": 0.001266024400567032,
+            "passed": true
+        },
+        {
+            "case": "raised_tilt",
+            "currents": "off",
+            "true_pose": [
+                -0.0025,
+                0.0025,
+                0.0009999999999999996,
+                0.0702330110493544,
+                -0.0702330110493544,
+                0.29670597283903605
+            ],
+            "estimate": {
+                "accepted": true,
+                "reason": "accepted",
+                "pose": [
+                    -0.00252562778384921,
+                    0.0025093600926551062,
+                    0.0009948752441990352,
+                    0.06906980180586439,
+                    -0.07092113544529646,
+                    0.29575092008988113
+                ],
+                "best_candidate": [
+                    -0.00252562778384921,
+                    0.0025093600926551062,
+                    0.0009948752441990352,
+                    0.06906980180586439,
+                    -0.07092113544529646,
+                    0.29575092008988113
+                ],
+                "normalized_residual_rms": 0.6925292434834477,
+                "competing_poses": [],
+                "converged": true,
+                "refined_seeds": 8,
+                "observability": {
+                    "rank6": 6,
+                    "cond6": 318.0875552908939,
+                    "position_noise_gain": 0.5604649678811071,
+                    "tilt_noise_gain": 26.444308539196005
+                },
+                "sample_midpoint_s": 0.00035499999999999996,
+                "available_time_s": 0.0016120000000000002,
+                "age_at_delivery_s": 0.0012570000000000003
+            },
+            "elapsed_s": 8.871822178014554,
+            "position_error_m": 2.7760723361495975e-05,
+            "angle_error_rad": 0.0017015810824906302,
+            "passed": true
+        },
+        {
+            "case": "raised_tilt",
+            "currents": "signed_channel_limit",
+            "true_pose": [
+                -0.0025,
+                0.0025,
+                0.0009999999999999996,
+                0.0702330110493544,
+                -0.0702330110493544,
+                0.29670597283903605
+            ],
+            "estimate": {
+                "accepted": true,
+                "reason": "accepted",
+                "pose": [
+                    -0.002517039432997765,
+                    0.0025173844762934115,
+                    0.000997778401829871,
+                    0.06996179096035773,
+                    -0.07089532922398632,
+                    0.2967996812762008
+                ],
+                "best_candidate": [
+                    -0.002517039432997765,
+                    0.0025173844762934115,
+                    0.000997778401829871,
+                    0.06996179096035773,
+                    -0.07089532922398632,
+                    0.2967996812762008
+                ],
+                "normalized_residual_rms": 0.3407832638224335,
+                "competing_poses": [],
+                "converged": true,
+                "refined_seeds": 8,
+                "observability": {
+                    "rank6": 6,
+                    "cond6": 318.71361595800386,
+                    "position_noise_gain": 0.5599487213266006,
+                    "tilt_noise_gain": 26.446144286924937
+                },
+                "sample_midpoint_s": 0.00035499999999999996,
+                "available_time_s": 0.0016120000000000002,
+                "age_at_delivery_s": 0.0012570000000000003
+            },
+            "elapsed_s": 9.99659168504877,
+            "position_error_m": 2.4443767944222884e-05,
+            "angle_error_rad": 0.0007193212649278311,
+            "passed": true
+        }
+    ],
+    "passed": false,
+    "limitations": [
+        "Local patch and densest existing pitch candidate only; not a selected full-board sensor layout.",
+        "Static cases hold pose throughout a scan; the optional moving section checks scan skew and analog filtering.",
+        "Current subtraction receives prescribed true currents until virtual current sensing is connected.",
+        "Residual gain/offset/coil-map errors and noise correlation are provisional calibration assumptions.",
+        "Finite multistart search checks sampled local alternatives, not global uniqueness.",
+        "No neighbors, magnet variation, sensor placement tolerance, electrical dynamics or feedback control."
+    ],
+    "moving": {
+        "scope": "Sequential Hall scans of MuJoCo motion, sensor-only observer and prediction to packet delivery; no feedback control",
+        "cases": [
+            {
+                "case": "supported_translation_yaw_with_dropout",
+                "refinement": 1,
+                "physics_time_step_s": 3.125e-05,
+                "frames": 100,
+                "usable_frames": 48,
+                "first_usable_time_s": 0.026612,
+                "status_counts": {
+                    "acquiring": 50,
+                    "no_pose": 1,
+                    "stale": 1,
+                    "tracking": 48
+                },
+                "worst_position": {
+                    "time_s": 0.073612,
+                    "scan_start_s": 0.072,
+                    "omitted": false,
+                    "valid": true,
+                    "reason": "tracking",
+                    "pose": [
+                        0.0014158230726351692,
+                        -0.0007268053683646789,
+                        -8.751337118335905e-07,
+                        -0.0009047495194815313,
+                        -0.002107576438799572,
+                        0.03661687088897656
+                    ],
+                    "position_error_m": 5.718739296932697e-05,
+                    "angle_error_rad": 0.002301430050462667
+                },
+                "worst_angle": {
+                    "time_s": 0.073612,
+                    "scan_start_s": 0.072,
+                    "omitted": false,
+                    "valid": true,
+                    "reason": "tracking",
+                    "pose": [
+                        0.0014158230726351692,
+                        -0.0007268053683646789,
+                        -8.751337118335905e-07,
+                        -0.0009047495194815313,
+                        -0.002107576438799572,
+                        0.03661687088897656
+                    ],
+                    "position_error_m": 5.718739296932697e-05,
+                    "angle_error_rad": 0.002301430050462667
+                },
+                "dropout_invalidated": true,
+                "usable_after_dropout": true,
+                "passed": true
+            },
+            {
+                "case": "supported_translation_yaw_with_dropout",
+                "refinement": 2,
+                "physics_time_step_s": 1.5625e-05,
+                "frames": 100,
+                "usable_frames": 48,
+                "first_usable_time_s": 0.026612,
+                "status_counts": {
+                    "acquiring": 50,
+                    "no_pose": 1,
+                    "stale": 1,
+                    "tracking": 48
+                },
+                "worst_position": {
+                    "time_s": 0.073612,
+                    "scan_start_s": 0.072,
+                    "omitted": false,
+                    "valid": true,
+                    "reason": "tracking",
+                    "pose": [
+                        0.0014158230726351692,
+                        -0.0007268053683646789,
+                        -8.751337118335905e-07,
+                        -0.0009047495194815313,
+                        -0.002107576438799572,
+                        0.03661687088897656
+                    ],
+                    "position_error_m": 5.7187392969436715e-05,
+                    "angle_error_rad": 0.002301430050462535
+                },
+                "worst_angle": {
+                    "time_s": 0.073612,
+                    "scan_start_s": 0.072,
+                    "omitted": false,
+                    "valid": true,
+                    "reason": "tracking",
+                    "pose": [
+                        0.0014158230726351692,
+                        -0.0007268053683646789,
+                        -8.751337118335905e-07,
+                        -0.0009047495194815313,
+                        -0.002107576438799572,
+                        0.03661687088897656
+                    ],
+                    "position_error_m": 5.7187392969436715e-05,
+                    "angle_error_rad": 0.002301430050462535
+                },
+                "dropout_invalidated": true,
+                "usable_after_dropout": true,
+                "passed": true
+            },
+            {
+                "case": "unpowered_drop_and_contact",
+                "refinement": 1,
+                "physics_time_step_s": 3.125e-05,
+                "frames": 100,
+                "usable_frames": 75,
+                "first_usable_time_s": 0.026612,
+                "status_counts": {
+                    "acquiring": 25,
+                    "tracking": 75
+                },
+                "worst_position": {
+                    "time_s": 0.026612,
+                    "scan_start_s": 0.025,
+                    "omitted": false,
+                    "valid": true,
+                    "reason": "tracking",
+                    "pose": [
+                        0.0005595102937507328,
+                        -0.00024859008840053275,
+                        -0.0030746974543857004,
+                        0.00011486168178085529,
+                        0.0011373860161488605,
+                        0.014593073079832155
+                    ],
+                    "position_error_m": 6.80806511923111e-05,
+                    "angle_error_rad": 0.0022228973659133905
+                },
+                "worst_angle": {
+                    "time_s": 0.027611999999999998,
+                    "scan_start_s": 0.026,
+                    "omitted": false,
+                    "valid": true,
+                    "reason": "tracking",
+                    "pose": [
+                        0.0005620772873335682,
+                        -0.0002555811448902944,
+                        -0.003079612194412559,
+                        0.0005134136307912753,
+                        0.0007646875807739515,
+                        0.014789259272940778
+                    ],
+                    "position_error_m": 5.6750442113064986e-05,
+                    "angle_error_rad": 0.0022930634882755985
+                },
+                "dropout_invalidated": false,
+                "usable_after_dropout": true,
+                "passed": true
+            },
+            {
+                "case": "unpowered_drop_and_contact",
+                "refinement": 2,
+                "physics_time_step_s": 1.5625e-05,
+                "frames": 100,
+                "usable_frames": 75,
+                "first_usable_time_s": 0.026612,
+                "status_counts": {
+                    "acquiring": 25,
+                    "tracking": 75
+                },
+                "worst_position": {
+                    "time_s": 0.026612,
+                    "scan_start_s": 0.025,
+                    "omitted": false,
+                    "valid": true,
+                    "reason": "tracking",
+                    "pose": [
+                        0.0006014038601670322,
+                        -0.00023285159724218896,
+                        -0.0030267047856579765,
+                        -8.944331763193767e-05,
+                        0.0033126938228567934,
+                        0.015021018780429916
+                    ],
+                    "position_error_m": 0.00016839252153781677,
+                    "angle_error_rad": 0.003936358507846421
+                },
+                "worst_angle": {
+                    "time_s": 0.027611999999999998,
+                    "scan_start_s": 0.026,
+                    "omitted": false,
+                    "valid": true,
+                    "reason": "tracking",
+                    "pose": [
+                        0.0006120540639862,
+                        -0.0002151482640374399,
+                        -0.003054073623558842,
+                        0.0005311016356643949,
+                        0.002006508803208375,
+                        0.01677389055064449
+                    ],
+                    "position_error_m": 0.00010942196437299081,
+                    "angle_error_rad": 0.004388210155599439
+                },
+                "dropout_invalidated": false,
+                "usable_after_dropout": true,
+                "passed": false
+            }
+        ],
+        "refinement": [
+            {
+                "case": "unpowered_drop_and_contact",
+                "maximum_position_change_m": 0.00033736916513821773,
+                "maximum_angle_change_rad": 0.0023411741361150135,
+                "statuses_match": true,
+                "passed": false
+            },
+            {
+                "case": "supported_translation_yaw_with_dropout",
+                "maximum_position_change_m": 0.0,
+                "maximum_angle_change_rad": 0.0,
+                "statuses_match": true,
+                "passed": true
+            }
+        ],
+        "passed": false,
+        "assumptions": [
+            "Coils are off. Supported motion uses a prescribed gravity-balancing mechanical wrench, not a levitation controller.",
+            "Each local scan starts with a powered-up single-pole filter at quiescent output; startup transients are provisional.",
+            "Physical fields are interpolated between MuJoCo steps; both motion and field knots are independently halved relative to ADC timing.",
+            "The inverse model uses observer velocity during the scan and the nominal low-frequency filter delay; acceleration during a scan is unmodeled.",
+            "Observer predictions enforce the known CAD bottom-film/board nonpenetration constraint with zero downward speed on projected contact; bounce and unknown surfaces are not modeled.",
+            "No changing-current subtraction, current sensing, pose-window handoff, neighbors, material uncertainty or closed-loop stability qualification.",
+            "Offline compute time is not included in modeled transport latency; embedded estimator execution time remains unqualified."
+        ]
+    },
+    "static_passed": true
+}

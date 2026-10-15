@@ -1,0 +1,69 @@
+{
+    "scope": "Prescribed moving handoffs starting at both gap endpoints with inward vertical velocity",
+    "status": "completed",
+    "physical_envelope_qualified": false,
+    "cases": {
+        "lower_gap": {
+            "status": "completed",
+            "evidence": "lower_gap/summary.json"
+        },
+        "upper_gap": {
+            "status": "completed",
+            "evidence": "upper_gap/summary.json"
+        }
+    },
+    "active_case": null,
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/physics_verification.py": "df9305e03cacb608db7d7f07304848078beb3f630c4d0a6a24bf4f518745b627"
+    },
+    "gap_range_m": [
+        0.0035,
+        0.0045
+    ],
+    "verification": {
+        "cases": {
+            "lower_gap": {
+                "exact_initial_height_and_sampled_bounds_verified": true,
+                "inward_displacement_m": [
+                    4.0003722862058666e-07,
+                    4.000376605164252e-07,
+                    4.000583480826686e-07,
+                    4.0003722862058666e-07
+                ],
+                "maximum_comparison_differences": {
+                    "pose_position_m": 2.0868897260100314e-11,
+                    "pose_angle_rad": 8.991011098332238e-11,
+                    "current_trace_A": 2.239294077588383e-05
+                },
+                "maximum_filtered_hall_difference_T": 5.013701291009531e-07,
+                "elapsed_case_sum_s": 894.8616149340523,
+                "evidence": "lower_gap/summary.json"
+            },
+            "upper_gap": {
+                "exact_initial_height_and_sampled_bounds_verified": true,
+                "inward_displacement_m": [
+                    3.999781863321672e-07,
+                    3.99977479349084e-07,
+                    3.999562420663183e-07,
+                    3.999781863321672e-07
+                ],
+                "maximum_comparison_differences": {
+                    "pose_position_m": 2.1323377295235794e-11,
+                    "pose_angle_rad": 9.001999311344827e-11,
+                    "current_trace_A": 1.5620676574457093e-05
+                },
+                "maximum_filtered_hall_difference_T": 6.600252042965327e-07,
+                "elapsed_case_sum_s": 894.7467786020134,
+                "evidence": "upper_gap/summary.json"
+            }
+        },
+        "physical_envelope_qualified": false,
+        "targeted_tests_passed": 16,
+        "test_sources_sha256": {
+            "methodology/tests/test_physics_verification.py": "98133530592eb2118f9f16dfa0bc0dbc9a17a3ee4403ddd6bde33cd12230b5fa",
+            "methodology/tests/test_airborne_inputs.py": "8f6502ed53ba19e9621f2b5d02b80069de2e8a5c42c57e126eb3c42783680d77"
+        },
+        "remaining": "Longer handoffs, tilted gap endpoints, other boundary geometries, global Hall-field accuracy budget and switching-hardware assumptions remain unqualified."
+    }
+}

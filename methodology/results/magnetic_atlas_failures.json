@@ -1,0 +1,193 @@
+[
+    {
+        "scope": "Sampled magnetic atlas accuracy and cost, followed by gated short coupled comparisons; not flight qualification",
+        "status": "grid_construction_failed",
+        "source_sha256": {
+            "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+            "model.py": "069a218e9f2c53645340d0fdc625b4824f599fd8289fc1bcfa3cf1fd34031cda",
+            "levitation_sim.py": "85cc7c37ab8a72a429a145d1820e2e5cb8d8d79233f14861050d7cfdb0ad7b8d",
+            "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+            "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+            "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+            "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+            "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+            "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+            "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+            "methodology/magnetic_atlas.py": "a0bb624cbc3579223120fb24a1a57562d6e39b15114903a3885e88cd63660eeb"
+        },
+        "candidates": [],
+        "coupled": {},
+        "failure": "Direct atlas samples are nonfinite at exact magnet-edge lattice intersections; no candidate or coupled trial completed.",
+        "traceback": "/home/arseniy/projects/flying_chess/methodology/cad/.venv/lib/python3.14/site-packages/magpylib/_src/fields/field_BH_cuboid.py:162: RuntimeWarning: invalid value encountered in multiply\n  by_pol_x = pol_x * ff2z * qsigns[:, 0, 1]\n/home/arseniy/projects/flying_chess/methodology/cad/.venv/lib/python3.14/site-packages/magpylib/_src/fields/field_BH_cuboid.py:163: RuntimeWarning: invalid value encountered in multiply\n  bz_pol_x = pol_x * ff2y * qsigns[:, 0, 2]\n/home/arseniy/projects/flying_chess/methodology/cad/.venv/lib/python3.14/site-packages/magpylib/_src/fields/field_BH_cuboid.py:165: RuntimeWarning: invalid value encountered in multiply\n  bx_pol_y = pol_y * ff2z * qsigns[:, 1, 0]\n/home/arseniy/projects/flying_chess/methodology/cad/.venv/lib/python3.14/site-packages/magpylib/_src/fields/field_BH_cuboid.py:169: RuntimeWarning: invalid value encountered in multiply\n  bx_pol_z = pol_z * ff2y * qsigns[:, 2, 0]\n/home/arseniy/projects/flying_chess/methodology/cad/.venv/lib/python3.14/site-packages/magpylib/_src/fields/field_BH_cuboid.py:167: RuntimeWarning: invalid value encountered in multiply\n  bz_pol_y = -pol_y * ff2x * qsigns[:, 1, 2]\n/home/arseniy/projects/flying_chess/methodology/cad/.venv/lib/python3.14/site-packages/magpylib/_src/fields/field_BH_cuboid.py:170: RuntimeWarning: invalid value encountered in multiply\n  by_pol_z = -pol_z * ff2x * qsigns[:, 2, 1]\nTraceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/home/arseniy/projects/flying_chess/methodology/magnetic_atlas.py\", line 270, in <module>\n    benchmark(arguments.output, arguments.deadline.timestamp())\n    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/arseniy/projects/flying_chess/methodology/magnetic_atlas.py\", line 188, in benchmark\n    axes, values = MagneticFieldAtlas.sample_grid(layout.collection, bounds, spacing)\n                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/arseniy/projects/flying_chess/methodology/magnetic_atlas.py\", line 61, in sample_grid\n    raise ValueError('Direct atlas samples are nonfinite')\nValueError: Direct atlas samples are nonfinite\n"
+    },
+    {
+        "scope": "Sampled magnetic atlas accuracy and cost, followed by gated short coupled comparisons; not flight qualification",
+        "status": "report_serialization_failed",
+        "source_sha256": {
+            "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+            "model.py": "069a218e9f2c53645340d0fdc625b4824f599fd8289fc1bcfa3cf1fd34031cda",
+            "levitation_sim.py": "85cc7c37ab8a72a429a145d1820e2e5cb8d8d79233f14861050d7cfdb0ad7b8d",
+            "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+            "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+            "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+            "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+            "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+            "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+            "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+            "methodology/magnetic_atlas.py": "f2946ffbf5f227b2b8b2e9976693066f830d05d9e2fb924f8c215b20eb19f9a8"
+        },
+        "environment": {
+            "python": "3.14.4",
+            "numpy": "2.4.6",
+            "scipy": "1.17.1",
+            "magpylib": "5.2.3"
+        },
+        "candidates": [],
+        "coupled": {},
+        "bounds_m": [
+            [
+                -0.03235422873318823,
+                -0.027731206826694648,
+                -0.014503954595148472
+            ],
+            [
+                0.029909282681278057,
+                0.029194878125547732,
+                -0.0013156224053323209
+            ]
+        ],
+        "poses": [
+            [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            ],
+            [
+                0.0039,
+                -0.0039,
+                0.0009999999999999996,
+                0.09932447675229641,
+                -0.09932447675229641,
+                0.0
+            ],
+            [
+                0.0039,
+                -0.0039,
+                0.0009999999999999996,
+                0.04966223837614821,
+                -0.04966223837614821,
+                0.0
+            ],
+            [
+                0.0039,
+                -0.0039,
+                0.0009999999999999996,
+                0.09932447675229641,
+                -0.09932447675229641,
+                0.7853981633974483
+            ],
+            [
+                0.0039,
+                -0.0039,
+                0.0009999999999999996,
+                0.04966223837614821,
+                -0.04966223837614821,
+                0.7853981633974483
+            ],
+            [
+                0.0039,
+                -0.0039,
+                0.0009999999999999996,
+                0.09932447675229641,
+                -0.09932447675229641,
+                1.5707963267948966
+            ],
+            [
+                0.0039,
+                -0.0039,
+                0.0009999999999999996,
+                0.04966223837614821,
+                -0.04966223837614821,
+                1.5707963267948966
+            ],
+            [
+                0.0004886269159528394,
+                -0.0019037976908889728,
+                0.0004099956667960795,
+                -0.022988567282281176,
+                0.08719470030490244,
+                2.4544418272062742
+            ],
+            [
+                -0.0024604909344284175,
+                -0.003364758476957644,
+                2.7855515244237274e-05,
+                0.0004157927091918405,
+                0.04409800252626382,
+                0.6622910649734526
+            ],
+            [
+                0.0005971791410374159,
+                -0.002755544331090244,
+                0.0007905076465106711,
+                0.00015950539469024815,
+                0.002551571962315358,
+                -0.07488956852520579
+            ],
+            [
+                -0.0034549729073343172,
+                -0.0023471142216349153,
+                0.0009752932866102762,
+                0.10776602959306991,
+                0.009332652961901259,
+                -0.4020569160972247
+            ],
+            [
+                -0.0022134952576639707,
+                -0.0017439708337478941,
+                0.0006571220732073898,
+                0.018286516112978532,
+                0.08521095926300147,
+                -0.1300929998340674
+            ],
+            [
+                -0.00023031091800335872,
+                0.0019480281750343465,
+                0.0007554710927465632,
+                -0.0023999039248189455,
+                0.006340627645282787,
+                0.1963016972800693
+            ],
+            [
+                -0.003471787151645045,
+                0.0014112671903776077,
+                0.00067115143236916,
+                0.009627797508356512,
+                -0.06043592318394356,
+                -1.3583300280879156
+            ],
+            [
+                0.0002160518960129124,
+                -0.002082579043132036,
+                0.0009377981277081423,
+                -0.04109976600518558,
+                0.012499661242153747,
+                -0.4005981607509632
+            ]
+        ],
+        "wire_points": 137025,
+        "probe_count": 61446,
+        "direct_median_matrix_s": 2.449561381014064,
+        "limits": {
+            "field_T": 1e-07,
+            "matrix_relative": 0.0001,
+            "gradient_relative": 0.001,
+            "minimum_speedup": 2.0
+        },
+        "failure": "A NumPy boolean in the first candidate report was not serializable; no accepted candidate or coupled trial.",
+        "traceback": "Traceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/home/arseniy/projects/flying_chess/methodology/magnetic_atlas.py\", line 276, in <module>\n    benchmark(arguments.output, arguments.deadline.timestamp())\n    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/arseniy/projects/flying_chess/methodology/magnetic_atlas.py\", line 228, in benchmark\n    save()\n    ~~~~^^\n  File \"/home/arseniy/projects/flying_chess/methodology/magnetic_atlas.py\", line 140, in save\n    airborne_verification.save_summary(output / 'summary.json', report)\n    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/arseniy/projects/flying_chess/methodology/airborne_verification.py\", line 53, in save_summary\n    temporary.write_text(json.dumps(summary, indent=Fixed.report_precision, allow_nan=False) + '\\n')\n                         ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/lib/python3.14/json/__init__.py\", line 242, in dumps\n    **kw).encode(obj)\n          ~~~~~~^^^^^\n  File \"/usr/lib/python3.14/json/encoder.py\", line 202, in encode\n    chunks = self.iterencode(o, _one_shot=True)\n  File \"/usr/lib/python3.14/json/encoder.py\", line 263, in iterencode\n    return _iterencode(o, 0)\n  File \"/usr/lib/python3.14/json/encoder.py\", line 182, in default\n    raise TypeError(f'Object of type {o.__class__.__name__} '\n                    f'is not JSON serializable')\nTypeError: Object of type bool is not JSON serializable\nwhen serializing dict item 'force'\nwhen serializing dict item 'checks'\nwhen serializing list item 0\nwhen serializing dict item 'candidates'\n"
+    }
+]

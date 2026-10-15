@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 import numpy as np
+from scipy.special import exprel
 from scipy.spatial.transform import Rotation
 
 import levitation_sim
@@ -87,27 +88,50 @@ def bounded_sensor_error(time):
 
 def propagate_estimate(position, velocity, accelerations, period):
     accelerations = np.asarray(accelerations).reshape(-1, 6)
-    duration = len(accelerations) * period
-    remaining_times = (len(accelerations) - np.arange(len(accelerations)) - 0.5) * period
-    return (position + velocity * duration + np.sum(accelerations * remaining_times[:, None], axis=0) * period,
-            velocity + np.sum(accelerations, axis=0) * period)
+    periods = np.broadcast_to(period, (len(accelerations),))
+    duration = periods.sum()
+    remaining_times = duration - np.cumsum(periods) + periods / 2
+    return (position + velocity * duration + np.sum(accelerations * (remaining_times * periods)[:, None], axis=0),
+            velocity + np.sum(accelerations * periods[:, None], axis=0))
 
 
-def observer_update(position, velocity, disturbance, measurement, period, accelerations):
+def observer_update(position, velocity, disturbance, measurement, period, accelerations, acceleration_periods=None):
     pole = np.exp(-2 * np.pi * model.Fixed.pose_controller_frequency
                   * model.Fixed.pose_observer_frequency_ratio * period)
     predicted, predicted_velocity = propagate_estimate(position, velocity, np.asarray(accelerations) + disturbance,
-                                                        period / len(accelerations))
+                                                        period / len(accelerations) if acceleration_periods is None else acceleration_periods)
     innovation = measurement - predicted
     return (predicted + (1 - pole ** 3) * innovation,
             predicted_velocity + 3 * (1 - pole) ** 2 * (1 + pole) / (2 * period) * innovation,
             disturbance + (1 - pole) ** 3 / period ** 2 * innovation)
 
 
-def rl_step(current, voltage, back_emf, resistance, inductance, period, enabled=True):
+def rl_stopping_exponent(current, equilibrium, enabled=True):
+    current, equilibrium = np.broadcast_arrays(current, equilibrium)
+    disabled = ~np.asarray(enabled)
+    approaching_zero = disabled & (current * equilibrium < 0)
+    initial_fraction = np.divide(current, equilibrium, out=np.zeros_like(equilibrium, dtype=float), where=approaching_zero)
+    return np.where(disabled & (current == 0), 0,
+        np.where(approaching_zero, np.log1p(-initial_fraction), np.inf))
+
+
+def rl_interval(current, voltage, back_emf, resistance, inductance, period, enabled=True):
     decay = np.exp(-resistance * period / inductance)
-    next_current = current * decay + (voltage - back_emf) / resistance * (1 - decay)
-    return np.where(~np.asarray(enabled) & (next_current * current <= 0), 0, next_current)
+    equilibrium = (voltage - back_emf) / resistance
+    next_current = current * decay + equilibrium * (1 - decay)
+    exponent = resistance * period / inductance
+    average = equilibrium + (current - equilibrium) * exprel(-exponent)
+    disabled = ~np.asarray(enabled)
+    crossed_zero = disabled & (current * equilibrium < 0) & (next_current * current <= 0)
+    stopping_exponent = np.where(crossed_zero, rl_stopping_exponent(current, equilibrium, enabled), 0)
+    stopped_average = np.divide(equilibrium * stopping_exponent + (current - equilibrium) * -np.expm1(-stopping_exponent),
+        exponent, out=np.zeros_like(next_current, dtype=float), where=crossed_zero)
+    average = np.where(crossed_zero | (disabled & (current == 0)), stopped_average, average)
+    return np.where(disabled & (next_current * current <= 0), 0, next_current), average
+
+
+def rl_step(current, voltage, back_emf, resistance, inductance, period, enabled=True):
+    return rl_interval(current, voltage, back_emf, resistance, inductance, period, enabled)[0]
 
 
 def current_regulator(error, integral, resistance, inductance, voltage_limit):
@@ -117,6 +141,11 @@ def current_regulator(error, integral, resistance, inductance, voltage_limit):
     integrate = (voltage == requested) | (error * requested < 0)
     integral = integral + integrate * resistance * frequency * error / model.Fixed.current_regulator_rate
     return voltage, integral, requested
+
+
+def pose_correction(error, velocity, disturbance):
+    omega = 2 * np.pi * model.Fixed.pose_controller_frequency
+    return -omega ** 2 * error - 2 * model.Fixed.pose_controller_damping * omega * velocity - disturbance
 
 
 def simulate_case(case, board, coil, piece, config, control, time_refinement=1, mesh_refinement=1, field_refinement=1):
@@ -177,7 +206,6 @@ def simulate_case(case, board, coil, piece, config, control, time_refinement=1, 
     copper_energy = 0.0
     trace = []
     steps = int(np.ceil(case['duration'] / period))
-    omega = 2 * np.pi * model.Fixed.pose_controller_frequency
     allocation_budget = ((1 - model.Fixed.qualification_current_reserve_fraction) * config.current_limit
                          - model.Fixed.current_sense_offset_residual / model.Fixed.current_sense_resistance
                          - model.Fixed.max_current_command_error - model.Fixed.qualification_current_transient_allowance)
@@ -211,8 +239,7 @@ def simulate_case(case, board, coil, piece, config, control, time_refinement=1, 
             estimated_pose[3:] = estimated_rotation.as_euler('xyz')
             _, center = levitation_sim.place_piece(nominal, *estimated_pose)
             components = levitation_sim.window_components(nominal, selector, reference[:2], center, half_extents)
-            correction = (-omega ** 2 * predicted_error - 2 * model.Fixed.pose_controller_damping * omega * predicted_velocity
-                          - estimated_disturbance)
+            correction = pose_correction(predicted_error, predicted_velocity, estimated_disturbance)
             target = np.zeros(6)
             target[:3] = nominal_mass * (reference_acceleration + correction[:3])
             target[2] += geometry.weight
@@ -254,8 +281,7 @@ def simulate_case(case, board, coil, piece, config, control, time_refinement=1, 
             metrics['voltage_saturated_steps'] += int(np.max(np.abs(requested_voltage[enabled])) > config.usable_drive_voltage)
             current_integral[~enabled] = 0
         voltage[~enabled] = -config.bus_voltage * model.Fixed.coil_bus_voltage_fraction * np.sign(currents[~enabled])
-        next_currents = rl_step(currents, voltage, back_emf, resistance, inductance, period, enabled)
-        average_currents = (currents + next_currents) / 2
+        next_currents, average_currents = rl_interval(currents, voltage, back_emf, resistance, inductance, period, enabled)
         wrench = actual_matrix @ average_currents
         speed = np.linalg.norm(velocity[:2])
         if speed > 0:

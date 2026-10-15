@@ -1,0 +1,200 @@
+{
+    "scope": "Short numerical screen only; not hover qualification",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/airborne_verification.py": "e60982ac78fce0542d7a3950fe4bfceac2a76e8d78af631559dc9b9fc0954e6f"
+    },
+    "started_utc": "2026-10-13T05:30:30.861267+00:00",
+    "deadline_utc": "2026-10-13T08:30:27+00:00",
+    "status": "numerical_comparison_failed",
+    "active_case": null,
+    "cases": {
+        "screen_baseline": {
+            "status": "completed",
+            "intended_duration_s": 0.01,
+            "time_refinement": 1,
+            "magnetic_refinement": 1,
+            "duration_completed_s": 0.01000000000000003,
+            "elapsed_s": 506.5281217159936,
+            "passed": true,
+            "stop_reason": null,
+            "peaks": {
+                "current_A": 1.625276922549576,
+                "voltage_V": 0.9077379104402331,
+                "copper_loss_W": 4.375776547680076,
+                "back_emf_V": 0.00015939285351928363,
+                "position_error_m": 3.9999999999070185e-05,
+                "angle_error_rad": 0.0015313266808284149,
+                "estimated_position_error_m": 3.5237642021598884e-05,
+                "estimated_angle_error_rad": 0.0022653155851677653,
+                "required_current_A": 1.0992728939673353
+            }
+        },
+        "screen_repeat": {
+            "status": "completed",
+            "intended_duration_s": 0.01,
+            "time_refinement": 1,
+            "magnetic_refinement": 1,
+            "duration_completed_s": 0.01000000000000003,
+            "elapsed_s": 500.5096221389249,
+            "passed": true,
+            "stop_reason": null,
+            "peaks": {
+                "current_A": 1.625276922549576,
+                "voltage_V": 0.9077379104402331,
+                "copper_loss_W": 4.375776547680076,
+                "back_emf_V": 0.00015939285351928363,
+                "position_error_m": 3.9999999999070185e-05,
+                "angle_error_rad": 0.0015313266808284149,
+                "estimated_position_error_m": 3.5237642021598884e-05,
+                "estimated_angle_error_rad": 0.0022653155851677653,
+                "required_current_A": 1.0992728939673353
+            }
+        },
+        "screen_time_refined": {
+            "status": "completed",
+            "intended_duration_s": 0.01,
+            "time_refinement": 2,
+            "magnetic_refinement": 1,
+            "duration_completed_s": 0.010000000000000158,
+            "elapsed_s": 920.2661154890666,
+            "passed": true,
+            "stop_reason": null,
+            "peaks": {
+                "current_A": 1.6170424430288852,
+                "voltage_V": 0.9027768324895201,
+                "copper_loss_W": 4.3631760506115205,
+                "back_emf_V": 0.00015952846208063695,
+                "position_error_m": 3.9999999999070185e-05,
+                "angle_error_rad": 0.0015312493376784253,
+                "estimated_position_error_m": 3.5323415023301343e-05,
+                "estimated_angle_error_rad": 0.002249309975579283,
+                "required_current_A": 1.0978448408273562
+            }
+        },
+        "screen_magnetic_refined": {
+            "status": "numerical_comparison_failed",
+            "intended_duration_s": 0.01,
+            "time_refinement": 1,
+            "magnetic_refinement": 2,
+            "duration_completed_s": 0.0029999999999999957,
+            "elapsed_s": 292.23831500601955,
+            "passed": false,
+            "stop_reason": "numerical_comparison_failed",
+            "peaks": {
+                "current_A": 1.6167985289384876,
+                "voltage_V": 0.9023635926044395,
+                "copper_loss_W": 4.282259772265083,
+                "back_emf_V": 0.0001490591175218938,
+                "position_error_m": 3.9999999999070185e-05,
+                "angle_error_rad": 0.0012500008542271803,
+                "estimated_position_error_m": 2.7745182394250453e-05,
+                "estimated_angle_error_rad": 0.0009092731889916494,
+                "required_current_A": 1.0919588810813878
+            }
+        }
+    },
+    "comparisons": {
+        "screen_repeat": {
+            "differences": {
+                "pose_position_m": 0.0,
+                "pose_angle_rad": 0.0,
+                "estimated_pose_position_m": 0.0,
+                "estimated_pose_angle_rad": 0.0,
+                "current_trace_A": 0.0,
+                "peak_current_A": 0.0,
+                "peak_required_current_A": 0.0,
+                "peak_voltage_V": 0.0,
+                "peak_copper_loss_W": 0.0
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004,
+                "peak_current_A": 0.027500000000000004,
+                "peak_required_current_A": 0.027500000000000004,
+                "peak_voltage_V": 0.04538689552201166,
+                "peak_copper_loss_W": 0.2187888273840038
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "estimated_pose_position_m": true,
+                "estimated_pose_angle_rad": true,
+                "current_trace_A": true,
+                "peak_current_A": true,
+                "peak_required_current_A": true,
+                "peak_voltage_V": true,
+                "peak_copper_loss_W": true,
+                "both_trials_passed": true,
+                "identical_trace": true
+            },
+            "converged": true
+        },
+        "screen_time_refined": {
+            "differences": {
+                "pose_position_m": 7.94498084620095e-08,
+                "pose_angle_rad": 3.0296080313077857e-06,
+                "estimated_pose_position_m": 2.9517167777355724e-07,
+                "estimated_pose_angle_rad": 1.9715935505789283e-05,
+                "current_trace_A": 0.016812602623214046,
+                "peak_current_A": 0.008234479520690785,
+                "peak_required_current_A": 0.0014280531399790686,
+                "peak_voltage_V": 0.004961077950712989,
+                "peak_copper_loss_W": 0.01260049706855515
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004,
+                "peak_current_A": 0.027500000000000004,
+                "peak_required_current_A": 0.027500000000000004,
+                "peak_voltage_V": 0.04538689552201166,
+                "peak_copper_loss_W": 0.2187888273840038
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "estimated_pose_position_m": true,
+                "estimated_pose_angle_rad": true,
+                "current_trace_A": true,
+                "peak_current_A": true,
+                "peak_required_current_A": true,
+                "peak_voltage_V": true,
+                "peak_copper_loss_W": true,
+                "both_trials_passed": true
+            },
+            "converged": true
+        },
+        "screen_magnetic_refined": {
+            "differences": {
+                "pose_position_m": 5.042283656742408e-08,
+                "pose_angle_rad": 1.7212261434082807e-07,
+                "estimated_pose_position_m": 4.96001039714264e-07,
+                "estimated_pose_angle_rad": 2.2829147441510018e-05,
+                "current_trace_A": 0.03000709608607388
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "estimated_pose_position_m": true,
+                "estimated_pose_angle_rad": true,
+                "current_trace_A": false
+            },
+            "converged": false,
+            "stopped_at_s": 0.0027500000000000003
+        }
+    },
+    "finished_utc": "2026-10-13T06:07:30.864293+00:00"
+}

@@ -1,0 +1,589 @@
+{
+    "scope": "Full-patch atlas validation and prescribed handoff comparisons; no feedback qualification",
+    "status": "completed",
+    "physical_envelope_qualified": false,
+    "bounds_m": [
+        [
+            -0.05316621809630109,
+            -0.049865221605473575,
+            -0.011383886729838921
+        ],
+        [
+            0.04425667247584985,
+            0.049865221605473575,
+            -0.00326761327016108
+        ]
+    ],
+    "poses": [
+        [
+            0.004454772721475249,
+            -5.768882040742208e-05,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        [
+            0.004454772734270613,
+            3.5382304329854836e-11,
+            2.0000587226329247e-07,
+            9.059236568058845e-10,
+            -3.1241853548635845e-10,
+            3.957148174987365e-10
+        ],
+        [
+            0.004454772833504103,
+            5.768909820720084e-05,
+            4.000376605164252e-07,
+            7.17252633243868e-09,
+            -2.8905593474348734e-09,
+            4.3596520817660936e-09
+        ],
+        [
+            0.004454772721475249,
+            -5.768882040742208e-05,
+            0.0010000000000000009,
+            0.0,
+            0.0,
+            0.0
+        ],
+        [
+            0.004454772731665428,
+            3.2986842818971446e-11,
+            0.000999800004504732,
+            8.564208807241738e-10,
+            -2.562070555711671e-10,
+            3.2021767790591025e-10
+        ],
+        [
+            0.004454772784073807,
+            5.768904869456455e-05,
+            0.0009996000225206518,
+            6.026885429273607e-09,
+            -1.7022374620978553e-09,
+            3.75613813046178e-09
+        ],
+        [
+            0.004454772721475249,
+            -0.0011537764081484745,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        [
+            0.004454772721475249,
+            1.734723475976807e-18,
+            3.999999999999998e-06,
+            0.0,
+            0.0,
+            0.0
+        ],
+        [
+            0.004454772721475249,
+            0.001153776408148478,
+            7.999999999999996e-06,
+            0.0,
+            0.0,
+            0.0
+        ],
+        [
+            0.004454772721475249,
+            -0.0011537764081484745,
+            0.0009999999999999996,
+            0.0,
+            0.0,
+            0.0
+        ],
+        [
+            0.004454772721475249,
+            1.734723475976807e-18,
+            0.0009959999999999995,
+            0.0,
+            0.0,
+            0.0
+        ],
+        [
+            0.004454772721475249,
+            0.001153776408148478,
+            0.0009919999999999996,
+            0.0,
+            0.0,
+            0.0
+        ]
+    ],
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/handoff_atlas.py": "0c4df9d32e0060e002a2a1e96ca9f311c5f98a040b3742d5fd1c568ed48bc4fc",
+        "methodology/physics_verification.py": "132df1deb72fd1681fd77bfb5000d461e6bc4ccf2cc64263c8727fa46facf23e",
+        "methodology/magnetic_atlas.py": "a41022ce4060c56026e4408d04d58807ffd594d8560f38c49abf119388b46a73"
+    },
+    "reused_evidence_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/results/physics_verification/gap_handoffs/summary.json": "30b976c380d0d354c560c7f0d3597d39ef61c58b59387ffb88e49ba8a93c62fa",
+        "methodology/results/physics_verification/gap_handoffs/verification_source.py": "df9305e03cacb608db7d7f07304848078beb3f630c4d0a6a24bf4f518745b627",
+        "methodology/results/physics_verification/gap_handoffs/lower_gap/time_refined.json": "64f452e44414a2c13bad519dc7f58e319ed1d834300480dfefdc5246d0ef546a",
+        "methodology/results/physics_verification/gap_handoffs/upper_gap/time_refined.json": "f79edd245b19dc8c35d902ab0af36407be215dfcf089b9e9f53e2eec5795f48d"
+    },
+    "reuse_scope": "Physical classes, integrators, filters and comparisons are AST-identical to the recorded source; only scenario duration and backend selection orchestration changed.",
+    "spacing_m": 0.00025,
+    "spline_order": 5,
+    "domain_scope": "Sampled upright short and planned longer handoffs, with derivative and angular margins; every query retains strict domain checks. Not a full six-axis atlas.",
+    "limits": {
+        "field_T": 1e-07,
+        "matrix_relative": 0.0001,
+        "gradient_relative": 0.001,
+        "minimum_speedup": 2.0
+    },
+    "static": [
+        {
+            "pose": [
+                0.004454772721475249,
+                -5.768882040742208e-05,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "field_error_T": 7.815272834034767e-09,
+            "gradient_relative": 6.365653662384267e-10,
+            "metrics": {
+                "force_relative_column_error": 3.6367457650694e-11,
+                "force_error_bound_at_channel_limits": 1.3139365675172462e-10,
+                "torque_relative_column_error": 7.476974263992231e-11,
+                "torque_error_bound_at_channel_limits": 2.3660282069242242e-12
+            },
+            "direct_s": 6.2353571460116655,
+            "cached_s": 1.296133512048982,
+            "passed": true
+        },
+        {
+            "pose": [
+                0.004454772734270613,
+                3.5382304329854836e-11,
+                2.0000587226329247e-07,
+                9.059236568058845e-10,
+                -3.1241853548635845e-10,
+                3.957148174987365e-10
+            ],
+            "field_error_T": 8.279631789031456e-09,
+            "gradient_relative": 2.971945614069533e-10,
+            "metrics": {
+                "force_relative_column_error": 3.7812998098543754e-11,
+                "force_error_bound_at_channel_limits": 1.3847738126263698e-10,
+                "torque_relative_column_error": 7.433409955711347e-11,
+                "torque_error_bound_at_channel_limits": 2.420636574140865e-12
+            },
+            "direct_s": 6.2117330390028656,
+            "cached_s": 1.2924060790101066,
+            "passed": true
+        },
+        {
+            "pose": [
+                0.004454772833504103,
+                5.768909820720084e-05,
+                4.000376605164252e-07,
+                7.17252633243868e-09,
+                -2.8905593474348734e-09,
+                4.3596520817660936e-09
+            ],
+            "field_error_T": 1.0628933985208978e-08,
+            "gradient_relative": 5.969065486426882e-10,
+            "metrics": {
+                "force_relative_column_error": 3.940797854392976e-11,
+                "force_error_bound_at_channel_limits": 1.4020170621903787e-10,
+                "torque_relative_column_error": 8.239468058376666e-11,
+                "torque_error_bound_at_channel_limits": 2.3153608159533712e-12
+            },
+            "direct_s": 6.639990053023212,
+            "cached_s": 1.282468187971972,
+            "passed": true
+        },
+        {
+            "pose": [
+                0.004454772721475249,
+                -5.768882040742208e-05,
+                0.0010000000000000009,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "field_error_T": 2.5697802054845667e-10,
+            "gradient_relative": 4.689104817346635e-10,
+            "metrics": {
+                "force_relative_column_error": 2.2824956317649863e-11,
+                "force_error_bound_at_channel_limits": 5.085590184927514e-11,
+                "torque_relative_column_error": 5.177899896563088e-11,
+                "torque_error_bound_at_channel_limits": 1.074997996946873e-12
+            },
+            "direct_s": 6.314279285026714,
+            "cached_s": 1.2644415689865127,
+            "passed": true
+        },
+        {
+            "pose": [
+                0.004454772731665428,
+                3.2986842818971446e-11,
+                0.000999800004504732,
+                8.564208807241738e-10,
+                -2.562070555711671e-10,
+                3.2021767790591025e-10
+            ],
+            "field_error_T": 2.7504997310103225e-10,
+            "gradient_relative": 2.434445423870252e-10,
+            "metrics": {
+                "force_relative_column_error": 2.137627291322889e-11,
+                "force_error_bound_at_channel_limits": 5.241337161933822e-11,
+                "torque_relative_column_error": 4.911353666076152e-11,
+                "torque_error_bound_at_channel_limits": 1.1131786063542784e-12
+            },
+            "direct_s": 6.372141143889166,
+            "cached_s": 1.2425728009548038,
+            "passed": true
+        },
+        {
+            "pose": [
+                0.004454772784073807,
+                5.768904869456455e-05,
+                0.0009996000225206518,
+                6.026885429273607e-09,
+                -1.7022374620978553e-09,
+                3.75613813046178e-09
+            ],
+            "field_error_T": 3.461903077711512e-10,
+            "gradient_relative": 4.4209425665242904e-10,
+            "metrics": {
+                "force_relative_column_error": 2.068487490939147e-11,
+                "force_error_bound_at_channel_limits": 5.114163494701111e-11,
+                "torque_relative_column_error": 4.7587143503321314e-11,
+                "torque_error_bound_at_channel_limits": 1.063664511829904e-12
+            },
+            "direct_s": 6.382892374997027,
+            "cached_s": 1.2534445700002834,
+            "passed": true
+        },
+        {
+            "pose": [
+                0.004454772721475249,
+                -0.0011537764081484745,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "field_error_T": 8.723872007944603e-09,
+            "gradient_relative": 5.231597350925073e-10,
+            "metrics": {
+                "force_relative_column_error": 6.213146350412999e-11,
+                "force_error_bound_at_channel_limits": 1.538066052181665e-10,
+                "torque_relative_column_error": 9.61185942922403e-11,
+                "torque_error_bound_at_channel_limits": 2.3613882927742447e-12
+            },
+            "direct_s": 6.428805674077012,
+            "cached_s": 1.2448247009888291,
+            "passed": true
+        },
+        {
+            "pose": [
+                0.004454772721475249,
+                1.734723475976807e-18,
+                3.999999999999998e-06,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "field_error_T": 9.203888552977264e-09,
+            "gradient_relative": 2.7722838476865694e-10,
+            "metrics": {
+                "force_relative_column_error": 4.299554675616075e-11,
+                "force_error_bound_at_channel_limits": 1.4305217766033962e-10,
+                "torque_relative_column_error": 7.633965805502461e-11,
+                "torque_error_bound_at_channel_limits": 2.4708730770271722e-12
+            },
+            "direct_s": 6.488978520035744,
+            "cached_s": 1.2454011559020728,
+            "passed": true
+        },
+        {
+            "pose": [
+                0.004454772721475249,
+                0.001153776408148478,
+                7.999999999999996e-06,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "field_error_T": 1.1365949154848986e-08,
+            "gradient_relative": 4.1432473309308e-10,
+            "metrics": {
+                "force_relative_column_error": 5.291545822729955e-11,
+                "force_error_bound_at_channel_limits": 1.6612342865992206e-10,
+                "torque_relative_column_error": 9.350020285860457e-11,
+                "torque_error_bound_at_channel_limits": 2.5853600178715734e-12
+            },
+            "direct_s": 6.470432975911535,
+            "cached_s": 1.2480692070676014,
+            "passed": true
+        },
+        {
+            "pose": [
+                0.004454772721475249,
+                -0.0011537764081484745,
+                0.0009999999999999996,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "field_error_T": 2.8242457278438453e-10,
+            "gradient_relative": 3.987912698871695e-10,
+            "metrics": {
+                "force_relative_column_error": 2.5922859496836204e-11,
+                "force_error_bound_at_channel_limits": 5.147894568631459e-11,
+                "torque_relative_column_error": 4.430748737279901e-11,
+                "torque_error_bound_at_channel_limits": 9.65199862597758e-13
+            },
+            "direct_s": 6.470732945948839,
+            "cached_s": 1.2396349869668484,
+            "passed": true
+        },
+        {
+            "pose": [
+                0.004454772721475249,
+                1.734723475976807e-18,
+                0.0009959999999999995,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "field_error_T": 2.472700983464309e-10,
+            "gradient_relative": 2.614621010527138e-10,
+            "metrics": {
+                "force_relative_column_error": 2.071595897180954e-11,
+                "force_error_bound_at_channel_limits": 5.1767125145993495e-11,
+                "torque_relative_column_error": 4.731206706607237e-11,
+                "torque_error_bound_at_channel_limits": 1.1017468888532073e-12
+            },
+            "direct_s": 6.428526448900811,
+            "cached_s": 1.2288837590022013,
+            "passed": true
+        },
+        {
+            "pose": [
+                0.004454772721475249,
+                0.001153776408148478,
+                0.0009919999999999996,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "field_error_T": 3.854179045954979e-10,
+            "gradient_relative": 3.919170594668309e-10,
+            "metrics": {
+                "force_relative_column_error": 2.132308845535207e-11,
+                "force_error_bound_at_channel_limits": 5.6770437882443905e-11,
+                "torque_relative_column_error": 3.3819039187159954e-11,
+                "torque_error_bound_at_channel_limits": 1.0476486971332056e-12
+            },
+            "direct_s": 6.341956070042215,
+            "cached_s": 1.2512731739552692,
+            "passed": true
+        }
+    ],
+    "short": {
+        "lower_gap/fixed": {
+            "stop_reason": null,
+            "comparison": {
+                "differences": {
+                    "pose_position_m": 1.7366282543562488e-18,
+                    "pose_angle_rad": 4.1668807605043615e-17,
+                    "current_trace_A": 1.730837695390619e-12
+                },
+                "limits": {
+                    "pose_position_m": 8.000000000000001e-06,
+                    "pose_angle_rad": 0.00025,
+                    "current_trace_A": 0.027500000000000004
+                },
+                "checks": {
+                    "pose_position_m": true,
+                    "pose_angle_rad": true,
+                    "current_trace_A": true
+                },
+                "converged": true,
+                "world_velocity_maximum_component_differences": [
+                    1.0397269711723755e-14,
+                    1.3322676295501878e-15,
+                    5.51468593013027e-15,
+                    7.869927447353917e-14,
+                    6.219149273258701e-13,
+                    7.986661191335814e-13
+                ],
+                "wrench_maximum_component_differences": [
+                    2.5351129615686085e-12,
+                    1.6913818436103956e-12,
+                    2.975369950419804e-12,
+                    3.0636897099117766e-14,
+                    9.028213154285356e-14,
+                    2.6402776330953755e-14
+                ],
+                "analogue_field_T_maximum_difference": 4.413136522884997e-15
+            },
+            "elapsed_s": 52.98041672608815
+        },
+        "lower_gap/adaptive": {
+            "stop_reason": null,
+            "comparison": {
+                "differences": {
+                    "pose_position_m": 1.2976280046711104e-12,
+                    "pose_angle_rad": 6.243997817802734e-11,
+                    "current_trace_A": 2.2392942492732715e-05
+                },
+                "limits": {
+                    "pose_position_m": 8.000000000000001e-06,
+                    "pose_angle_rad": 0.00025,
+                    "current_trace_A": 0.027500000000000004
+                },
+                "checks": {
+                    "pose_position_m": true,
+                    "pose_angle_rad": true,
+                    "current_trace_A": true
+                },
+                "converged": true,
+                "world_velocity_maximum_component_differences": [
+                    9.587498456376363e-08,
+                    2.684771376326722e-07,
+                    3.4468165892656555e-08,
+                    6.821860654598541e-06,
+                    2.3302829465108525e-06,
+                    2.934322330797127e-06
+                ],
+                "wrench_maximum_component_differences": [
+                    1.5598704627799165e-07,
+                    2.2695532923312778e-07,
+                    3.4912087898686384e-06,
+                    9.40323864216994e-09,
+                    5.49861851462509e-09,
+                    8.55858324726206e-10
+                ],
+                "analogue_field_T_maximum_difference": 6.226890338079105e-08
+            },
+            "elapsed_s": 33.33368658495601
+        },
+        "upper_gap/fixed": {
+            "stop_reason": null,
+            "comparison": {
+                "differences": {
+                    "pose_position_m": 1.0018792207680744e-18,
+                    "pose_angle_rad": 1.906192445797172e-17,
+                    "current_trace_A": 1.5232259897857148e-12
+                },
+                "limits": {
+                    "pose_position_m": 8.000000000000001e-06,
+                    "pose_angle_rad": 0.00025,
+                    "current_trace_A": 0.027500000000000004
+                },
+                "checks": {
+                    "pose_position_m": true,
+                    "pose_angle_rad": true,
+                    "current_trace_A": true
+                },
+                "converged": true,
+                "world_velocity_maximum_component_differences": [
+                    2.31079503032743e-15,
+                    1.0436096431476471e-14,
+                    2.5023386140965442e-15,
+                    3.7907280396251575e-13,
+                    1.358958857445615e-13,
+                    6.701579666635454e-14
+                ],
+                "wrench_maximum_component_differences": [
+                    5.711637759975297e-13,
+                    2.844407435281804e-12,
+                    7.221723219430487e-13,
+                    6.039389637262776e-14,
+                    1.9764737941999413e-14,
+                    3.2510378124381983e-15
+                ],
+                "analogue_field_T_maximum_difference": 3.7990444123892075e-15
+            },
+            "elapsed_s": 52.754982037935406
+        },
+        "upper_gap/adaptive": {
+            "stop_reason": null,
+            "comparison": {
+                "differences": {
+                    "pose_position_m": 3.1199620219708253e-12,
+                    "pose_angle_rad": 9.002000938045141e-11,
+                    "current_trace_A": 1.5309321366840933e-05
+                },
+                "limits": {
+                    "pose_position_m": 8.000000000000001e-06,
+                    "pose_angle_rad": 0.00025,
+                    "current_trace_A": 0.027500000000000004
+                },
+                "checks": {
+                    "pose_position_m": true,
+                    "pose_angle_rad": true,
+                    "current_trace_A": true
+                },
+                "converged": true,
+                "world_velocity_maximum_component_differences": [
+                    7.700738315307776e-08,
+                    2.4991205149760276e-07,
+                    2.7766073938326197e-08,
+                    6.452032808691119e-06,
+                    1.924502960533489e-06,
+                    2.396565202299116e-06
+                ],
+                "wrench_maximum_component_differences": [
+                    5.000170338865205e-08,
+                    5.27739840864086e-08,
+                    1.7978399023399483e-06,
+                    5.321373973173201e-09,
+                    2.3822749072239976e-09,
+                    6.860639920837401e-11
+                ],
+                "analogue_field_T_maximum_difference": 4.26821084829887e-08
+            },
+            "elapsed_s": 33.91829707589932
+        }
+    },
+    "longer": {
+        "lower_gap": {
+            "status": "completed",
+            "evidence": "longer/lower_gap/summary.json"
+        },
+        "upper_gap": {
+            "status": "completed",
+            "evidence": "longer/upper_gap/summary.json"
+        }
+    },
+    "build_s": 162.06858751992695,
+    "coefficient_bytes": 246105600,
+    "grid_shape": [
+        416,
+        425,
+        58
+    ],
+    "atlas_identity": "1399b9f3f61fd12e071d90f2d11f0aea528ed9955eca4b4c116d83965dc5e43d",
+    "face_errors_T": [
+        1.713781913687698e-15,
+        1.5070633639870074e-15,
+        1.654419082889991e-15,
+        1.5636901091988543e-15,
+        3.852484402942141e-13,
+        9.377134238968984e-08
+    ],
+    "probe_error_T": 1.4780670755322074e-08,
+    "speedup": 5.125915889384747,
+    "active_case": null,
+    "verification": {
+        "sources_cache_and_reused_evidence_verified": true,
+        "short_comparisons_reproduced": true,
+        "longer_reports_inputs_checkpoints_and_comparisons_verified": true,
+        "physical_envelope_qualified": false,
+        "retained_source_snapshots": {
+            "methodology/physics_verification.py": "verification_source.py",
+            "methodology/handoff_atlas.py": "atlas_validation_source.py"
+        }
+    }
+}

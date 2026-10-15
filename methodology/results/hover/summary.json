@@ -1,0 +1,100 @@
+{
+  "scope": "One-second disturbed hover with an independent first-50-ms reference and local later checks; not complete flight qualification",
+  "status": "failed",
+  "qualification_sha256": "e89fde3b546a9a88c792bc1aff9d9828822db865d57d1046a87fb389d2bc805f",
+  "source_sha256": {
+    "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+    "model.py": "7474a0aa7ef3699af0e89ad198235d81001253da2d53fc49a200129f3809ea52",
+    "levitation_sim.py": "85cc7c37ab8a72a429a145d1820e2e5cb8d8d79233f14861050d7cfdb0ad7b8d",
+    "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+    "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+    "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+    "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+    "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+    "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+    "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+    "methodology/motion.py": "d05c5d934a16a87f49330e28720b5c2161eabfe186a4563d2c08c2bf6a05ba09",
+    "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+    "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+    "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+    "methodology/airborne.py": "9fd7e48b4471aaaa062bf2c7ac5e82d87197bfdcc8f4675f087161f7836b4564",
+    "methodology/electrical.py": "e6670b479f4d8e24e8de53876b7839273dda1243a014d8bb2d81f57801038d2d",
+    "methodology/sensing.py": "d2e1c2fdba41f15fde20b6aebbfa878fb9a9e803bcd4cd1608220a16ff673dc8",
+    "methodology/qualification.py": "97efa1056a8b49937ee7158d3d5cc81fbdd34b822901a26ea8af32833cab2b04",
+    "methodology/adaptive_airborne.py": "172790317901dc649b7cc8c90c17875dd8be63d586947708083b9a5564d90d0e",
+    "methodology/magnetic_atlas.py": "a41022ce4060c56026e4408d04d58807ffd594d8560f38c49abf119388b46a73",
+    "methodology/hover.py": "108df953300f19ba831dfb18f9e7a0fdbec6b29df7d6f9035a3af3dfee8d25c9"
+  },
+  "atlas_identity": "d53ee8b059a4aed1740b625c2625d443d72abe0392829c14f2bb0f76199f0db9",
+  "target_duration_s": 1,
+  "active_window": null,
+  "windows": {
+    "initial_reference": {
+      "start_s": 0.0,
+      "end_s": 0.05,
+      "scope": "Independent integration from release",
+      "comparison": {
+        "differences": {
+          "pose_position_m": 2.866400001462206e-07,
+          "pose_angle_rad": 1.0795920424844056e-05,
+          "estimated_pose_position_m": 6.323627744111972e-07,
+          "estimated_pose_angle_rad": 2.469439678617974e-05,
+          "current_trace_A": 0.030119673097930233,
+          "peak_current_A": 0.00041982007237750807,
+          "peak_required_current_A": 0.0018693891998859957,
+          "peak_voltage_V": 0.00021132284118008382,
+          "peak_copper_loss_W": 0.02378931401665252
+        },
+        "limits": {
+          "pose_position_m": 8.000000000000001e-06,
+          "pose_angle_rad": 0.00025,
+          "estimated_pose_position_m": 8.000000000000001e-06,
+          "estimated_pose_angle_rad": 0.00025,
+          "current_trace_A": 0.027500000000000004,
+          "peak_current_A": 0.027500000000000004,
+          "peak_required_current_A": 0.027500000000000004,
+          "peak_voltage_V": 0.04775726237988007,
+          "peak_copper_loss_W": 0.21664477428322781
+        },
+        "checks": {
+          "pose_position_m": true,
+          "pose_angle_rad": true,
+          "estimated_pose_position_m": true,
+          "estimated_pose_angle_rad": true,
+          "current_trace_A": false,
+          "peak_current_A": true,
+          "peak_required_current_A": true,
+          "peak_voltage_V": true,
+          "peak_copper_loss_W": true,
+          "both_prefixes_within_limits": true
+        },
+        "converged": false
+      },
+      "compared_through_s": 0.029,
+      "kind": "complete",
+      "reached_end": false,
+      "stop_reason": "peer_trial_failed",
+      "elapsed_s": 2215.936128854053,
+      "duration_completed_s": 0.029
+    }
+  },
+  "duration_completed_s": 0.029,
+  "stop_reason": "numerical_comparison_failed",
+  "control_passed": false,
+  "numerical_checks_passed": false,
+  "verification": {
+    "source_hashes_match": true,
+    "report_checkpoint_agree": true,
+    "strictly_increasing_field_times": true,
+    "same_current_sample_times": true,
+    "same_sensor_calibration_and_final_random_states": {
+      "sensors": true,
+      "current_sensors": true
+    },
+    "first_recorded_current_limit_crossing_s": 0.0285,
+    "maximum_recorded_current_difference_A": 0.03000961722371398,
+    "maximum_recorded_current_difference_time_s": 0.02875,
+    "maximum_current_difference_coil_column": 10,
+    "interpretation": "Both prefixes stayed within operating limits; the job was stopped by the numerical comparison, not a demonstrated control failure. Local error control alone did not meet the accumulated current-trace comparison limit."
+  }
+}

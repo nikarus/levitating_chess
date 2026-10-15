@@ -1,0 +1,42 @@
+{
+  "scope": "Static direct-field CAD conductor refinement across sampled poses; no controller or time integration",
+  "source_sha256": {
+    "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+    "model.py": "7474a0aa7ef3699af0e89ad198235d81001253da2d53fc49a200129f3809ea52",
+    "levitation_sim.py": "85cc7c37ab8a72a429a145d1820e2e5cb8d8d79233f14861050d7cfdb0ad7b8d",
+    "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+    "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+    "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+    "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+    "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+    "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+    "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+    "methodology/physics_verification.py": "1f9d98625a22bf5d7ad4fffa6c1ed9b9ce2a309e4b0666a797de658650be0bd6",
+    "methodology/magnetic_atlas.py": "a41022ce4060c56026e4408d04d58807ffd594d8560f38c49abf119388b46a73",
+    "methodology/sensing.py": "d2e1c2fdba41f15fde20b6aebbfa878fb9a9e803bcd4cd1608220a16ff673dc8"
+  },
+  "refinements": [
+    1,
+    2
+  ],
+  "segment_lengths_mm": [
+    0.25,
+    0.125
+  ],
+  "comparison_limit": 0.05,
+  "limit_scope": "Existing relative numerical-change screen; not a newly qualified force or global sensor-error budget",
+  "hall_field": {
+    "maximum_column_difference_T_per_A": 5.520190158635543e-07,
+    "maximum_field_difference_bound_T": 7.107796654224085e-06,
+    "bound_scope": "Absolute row-sum bound with every physical channel at its rating; not an actual operating current pattern"
+  },
+  "status": "report_serialization_failed",
+  "physical_envelope_qualified": false,
+  "cases": [],
+  "limitations": [
+    "Sampled static configurations do not establish continuous-domain error bounds or moving-trajectory convergence.",
+    "Both refinements retain the same filament-centreline approximation, material properties and local terminal closure.",
+    "Hall-field error is measured; a global analogue-field acceptance budget remains to be established."
+  ],
+  "failure": "First pose could not be written: NumPy arrays were not converted to JSON lists. No physical result was saved."
+}

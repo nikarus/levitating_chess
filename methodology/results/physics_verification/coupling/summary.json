@@ -1,0 +1,885 @@
+{
+    "scope": "Independent coupling references; not full physical-envelope qualification",
+    "status": "completed",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "83a2069a7f1b5d8b6f9019a89116eeeb6cba43fe320fa77512fbdb0c0f90e5c7",
+        "levitation_sim.py": "85cc7c37ab8a72a429a145d1820e2e5cb8d8d79233f14861050d7cfdb0ad7b8d",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "afef1c121df73db24ddb43c4df2fbcf72e8b16e8fff389a1456b6f42f0199aec",
+        "methodology/coupling_verification.py": "75df6e7d71fde87e0f55ca2af08c736688c6231a7e0e7921245e7b42f8bf1952",
+        "methodology/motion.py": "bc9fcd626da4ade079f437e7878c97b78803a933264d34ceef4e36c3f70c7d4f",
+        "methodology/airborne.py": "9f430e7eba96a811324c0a83d239c8788854d90b8e5fba12e9afad4791b55ed8",
+        "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/physics_verification.py": "6bc4afa307a3b160150d69303aae133373f3214831949406905df5df27eea23c"
+    },
+    "physical_envelope_qualified": false,
+    "checks": {
+        "flux": {
+            "scope": "Closed rectangular test winding and rotated permanent-magnet array; flux surface integral versus production Lorentz reaction",
+            "independent_of": "Force-map assembly, Lorentz line quadrature and torque anchor; the permanent-magnet field library is shared.",
+            "center_m": [
+                0.0,
+                0.0,
+                0.015242337541608919
+            ],
+            "wire_vertices_m": [
+                [
+                    -0.0018,
+                    -0.0018,
+                    -0.007644499999999999
+                ],
+                [
+                    0.0057,
+                    -0.0018,
+                    -0.007644499999999999
+                ],
+                [
+                    0.0057,
+                    0.0057,
+                    -0.007644499999999999
+                ],
+                [
+                    -0.0018,
+                    0.0057,
+                    -0.007644499999999999
+                ],
+                [
+                    -0.0018,
+                    -0.0018,
+                    -0.007644499999999999
+                ]
+            ],
+            "source_state": [
+                [
+                    0.005,
+                    0.005,
+                    0.004,
+                    0.0,
+                    0.0,
+                    -1.36,
+                    -0.0075,
+                    -0.0075,
+                    0.0020000000000000005,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                [
+                    0.005,
+                    0.005,
+                    0.004,
+                    0.0,
+                    -1.36,
+                    0.0,
+                    -0.007500000000000001,
+                    -0.0025000000000000005,
+                    0.001999999999999999,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                [
+                    0.005,
+                    0.005,
+                    0.004,
+                    0.0,
+                    0.0,
+                    -1.36,
+                    -0.0075,
+                    0.0025000000000000005,
+                    0.002,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                [
+                    0.005,
+                    0.005,
+                    0.004,
+                    0.0,
+                    1.36,
+                    0.0,
+                    -0.0075,
+                    0.007500000000000001,
+                    0.002000000000000001,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                [
+                    0.005,
+                    0.005,
+                    0.004,
+                    -1.36,
+                    0.0,
+                    0.0,
+                    -0.0025,
+                    -0.007500000000000001,
+                    0.002000000000000001,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                [
+                    0.005,
+                    0.005,
+                    0.004,
+                    0.0,
+                    -1.36,
+                    0.0,
+                    -0.0025,
+                    -0.0025,
+                    0.0019999999999999996,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                [
+                    0.005,
+                    0.005,
+                    0.004,
+                    -1.36,
+                    0.0,
+                    0.0,
+                    -0.0025,
+                    0.002500000000000001,
+                    0.0020000000000000005,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                [
+                    0.005,
+                    0.005,
+                    0.004,
+                    0.0,
+                    1.36,
+                    0.0,
+                    -0.0025000000000000005,
+                    0.0075000000000000015,
+                    0.0019999999999999996,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                [
+                    0.005,
+                    0.005,
+                    0.004,
+                    0.0,
+                    0.0,
+                    1.36,
+                    0.0024999999999999996,
+                    -0.007500000000000001,
+                    0.001999999999999999,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                [
+                    0.005,
+                    0.005,
+                    0.004,
+                    0.0,
+                    -1.36,
+                    0.0,
+                    0.0025,
+                    -0.0025000000000000005,
+                    0.002,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                [
+                    0.005,
+                    0.005,
+                    0.004,
+                    0.0,
+                    0.0,
+                    1.36,
+                    0.0025000000000000005,
+                    0.0025000000000000014,
+                    0.002000000000000001,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                [
+                    0.005,
+                    0.005,
+                    0.004,
+                    0.0,
+                    1.36,
+                    0.0,
+                    0.0025000000000000005,
+                    0.0075,
+                    0.002,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                [
+                    0.005,
+                    0.005,
+                    0.004,
+                    1.36,
+                    0.0,
+                    0.0,
+                    0.0075000000000000015,
+                    -0.007500000000000001,
+                    0.0019999999999999996,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                [
+                    0.005,
+                    0.005,
+                    0.004,
+                    0.0,
+                    -1.36,
+                    0.0,
+                    0.007500000000000001,
+                    -0.0025000000000000005,
+                    0.0020000000000000005,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                [
+                    0.005,
+                    0.005,
+                    0.004,
+                    1.36,
+                    0.0,
+                    0.0,
+                    0.0075,
+                    0.002500000000000001,
+                    0.0019999999999999996,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ],
+                [
+                    0.005,
+                    0.005,
+                    0.004,
+                    0.0,
+                    1.36,
+                    0.0,
+                    0.0075,
+                    0.0075,
+                    0.0020000000000000005,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0,
+                    0.0,
+                    0.0,
+                    0.0,
+                    1.0
+                ]
+            ],
+            "relative_limit": 0.0001,
+            "cases": [
+                {
+                    "refinement": 1,
+                    "line_wrench_per_A": [
+                        -4.0592269224753385e-05,
+                        -0.00019219304019854586,
+                        -0.0008556443361823908,
+                        -5.69508071700324e-06,
+                        2.22039235855313e-06,
+                        -2.7876135428005e-07
+                    ],
+                    "flux_wrenches_per_A": [
+                        [
+                            -4.066927145469947e-05,
+                            -0.00019216324853550112,
+                            -0.0008554996694040187,
+                            -5.694197916829122e-06,
+                            2.2214519065757093e-06,
+                            -2.787022977641124e-07
+                        ],
+                        [
+                            -4.066927133433609e-05,
+                            -0.0001921632483363213,
+                            -0.0008554996689091396,
+                            -5.694197912699836e-06,
+                            2.2214519039880236e-06,
+                            -2.787022981812761e-07
+                        ],
+                        [
+                            -4.066927133412433e-05,
+                            -0.00019216324833640601,
+                            -0.0008554996689091396,
+                            -5.694197912701954e-06,
+                            2.2214519039880236e-06,
+                            -2.787022981812761e-07
+                        ]
+                    ],
+                    "metrics": {
+                        "force_relative_column_error": 0.00018976718674235089,
+                        "force_error_bound_at_channel_limits": 9.161339260063681e-07,
+                        "torque_relative_column_error": 0.00022560756877011614,
+                        "torque_error_bound_at_channel_limits": 7.59212713735332e-09
+                    },
+                    "surface_refinement": {
+                        "force_relative_column_error": 2.598329053837028e-13,
+                        "force_error_bound_at_channel_limits": 1.2543883049602504e-15,
+                        "torque_relative_column_error": 3.460933024518137e-13,
+                        "torque_error_bound_at_channel_limits": 1.164670302474663e-17
+                    }
+                },
+                {
+                    "refinement": 2,
+                    "line_wrench_per_A": [
+                        -4.0650068997424214e-05,
+                        -0.00019217096381897797,
+                        -0.0008555349184338864,
+                        -5.694418824866299e-06,
+                        2.2211872289295063e-06,
+                        -2.7871695889336393e-07
+                    ],
+                    "flux_wrenches_per_A": [
+                        [
+                            -4.0669310873241144e-05,
+                            -0.00019216351850772894,
+                            -0.0008554987633095816,
+                            -5.694198167038419e-06,
+                            2.22145200274783e-06,
+                            -2.787022985814992e-07
+                        ],
+                        [
+                            -4.066931075279306e-05,
+                            -0.00019216351830808327,
+                            -0.0008554987628152531,
+                            -5.694198162887958e-06,
+                            2.2214520002067313e-06,
+                            -2.7870229897113434e-07
+                        ],
+                        [
+                            -4.0669310753216575e-05,
+                            -0.00019216351830837975,
+                            -0.0008554987628152107,
+                            -5.694198162913369e-06,
+                            2.2214520001813203e-06,
+                            -2.78702298962664e-07
+                        ]
+                    ],
+                    "metrics": {
+                        "force_relative_column_error": 4.742563972404314e-05,
+                        "force_error_bound_at_channel_limits": 2.2895526651450246e-07,
+                        "torque_relative_column_error": 5.638263522338269e-05,
+                        "torque_error_bound_at_channel_limits": 1.897383833466421e-09
+                    },
+                    "surface_refinement": {
+                        "force_relative_column_error": 5.909496137487732e-13,
+                        "force_error_bound_at_channel_limits": 2.8529088294806864e-15,
+                        "torque_relative_column_error": 6.0343426575607065e-12,
+                        "torque_error_bound_at_channel_limits": 2.030672060412002e-16
+                    }
+                },
+                {
+                    "refinement": 4,
+                    "line_wrench_per_A": [
+                        -4.066451071700537e-05,
+                        -0.0001921654470257583,
+                        -0.0008555075744969456,
+                        -5.694253388493856e-06,
+                        2.2213858386139055e-06,
+                        -2.787059576446103e-07
+                    ],
+                    "flux_wrenches_per_A": [
+                        [
+                            -4.066932072813067e-05,
+                            -0.0001921635860003306,
+                            -0.0008554985367854429,
+                            -5.694198229651095e-06,
+                            2.221452026862858e-06,
+                            -2.7870229869161346e-07
+                        ],
+                        [
+                            -4.066932060751318e-05,
+                            -0.00019216358580093906,
+                            -0.0008554985362913685,
+                            -5.69419822541593e-06,
+                            2.221452024211645e-06,
+                            -2.787022991574816e-07
+                        ],
+                        [
+                            -4.06693206080214e-05,
+                            -0.00019216358580102376,
+                            -0.0008554985362911992,
+                            -5.694198225449811e-06,
+                            2.2214520241947044e-06,
+                            -2.7870229917442224e-07
+                        ]
+                    ],
+                    "metrics": {
+                        "force_relative_column_error": 1.1855401428386641e-05,
+                        "force_error_bound_at_channel_limits": 5.723393450964632e-08,
+                        "torque_relative_column_error": 1.4094450754208057e-05,
+                        "torque_error_bound_at_channel_limits": 4.743053102997989e-10
+                    },
+                    "surface_refinement": {
+                        "force_relative_column_error": 6.178798413626133e-13,
+                        "force_error_bound_at_channel_limits": 2.982918342242164e-15,
+                        "torque_relative_column_error": 6.782015584167114e-12,
+                        "torque_error_bound_at_channel_limits": 2.282278367708695e-16
+                    }
+                },
+                {
+                    "refinement": 8,
+                    "line_wrench_per_A": [
+                        -4.066812063306238e-05,
+                        -0.00019216406797109372,
+                        -0.0008555007391684999,
+                        -5.6942120316907416e-06,
+                        2.221435484289186e-06,
+                        -2.787032134202259e-07
+                    ],
+                    "flux_wrenches_per_A": [
+                        [
+                            -4.0669323187999054e-05,
+                            -0.00019216360287322692,
+                            -0.0008554984801571399,
+                            -5.6941982453296745e-06,
+                            2.2214520328937327e-06,
+                            -2.7870229876784643e-07
+                        ],
+                        [
+                            -4.066932307060029e-05,
+                            -0.0001921636026743436,
+                            -0.0008554984796621338,
+                            -5.694198241026747e-06,
+                            2.2214520302340493e-06,
+                            -2.7870229920830356e-07
+                        ],
+                        [
+                            -4.0669323070769694e-05,
+                            -0.00019216360267366596,
+                            -0.0008554984796604397,
+                            -5.69419824109451e-06,
+                            2.2214520302171086e-06,
+                            -2.787022991574816e-07
+                        ]
+                    ],
+                    "metrics": {
+                        "force_relative_column_error": 2.9637873702658807e-06,
+                        "force_error_bound_at_channel_limits": 1.4308178710298766e-08,
+                        "torque_relative_column_error": 3.523534379231566e-06,
+                        "torque_error_bound_at_channel_limits": 1.1857369264058603e-10
+                    },
+                    "surface_refinement": {
+                        "force_relative_column_error": 2.087606337907644e-12,
+                        "force_error_bound_at_channel_limits": 1.0078268386998123e-14,
+                        "torque_relative_column_error": 1.4117891210771602e-11,
+                        "torque_error_bound_at_channel_limits": 4.750941279376254e-16
+                    }
+                },
+                {
+                    "refinement": 16,
+                    "line_wrench_per_A": [
+                        -4.066902307996487e-05,
+                        -0.00019216372321640226,
+                        -0.0008554990303773682,
+                        -5.694201692633065e-06,
+                        2.221447895286396e-06,
+                        -2.787025277444314e-07
+                    ],
+                    "flux_wrenches_per_A": [
+                        [
+                            -4.066932380768836e-05,
+                            -0.00019216360708315008,
+                            -0.0008554984660038969,
+                            -5.6941982489041535e-06,
+                            2.2214520346386206e-06,
+                            -2.787022985645585e-07
+                        ],
+                        [
+                            -4.066932368605443e-05,
+                            -0.00019216360689205944,
+                            -0.0008554984655024534,
+                            -5.694198245007802e-06,
+                            2.221452032029759e-06,
+                            -2.787022994454728e-07
+                        ],
+                        [
+                            -4.066932368707087e-05,
+                            -0.00019216360689476995,
+                            -0.0008554984655027922,
+                            -5.694198244940039e-06,
+                            2.2214520317587086e-06,
+                            -2.7870229917442224e-07
+                        ]
+                    ],
+                    "metrics": {
+                        "force_relative_column_error": 7.409426626123958e-07,
+                        "force_error_bound_at_channel_limits": 3.577024445798369e-09,
+                        "torque_relative_column_error": 8.808870081638728e-07,
+                        "torque_error_bound_at_channel_limits": 2.964353804617913e-11
+                    },
+                    "surface_refinement": {
+                        "force_relative_column_error": 3.320485114763118e-12,
+                        "force_error_bound_at_channel_limits": 1.6030196433203157e-14,
+                        "torque_relative_column_error": 6.362094534152932e-11,
+                        "torque_error_bound_at_channel_limits": 2.140966884840991e-15
+                    }
+                }
+            ],
+            "passed": true
+        },
+        "circuit_energy": {
+            "scope": "Held back-EMF winding energy including signed terminal work and ideal-clamp extinction",
+            "cases": [
+                {
+                    "enabled": true,
+                    "sign": -1,
+                    "energy": {
+                        "input_J": 0.000233792835356899,
+                        "resistive_J": 0.0002610524080446428,
+                        "mechanical_J": -0.0001168964176784495,
+                        "conduction_s": 5e-05
+                    },
+                    "storage_change_J": 8.963684499070572e-05,
+                    "balance_residual_J": 1.3552527156068805e-20,
+                    "relative_residual": 1.932270099349573e-17,
+                    "final_current_A": -3.322417498441628
+                },
+                {
+                    "enabled": true,
+                    "sign": 1,
+                    "energy": {
+                        "input_J": 0.000233792835356899,
+                        "resistive_J": 0.0002610524080446428,
+                        "mechanical_J": -0.0001168964176784495,
+                        "conduction_s": 5e-05
+                    },
+                    "storage_change_J": 8.963684499070572e-05,
+                    "balance_residual_J": 1.3552527156068805e-20,
+                    "relative_residual": 1.932270099349573e-17,
+                    "final_current_A": 3.322417498441628
+                },
+                {
+                    "enabled": false,
+                    "sign": -1,
+                    "energy": {
+                        "input_J": -0.00019262998657062501,
+                        "resistive_J": 9.743735198573222e-06,
+                        "mechanical_J": -7.3544972500613434e-06,
+                        "conduction_s": 7.095056914473115e-06
+                    },
+                    "storage_change_J": -0.0001950192245191368,
+                    "balance_residual_J": 1.0672615135404184e-19,
+                    "relative_residual": 2.6368579482804634e-16,
+                    "final_current_A": 0.0
+                },
+                {
+                    "enabled": false,
+                    "sign": 1,
+                    "energy": {
+                        "input_J": -0.00019262998657062501,
+                        "resistive_J": 9.743735198573222e-06,
+                        "mechanical_J": -7.3544972500613434e-06,
+                        "conduction_s": 7.095056914473115e-06
+                    },
+                    "storage_change_J": -0.0001950192245191368,
+                    "balance_residual_J": 1.0672615135404184e-19,
+                    "relative_residual": 2.6368579482804634e-16,
+                    "final_current_A": 0.0
+                }
+            ],
+            "passed": true
+        },
+        "smooth_coupling": {
+            "scope": "Manufactured constant vertical coupling, production MuJoCo/RL advance, exact linear-system exponential; no flight claim",
+            "equations": "dz/dt=v; m*dv/dt=k*i-m*g; L*di/dt=V-R*i-k*v",
+            "mass_kg": 0.022729931617873095,
+            "coupling_N_per_A": 0.04052808798189367,
+            "resistance_ohm": 0.5553367228015512,
+            "inductance_H": 5.157533210423452e-05,
+            "voltage_V": 1.5273381000561934,
+            "initial_state": [
+                0.015242337541608919,
+                0.003999999999999998,
+                2.75,
+                1.0
+            ],
+            "duration_s": 0.002,
+            "error_components": [
+                "position",
+                "velocity",
+                "current",
+                "energy"
+            ],
+            "relative_limit": 0.0001,
+            "order_bounds": [
+                0.75,
+                1.25
+            ],
+            "cases": [
+                {
+                    "refinement": 1,
+                    "step_s": 6.25e-06,
+                    "maximum_errors": [
+                        3.064578495484693e-08,
+                        3.7996464837333765e-09,
+                        1.1305343190493033e-06
+                    ],
+                    "relative_errors": [
+                        0.0007812500944473122,
+                        1.93728056152375e-07,
+                        4.111033887452012e-07
+                    ],
+                    "input_minus_resistive_J": -1.0129394377416856e-07,
+                    "storage_change_J": -1.1153975932535841e-07,
+                    "energy_residual_J": -1.0245815551189844e-08,
+                    "relative_energy_residual": 5.028300069749027e-05
+                },
+                {
+                    "refinement": 2,
+                    "step_s": 3.125e-06,
+                    "maximum_errors": [
+                        1.5322891478222744e-08,
+                        1.9003416947688256e-09,
+                        5.621321639281973e-07
+                    ],
+                    "relative_errors": [
+                        0.0003906250217511267,
+                        9.689046181768624e-08,
+                        2.0441169597388994e-07
+                    ],
+                    "input_minus_resistive_J": -1.0292094262046969e-07,
+                    "storage_change_J": -1.0804384973266469e-07,
+                    "energy_residual_J": -5.122907112194999e-09,
+                    "relative_energy_residual": 2.514149709300247e-05
+                },
+                {
+                    "refinement": 4,
+                    "step_s": 1.5625e-06,
+                    "maximum_errors": [
+                        7.661445500586894e-09,
+                        9.5030047199407e-10,
+                        2.802822560710183e-07
+                    ],
+                    "relative_errors": [
+                        0.0001953125047948814,
+                        4.845183992464654e-08,
+                        1.0192082038946121e-07
+                    ],
+                    "input_minus_resistive_J": -1.0373477527771246e-07,
+                    "storage_change_J": -1.0629622866964656e-07,
+                    "energy_residual_J": -2.5614533919341035e-09,
+                    "relative_energy_residual": 1.2570747740842758e-05
+                },
+                {
+                    "refinement": 8,
+                    "step_s": 7.8125e-07,
+                    "maximum_errors": [
+                        3.8307226626899116e-09,
+                        4.751826631829714e-10,
+                        1.3994516923077072e-07
+                    ],
+                    "relative_errors": [
+                        9.765625016417207e-05,
+                        2.4227573288685302e-08,
+                        5.088915244755299e-08
+                    ],
+                    "input_minus_resistive_J": -1.0414177492319191e-07,
+                    "storage_change_J": -1.0542250157274025e-07,
+                    "energy_residual_J": -1.280726649548336e-09,
+                    "relative_energy_residual": 6.285373642614007e-06
+                },
+                {
+                    "refinement": 16,
+                    "step_s": 3.90625e-07,
+                    "maximum_errors": [
+                        1.915361327875509e-09,
+                        2.375994427247785e-10,
+                        6.992359447011154e-08
+                    ],
+                    "relative_errors": [
+                        4.8828124993639754e-05,
+                        1.2114200197048866e-08,
+                        2.5426761625495106e-08
+                    ],
+                    "input_minus_resistive_J": -1.0434529557634841e-07,
+                    "storage_change_J": -1.0498565889439452e-07,
+                    "energy_residual_J": -6.403633180461059e-10,
+                    "relative_energy_residual": 3.142686788287948e-06
+                }
+            ],
+            "observed_orders": [
+                [
+                    1.000000094077667,
+                    0.9996063489622369,
+                    1.0080235177789523,
+                    1.0000001868243358
+                ],
+                [
+                    1.000000044915555,
+                    0.9998031974701089,
+                    1.004028950963883,
+                    1.0000000924622368
+                ],
+                [
+                    1.0000000329925176,
+                    0.9999015449419902,
+                    1.002018726690323,
+                    1.0000000522891044
+                ],
+                [
+                    1.0000000026132685,
+                    0.9999507486575451,
+                    1.0010104327793672,
+                    1.000000015157867
+                ]
+            ],
+            "passed": true
+        }
+    },
+    "active_check": null,
+    "elapsed_s": 16.753485255059786,
+    "verification": {
+        "source_fingerprints_verified": true,
+        "energy_balances_and_observed_orders_reproduced": true,
+        "flux_derivative_last_refinement_relative": {
+            "force": 1.684561010269228e-08,
+            "torque": 6.771325461415561e-10
+        },
+        "limits_unchanged_during_run": true,
+        "production_physics_equations_changed": false,
+        "scope": "Independent flux assembly and reduced coupled integrator checks, not full-domain or hardware validation"
+    },
+    "verification_settings": {
+        "coupling_excitation_fraction": 0.5,
+        "coupling_flux_orders": [
+            8,
+            16,
+            32
+        ],
+        "coupling_refinements": [
+            1,
+            2,
+            4,
+            8,
+            16
+        ],
+        "coupling_relative_tolerance": 0.0001,
+        "coupling_order_bounds": [
+            0.75,
+            1.25
+        ]
+    },
+    "tests": {
+        "passed": 51,
+        "scope": "Magnetic force, electrical, mechanical, physical-verification and adaptive regression suites",
+        "source_sha256": {
+            "methodology/tests/test_magnetic_forces.py": "15b0d5dec247fd20a942fe1b60f25f4354a516e925b2cb7759f716254abe266a",
+            "methodology/tests/test_electrical.py": "acd03be95719015eda748a287ddaa00a2c499bfb04523244eb5dbea3dafbb8be",
+            "methodology/tests/test_motion.py": "17914031fdc78ef31e899139dbd618926ca633a5f28d00b79a5407770e99a850",
+            "methodology/tests/test_physics_verification.py": "b47fc1394cda4ef85af63703d4a38ca80414009826adc004791d29ea2cec32c1",
+            "methodology/tests/test_adaptive_airborne.py": "e68f57ce813b2a7b8ff7e4e19f8e3d694b19737ae31aa9c2e9db4a86b13d369f"
+        },
+        "run_scope": "Passed before extracting an unchanged fixture fraction into Fixed; independent verification rerun afterward with freshly built CAD."
+    }
+}

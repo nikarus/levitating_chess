@@ -1,0 +1,176 @@
+{
+    "scope": "Saved baseline, exact repeat, then concurrent independent time/magnetic refinements; not hover qualification",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/airborne_verification.py": "f19ac1f8740a89035f27e4241babace84a8a2610b3bd6d5e535384eb9251de15"
+    },
+    "started_utc": "2026-10-13T12:58:18.665988+00:00",
+    "deadline_utc": "2026-10-13T21:58:15+02:00",
+    "status": "verification_failed",
+    "active_cases": [],
+    "reused_evidence_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/results/airborne_recovery_verification/baseline.json": "82db2dea3ff1f443a3efcce8b3577259639d48262593000c72a9605ad2912036",
+        "methodology/results/airborne_wire_accuracy_verification/summary.json": "a9144c3a7f384f07430e5d0ea1c2cb31271845b5c4bcc91cc75559da79156911",
+        "methodology/results/airborne_wire_accuracy_verification/screen_baseline.json": "83b63558ce01a94d739730468a1dff1a8c727676e57acf0effd04c9e5b35bea7",
+        "methodology/results/airborne_wire_accuracy_verification/screen_repeat.json": "694acfd4d027d34f42cc2d7e7a0323557f45f82f5e61c15d3090cf76cda51eb8",
+        "methodology/results/airborne_wire_accuracy_verification/screen_time_refined.json": "ed254fadaffb198d2f000be3f8078f0fd2269ec120b6dccf438c8d18cf072648",
+        "methodology/results/airborne_wire_accuracy_verification/screen_magnetic_refined.json": "94e52d95a1f7e08026cd1d9ece5899973bd0eb1c36f289c5c7f19e030f2d481c",
+        "methodology/results/airborne_recovery_verification/baseline_checkpoint.json": "36d0001a5403416681a66b365938c47ee685ace476e97dba684e83f88e87b338",
+        "methodology/results/airborne_wire_accuracy_verification/screen_baseline_checkpoint.json": "6a3d0dca6dc15d3e2ba282fadf163cb0da8cb794c9f3cfd2a8064d06d9031948",
+        "methodology/results/airborne_wire_accuracy_verification/screen_repeat_checkpoint.json": "6a3d0dca6dc15d3e2ba282fadf163cb0da8cb794c9f3cfd2a8064d06d9031948",
+        "methodology/results/airborne_wire_accuracy_verification/screen_time_refined_checkpoint.json": "77eb9eac403000f0785e917a8abe3a6b77fae53430a875e66103862d9ca4e448",
+        "methodology/results/airborne_wire_accuracy_verification/screen_magnetic_refined_checkpoint.json": "9ebf83fbacf73177d5663c5f7af561a416a1770526ff5cb509d6182d82301dd7"
+    },
+    "cases": {
+        "baseline": {
+            "status": "reused",
+            "passed": true,
+            "duration_completed_s": 0.04999999999999857
+        },
+        "repeat": {
+            "passed": true,
+            "finished": true,
+            "stop_reason": null,
+            "duration_completed_s": 0.04999999999999857,
+            "elapsed_s": 4395.603679990047,
+            "peaks": {
+                "current_A": 1.71417477970991,
+                "voltage_V": 0.9549339247564232,
+                "copper_loss_W": 4.332895486399793,
+                "back_emf_V": 0.00016096157721182106,
+                "position_error_m": 5.955852195074422e-05,
+                "angle_error_rad": 0.0031423093511805077,
+                "estimated_position_error_m": 4.1188900363876695e-05,
+                "estimated_angle_error_rad": 0.002269750540957718,
+                "required_current_A": 1.0952602329029335
+            }
+        },
+        "time_refined": {
+            "passed": false,
+            "finished": true,
+            "stop_reason": "numerical_comparison_failed",
+            "duration_completed_s": 0.013000000000000244,
+            "elapsed_s": 3961.6231568399817,
+            "peaks": {
+                "current_A": 1.6565503784600213,
+                "voltage_V": 0.9242833073431655,
+                "copper_loss_W": 4.332161736139998,
+                "back_emf_V": 0.00016144045345037187,
+                "position_error_m": 3.999999999907023e-05,
+                "angle_error_rad": 0.002168970611113255,
+                "estimated_position_error_m": 4.132986658152784e-05,
+                "estimated_angle_error_rad": 0.002257204743176482,
+                "required_current_A": 1.094875331468599
+            }
+        },
+        "magnetic_refined": {
+            "passed": false,
+            "finished": true,
+            "stop_reason": "peer_trial_failed",
+            "duration_completed_s": 0.014000000000000144,
+            "elapsed_s": 3997.2089712690795,
+            "peaks": {
+                "current_A": 1.6472107987169986,
+                "voltage_V": 0.9193047827146453,
+                "copper_loss_W": 4.304529914335633,
+                "back_emf_V": 0.00016134330894255886,
+                "position_error_m": 4.032088860497129e-05,
+                "angle_error_rad": 0.002355618102535449,
+                "estimated_position_error_m": 4.125169690246597e-05,
+                "estimated_angle_error_rad": 0.002259430458444496,
+                "required_current_A": 1.093437872988417
+            }
+        }
+    },
+    "comparisons": {
+        "repeat": {
+            "differences": {
+                "pose_position_m": 0.0,
+                "pose_angle_rad": 0.0,
+                "estimated_pose_position_m": 0.0,
+                "estimated_pose_angle_rad": 0.0,
+                "current_trace_A": 0.0,
+                "peak_current_A": 0.0,
+                "peak_required_current_A": 0.0,
+                "peak_voltage_V": 0.0,
+                "peak_copper_loss_W": 0.0
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004,
+                "peak_current_A": 0.027500000000000004,
+                "peak_required_current_A": 0.027500000000000004,
+                "peak_voltage_V": 0.047746696237821164,
+                "peak_copper_loss_W": 0.21664477431998966
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "estimated_pose_position_m": true,
+                "estimated_pose_angle_rad": true,
+                "current_trace_A": true,
+                "peak_current_A": true,
+                "peak_required_current_A": true,
+                "peak_voltage_V": true,
+                "peak_copper_loss_W": true,
+                "both_trials_passed": true,
+                "identical_trace": true
+            },
+            "converged": true
+        },
+        "time_refined": {
+            "differences": {
+                "pose_position_m": 1.0181072073951153e-07,
+                "pose_angle_rad": 6.303240553592717e-06,
+                "estimated_pose_position_m": 3.5597481822685796e-07,
+                "estimated_pose_angle_rad": 1.9033179019943216e-05,
+                "current_trace_A": 0.029600511995810652
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "estimated_pose_position_m": true,
+                "estimated_pose_angle_rad": true,
+                "current_trace_A": false
+            },
+            "converged": false,
+            "stopped_at_s": 0.012750000000000001
+        },
+        "magnetic_refined": {
+            "differences": {
+                "pose_position_m": 2.1456422665524241e-07,
+                "pose_angle_rad": 8.32288541335993e-06,
+                "estimated_pose_position_m": 2.942230152040264e-07,
+                "estimated_pose_angle_rad": 1.58983612789944e-05,
+                "current_trace_A": 0.019960185926844898
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "estimated_pose_position_m": true,
+                "estimated_pose_angle_rad": true,
+                "current_trace_A": true
+            },
+            "converged": true
+        }
+    },
+    "finished_utc": "2026-10-13T15:18:21.209522+00:00"
+}
