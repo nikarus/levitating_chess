@@ -1,0 +1,315 @@
+{
+    "scope": "Independent coupling references; not full physical-envelope qualification",
+    "status": "completed",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "ff65bef03c4129e463ce12366120bd3685835396cbee0fe9413b1834e41f5ea1",
+        "levitation_sim.py": "91eea3f343cbfb0722c8325f52f6c55ff49995a2e4ff726584ead98b1e4cd5a3",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "52c5bd39106e0e8f977575c799fa12bc85937ddb58f747e4ddb9ca8ede93f7fb",
+        "methodology/coupling_verification.py": "71089de8be82e0b2f2bd971fc752a589105fd987d137ffaf348b0e31aca923bd",
+        "methodology/motion.py": "347fb61e8c224e9772a120dae2adcb465b344de1c724e28c51f8d6980ecf0654",
+        "methodology/airborne.py": "d97d4dbf91eba8588ed155d575a934239a4bebb5cc86f8bb7d04462c2801e4ad",
+        "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/physics_verification.py": "faf8429b6463a146253bf064e1987207e56ef65b387acc24b32a8b83ceb2b5c9",
+        "methodology/adaptive_airborne.py": "987f2334b809a0433725ca22a2d5fe5347874d8d99f467ad9460e0252a486125",
+        "methodology/sensing.py": "5835a7ec568addaf5ba0cda8e12293b82392fb520875b1149b0e2f1eadc52cc0",
+        "methodology/tests/test_motion.py": "3e66e5ea2063ff6aed3c8b27d9fc6c112cafc8f7c460ade0089de8b2ed739b59",
+        "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+        "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818"
+    },
+    "physical_envelope_qualified": false,
+    "checks": {
+        "joint_solver_review": {
+            "passed": true,
+            "duration_s": 0.01,
+            "local_scaled_reference_tolerance": 1e-10,
+            "comparison_position_angle_current_limits": [
+                8.000000000000001e-10,
+                2.5000000000000002e-08,
+                2.7500000000000004e-06
+            ],
+            "relative_energy_limit": 1e-08,
+            "scope": "Joint ODE methods on existing manufactured coupling; not a production MuJoCo/controller benchmark",
+            "cost_scope": "Event-aligned cases restart at regulator ticks without changing voltage; passive post-extinction motion is analytical. RHS counts include dense output, but no CAD fields, Hall filter, ADC, controller or checkpoint work.",
+            "cases": [
+                {
+                    "switched": false,
+                    "method": "RK45",
+                    "event_aligned": false,
+                    "passed": true,
+                    "elapsed_s": 0.014128345996141434,
+                    "metrics": {
+                        "powered": {
+                            "rhs_evaluations": 458,
+                            "accepted_steps": 74,
+                            "integration_calls": 1,
+                            "minimum_step_s": 3.014468638823896e-05,
+                            "maximum_step_s": 0.00020287829470371735
+                        }
+                    },
+                    "maximum_reference_disagreement": [
+                        3.548051609458813e-17,
+                        7.903833837419327e-14,
+                        1.6526363610935846e-13,
+                        1.735689370008231e-11,
+                        2.4796342756872036e-10,
+                        3.525408671773252e-14
+                    ],
+                    "relative_energy_residual": 7.50865588173356e-15,
+                    "relative_reference_energy_residual": 1.106129035068706e-12,
+                    "extinction_difference_s": null
+                },
+                {
+                    "switched": false,
+                    "method": "RK45",
+                    "event_aligned": true,
+                    "passed": true,
+                    "elapsed_s": 0.05932692904025316,
+                    "metrics": {
+                        "powered": {
+                            "rhs_evaluations": 1600,
+                            "accepted_steps": 200,
+                            "integration_calls": 200,
+                            "minimum_step_s": 4.99999999999997e-05,
+                            "maximum_step_s": 5.000000000000143e-05
+                        }
+                    },
+                    "maximum_reference_disagreement": [
+                        3.246846693415184e-17,
+                        1.331660476333596e-14,
+                        1.7347581704463266e-13,
+                        1.8417600777809184e-11,
+                        3.9816594465946764e-11,
+                        5.643493834199718e-15
+                    ],
+                    "relative_energy_residual": 6.961936150551259e-16,
+                    "relative_reference_energy_residual": 1.106129035068706e-12,
+                    "extinction_difference_s": null
+                },
+                {
+                    "switched": false,
+                    "method": "DOP853",
+                    "event_aligned": false,
+                    "passed": true,
+                    "elapsed_s": 0.00977336592040956,
+                    "metrics": {
+                        "powered": {
+                            "rhs_evaluations": 500,
+                            "accepted_steps": 26,
+                            "integration_calls": 1,
+                            "minimum_step_s": 0.0001753026647769852,
+                            "maximum_step_s": 0.0005932083955166327
+                        }
+                    },
+                    "maximum_reference_disagreement": [
+                        1.7766126433503213e-15,
+                        1.9095752323144977e-11,
+                        1.7371520888431746e-13,
+                        1.7934131957275667e-10,
+                        5.739027741924474e-08,
+                        8.138888934482755e-12
+                    ],
+                    "relative_energy_residual": 5.670887146795465e-14,
+                    "relative_reference_energy_residual": 1.106129035068706e-12,
+                    "extinction_difference_s": null
+                },
+                {
+                    "switched": false,
+                    "method": "DOP853",
+                    "event_aligned": true,
+                    "passed": true,
+                    "elapsed_s": 0.0884117849636823,
+                    "metrics": {
+                        "powered": {
+                            "rhs_evaluations": 3400,
+                            "accepted_steps": 200,
+                            "integration_calls": 200,
+                            "minimum_step_s": 4.99999999999997e-05,
+                            "maximum_step_s": 5.000000000000143e-05
+                        }
+                    },
+                    "maximum_reference_disagreement": [
+                        3.250234825204201e-17,
+                        1.0984269049885143e-14,
+                        1.7353826708976783e-13,
+                        1.8422485759117535e-11,
+                        3.277378368693462e-11,
+                        4.644627810819612e-15
+                    ],
+                    "relative_energy_residual": 6.066106229577851e-15,
+                    "relative_reference_energy_residual": 1.106129035068706e-12,
+                    "extinction_difference_s": null
+                },
+                {
+                    "switched": true,
+                    "method": "RK45",
+                    "event_aligned": false,
+                    "passed": true,
+                    "elapsed_s": 0.006902329972945154,
+                    "metrics": {
+                        "powered": {
+                            "rhs_evaluations": 218,
+                            "accepted_steps": 34,
+                            "integration_calls": 1,
+                            "minimum_step_s": 5.51943157028759e-05,
+                            "maximum_step_s": 0.00020287829470371735
+                        },
+                        "decay": {
+                            "rhs_evaluations": 38,
+                            "accepted_steps": 5,
+                            "integration_calls": 1,
+                            "minimum_step_s": 1.1494357567533656e-06,
+                            "maximum_step_s": 1.4588317952292373e-06
+                        }
+                    },
+                    "maximum_reference_disagreement": [
+                        1.5121909800741573e-16,
+                        7.903833837419327e-14,
+                        1.0598379812654102e-13,
+                        6.9305117200713084e-12,
+                        2.4796342756872036e-10,
+                        1.0858886489648056e-13
+                    ],
+                    "relative_energy_residual": 2.6410369685239893e-10,
+                    "relative_reference_energy_residual": 1.168531898799065e-11,
+                    "extinction_difference_s": 2.3765711620882257e-16
+                },
+                {
+                    "switched": true,
+                    "method": "RK45",
+                    "event_aligned": true,
+                    "passed": true,
+                    "elapsed_s": 0.03236204804852605,
+                    "metrics": {
+                        "powered": {
+                            "rhs_evaluations": 800,
+                            "accepted_steps": 100,
+                            "integration_calls": 100,
+                            "minimum_step_s": 4.99999999999997e-05,
+                            "maximum_step_s": 5.0000000000000565e-05
+                        },
+                        "decay": {
+                            "rhs_evaluations": 38,
+                            "accepted_steps": 5,
+                            "integration_calls": 1,
+                            "minimum_step_s": 1.149435743657938e-06,
+                            "maximum_step_s": 1.4588317963871653e-06
+                        }
+                    },
+                    "maximum_reference_disagreement": [
+                        1.6034333691523905e-17,
+                        1.331660476333596e-14,
+                        1.1078551270804482e-13,
+                        7.588873973674026e-12,
+                        3.9816594465946764e-11,
+                        1.0753331276640299e-13
+                    ],
+                    "relative_energy_residual": 2.6410246457956645e-10,
+                    "relative_reference_energy_residual": 1.168531898799065e-11,
+                    "extinction_difference_s": 6.938893903907228e-18
+                },
+                {
+                    "switched": true,
+                    "method": "DOP853",
+                    "event_aligned": false,
+                    "passed": true,
+                    "elapsed_s": 0.007913706940598786,
+                    "metrics": {
+                        "powered": {
+                            "rhs_evaluations": 245,
+                            "accepted_steps": 13,
+                            "integration_calls": 1,
+                            "minimum_step_s": 0.0001753026647769852,
+                            "maximum_step_s": 0.0005932083955166327
+                        },
+                        "decay": {
+                            "rhs_evaluations": 32,
+                            "accepted_steps": 2,
+                            "integration_calls": 1,
+                            "minimum_step_s": 3.185458274552154e-06,
+                            "maximum_step_s": 3.648140768123913e-06
+                        }
+                    },
+                    "maximum_reference_disagreement": [
+                        1.7766126433503213e-15,
+                        1.9095752323144977e-11,
+                        1.1829252855033445e-13,
+                        1.7934131957275667e-10,
+                        5.739027741924474e-08,
+                        8.138888934482755e-12
+                    ],
+                    "relative_energy_residual": 3.5345476223137584e-12,
+                    "relative_reference_energy_residual": 1.168531898799065e-11,
+                    "extinction_difference_s": 2.7755575615628914e-17
+                },
+                {
+                    "switched": true,
+                    "method": "DOP853",
+                    "event_aligned": true,
+                    "passed": true,
+                    "elapsed_s": 0.04595080902799964,
+                    "metrics": {
+                        "powered": {
+                            "rhs_evaluations": 1700,
+                            "accepted_steps": 100,
+                            "integration_calls": 100,
+                            "minimum_step_s": 4.99999999999997e-05,
+                            "maximum_step_s": 5.0000000000000565e-05
+                        },
+                        "decay": {
+                            "rhs_evaluations": 32,
+                            "accepted_steps": 2,
+                            "integration_calls": 1,
+                            "minimum_step_s": 3.1854582745417456e-06,
+                            "maximum_step_s": 3.6481407681083003e-06
+                        }
+                    },
+                    "maximum_reference_disagreement": [
+                        1.6044498086890957e-17,
+                        1.0984269049885143e-14,
+                        1.1080719675149453e-13,
+                        7.591149930874508e-12,
+                        3.277378368693462e-11,
+                        6.364727538413217e-15
+                    ],
+                    "relative_energy_residual": 3.544081522649186e-12,
+                    "relative_reference_energy_residual": 1.168531898799065e-11,
+                    "extinction_difference_s": 1.734723475976807e-18
+                }
+            ]
+        }
+    },
+    "limitations": [
+        "The manufactured variable-coupling check verifies integration, not the CAD magnetic map or the controller.",
+        "Its passive sensor fields are zero; no Hall-history accuracy is claimed by that check.",
+        "Short reference agreement does not certify global accuracy over an arbitrary long unstable trajectory."
+    ],
+    "active_check": null,
+    "elapsed_s": 5.370961596956477,
+    "dependencies": {
+        "numpy": "2.4.6",
+        "scipy": "1.17.1",
+        "mujoco": "3.15.0",
+        "magpylib": "5.2.3"
+    },
+    "tests": {
+        "selection": "methodology.tests.test_motion.CouplingReferenceTests",
+        "passed": 2
+    },
+    "partitioned_regression": {
+        "summary": "partitioned_regression/summary.json",
+        "sha256": "c0fc56ee7027bb063d4e2f5de5b6d17a4ebdccdaa1b355b1a3394dcb4f63a0e5",
+        "passed_cases": 8
+    },
+    "source_snapshot": {
+        "path": "source_snapshot.zip",
+        "sha256": "f19583b4e1f2a8df617a2710fa6b3950ec70cf7ab9c67f2763411d90f95fd532"
+    }
+}

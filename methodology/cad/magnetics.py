@@ -1,4 +1,5 @@
 import argparse
+from copy import deepcopy
 from functools import partial
 import json
 from math import ceil
@@ -90,15 +91,18 @@ class ConductorArray(coil_layouts.LayoutArray):
 
 
 class ConstructionModel:
-    def __init__(self):
+    def __init__(self, recorded_piece_properties=None):
         self.path, _, reference = winding.continuous_path()
         _, self.coil, _ = prototype_coils.prototype_geometry(Inputs.cad_coil_layout)
         self.configuration = design.WindingGeometry(self.coil, Inputs.prototype_wire_diameter, reference.layers,
                     wire=reference.wire, radial_turns=reference.turns_per_layer, path_length_mm=self.path.length,
                     resistance_per_m=max(Fixed.prototype_wire_resistance_per_m))
-        _, reference_piece = coil_layouts.reference_state()
-        magnets = assembly.magnet_parts(levitation_sim.magnet_layout_from_geometry())
-        _, self.piece_properties = piece.construction_parts(reference_piece, magnets)
+        if recorded_piece_properties is None:
+            _, reference_piece = coil_layouts.reference_state()
+            magnets = assembly.magnet_parts(levitation_sim.magnet_layout_from_geometry())
+            _, self.piece_properties = piece.construction_parts(reference_piece, magnets)
+        else:
+            self.piece_properties = deepcopy(recorded_piece_properties)
         self.use_cad_mass = True
         self.return_depth = 0
         self.vertices = {}

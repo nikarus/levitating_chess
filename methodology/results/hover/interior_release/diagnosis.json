@@ -1,0 +1,60 @@
+{
+  "status": "startup_passed_longer_run_pending_review",
+  "source_sha256": {
+    "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+    "model.py": "ff65bef03c4129e463ce12366120bd3685835396cbee0fe9413b1834e41f5ea1",
+    "methodology/airborne.py": "d97d4dbf91eba8588ed155d575a934239a4bebb5cc86f8bb7d04462c2801e4ad",
+    "methodology/adaptive_airborne.py": "987f2334b809a0433725ca22a2d5fe5347874d8d99f467ad9460e0252a486125"
+  },
+  "report_sha256": "68418c04ae40fa60288a465696dbc23e819ddfb144e3aca37deb0b72d666fc6e",
+  "initial_checkpoint_sha256": "a1eb3d980b946dd06afe8b88036d61027a07369f0055919f8023fb1a6b9f9f2f",
+  "final_checkpoint_sha256": "acdc6e0e49321deb93a843df15d39ac15d871d17cba79e55f6cab26345760814",
+  "actual": {
+    "passed": true,
+    "duration_s": 0.01,
+    "elapsed_s": 3409.2428083480336,
+    "reference_pose": [
+      0.0,
+      0.0,
+      0.0004999999999999998,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "peaks": {
+      "current_A": 1.9182645505895448,
+      "voltage_V": 1.067575066809818,
+      "copper_loss_W": 4.913869974011124,
+      "back_emf_V": 0.00019243878773318946,
+      "position_error_m": 1.6076980372990427e-05,
+      "angle_error_rad": 0.0013663626295108186,
+      "estimated_position_error_m": 4.1267323142966896e-05,
+      "estimated_angle_error_rad": 0.0023812603930861913,
+      "required_current_A": 1.2122315088646696
+    },
+    "delivered_scans": 9,
+    "accepted": 511,
+    "rejected": 5,
+    "force_evaluations": 1027,
+    "energy_dominant_intervals": 491,
+    "absolute_energy_budget_fraction": 0.5214788429855581
+  },
+  "longer_horizon_screen": {
+    "horizon_s": 1,
+    "assumed_motion": "Zero-force free fall at startup; analytical semi-implicit defect for two accepted half steps. This is a scaling diagnostic, not a longer controlled-flight result.",
+    "required_maximum_attempt_interval_s": 4.078864851911712e-08,
+    "minimum_allowed_attempt_interval_s": 1.953125e-07,
+    "estimated_energy_error_at_floor": 4.788403320312502,
+    "inference": "Uniform duration-based energy allocation may prevent the longer run at its initial release, irrespective of magnetic evaluation speed. Do not treat this estimate as a simulated failure."
+  },
+  "review": "Discuss long-horizon energy-budget allocation/integration cost before extending. No limits changed and no longer run launched. A revalidated atlas could reduce magnetic cost but cannot fix a minimum-step constraint.",
+  "tests": {
+    "selection": [
+      "methodology.tests.test_airborne.AirborneCheckpointTests.test_interior_release_and_sensor_acquisition_share_the_reported_reference",
+      "methodology.tests.test_airborne.AirborneCheckpointTests.test_coupled_restart_exactly_replays_pending_scan_and_electrical_state"
+    ],
+    "passed": 2,
+    "log": "setup_tests.log",
+    "log_sha256": "44923e546f79787f897b21dd32d36d9a2e7bf3c08ac6a0abf321494b5dcc9274"
+  }
+}

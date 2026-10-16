@@ -103,6 +103,23 @@ class AirborneCheckpointTests(unittest.TestCase):
         simulation.controller.command = Mock(return_value=dict(accepted=True, required_current_A=0.,
                                                                currents=np.full(len(simulation.identities), Fixed.max_current_command_error)))
 
+    def test_interior_release_and_sensor_acquisition_share_the_reported_reference(self):
+        simulation = airborne.AirborneSimulation(self.construction, Fixed.airborne_check_duration)
+        truth = simulation.plant.truth()
+        expected_height = Fixed.airborne_reference_gap_fraction * (simulation.plant.geometry.max_flight_gap - simulation.plant.geometry.gap)
+        self.assertEqual(simulation.reference[2], expected_height)
+        self.assertGreater(expected_height, Fixed.qualification_position_error)
+        self.assertLess(expected_height + Fixed.qualification_position_error,
+            simulation.plant.geometry.max_flight_gap - simulation.plant.geometry.gap)
+        np.testing.assert_allclose(truth['com_position_m'],
+            simulation.reference[:3] + [0, 0, simulation.plant.geometry.center_of_mass_height],
+            atol=Fixed.motion_verification_tolerance, rtol=0)
+        self.assertLess(np.linalg.norm(simulation.tracker.position[:3] - simulation.reference[:3]), Fixed.qualification_position_error)
+        np.testing.assert_array_equal(simulation.drivers.currents, 0)
+        simulation.observe_physics(truth)
+        self.assertIsNone(simulation.stop_reason)
+        self.assertEqual(simulation.report()['reference_pose'], simulation.reference.tolist())
+
     def test_coupled_restart_exactly_replays_pending_scan_and_electrical_state(self):
         original = airborne.AirborneSimulation(self.construction, Fixed.airborne_check_duration, disturbed=True)
         self.substitute_magnetics(original)

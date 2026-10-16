@@ -6,11 +6,13 @@ from types import SimpleNamespace
 
 import numpy as np
 from scipy.optimize import linprog
-from scipy.integrate import solve_ivp
+from scipy.integrate import OdeSolution, solve_ivp
+from scipy.spatial.transform import Rotation
+from scipy.sparse import diags
 
 import levitation_sim
 from model import Inputs, Fixed, Constants
-from methodology import airborne_verification, coupling_verification, electrical, physics_verification, sensing, source_fingerprints
+from methodology import airborne_verification, coupling_verification, electrical, joint_airborne, motion, physics_verification, sensing, source_fingerprints
 from methodology.cad import magnetics
 
 
@@ -285,9 +287,10 @@ def reference_filtered_scan(field_at, start, channels, breakpoints, method):
     scale = Fixed.hall_output_noise
     rate = 2 * np.pi * Fixed.hall_sensor_bandwidth
     for left, right in zip(boundaries[:-1], boundaries[1:]):
+        options = dict(jac=diags(np.full(2 * channels, -rate), format='csc')) if method == 'Radau' else {}
         solution = solve_ivp(lambda time, value: rate * (field_at(time) / scale - value),
             (left, right), state, method=method, rtol=Fixed.coupling_reference_tolerance,
-            atol=Fixed.coupling_reference_tolerance, dense_output=True)
+            atol=Fixed.coupling_reference_tolerance, dense_output=True, **options)
         if not solution.success or solution.t[-1] != right:
             raise ValueError('Independent Hall-filter reference failed')
         selected = (adc_times >= left) & (adc_times <= right)
@@ -297,6 +300,32 @@ def reference_filtered_scan(field_at, start, channels, breakpoints, method):
     sensor = np.repeat(np.arange(channels), samples)
     return np.stack([values[np.arange(len(adc_times)), sensor + section * channels].reshape(channels, samples).mean(axis=1)
         for section in range(2)])
+
+
+def sensor_spatial_budget(construction, array, fields):
+    reference_maps = [cad_coil_field_reference(construction, array, fields.points, order) for order in Fixed.coupling_flux_orders[-2:]]
+    map_error = current_box_bound(fields.coil_field - reference_maps[-1], Fixed.driver_channel_current)
+    map_reference_error = current_box_bound(reference_maps[-2] - reference_maps[-1], Fixed.driver_channel_current)
+    spatial = (1 + Fixed.hall_calibrated_gain_bound) * (1 + Fixed.coil_field_subtraction_error) * (
+        np.asarray(map_error['per_sensor_T']) + map_reference_error['per_sensor_T'])
+    return dict(production_refinement=fields.magnetic_refinement, reference_orders=Fixed.coupling_flux_orders[-2:],
+        production_T_per_A=fields.coil_field.tolist(), reference_T_per_A=[value.tolist() for value in reference_maps],
+        error=map_error, reference_disagreement=map_reference_error, calibrated_bound_T=spatial.tolist())
+
+
+def sensor_scan_comparison(actual, references, spatial, budget, superposition_error=0):
+    gain = 1 + Fixed.hall_calibrated_gain_bound
+    coil_gain = 1 + Fixed.coil_field_subtraction_error
+    difference = np.abs(actual - references[-1])
+    reference_difference = np.abs(references[0] - references[-1])
+    temporal = gain * (difference[0] + coil_gain * difference[1] + coil_gain * superposition_error)
+    reference_bound = gain * (reference_difference[0] + coil_gain * reference_difference[1])
+    combined = spatial + temporal + reference_bound
+    reference_passed = bool(np.max(reference_bound) <= budget['limit_T'] * Fixed.coupling_relative_tolerance)
+    return dict(actual_components_T=actual.tolist(), reference_components_T=references[-1].tolist(),
+        temporal_and_reconstruction_T=temporal.tolist(), reference_disagreement_T=reference_bound.tolist(),
+        combined_bound_T=combined.tolist(), reference_passed=reference_passed,
+        passed=bool(np.max(combined) <= budget['limit_T'] and reference_passed))
 
 
 def verify_sensor_budget(record, output):
@@ -327,15 +356,8 @@ def verify_sensor_budget(record, output):
             'No atlas is used. Cached-field accuracy must be allocated and verified before enabling it.'])
     path = output / 'summary.json'
     airborne_verification.save_summary(path, summary)
-    reference_maps = [cad_coil_field_reference(construction, array, fields.points, order) for order in Fixed.coupling_flux_orders[-2:]]
-    map_error = current_box_bound(fields.coil_field - reference_maps[-1], Fixed.driver_channel_current)
-    map_reference_error = current_box_bound(reference_maps[-2] - reference_maps[-1], Fixed.driver_channel_current)
-    gain = 1 + Fixed.hall_calibrated_gain_bound
-    coil_gain = 1 + Fixed.coil_field_subtraction_error
-    spatial = gain * coil_gain * (np.asarray(map_error['per_sensor_T']) + map_reference_error['per_sensor_T'])
-    summary['coil_map'] = dict(production_refinement=fields.magnetic_refinement, reference_orders=Fixed.coupling_flux_orders[-2:],
-        production_T_per_A=fields.coil_field.tolist(), reference_T_per_A=[value.tolist() for value in reference_maps],
-        error=map_error, reference_disagreement=map_reference_error, calibrated_bound_T=spatial.tolist())
+    summary['coil_map'] = sensor_spatial_budget(construction, array, fields)
+    spatial = np.asarray(summary['coil_map']['calibrated_bound_T'])
     airborne_verification.save_summary(path, summary)
     column = fields.coil_field[:, fields.identities.index(driven_identity)]
 
@@ -369,24 +391,115 @@ def verify_sensor_budget(record, output):
             references = [reference_filtered_scan(field_at, start, count, breakpoints, method) for method in ('DOP853', 'Radau')]
             actual = np.stack([sensing.filtered_scan(times, components[:, :count], start).mean(axis=1),
                 sensing.filtered_scan(times, components[:, count:], start, trial.drivers.inductance / trial.drivers.resistance).mean(axis=1)])
-            difference = np.abs(actual - references[-1])
-            reference_difference = np.abs(references[0] - references[-1])
-            temporal = gain * (difference[0] + coil_gain * difference[1])
-            reference_bound = gain * (reference_difference[0] + coil_gain * reference_difference[1])
-            combined = spatial + temporal + reference_bound
-            reference_passed = bool(np.max(reference_bound) <= summary['budget']['limit_T'] * Fixed.coupling_relative_tolerance)
-            passed = bool(np.max(combined) <= summary['budget']['limit_T'] and reference_passed)
-            row['scans'].append(dict(start_s=start, actual_components_T=actual.tolist(), reference_components_T=references[-1].tolist(),
-                temporal_and_reconstruction_T=temporal.tolist(), reference_disagreement_T=reference_bound.tolist(),
-                combined_bound_T=combined.tolist(), reference_passed=reference_passed, passed=passed))
+            comparison = sensor_scan_comparison(actual, references, spatial, summary['budget'])
+            row['scans'].append(dict(start_s=start, **comparison))
             airborne_verification.save_summary(path, summary)
-            if not passed:
+            if not comparison['passed']:
                 summary.update(status='combined_field_budget_failed', elapsed_s=perf_counter()-started)
                 airborne_verification.save_summary(path, summary)
                 return summary
             scan += 1
         if not row['scans']:
             raise ValueError('Sensor budget needs at least one delivered scan')
+    summary.update(status='completed', elapsed_s=perf_counter()-started)
+    airborne_verification.save_summary(path, summary)
+    return summary
+
+
+def verify_joint_sensor_budget(output):
+    if output.exists():
+        raise ValueError('Accuracy evidence exists; preserve its results')
+    output.mkdir(parents=True)
+    started = perf_counter()
+    construction = magnetics.ConstructionModel()
+    plant = motion.MotionPlant(construction)
+    fields = sensing.HallFieldModel(construction)
+    count = len(fields.points)
+    _, array, _ = construction(Inputs.cad_coil_layout, min(Fixed.current_demand_mesh_refinements))
+    driven_identity = array.identities[0]
+    array.window = Fixed.cad_patch_cells_per_side * array.short_pitch
+    array.build()
+    if tuple(array.identities) != fields.identities:
+        raise ValueError('Independent coil reference and sensor patch identities differ')
+    column = fields.coil_field[:, fields.identities.index(driven_identity)]
+    summary = dict(status='running', physical_envelope_qualified=False, budget=analogue_field_budget(),
+        scope='Joint RK45 dense motion/current trajectory and passive filtering against independent manufactured coupling and CAD Hall references; powered and switched signals, no feedback or atlas.',
+        source_sha256=dict(plant.provenance, **source_fingerprints(__file__, joint_airborne.__file__, sensing.__file__, coupling_verification.__file__)),
+        piece_properties=construction.piece_properties, cases=[])
+    path = output / 'summary.json'
+    airborne_verification.save_summary(path, summary)
+    summary['coil_map'] = sensor_spatial_budget(construction, array, fields)
+    spatial = np.asarray(summary['coil_map']['calibrated_bound_T'])
+    airborne_verification.save_summary(path, summary)
+    for switched in (False, True):
+        trial = coupling_verification.VariableCouplingTrial(construction, plant, switched)
+        reference = coupling_verification.variable_coupling_solution(trial, 'Radau', Fixed.qualification_refinement_factor)
+        def field_components(state):
+            pose = np.array([0., 0., trial.span / 2 + state[0], 0., 0., state[2]])
+            return np.r_[fields.magnet_field(pose), column * state[4]]
+        trajectories = []
+        metrics = []
+        for component in ('magnet', 'coil', 'total'):
+            def field_signal(stage, currents):
+                truth = stage.truth()
+                pose = np.r_[truth['com_position_m'] - [0, 0, stage.geometry.center_of_mass_height], truth['rotation'].as_euler('xyz')]
+                magnet = fields.magnet_field(pose)
+                coil = column * currents[0]
+                return magnet if component == 'magnet' else coil if component == 'coil' else magnet + coil
+            dynamics = joint_airborne.JointDynamics(plant, trial.drivers, count, trial.coupling_matrix, field_signal)
+            state = dynamics.pack(plant, np.zeros(count))
+            segments = []
+            boundaries = np.arange(round(trial.duration * Fixed.current_regulator_rate) + 1) / Fixed.current_regulator_rate
+            for left, right in zip(boundaries[:-1], boundaries[1:]):
+                pieces = dynamics.integrate(left, right, state, enabled=left < trial.switch_time)
+                segments.extend(pieces)
+                state = pieces[-1].y[:, -1]
+            trajectory = OdeSolution([segments[0].t[0], *[segment.t[-1] for segment in segments]], [segment.sol for segment in segments])
+            trajectories.append((segments, trajectory))
+            metrics.append(dict(component=component, force_evaluations=dynamics.evaluations, filter_evaluations=dynamics.filter_evaluations))
+        row = dict(switched=switched, duration_s=trial.duration, metrics=metrics, scans=[])
+        summary['cases'].append(row)
+        times = np.unique(np.concatenate([segment.t for segment in trajectories[-1][0]]))
+        values = trajectories[-1][1](times).T
+        actual_state = np.c_[values[:, 2] - trial.height, values[:, 9],
+            Rotation.from_quat(values[:, 3:7], scalar_first=True).as_rotvec()[:, 2], values[:, 12],
+            values[:, dynamics.current.start], values[:, dynamics.work.stop - 1]]
+        errors = np.max(np.abs(actual_state[:, :5] - reference.sample(times)[:, :5]), axis=0)
+        limits = np.array([Fixed.adaptive_position_tolerance, Fixed.adaptive_velocity_tolerance,
+            Fixed.adaptive_angle_tolerance, Fixed.adaptive_angular_velocity_tolerance, Fixed.adaptive_current_tolerance])
+        energy_error = float(np.max(np.abs(coupling_verification.variable_energy_residual(trial, actual_state))))
+        row['physical_reference'] = dict(errors=errors.tolist(), limits=limits.tolist(), energy_error_J=energy_error,
+            energy_limit_J=dynamics.energy_budget, passed=bool(np.all(errors <= limits) and energy_error <= dynamics.energy_budget))
+        if not row['physical_reference']['passed']:
+            summary.update(status='joint_reference_failed', elapsed_s=perf_counter()-started)
+            airborne_verification.save_summary(path, summary)
+            return summary
+        breakpoints = [trial.switch_time] + ([] if reference.extinction_s is None else [reference.extinction_s])
+        scan_index = 0
+        while sensing.hall_available_time(scan_index / Fixed.pose_feedback_rate, count) <= trial.duration:
+            start = scan_index / Fixed.pose_feedback_rate
+            actual = []
+            for segments, trajectory in trajectories:
+                scan = dict(initial_filter=trajectory(start)[dynamics.hall_filter],
+                    samples=np.zeros((count, Fixed.hall_samples_per_sensor)), sample_count=0)
+                for segment in segments:
+                    joint_airborne.sample_scan_segment(segment, scan, start, dynamics.hall_filter)
+                if scan['sample_count'] != scan['samples'].size:
+                    raise ValueError('Joint sensing benchmark did not acquire a complete scan')
+                actual.append(scan['samples'].mean(axis=1))
+            references = [reference_filtered_scan(lambda time: field_components(reference.sample(time)[0]),
+                start, count, breakpoints, method) for method in ('DOP853', 'Radau')]
+            superposition_error = np.abs(actual[2] - actual[0] - actual[1])
+            comparison = sensor_scan_comparison(np.array(actual[:2]), references, spatial, summary['budget'], superposition_error)
+            row['scans'].append(dict(start_s=start, total_filter_superposition_error_T=superposition_error.tolist(), **comparison))
+            airborne_verification.save_summary(path, summary)
+            if not comparison['passed']:
+                summary.update(status='combined_field_budget_failed', elapsed_s=perf_counter()-started)
+                airborne_verification.save_summary(path, summary)
+                return summary
+            scan_index += 1
+        if not row['scans']:
+            raise ValueError('Joint sensor budget needs a delivered scan')
     summary.update(status='completed', elapsed_s=perf_counter()-started)
     airborne_verification.save_summary(path, summary)
     return summary
@@ -463,8 +576,13 @@ if __name__ == '__main__':
     parser.add_argument('--curved-force', action='store_true', help='Check curved CAD force quadrature and its independent flux reference.')
     parser.add_argument('--error-growth', action='store_true', help='Check open-loop amplification of small physical integration errors.')
     parser.add_argument('--sensor-record', type=Path, help='Passing variable-coupling record for the combined analogue sensing budget.')
+    parser.add_argument('--joint-sensor', action='store_true', help='Verify the joint integrator and passive dense-trajectory Hall filtering.')
     args = parser.parse_args()
-    if args.sensor_record:
+    if args.joint_sensor:
+        if args.sensor_record or args.error_growth or args.curved_force or args.force_record or args.coupling_record or args.cad_reference:
+            raise ValueError('Joint sensor verification does not accept other calculation modes')
+        verify_joint_sensor_budget(args.output)
+    elif args.sensor_record:
         if args.error_growth or args.curved_force or args.force_record or args.coupling_record or args.cad_reference:
             raise ValueError('Sensor budget requires only the variable-coupling record')
         verify_sensor_budget(args.sensor_record, args.output)

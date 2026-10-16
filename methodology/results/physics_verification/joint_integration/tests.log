@@ -1,0 +1,32 @@
+test_pending_adc_samples_and_hardware_events_replay_exactly (methodology.tests.test_joint_airborne.JointScheduleTests.test_pending_adc_samples_and_hardware_events_replay_exactly) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 159.959s
+
+OK
+
+test_clamp_extinction_matches_exact_electrical_solution (methodology.tests.test_joint_airborne.JointDynamicsTests.test_clamp_extinction_matches_exact_electrical_solution) ... ok
+test_constant_electromechanical_coupling_matches_matrix_exponential (methodology.tests.test_joint_airborne.JointDynamicsTests.test_constant_electromechanical_coupling_matches_matrix_exponential) ... ok
+test_free_fall_and_trial_isolation (methodology.tests.test_joint_airborne.JointDynamicsTests.test_free_fall_and_trial_isolation) ... ok
+test_hall_filter_dense_output_matches_analytic_ramp (methodology.tests.test_joint_airborne.JointDynamicsTests.test_hall_filter_dense_output_matches_analytic_ramp) ... ok
+test_rotated_principal_spin_matches_analytic_orientation (methodology.tests.test_joint_airborne.JointDynamicsTests.test_rotated_principal_spin_matches_analytic_orientation) ... ok
+test_variable_powered_and_switched_against_independent_reference (methodology.tests.test_joint_airborne.JointDynamicsTests.test_variable_powered_and_switched_against_independent_reference) ... ok
+test_coupled_restart_exactly_replays_pending_scan_and_electrical_state (methodology.tests.test_airborne.AirborneCheckpointTests.test_coupled_restart_exactly_replays_pending_scan_and_electrical_state) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 184.702s
+
+OK
+
+Shared-driver cleanup checks:
+test_clamp_extinction_matches_exact_electrical_solution (methodology.tests.test_joint_airborne.JointDynamicsTests.test_clamp_extinction_matches_exact_electrical_solution) ... ok
+test_constant_electromechanical_coupling_matches_matrix_exponential (methodology.tests.test_joint_airborne.JointDynamicsTests.test_constant_electromechanical_coupling_matches_matrix_exponential) ... ok
+test_free_fall_and_trial_isolation (methodology.tests.test_joint_airborne.JointDynamicsTests.test_free_fall_and_trial_isolation) ... ok
+test_hall_filter_dense_output_matches_analytic_ramp (methodology.tests.test_joint_airborne.JointDynamicsTests.test_hall_filter_dense_output_matches_analytic_ramp) ... ok
+test_rotated_principal_spin_matches_analytic_orientation (methodology.tests.test_joint_airborne.JointDynamicsTests.test_rotated_principal_spin_matches_analytic_orientation) ... ok
+test_variable_powered_and_switched_against_independent_reference (methodology.tests.test_joint_airborne.JointDynamicsTests.test_variable_powered_and_switched_against_independent_reference) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 6.956s
+
+OK

@@ -125,6 +125,7 @@ class AirborneSimulation:
         self.command_tick, self.regulator_tick, self.pose_tick, self.checkpoint_tick, self.total_steps = ticks
         self.plant.model.opt.timestep = self.period
         self.reference = np.zeros(6)
+        self.reference[2] = Fixed.airborne_reference_gap_fraction * (self.plant.geometry.max_flight_gap - self.plant.geometry.gap)
         self.field_indices = [self.fields.identities.index(identity) for identity in self.identities]
         self.field_times, self.field_values, self.coil_field_values, self.readouts, self.trace = [], [], [], [], []
         self.step = 0
@@ -138,6 +139,7 @@ class AirborneSimulation:
         self.finished = False
         self.source = dict(self.plant.provenance, **source_fingerprints(__file__, electrical.__file__, sensing.__file__, qualification.__file__))
         if initialize:
+            self.plant.reset(position=np.array([0., 0., self.plant.geometry.center_of_mass_height]) + self.reference[:3])
             if disturbed:
                 displacement = Fixed.qualification_initial_error_fraction * Fixed.qualification_position_error / np.sqrt(3)
                 rotation = Rotation.from_rotvec(np.ones(3) * Fixed.qualification_initial_error_fraction * Fixed.qualification_angle_error / np.sqrt(3))
@@ -161,6 +163,10 @@ class AirborneSimulation:
         coil = self.sensors.actual_coil_field[:, self.field_indices] @ self.drivers.currents
         return self.fields.magnet_field(pose) + coil, coil
 
+    def moving_hall_frame(self, scan_start):
+        return self.sensors.sample_moving(np.array(self.field_times), np.array(self.field_values), scan_start,
+            np.array(self.coil_field_values), self.drivers.inductance / self.drivers.resistance)
+
     def process_events(self, now, regulator_due, command_due, complete):
         truth = self.plant.truth()
         true_pose = np.r_[truth['com_position_m'] - [0, 0, self.plant.geometry.center_of_mass_height], truth['rotation'].as_euler('xyz')]
@@ -173,8 +179,7 @@ class AirborneSimulation:
             self.readouts.append(self.current_sensors.sample(self.drivers.currents, now))
         scan_start = self.next_scan / Fixed.pose_feedback_rate
         if now >= sensing.hall_available_time(scan_start, len(self.fields.points)):
-            packet = self.sensors.sample_moving(np.array(self.field_times), np.array(self.field_values), scan_start,
-                np.array(self.coil_field_values), self.drivers.inductance / self.drivers.resistance)
+            packet = self.moving_hall_frame(scan_start)
             available = [reading for reading in self.readouts if reading.available_time_s <= packet.available_time_s]
             history = electrical.CurrentReadings(self.identities, np.concatenate([reading.sample_times_s for reading in available]),
                 np.vstack([reading.adc_codes for reading in available]), available[-1].available_time_s)
@@ -305,7 +310,7 @@ class AirborneSimulation:
     def report(self):
         return dict(scope='Airborne sensor/driver/MuJoCo trial; provisional model, not flight-envelope qualification',
             source_sha256=self.source, duration_completed_s=float(self.plant.data.time), intended_duration_s=self.duration,
-            disturbed=self.disturbed, finished=self.finished, stop_reason=self.stop_reason,
+            disturbed=self.disturbed, reference_pose=self.reference.tolist(), finished=self.finished, stop_reason=self.stop_reason,
             passed=bool(self.finished and self.stop_reason is None and self.delivered_scans > 0
                         and self.peaks['current_A'] <= self.drivers.current_limit
                         and self.peaks['estimated_position_error_m'] <= Fixed.qualification_position_error

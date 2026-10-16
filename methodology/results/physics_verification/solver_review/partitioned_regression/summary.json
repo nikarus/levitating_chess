@@ -1,0 +1,576 @@
+{
+    "scope": "Independent coupling references; not full physical-envelope qualification",
+    "status": "completed",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "ff65bef03c4129e463ce12366120bd3685835396cbee0fe9413b1834e41f5ea1",
+        "levitation_sim.py": "91eea3f343cbfb0722c8325f52f6c55ff49995a2e4ff726584ead98b1e4cd5a3",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "52c5bd39106e0e8f977575c799fa12bc85937ddb58f747e4ddb9ca8ede93f7fb",
+        "methodology/coupling_verification.py": "71089de8be82e0b2f2bd971fc752a589105fd987d137ffaf348b0e31aca923bd",
+        "methodology/motion.py": "347fb61e8c224e9772a120dae2adcb465b344de1c724e28c51f8d6980ecf0654",
+        "methodology/airborne.py": "d97d4dbf91eba8588ed155d575a934239a4bebb5cc86f8bb7d04462c2801e4ad",
+        "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/physics_verification.py": "faf8429b6463a146253bf064e1987207e56ef65b387acc24b32a8b83ceb2b5c9",
+        "methodology/adaptive_airborne.py": "987f2334b809a0433725ca22a2d5fe5347874d8d99f467ad9460e0252a486125",
+        "methodology/sensing.py": "5835a7ec568addaf5ba0cda8e12293b82392fb520875b1149b0e2f1eadc52cc0"
+    },
+    "physical_envelope_qualified": false,
+    "checks": {
+        "variable_coupling": {
+            "passed": true,
+            "cases": [
+                {
+                    "switched": false,
+                    "fixed_step_s": 6.25e-06,
+                    "tolerance_scale": 1,
+                    "passed": true,
+                    "stop_reason": null,
+                    "duration_s": 0.01,
+                    "initial_state": [
+                        0.0,
+                        0.001999999999999999,
+                        0.005,
+                        0.0,
+                        2.75,
+                        0.0
+                    ],
+                    "parameters": {
+                        "mass_kg": 0.022729931617873095,
+                        "inertia_kg_m2": 2.925058257287493e-06,
+                        "resistance_ohm": 0.5553367228015512,
+                        "inductance_H": 5.157533210423452e-05,
+                        "force_coefficient": 0.08105617596378734,
+                        "torque_coefficient": 0.01679660674883922,
+                        "length_m": 0.0009999999999999996,
+                        "voltage_V": 1.5273381000561934,
+                        "switch_time_s": 0.01
+                    },
+                    "maximum_errors": [
+                        4.4635445038969553e-13,
+                        3.2760276762059184e-07,
+                        3.1661347095011255e-06,
+                        5.449186901707037e-08,
+                        2.3226113565755213e-07,
+                        1.6711293532136988e-09
+                    ],
+                    "reference_disagreement": [
+                        1.7766126433503213e-15,
+                        1.9095752323144977e-11,
+                        1.7371520888431746e-13,
+                        1.7934126406160544e-10,
+                        5.739027741924474e-08,
+                        8.138888934906271e-12
+                    ],
+                    "reference_passed": true,
+                    "position_angle_current_limits": [
+                        8.000000000000001e-06,
+                        0.00025,
+                        0.027500000000000004
+                    ],
+                    "relative_energy_residual": 4.032328757981064e-06,
+                    "relative_reference_energy_residual": 1.106129035068706e-12,
+                    "relative_energy_limit": 0.0001,
+                    "reference_extinction_s": null,
+                    "energy_ledger_difference_J": 5.238634080971831e-19,
+                    "energy_ledger_passed": true,
+                    "accumulated_energy_budget_passed": true,
+                    "accumulated_energy_budget_enforced": false,
+                    "independent_extinction_s": null,
+                    "adaptation": {
+                        "accepted": 1609,
+                        "rejected": 0,
+                        "force_evaluations": 1609,
+                        "maximum_accepted_error": 0.0,
+                        "signed_energy_defect_J": 1.6852057875783885e-09,
+                        "absolute_energy_defect_J": 1.6852057875783885e-09,
+                        "energy_budget_J": 2.229044839004151e-08
+                    }
+                },
+                {
+                    "switched": false,
+                    "fixed_step_s": 3.125e-06,
+                    "tolerance_scale": 1,
+                    "passed": true,
+                    "stop_reason": null,
+                    "duration_s": 0.01,
+                    "initial_state": [
+                        0.0,
+                        0.001999999999999999,
+                        0.005,
+                        0.0,
+                        2.75,
+                        0.0
+                    ],
+                    "parameters": {
+                        "mass_kg": 0.022729931617873095,
+                        "inertia_kg_m2": 2.925058257287493e-06,
+                        "resistance_ohm": 0.5553367228015512,
+                        "inductance_H": 5.157533210423452e-05,
+                        "force_coefficient": 0.08105617596378734,
+                        "torque_coefficient": 0.01679660674883922,
+                        "length_m": 0.0009999999999999996,
+                        "voltage_V": 1.5273381000561934,
+                        "switch_time_s": 0.01
+                    },
+                    "maximum_errors": [
+                        1.329848401808876e-13,
+                        1.6382516090712382e-07,
+                        1.5833774239110143e-06,
+                        2.209632654626148e-08,
+                        1.1534264166002117e-07,
+                        8.358049880579231e-10
+                    ],
+                    "reference_disagreement": [
+                        1.7766126433503213e-15,
+                        1.9123127994319367e-11,
+                        1.7371520888431746e-13,
+                        1.7952472841642475e-10,
+                        5.7470827652394973e-08,
+                        8.150285877984542e-12
+                    ],
+                    "reference_passed": true,
+                    "position_angle_current_limits": [
+                        8.000000000000001e-06,
+                        0.00025,
+                        0.027500000000000004
+                    ],
+                    "relative_energy_residual": 2.016766759403265e-06,
+                    "relative_reference_energy_residual": 1.106129035068706e-12,
+                    "relative_energy_limit": 0.0001,
+                    "reference_extinction_s": null,
+                    "energy_ledger_difference_J": 1.8609033643744476e-18,
+                    "energy_ledger_passed": true,
+                    "accumulated_energy_budget_passed": true,
+                    "accumulated_energy_budget_enforced": false,
+                    "independent_extinction_s": null,
+                    "adaptation": {
+                        "accepted": 3209,
+                        "rejected": 0,
+                        "force_evaluations": 3209,
+                        "maximum_accepted_error": 0.0,
+                        "signed_energy_defect_J": 8.428546412461912e-10,
+                        "absolute_energy_defect_J": 8.428546412461912e-10,
+                        "energy_budget_J": 2.229044839004151e-08
+                    }
+                },
+                {
+                    "switched": false,
+                    "fixed_step_s": null,
+                    "tolerance_scale": 1,
+                    "passed": true,
+                    "stop_reason": null,
+                    "duration_s": 0.01,
+                    "initial_state": [
+                        0.0,
+                        0.001999999999999999,
+                        0.005,
+                        0.0,
+                        2.75,
+                        0.0
+                    ],
+                    "parameters": {
+                        "mass_kg": 0.022729931617873095,
+                        "inertia_kg_m2": 2.925058257287493e-06,
+                        "resistance_ohm": 0.5553367228015512,
+                        "inductance_H": 5.157533210423452e-05,
+                        "force_coefficient": 0.08105617596378734,
+                        "torque_coefficient": 0.01679660674883922,
+                        "length_m": 0.0009999999999999996,
+                        "voltage_V": 1.5273381000561934,
+                        "switch_time_s": 0.01
+                    },
+                    "maximum_errors": [
+                        3.7293284471429143e-11,
+                        1.2852923176910613e-06,
+                        1.2425123375818178e-05,
+                        2.9792361153635483e-06,
+                        9.696011460391674e-07,
+                        6.544375706300533e-09
+                    ],
+                    "reference_disagreement": [
+                        1.7691062373717537e-15,
+                        1.907401493694838e-11,
+                        1.6967850735571943e-13,
+                        1.7934131957275667e-10,
+                        5.7321371649265984e-08,
+                        8.129062346866496e-12
+                    ],
+                    "reference_passed": true,
+                    "position_angle_current_limits": [
+                        8.000000000000001e-06,
+                        0.00025,
+                        0.027500000000000004
+                    ],
+                    "relative_energy_residual": 1.580039732091571e-05,
+                    "relative_reference_energy_residual": 1.0435364661786117e-12,
+                    "relative_energy_limit": 0.0001,
+                    "reference_extinction_s": null,
+                    "energy_ledger_difference_J": 2.1901922823056556e-19,
+                    "energy_ledger_passed": true,
+                    "accumulated_energy_budget_passed": true,
+                    "accumulated_energy_budget_enforced": true,
+                    "independent_extinction_s": null,
+                    "adaptation": {
+                        "accepted": 209,
+                        "rejected": 0,
+                        "force_evaluations": 418,
+                        "maximum_accepted_error": 0.9307527327855062,
+                        "signed_energy_defect_J": 6.6033606426404265e-09,
+                        "absolute_energy_defect_J": 6.6033606426404265e-09,
+                        "energy_budget_J": 2.229044839004151e-08
+                    }
+                },
+                {
+                    "switched": false,
+                    "fixed_step_s": null,
+                    "tolerance_scale": 0.5,
+                    "passed": true,
+                    "stop_reason": null,
+                    "duration_s": 0.01,
+                    "initial_state": [
+                        0.0,
+                        0.001999999999999999,
+                        0.005,
+                        0.0,
+                        2.75,
+                        0.0
+                    ],
+                    "parameters": {
+                        "mass_kg": 0.022729931617873095,
+                        "inertia_kg_m2": 2.925058257287493e-06,
+                        "resistance_ohm": 0.5553367228015512,
+                        "inductance_H": 5.157533210423452e-05,
+                        "force_coefficient": 0.08105617596378734,
+                        "torque_coefficient": 0.01679660674883922,
+                        "length_m": 0.0009999999999999996,
+                        "voltage_V": 1.5273381000561934,
+                        "switch_time_s": 0.01
+                    },
+                    "maximum_errors": [
+                        7.44387872631154e-10,
+                        7.460036344397909e-07,
+                        7.361845729407512e-06,
+                        0.00010764683769659555,
+                        4.231731138837347e-07,
+                        3.3464282718627416e-09
+                    ],
+                    "reference_disagreement": [
+                        1.7691062373717537e-15,
+                        1.907401493694838e-11,
+                        1.6967850735571943e-13,
+                        1.7934131957275667e-10,
+                        5.7321371649265984e-08,
+                        8.129062346866496e-12
+                    ],
+                    "reference_passed": true,
+                    "position_angle_current_limits": [
+                        8.000000000000001e-06,
+                        0.00025,
+                        0.027500000000000004
+                    ],
+                    "relative_energy_residual": 8.416439848346439e-06,
+                    "relative_reference_energy_residual": 1.0435364661786117e-12,
+                    "relative_energy_limit": 0.0001,
+                    "reference_extinction_s": null,
+                    "energy_ledger_difference_J": 3.2008829137535725e-19,
+                    "energy_ledger_passed": true,
+                    "accumulated_energy_budget_passed": true,
+                    "accumulated_energy_budget_enforced": true,
+                    "independent_extinction_s": null,
+                    "adaptation": {
+                        "accepted": 382,
+                        "rejected": 1,
+                        "force_evaluations": 765,
+                        "maximum_accepted_error": 0.9998803888154608,
+                        "signed_energy_defect_J": 3.517429752790946e-09,
+                        "absolute_energy_defect_J": 3.517429752790946e-09,
+                        "energy_budget_J": 1.1145224195020755e-08
+                    }
+                },
+                {
+                    "switched": true,
+                    "fixed_step_s": 6.25e-06,
+                    "tolerance_scale": 1,
+                    "passed": true,
+                    "stop_reason": null,
+                    "duration_s": 0.01,
+                    "initial_state": [
+                        0.0,
+                        0.001999999999999999,
+                        0.005,
+                        0.0,
+                        2.75,
+                        0.0
+                    ],
+                    "parameters": {
+                        "mass_kg": 0.022729931617873095,
+                        "inertia_kg_m2": 2.925058257287493e-06,
+                        "resistance_ohm": 0.5553367228015512,
+                        "inductance_H": 5.157533210423452e-05,
+                        "force_coefficient": 0.08105617596378734,
+                        "torque_coefficient": 0.01679660674883922,
+                        "length_m": 0.0009999999999999996,
+                        "voltage_V": 1.5273381000561934,
+                        "switch_time_s": 0.005
+                    },
+                    "maximum_errors": [
+                        1.5372861327779487e-07,
+                        1.5512564102704296e-07,
+                        1.3157883806862516e-06,
+                        2.8201952328998914e-08,
+                        1.0012820839122583e-07,
+                        5.003139269793132e-10
+                    ],
+                    "reference_disagreement": [
+                        1.7766126433503213e-15,
+                        1.9095752323144977e-11,
+                        1.1829252855033445e-13,
+                        1.7934126406160544e-10,
+                        5.739027741924474e-08,
+                        8.138888934906271e-12
+                    ],
+                    "reference_passed": true,
+                    "position_angle_current_limits": [
+                        8.000000000000001e-06,
+                        0.00025,
+                        0.027500000000000004
+                    ],
+                    "relative_energy_residual": 8.040034450532145e-05,
+                    "relative_reference_energy_residual": 1.168531898799065e-11,
+                    "relative_energy_limit": 0.0001,
+                    "reference_extinction_s": 0.005006833599042676,
+                    "energy_ledger_difference_J": 4.715988282736326e-19,
+                    "energy_ledger_passed": true,
+                    "accumulated_energy_budget_passed": false,
+                    "accumulated_energy_budget_enforced": false,
+                    "independent_extinction_s": 0.005006833599042648,
+                    "adaptation": {
+                        "accepted": 1609,
+                        "rejected": 0,
+                        "force_evaluations": 1609,
+                        "maximum_accepted_error": 0.0,
+                        "signed_energy_defect_J": -3.360121013434508e-08,
+                        "absolute_energy_defect_J": 3.4594348471451885e-08,
+                        "energy_budget_J": 2.229044839004151e-08
+                    }
+                },
+                {
+                    "switched": true,
+                    "fixed_step_s": 3.125e-06,
+                    "tolerance_scale": 1,
+                    "passed": true,
+                    "stop_reason": null,
+                    "duration_s": 0.01,
+                    "initial_state": [
+                        0.0,
+                        0.001999999999999999,
+                        0.005,
+                        0.0,
+                        2.75,
+                        0.0
+                    ],
+                    "parameters": {
+                        "mass_kg": 0.022729931617873095,
+                        "inertia_kg_m2": 2.925058257287493e-06,
+                        "resistance_ohm": 0.5553367228015512,
+                        "inductance_H": 5.157533210423452e-05,
+                        "force_coefficient": 0.08105617596378734,
+                        "torque_coefficient": 0.01679660674883922,
+                        "length_m": 0.0009999999999999996,
+                        "voltage_V": 1.5273381000561934,
+                        "switch_time_s": 0.005
+                    },
+                    "maximum_errors": [
+                        7.68707231665189e-08,
+                        7.758120049855544e-08,
+                        6.580805288602248e-07,
+                        5.298232796935309e-09,
+                        4.980535317500312e-08,
+                        2.498317978275738e-10
+                    ],
+                    "reference_disagreement": [
+                        1.7766126433503213e-15,
+                        1.9123127994319367e-11,
+                        1.1829166118859646e-13,
+                        1.7952472841642475e-10,
+                        5.7470827652394973e-08,
+                        8.150285877984542e-12
+                    ],
+                    "reference_passed": true,
+                    "position_angle_current_limits": [
+                        8.000000000000001e-06,
+                        0.00025,
+                        0.027500000000000004
+                    ],
+                    "relative_energy_residual": 4.020456395548331e-05,
+                    "relative_reference_energy_residual": 1.168531898799065e-11,
+                    "relative_energy_limit": 0.0001,
+                    "reference_extinction_s": 0.005006833599042676,
+                    "energy_ledger_difference_J": 1.5368751083439237e-18,
+                    "energy_ledger_passed": true,
+                    "accumulated_energy_budget_passed": true,
+                    "accumulated_energy_budget_enforced": false,
+                    "independent_extinction_s": 0.005006833599042648,
+                    "adaptation": {
+                        "accepted": 3209,
+                        "rejected": 0,
+                        "force_evaluations": 3209,
+                        "maximum_accepted_error": 0.0,
+                        "signed_energy_defect_J": -1.6802440465203506e-08,
+                        "absolute_energy_defect_J": 1.7299190631028054e-08,
+                        "energy_budget_J": 2.229044839004151e-08
+                    }
+                },
+                {
+                    "switched": true,
+                    "fixed_step_s": null,
+                    "tolerance_scale": 1,
+                    "passed": true,
+                    "stop_reason": null,
+                    "duration_s": 0.01,
+                    "initial_state": [
+                        0.0,
+                        0.001999999999999999,
+                        0.005,
+                        0.0,
+                        2.75,
+                        0.0
+                    ],
+                    "parameters": {
+                        "mass_kg": 0.022729931617873095,
+                        "inertia_kg_m2": 2.925058257287493e-06,
+                        "resistance_ohm": 0.5553367228015512,
+                        "inductance_H": 5.157533210423452e-05,
+                        "force_coefficient": 0.08105617596378734,
+                        "torque_coefficient": 0.01679660674883922,
+                        "length_m": 0.0009999999999999996,
+                        "voltage_V": 1.5273381000561934,
+                        "switch_time_s": 0.005
+                    },
+                    "maximum_errors": [
+                        4.132220143955535e-08,
+                        6.09567281613984e-07,
+                        5.170860206225349e-06,
+                        1.1312200026702968e-06,
+                        4.12355110945839e-07,
+                        1.9777611050069387e-09
+                    ],
+                    "reference_disagreement": [
+                        1.7691062373717537e-15,
+                        1.907401493694838e-11,
+                        1.1829252855033445e-13,
+                        1.7934131957275667e-10,
+                        5.7321371649265984e-08,
+                        8.129062346866496e-12
+                    ],
+                    "reference_passed": true,
+                    "position_angle_current_limits": [
+                        8.000000000000001e-06,
+                        0.00025,
+                        0.027500000000000004
+                    ],
+                    "relative_energy_residual": 1.5753299565654732e-05,
+                    "relative_reference_energy_residual": 1.168531898799065e-11,
+                    "relative_energy_limit": 0.0001,
+                    "reference_extinction_s": 0.005006833599042676,
+                    "energy_ledger_difference_J": 2.1651948841943031e-19,
+                    "energy_ledger_passed": true,
+                    "accumulated_energy_budget_passed": true,
+                    "accumulated_energy_budget_enforced": true,
+                    "independent_extinction_s": 0.005006833599042648,
+                    "adaptation": {
+                        "accepted": 1708,
+                        "rejected": 4,
+                        "force_evaluations": 3420,
+                        "maximum_accepted_error": 0.9996492036629463,
+                        "signed_energy_defect_J": -6.583677374539061e-09,
+                        "absolute_energy_defect_J": 1.0481064033388466e-08,
+                        "energy_budget_J": 2.229044839004151e-08
+                    }
+                },
+                {
+                    "switched": true,
+                    "fixed_step_s": null,
+                    "tolerance_scale": 0.5,
+                    "passed": true,
+                    "stop_reason": null,
+                    "duration_s": 0.01,
+                    "initial_state": [
+                        0.0,
+                        0.001999999999999999,
+                        0.005,
+                        0.0,
+                        2.75,
+                        0.0
+                    ],
+                    "parameters": {
+                        "mass_kg": 0.022729931617873095,
+                        "inertia_kg_m2": 2.925058257287493e-06,
+                        "resistance_ohm": 0.5553367228015512,
+                        "inductance_H": 5.157533210423452e-05,
+                        "force_coefficient": 0.08105617596378734,
+                        "torque_coefficient": 0.01679660674883922,
+                        "length_m": 0.0009999999999999996,
+                        "voltage_V": 1.5273381000561934,
+                        "switch_time_s": 0.005
+                    },
+                    "maximum_errors": [
+                        2.138444614906089e-08,
+                        3.9084400929199556e-07,
+                        3.529777410537366e-06,
+                        3.9117657420595364e-05,
+                        2.0476092377208488e-07,
+                        1.1967694075868708e-09
+                    ],
+                    "reference_disagreement": [
+                        1.7691062373717537e-15,
+                        1.907401493694838e-11,
+                        1.1829252855033445e-13,
+                        1.7934131957275667e-10,
+                        5.7321371649265984e-08,
+                        8.129062346866496e-12
+                    ],
+                    "reference_passed": true,
+                    "position_angle_current_limits": [
+                        8.000000000000001e-06,
+                        0.00025,
+                        0.027500000000000004
+                    ],
+                    "relative_energy_residual": 7.430146877812595e-06,
+                    "relative_reference_energy_residual": 1.168531898799065e-11,
+                    "relative_energy_limit": 0.0001,
+                    "reference_extinction_s": 0.005006833599042676,
+                    "energy_ledger_difference_J": 7.933191469975569e-19,
+                    "energy_ledger_passed": true,
+                    "accumulated_energy_budget_passed": true,
+                    "accumulated_energy_budget_enforced": true,
+                    "independent_extinction_s": 0.005006833599042648,
+                    "adaptation": {
+                        "accepted": 3381,
+                        "rejected": 5,
+                        "force_evaluations": 6767,
+                        "maximum_accepted_error": 0.9998803888154608,
+                        "signed_energy_defect_J": -3.1052345380707137e-09,
+                        "absolute_energy_defect_J": 5.425151206619026e-09,
+                        "energy_budget_J": 1.1145224195020755e-08
+                    }
+                }
+            ]
+        }
+    },
+    "limitations": [
+        "The manufactured variable-coupling check verifies integration, not the CAD magnetic map or the controller.",
+        "Its passive sensor fields are zero; no Hall-history accuracy is claimed by that check.",
+        "Short reference agreement does not certify global accuracy over an arbitrary long unstable trajectory."
+    ],
+    "active_check": null,
+    "elapsed_s": 45.64819718198851,
+    "retention": "Passing regression retains source identities, settings, errors, energy accounting and counts. Reproducible per-step traces are omitted; original failed evidence is unchanged."
+}

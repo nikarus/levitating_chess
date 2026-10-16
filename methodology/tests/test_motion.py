@@ -13,6 +13,37 @@ from methodology import motion
 from methodology.cad import magnetics
 
 
+class CouplingReferenceTests(unittest.TestCase):
+    def test_event_aligned_dense_output_matches_analytic_free_fall(self):
+        from methodology.coupling_verification import reference_phase
+        duration = Fixed.coupling_variable_duration
+        derivative = lambda time, state: np.array([state[1], -Constants.gravity])
+        samples = np.linspace(0., duration, round(duration / Fixed.adaptive_reference_step) + 1)
+        exact = np.array([-Constants.gravity * samples ** 2 / 2, -Constants.gravity * samples])
+        for method in ('RK45', 'DOP853'):
+            result = reference_phase(derivative, (0., duration), np.zeros(2), method,
+                Fixed.coupling_reference_tolerance, None, True)
+            np.testing.assert_allclose(result.sol(samples), exact, atol=Fixed.motion_verification_tolerance, rtol=0)
+            self.assertEqual(result.metrics['integration_calls'], round(duration * Fixed.current_regulator_rate))
+
+    def test_terminal_event_stops_segmented_reference_at_analytic_crossing(self):
+        from methodology.coupling_verification import reference_phase
+        duration = Fixed.coupling_variable_duration
+        crossing = duration * Fixed.coupling_excitation_fraction
+        derivative = lambda time, state: np.array([state[1], -Constants.gravity])
+        def event(time, state):
+            return state[0] + Constants.gravity * crossing ** 2 / 2
+        event.terminal, event.direction = True, -1
+        for aligned in (False, True):
+            result = reference_phase(derivative, (0., duration), np.zeros(2), 'RK45',
+                Fixed.coupling_reference_tolerance, event, aligned)
+            self.assertAlmostEqual(result.t_events[0][0], crossing, delta=Fixed.adaptive_clock_tolerance)
+            self.assertAlmostEqual(result.t[-1], crossing, delta=Fixed.adaptive_clock_tolerance)
+            np.testing.assert_allclose(result.sol(result.t[-1]),
+                [-Constants.gravity * crossing ** 2 / 2, -Constants.gravity * crossing],
+                atol=Fixed.motion_verification_tolerance, rtol=0)
+
+
 class MotionInterfaceTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):

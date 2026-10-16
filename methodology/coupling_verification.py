@@ -6,7 +6,7 @@ from types import SimpleNamespace
 import magpylib as magpy
 import numpy as np
 from numpy.polynomial.legendre import leggauss
-from scipy.integrate import quad, solve_ivp
+from scipy.integrate import OdeSolution, quad, solve_ivp
 from scipy.linalg import expm
 from scipy.spatial.transform import Rotation
 
@@ -230,10 +230,13 @@ class VariableCouplingTrial(adaptive_airborne.AdaptiveAirborneSimulation):
 
     def force_matrix(self):
         self.adaptation['force_evaluations'] += 1
-        state = self.state()
+        return self.coupling_matrix(self.plant)
+
+    def coupling_matrix(self, plant):
+        truth = plant.truth()
         matrix = np.zeros((6, len(self.identities)))
-        matrix[2, 0] = self.vertical_coupling * (1 + Fixed.coupling_excitation_fraction * state[0] / self.span)
-        matrix[5, 0] = self.angular_coupling * np.sin(state[2])
+        matrix[2, 0] = self.vertical_coupling * (1 + Fixed.coupling_excitation_fraction * (truth['com_position_m'][2] - self.height) / self.span)
+        matrix[5, 0] = self.angular_coupling * np.sin(truth['rotation'].as_rotvec()[2])
         return matrix
 
     def advance_physics(self, period, matrix):
@@ -274,7 +277,32 @@ class VariableCouplingTrial(adaptive_airborne.AdaptiveAirborneSimulation):
         self.finished = bool(complete or self.stop_reason)
 
 
-def variable_coupling_solution(trial, method, refinement):
+def reference_phase(derivative, interval, initial, method, tolerance, event, event_aligned):
+    start, end = interval
+    boundaries = [end]
+    if event_aligned:
+        ticks = np.arange(np.floor(start * Fixed.current_regulator_rate) + 1, np.ceil(end * Fixed.current_regulator_rate))
+        boundaries = [*(ticks / Fixed.current_regulator_rate), end]
+    segments = []
+    for boundary in boundaries:
+        segment = solve_ivp(derivative, (start, boundary), initial, method=method,
+            rtol=tolerance, atol=tolerance, dense_output=True, events=event)
+        if not segment.success:
+            raise ValueError('Independent coupling integration failed: ' + segment.message)
+        segments.append(segment)
+        if segment.status == 1:
+            break
+        start, initial = boundary, segment.y[:, -1]
+    times = np.concatenate([segments[0].t, *[segment.t[1:] for segment in segments[1:]]])
+    return SimpleNamespace(t=times, y=np.concatenate([segments[0].y, *[segment.y[:, 1:] for segment in segments[1:]]], axis=1),
+        sol=OdeSolution(times, [interpolant for segment in segments for interpolant in segment.sol.interpolants]),
+        t_events=segments[-1].t_events, success=True,
+        metrics=dict(rhs_evaluations=sum(segment.nfev for segment in segments),
+            accepted_steps=len(times) - 1, integration_calls=len(segments),
+            minimum_step_s=float(np.min(np.diff(times))), maximum_step_s=float(np.max(np.diff(times)))))
+
+
+def variable_coupling_solution(trial, method, refinement, event_aligned=False):
     mass, inertia = trial.mass, trial.inertia
     resistance, inductance = trial.drivers.resistance, trial.drivers.inductance
     gravity = trial.plant.geometry.gravity
@@ -301,21 +329,23 @@ def variable_coupling_solution(trial, method, refinement):
     def extinction(time, scaled):
         return scaled[4]
     extinction.terminal, extinction.direction = True, -1
-    powered = solve_ivp(derivative(voltage, True), (0., trial.switch_time), trial.initial / scales,
-        method=method, rtol=tolerance, atol=tolerance, dense_output=True)
+    powered = reference_phase(derivative(voltage, True), (0., trial.switch_time), trial.initial / scales,
+        method, tolerance, None, event_aligned)
     if not powered.success or powered.t[-1] != trial.switch_time:
         raise ValueError('Independent powered reference failed')
     event_time = None
+    metrics = dict(powered=powered.metrics)
     if trial.switch_time < trial.duration:
         if powered.y[4, -1] <= 0:
             raise ValueError('Extinction benchmark requires positive current before disabling')
-        decay = solve_ivp(derivative(clamp, True), (trial.switch_time, trial.duration), powered.y[:, -1],
-            method=method, rtol=tolerance, atol=tolerance, dense_output=True, events=extinction)
+        decay = reference_phase(derivative(clamp, True), (trial.switch_time, trial.duration), powered.y[:, -1],
+            method, tolerance, extinction, event_aligned)
         if not decay.success or len(decay.t_events[0]) != 1:
             raise ValueError('Independent switched reference did not extinguish')
         event_time = float(decay.t[-1])
         released = decay.y[:, -1] * scales
         released[4] = 0.
+        metrics['decay'] = decay.metrics
 
     def sample(times):
         times = np.atleast_1d(times)
@@ -336,7 +366,7 @@ def variable_coupling_solution(trial, method, refinement):
             result[after, 1] -= gravity * elapsed
             result[after, 2] += released[3] * elapsed
         return result
-    return SimpleNamespace(sample=sample, extinction_s=event_time)
+    return SimpleNamespace(sample=sample, extinction_s=event_time, metrics=metrics)
 
 
 def variable_coupling_reference(trial, times, method, refinement):
@@ -399,7 +429,49 @@ def verify_variable_coupling(construction):
     return dict(passed=True, cases=rows)
 
 
-def verify(output, variable=False):
+def review_joint_solvers(construction):
+    plant = motion.MotionPlant(construction)
+    rows = []
+    times = np.linspace(0., Fixed.coupling_variable_duration,
+        round(Fixed.coupling_variable_duration / Fixed.adaptive_reference_step) + 1)
+    limits = np.array([Fixed.qualification_position_error * Fixed.qualification_convergence_fraction,
+        Fixed.qualification_angle_error * Fixed.qualification_convergence_fraction,
+        Fixed.driver_channel_current * Fixed.qualification_current_reserve_fraction * Fixed.qualification_convergence_fraction])
+    for switched in (False, True):
+        trial = VariableCouplingTrial(construction, plant, switched)
+        independent = variable_coupling_solution(trial, 'Radau', Fixed.qualification_refinement_factor)
+        reference = independent.sample(times)
+        energy_scale = trial.mass * trial.plant.geometry.gravity * trial.span + trial.drivers.inductance * trial.current ** 2 / 2
+        reference_energy = float(np.max(np.abs(variable_energy_residual(trial, reference))) / energy_scale)
+        for method in ('RK45', 'DOP853'):
+            for event_aligned in (False, True):
+                started = perf_counter()
+                solution = variable_coupling_solution(trial, method, 1, event_aligned)
+                states = solution.sample(times)
+                elapsed = perf_counter() - started
+                errors = np.max(np.abs(states - reference), axis=0)
+                energy = float(np.max(np.abs(variable_energy_residual(trial, states))) / energy_scale)
+                extinction_difference = None if not switched else abs(solution.extinction_s - independent.extinction_s)
+                passed = bool(np.all(errors[[0, 2, 4]] <= limits * Fixed.coupling_relative_tolerance)
+                    and energy <= Fixed.coupling_relative_tolerance ** 2
+                    and reference_energy <= Fixed.coupling_relative_tolerance ** 2
+                    and (not switched or extinction_difference <= Fixed.adaptive_clock_tolerance))
+                rows.append(dict(switched=switched, method=method, event_aligned=event_aligned, passed=passed,
+                    elapsed_s=elapsed, metrics=solution.metrics, maximum_reference_disagreement=errors.tolist(),
+                    relative_energy_residual=energy, relative_reference_energy_residual=reference_energy,
+                    extinction_difference_s=extinction_difference))
+                if not passed:
+                    return dict(passed=False, cases=rows)
+    return dict(passed=True, duration_s=Fixed.coupling_variable_duration,
+        local_scaled_reference_tolerance=Fixed.coupling_reference_tolerance,
+        comparison_position_angle_current_limits=(limits * Fixed.coupling_relative_tolerance).tolist(),
+        relative_energy_limit=Fixed.coupling_relative_tolerance ** 2,
+        scope='Joint ODE methods on existing manufactured coupling; not a production MuJoCo/controller benchmark',
+        cost_scope='Event-aligned cases restart at regulator ticks without changing voltage; passive post-extinction motion is analytical. RHS counts include dense output, but no CAD fields, Hall filter, ADC, controller or checkpoint work.',
+        cases=rows)
+
+
+def verify(output, variable=False, solver_review=False):
     if output.exists():
         raise ValueError('Coupling verification output exists; preserve its evidence')
     output.mkdir(parents=True)
@@ -412,7 +484,7 @@ def verify(output, variable=False):
             'Its passive sensor fields are zero; no Hall-history accuracy is claimed by that check.',
             'Short reference agreement does not certify global accuracy over an arbitrary long unstable trajectory.'])
     started = perf_counter()
-    checks = (('variable_coupling', verify_variable_coupling),) if variable else (
+    checks = (('joint_solver_review', review_joint_solvers),) if solver_review else (('variable_coupling', verify_variable_coupling),) if variable else (
         ('flux', verify_flux), ('circuit_energy', verify_circuit_energy), ('smooth_coupling', verify_smooth_coupling))
     for name, check in checks:
         summary['active_check'] = name
@@ -431,6 +503,8 @@ def verify(output, variable=False):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Check magnetic flux reciprocity and coupled energy independently.')
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--variable', action='store_true')
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--variable', action='store_true')
+    mode.add_argument('--solver-review', action='store_true')
     args = parser.parse_args()
-    verify(args.output, args.variable)
+    verify(args.output, args.variable, args.solver_review)

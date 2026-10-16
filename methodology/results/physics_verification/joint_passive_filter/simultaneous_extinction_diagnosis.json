@@ -1,0 +1,14 @@
+{
+    "status": "failed",
+    "scope": "Two identical positive currents, zero force/back-EMF, disabled clamp",
+    "duration_s": 0.002,
+    "first_extinction_s": 6.833893756950086e-06,
+    "final_first_current_A": 0,
+    "final_second_current_A": -36.01418593307066,
+    "expected_final_currents_A": [
+        0,
+        0
+    ],
+    "source_snapshot": "source_snapshot.zip",
+    "cause": "Terminal event returns only first root at the common time; other channel remains conducting."
+}

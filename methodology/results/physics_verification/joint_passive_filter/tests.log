@@ -1,0 +1,23 @@
+test_clamp_extinction_matches_exact_electrical_solution (methodology.tests.test_joint_airborne.JointDynamicsTests.test_clamp_extinction_matches_exact_electrical_solution) ... ok
+test_constant_electromechanical_coupling_matches_matrix_exponential (methodology.tests.test_joint_airborne.JointDynamicsTests.test_constant_electromechanical_coupling_matches_matrix_exponential) ... ok
+test_free_fall_and_trial_isolation (methodology.tests.test_joint_airborne.JointDynamicsTests.test_free_fall_and_trial_isolation) ... ok
+test_hall_filter_dense_output_matches_analytic_ramp (methodology.tests.test_joint_airborne.JointDynamicsTests.test_hall_filter_dense_output_matches_analytic_ramp) ... ok
+test_mixed_axis_spin_matches_independent_euler_equations (methodology.tests.test_joint_airborne.JointDynamicsTests.test_mixed_axis_spin_matches_independent_euler_equations) ... ok
+test_passive_filter_does_not_add_force_evaluations (methodology.tests.test_joint_airborne.JointDynamicsTests.test_passive_filter_does_not_add_force_evaluations) ... ok
+test_rotated_principal_spin_matches_analytic_orientation (methodology.tests.test_joint_airborne.JointDynamicsTests.test_rotated_principal_spin_matches_analytic_orientation) ... ok
+test_variable_powered_and_switched_against_independent_reference (methodology.tests.test_joint_airborne.JointDynamicsTests.test_variable_powered_and_switched_against_independent_reference) ... ok
+test_pending_adc_samples_and_hardware_events_replay_in_fresh_process (methodology.tests.test_joint_airborne.JointScheduleTests.test_pending_adc_samples_and_hardware_events_replay_in_fresh_process) ... ok
+test_converter_precision_preserves_scan_timing_and_noise_correlation (methodology.tests.test_sensing.HallFilterTests.test_converter_precision_preserves_scan_timing_and_noise_correlation) ... ok
+test_exponential_input_matches_independent_convolution_and_refinement (methodology.tests.test_sensing.HallFilterTests.test_exponential_input_matches_independent_convolution_and_refinement) ... ok
+test_exponential_reconstruction_rejects_invalid_time_constant (methodology.tests.test_sensing.HallFilterTests.test_exponential_reconstruction_rejects_invalid_time_constant) ... ok
+test_independent_scan_reference_matches_analytic_power_up_and_component_split (methodology.tests.test_sensing.HallFilterTests.test_independent_scan_reference_matches_analytic_power_up_and_component_split) ... ok
+test_independent_scan_reference_preserves_decay_after_input_extinction (methodology.tests.test_sensing.HallFilterTests.test_independent_scan_reference_preserves_decay_after_input_extinction) ... ok
+test_event_aligned_dense_output_matches_analytic_free_fall (methodology.tests.test_motion.CouplingReferenceTests.test_event_aligned_dense_output_matches_analytic_free_fall) ... ok
+test_terminal_event_stops_segmented_reference_at_analytic_crossing (methodology.tests.test_motion.CouplingReferenceTests.test_terminal_event_stops_segmented_reference_at_analytic_crossing) ... ok
+test_variable_benchmark_rejection_restores_energy_and_motion (methodology.tests.test_motion.MotionInterfaceTests.test_variable_benchmark_rejection_restores_energy_and_motion) ... ok
+test_spinning_body_matches_newton_euler_gyroscopic_term (methodology.tests.test_motion.MotionInterfaceTests.test_spinning_body_matches_newton_euler_gyroscopic_term) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 186.096s
+
+OK

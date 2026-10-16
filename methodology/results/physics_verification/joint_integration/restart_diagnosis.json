@@ -1,0 +1,135 @@
+{
+  "status": "fresh_scene_reconstruction_rejected",
+  "scope": "Checkpoint replay attempt in a fresh process; same-process replay passed",
+  "message": "Fresh CAD mass/COM/inertia contain roundoff differences. Strict scene identity correctly rejects the reconstructed model. Freeze recorded properties and verify fresh-process replay before longer runs; do not bypass the guard.",
+  "checkpoint_scene_sha256": "d5ae1da710f74d0f297da9828617167d468a52ae2df1c1c091545e110e70ed08",
+  "regenerated_scene_differences": [
+    {
+      "tag": "mesh",
+      "name": "Magnet_0_minus_Z",
+      "attribute": "vertex",
+      "maximum_absolute_difference": 5.204170427930421e-18
+    },
+    {
+      "tag": "mesh",
+      "name": "Magnet_1_minus_Y",
+      "attribute": "vertex",
+      "maximum_absolute_difference": 5.204170427930421e-18
+    },
+    {
+      "tag": "mesh",
+      "name": "Magnet_2_minus_Z",
+      "attribute": "vertex",
+      "maximum_absolute_difference": 5.204170427930421e-18
+    },
+    {
+      "tag": "mesh",
+      "name": "Magnet_3_plus_Y",
+      "attribute": "vertex",
+      "maximum_absolute_difference": 5.204170427930421e-18
+    },
+    {
+      "tag": "mesh",
+      "name": "Magnet_4_minus_X",
+      "attribute": "vertex",
+      "maximum_absolute_difference": 5.204170427930421e-18
+    },
+    {
+      "tag": "mesh",
+      "name": "Magnet_5_minus_Y",
+      "attribute": "vertex",
+      "maximum_absolute_difference": 5.204170427930421e-18
+    },
+    {
+      "tag": "mesh",
+      "name": "Magnet_6_minus_X",
+      "attribute": "vertex",
+      "maximum_absolute_difference": 5.204170427930421e-18
+    },
+    {
+      "tag": "mesh",
+      "name": "Magnet_7_plus_Y",
+      "attribute": "vertex",
+      "maximum_absolute_difference": 5.204170427930421e-18
+    },
+    {
+      "tag": "mesh",
+      "name": "Magnet_8_plus_Z",
+      "attribute": "vertex",
+      "maximum_absolute_difference": 5.204170427930421e-18
+    },
+    {
+      "tag": "mesh",
+      "name": "Magnet_9_minus_Y",
+      "attribute": "vertex",
+      "maximum_absolute_difference": 5.204170427930421e-18
+    },
+    {
+      "tag": "mesh",
+      "name": "Magnet_10_plus_Z",
+      "attribute": "vertex",
+      "maximum_absolute_difference": 5.204170427930421e-18
+    },
+    {
+      "tag": "mesh",
+      "name": "Magnet_11_plus_Y",
+      "attribute": "vertex",
+      "maximum_absolute_difference": 5.204170427930421e-18
+    },
+    {
+      "tag": "mesh",
+      "name": "Magnet_12_plus_X",
+      "attribute": "vertex",
+      "maximum_absolute_difference": 5.204170427930421e-18
+    },
+    {
+      "tag": "mesh",
+      "name": "Magnet_13_minus_Y",
+      "attribute": "vertex",
+      "maximum_absolute_difference": 5.204170427930421e-18
+    },
+    {
+      "tag": "mesh",
+      "name": "Magnet_14_plus_X",
+      "attribute": "vertex",
+      "maximum_absolute_difference": 5.204170427930421e-18
+    },
+    {
+      "tag": "mesh",
+      "name": "Magnet_15_plus_Y",
+      "attribute": "vertex",
+      "maximum_absolute_difference": 5.204170427930421e-18
+    },
+    {
+      "tag": "mesh",
+      "name": "King_clearance_envelope_NOT_material",
+      "attribute": "vertex",
+      "maximum_absolute_difference": 2.7755575615628914e-17
+    },
+    {
+      "tag": "body",
+      "name": "king",
+      "attribute": "pos",
+      "maximum_absolute_difference": 5.204170427930421e-18
+    },
+    {
+      "tag": "inertial",
+      "name": null,
+      "attribute": "mass",
+      "maximum_absolute_difference": 3.469446951953614e-18
+    },
+    {
+      "tag": "inertial",
+      "name": null,
+      "attribute": "fullinertia",
+      "maximum_absolute_difference": 8.470329472543003e-21
+    },
+    {
+      "tag": "geom",
+      "name": "Piece_bottom_skin",
+      "attribute": "pos",
+      "maximum_absolute_difference": 5.204170427930421e-18
+    }
+  ],
+  "source_snapshot": "source_snapshot.zip"
+}

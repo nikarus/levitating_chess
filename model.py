@@ -169,6 +169,7 @@ class Fixed:
     current_feedback_noise = 0.001             # A RMS; provisional independent noise per channel and regulator-rate sample
     current_feedback_seed = 1730               # deterministic seed for virtual current-sense calibration and noise
     airborne_check_duration = 0.002            # s; short coupled-interface run after sensor acquisition, not hover qualification
+    airborne_reference_gap_fraction = 0.5      # fraction of the verified lower-to-upper gap span; interior hover target and release height
     airborne_checkpoint_interval = 0.001       # s simulated; maximum progress between atomic coupled checkpoints
     airborne_video_min_duration = 6            # s playback; minimum length for inspecting short or failed airborne trials, with slowdown labeled
     airborne_refinement_duration = 0.05        # s; initial recovery interval compared independently at finer time and magnetic resolution
@@ -185,6 +186,9 @@ class Fixed:
     adaptive_angular_velocity_tolerance = 1e-4  # rad/s; provisional local world angular-velocity difference budget
     adaptive_current_tolerance = 1e-4          # A; provisional local physical-current difference budget
     adaptive_field_tolerance = 1e-7            # T; provisional local analogue Hall endpoint/path/filter difference budget
+    joint_relative_tolerance = 1e-10          # dimensionless RK45 local relative tolerance; absolute scales reuse the existing state/field budgets divided by sqrt(state count)
+    joint_work_tolerance_fraction = 1e-4      # fraction of total airborne energy allowance used as the local integrated-work absolute scale
+    joint_quaternion_norm_tolerance = 1e-7    # dimensionless maximum quaternion norm drift before accepted-state normalization fails
     adaptive_reference_step = 1 / current_regulator_rate / 8 # s; fixed 6.25 us reference with the same exact hardware event scheduling
     adaptive_benchmark_duration = airborne_check_duration # s; initial coupled benchmark; longer sensitivity checks follow only after this passes
     adaptive_sensitivity_duration = 0.013      # s; bounded qualification through the previously divergent 12.25 ms interval
