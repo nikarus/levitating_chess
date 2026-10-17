@@ -16,3 +16,4 @@ Coding rules:
 2. Variable and function names should be descriptive - it should be clear what they do.
 3. No exception handling. No fallbacks of any kind. All code must work in the intended way. If it crashes - it should crash.
 4. Always be vigelant not to duplicate functionality, not to introduce similar variables. Always keep the full context of the project in mind. This means: EVERY time you are adding something new, you should check if there is something similar already in the codebase. If there is - you should take this into account - reuse, or reuse partly removing parts that are not needed anymore, or remove it completely and add new.
+5. When you run a long process, never monitor it periodically as it runs. You are expected to lock yourself against it and only resume and check results when it finishes.

@@ -12,6 +12,7 @@ from scipy.integrate import solve_ivp
 from model import Inputs, Fixed
 from methodology import adaptive_airborne, airborne, airborne_verification, sensing, source_fingerprints
 from methodology.cad import magnetics
+from methodology.magnetic_atlas import MagneticBackend
 
 
 class FilteredTrajectory:
@@ -180,9 +181,11 @@ class JointDynamics:
         self.drivers.filtered_command = state[self.command_filter].copy()
 
 
-class JointAirborneSimulation(airborne.AirborneSimulation):
-    def __init__(self, construction, duration, disturbed=False, initialize=True, tolerance_scale=1):
+class JointAirborneSimulation(MagneticBackend, airborne.AirborneSimulation):
+    def __init__(self, construction, duration, disturbed=False, initialize=True, tolerance_scale=1,
+                 atlas=None, magnetic_mode='direct'):
         super().__init__(construction, duration, disturbed=disturbed, initialize=initialize)
+        self.configure_atlas(atlas, magnetic_mode)
         self.construction = construction
         self.tolerance_scale = tolerance_scale
         self.clock = 0.
@@ -273,7 +276,7 @@ class JointAirborneSimulation(airborne.AirborneSimulation):
 
     def checkpoint_state(self):
         state = super().checkpoint_state()
-        state['schema'] = 'airborne-joint-v2'
+        state['schema'] = 'airborne-joint-v3'
         state['construction'] = self.construction_state()
         state['joint'] = {name: getattr(self, name) for name in ('tolerance_scale', 'clock', 'next_command', 'next_regulator',
             'next_checkpoint', 'last_checkpoint_due', 'next_hall_start', 'accounting')}
@@ -289,15 +292,15 @@ class JointAirborneSimulation(airborne.AirborneSimulation):
             use_cad_mass=self.construction.use_cad_mass, return_depth=self.construction.return_depth)
 
     @classmethod
-    def from_checkpoint(cls, path):
+    def from_checkpoint(cls, path, atlas=None):
         state = json.loads(path.read_text())
-        if state['schema'] != 'airborne-joint-v2':
+        if state['schema'] != 'airborne-joint-v3':
             raise ValueError('Joint checkpoint schema differs')
         construction = magnetics.ConstructionModel(recorded_piece_properties=state['construction']['piece_properties'])
         construction.use_cad_mass = state['construction']['use_cad_mass']
         construction.return_depth = state['construction']['return_depth']
         simulation = cls(construction, state['duration_s'], disturbed=state['disturbed'], initialize=False,
-            tolerance_scale=state['joint']['tolerance_scale'])
+            tolerance_scale=state['joint']['tolerance_scale'], atlas=atlas, magnetic_mode=state['atlas']['mode'])
         simulation.load_checkpoint(path)
         return simulation
 
@@ -308,10 +311,11 @@ class JointAirborneSimulation(airborne.AirborneSimulation):
         self.restore_checkpoint(state)
 
     def restore_checkpoint(self, state):
-        if state['schema'] != 'airborne-joint-v2' or state['source_sha256'] != self.source:
+        if state['schema'] != 'airborne-joint-v3' or state['source_sha256'] != self.source:
             raise ValueError('Joint checkpoint schema or source differs')
         if state['construction'] != self.construction_state():
             raise ValueError('Joint checkpoint CAD construction differs')
+        self.validate_atlas(state)
         super().restore_checkpoint(state)
         for name, value in state['joint'].items():
             if name in ('evaluations', 'filter_evaluations', 'peak_trial_back_emf'):
@@ -331,11 +335,12 @@ class JointAirborneSimulation(airborne.AirborneSimulation):
         return report
 
 
-def screen(output):
+def screen(output, atlas=None):
     if output.exists():
         raise ValueError('Joint integration output exists; preserve its evidence')
     output.mkdir(parents=True)
-    simulation = JointAirborneSimulation(magnetics.ConstructionModel(), Fixed.airborne_check_duration)
+    construction = magnetics.ConstructionModel()
+    simulation = JointAirborneSimulation(construction, Fixed.airborne_check_duration)
     initial = deepcopy(simulation.checkpoint_state())
     simulation.save_checkpoint(output / 'initial_checkpoint.json')
     summary = dict(scope='One direct-field regulator interval with physical Hall filtering; cost/refinement screen, not flight qualification',
@@ -343,9 +348,22 @@ def screen(output):
         absolute_component_tolerances=simulation.dynamics.atol.tolist(), filter_absolute_tolerance=simulation.dynamics.filter_atol,
         relative_tolerance=Fixed.joint_relative_tolerance)
     states = {}
-    for name, scale in (('nominal', 1), ('tighter', 1 / Fixed.qualification_refinement_factor)):
-        simulation.restore_checkpoint(deepcopy(initial))
-        simulation.tolerance_scale = scale
+    cases = [('nominal', 1), ('tighter', 1 / Fixed.qualification_refinement_factor)]
+    if atlas is not None:
+        cases.append(('atlas', 1))
+        summary.update(scope='One regulator interval: direct refinement and atlas comparison; not coupled-flight or combined-budget qualification',
+                       atlas_identity=atlas.identity)
+    for name, scale in cases:
+        if name == 'atlas':
+            simulation = JointAirborneSimulation(construction, Fixed.airborne_check_duration,
+                atlas=atlas, magnetic_mode='atlas_forces')
+            twin = simulation.checkpoint_state()
+            if {key: value for key, value in twin.items() if key != 'atlas'} != {key: value for key, value in initial.items() if key != 'atlas'}:
+                raise ValueError('Direct and atlas initial states differ beyond the declared backend')
+            simulation.save_checkpoint(output / 'atlas_initial_checkpoint.json')
+        else:
+            simulation.restore_checkpoint(deepcopy(initial))
+            simulation.tolerance_scale = scale
         started = perf_counter()
         simulation.advance()
         summary['cases'][name] = dict(elapsed_s=perf_counter() - started, completed_time_s=simulation.clock,
@@ -369,6 +387,18 @@ def screen(output):
         field=float(np.max(np.abs(states['nominal']['field'] - states['tighter']['field']))))
     summary.update(differences=differences, limits=limits,
         status='completed' if all(differences[key] <= limits[key] for key in limits) else 'refinement_failed')
+    if atlas is not None:
+        actual, expected = states['atlas'], states['nominal']
+        delta = {key: float(np.linalg.norm(actual[key] - expected[key])) for key in ('position', 'velocity', 'angular_velocity')}
+        delta.update(angle=float((actual['rotation'] * expected['rotation'].inv()).magnitude()),
+            current=float(np.max(np.abs(actual['current'] - expected['current']))),
+            field=float(np.max(np.abs(actual['field'] - expected['field']))))
+        restored = JointAirborneSimulation.from_checkpoint(output / 'atlas_checkpoint.json', atlas=atlas)
+        if restored.checkpoint_state() != simulation.checkpoint_state():
+            raise ValueError('Atlas checkpoint reconstruction differs')
+        summary.update(atlas_differences=delta, atlas_checkpoint_exact=True)
+        if any(delta[key] > limits[key] for key in limits):
+            summary['status'] = 'atlas_comparison_failed'
     airborne_verification.save_summary(output / 'summary.json', summary)
     return summary
 
@@ -378,9 +408,13 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--deadline', type=datetime.fromisoformat)
     parser.add_argument('--screen', action='store_true')
+    parser.add_argument('--atlas', type=Path)
     args = parser.parse_args()
     if args.screen:
-        screen(args.output)
+        from methodology.magnetic_atlas import MagneticFieldAtlas
+        screen(args.output, None if args.atlas is None else MagneticFieldAtlas.load(args.atlas))
+    elif args.atlas is not None:
+        parser.error('Atlas use requires the bounded screen')
     elif args.output.exists() or args.deadline is None or args.deadline.tzinfo is None:
         raise ValueError('Use a fresh output directory and a timezone-aware deadline')
     else:

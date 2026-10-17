@@ -1,0 +1,866 @@
+{
+    "scope": "Current-source workload profile and direct-force thread comparison; no flight qualification",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "b7b115be402374de5a93940b5534d3b72b60680eaaf3071989cf7b63936fd7c4",
+        "levitation_sim.py": "91eea3f343cbfb0722c8325f52f6c55ff49995a2e4ff726584ead98b1e4cd5a3",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "0558fffe5cb8bc3dd6924bc94aaf8d1ddd5328900e6531496786e93a7d77bd00",
+        "methodology/motion.py": "347fb61e8c224e9772a120dae2adcb465b344de1c724e28c51f8d6980ecf0654",
+        "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+        "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+        "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+        "methodology/airborne.py": "a76c188d82b02f0ecee729deacd29d9dfd454027dff975b3fa50c878a715bfe2",
+        "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+        "methodology/sensing.py": "5835a7ec568addaf5ba0cda8e12293b82392fb520875b1149b0e2f1eadc52cc0",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/joint_airborne.py": "5129d4bb358f57cd5e9507498c5bb937d8c9d92dc1c1709366bc8cd8d5e88e8d",
+        "methodology/adaptive_airborne.py": "987f2334b809a0433725ca22a2d5fe5347874d8d99f467ad9460e0252a486125"
+    },
+    "benchmark_source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/benchmark_magnetics.py": "73ba1ab3a6c11dfc7751213670a6ed80e825786893b4abf2fb6b437b8601e325"
+    },
+    "input_sha256": {
+        "summary.json": "a5f3289859af87ed79b2083ec1336c3cbda55d4ccf44f3eb679638ba0a056314",
+        "initial_checkpoint.json": "c53191ff5a0c5b2e1420d225b49f4db5eb9da1833fd9d6e8cfac878fed8926d9"
+    },
+    "environment": {
+        "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+        "python": "3.14.4",
+        "logical_cpus": 4,
+        "affinity_cpus": 4
+    },
+    "setup_seconds": 52.40044295799453,
+    "interval": {
+        "duration_s": 5e-05,
+        "elapsed_s": 101.8771965779597,
+        "integration": {
+            "accepted_steps": 3,
+            "signed_mechanical_defect_J": -3.547485067742136e-18,
+            "absolute_mechanical_defect_J": 3.547485067742136e-18,
+            "signed_total_defect_J": -1.1497131030480149e-12,
+            "absolute_total_defect_J": 1.1497131030480149e-12,
+            "energy_budget_J": 2.229044839004151e-08,
+            "minimum_step_s": 4.318668611149331e-06,
+            "maximum_step_s": 2.289664690913725e-05,
+            "rhs_evaluations": 26,
+            "filter_evaluations": 110
+        },
+        "functions": [
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/joint_airborne.py",
+                "line": 216,
+                "function": "advance",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 0.00026613600000000004,
+                "inclusive_seconds": 101.87710312200001
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 351,
+                "function": "actuator_matrix",
+                "primitive_calls": 27,
+                "calls": 27,
+                "own_seconds": 0.00030943400000000003,
+                "inclusive_seconds": 99.080919152
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 323,
+                "function": "matrix",
+                "primitive_calls": 27,
+                "calls": 27,
+                "own_seconds": 0.13792848700000002,
+                "inclusive_seconds": 92.870324964
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/joint_airborne.py",
+                "line": 123,
+                "function": "integrate",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 0.000101984,
+                "inclusive_seconds": 92.305916538
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 333,
+                "function": "magnetic_field",
+                "primitive_calls": 27,
+                "calls": 27,
+                "own_seconds": 0.003024965,
+                "inclusive_seconds": 91.62285307600001
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/joint_airborne.py",
+                "line": 81,
+                "function": "derivative",
+                "primitive_calls": 26,
+                "calls": 26,
+                "own_seconds": 0.0033604760000000003,
+                "inclusive_seconds": 90.144832414
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/joint_airborne.py",
+                "line": 195,
+                "function": "<lambda>",
+                "primitive_calls": 26,
+                "calls": 26,
+                "own_seconds": 0.000443649,
+                "inclusive_seconds": 90.128170358
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/motion.py",
+                "line": 68,
+                "function": "magnetic_matrix",
+                "primitive_calls": 26,
+                "calls": 26,
+                "own_seconds": 0.001899527,
+                "inclusive_seconds": 90.127726709
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 340,
+                "function": "field",
+                "primitive_calls": 27,
+                "calls": 6021,
+                "own_seconds": 0.31717655100000003,
+                "inclusive_seconds": 88.11424345500001
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/airborne.py",
+                "line": 170,
+                "function": "process_events",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 0.000132905,
+                "inclusive_seconds": 9.566469363000001
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/airborne.py",
+                "line": 39,
+                "function": "command",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 0.000115581,
+                "inclusive_seconds": 9.543374657000001
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/cad/magnetics.py",
+                "line": 82,
+                "function": "create_force_quadrature",
+                "primitive_calls": 2,
+                "calls": 2,
+                "own_seconds": 6.7988e-05,
+                "inclusive_seconds": 6.093377603
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/cad/magnetics.py",
+                "line": 111,
+                "function": "force_samples",
+                "primitive_calls": 2,
+                "calls": 2,
+                "own_seconds": 0.001311115,
+                "inclusive_seconds": 6.024760599
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/cad/magnetics.py",
+                "line": 40,
+                "function": "curved_conductor_samples",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 0.006107122,
+                "inclusive_seconds": 6.023449484
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 267,
+                "function": "place_piece",
+                "primitive_calls": 138,
+                "calls": 138,
+                "own_seconds": 0.002759234,
+                "inclusive_seconds": 2.26646647
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/joint_airborne.py",
+                "line": 107,
+                "function": "integrate_filter",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 3.2789e-05,
+                "inclusive_seconds": 2.158435808
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/joint_airborne.py",
+                "line": 109,
+                "function": "derivative",
+                "primitive_calls": 110,
+                "calls": 110,
+                "own_seconds": 0.0033521920000000004,
+                "inclusive_seconds": 2.1524334400000003
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/joint_airborne.py",
+                "line": 201,
+                "function": "field_signal",
+                "primitive_calls": 110,
+                "calls": 110,
+                "own_seconds": 0.0060880940000000005,
+                "inclusive_seconds": 2.1264555880000002
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/sensing.py",
+                "line": 46,
+                "function": "magnet_field",
+                "primitive_calls": 111,
+                "calls": 111,
+                "own_seconds": 0.000660661,
+                "inclusive_seconds": 2.11058113
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 624,
+                "function": "hall_field",
+                "primitive_calls": 111,
+                "calls": 111,
+                "own_seconds": 0.004390936000000001,
+                "inclusive_seconds": 2.109920469
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/cad/magnetics.py",
+                "line": 49,
+                "function": "<genexpr>",
+                "primitive_calls": 9639,
+                "calls": 9639,
+                "own_seconds": 0.08977894700000001,
+                "inclusive_seconds": 1.038843941
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/cad/magnetics.py",
+                "line": 48,
+                "function": "<genexpr>",
+                "primitive_calls": 9639,
+                "calls": 9639,
+                "own_seconds": 0.028597239000000003,
+                "inclusive_seconds": 0.5693850490000001
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/coil_layouts.py",
+                "line": 73,
+                "function": "build",
+                "primitive_calls": 26,
+                "calls": 26,
+                "own_seconds": 0.06154201200000001,
+                "inclusive_seconds": 0.12223552200000001
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 318,
+                "function": "matches",
+                "primitive_calls": 25,
+                "calls": 25,
+                "own_seconds": 0.0005646970000000001,
+                "inclusive_seconds": 0.116907151
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 319,
+                "function": "<genexpr>",
+                "primitive_calls": 650,
+                "calls": 650,
+                "own_seconds": 0.003267334,
+                "inclusive_seconds": 0.11608113
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 313,
+                "function": "filament_state",
+                "primitive_calls": 675,
+                "calls": 675,
+                "own_seconds": 0.003716673,
+                "inclusive_seconds": 0.08042568800000001
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/cad/magnetics.py",
+                "line": 59,
+                "function": "curved_force_quadrature",
+                "primitive_calls": 2,
+                "calls": 2,
+                "own_seconds": 0.010106962,
+                "inclusive_seconds": 0.068549016
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 320,
+                "function": "<genexpr>",
+                "primitive_calls": 3750,
+                "calls": 3750,
+                "own_seconds": 0.004501434,
+                "inclusive_seconds": 0.040707919
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/motion.py",
+                "line": 63,
+                "function": "truth",
+                "primitive_calls": 173,
+                "calls": 173,
+                "own_seconds": 0.002494769,
+                "inclusive_seconds": 0.036911191
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 291,
+                "function": "from_samples",
+                "primitive_calls": 2,
+                "calls": 2,
+                "own_seconds": 1.4667e-05,
+                "inclusive_seconds": 0.021741621000000003
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 297,
+                "function": "set_samples",
+                "primitive_calls": 2,
+                "calls": 2,
+                "own_seconds": 0.008748928000000001,
+                "inclusive_seconds": 0.021724254000000002
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/airborne.py",
+                "line": 160,
+                "function": "physical_fields",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 7.5072e-05,
+                "inclusive_seconds": 0.020279924
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/joint_airborne.py",
+                "line": 66,
+                "function": "set_stage",
+                "primitive_calls": 136,
+                "calls": 136,
+                "own_seconds": 0.004314373000000001,
+                "inclusive_seconds": 0.015009365
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/coil_layouts.py",
+                "line": 51,
+                "function": "candidates",
+                "primitive_calls": 7540,
+                "calls": 7540,
+                "own_seconds": 0.006542504,
+                "inclusive_seconds": 0.008814644
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 391,
+                "function": "min_peak_current",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 0.000175703,
+                "inclusive_seconds": 0.005022605
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 303,
+                "function": "<genexpr>",
+                "primitive_calls": 52,
+                "calls": 52,
+                "own_seconds": 0.0024454520000000003,
+                "inclusive_seconds": 0.0028801850000000004
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 429,
+                "function": "min_loss_current",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 0.000129263,
+                "inclusive_seconds": 0.002125103
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/coil_layouts.py",
+                "line": 33,
+                "function": "short_pitch",
+                "primitive_calls": 15054,
+                "calls": 15054,
+                "own_seconds": 0.001997708,
+                "inclusive_seconds": 0.001997708
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/airborne.py",
+                "line": 219,
+                "function": "observe_physics",
+                "primitive_calls": 4,
+                "calls": 4,
+                "own_seconds": 0.000234113,
+                "inclusive_seconds": 0.00188948
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/motion.py",
+                "line": 82,
+                "function": "apply_wrench",
+                "primitive_calls": 26,
+                "calls": 26,
+                "own_seconds": 0.00047517200000000005,
+                "inclusive_seconds": 0.001098657
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/motion.py",
+                "line": 91,
+                "function": "mechanical_energy_change",
+                "primitive_calls": 3,
+                "calls": 3,
+                "own_seconds": 0.000133409,
+                "inclusive_seconds": 0.00100989
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/airborne.py",
+                "line": 62,
+                "function": "measured_acceleration",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 8.985e-05,
+                "inclusive_seconds": 0.0007474840000000001
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/joint_airborne.py",
+                "line": 22,
+                "function": "__call__",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 2.3181e-05,
+                "inclusive_seconds": 0.000567132
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/motion.py",
+                "line": 18,
+                "function": "airborne_observation",
+                "primitive_calls": 4,
+                "calls": 4,
+                "own_seconds": 8.161400000000001e-05,
+                "inclusive_seconds": 0.00044660200000000004
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/sensing.py",
+                "line": 365,
+                "function": "predict",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 7.095000000000001e-06,
+                "inclusive_seconds": 0.000426858
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/sensing.py",
+                "line": 313,
+                "function": "propagate",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 1.4766e-05,
+                "inclusive_seconds": 0.00041795700000000005
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/electrical.py",
+                "line": 20,
+                "function": "decode",
+                "primitive_calls": 2,
+                "calls": 2,
+                "own_seconds": 0.00010657800000000001,
+                "inclusive_seconds": 0.000203281
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/joint_airborne.py",
+                "line": 168,
+                "function": "commit",
+                "primitive_calls": 3,
+                "calls": 3,
+                "own_seconds": 7.4768e-05,
+                "inclusive_seconds": 0.00019856800000000001
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/sensing.py",
+                "line": 301,
+                "function": "acceleration_intervals",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 4.3440000000000004e-05,
+                "inclusive_seconds": 0.000196109
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/electrical.py",
+                "line": 74,
+                "function": "regulate",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 1.4512000000000001e-05,
+                "inclusive_seconds": 0.000163205
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/sensing.py",
+                "line": 318,
+                "function": "constrain_contact",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 1.4737000000000001e-05,
+                "inclusive_seconds": 0.00012439500000000002
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/motion.py",
+                "line": 122,
+                "function": "integration_state",
+                "primitive_calls": 4,
+                "calls": 4,
+                "own_seconds": 2.2165000000000002e-05,
+                "inclusive_seconds": 0.00010353300000000001
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/motion.py",
+                "line": 284,
+                "function": "bottom_film_clearance",
+                "primitive_calls": 5,
+                "calls": 5,
+                "own_seconds": 6.3957e-05,
+                "inclusive_seconds": 9.870300000000001e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/electrical.py",
+                "line": 41,
+                "function": "sample",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 5.2939e-05,
+                "inclusive_seconds": 9.685600000000001e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/qualification.py",
+                "line": 89,
+                "function": "propagate_estimate",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 3.0454000000000004e-05,
+                "inclusive_seconds": 8.2687e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/joint_airborne.py",
+                "line": 26,
+                "function": "sample_scan_segment",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 4.8719000000000006e-05,
+                "inclusive_seconds": 7.142200000000001e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/coil_layouts.py",
+                "line": 37,
+                "function": "repeat",
+                "primitive_calls": 26,
+                "calls": 26,
+                "own_seconds": 5.5505000000000005e-05,
+                "inclusive_seconds": 6.606300000000001e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/sensing.py",
+                "line": 78,
+                "function": "hall_available_time",
+                "primitive_calls": 2,
+                "calls": 2,
+                "own_seconds": 5.6490000000000005e-06,
+                "inclusive_seconds": 6.4384e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/sensing.py",
+                "line": 58,
+                "function": "hall_readout",
+                "primitive_calls": 2,
+                "calls": 2,
+                "own_seconds": 5.1159e-05,
+                "inclusive_seconds": 5.8735000000000006e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/airborne.py",
+                "line": 15,
+                "function": "euler_rate_axes",
+                "primitive_calls": 2,
+                "calls": 2,
+                "own_seconds": 4.817e-05,
+                "inclusive_seconds": 5.7593e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/electrical.py",
+                "line": 66,
+                "function": "set_command",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 1.8368e-05,
+                "inclusive_seconds": 5.2842e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/joint_airborne.py",
+                "line": 62,
+                "function": "pack",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 6.939000000000001e-06,
+                "inclusive_seconds": 5.0752000000000005e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/airborne.py",
+                "line": 21,
+                "function": "euler_rates_to_world",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 9.983e-06,
+                "inclusive_seconds": 4.8582000000000003e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 449,
+                "function": "<lambda>",
+                "primitive_calls": 5,
+                "calls": 5,
+                "own_seconds": 3.7912000000000006e-05,
+                "inclusive_seconds": 3.7912000000000006e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/qualification.py",
+                "line": 137,
+                "function": "current_regulator",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 2.4547e-05,
+                "inclusive_seconds": 3.3734e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 461,
+                "function": "<lambda>",
+                "primitive_calls": 4,
+                "calls": 4,
+                "own_seconds": 3.0791000000000004e-05,
+                "inclusive_seconds": 3.1595000000000005e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/cad/magnetics.py",
+                "line": 61,
+                "function": "<genexpr>",
+                "primitive_calls": 52,
+                "calls": 52,
+                "own_seconds": 2.1172e-05,
+                "inclusive_seconds": 2.7107000000000003e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 298,
+                "function": "<genexpr>",
+                "primitive_calls": 52,
+                "calls": 52,
+                "own_seconds": 2.4931000000000002e-05,
+                "inclusive_seconds": 2.4931000000000002e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 463,
+                "function": "<lambda>",
+                "primitive_calls": 4,
+                "calls": 4,
+                "own_seconds": 2.0493000000000002e-05,
+                "inclusive_seconds": 2.0493000000000002e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/sensing.py",
+                "line": 293,
+                "function": "record_acceleration",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 1.007e-05,
+                "inclusive_seconds": 1.9342000000000002e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/electrical.py",
+                "line": 81,
+                "function": "terminal_voltage",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 1.7057e-05,
+                "inclusive_seconds": 1.7592e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 49,
+                "function": "use_geometry",
+                "primitive_calls": 27,
+                "calls": 27,
+                "own_seconds": 1.6427e-05,
+                "inclusive_seconds": 1.6427e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/qualification.py",
+                "line": 146,
+                "function": "pose_correction",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 1.1063e-05,
+                "inclusive_seconds": 1.1063e-05
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/electrical.py",
+                "line": 9,
+                "function": "current_quantum",
+                "primitive_calls": 3,
+                "calls": 3,
+                "own_seconds": 5.479e-06,
+                "inclusive_seconds": 5.479e-06
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/methodology/joint_airborne.py",
+                "line": 18,
+                "function": "__init__",
+                "primitive_calls": 1,
+                "calls": 1,
+                "own_seconds": 2.435e-06,
+                "inclusive_seconds": 2.435e-06
+            },
+            {
+                "file": "/home/arseniy/projects/flying_chess/levitation_sim.py",
+                "line": 450,
+                "function": "<lambda>",
+                "primitive_calls": 4,
+                "calls": 4,
+                "own_seconds": 6.720000000000001e-07,
+                "inclusive_seconds": 6.720000000000001e-07
+            }
+        ]
+    },
+    "recorded_workload": {
+        "elapsed_s": 78927.48962899204,
+        "duration_s": 0.05,
+        "integration": {
+            "accepted_steps": 2701,
+            "signed_mechanical_defect_J": -1.7951138465688607e-15,
+            "absolute_mechanical_defect_J": 1.947222823288427e-15,
+            "signed_total_defect_J": -1.7416794437319504e-09,
+            "absolute_total_defect_J": 1.741679464610176e-09,
+            "energy_budget_J": 2.229044839004151e-08,
+            "minimum_step_s": 8.673617379884035e-19,
+            "maximum_step_s": 5.000000000000143e-05,
+            "rhs_evaluations": 24094,
+            "filter_evaluations": 35428
+        }
+    },
+    "probes": [
+        {
+            "time_s": 0.0,
+            "pose": [
+                0.0,
+                0.0,
+                0.0005000000000000004,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "force_timings_s": {
+                "1": [
+                    5.063492042012513,
+                    5.047902425983921
+                ],
+                "3": [
+                    3.1371705080382526,
+                    3.073044587043114
+                ],
+                "4": [
+                    3.35778420092538,
+                    3.4100966189289466
+                ]
+            },
+            "max_absolute_matrix_differences": {
+                "1": 0.0,
+                "3": 0.0,
+                "4": 0.0
+            },
+            "hall_signal_timings_s": [
+                0.0126704559661448,
+                0.010507488041184843
+            ],
+            "wire_points": 228000
+        },
+        {
+            "time_s": 0.025,
+            "pose": [
+                5.4917023997370744e-05,
+                -1.1753246964916912e-05,
+                0.000507496436335235,
+                -0.00020726708737471588,
+                -0.0020106929500938175,
+                0.002314628882278496
+            ],
+            "force_timings_s": {
+                "1": [
+                    4.98372970498167,
+                    4.986531977076083
+                ],
+                "3": [
+                    3.2357177690137178,
+                    3.2550359779270366
+                ],
+                "4": [
+                    3.409389397013001,
+                    3.4588098539970815
+                ]
+            },
+            "max_absolute_matrix_differences": {
+                "1": 0.0,
+                "3": 0.0,
+                "4": 0.0
+            },
+            "hall_signal_timings_s": [
+                0.011612152913585305,
+                0.011479172972030938
+            ],
+            "wire_points": 228000
+        },
+        {
+            "time_s": 0.05,
+            "pose": [
+                5.159582600454747e-05,
+                -1.708084380559067e-05,
+                0.0005018082372737001,
+                0.0004530303010962998,
+                -0.0007667839078497884,
+                0.0015098718361484993
+            ],
+            "force_timings_s": {
+                "1": [
+                    5.113973367027938,
+                    4.99303997901734
+                ],
+                "3": [
+                    3.2045501100365072,
+                    3.257048093015328
+                ],
+                "4": [
+                    3.2035776720149443,
+                    3.2743411120027304
+                ]
+            },
+            "max_absolute_matrix_differences": {
+                "1": 0.0,
+                "3": 0.0,
+                "4": 0.0
+            },
+            "hall_signal_timings_s": [
+                0.011617539916187525,
+                0.01079412701074034
+            ],
+            "wire_points": 228000
+        }
+    ],
+    "completed": true
+}

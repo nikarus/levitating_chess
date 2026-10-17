@@ -1,0 +1,155 @@
+{
+    "scope": "Recorded CAD and poses replayed for batching equivalence; not a checkpoint continuation",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "228d08944adc73c5a8dfe530dd7b210f2c0d441685b795fc3f1ca615c65b96fc",
+        "levitation_sim.py": "91eea3f343cbfb0722c8325f52f6c55ff49995a2e4ff726584ead98b1e4cd5a3",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "0558fffe5cb8bc3dd6924bc94aaf8d1ddd5328900e6531496786e93a7d77bd00",
+        "methodology/benchmark_magnetics.py": "7222e14ab2944923178d6f201fc2a55ee8c989c8a882effc86c8177bd2f081c8"
+    },
+    "input_sha256": {
+        "summary.json": "a5f3289859af87ed79b2083ec1336c3cbda55d4ccf44f3eb679638ba0a056314",
+        "initial_checkpoint.json": "c53191ff5a0c5b2e1420d225b49f4db5eb9da1833fd9d6e8cfac878fed8926d9"
+    },
+    "workers": 3,
+    "batch_candidates": [
+        1024,
+        4096,
+        16384
+    ],
+    "wire_points": 228000,
+    "probes": [
+        {
+            "time_s": 0.0,
+            "pose": [
+                0.0,
+                0.0,
+                0.0005000000000000004,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "cases": [
+                {
+                    "batch_points": 1024,
+                    "timings_s": [
+                        4.232385370996781,
+                        3.9043758739717305
+                    ],
+                    "max_absolute_difference": 0.0,
+                    "exactly_equal": true
+                },
+                {
+                    "batch_points": 4096,
+                    "timings_s": [
+                        4.731213832041249,
+                        4.775672490010038
+                    ],
+                    "max_absolute_difference": 0.0,
+                    "exactly_equal": true
+                },
+                {
+                    "batch_points": 16384,
+                    "timings_s": [
+                        4.883685406064615,
+                        4.56626175600104
+                    ],
+                    "max_absolute_difference": 0.0,
+                    "exactly_equal": true
+                }
+            ]
+        },
+        {
+            "time_s": 0.025,
+            "pose": [
+                5.4917023997370744e-05,
+                -1.1753246964916912e-05,
+                0.000507496436335235,
+                -0.00020726708737471588,
+                -0.0020106929500938175,
+                0.002314628882278496
+            ],
+            "cases": [
+                {
+                    "batch_points": 1024,
+                    "timings_s": [
+                        3.194140825071372,
+                        3.1537112389924005
+                    ],
+                    "max_absolute_difference": 0.0,
+                    "exactly_equal": true
+                },
+                {
+                    "batch_points": 4096,
+                    "timings_s": [
+                        4.164612383930944,
+                        4.220875527942553
+                    ],
+                    "max_absolute_difference": 0.0,
+                    "exactly_equal": true
+                },
+                {
+                    "batch_points": 16384,
+                    "timings_s": [
+                        4.759722767048515,
+                        4.549387649982236
+                    ],
+                    "max_absolute_difference": 0.0,
+                    "exactly_equal": true
+                }
+            ]
+        },
+        {
+            "time_s": 0.05,
+            "pose": [
+                5.159582600454747e-05,
+                -1.708084380559067e-05,
+                0.0005018082372737001,
+                0.0004530303010962998,
+                -0.0007667839078497884,
+                0.0015098718361484993
+            ],
+            "cases": [
+                {
+                    "batch_points": 1024,
+                    "timings_s": [
+                        3.274610091932118,
+                        3.184801341034472
+                    ],
+                    "max_absolute_difference": 0.0,
+                    "exactly_equal": true
+                },
+                {
+                    "batch_points": 4096,
+                    "timings_s": [
+                        4.162027964019217,
+                        4.117244892986491
+                    ],
+                    "max_absolute_difference": 0.0,
+                    "exactly_equal": true
+                },
+                {
+                    "batch_points": 16384,
+                    "timings_s": [
+                        4.756871705991216,
+                        4.846969066071324
+                    ],
+                    "max_absolute_difference": 0.0,
+                    "exactly_equal": true
+                }
+            ]
+        }
+    ],
+    "completed": true,
+    "median_seconds": {
+        "1024": 3.234375458501745,
+        "4096": 4.1927439559367485,
+        "16384": 4.758297236519866
+    }
+}

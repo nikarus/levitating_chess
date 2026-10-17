@@ -12,6 +12,30 @@ from methodology import electrical, motion, sensing
 from methodology.cad import magnetics
 
 
+
+class AcceleratedSensingBudgetTests(unittest.TestCase):
+    def test_opposite_component_errors_cannot_cancel(self):
+        from methodology.numerical_accuracy import accelerated_sensor_comparison
+        zero = np.zeros((2, 1))
+        opposite = np.array([[1.], [-1.]])
+        result = accelerated_sensor_comparison(np.zeros(1),
+            dict(direct=[zero, zero], atlas=[opposite, opposite], refined=[zero, zero]),
+            np.zeros(1), dict(limit_T=1.))
+        self.assertEqual(result['combined_bound_T'], [2.])
+        self.assertFalse(result['passed'])
+
+    def test_refinement_filter_and_spatial_errors_add(self):
+        from methodology.numerical_accuracy import accelerated_sensor_comparison
+        zero = np.zeros((2, 1))
+        nominal = np.array([[1.], [0.]])
+        atlas = np.array([[2.], [0.]])
+        result = accelerated_sensor_comparison(np.array([3.]),
+            dict(direct=[nominal, nominal], atlas=[atlas, atlas], refined=[zero, zero]),
+            np.array([1.]), dict(limit_T=4.))
+        self.assertEqual(result['combined_bound_T'], [4.])
+        self.assertTrue(result['passed'])
+
+
 class HallFilterTests(unittest.TestCase):
     def test_independent_scan_reference_matches_analytic_power_up_and_component_split(self):
         from methodology.numerical_accuracy import reference_filtered_scan

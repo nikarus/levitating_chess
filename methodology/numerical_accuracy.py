@@ -1,8 +1,11 @@
 import argparse
+import cProfile
+import hashlib
 import json
 from pathlib import Path
 from time import perf_counter
 from types import SimpleNamespace
+from unittest.mock import patch
 
 import numpy as np
 from scipy.optimize import linprog
@@ -505,6 +508,155 @@ def verify_joint_sensor_budget(output):
     return summary
 
 
+def accelerated_sensor_comparison(actual, components, spatial, budget):
+    nominal = components['direct'][-1]
+    atlas = components['atlas'][-1]
+    refined = components['refined'][-1]
+    interpolation = np.sum(np.abs(atlas - nominal), axis=0)
+    integration = np.sum(np.abs(nominal - refined), axis=0)
+    filtering = np.abs(actual - np.sum(atlas, axis=0))
+    reference = sum(np.sum(np.abs(values[0] - values[-1]), axis=0) for values in components.values())
+    combined = spatial + interpolation + integration + filtering + reference
+    reference_passed = bool(np.max(reference) <= budget['limit_T'] * Fixed.coupling_relative_tolerance)
+    return dict(interpolation_trajectory_T=interpolation.tolist(), integration_refinement_T=integration.tolist(),
+        production_filter_T=filtering.tolist(), reference_disagreement_T=reference.tolist(),
+        combined_bound_T=combined.tolist(), reference_passed=reference_passed,
+        passed=bool(reference_passed and np.max(combined) <= budget['limit_T']))
+
+
+def verify_atlas_sensor_budget(folder, output):
+    from methodology import airborne, benchmark_magnetics, hover
+    from methodology.magnetic_atlas import MagneticFieldAtlas
+    if output.exists():
+        raise ValueError('Preserve existing atlas sensing evidence')
+    gate = json.loads((folder / 'coupled/summary.json').read_text())
+    if gate['status'] != 'completed':
+        raise ValueError('Atlas sensing requires passing coupled evidence')
+    for name, digest in gate['source_sha256'].items():
+        if hashlib.sha256(Path(name).read_bytes()).hexdigest() != digest:
+            raise ValueError('Atlas sensing source differs from coupled evidence')
+    atlas = MagneticFieldAtlas.load(folder / 'fields/atlas.npz')
+    if atlas.identity != gate['atlas_identity']:
+        raise ValueError('Atlas sensing cache differs from coupled evidence')
+    output.mkdir(parents=True)
+    started = perf_counter()
+    summary = dict(status='running', scope='Combined numerical sensing discrepancy for bounded coupled startup; empirical refinement, not a global error certificate or sustained hover.',
+        budget=analogue_field_budget(), source_sha256=gate['source_sha256'], atlas_identity=atlas.identity,
+        verifier_source_sha256=source_fingerprints(__file__, benchmark_magnetics.__file__),
+        inputs_sha256={name: hashlib.sha256((folder / name).read_bytes()).hexdigest() for name in
+            ('coupled/summary.json', 'coupled/direct.json', 'coupled/atlas.json',
+             'integration/initial_checkpoint.json', 'integration/atlas_initial_checkpoint.json')}, cases={}, scans=[])
+    path = output / 'summary.json'
+    airborne_verification.save_summary(path, summary)
+    references = {}
+    signals = {}
+    for name, initial, scale in (('direct', 'initial_checkpoint.json', 1),
+            ('atlas', 'atlas_initial_checkpoint.json', 1),
+            ('refined', 'initial_checkpoint.json', 1 / Fixed.qualification_refinement_factor)):
+        simulation = joint_airborne.JointAirborneSimulation.from_checkpoint(folder / 'integration' / initial,
+            atlas=atlas if name == 'atlas' else None)
+        simulation.tolerance_scale = scale
+        if simulation.source != gate['source_sha256'] or simulation.duration != Fixed.adaptive_benchmark_duration:
+            raise ValueError('Atlas sensing scenario differs from the bounded gate')
+        if name == 'direct':
+            _, array, _ = simulation.construction(Inputs.cad_coil_layout, min(Fixed.current_demand_mesh_refinements))
+            array.window = Fixed.cad_patch_cells_per_side * array.short_pitch
+            array.build()
+            if tuple(array.identities) != simulation.fields.identities:
+                raise ValueError('Sensing spatial reference coil order differs')
+            summary['coil_map'] = sensor_spatial_budget(simulation.construction, array, simulation.fields)
+            if max(summary['coil_map']['calibrated_bound_T']) > summary['budget']['limit_T']:
+                summary['status'] = 'spatial_budget_failed'
+                airborne_verification.save_summary(path, summary)
+                return summary
+        segments, scans = [], []
+        integrate = simulation.dynamics.integrate
+        encode = simulation.sensors.encode_signal
+        def capture_integrate(*args, **kwargs):
+            result = integrate(*args, **kwargs)
+            segments.extend(result)
+            return result
+        def capture_encode(signal, start):
+            scans.append(dict(start_s=start, samples_T=signal.copy().tolist()))
+            return encode(signal, start)
+        def progress(report):
+            hover.check_operating_limits(simulation, report)
+        profiler = cProfile.Profile()
+        with patch.object(simulation.dynamics, 'integrate', capture_integrate), patch.object(simulation.sensors, 'encode_signal', capture_encode):
+            if name == 'atlas':
+                report = profiler.runcall(airborne.run_simulation, simulation, output / (name + '.json'),
+                    output / (name + '_checkpoint.json'), progress=progress)
+            else:
+                report = airborne.run_simulation(simulation, output / (name + '.json'),
+                    output / (name + '_checkpoint.json'), progress=progress)
+        row = dict(passed=report['passed'], elapsed_s=report['elapsed_s'], scans=scans)
+        summary['cases'][name] = row
+        if name == 'atlas':
+            row['profile'] = benchmark_magnetics.profile_statistics(profiler)
+        arrays = {}
+        for component in ('physical', 'filtered'):
+            interpolants = [interpolant for segment in segments for interpolant in getattr(segment.sol, component).interpolants]
+            for attribute in ('t_old', 't', 'y_old', 'Q'):
+                arrays[component + '_' + attribute] = np.array([getattr(item, attribute) for item in interpolants])
+        np.savez_compressed(output / (name + '_dense.npz'), **arrays)
+        row['dense_sha256'] = hashlib.sha256((output / (name + '_dense.npz')).read_bytes()).hexdigest()
+        row['dense_format'] = 'SciPy RK45 RkDenseOutput t_old, t, y_old and Q; physical and filtered components, in execution order'
+        if name in ('direct', 'atlas'):
+            prior = json.loads((folder / 'coupled' / (name + '.json')).read_text())
+            row['exact_trace_replay'] = report['trace'] == prior['trace']
+        if report['passed']:
+            row['coupled_comparison'] = airborne_verification.compare_trials(
+                json.loads((folder / 'coupled/direct.json').read_text()), report)
+        airborne_verification.save_summary(path, summary)
+        if (not report['passed'] or (name in ('direct', 'atlas') and not row['exact_trace_replay'])
+                or not row['coupled_comparison']['converged']):
+            summary['status'] = 'coupled_or_replay_failed'
+            airborne_verification.save_summary(path, summary)
+            return summary
+        trajectory = OdeSolution([segments[0].t[0], *[segment.t[-1] for segment in segments]], [segment.sol for segment in segments])
+        def field_components(time):
+            state = trajectory(time)
+            pose = np.r_[state[:3] - [0, 0, simulation.plant.geometry.center_of_mass_height],
+                Rotation.from_quat(state[3:7], scalar_first=True).as_euler('xyz')]
+            magnet = simulation.fields.magnet_field(pose)
+            coil = simulation.sensors.actual_coil_field[:, simulation.field_indices] @ state[simulation.dynamics.current]
+            return np.r_[simulation.sensors.gain * magnet + simulation.sensors.offset, simulation.sensors.gain * coil]
+        references[name] = []
+        signals[name] = scans
+        for scan in scans:
+            values = [reference_filtered_scan(field_components, scan['start_s'], len(simulation.fields.points),
+                [segment.t[-1] for segment in segments], method) for method in ('DOP853', 'Radau')]
+            references[name].append(values)
+        row['independent_components_T'] = [[value.tolist() for value in pair] for pair in references[name]]
+        airborne_verification.save_summary(path, summary)
+        reference_limit = summary['budget']['limit_T'] * Fixed.coupling_relative_tolerance
+        if any(np.max(np.sum(np.abs(pair[0] - pair[-1]), axis=0)) > reference_limit for pair in references[name]):
+            summary['status'] = 'sensor_reference_failed'
+            airborne_verification.save_summary(path, summary)
+            return summary
+        if name == 'atlas':
+            for index, scan in enumerate(scans):
+                partial = accelerated_sensor_comparison(np.mean(scan['samples_T'], axis=1),
+                    dict(direct=references['direct'][index], atlas=references['atlas'][index], refined=references['direct'][index]),
+                    np.array(summary['coil_map']['calibrated_bound_T']), summary['budget'])
+                if not partial['passed']:
+                    summary.update(status='partial_sensor_budget_failed', partial_comparison=partial)
+                    airborne_verification.save_summary(path, summary)
+                    return summary
+    if not signals['atlas'] or any([scan['start_s'] for scan in signals[name]] !=
+            [scan['start_s'] for scan in signals['atlas']] for name in signals):
+        raise ValueError('Atlas sensing needs matching delivered scans')
+    for index, scan in enumerate(signals['atlas']):
+        comparison = accelerated_sensor_comparison(np.mean(scan['samples_T'], axis=1),
+            {name: values[index] for name, values in references.items()},
+            np.array(summary['coil_map']['calibrated_bound_T']), summary['budget'])
+        summary['scans'].append(dict(start_s=scan['start_s'], **comparison))
+    summary.update(status='completed' if all(scan['passed'] for scan in summary['scans']) else 'combined_field_budget_failed',
+        elapsed_s=perf_counter() - started)
+    airborne_verification.save_summary(path, summary)
+    return summary
+
+
 def diagnose_error_growth(output):
     if output.exists():
         raise ValueError('Accuracy evidence exists; preserve its results')
@@ -577,8 +729,13 @@ if __name__ == '__main__':
     parser.add_argument('--error-growth', action='store_true', help='Check open-loop amplification of small physical integration errors.')
     parser.add_argument('--sensor-record', type=Path, help='Passing variable-coupling record for the combined analogue sensing budget.')
     parser.add_argument('--joint-sensor', action='store_true', help='Verify the joint integrator and passive dense-trajectory Hall filtering.')
+    parser.add_argument('--atlas-sensor', type=Path, help='Passing joint atlas evidence folder for the combined sensing check and accelerated profile.')
     args = parser.parse_args()
-    if args.joint_sensor:
+    if args.atlas_sensor:
+        if args.joint_sensor or args.sensor_record or args.error_growth or args.curved_force or args.force_record or args.coupling_record or args.cad_reference:
+            raise ValueError('Atlas sensing verification does not accept other calculation modes')
+        verify_atlas_sensor_budget(args.atlas_sensor, args.output)
+    elif args.joint_sensor:
         if args.sensor_record or args.error_growth or args.curved_force or args.force_record or args.coupling_record or args.cad_reference:
             raise ValueError('Joint sensor verification does not accept other calculation modes')
         verify_joint_sensor_budget(args.output)

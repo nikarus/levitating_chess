@@ -1,0 +1,204 @@
+{
+    "scope": "Bounded joint sensor-feedback comparison; not sustained hover or combined sensing-budget qualification",
+    "status": "completed",
+    "atlas_identity": "c8a17d041d55a2eae26f67d58fa4a1dfd3ab01ef7a98eb0dacd309f6bbc13697",
+    "runner_source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/results/hover/joint_control/atlas_backend/coupled/run.py": "d810ce406ff595ce68f955efb0afb5c63b761efef8d744ee11c3085137af093e"
+    },
+    "cases": {
+        "direct": {
+            "passed": true,
+            "finished": true,
+            "stop_reason": null,
+            "duration_completed_s": 0.002,
+            "elapsed_s": 3718.6268012900837,
+            "peaks": {
+                "current_A": 1.8979473924149173,
+                "voltage_V": 1.0635510045414145,
+                "copper_loss_W": 4.0577192905748705,
+                "back_emf_V": 0.00011769693693820975,
+                "position_error_m": 3.6107096039375607e-06,
+                "angle_error_rad": 7.174672905074015e-06,
+                "estimated_position_error_m": 2.436133912315602e-05,
+                "estimated_angle_error_rad": 0.0009032284805275581,
+                "required_current_A": 1.2122292481137928
+            },
+            "integration": {
+                "accepted_steps": 137,
+                "signed_mechanical_defect_J": -8.875296080176033e-17,
+                "absolute_mechanical_defect_J": 9.336832504452142e-17,
+                "signed_total_defect_J": -5.46688724643215e-12,
+                "absolute_total_defect_J": 5.466888979891694e-12,
+                "energy_budget_J": 2.22904483900415e-08,
+                "minimum_step_s": 1.047696281640531e-08,
+                "maximum_step_s": 2.981185507053806e-05,
+                "rhs_evaluations": 1144,
+                "filter_evaluations": 1618
+            },
+            "delivered_moving_scans": 1
+        },
+        "atlas": {
+            "passed": true,
+            "finished": true,
+            "stop_reason": null,
+            "duration_completed_s": 0.002,
+            "elapsed_s": 752.312809349969,
+            "peaks": {
+                "current_A": 1.897947392414913,
+                "voltage_V": 1.063551004541415,
+                "copper_loss_W": 4.05771929057486,
+                "back_emf_V": 0.00011769693693750919,
+                "position_error_m": 3.6107096039120036e-06,
+                "angle_error_rad": 7.174672905156904e-06,
+                "estimated_position_error_m": 2.436133912315602e-05,
+                "estimated_angle_error_rad": 0.0009032284805838203,
+                "required_current_A": 1.2122292481020172
+            },
+            "integration": {
+                "accepted_steps": 137,
+                "signed_mechanical_defect_J": -8.949134486378458e-17,
+                "absolute_mechanical_defect_J": 9.357638727902083e-17,
+                "signed_total_defect_J": -5.466888029651835e-12,
+                "absolute_total_defect_J": 5.4668900949332275e-12,
+                "energy_budget_J": 2.22904483900415e-08,
+                "minimum_step_s": 1.0476963049075097e-08,
+                "maximum_step_s": 2.981185507084207e-05,
+                "rhs_evaluations": 1144,
+                "filter_evaluations": 1618
+            },
+            "delivered_moving_scans": 1
+        },
+        "tighter": {
+            "passed": true,
+            "finished": true,
+            "stop_reason": null,
+            "duration_completed_s": 0.002,
+            "elapsed_s": 841.9436446520267,
+            "peaks": {
+                "current_A": 1.8979474039618536,
+                "voltage_V": 1.0635510109558515,
+                "copper_loss_W": 4.057719347591893,
+                "back_emf_V": 0.0001176969359890627,
+                "position_error_m": 3.610709506736375e-06,
+                "angle_error_rad": 7.174672916828686e-06,
+                "estimated_position_error_m": 2.436133912315602e-05,
+                "estimated_angle_error_rad": 0.0009032284805517418,
+                "required_current_A": 1.2122292481020172
+            },
+            "integration": {
+                "accepted_steps": 154,
+                "signed_mechanical_defect_J": -4.2959760894002905e-17,
+                "absolute_mechanical_defect_J": 4.861228356629599e-17,
+                "signed_total_defect_J": -2.2068186190505415e-12,
+                "absolute_total_defect_J": 2.2068218466803404e-12,
+                "energy_budget_J": 2.22904483900415e-08,
+                "minimum_step_s": 5.990929759882354e-07,
+                "maximum_step_s": 2.5952728676853975e-05,
+                "rhs_evaluations": 1258,
+                "filter_evaluations": 1702
+            },
+            "delivered_moving_scans": 1
+        }
+    },
+    "comparisons": {
+        "atlas": {
+            "differences": {
+                "pose_position_m": 3.5738725333136926e-17,
+                "pose_angle_rad": 9.579165530962047e-16,
+                "estimated_pose_position_m": 8.492736185031125e-16,
+                "estimated_pose_angle_rad": 8.786990569750222e-14,
+                "current_trace_A": 4.440892098500626e-15,
+                "peak_current_A": 4.218847493575595e-15,
+                "peak_required_current_A": 1.1775691532989185e-11,
+                "peak_voltage_V": 4.440892098500626e-16,
+                "peak_copper_loss_W": 1.0658141036401503e-14
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004,
+                "peak_current_A": 0.027500000000000004,
+                "peak_required_current_A": 0.027500000000000004,
+                "peak_voltage_V": 0.05317755022707075,
+                "peak_copper_loss_W": 0.20288596452874352
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "estimated_pose_position_m": true,
+                "estimated_pose_angle_rad": true,
+                "current_trace_A": true,
+                "peak_current_A": true,
+                "peak_required_current_A": true,
+                "peak_voltage_V": true,
+                "peak_copper_loss_W": true,
+                "both_trials_passed": true
+            },
+            "converged": true
+        },
+        "tighter": {
+            "differences": {
+                "pose_position_m": 9.978257482986979e-14,
+                "pose_angle_rad": 4.546120001825525e-14,
+                "estimated_pose_position_m": 8.492736185031125e-16,
+                "estimated_pose_angle_rad": 8.786990569750222e-14,
+                "current_trace_A": 1.2494520307271273e-08,
+                "peak_current_A": 1.154693629601411e-08,
+                "peak_required_current_A": 1.1775691532989185e-11,
+                "peak_voltage_V": 6.41443698157218e-09,
+                "peak_copper_loss_W": 5.70170222147226e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004,
+                "peak_current_A": 0.027500000000000004,
+                "peak_required_current_A": 0.027500000000000004,
+                "peak_voltage_V": 0.05317755054779258,
+                "peak_copper_loss_W": 0.20288596737959463
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "estimated_pose_position_m": true,
+                "estimated_pose_angle_rad": true,
+                "current_trace_A": true,
+                "peak_current_A": true,
+                "peak_required_current_A": true,
+                "peak_voltage_V": true,
+                "peak_copper_loss_W": true,
+                "both_trials_passed": true
+            },
+            "converged": true
+        }
+    },
+    "active_case": null,
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "228d08944adc73c5a8dfe530dd7b210f2c0d441685b795fc3f1ca615c65b96fc",
+        "levitation_sim.py": "91eea3f343cbfb0722c8325f52f6c55ff49995a2e4ff726584ead98b1e4cd5a3",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "0558fffe5cb8bc3dd6924bc94aaf8d1ddd5328900e6531496786e93a7d77bd00",
+        "methodology/motion.py": "347fb61e8c224e9772a120dae2adcb465b344de1c724e28c51f8d6980ecf0654",
+        "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+        "methodology/requirements.txt": "85925d9297536dad1106cc64e145c6aa63d9caa38bb96e949c3424a129030daf",
+        "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+        "methodology/airborne.py": "a76c188d82b02f0ecee729deacd29d9dfd454027dff975b3fa50c878a715bfe2",
+        "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+        "methodology/sensing.py": "5835a7ec568addaf5ba0cda8e12293b82392fb520875b1149b0e2f1eadc52cc0",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/magnetic_atlas.py": "9dde5b065e7fbf3c664dd6cb675744cbec377d2a98502b77b4df671795fe5d11",
+        "methodology/joint_airborne.py": "7b704ae05a6f2469ac210555980758ad723cebac4e932ac41f9b9cf1716749c3",
+        "methodology/adaptive_airborne.py": "987f2334b809a0433725ca22a2d5fe5347874d8d99f467ad9460e0252a486125"
+    }
+}

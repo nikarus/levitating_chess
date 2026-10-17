@@ -1,0 +1,79 @@
+0.001000 s: peak current 1.874 A, stop=None
+0.002000 s: peak current 1.898 A, stop=None
+0.003000 s: peak current 1.918 A, stop=None
+0.004000 s: peak current 1.918 A, stop=None
+0.005000 s: peak current 1.918 A, stop=None
+0.006000 s: peak current 1.918 A, stop=None
+0.007000 s: peak current 1.918 A, stop=None
+0.008000 s: peak current 1.918 A, stop=None
+0.009000 s: peak current 1.918 A, stop=None
+0.010000 s: peak current 1.918 A, stop=None
+0.011000 s: peak current 1.945 A, stop=None
+0.012000 s: peak current 1.972 A, stop=None
+0.013000 s: peak current 1.972 A, stop=None
+0.014000 s: peak current 1.972 A, stop=None
+0.015000 s: peak current 1.972 A, stop=None
+0.016000 s: peak current 2.005 A, stop=None
+0.017000 s: peak current 2.005 A, stop=None
+0.018000 s: peak current 2.005 A, stop=None
+0.019000 s: peak current 2.005 A, stop=None
+0.020000 s: peak current 2.005 A, stop=None
+0.021000 s: peak current 2.005 A, stop=None
+0.022000 s: peak current 2.005 A, stop=None
+0.023000 s: peak current 2.005 A, stop=None
+0.024000 s: peak current 2.005 A, stop=None
+0.025000 s: peak current 2.005 A, stop=None
+0.026000 s: peak current 2.005 A, stop=None
+0.027000 s: peak current 2.005 A, stop=None
+0.028000 s: peak current 2.005 A, stop=None
+0.029000 s: peak current 2.005 A, stop=None
+0.030000 s: peak current 2.005 A, stop=None
+0.031000 s: peak current 2.005 A, stop=None
+0.032000 s: peak current 2.005 A, stop=None
+0.033000 s: peak current 2.005 A, stop=None
+0.034000 s: peak current 2.005 A, stop=None
+0.035000 s: peak current 2.005 A, stop=None
+0.036000 s: peak current 2.005 A, stop=None
+0.037000 s: peak current 2.005 A, stop=None
+0.038000 s: peak current 2.005 A, stop=None
+0.039000 s: peak current 2.005 A, stop=None
+0.040000 s: peak current 2.005 A, stop=None
+0.041000 s: peak current 2.005 A, stop=None
+0.042000 s: peak current 2.005 A, stop=None
+0.043000 s: peak current 2.005 A, stop=None
+0.044000 s: peak current 2.005 A, stop=None
+0.045000 s: peak current 2.005 A, stop=None
+0.046000 s: peak current 2.005 A, stop=None
+0.047000 s: peak current 2.005 A, stop=None
+0.048000 s: peak current 2.005 A, stop=None
+0.049000 s: peak current 2.005 A, stop=None
+0.050000 s: peak current 2.005 A, stop=None
+0.050000 s: peak current 2.005 A, stop=None
+{
+    "status": "passed",
+    "completed_s": 0.05,
+    "stop_reason": null,
+    "peaks": {
+        "current_A": 2.0051123141221825,
+        "voltage_V": 1.1179576594970166,
+        "copper_loss_W": 5.016324442213443,
+        "back_emf_V": 0.00019283324588570758,
+        "position_error_m": 6.249287146381925e-05,
+        "angle_error_rad": 0.0030982776903219758,
+        "estimated_position_error_m": 4.787137566071605e-05,
+        "estimated_angle_error_rad": 0.0023796045043157446,
+        "required_current_A": 1.2122292812838262
+    },
+    "integration": {
+        "accepted_steps": 2701,
+        "signed_mechanical_defect_J": -1.7951138465688607e-15,
+        "absolute_mechanical_defect_J": 1.947222823288427e-15,
+        "signed_total_defect_J": -1.7416794437319504e-09,
+        "absolute_total_defect_J": 1.741679464610176e-09,
+        "energy_budget_J": 2.229044839004151e-08,
+        "minimum_step_s": 8.673617379884035e-19,
+        "maximum_step_s": 5.000000000000143e-05,
+        "rhs_evaluations": 24094,
+        "filter_evaluations": 35428
+    }
+}

@@ -136,20 +136,15 @@ class MagneticFieldAtlas:
         return source.orientation.apply(fields)
 
 
-class AtlasAirborneSimulation(adaptive_airborne.AdaptiveAirborneSimulation):
-    checkpoint_schema = 'airborne-atlas-v1'
-
-    def __init__(self, construction, atlas, mode, duration, **settings):
+class MagneticBackend:
+    def configure_atlas(self, atlas, mode):
         if mode not in ('direct', 'atlas_controller', 'atlas_forces'):
             raise ValueError('Unknown magnetic backend')
         if mode != 'direct' and atlas is None:
             raise ValueError('Accelerated simulation requires an explicit atlas')
-        super().__init__(construction, duration, **settings)
         self.atlas_configuration = dict(mode=mode, identity=None if mode == 'direct' else atlas.identity)
-        if mode != 'direct':
-            self.controller.field_evaluator = atlas.field
-        if mode == 'atlas_forces':
-            self.plant.field_evaluator = atlas.field
+        self.controller.field_evaluator = None if mode == 'direct' else atlas.field
+        self.plant.field_evaluator = atlas.field if mode == 'atlas_forces' else None
         self.source.update(source_fingerprints(__file__))
 
     def checkpoint_state(self):
@@ -159,6 +154,9 @@ class AtlasAirborneSimulation(adaptive_airborne.AdaptiveAirborneSimulation):
 
     def validate_checkpoint(self, state):
         super().validate_checkpoint(state)
+        self.validate_atlas(state)
+
+    def validate_atlas(self, state):
         if state['atlas'] != self.atlas_configuration:
             raise ValueError('Checkpoint magnetic backend or atlas content differs')
 
@@ -167,6 +165,14 @@ class AtlasAirborneSimulation(adaptive_airborne.AdaptiveAirborneSimulation):
         report['atlas'] = self.atlas_configuration
         report['limitations'].append('Atlas force interpolation requires independent direct-field validation; Hall sensing and estimation remain direct.')
         return report
+
+
+class AtlasAirborneSimulation(MagneticBackend, adaptive_airborne.AdaptiveAirborneSimulation):
+    checkpoint_schema = 'airborne-atlas-v1'
+
+    def __init__(self, construction, atlas, mode, duration, **settings):
+        super().__init__(construction, duration, **settings)
+        self.configure_atlas(atlas, mode)
 
 
 def validation_poses(geometry, array, layout):
@@ -196,7 +202,7 @@ def field_jacobian(evaluator, source, points):
                      for axis in np.eye(3)], axis=-1)
 
 
-def benchmark(output, deadline, finest_only=False):
+def benchmark(output, deadline, finest_only=False, fields_only=False):
     if output.exists():
         raise ValueError('Atlas benchmark output exists; preserve previous evidence')
     output.mkdir(parents=True)
@@ -312,6 +318,12 @@ def benchmark(output, deadline, finest_only=False):
         save()
         return report
     report['selected'] = {key: selected_row[key] for key in ('spacing_m', 'spline_order', 'coefficient_bytes', 'speedup')}
+    if fields_only:
+        selected.save(output / 'atlas.npz')
+        report.update(status='field_screen_passed', atlas_identity=selected.identity,
+            scope='Sampled current-source field, force, torque, gradient and speed screen; coupled integration and combined error budget not qualified')
+        save()
+        return report
     save()
     trials = {}
     for name in ('direct', 'atlas_controller', 'atlas_forces'):
@@ -423,6 +435,7 @@ if __name__ == '__main__':
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--deadline', type=datetime.fromisoformat, required=True)
     parser.add_argument('--finest-only', action='store_true', help='Screen only the finest configured grid after retaining coarser evidence.')
+    parser.add_argument('--fields-only', action='store_true', help='Save a passing field cache without running legacy coupled trials.')
     parser.add_argument('--qualify', type=Path, help='Qualify the selected atlas using this completed feasibility summary.')
     parser.add_argument('--resume', action='store_true', help='Resume an unfinished qualification with identical sources and atlas.')
     arguments = parser.parse_args()
@@ -430,7 +443,9 @@ if __name__ == '__main__':
         parser.error('Deadline must include a timezone')
     if arguments.resume and arguments.qualify is None:
         parser.error('Resume requires qualification mode')
+    if arguments.fields_only and arguments.qualify is not None:
+        parser.error('Field-only screening cannot resume coupled qualification')
     if arguments.qualify is None:
-        benchmark(arguments.output, arguments.deadline.timestamp(), arguments.finest_only)
+        benchmark(arguments.output, arguments.deadline.timestamp(), arguments.finest_only, arguments.fields_only)
     else:
         print(json.dumps(qualify(arguments.output, arguments.deadline.timestamp(), arguments.qualify, arguments.resume)), flush=True)

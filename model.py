@@ -322,6 +322,7 @@ class Fixed:
     pose_force_mesh = 12                        # magpylib-force polyline meshing setting for the flight pose sweep
     verification_force_mesh = 8                 # magpylib-force polyline meshing setting for selected-coil authority and contact checks
     force_field_batch_points = 1024             # wire quadrature points per direct magnetic-field batch; changes memory use, not mesh resolution
+    force_field_batch_candidates = (1024, 4096, 16384) # points per batch screened for runtime with identical wire samples and summation order
     force_field_workers = 3                     # CPU threads per force evaluation; independent batches retain their original summation order
     atlas_grid_spacings = (0.001, 0.0005, 0.00025, 0.0002) # m; coarse-to-fine candidates for the local magnetic-field atlas screen
     atlas_spline_orders = (3, 5)               # polynomial degrees; standard cubic and quintic interpolation candidates

@@ -1,0 +1,146 @@
+{
+    "scope": "Identical atlas queries split across CPU workers; frozen poses, not coupled qualification",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "228d08944adc73c5a8dfe530dd7b210f2c0d441685b795fc3f1ca615c65b96fc",
+        "levitation_sim.py": "91eea3f343cbfb0722c8325f52f6c55ff49995a2e4ff726584ead98b1e4cd5a3",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "590e1567f923557cd73f5bdae8c833d855d54c8003150637a028f582585ce816",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "0558fffe5cb8bc3dd6924bc94aaf8d1ddd5328900e6531496786e93a7d77bd00",
+        "methodology/benchmark_magnetics.py": "7e48b1e5417aa17a2afe05f94613c5c66c011b7be5c9fb11a0b4bd843a39c09d"
+    },
+    "atlas_identity": "c8a17d041d55a2eae26f67d58fa4a1dfd3ab01ef7a98eb0dacd309f6bbc13697",
+    "input_sha256": {
+        "integration/initial_checkpoint.json": "131a384e1b425c1f180764264d07ff25ac22589364c076257e78dda05c87bae5",
+        "coupled/direct.json": "1b6fb53dd746e0cdcffc70510c677ad47fb80bb4de3209165ab019b10ae75694"
+    },
+    "workers": [
+        1,
+        3,
+        4
+    ],
+    "wire_points": 228000,
+    "probes": [
+        {
+            "time_s": 0.0,
+            "pose": [
+                0.0,
+                0.0,
+                0.0005000000000000004,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "cases": [
+                {
+                    "workers": 1,
+                    "timings_s": [
+                        0.6361484369263053,
+                        0.6566975669702515
+                    ],
+                    "exactly_equal": true
+                },
+                {
+                    "workers": 3,
+                    "timings_s": [
+                        0.7335952740395442,
+                        0.6965974159538746
+                    ],
+                    "exactly_equal": true
+                },
+                {
+                    "workers": 4,
+                    "timings_s": [
+                        0.6796483040088788,
+                        0.6645081450697035
+                    ],
+                    "exactly_equal": true
+                }
+            ]
+        },
+        {
+            "time_s": 0.001,
+            "pose": [
+                1.3892299818940006e-07,
+                5.9380673598387775e-08,
+                0.0004981453695494416,
+                -1.2027800382051225e-06,
+                -8.927066397212968e-08,
+                1.01306099754235e-06
+            ],
+            "cases": [
+                {
+                    "workers": 1,
+                    "timings_s": [
+                        0.6742656469577923,
+                        0.6528245499357581
+                    ],
+                    "exactly_equal": true
+                },
+                {
+                    "workers": 3,
+                    "timings_s": [
+                        0.6832479230361059,
+                        0.6635686761001125
+                    ],
+                    "exactly_equal": true
+                },
+                {
+                    "workers": 4,
+                    "timings_s": [
+                        0.679290384054184,
+                        0.6610534299397841
+                    ],
+                    "exactly_equal": true
+                }
+            ]
+        },
+        {
+            "time_s": 0.002,
+            "pose": [
+                6.523771026845592e-07,
+                2.763829053035125e-07,
+                0.0004964594858495527,
+                -6.046286744287492e-06,
+                -5.099693451970921e-07,
+                3.8286147589838834e-06
+            ],
+            "cases": [
+                {
+                    "workers": 1,
+                    "timings_s": [
+                        0.6477855140110478,
+                        0.666959436959587
+                    ],
+                    "exactly_equal": true
+                },
+                {
+                    "workers": 3,
+                    "timings_s": [
+                        0.6986929000122473,
+                        0.6780350509798154
+                    ],
+                    "exactly_equal": true
+                },
+                {
+                    "workers": 4,
+                    "timings_s": [
+                        0.7271551529411227,
+                        0.6708255830453709
+                    ],
+                    "exactly_equal": true
+                }
+            ]
+        }
+    ],
+    "completed": true,
+    "median_seconds": {
+        "1": 0.6547610584530048,
+        "3": 0.6899226694949903,
+        "4": 0.6750579835497774
+    }
+}

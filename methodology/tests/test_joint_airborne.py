@@ -4,6 +4,7 @@ import json
 import subprocess
 import sys
 import tempfile
+from types import SimpleNamespace
 import unittest
 from unittest.mock import Mock
 
@@ -13,6 +14,7 @@ from scipy.integrate import solve_ivp
 from scipy.spatial.transform import Rotation
 
 from model import Inputs, Fixed, Constants
+import levitation_sim
 from methodology import electrical, motion
 from methodology.cad import magnetics
 from methodology.coupling_verification import VariableCouplingTrial, variable_coupling_solution, variable_energy_residual
@@ -235,6 +237,28 @@ class JointScheduleTests(unittest.TestCase):
         self.assertGreater(original.delivered_scans, 0)
         self.assertEqual(original.clock, Fixed.airborne_check_duration)
         self.assertLessEqual(original.accounting['absolute_total_defect_J'], original.dynamics.energy_budget)
+
+    def test_atlas_backend_reaches_trial_plant_and_rejects_changed_identity(self):
+        atlas = SimpleNamespace(identity='test-direct-evaluator', field=levitation_sim.magnetic_field)
+        original = JointAirborneSimulation(self.construction, Fixed.airborne_check_duration,
+            atlas=atlas, magnetic_mode='atlas_forces')
+        self.assertEqual(original.plant.field_evaluator, atlas.field)
+        self.assertEqual(original.dynamics.plant.field_evaluator, atlas.field)
+        self.assertEqual(original.controller.field_evaluator, atlas.field)
+        saved = original.checkpoint_state()
+        for key in ('mode', 'identity'):
+            invalid = deepcopy(saved)
+            invalid['atlas'][key] = 'changed'
+            with self.assertRaisesRegex(ValueError, 'backend or atlas'):
+                original.restore_checkpoint(invalid)
+            self.assertEqual(original.checkpoint_state(), saved)
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / 'checkpoint.json'
+            original.save_checkpoint(path)
+            with self.assertRaisesRegex(ValueError, 'explicit atlas'):
+                JointAirborneSimulation.from_checkpoint(path)
+            restored = JointAirborneSimulation.from_checkpoint(path, atlas=atlas)
+            self.assertEqual(restored.checkpoint_state(), saved)
 
 
 if __name__ == '__main__':
