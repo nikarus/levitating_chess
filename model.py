@@ -329,6 +329,8 @@ class Fixed:
     force_field_batch_points = 1024             # wire quadrature points per direct magnetic-field batch; changes memory use, not mesh resolution
     force_field_batch_candidates = (1024, 4096, 16384) # points per batch screened for runtime with identical wire samples and summation order
     force_field_workers = 3                     # CPU threads per force evaluation; independent batches retain their original summation order
+    native_spline_workers = 4                  # CPU threads for native spline queries; point batches retain their original order
+    native_spline_blas_threads = 1             # BLAS threads during native runs; prevents competing numerical-library thread pools
     atlas_grid_spacings = (0.001, 0.0005, 0.00025, 0.0002) # m; coarse-to-fine candidates for the local magnetic-field atlas screen
     atlas_spline_orders = (3, 5)               # polynomial degrees; standard cubic and quintic interpolation candidates
     atlas_padding_cells = 12                  # cells; sampled guard region around the query domain to reduce spline boundary effects

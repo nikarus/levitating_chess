@@ -27,6 +27,9 @@ def local_source_state(source):
 
 
 class MagneticFieldAtlas:
+    evaluator_identity = dict(method='scipy')
+    evaluator_sources = {}
+
     def __init__(self, source, bounds, spacing, order, axes=None, values=None):
         self.source_state = local_source_state(source)
         self.bounds = np.asarray(bounds, dtype=float)
@@ -142,10 +145,17 @@ class MagneticBackend:
             raise ValueError('Unknown magnetic backend')
         if mode != 'direct' and atlas is None:
             raise ValueError('Accelerated simulation requires an explicit atlas')
-        self.atlas_configuration = dict(mode=mode, identity=None if mode == 'direct' else atlas.identity)
-        self.controller.field_evaluator = None if mode == 'direct' else atlas.field
-        self.plant.field_evaluator = atlas.field if mode == 'atlas_forces' else None
+        self.atlas_configuration = dict(mode=mode, identity=None if mode == 'direct' else atlas.identity,
+            evaluator=None if mode == 'direct' else atlas.evaluator_identity)
+        def evaluate(source, points):
+            if self.atlas_configuration['evaluator'] != atlas.evaluator_identity:
+                raise ValueError('Active atlas evaluator differs from the configured simulation runtime')
+            return atlas.field(source, points)
+        self.controller.field_evaluator = None if mode == 'direct' else evaluate
+        self.plant.field_evaluator = evaluate if mode == 'atlas_forces' else None
         self.source.update(source_fingerprints(__file__))
+        if mode != 'direct':
+            self.source.update(atlas.evaluator_sources)
 
     def checkpoint_state(self):
         state = super().checkpoint_state()
@@ -388,7 +398,8 @@ def qualify(output, deadline, evidence, resume=False):
         report_path, checkpoint = output / (name + '.json'), output / (name + '_checkpoint.json')
         if name in summary['cases'] and summary['cases'][name]['passed']:
             report = airborne_verification.verified_saved_trial(report_path)
-            expected_backend = dict(mode=mode, identity=None if mode == 'direct' else atlas.identity)
+            expected_backend = dict(mode=mode, identity=None if mode == 'direct' else atlas.identity,
+                evaluator=None if mode == 'direct' else atlas.evaluator_identity)
             root = Path(__file__).resolve().parent.parent
             if (report['atlas'] != expected_backend or report['intended_duration_s'] != Fixed.adaptive_sensitivity_duration
                     or any(hashlib.sha256((root / filename).read_bytes()).hexdigest() != digest

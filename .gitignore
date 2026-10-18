@@ -5,6 +5,7 @@ __pycache__/
 methodology/results/*_checkpoint.json
 methodology/results/*_checkpoint.json.tmp
 methodology/results/**/atlas.npz
+methodology/results/**/*.so
 
 # LibreOffice lock files
 .~lock.*#

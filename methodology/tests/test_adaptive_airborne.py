@@ -90,11 +90,12 @@ class AdaptiveAirborneTests(unittest.TestCase):
         self.assertEqual(self.sim.checkpoint_state(), expected)
 
     def test_atlas_backend_resume_identity_and_instance_isolation(self):
-        atlas = SimpleNamespace(identity='test-atlas', field=lambda source, points: np.zeros_like(points))
+        atlas = SimpleNamespace(identity='test-atlas', field=lambda source, points: np.zeros_like(points),
+            evaluator_identity=dict(method='scipy'), evaluator_sources={})
         construction = magnetics.ConstructionModel()
         simulation = AtlasAirborneSimulation(construction, atlas, 'atlas_forces', Fixed.airborne_check_duration)
-        self.assertIs(simulation.controller.field_evaluator, atlas.field)
-        self.assertIs(simulation.plant.field_evaluator, atlas.field)
+        self.assertIs(simulation.controller.field_evaluator, simulation.plant.field_evaluator)
+        np.testing.assert_array_equal(simulation.plant.field_evaluator(None, np.ones((1, 3))), np.zeros((1, 3)))
         self.assertIsNone(self.sim.controller.field_evaluator)
         self.assertIsNone(self.sim.plant.field_evaluator)
         path = Path(self.folder.name) / 'atlas.json'

@@ -1,0 +1,117 @@
+{
+    "status": "passed",
+    "scope": "Fresh atlas and native runtime qualification against retained SciPy hover; no old checkpoint resume",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "acc9d2884b521a79fdd02ed812f6355b705d8ed44426b2cc120be616303ac75d",
+        "levitation_sim.py": "91eea3f343cbfb0722c8325f52f6c55ff49995a2e4ff726584ead98b1e4cd5a3",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "b581ae6204830eec8ccecc9398ae8afe9877592f7d26a4f4dba6d73d36279a47",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "0558fffe5cb8bc3dd6924bc94aaf8d1ddd5328900e6531496786e93a7d77bd00",
+        "methodology/benchmark_magnetics.py": "522528987dfc40a386e8b268dcf5d4daf25886bbdf3072dc1fbe9d2ac91e9148",
+        "methodology/magnetic_atlas.py": "8f2aa2b8c532abba755b614a2d5780806d127199e12b847ce0e9a93d680932bc",
+        "methodology/magnetic_spline.py": "bf148a591bd019245e0a740f360a62cad0ccb96f4efd707a73a8db36e3609dee",
+        "methodology/magnetic_spline.c": "40ff3cba90d7da6e745a35c49d08232b0cc6fb58c3d57d370219a4e4ec1ee61c",
+        "methodology/numerical_accuracy.py": "523b9f09adbe613b6e8eabd7af09be8ca114691d6192a14591493fb7636a3b39",
+        "methodology/hover.py": "108df953300f19ba831dfb18f9e7a0fdbec6b29df7d6f9035a3af3dfee8d25c9",
+        "methodology/airborne_verification.py": "998de7bcd33103cbde914e4a3abf5e1cd2a6a6ce9944a940d0309b4f0a910dfa",
+        "methodology/motion.py": "e61946cc0206a57ddc3c9b3eaa71cf012d8a3f4039dc54873ac5c23e4bc8f64b",
+        "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+        "methodology/requirements.txt": "fd94cc8fc4087c9841735e4f5978a742740beb6c30c5dcd81cf1e3b8072ba4df",
+        "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+        "methodology/airborne.py": "a479d6507878e6152edccc9389b589c3561164bfec86822b43754b61f72e3782",
+        "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+        "methodology/sensing.py": "5835a7ec568addaf5ba0cda8e12293b82392fb520875b1149b0e2f1eadc52cc0",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/joint_airborne.py": "f703a63946cc9623d086909a050c84d46d9a89276e7cc599dd64544e6f890cc5",
+        "methodology/adaptive_airborne.py": "987f2334b809a0433725ca22a2d5fe5347874d8d99f467ad9460e0252a486125"
+    },
+    "inputs_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/results/hover/joint_control/atlas_backend/hover/summary.json": "ee68dbb427d123f7938d51b7d100b9b2a2753f4cc09d5604ef3e074b9059e7c7",
+        "methodology/results/hover/joint_control/atlas_backend/hover/initial_checkpoint.json": "410b64a2d0b1a3f92503cfcd747854e0a1584c149a3017f6818a8043a2c781b3",
+        "methodology/results/hover/joint_control/atlas_backend/hover/comparison.json": "614eec3840ebedfe3885afeb56982dbf1642a6ee4fa2e5d3b54693dd8aa60b9b",
+        "methodology/results/hover/joint_control/atlas_backend/fields/summary.json": "aef7dd38c3ceb4a4ff130ed47c0c3516b5f3e3c90e04a1c63ae8a1580f4b3055",
+        "methodology/results/hover/joint_control/atlas_backend/fields/atlas.npz": "71f4560af95dc5ef939657e6458010e25b5d84fe5cb4f5562f4f9ba4f494f827"
+    },
+    "atlas_identity": "defbb00fdb1c4422cadc3849b15fc69ddd1415de1be5ed7da4ce3014d6d44fbd",
+    "reference_atlas_identity": "c8a17d041d55a2eae26f67d58fa4a1dfd3ab01ef7a98eb0dacd309f6bbc13697",
+    "atlas_arrays_exactly_equal": false,
+    "atlas_arrays_equivalent": true,
+    "same_grid": true,
+    "coefficient_max_difference": 7.23295148817929e-13,
+    "coefficient_tolerances": {
+        "absolute": 1e-12,
+        "relative": 1e-09
+    },
+    "probes": [
+        {
+            "time_s": 0.0,
+            "max_matrix_difference": 2.7755575615628914e-16,
+            "passed": true
+        },
+        {
+            "time_s": 0.025,
+            "max_matrix_difference": 2.8449465006019636e-16,
+            "passed": true
+        },
+        {
+            "time_s": 0.05,
+            "max_matrix_difference": 3.122502256758253e-16,
+            "passed": true
+        }
+    ],
+    "runtime": {
+        "method": "native",
+        "build": {
+            "source_sha256": {
+                "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+                "methodology/magnetic_spline.py": "bf148a591bd019245e0a740f360a62cad0ccb96f4efd707a73a8db36e3609dee",
+                "methodology/magnetic_spline.c": "40ff3cba90d7da6e745a35c49d08232b0cc6fb58c3d57d370219a4e4ec1ee61c"
+            },
+            "command": [
+                "cc",
+                "-std=c99",
+                "-O3",
+                "-fPIC",
+                "-shared",
+                "-ffp-contract=off",
+                "/home/arseniy/projects/flying_chess/methodology/magnetic_spline.c",
+                "-o",
+                "methodology/results/hover/native_spline/qualified/native/magnetic_spline.so"
+            ],
+            "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+            "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+            "machine": "x86_64",
+            "library_sha256": "c7a0113cdd5b516bc6acc9f201230b8dcd39c27483c23e1da28e568a01560a03"
+        },
+        "workers": 4,
+        "blas_threads": 1,
+        "blas_libraries": [
+            {
+                "internal_api": "openblas",
+                "prefix": "libscipy_openblas",
+                "version": "0.3.30",
+                "num_threads": 1,
+                "threading_layer": "pthreads",
+                "architecture": "Haswell"
+            },
+            {
+                "internal_api": "openblas",
+                "prefix": "libscipy_openblas",
+                "version": "0.3.31.188.0",
+                "num_threads": 1,
+                "threading_layer": "pthreads",
+                "architecture": "Haswell"
+            }
+        ],
+        "threadpoolctl": "3.7.0"
+    },
+    "domain_field_difference_T": 4.824123451571032e-15,
+    "domain_field_limit_T": 1e-07,
+    "initial_physical_state_exact": true
+}

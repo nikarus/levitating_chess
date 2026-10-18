@@ -1,0 +1,697 @@
+{
+    "scope": "Same-coefficient native spline evaluation at recorded and domain poses; not flight qualification",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "0a01c0d2bd2044c95956299b6cda97fc6de3b27e44c9cbef400510449ca11a12",
+        "levitation_sim.py": "91eea3f343cbfb0722c8325f52f6c55ff49995a2e4ff726584ead98b1e4cd5a3",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "b581ae6204830eec8ccecc9398ae8afe9877592f7d26a4f4dba6d73d36279a47",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "0558fffe5cb8bc3dd6924bc94aaf8d1ddd5328900e6531496786e93a7d77bd00",
+        "methodology/benchmark_magnetics.py": "879c65f157c6e2745885920fb0db5227e5122b31f7aadacba15e78af59881fd8",
+        "methodology/magnetic_atlas.py": "9dde5b065e7fbf3c664dd6cb675744cbec377d2a98502b77b4df671795fe5d11",
+        "methodology/magnetic_spline.py": "587deeb3a68be79083eef2e0ec18b46f6a58487012942243e485b3096373150f",
+        "methodology/magnetic_spline.c": "40ff3cba90d7da6e745a35c49d08232b0cc6fb58c3d57d370219a4e4ec1ee61c"
+    },
+    "input_sha256": {
+        "trial/summary.json": "822ab062e3ca403443ac7e73a1525eed477344f4e734be4f718525db6d5e4eb5",
+        "trial/initial_checkpoint.json": "a38df3e8b56198e9a94c5f061c1e2249a0886991230b75e9719ccbe9d0bef667",
+        "fields/summary.json": "af7af74650887065987b6c20b1de9a388da46bf087b973279de2b4f738a22427"
+    },
+    "atlas_identity": "c3297378a3f049fbd8536cfada40a2ddb30f1081af0882b6b17bcb39cd269d51",
+    "native_build": {
+        "source_sha256": {
+            "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+            "methodology/magnetic_spline.py": "587deeb3a68be79083eef2e0ec18b46f6a58487012942243e485b3096373150f",
+            "methodology/magnetic_spline.c": "40ff3cba90d7da6e745a35c49d08232b0cc6fb58c3d57d370219a4e4ec1ee61c"
+        },
+        "command": [
+            "cc",
+            "-std=c99",
+            "-O3",
+            "-fPIC",
+            "-shared",
+            "-ffp-contract=off",
+            "/home/arseniy/projects/flying_chess/methodology/magnetic_spline.c",
+            "-o",
+            "methodology/results/local_motion/spline_evaluation/native/magnetic_spline.so"
+        ],
+        "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+        "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+        "machine": "x86_64",
+        "library_sha256": "c7a0113cdd5b516bc6acc9f201230b8dcd39c27483c23e1da28e568a01560a03"
+    },
+    "coefficient_bytes": 213118800,
+    "wire_points": 228000,
+    "probes": [
+        {
+            "kind": "recorded_motion",
+            "time_s": 0.0,
+            "pose": [
+                0.0,
+                0.0,
+                0.0005000000000000004,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "timings_s": {
+                "scipy": [
+                    0.6784847680246457,
+                    0.6425972710130736
+                ],
+                "native": [
+                    0.23848690395243466,
+                    0.24663337599486113
+                ]
+            },
+            "checks": {
+                "field": true,
+                "gradient": true,
+                "matrix": true,
+                "field_budget": true,
+                "force": true,
+                "torque": true
+            },
+            "field_max_absolute_difference": 4.440892098500626e-16,
+            "gradient_max_absolute_difference": 1.942623839568114e-11,
+            "matrix_max_absolute_difference": 1.734723475976807e-17,
+            "force_relative_difference": 2.6379658864836867e-16,
+            "torque_relative_difference": 4.202436495609281e-16,
+            "passed": true
+        },
+        {
+            "kind": "recorded_motion",
+            "time_s": 0.03,
+            "pose": [
+                0.0002075859353919875,
+                -1.4302158201948135e-05,
+                0.0005022448769677057,
+                6.114720557625578e-05,
+                -0.0016897720957929074,
+                0.007102371801615146
+            ],
+            "timings_s": {
+                "scipy": [
+                    0.6792397109093145,
+                    0.6375490931095555
+                ],
+                "native": [
+                    0.2425110909389332,
+                    0.24019699392374605
+                ]
+            },
+            "checks": {
+                "field": true,
+                "gradient": true,
+                "matrix": true,
+                "field_budget": true,
+                "force": true,
+                "torque": true
+            },
+            "field_max_absolute_difference": 4.440892098500626e-16,
+            "gradient_max_absolute_difference": 1.8044232774627744e-11,
+            "matrix_max_absolute_difference": 6.938893903907228e-18,
+            "force_relative_difference": 1.6041282164759468e-16,
+            "torque_relative_difference": 3.0072113855344217e-16,
+            "passed": true
+        },
+        {
+            "kind": "recorded_motion",
+            "time_s": 0.06,
+            "pose": [
+                0.00035684019279918366,
+                -1.978026896030108e-05,
+                0.0005029587319512422,
+                0.00048625839699565927,
+                -0.0005759306247381524,
+                0.011839780216231714
+            ],
+            "timings_s": {
+                "scipy": [
+                    0.661522856913507,
+                    0.6861999479588121
+                ],
+                "native": [
+                    0.24500357103534043,
+                    0.24287823610939085
+                ]
+            },
+            "checks": {
+                "field": true,
+                "gradient": true,
+                "matrix": true,
+                "field_budget": true,
+                "force": true,
+                "torque": true
+            },
+            "field_max_absolute_difference": 4.163336342344337e-16,
+            "gradient_max_absolute_difference": 1.6655121726216748e-11,
+            "matrix_max_absolute_difference": 1.3877787807814457e-17,
+            "force_relative_difference": 2.903967210247168e-16,
+            "torque_relative_difference": 2.1055945674706617e-16,
+            "passed": true
+        },
+        {
+            "kind": "domain_pose",
+            "pose": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "timings_s": {
+                "scipy": [
+                    0.6566016899887472,
+                    0.6396665340289474
+                ],
+                "native": [
+                    0.23925164807587862,
+                    0.252117155934684
+                ]
+            },
+            "checks": {
+                "field": true,
+                "gradient": true,
+                "matrix": true,
+                "field_budget": true,
+                "force": true,
+                "torque": true
+            },
+            "field_max_absolute_difference": 4.440892098500626e-16,
+            "gradient_max_absolute_difference": 1.942623839568114e-11,
+            "matrix_max_absolute_difference": 2.7755575615628914e-17,
+            "force_relative_difference": 3.6694583748214654e-16,
+            "torque_relative_difference": 1.7768478239200734e-16,
+            "passed": true
+        },
+        {
+            "kind": "domain_pose",
+            "pose": [
+                0.0039,
+                -0.0039,
+                0.0009999999999999996,
+                0.09932447675229641,
+                -0.09932447675229641,
+                0.0
+            ],
+            "timings_s": {
+                "scipy": [
+                    0.6590045630000532,
+                    0.6358278800034896
+                ],
+                "native": [
+                    0.23607917001936585,
+                    0.235210875980556
+                ]
+            },
+            "checks": {
+                "field": true,
+                "gradient": true,
+                "matrix": true,
+                "field_budget": true,
+                "force": true,
+                "torque": true
+            },
+            "field_max_absolute_difference": 3.0531133177191805e-16,
+            "gradient_max_absolute_difference": 1.6653345369377348e-11,
+            "matrix_max_absolute_difference": 6.938893903907228e-18,
+            "force_relative_difference": 1.7925800535945188e-16,
+            "torque_relative_difference": 4.623871140818685e-16,
+            "passed": true
+        },
+        {
+            "kind": "domain_pose",
+            "pose": [
+                0.0039,
+                -0.0039,
+                0.0009999999999999996,
+                0.04966223837614821,
+                -0.04966223837614821,
+                0.0
+            ],
+            "timings_s": {
+                "scipy": [
+                    0.6959343790076673,
+                    0.6954742969246581
+                ],
+                "native": [
+                    0.22862147097475827,
+                    0.23947065800894052
+                ]
+            },
+            "checks": {
+                "field": true,
+                "gradient": true,
+                "matrix": true,
+                "field_budget": true,
+                "force": true,
+                "torque": true
+            },
+            "field_max_absolute_difference": 2.7755575615628914e-16,
+            "gradient_max_absolute_difference": 1.942979110935994e-11,
+            "matrix_max_absolute_difference": 1.734723475976807e-17,
+            "force_relative_difference": 4.3657942576982184e-16,
+            "torque_relative_difference": 3.422122987560223e-16,
+            "passed": true
+        },
+        {
+            "kind": "domain_pose",
+            "pose": [
+                0.0039,
+                -0.0039,
+                0.0009999999999999996,
+                0.09932447675229641,
+                -0.09932447675229641,
+                0.7853981633974483
+            ],
+            "timings_s": {
+                "scipy": [
+                    0.6531970539363101,
+                    0.6580528180347756
+                ],
+                "native": [
+                    0.2793633409310132,
+                    0.296651029959321
+                ]
+            },
+            "checks": {
+                "field": true,
+                "gradient": true,
+                "matrix": true,
+                "field_budget": true,
+                "force": true,
+                "torque": true
+            },
+            "field_max_absolute_difference": 2.7755575615628914e-16,
+            "gradient_max_absolute_difference": 1.3878675986234157e-11,
+            "matrix_max_absolute_difference": 1.0408340855860843e-17,
+            "force_relative_difference": 2.3448754331891995e-16,
+            "torque_relative_difference": 3.172064932190243e-16,
+            "passed": true
+        },
+        {
+            "kind": "domain_pose",
+            "pose": [
+                0.0039,
+                -0.0039,
+                0.0009999999999999996,
+                0.04966223837614821,
+                -0.04966223837614821,
+                0.7853981633974483
+            ],
+            "timings_s": {
+                "scipy": [
+                    0.6842185080749914,
+                    0.6906356730032712
+                ],
+                "native": [
+                    0.2400518689537421,
+                    0.23434331407770514
+                ]
+            },
+            "checks": {
+                "field": true,
+                "gradient": true,
+                "matrix": true,
+                "field_budget": true,
+                "force": true,
+                "torque": true
+            },
+            "field_max_absolute_difference": 3.0531133177191805e-16,
+            "gradient_max_absolute_difference": 2.0818902157770935e-11,
+            "matrix_max_absolute_difference": 1.0408340855860843e-17,
+            "force_relative_difference": 2.1327715774509034e-16,
+            "torque_relative_difference": 2.44787879722269e-16,
+            "passed": true
+        },
+        {
+            "kind": "domain_pose",
+            "pose": [
+                0.0039,
+                -0.0039,
+                0.0009999999999999996,
+                0.09932447675229641,
+                -0.09932447675229641,
+                1.5707963267948966
+            ],
+            "timings_s": {
+                "scipy": [
+                    0.7026702570728958,
+                    0.6640230149496347
+                ],
+                "native": [
+                    0.25024986604694277,
+                    0.24258680595085025
+                ]
+            },
+            "checks": {
+                "field": true,
+                "gradient": true,
+                "matrix": true,
+                "field_budget": true,
+                "force": true,
+                "torque": true
+            },
+            "field_max_absolute_difference": 2.498001805406602e-16,
+            "gradient_max_absolute_difference": 1.5266010677805752e-11,
+            "matrix_max_absolute_difference": 1.3877787807814457e-17,
+            "force_relative_difference": 2.8012438132635553e-16,
+            "torque_relative_difference": 4.806885278239595e-16,
+            "passed": true
+        },
+        {
+            "kind": "domain_pose",
+            "pose": [
+                0.0039,
+                -0.0039,
+                0.0009999999999999996,
+                0.04966223837614821,
+                -0.04966223837614821,
+                1.5707963267948966
+            ],
+            "timings_s": {
+                "scipy": [
+                    0.6768298650858924,
+                    0.6991769609740004
+                ],
+                "native": [
+                    0.2562317820265889,
+                    0.23893113597296178
+                ]
+            },
+            "checks": {
+                "field": true,
+                "gradient": true,
+                "matrix": true,
+                "field_budget": true,
+                "force": true,
+                "torque": true
+            },
+            "field_max_absolute_difference": 3.0531133177191805e-16,
+            "gradient_max_absolute_difference": 1.8041124150158794e-11,
+            "matrix_max_absolute_difference": 6.938893903907228e-18,
+            "force_relative_difference": 1.33063122471266e-16,
+            "torque_relative_difference": 2.1256018421204975e-16,
+            "passed": true
+        },
+        {
+            "kind": "domain_pose",
+            "pose": [
+                0.0004886269159528394,
+                -0.0019037976908889728,
+                0.0004099956667960795,
+                -0.022988567282281176,
+                0.08719470030490244,
+                2.4544418272062742
+            ],
+            "timings_s": {
+                "scipy": [
+                    0.6674679060233757,
+                    0.6437710910104215
+                ],
+                "native": [
+                    0.24294406489934772,
+                    0.2681400889996439
+                ]
+            },
+            "checks": {
+                "field": true,
+                "gradient": true,
+                "matrix": true,
+                "field_budget": true,
+                "force": true,
+                "torque": true
+            },
+            "field_max_absolute_difference": 4.440892098500626e-16,
+            "gradient_max_absolute_difference": 2.0816681711721685e-11,
+            "matrix_max_absolute_difference": 1.3877787807814457e-17,
+            "force_relative_difference": 2.5968089248459897e-16,
+            "torque_relative_difference": 5.6428200517996945e-16,
+            "passed": true
+        },
+        {
+            "kind": "domain_pose",
+            "pose": [
+                -0.0024604909344284175,
+                -0.003364758476957644,
+                2.7855515244237274e-05,
+                0.0004157927091918405,
+                0.04409800252626382,
+                0.6622910649734526
+            ],
+            "timings_s": {
+                "scipy": [
+                    0.6681648869998753,
+                    0.6546941100386903
+                ],
+                "native": [
+                    0.23863300902303308,
+                    0.2516838719602674
+                ]
+            },
+            "checks": {
+                "field": true,
+                "gradient": true,
+                "matrix": true,
+                "field_budget": true,
+                "force": true,
+                "torque": true
+            },
+            "field_max_absolute_difference": 4.996003610813204e-16,
+            "gradient_max_absolute_difference": 2.4979129875646322e-11,
+            "matrix_max_absolute_difference": 1.3877787807814457e-17,
+            "force_relative_difference": 1.9961812567265683e-16,
+            "torque_relative_difference": 3.6122617195755514e-16,
+            "passed": true
+        },
+        {
+            "kind": "domain_pose",
+            "pose": [
+                0.0005971791410374159,
+                -0.002755544331090244,
+                0.0007905076465106711,
+                0.00015950539469024815,
+                0.002551571962315358,
+                -0.07488956852520579
+            ],
+            "timings_s": {
+                "scipy": [
+                    0.8233791689854115,
+                    0.73052415298298
+                ],
+                "native": [
+                    0.25675274699460715,
+                    0.26370884804055095
+                ]
+            },
+            "checks": {
+                "field": true,
+                "gradient": true,
+                "matrix": true,
+                "field_budget": true,
+                "force": true,
+                "torque": true
+            },
+            "field_max_absolute_difference": 3.0531133177191805e-16,
+            "gradient_max_absolute_difference": 2.3591795184074726e-11,
+            "matrix_max_absolute_difference": 2.0816681711721685e-17,
+            "force_relative_difference": 3.774962578569868e-16,
+            "torque_relative_difference": 4.107631984019002e-16,
+            "passed": true
+        },
+        {
+            "kind": "domain_pose",
+            "pose": [
+                -0.0034549729073343172,
+                -0.0023471142216349153,
+                0.0009752932866102762,
+                0.10776602959306991,
+                0.009332652961901259,
+                -0.4020569160972247
+            ],
+            "timings_s": {
+                "scipy": [
+                    0.6937980449292809,
+                    0.6599213979206979
+                ],
+                "native": [
+                    0.2553673569345847,
+                    0.25086503999773413
+                ]
+            },
+            "checks": {
+                "field": true,
+                "gradient": true,
+                "matrix": true,
+                "field_budget": true,
+                "force": true,
+                "torque": true
+            },
+            "field_max_absolute_difference": 2.7755575615628914e-16,
+            "gradient_max_absolute_difference": 1.5266010677805752e-11,
+            "matrix_max_absolute_difference": 8.673617379884035e-18,
+            "force_relative_difference": 1.4769925938809137e-16,
+            "torque_relative_difference": 3.120539098659091e-16,
+            "passed": true
+        },
+        {
+            "kind": "domain_pose",
+            "pose": [
+                -0.0022134952576639707,
+                -0.0017439708337478941,
+                0.0006571220732073898,
+                0.018286516112978532,
+                0.08521095926300147,
+                -0.1300929998340674
+            ],
+            "timings_s": {
+                "scipy": [
+                    0.6544252349995077,
+                    0.6465504060033709
+                ],
+                "native": [
+                    0.23903572303242981,
+                    0.24536914308555424
+                ]
+            },
+            "checks": {
+                "field": true,
+                "gradient": true,
+                "matrix": true,
+                "field_budget": true,
+                "force": true,
+                "torque": true
+            },
+            "field_max_absolute_difference": 3.885780586188048e-16,
+            "gradient_max_absolute_difference": 1.6655121726216748e-11,
+            "matrix_max_absolute_difference": 1.3877787807814457e-17,
+            "force_relative_difference": 1.8095176157501115e-16,
+            "torque_relative_difference": 3.9031364988038513e-16,
+            "passed": true
+        },
+        {
+            "kind": "domain_pose",
+            "pose": [
+                -0.00023031091800335872,
+                0.0019480281750343465,
+                0.0007554710927465632,
+                -0.0023999039248189455,
+                0.006340627645282787,
+                0.1963016972800693
+            ],
+            "timings_s": {
+                "scipy": [
+                    0.6736499939579517,
+                    0.6443151769926772
+                ],
+                "native": [
+                    0.23938877205364406,
+                    0.23731413600035012
+                ]
+            },
+            "checks": {
+                "field": true,
+                "gradient": true,
+                "matrix": true,
+                "field_budget": true,
+                "force": true,
+                "torque": true
+            },
+            "field_max_absolute_difference": 3.0531133177191805e-16,
+            "gradient_max_absolute_difference": 1.3884005056752358e-11,
+            "matrix_max_absolute_difference": 1.3877787807814457e-17,
+            "force_relative_difference": 2.577403331400128e-16,
+            "torque_relative_difference": 3.223333663057746e-16,
+            "passed": true
+        },
+        {
+            "kind": "domain_pose",
+            "pose": [
+                -0.003471787151645045,
+                0.0014112671903776077,
+                0.00067115143236916,
+                0.009627797508356512,
+                -0.06043592318394356,
+                -1.3583300280879156
+            ],
+            "timings_s": {
+                "scipy": [
+                    0.6702668149955571,
+                    0.7036469189915806
+                ],
+                "native": [
+                    0.25854847801383585,
+                    0.2524489560164511
+                ]
+            },
+            "checks": {
+                "field": true,
+                "gradient": true,
+                "matrix": true,
+                "field_budget": true,
+                "force": true,
+                "torque": true
+            },
+            "field_max_absolute_difference": 3.0531133177191805e-16,
+            "gradient_max_absolute_difference": 1.6653345369377348e-11,
+            "matrix_max_absolute_difference": 8.673617379884035e-18,
+            "force_relative_difference": 1.3382424589322513e-16,
+            "torque_relative_difference": 3.524953523513672e-16,
+            "passed": true
+        },
+        {
+            "kind": "domain_pose",
+            "pose": [
+                0.0002160518960129124,
+                -0.002082579043132036,
+                0.0009377981277081423,
+                -0.04109976600518558,
+                0.012499661242153747,
+                -0.4005981607509632
+            ],
+            "timings_s": {
+                "scipy": [
+                    0.6571192649425939,
+                    0.6516887999605387
+                ],
+                "native": [
+                    0.26503307395614684,
+                    0.2590311999665573
+                ]
+            },
+            "checks": {
+                "field": true,
+                "gradient": true,
+                "matrix": true,
+                "field_budget": true,
+                "force": true,
+                "torque": true
+            },
+            "field_max_absolute_difference": 3.3306690738754696e-16,
+            "gradient_max_absolute_difference": 1.3876899629394757e-11,
+            "matrix_max_absolute_difference": 2.0816681711721685e-17,
+            "force_relative_difference": 3.448016133502348e-16,
+            "torque_relative_difference": 2.433587292509215e-16,
+            "passed": true
+        }
+    ],
+    "status": "passed",
+    "equivalence_tolerances": {
+        "absolute": 1e-12,
+        "relative": 1e-09
+    },
+    "speed_target": 2.0,
+    "domain_field_difference_T": 4.445768331151997e-16,
+    "domain_equivalent": true,
+    "median_matrix_s": {
+        "scipy": 0.6700038124690764,
+        "native": 0.24269466352416202
+    },
+    "matrix_speedup": 2.76068621674647
+}

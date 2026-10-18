@@ -1,0 +1,669 @@
+{
+    "scope": "Airborne sensor/driver/MuJoCo trial; provisional model, not flight-envelope qualification",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "0a01c0d2bd2044c95956299b6cda97fc6de3b27e44c9cbef400510449ca11a12",
+        "levitation_sim.py": "91eea3f343cbfb0722c8325f52f6c55ff49995a2e4ff726584ead98b1e4cd5a3",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "b581ae6204830eec8ccecc9398ae8afe9877592f7d26a4f4dba6d73d36279a47",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "0558fffe5cb8bc3dd6924bc94aaf8d1ddd5328900e6531496786e93a7d77bd00",
+        "methodology/motion.py": "e61946cc0206a57ddc3c9b3eaa71cf012d8a3f4039dc54873ac5c23e4bc8f64b",
+        "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+        "methodology/requirements.txt": "fd94cc8fc4087c9841735e4f5978a742740beb6c30c5dcd81cf1e3b8072ba4df",
+        "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+        "methodology/airborne.py": "a479d6507878e6152edccc9389b589c3561164bfec86822b43754b61f72e3782",
+        "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+        "methodology/sensing.py": "5835a7ec568addaf5ba0cda8e12293b82392fb520875b1149b0e2f1eadc52cc0",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/magnetic_atlas.py": "9dde5b065e7fbf3c664dd6cb675744cbec377d2a98502b77b4df671795fe5d11",
+        "methodology/joint_airborne.py": "f703a63946cc9623d086909a050c84d46d9a89276e7cc599dd64544e6f890cc5",
+        "methodology/adaptive_airborne.py": "987f2334b809a0433725ca22a2d5fe5347874d8d99f467ad9460e0252a486125",
+        "methodology/benchmark_magnetics.py": "8ea725299bfead29bb26cfb2b0af4b3b63be51487a9cb0867c562f74901039fc",
+        "methodology/magnetic_spline.py": "587deeb3a68be79083eef2e0ec18b46f6a58487012942243e485b3096373150f",
+        "methodology/magnetic_spline.c": "40ff3cba90d7da6e745a35c49d08232b0cc6fb58c3d57d370219a4e4ec1ee61c",
+        "methodology/numerical_accuracy.py": "523b9f09adbe613b6e8eabd7af09be8ca114691d6192a14591493fb7636a3b39",
+        "methodology/hover.py": "108df953300f19ba831dfb18f9e7a0fdbec6b29df7d6f9035a3af3dfee8d25c9",
+        "methodology/airborne_verification.py": "998de7bcd33103cbde914e4a3abf5e1cd2a6a6ce9944a940d0309b4f0a910dfa"
+    },
+    "duration_completed_s": 0.002,
+    "intended_duration_s": 0.002,
+    "disturbed": false,
+    "reference_pose": [
+        0.0,
+        0.0,
+        0.0004999999999999998,
+        0.0,
+        0.0,
+        0.0
+    ],
+    "motion_scenario": "hover",
+    "finished": true,
+    "stop_reason": null,
+    "passed": true,
+    "peaks": {
+        "current_A": 1.8979473924149137,
+        "voltage_V": 1.063551004541415,
+        "copper_loss_W": 4.057719290574865,
+        "back_emf_V": 0.00011769693693750904,
+        "position_error_m": 3.6107096039205078e-06,
+        "angle_error_rad": 7.1746729051568675e-06,
+        "estimated_position_error_m": 2.4361338111515856e-05,
+        "estimated_angle_error_rad": 0.0009032286653906284,
+        "required_current_A": 1.2122283222818357
+    },
+    "delivered_moving_scans": 1,
+    "voltage_saturated_updates": 0,
+    "physics_time_step_s": null,
+    "elapsed_s": 798.8271560299909,
+    "trace": [
+        {
+            "time_s": 0.0,
+            "pose": [
+                0.0,
+                0.0,
+                0.0005000000000000004,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "estimated_pose": [
+                -2.428482806034265e-05,
+                -6.588463811577049e-07,
+                0.0004981867592246965,
+                -5.4184022518188786e-05,
+                -0.0006067685279240165,
+                -8.852314472030117e-05
+            ],
+            "reference_pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "currents_A": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "peak_current_A": 0.0,
+            "clearance_m": 0.0036000000000000003,
+            "required_current_A": 1.0356286444880907
+        },
+        {
+            "time_s": 0.00025,
+            "pose": [
+                3.1762325111304e-09,
+                1.5192547568547677e-09,
+                0.0004997336428286415,
+                -2.3644618956064598e-08,
+                -2.7492729426370488e-08,
+                6.503075736695573e-08
+            ],
+            "estimated_pose": [
+                -2.419326295927004e-05,
+                -7.568919890639248e-07,
+                0.0004978511023023634,
+                -4.992373460462897e-05,
+                -0.0006006426781779016,
+                -8.444001348320184e-05
+            ],
+            "reference_pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "currents_A": [
+                -0.028434243366681385,
+                0.05741665833707703,
+                0.3209726676783425,
+                -0.04460799364000929,
+                -0.07094727724969441,
+                -0.042974830455452515,
+                -0.2616605494923502,
+                0.9917388589210487,
+                0.03228423161956978,
+                -0.07560280057426676,
+                0.15380106320857564,
+                -0.08402385218209849,
+                -1.1234244270463787,
+                -0.06538495255835299,
+                0.18864878190388198,
+                -0.014570312416870686,
+                0.04383226960310802,
+                -0.5433073491668099,
+                0.27883848369606024,
+                0.1213026568589223,
+                0.029804703219171315,
+                -0.007800728414178048,
+                0.10173281064362424,
+                0.055976165642610896,
+                -0.034735975510566
+            ],
+            "peak_current_A": 1.1234244270463787,
+            "clearance_m": 0.0035997329050524835,
+            "required_current_A": 1.0827606263601384
+        },
+        {
+            "time_s": 0.0005,
+            "pose": [
+                2.395659456251675e-08,
+                1.0627595953550658e-08,
+                0.0004992122595114164,
+                -1.927965618045168e-07,
+                -7.76244877265242e-08,
+                2.81269791699837e-07
+            ],
+            "estimated_pose": [
+                -2.409196330656055e-05,
+                -8.52740773994707e-07,
+                0.0004972218067867674,
+                -4.570943685246601e-05,
+                -0.000594357580253175,
+                -8.040615626170002e-05
+            ],
+            "reference_pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "currents_A": [
+                -0.03567881028149959,
+                0.06439924590015937,
+                0.4936268041852814,
+                -0.05543884915121951,
+                -0.09436345766815306,
+                -0.03788916132865858,
+                -0.37689423643267356,
+                1.5032447234683095,
+                0.03741510628321275,
+                -0.1244764543487774,
+                0.22360910979466572,
+                -0.16587311534899543,
+                -1.7224596383612154,
+                -0.12360631090752251,
+                0.29236696021480885,
+                0.008785333594445952,
+                0.04926460591397546,
+                -0.8758079612322407,
+                0.4496723198611723,
+                0.18931028089878904,
+                0.028945314091386155,
+                0.007894352483564971,
+                0.16018414791934873,
+                0.10650371066103166,
+                -0.03232295545600076
+            ],
+            "peak_current_A": 1.7224596383612154,
+            "clearance_m": 0.0035992076757896956,
+            "required_current_A": 1.0900068135967782
+        },
+        {
+            "time_s": 0.00075,
+            "pose": [
+                6.902305258677371e-08,
+                2.9731913461357244e-08,
+                0.0004986650368664133,
+                -5.822590969908758e-07,
+                -9.593268268659472e-08,
+                6.002648533668661e-07
+            ],
+            "estimated_pose": [
+                -2.3973653576871096e-05,
+                -9.434828905993197e-07,
+                0.0004965563322583603,
+                -4.1623888601405556e-05,
+                -0.0005878426841894832,
+                -7.647761941203235e-05
+            ],
+            "reference_pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "currents_A": [
+                -0.035847095701282264,
+                0.06888217706857434,
+                0.5241249601198199,
+                -0.058307606188994165,
+                -0.09796980454040506,
+                -0.03561419513919933,
+                -0.3974213844251967,
+                1.5933204790121676,
+                0.039468158623454215,
+                -0.13059960549678865,
+                0.26069591066477926,
+                -0.1937014594868935,
+                -1.8452443364086135,
+                -0.1264576884687997,
+                0.3032034385174477,
+                0.027193034971618596,
+                0.05475716111119983,
+                -0.9533146399434335,
+                0.48053414934554106,
+                0.1933888549150969,
+                0.028795598049390123,
+                0.014021164760202775,
+                0.17916340819127372,
+                0.11712897027161323,
+                -0.027511421621495478
+            ],
+            "peak_current_A": 1.8452443364086135,
+            "clearance_m": 0.0035986519759385236,
+            "required_current_A": 1.0900068135967782
+        },
+        {
+            "time_s": 0.001,
+            "pose": [
+                1.3892299818933878e-07,
+                5.9380673602586954e-08,
+                0.0004981453695494468,
+                -1.2027800381297849e-06,
+                -8.927066375008508e-08,
+                1.0130609977090233e-06
+            ],
+            "estimated_pose": [
+                -2.383778899878718e-05,
+                -1.028643915947102e-06,
+                0.0004959176660830908,
+                -3.7684587891156736e-05,
+                -0.0005810949808607996,
+                -7.266881226767776e-05
+            ],
+            "reference_pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "currents_A": [
+                -0.03515757839960714,
+                0.0757622626115702,
+                0.5285401034106678,
+                -0.05859207806185195,
+                -0.09989676561876844,
+                -0.03531818355817765,
+                -0.4099113733449352,
+                1.5991532559488564,
+                0.04011869793849547,
+                -0.1257692935684066,
+                0.2852513570942979,
+                -0.20258918721082328,
+                -1.873516955979375,
+                -0.12433894006151376,
+                0.29826082546529115,
+                0.04054842089907844,
+                0.05898583907504927,
+                -0.9837206287570892,
+                0.4808407422895448,
+                0.1912516084174227,
+                0.028338105241323942,
+                0.015108141035192047,
+                0.1881936714383182,
+                0.1188039160346613,
+                -0.022482928077545712
+            ],
+            "peak_current_A": 1.873516955979375,
+            "clearance_m": 0.0035981186645087926,
+            "required_current_A": 1.0900068135967782
+        },
+        {
+            "time_s": 0.00125,
+            "pose": [
+                2.3359633506621748e-07,
+                9.940137952511214e-08,
+                0.0004976651213864994,
+                -2.058683876235769e-06,
+                -9.713648552178711e-08,
+                1.5402009372016076e-06
+            ],
+            "estimated_pose": [
+                -2.368446872544426e-05,
+                -1.1083168083584595e-06,
+                0.0004953196965124412,
+                -3.389568051023377e-05,
+                -0.0005741511282024961,
+                -6.89633122613783e-05
+            ],
+            "reference_pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "currents_A": [
+                -0.03544328391660362,
+                0.07807805142634809,
+                0.5236352664087829,
+                -0.05830636394598932,
+                -0.09242975110160231,
+                -0.03527466433312198,
+                -0.4069299553207856,
+                1.5844068319527893,
+                0.038924548833058625,
+                -0.11666788054879089,
+                0.29887520060926365,
+                -0.21084451199706605,
+                -1.8730876055001753,
+                -0.11897417146765468,
+                0.2880751107905925,
+                0.050666379712485346,
+                0.06052329946531503,
+                -1.0004091581579948,
+                0.4727060238016773,
+                0.18603720417983202,
+                0.028661235113756293,
+                0.020382240388150907,
+                0.19286563118286068,
+                0.11810031661697504,
+                -0.022216784464777095
+            ],
+            "peak_current_A": 1.8730876055001753,
+            "clearance_m": 0.003597619487710678,
+            "required_current_A": 1.0900068135967782
+        },
+        {
+            "time_s": 0.0015,
+            "pose": [
+                3.518842673489725e-07,
+                1.4913427504661533e-07,
+                0.0004972250589102174,
+                -3.1568810052156315e-06,
+                -1.3678982613285484e-07,
+                2.1728074810444e-06
+            ],
+            "estimated_pose": [
+                -2.3514741281987764e-05,
+                -1.1831592038840719e-06,
+                0.000494763946480474,
+                -3.026567081638117e-05,
+                -0.000567030883411005,
+                -6.536182836873115e-05
+            ],
+            "reference_pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "currents_A": [
+                -0.029080763113343937,
+                0.08481219325080279,
+                0.5145397004436945,
+                -0.058314136838373415,
+                -0.09166267480042382,
+                -0.03458120934974161,
+                -0.4041957623655207,
+                1.564175488645978,
+                0.03299301753335936,
+                -0.10767207226792905,
+                0.3173724192382493,
+                -0.22178102043120332,
+                -1.8644098239831968,
+                -0.10816445690966463,
+                0.27811523815083816,
+                0.06787828324677454,
+                0.06016627765525342,
+                -1.011520294109898,
+                0.4682550408159844,
+                0.1761814263751685,
+                0.03503865119505728,
+                0.02358106503410385,
+                0.20044216003557452,
+                0.11978421679816548,
+                -0.02296235845573894
+            ],
+            "peak_current_A": 1.8644098239831968,
+            "clearance_m": 0.0035971550953938615,
+            "required_current_A": 1.0900068135967782
+        },
+        {
+            "time_s": 0.00175,
+            "pose": [
+                4.919190386588342e-07,
+                2.0852060339235893e-07,
+                0.000496823362642564,
+                -4.487867846688796e-06,
+                -2.1059845511928188e-07,
+                2.892934212163396e-06
+            ],
+            "estimated_pose": [
+                -2.09096463942768e-05,
+                4.774176367162995e-06,
+                0.0004898611584260812,
+                -7.456413288784379e-06,
+                0.00034401036592512376,
+                -0.0007994527719737388
+            ],
+            "reference_pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "currents_A": [
+                -0.02720727515939609,
+                0.08829412276444083,
+                0.5042842419371599,
+                -0.05844712896326966,
+                -0.08969721417100432,
+                -0.03508505225056086,
+                -0.4051333047098428,
+                1.5448969446205996,
+                0.029290527542742164,
+                -0.10252734065468795,
+                0.3375068245604166,
+                -0.2302347691786867,
+                -1.862875063369303,
+                -0.10637720522336992,
+                0.27508623883951455,
+                0.07988716383149405,
+                0.06019646930694507,
+                -1.0215267678098732,
+                0.4613287311119387,
+                0.1666569095020286,
+                0.038116046394901286,
+                0.022647048215715383,
+                0.20459506152271797,
+                0.11888192217105853,
+                -0.02273332520242145
+            ],
+            "peak_current_A": 1.862875063369303,
+            "clearance_m": 0.0035967238838598863,
+            "required_current_A": 1.2085460368662992
+        },
+        {
+            "time_s": 0.002,
+            "pose": [
+                6.523771026842008e-07,
+                2.7638290532602504e-07,
+                0.0004964594858495718,
+                -6.046286743866579e-06,
+                -5.099693451970921e-07,
+                3.82861475984423e-06
+            ],
+            "estimated_pose": [
+                -2.0644623699092665e-05,
+                4.877995882453567e-06,
+                0.0004892622101012102,
+                -3.565457303917658e-06,
+                0.0003768066498354522,
+                -0.0008168097210862355
+            ],
+            "reference_pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "currents_A": [
+                0.02439792375848722,
+                0.19595371252140753,
+                0.28739784172309213,
+                -0.02618108309141092,
+                0.02444525630431245,
+                0.004171479599363362,
+                -0.5818452206923758,
+                1.0075808493262044,
+                0.06609845988498965,
+                0.13896212292267773,
+                1.0082623315295516,
+                -0.36828823984986986,
+                -1.8979473924149137,
+                0.016003526786976682,
+                -0.04419129706902534,
+                0.4572018541127957,
+                0.1285689138901478,
+                -1.4619703174412018,
+                0.2370229256006542,
+                -0.057154129736403735,
+                0.09551898027594247,
+                0.12547456411120814,
+                0.42486283562958443,
+                0.1632655445306247,
+                -0.00971864326171655
+            ],
+            "peak_current_A": 1.8979473924149137,
+            "clearance_m": 0.0035963251338619797,
+            "required_current_A": 1.2122283222818357
+        }
+    ],
+    "time_refinement": 1,
+    "magnetic_refinement": 1,
+    "force_quadrature_orders": {
+        "physical": 16,
+        "nominal": 16
+    },
+    "wire_segments_mm": {
+        "hall_physical": 0.03125,
+        "hall_nominal": 0.03125
+    },
+    "hardware_rates_Hz": {
+        "command": 4000,
+        "regulator": 20000,
+        "feedback": 1000
+    },
+    "hall_conversion": {
+        "native_bits": 16,
+        "samples_per_sensor": 16,
+        "sample_rate_Hz": 500000,
+        "sensor_noise_rms_T": 1.84e-05
+    },
+    "current_conversion": {
+        "native_bits": 16,
+        "sample_rate_Hz": 20000,
+        "quantum_A": 0.0001983642578125,
+        "sensor_noise_rms_A": 0.001,
+        "command_step_A": 0.01
+    },
+    "control_dynamics_Hz": {
+        "pose": 20,
+        "observer": 20
+    },
+    "mechanical_properties": {
+        "king_mass_kg": 0.022729931617873098,
+        "king_com_from_magnet_bottom_m": [
+            -1.6041965042119606e-15,
+            -5.236087386476415e-18,
+            0.014742337541608933
+        ],
+        "king_inertia_kg_m2": [
+            [
+                1.388967691066038e-05,
+                3.3395508580724707e-22,
+                2.048437863777508e-18
+            ],
+            [
+                3.3395508580724707e-22,
+                1.3899879217463618e-05,
+                -2.1600499167107047e-21
+            ],
+            [
+                2.048437863777508e-18,
+                -2.1600499167107047e-21,
+                2.925058257287492e-06
+            ]
+        ]
+    },
+    "limitations": [
+        "Stationary sensor-only acquisition precedes release; setup motion is frozen and excluded from controlled-flight evidence. Currents start at zero.",
+        "Hall conversion is an ideal uniform quantizer at the stated native precision; converter noise, nonlinearity, reference errors and multiplexing settling need hardware qualification.",
+        "Fixed local coil and sensor windows, nominal CAD mass and magnet properties only; commanded movement does not implement window handoffs.",
+        "Independent RL windings with estimated self-inductance, averaged voltages and constant winding/driver/shunt resistance; no PWM ripple, mutual inductance, bus dynamics or thermal feedback.",
+        "Provisional synchronous current ADCs at the regulator rate, with offset, gain error, noise and quantization. Channel throughput and latency are not hardware-qualified.",
+        "Hall correction reconstructs current history from available measurements and nominal filter startup. Interpolation accuracy requires numerical and measurement-rate checks.",
+        "Pose controller uses PD tracking with reference velocity and acceleration feedforward. Observer propagation uses measured-current acceleration from the held nominal allocation matrix plus an estimated residual; current calibration and nominal force-model errors remain.",
+        "No conductive-sheet drag or neighbours; no time/force-mesh convergence, uncertainty qualification or embedded compute-time evidence.",
+        "Video replays stored physical poses with interpolation; it does not rerun dynamics.",
+        "Atlas force interpolation requires independent direct-field validation; Hall sensing and estimation remain direct.",
+        "Joint RK45 integrates motion and current; passive Hall filtering uses its dense trajectory. Local RMS tolerances and accumulated work diagnostics are not global trajectory bounds. Back-EMF peak includes trial stages. Contact, reconduction and coil handoffs are unsupported."
+    ],
+    "atlas": {
+        "mode": "atlas_forces",
+        "identity": "c3297378a3f049fbd8536cfada40a2ddb30f1081af0882b6b17bcb39cd269d51"
+    },
+    "integration_mode": "joint_RK45",
+    "tolerance_scale": 1,
+    "integration": {
+        "accepted_steps": 137,
+        "signed_mechanical_defect_J": -9.14226593849872e-17,
+        "absolute_mechanical_defect_J": 9.4763696059419e-17,
+        "signed_total_defect_J": -5.466889721564785e-12,
+        "absolute_total_defect_J": 5.466891562875446e-12,
+        "energy_budget_J": 2.229044839004151e-08,
+        "minimum_step_s": 1.047696306078448e-08,
+        "maximum_step_s": 2.9811855070270912e-05,
+        "rhs_evaluations": 1144,
+        "filter_evaluations": 1618
+    },
+    "evaluator": {
+        "method": "scipy",
+        "native_build_sha256": null
+    }
+}

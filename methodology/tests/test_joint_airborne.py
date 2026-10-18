@@ -241,14 +241,14 @@ class JointScheduleTests(unittest.TestCase):
         self.assertLessEqual(original.accounting['absolute_total_defect_J'], original.dynamics.energy_budget)
 
     def test_atlas_backend_reaches_trial_plant_and_rejects_changed_identity(self):
-        atlas = SimpleNamespace(identity='test-direct-evaluator', field=levitation_sim.magnetic_field)
+        atlas = SimpleNamespace(identity='test-direct-evaluator', field=levitation_sim.magnetic_field,
+            evaluator_identity=dict(method='scipy'), evaluator_sources={})
         original = JointAirborneSimulation(self.construction, Fixed.airborne_check_duration,
             atlas=atlas, magnetic_mode='atlas_forces')
-        self.assertEqual(original.plant.field_evaluator, atlas.field)
-        self.assertEqual(original.dynamics.plant.field_evaluator, atlas.field)
-        self.assertEqual(original.controller.field_evaluator, atlas.field)
+        self.assertIs(original.plant.field_evaluator, original.controller.field_evaluator)
+        self.assertIs(original.dynamics.plant.field_evaluator, original.controller.field_evaluator)
         saved = original.checkpoint_state()
-        for key in ('mode', 'identity'):
+        for key in ('mode', 'identity', 'evaluator'):
             invalid = deepcopy(saved)
             invalid['atlas'][key] = 'changed'
             with self.assertRaisesRegex(ValueError, 'backend or atlas'):
