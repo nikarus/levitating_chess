@@ -13,4 +13,4 @@ Develop thermal analysis alongside electronics and mechanics, recording currents
 
 Before an expensive run, identify the unresolved property, acceptance rule and expected decision. Inspect existing processes/evidence, prefer recorded-data diagnosis, and preserve source/settings provenance, automatic stops and checkpoints. Wait for launched batches to finish rather than periodically inspecting unchanged progress. Never treat process completion as a passed simulation or relax limits merely to obtain a pass.
 
-Keep only remaining work here. Quantitative settings belong in `Inputs`, `Fixed` and `Constants` in [model.py](../model.py), with descriptive comments. Follow the [organization rules](README.md); reuse existing calculation owners and prune superseded guidance as work proceeds.
+Keep only remaining work here. Quantitative settings belong in `Inputs`, `Fixed` and `Constants` in [model.py](../model.py), with descriptive comments. Follow the [organization rules](PROJECT_ORGANIZATION.md); reuse existing calculation owners and prune superseded guidance as work proceeds.

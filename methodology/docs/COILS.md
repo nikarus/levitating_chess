@@ -25,17 +25,17 @@ The resistance screen uses the manufacturer's upper resistance per metre, includ
 
 ## Integrated virtual assembly
 
-Open [square_assembly.FCStd](../cad/output/square_assembly.FCStd) in FreeCAD. It contains a closely packed 9 × 9 patch, the existing 16-magnet Halbach array, a hollow king shell and board-layer envelopes. One foreground coil is resolved into continuous copper, enamel, leads, terminal pads and provisional solder regions. The other coils remain nominal winding envelopes to keep the assembly manageable. The lattice rotation, nominal winding dimensions and vertical stack match the square screen. This is a representative physical patch, not the full board or the number of channels energized together.
+Open [square_assembly.FCStd](../results/cad/square_assembly.FCStd) in FreeCAD. It contains a closely packed 9 × 9 patch, the existing 16-magnet Halbach array, a hollow king shell and board-layer envelopes. One foreground coil is resolved into continuous copper, enamel, leads, terminal pads and provisional solder regions. The other coils remain nominal winding envelopes to keep the assembly manageable. The lattice rotation, nominal winding dimensions and vertical stack match the square screen. This is a representative physical patch, not the full board or the number of channels energized together.
 
 The continuous conductor traverses all turns in the same circulation direction, alternating inward and outward radial progression on successive layers. Layer changes require a local detour: a direct diagonal transition would overlap neighboring enamel. Outer detours extend into part of the inter-coil gap; inner detours enter the winding window. Thus the original rectangular winding envelope no longer bounds every crossover. The actual detailed coil is checked against neighboring envelopes, and its axial extent stays within the original winding height.
 
-Both leads terminate at separate top-side PCB pads inside the winding window. The top lead descends through that window; enamel is removed at the contact lengths. Pad recesses are included in the otherwise unrouted PCB envelope. Solder shapes reserve occupied joint volume, not a qualified fillet or wetting process. The [winding close-up](../cad/output/square_winding.png) isolates this geometry without creating another FreeCAD document.
+Both leads terminate at separate top-side PCB pads inside the winding window. The top lead descends through that window; enamel is removed at the contact lengths. Pad recesses are included in the otherwise unrouted PCB envelope. Solder shapes reserve occupied joint volume, not a qualified fillet or wetting process. The [winding close-up](../results/cad/square_winding.png) isolates this geometry without creating another FreeCAD document.
 
 The path contains approximately 1.255 m of copper including its integral leads, giving 0.420–0.455 Ω at the reference temperature. This excludes PCB traces beyond the pads. The prior 1.311 m / 0.439–0.476 Ω allowance includes longer free leads and approximate connections, so these values have different connection scopes. The minimum screened enamel-to-enamel clearance is approximately 0.0059 mm with maximum insulated diameter. That establishes nominal non-overlap only: winding placement, enamel variation, bend limits and construction tolerances still need a budget. The closed-turn force calculation does not yet include these crossover and lead paths.
 
 The king now has a hollow shell, a roof and perimeter pocket around the unchanged magnet array, adhesive space and a thin bottom film. Underside relief removes unnecessary material around the pocket. The film is not the structural magnet retainer; the assumed load path is the adhesive into the pocket roof and walls. Bond strength, peel, shock, temperature and shell deformation remain unqualified. No inter-magnet gap is introduced.
 
-With the configured provisional densities, the complete modeled king weighs approximately 22.73 g with its centre of mass 14.74 mm above the magnet bottoms. CAD-derived inertia and component contributions are recorded alongside the previous mass/inertia approximation in [square_geometry.json](../cad/output/square_geometry.json). The CAD magnetic comparison uses these properties; the original motion screen retains its earlier approximation. Both tilt inertias and yaw inertia are transferred to simulator state, but prescribed level translation does not exercise rotational dynamics.
+With the configured provisional densities, the complete modeled king weighs approximately 22.73 g with its centre of mass 14.74 mm above the magnet bottoms. CAD-derived inertia and component contributions are recorded alongside the previous mass/inertia approximation in [square_geometry.json](../results/cad/square_geometry.json). The CAD magnetic comparison uses these properties; the original motion screen retains its earlier approximation. Both tilt inertias and yaw inertia are transferred to simulator state, but prescribed level translation does not exercise rotational dynamics.
 
 Magnet bottoms remain at z = 0. PCB and baseplate depths retain the square motion-screen stack. Thin surface layers, bottom film, adhesive and enamel are hidden initially; the shell is translucent for inspection. Inter-coil potting, detailed circuitry, mounting and cooling remain to be designed. See the [CAD guide](../cad/README.md) for display and regeneration.
 
@@ -83,7 +83,12 @@ Both candidates fail the existing 0.5 A ripple allowance at 160 kHz under the ap
 
 See the [handoff traces](../results/prototype_coils.png) and [machine-readable results](../results/prototype_coils.json). The saved coarse run retains its original source fingerprints; its conservative voltage bounds were subsequently recomputed from saved waveforms, with separate electrical-calculation fingerprints. Refinement and magnetic-mesh checks also record their own source versions.
 
-## Reproduce
+## Inspect and reproduce
+
+Use one FreeCAD instance and one current review document. The opening macro preserves open documents as recovery copies under `/tmp` before closing them; move any needed recovery copy to durable storage. The native document and STEP file are generated geometry, not editable sketch history: change the authoritative Python source. Coordinates are millimetres, with magnet bottoms at z = 0 and no display offsets. Toggle hidden covers and films in FreeCAD to inspect them.
+
+The active shared environment is `methodology/cad/.venv`. Direct dependencies are declared in the linked [CAD requirements](../cad/requirements.txt) and [calculation requirements](../requirements.txt); the [environment lock](../cad/environment.lock.txt) records the installed package set. FreeCAD uses its own bundled Python; replay encoding also requires the system FFmpeg executable. Geometry export and FreeCAD import checks compare solids, physical intersections, dimensions and volumes; they do not qualify thermal or closed-loop behavior.
+
 
 ```sh
 methodology/cad/.venv/bin/python -m methodology.prototype_coils
@@ -93,7 +98,7 @@ methodology/cad/.venv/bin/python -m methodology.prototype_coils --plot
 methodology/cad/.venv/bin/python -m methodology.cad.magnetics
 methodology/cad/.venv/bin/python -m methodology.cad.magnetics --path
 methodology/cad/.venv/bin/python -m methodology.cad.square_assembly
-~/.local/bin/freecad - --single-instance methodology/cad/output/open_square.FCMacro
+~/.local/bin/freecad - --single-instance methodology/results/cad/open_square.FCMacro
 ```
 
 ## Supporting geometry comparison

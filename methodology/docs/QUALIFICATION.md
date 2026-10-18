@@ -4,7 +4,7 @@ These results apply to the existing stacked winding. They do not qualify the new
 
 **All nine local king scenarios now pass. The current-critical case also passes independent integration-step, magnetic-field-refresh and force-mesh convergence checks.** This supports a prototype design basis under the stated assumptions. It does not qualify the complete product or establish absolute minimum current/frequency values.
 
-The saved results predate the repository reorganization; their original source fingerprints are preserved. See [README.md](../README.md) for current execution commands and provenance.
+The saved results predate the repository reorganization; their original source fingerprints are preserved. Their source identities remain historical; the current square-coil work is documented in [COILS.md](COILS.md).
 
 The results are in [qualification.json](../results/qualification.json). Quantitative settings belong to `Inputs`, `Fixed` and `Constants` in `model.py`, with descriptive parameter comments. Neither protected product document was modified by this work.
 
@@ -98,14 +98,6 @@ The present whole-board command stream is **221.184 Mbit/s**, against a configur
 
 Coils begin pre-energized. The model does not yet qualify ground takeoff/contact transitions, complete flights, deliberate large tilt/yaw manoeuvres, stationary neighbours, full-board reset routing, mutual inductance, actual PWM sensing/switching transients, rail/midpoint dynamics, or thermal/acoustic acceptance. The king's current demand does not establish the fastest dynamics of every lighter piece.
 
-## Next work
+## Applicability to current work
 
-Use the targets above as a **conditional prototype design basis**. Further searching for minimum pose or command frequency is not the useful next step.
-
-First confirm the real winding and a representative current driver: supplier-achievable conductor/insulation dimensions, cold/hot resistance, self/mutual inductance, measured force, current-loop response, switching ripple, current-sense error and temperature. Design the driver around the distinction between averaged and instantaneous current. Carrier/topology changes must carry their electrical losses back into the existing model.
-
-In parallel, adapt sensing and command delivery to the demonstrated timing/accuracy contract. Continue full lift/fly/land and neighbour simulations using this corrected controller, and resolve whole-board power/thermal failures before selecting production electronics. Passing local scenarios provides no unconditional guarantee of piece control on real hardware.
-
-Verification: **46 regression tests pass**, including disturbance estimation, clock independence, periodic RL ripple bounds and trajectory/current convergence checks. The main report was recalculated. Both protected product documents match their pre-work hashes.
-
-The proposed implementation sequence is in [NEXT_STEPS.md](../NEXT_STEPS.md).
+Retain this reference while the main model still uses the stacked geometry and its electrical assumptions. Its targets are not adopted square-coil hardware ratings. The current CAD-only design sequence is maintained exclusively in [NEXT_STEPS.md](../NEXT_STEPS.md); manufacturing and physical measurements follow the integrated virtual-design review.

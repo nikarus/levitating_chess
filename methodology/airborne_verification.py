@@ -289,7 +289,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Run independent resolution checks and gated extended hover without supervision.')
     parser.add_argument('--output', type=Path, default=Path(__file__).with_name('results') / 'airborne_verification')
     parser.add_argument('--deadline', type=datetime.fromisoformat, required=True, help='Timezone-aware deadline; incomplete trials remain unqualified.')
-    parser.add_argument('--video-output', type=Path, default=Path(__file__).with_name('cad') / 'output' / 'airborne_verification.mp4')
+    parser.add_argument('--video-output', type=Path, help='Video path; defaults to inside the batch output folder.')
     parser.add_argument('--no-video', action='store_true', help='Retain numerical evidence without rendering another preview.')
     parser.add_argument('--magnetic-first', action='store_true', help='Check magnetic refinement before time refinement, retaining both required comparisons.')
     parser.add_argument('--reuse-baseline', type=Path, help='Reuse this normal recovery report; run its exact repeat then both refinements concurrently in its folder.')
@@ -307,5 +307,6 @@ if __name__ == '__main__':
     else:
         if arguments.screen_evidence is not None:
             parser.error('--screen-evidence requires --reuse-baseline')
-        run_batch(arguments.output, arguments.deadline, None if arguments.no_video else arguments.video_output,
+        video_output = arguments.video_output if arguments.video_output is not None else arguments.output / 'airborne_verification.mp4'
+        run_batch(arguments.output, arguments.deadline, None if arguments.no_video else video_output,
                   extended_hover=not arguments.verification_only, screen_only=arguments.screen_only, magnetic_first=arguments.magnetic_first)

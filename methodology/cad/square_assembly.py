@@ -144,4 +144,4 @@ if result['imported_solids'] != report['export']['solids']:
 
 
 if __name__ == '__main__':
-    export_square(Path(__file__).with_name('output'))
+    export_square(Path(__file__).resolve().parents[1] / 'results' / 'cad')

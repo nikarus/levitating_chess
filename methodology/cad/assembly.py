@@ -251,5 +251,5 @@ def export_prototype(output):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Export the existing model geometry for CAD review; no field sweep required.')
-    parser.add_argument('--output', type=Path, default=Path(__file__).with_name('output'))
+    parser.add_argument('--output', type=Path, default=Path(__file__).resolve().parents[1] / 'results' / 'cad')
     export_prototype(parser.parse_args().output)

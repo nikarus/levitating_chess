@@ -29,7 +29,8 @@ def layout_parts(candidate, angle):
 
 
 def export_comparison():
-    output = Path(__file__).with_name('output')
+    output = Path(__file__).resolve().parents[1] / 'results' / 'cad'
+    output.mkdir(parents=True, exist_ok=True)
     report_path = Path(coil_layouts.__file__).with_name('results') / 'coil_layouts.json'
     report = json.loads(report_path.read_text())
     selected = report['refined_results']

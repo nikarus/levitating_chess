@@ -428,7 +428,8 @@ def run(output, preview, video=False):
                   limitations=['No physical sensor estimator, driver dynamics or closed-loop control in this check.',
                                'Contact parameters are provisional; manufactured winding clearance and material behavior remain unresolved.',
                                'The magnetic circuit retains the provisional local PCB closure and nominal material properties.'])
-    scene_path = Path(__file__).with_name('cad') / 'output' / 'motion_scene.xml'
+    output.parent.mkdir(parents=True, exist_ok=True)
+    scene_path = output.with_name(output.stem + '_scene.xml')
     scene_path.write_text(plant.scene + '\n')
     if preview:
         plant.reset()

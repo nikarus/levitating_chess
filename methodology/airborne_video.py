@@ -55,6 +55,6 @@ def render_report(report_path, output):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Render saved airborne trajectories without repeating dynamics.')
     parser.add_argument('--report', type=Path, default=Path(__file__).with_name('results') / 'airborne.json')
-    parser.add_argument('--output', type=Path, default=Path(__file__).with_name('cad') / 'output' / 'airborne.mp4')
+    parser.add_argument('--output', type=Path, help='Video path; defaults to beside the input report.')
     args = parser.parse_args()
-    print(json.dumps(render_report(args.report, args.output)))
+    print(json.dumps(render_report(args.report, args.output if args.output is not None else args.report.with_name(args.report.stem + '_video.mp4'))))

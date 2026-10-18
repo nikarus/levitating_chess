@@ -7,7 +7,7 @@ sys.path.insert(0, '/home/arseniy/projects/flying_chess/methodology/cad')
 import importlib
 import freecad_view
 importlib.reload(freecad_view)
-output = Path('/home/arseniy/projects/flying_chess/methodology/cad/output')
+output = Path('/home/arseniy/projects/flying_chess/methodology/results/cad')
 for document in list(App.listDocuments().values()):
     document.saveCopy(str(Path('/tmp') / (document.Name + '_before_square_review_' + uuid4().hex + '.FCStd')))
     App.closeDocument(document.Name)

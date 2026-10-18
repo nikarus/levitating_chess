@@ -3,3 +3,5 @@ scipy==1.17.1
 magpylib==5.2.3
 magpylib-force==0.3.1
 mujoco==3.15.0
+matplotlib==3.11.2
+pillow==12.2.0
