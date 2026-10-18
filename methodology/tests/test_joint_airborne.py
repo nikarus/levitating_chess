@@ -205,7 +205,7 @@ class JointScheduleTests(unittest.TestCase):
         cls.construction = magnetics.ConstructionModel()
 
     def test_pending_adc_samples_and_hardware_events_replay_in_fresh_process(self):
-        original = JointAirborneSimulation(self.construction, Fixed.airborne_check_duration)
+        original = JointAirborneSimulation(self.construction, Fixed.airborne_check_duration, motion_scenario='local_move')
         substitute_force(original)
         while original.clock <= Fixed.hall_power_settle_time:
             original.advance()
@@ -215,12 +215,14 @@ class JointScheduleTests(unittest.TestCase):
             path = Path(folder) / 'checkpoint.json'
             original.save_checkpoint(path)
             saved = json.loads(path.read_text())
-            for key in ('source_sha256', 'construction', 'plant'):
+            for key in ('source_sha256', 'construction', 'plant', 'motion_scenario'):
                 invalid = deepcopy(saved)
                 if key == 'source_sha256':
                     invalid[key] = {}
                 elif key == 'construction':
                     invalid[key]['piece_properties']['mass_g'] *= Fixed.qualification_refinement_factor
+                elif key == 'motion_scenario':
+                    invalid[key] = 'hover'
                 else:
                     invalid[key]['scene_sha256'] = ''
                 with self.assertRaises(ValueError):

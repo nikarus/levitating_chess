@@ -401,6 +401,73 @@ class AirborneVerificationTests(unittest.TestCase):
             self.assertFalse(result['comparisons']['repeat']['converged'])
 
 
+class AirborneMotionTests(unittest.TestCase):
+    def test_smooth_reference_has_rest_endpoints_and_world_frame_derivatives(self):
+        origin = np.array([0., 0., 0., 0.1, -0.2, 0.3])
+        translation = np.asarray(Fixed.airborne_motion_translation)
+        rotation_vector = np.array([0.02, -0.03, 0.01])
+        duration = Fixed.airborne_motion_duration
+        for time, completed in ((-duration, False), (0., False), (duration, True), (2 * duration, True)):
+            pose, velocity, acceleration = airborne.smooth_reference(origin, translation, rotation_vector, time, duration)
+            expected = Rotation.from_rotvec(rotation_vector if completed else np.zeros(3)) * Rotation.from_euler('xyz', origin[3:])
+            np.testing.assert_allclose(pose[:3], origin[:3] + (translation if completed else 0))
+            self.assertLess((Rotation.from_euler('xyz', pose[3:]) * expected.inv()).magnitude(), Fixed.motion_verification_tolerance)
+            np.testing.assert_array_equal(velocity, np.zeros(6))
+            np.testing.assert_array_equal(acceleration, np.zeros(6))
+        time, step = duration / 3, Fixed.adaptive_clock_tolerance ** 0.5
+        pose, velocity, acceleration = airborne.smooth_reference(origin, translation, rotation_vector, time, duration)
+        plus, plus_velocity, _ = airborne.smooth_reference(origin, translation, rotation_vector, time + step, duration)
+        minus, minus_velocity, _ = airborne.smooth_reference(origin, translation, rotation_vector, time - step, duration)
+        angular = (Rotation.from_euler('xyz', plus[3:]) * Rotation.from_euler('xyz', minus[3:]).inv()).as_rotvec() / (2 * step)
+        np.testing.assert_allclose(np.r_[(plus[:3] - minus[:3]) / (2 * step), angular], velocity,
+            atol=Fixed.motion_verification_tolerance, rtol=Fixed.qualification_convergence_fraction ** 4)
+        np.testing.assert_allclose((plus_velocity - minus_velocity) / (2 * step), acceleration,
+            atol=Fixed.motion_verification_tolerance, rtol=Fixed.qualification_convergence_fraction ** 4)
+
+    def test_controller_feedforward_uses_relative_world_velocity(self):
+        controller = airborne.AirborneController.__new__(airborne.AirborneController)
+        controller.geometry = SimpleNamespace(weight=2., gravity=10., inertias=np.array([0.01, 0.02, 0.03]))
+        controller.magnets, controller.array, controller.field_evaluator = None, None, None
+        controller.current_budget = 10.
+        pose = np.array([0., 0., 0., 0.1, -0.2, 0.3])
+        world_velocity = np.array([0.1, -0.2, 0.3, 0.4, -0.3, 0.2])
+        acceleration = np.array([1., -2., 3., 0.3, -0.2, 0.1])
+        estimate = dict(valid=True, pose=pose, velocity=np.r_[world_velocity[:3],
+            np.linalg.solve(airborne.euler_rate_axes(pose), world_velocity[3:])])
+        with patch.object(airborne.levitation_sim, 'use_geometry'), patch.object(airborne.levitation_sim, 'place_piece', return_value=(None, None)), \
+                patch.object(airborne.levitation_sim, 'actuator_matrix', return_value=np.eye(6)), \
+                patch.object(airborne.levitation_sim, 'min_peak_current', return_value=(0., np.zeros(6))) as allocate, \
+                patch.object(airborne.levitation_sim, 'min_loss_current', return_value=np.zeros(6)):
+            controller.command(estimate, pose, world_velocity, acceleration)
+        rotation = Rotation.from_euler('xyz', pose[3:]).as_matrix()
+        inertia = rotation @ np.diag(controller.geometry.inertias) @ rotation.T
+        expected = np.r_[0.2 * (acceleration[:3] + [0, 0, 10]),
+            inertia @ acceleration[3:] + np.cross(world_velocity[3:], inertia @ world_velocity[3:])]
+        np.testing.assert_allclose(allocate.call_args.args[1], expected, atol=Fixed.motion_verification_tolerance, rtol=0)
+
+    def test_tracking_scores_current_target_without_moving_coil_window(self):
+        simulation = airborne.AirborneSimulation.__new__(airborne.AirborneSimulation)
+        simulation.motion_scenario = 'local_move'
+        simulation.reference = np.zeros(6)
+        time = Fixed.airborne_motion_start + Fixed.airborne_motion_duration
+        pose = simulation.reference_state(time)[0]
+        simulation.plant = SimpleNamespace(data=SimpleNamespace(time=time), geometry=SimpleNamespace(center_of_mass_height=0.))
+        simulation.drivers = SimpleNamespace(currents=np.zeros(1), voltage=np.zeros(1), copper_resistance=1.)
+        simulation.fields = SimpleNamespace(base_radius=0.)
+        simulation.stop_reason = None
+        simulation.peaks = dict.fromkeys(('position_error_m', 'angle_error_rad', 'current_A', 'voltage_V', 'copper_loss_W'), 0.)
+        truth = dict(com_position_m=pose[:3], rotation=Rotation.from_euler('xyz', pose[3:]))
+        with patch.object(airborne.motion, 'airborne_observation', return_value=(None, 1.)):
+            simulation.observe_physics(truth)
+        self.assertIsNone(simulation.stop_reason)
+        self.assertEqual(simulation.peaks['position_error_m'], 0.)
+        self.assertEqual(simulation.peaks['angle_error_rad'], 0.)
+        np.testing.assert_array_equal(simulation.reference, np.zeros(6))
+        simulation.motion_scenario = 'hover'
+        for state in simulation.reference_state(time):
+            np.testing.assert_array_equal(state, np.zeros(6))
+
+
 class AirbornePredictionTests(unittest.TestCase):
     def test_acceleration_history_clips_at_measurement_time_and_ignores_future_inputs(self):
         tracker = sensing.HallTracker(None)

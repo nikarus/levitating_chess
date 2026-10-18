@@ -513,7 +513,7 @@ def count_feedback_fields(capture_path, output):
 def recorded_simulation(baseline, checkpoint_path, parameter_comparison=False, atlas_path=None):
     report_bytes, checkpoint_bytes = baseline.read_bytes(), checkpoint_path.read_bytes()
     report, checkpoint = json.loads(report_bytes), json.loads(checkpoint_bytes)
-    if checkpoint['schema'] != 'airborne-coupled-v4' and atlas_path is None:
+    if checkpoint['schema'] != 'airborne-coupled-v5' and atlas_path is None:
         raise ValueError('Recorded fixed-step diagnostics require the fixed-step checkpoint schema; adaptive replay needs its recorded event clock')
     if report['source_sha256'] != checkpoint['source_sha256'] or report['trace'] != checkpoint['trace']:
         raise ValueError('Report and recorded sensor history do not describe the same flight')
@@ -521,7 +521,7 @@ def recorded_simulation(baseline, checkpoint_path, parameter_comparison=False, a
     if atlas_path is None:
         simulation = airborne.AirborneSimulation(construction, report['intended_duration_s'],
             disturbed=report['disturbed'], time_refinement=report['time_refinement'],
-            magnetic_refinement=report['magnetic_refinement'])
+            magnetic_refinement=report['magnetic_refinement'], motion_scenario=checkpoint['motion_scenario'])
     else:
         from methodology.magnetic_atlas import AtlasAirborneSimulation, MagneticFieldAtlas
         simulation = AtlasAirborneSimulation(construction, MagneticFieldAtlas.load(atlas_path),

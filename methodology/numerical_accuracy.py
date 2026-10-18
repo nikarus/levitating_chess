@@ -508,6 +508,37 @@ def verify_joint_sensor_budget(output):
     return summary
 
 
+
+class JointTrajectoryRecorder:
+    def __init__(self, simulation):
+        self.original_integrate = simulation.dynamics.integrate
+        self.original_encode = simulation.sensors.encode_signal
+        self.segments = []
+        self.scans = []
+
+    def integrate(self, *args, **kwargs):
+        result = self.original_integrate(*args, **kwargs)
+        self.segments.extend(result)
+        return result
+
+    def encode_signal(self, signal, start):
+        self.scans.append(dict(start_s=start, samples_T=signal.copy().tolist()))
+        return self.original_encode(signal, start)
+
+    def save_dense(self, path):
+        arrays = dict(segment_bounds_s=np.array([[segment.t[0], segment.t[-1]] for segment in self.segments]))
+        for component in ('physical', 'filtered'):
+            interpolants = [interpolant for segment in self.segments for interpolant in getattr(segment.sol, component).interpolants]
+            for attribute in ('t_old', 't', 'y_old', 'Q'):
+                arrays[component + '_' + attribute] = np.array([getattr(item, attribute) for item in interpolants])
+            arrays[component + '_segment_counts'] = np.array([len(getattr(segment.sol, component).interpolants) for segment in self.segments])
+        temporary = path.with_suffix('.tmp')
+        with temporary.open('wb') as stream:
+            np.savez_compressed(stream, **arrays)
+        temporary.replace(path)
+        return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
 def accelerated_sensor_comparison(actual, components, spatial, budget):
     nominal = components['direct'][-1]
     atlas = components['atlas'][-1]
@@ -569,20 +600,12 @@ def verify_atlas_sensor_budget(folder, output):
                 summary['status'] = 'spatial_budget_failed'
                 airborne_verification.save_summary(path, summary)
                 return summary
-        segments, scans = [], []
-        integrate = simulation.dynamics.integrate
-        encode = simulation.sensors.encode_signal
-        def capture_integrate(*args, **kwargs):
-            result = integrate(*args, **kwargs)
-            segments.extend(result)
-            return result
-        def capture_encode(signal, start):
-            scans.append(dict(start_s=start, samples_T=signal.copy().tolist()))
-            return encode(signal, start)
+        recorder = JointTrajectoryRecorder(simulation)
+        segments, scans = recorder.segments, recorder.scans
         def progress(report):
             hover.check_operating_limits(simulation, report)
         profiler = cProfile.Profile()
-        with patch.object(simulation.dynamics, 'integrate', capture_integrate), patch.object(simulation.sensors, 'encode_signal', capture_encode):
+        with patch.object(simulation.dynamics, 'integrate', recorder.integrate), patch.object(simulation.sensors, 'encode_signal', recorder.encode_signal):
             if name == 'atlas':
                 report = profiler.runcall(airborne.run_simulation, simulation, output / (name + '.json'),
                     output / (name + '_checkpoint.json'), progress=progress)
@@ -593,13 +616,7 @@ def verify_atlas_sensor_budget(folder, output):
         summary['cases'][name] = row
         if name == 'atlas':
             row['profile'] = benchmark_magnetics.profile_statistics(profiler)
-        arrays = {}
-        for component in ('physical', 'filtered'):
-            interpolants = [interpolant for segment in segments for interpolant in getattr(segment.sol, component).interpolants]
-            for attribute in ('t_old', 't', 'y_old', 'Q'):
-                arrays[component + '_' + attribute] = np.array([getattr(item, attribute) for item in interpolants])
-        np.savez_compressed(output / (name + '_dense.npz'), **arrays)
-        row['dense_sha256'] = hashlib.sha256((output / (name + '_dense.npz')).read_bytes()).hexdigest()
+        row['dense_sha256'] = recorder.save_dense(output / (name + '_dense.npz'))
         row['dense_format'] = 'SciPy RK45 RkDenseOutput t_old, t, y_old and Q; physical and filtered components, in execution order'
         if name in ('direct', 'atlas'):
             prior = json.loads((folder / 'coupled' / (name + '.json')).read_text())

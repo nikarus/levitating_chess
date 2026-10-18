@@ -1,10 +1,13 @@
 from dataclasses import replace
+from pathlib import Path
+import tempfile
+from types import SimpleNamespace
 import unittest
 from unittest.mock import Mock, patch
 
 import numpy as np
 from scipy.spatial.transform import Rotation
-from scipy.integrate import quad
+from scipy.integrate import quad, solve_ivp
 
 import levitation_sim
 from model import Fixed
@@ -12,6 +15,37 @@ from methodology import electrical, motion, sensing
 from methodology.cad import magnetics
 
 
+
+class JointRecordingTests(unittest.TestCase):
+    def test_recording_preserves_results_and_dense_coefficients(self):
+        from methodology.joint_airborne import FilteredTrajectory
+        from methodology.numerical_accuracy import JointTrajectoryRecorder
+        from scipy.integrate._ivp.rk import RkDenseOutput
+        solution = solve_ivp(lambda time, state: state, (0., 1.), [1.], dense_output=True)
+        filtered = solution.sol
+        solution.sol = FilteredTrajectory(filtered, filtered)
+        integrate = Mock(return_value=[solution])
+        packet = object()
+        encode = Mock(return_value=packet)
+        simulation = SimpleNamespace(dynamics=SimpleNamespace(integrate=integrate), sensors=SimpleNamespace(encode_signal=encode))
+        recorder = JointTrajectoryRecorder(simulation)
+        self.assertIs(recorder.integrate('argument')[0], solution)
+        integrate.assert_called_once_with('argument')
+        signal = np.array([[1., 2.]])
+        self.assertIs(recorder.encode_signal(signal, 0.), packet)
+        self.assertIs(encode.call_args.args[0], signal)
+        signal[:] = 0
+        self.assertEqual(recorder.scans[0]['samples_T'], [[1., 2.]])
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'dense.npz'
+            recorder.save_dense(path)
+            with np.load(path, allow_pickle=False) as saved:
+                np.testing.assert_array_equal(saved['segment_bounds_s'], [[0., 1.]])
+                for component in ('physical', 'filtered'):
+                    self.assertEqual(saved[component + '_segment_counts'].tolist(), [len(filtered.interpolants)])
+                    restored = RkDenseOutput(saved[component + '_t_old'][-1], saved[component + '_t'][-1],
+                        saved[component + '_y_old'][-1], saved[component + '_Q'][-1])
+                    np.testing.assert_array_equal(restored(solution.t[-1]), filtered(solution.t[-1]))
 
 class AcceleratedSensingBudgetTests(unittest.TestCase):
     def test_opposite_component_errors_cannot_cancel(self):
@@ -34,7 +68,6 @@ class AcceleratedSensingBudgetTests(unittest.TestCase):
             np.array([1.]), dict(limit_T=4.))
         self.assertEqual(result['combined_bound_T'], [4.])
         self.assertTrue(result['passed'])
-
 
 class HallFilterTests(unittest.TestCase):
     def test_independent_scan_reference_matches_analytic_power_up_and_component_split(self):
@@ -94,7 +127,6 @@ class HallFilterTests(unittest.TestCase):
         for time_constant in (0, -1, np.nan, np.inf):
             with self.assertRaisesRegex(ValueError, 'time constant'):
                 sensing.filtered_scan(np.array([0., 1.]), np.ones((2, 1)), 0, time_constant)
-
 
 class HallInterfaceTests(unittest.TestCase):
     @classmethod

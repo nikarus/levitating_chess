@@ -1,0 +1,26 @@
+{
+    "status": "passed",
+    "sources_and_inputs_match": true,
+    "source_archive_matches": true,
+    "checkpoint_reconstructs_exactly": true,
+    "report_checkpoint_agree": true,
+    "dense_hash_matches": true,
+    "dense_current_and_filter_endpoints_exact": true,
+    "dense_segments_contiguous": true,
+    "sensor_scan_count": 59,
+    "stationary_prefix_comparisons_pass": true,
+    "final_position_error_m": 6.02562913922648e-05,
+    "final_angle_error_rad": 0.0019883283488613588,
+    "final_linear_velocity_m_per_s": [
+        -0.00037827445603035985,
+        0.000637439646685218,
+        0.0002080885607870251
+    ],
+    "final_angular_velocity_rad_per_s": [
+        -0.021307868528905725,
+        -0.003958349537950543,
+        0.01361469766482678
+    ],
+    "focused_test_count": 36,
+    "scope": "Recorded evidence consistency and replay; not a new trajectory-accuracy or flight-envelope certificate"
+}

@@ -183,8 +183,8 @@ class JointDynamics:
 
 class JointAirborneSimulation(MagneticBackend, airborne.AirborneSimulation):
     def __init__(self, construction, duration, disturbed=False, initialize=True, tolerance_scale=1,
-                 atlas=None, magnetic_mode='direct'):
-        super().__init__(construction, duration, disturbed=disturbed, initialize=initialize)
+                 atlas=None, magnetic_mode='direct', motion_scenario='hover'):
+        super().__init__(construction, duration, disturbed=disturbed, initialize=initialize, motion_scenario=motion_scenario)
         self.configure_atlas(atlas, magnetic_mode)
         self.construction = construction
         self.tolerance_scale = tolerance_scale
@@ -276,7 +276,7 @@ class JointAirborneSimulation(MagneticBackend, airborne.AirborneSimulation):
 
     def checkpoint_state(self):
         state = super().checkpoint_state()
-        state['schema'] = 'airborne-joint-v3'
+        state['schema'] = 'airborne-joint-v4'
         state['construction'] = self.construction_state()
         state['joint'] = {name: getattr(self, name) for name in ('tolerance_scale', 'clock', 'next_command', 'next_regulator',
             'next_checkpoint', 'last_checkpoint_due', 'next_hall_start', 'accounting')}
@@ -294,13 +294,14 @@ class JointAirborneSimulation(MagneticBackend, airborne.AirborneSimulation):
     @classmethod
     def from_checkpoint(cls, path, atlas=None):
         state = json.loads(path.read_text())
-        if state['schema'] != 'airborne-joint-v3':
+        if state['schema'] != 'airborne-joint-v4':
             raise ValueError('Joint checkpoint schema differs')
         construction = magnetics.ConstructionModel(recorded_piece_properties=state['construction']['piece_properties'])
         construction.use_cad_mass = state['construction']['use_cad_mass']
         construction.return_depth = state['construction']['return_depth']
         simulation = cls(construction, state['duration_s'], disturbed=state['disturbed'], initialize=False,
-            tolerance_scale=state['joint']['tolerance_scale'], atlas=atlas, magnetic_mode=state['atlas']['mode'])
+            tolerance_scale=state['joint']['tolerance_scale'], atlas=atlas, magnetic_mode=state['atlas']['mode'],
+            motion_scenario=state['motion_scenario'])
         simulation.load_checkpoint(path)
         return simulation
 
@@ -311,7 +312,7 @@ class JointAirborneSimulation(MagneticBackend, airborne.AirborneSimulation):
         self.restore_checkpoint(state)
 
     def restore_checkpoint(self, state):
-        if state['schema'] != 'airborne-joint-v3' or state['source_sha256'] != self.source:
+        if state['schema'] != 'airborne-joint-v4' or state['source_sha256'] != self.source:
             raise ValueError('Joint checkpoint schema or source differs')
         if state['construction'] != self.construction_state():
             raise ValueError('Joint checkpoint CAD construction differs')

@@ -22,6 +22,19 @@ def euler_rates_to_world(pose, rates):
     return euler_rate_axes(pose) @ rates
 
 
+def smooth_reference(origin, translation, rotation_vector, time, duration):
+    if duration <= 0:
+        raise ValueError('Motion duration must be positive')
+    phase = np.clip(time / duration, 0., 1.)
+    position = phase ** 3 * (10 - 15 * phase + 6 * phase ** 2)
+    speed = 30 * phase ** 2 * (1 - phase) ** 2 / duration
+    acceleration = 60 * phase * (1 - phase) * (1 - 2 * phase) / duration ** 2
+    displacement = np.r_[translation, rotation_vector]
+    rotation = Rotation.from_rotvec(position * displacement[3:]) * Rotation.from_euler('xyz', origin[3:])
+    pose = np.r_[origin[:3] + position * displacement[:3], rotation.as_euler('xyz')]
+    return pose, speed * displacement, acceleration * displacement
+
+
 class AirborneController:
     def __init__(self, construction, identities, current_limit):
         self.geometry, self.array, _ = construction(Inputs.cad_coil_layout, min(Fixed.current_demand_mesh_refinements))
@@ -36,14 +49,17 @@ class AirborneController:
                                - Fixed.current_sense_offset_residual / Fixed.current_sense_resistance
                                - Fixed.max_current_command_error - Fixed.qualification_current_transient_allowance)
 
-    def command(self, estimate, reference):
+    def command(self, estimate, reference, reference_velocity=None, reference_acceleration=None):
         if not estimate['valid']:
             raise ValueError('Airborne control requires a usable sensor-only pose')
         pose, velocity = np.asarray(estimate['pose']), np.asarray(estimate['velocity'])
         rotation = Rotation.from_euler('xyz', pose[3:])
         error = np.r_[pose[:3] - reference[:3], (rotation * Rotation.from_euler('xyz', reference[3:]).inv()).as_rotvec()]
         angular_velocity = euler_rates_to_world(pose, velocity[3:])
-        acceleration = qualification.pose_correction(error, np.r_[velocity[:3], angular_velocity], np.zeros(6))
+        reference_velocity = np.zeros(6) if reference_velocity is None else np.asarray(reference_velocity)
+        reference_acceleration = np.zeros(6) if reference_acceleration is None else np.asarray(reference_acceleration)
+        acceleration = reference_acceleration + qualification.pose_correction(
+            error, np.r_[velocity[:3], angular_velocity] - reference_velocity, np.zeros(6))
         target = np.zeros(6)
         target[:3] = self.geometry.weight / self.geometry.gravity * acceleration[:3]
         target[2] += self.geometry.weight
@@ -97,7 +113,11 @@ TRACKER_CLOCK_STATE = ('last_delivery', 'measurement_time', 'acquisition_start')
 
 
 class AirborneSimulation:
-    def __init__(self, construction, duration, disturbed=False, initialize=True, time_refinement=1, magnetic_refinement=None):
+    def __init__(self, construction, duration, disturbed=False, initialize=True, time_refinement=1, magnetic_refinement=None,
+                 motion_scenario='hover'):
+        if motion_scenario not in ('hover', 'local_move'):
+            raise ValueError('Unknown airborne motion scenario')
+        self.motion_scenario = motion_scenario
         self.started = perf_counter()
         self.duration = duration
         self.disturbed = disturbed
@@ -146,6 +166,12 @@ class AirborneSimulation:
                 self.plant.reset(position=self.plant.data.qpos[:3] + displacement, rotation=rotation)
             acquire_stationary(self.plant, self.sensors, self.tracker)
 
+    def reference_state(self, time):
+        if self.motion_scenario == 'hover':
+            return self.reference.copy(), np.zeros(6), np.zeros(6)
+        return smooth_reference(self.reference, Fixed.airborne_motion_translation, Fixed.airborne_motion_rotation,
+            time - Fixed.airborne_motion_start, Fixed.airborne_motion_duration)
+
     def advance(self):
         if self.finished:
             raise ValueError('Cannot advance a finished airborne trial')
@@ -192,7 +218,7 @@ class AirborneSimulation:
         if not predicted['valid']:
             self.stop_reason = 'tracking_' + predicted['reason']
         if command_due and self.stop_reason is None:
-            allocation = self.controller.command(predicted, self.reference)
+            allocation = self.controller.command(predicted, *self.reference_state(now))
             self.peaks['required_current_A'] = max(self.peaks['required_current_A'], float(allocation['required_current_A']))
             if allocation['accepted']:
                 self.drivers.set_command(allocation['currents'])
@@ -210,6 +236,7 @@ class AirborneSimulation:
         self.finished = bool(self.stop_reason is not None or complete)
         if command_due or self.finished:
             self.trace.append(dict(time_s=now, pose=true_pose.tolist(), estimated_pose=predicted['pose'] if predicted['valid'] else None,
+                                   reference_pose=self.reference_state(now)[0].tolist(),
                                    currents_A=self.drivers.currents.tolist(),
                                    peak_current_A=float(np.max(np.abs(self.drivers.currents))), clearance_m=float(clearance),
                                    required_current_A=self.peaks['required_current_A']))
@@ -221,8 +248,9 @@ class AirborneSimulation:
         failure, clearance = motion.airborne_observation(self.plant, truth, self.drivers, self.fields.base_radius)
         if failure is not None:
             self.stop_reason = failure
-        position_error = float(np.linalg.norm(true_pose[:3] - self.reference[:3]))
-        angle_error = float((truth['rotation'] * Rotation.from_euler('xyz', self.reference[3:]).inv()).magnitude())
+        reference = self.reference_state(self.plant.data.time)[0]
+        position_error = float(np.linalg.norm(true_pose[:3] - reference[:3]))
+        angle_error = float((truth['rotation'] * Rotation.from_euler('xyz', reference[3:]).inv()).magnitude())
         self.peaks['position_error_m'] = max(self.peaks['position_error_m'], position_error)
         self.peaks['angle_error_rad'] = max(self.peaks['angle_error_rad'], angle_error)
         self.peaks['current_A'] = max(self.peaks['current_A'], float(np.max(np.abs(self.drivers.currents))))
@@ -251,7 +279,8 @@ class AirborneSimulation:
         return self.step % self.checkpoint_tick == 0
 
     def checkpoint_state(self):
-        return dict(schema='airborne-coupled-v4', source_sha256=self.source, duration_s=self.duration, disturbed=self.disturbed,
+        return dict(schema='airborne-coupled-v5', source_sha256=self.source, duration_s=self.duration, disturbed=self.disturbed,
+                    motion_scenario=self.motion_scenario,
                     time_refinement=self.time_refinement, magnetic_refinement=self.magnetic_refinement,
                     plant=self.plant.checkpoint_state(), step=int(self.step), next_scan=self.next_scan,
                     drivers={name: getattr(self.drivers, name).tolist() for name in DRIVER_STATE},
@@ -278,7 +307,7 @@ class AirborneSimulation:
 
     def load_checkpoint(self, path):
         state = json.loads(path.read_text())
-        if state['schema'] != 'airborne-coupled-v4' or state['source_sha256'] != self.source:
+        if state['schema'] != 'airborne-coupled-v5' or state['source_sha256'] != self.source:
             raise ValueError('Coupled checkpoint schema, source or dependencies differ')
         if (state['duration_s'] != self.duration or state['disturbed'] != self.disturbed
                 or state['time_refinement'] != self.time_refinement or state['magnetic_refinement'] != self.magnetic_refinement):
@@ -286,6 +315,8 @@ class AirborneSimulation:
         self.restore_checkpoint(state)
 
     def restore_checkpoint(self, state):
+        if state['motion_scenario'] != self.motion_scenario:
+            raise ValueError('Coupled checkpoint motion scenario differs')
         self.plant.restore_checkpoint(state['plant'])
         self.controller.nominal_matrix = None if state['nominal_matrix'] is None else np.array(state['nominal_matrix'])
         self.tracker.acceleration_times = state['acceleration_times']
@@ -310,7 +341,8 @@ class AirborneSimulation:
     def report(self):
         return dict(scope='Airborne sensor/driver/MuJoCo trial; provisional model, not flight-envelope qualification',
             source_sha256=self.source, duration_completed_s=float(self.plant.data.time), intended_duration_s=self.duration,
-            disturbed=self.disturbed, reference_pose=self.reference.tolist(), finished=self.finished, stop_reason=self.stop_reason,
+            disturbed=self.disturbed, reference_pose=self.reference.tolist(), motion_scenario=self.motion_scenario,
+            finished=self.finished, stop_reason=self.stop_reason,
             passed=bool(self.finished and self.stop_reason is None and self.delivered_scans > 0
                         and self.peaks['current_A'] <= self.drivers.current_limit
                         and self.peaks['estimated_position_error_m'] <= Fixed.qualification_position_error
@@ -334,11 +366,11 @@ class AirborneSimulation:
                 ('king_mass_kg', 'king_com_from_magnet_bottom_m', 'king_inertia_kg_m2')},
             limitations=['Stationary sensor-only acquisition precedes release; setup motion is frozen and excluded from controlled-flight evidence. Currents start at zero.',
                 'Hall conversion is an ideal uniform quantizer at the stated native precision; converter noise, nonlinearity, reference errors and multiplexing settling need hardware qualification.',
-                'Fixed local coil and sensor windows, stationary level reference, nominal CAD mass and magnet properties only.',
+                'Fixed local coil and sensor windows, nominal CAD mass and magnet properties only; commanded movement does not implement window handoffs.',
                 'Independent RL windings with estimated self-inductance, averaged voltages and constant winding/driver/shunt resistance; no PWM ripple, mutual inductance, bus dynamics or thermal feedback.',
                 'Provisional synchronous current ADCs at the regulator rate, with offset, gain error, noise and quantization. Channel throughput and latency are not hardware-qualified.',
                 'Hall correction reconstructs current history from available measurements and nominal filter startup. Interpolation accuracy requires numerical and measurement-rate checks.',
-                'Pose controller uses PD feedback. Observer propagation uses measured-current acceleration from the held nominal allocation matrix plus an estimated residual; current calibration and nominal force-model errors remain.',
+                'Pose controller uses PD tracking with reference velocity and acceleration feedforward. Observer propagation uses measured-current acceleration from the held nominal allocation matrix plus an estimated residual; current calibration and nominal force-model errors remain.',
                 'No conductive-sheet drag or neighbours; no time/force-mesh convergence, uncertainty qualification or embedded compute-time evidence.',
                 'Video replays stored physical poses with interpolation; it does not rerun dynamics.'])
 

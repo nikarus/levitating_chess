@@ -175,6 +175,11 @@ class Fixed:
     airborne_refinement_duration = 0.05        # s; initial recovery interval compared independently at finer time and magnetic resolution
     airborne_refinement_screen_duration = 0.01 # s; several Hall updates must converge before the longer refinement batch is allowed
     airborne_hover_duration = 1                # s; extended nominal hover after the local numerical comparisons pass
+    airborne_motion_translation = (0.0003, 0., 0.) # m; provisional first local-flight displacement in board axes
+    airborne_motion_rotation = (0., 0., 0.01)  # rad; world-axis rotation vector for the first local-flight command
+    airborne_motion_start = 0.01               # s; initial stationary command before the first local movement
+    airborne_motion_duration = 0.04            # s; smooth rest-to-rest translation and rotation interval
+    airborne_motion_settle_duration = 0.01      # s; stationary endpoint observation after the first local movement
     adaptive_max_step = 1 / current_regulator_rate # s; largest attempted interval, also clipped to hardware events
     adaptive_min_step = adaptive_max_step / 256 # s; smallest attempted interval before an explicit accuracy failure
     adaptive_clock_tolerance = 1e-12           # s; event-time roundoff snapping only, far below the minimum physical step
