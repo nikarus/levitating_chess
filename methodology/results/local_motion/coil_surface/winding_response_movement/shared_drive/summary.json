@@ -1,0 +1,699 @@
+{
+    "status": "passed",
+    "scope": "Tighter joint physical integration with identical recorded drive signals; no closed-loop qualification",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "acc9d2884b521a79fdd02ed812f6355b705d8ed44426b2cc120be616303ac75d",
+        "levitation_sim.py": "91eea3f343cbfb0722c8325f52f6c55ff49995a2e4ff726584ead98b1e4cd5a3",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "b581ae6204830eec8ccecc9398ae8afe9877592f7d26a4f4dba6d73d36279a47",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "0558fffe5cb8bc3dd6924bc94aaf8d1ddd5328900e6531496786e93a7d77bd00",
+        "methodology/motion.py": "e61946cc0206a57ddc3c9b3eaa71cf012d8a3f4039dc54873ac5c23e4bc8f64b",
+        "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+        "methodology/requirements.txt": "fd94cc8fc4087c9841735e4f5978a742740beb6c30c5dcd81cf1e3b8072ba4df",
+        "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+        "methodology/airborne.py": "a479d6507878e6152edccc9389b589c3561164bfec86822b43754b61f72e3782",
+        "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+        "methodology/sensing.py": "96d18613fef88ff6ccda24674d8f4182f81815d07aba93046d476f1a6e95f4e8",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/magnetic_atlas.py": "74cf8cae44667b6801fa4d35e29e9ecd289015831a8da2ec236c55deb3509578",
+        "methodology/magnetic_spline.py": "bf148a591bd019245e0a740f360a62cad0ccb96f4efd707a73a8db36e3609dee",
+        "methodology/magnetic_spline.c": "40ff3cba90d7da6e745a35c49d08232b0cc6fb58c3d57d370219a4e4ec1ee61c",
+        "methodology/joint_airborne.py": "f703a63946cc9623d086909a050c84d46d9a89276e7cc599dd64544e6f890cc5",
+        "methodology/adaptive_airborne.py": "987f2334b809a0433725ca22a2d5fe5347874d8d99f467ad9460e0252a486125",
+        "methodology/coupling_verification.py": "3540025530485cc662bad2fd97df0a7a6e8ed6b5498fd05934b6bb117091fb06",
+        "methodology/numerical_accuracy.py": "028bd09ea9765c0c6ea3ca4a49e2d9633b40fa52308bc47376cc53df5c4a1fe2",
+        "methodology/coil_field.py": "9713d6e801bdf2c111d23609b608d9347840ad5a2df94b3b524144519104cb72",
+        "methodology/physics_verification.py": "faf8429b6463a146253bf064e1987207e56ef65b387acc24b32a8b83ceb2b5c9",
+        "methodology/benchmark_magnetics.py": "d663d1488830a5799456f2a0a2896149eb140dae0cdffc97f32586fcc35295d8",
+        "methodology/coil_field_verification.py": "1039723f83be7883a9f395d982f610c826e5030504e1c37e6fc44f98d6b40bfa",
+        "methodology/airborne_diagnostics.py": "130f996c6dd58d8449d2ba3784cfc3c8b548f4e04509b0483f37f222152bdd88",
+        "methodology/hover.py": "108df953300f19ba831dfb18f9e7a0fdbec6b29df7d6f9035a3af3dfee8d25c9",
+        "methodology/airborne_verification.py": "998de7bcd33103cbde914e4a3abf5e1cd2a6a6ce9944a940d0309b4f0a910dfa",
+        "methodology/airborne_inputs.py": "8aeb6ba8c2f12cba186182b87920ae263e7ff5b451a5acc58438a538a3ec361a"
+    },
+    "input_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/results/local_motion/coil_surface/winding_response_movement/summary.json": "f29207160154395acb448bff6a6617d47869a5066ad4c7d36e025c64c1c29cb2",
+        "methodology/results/local_motion/coil_surface/winding_response_movement/controller_replay/summary.json": "5058142b32a9292f6aa9c7722bbf22724063cf74068e8c938eb75a9b5e5eaacf",
+        "methodology/results/local_motion/coil_surface/winding_response_movement/controller_replay/sources.zip": "7ef7c889a50f7cbf8e964b75d72489704d740d45c2958fbbc7133cfcccc55534"
+    },
+    "comparisons": [
+        {
+            "differences": {
+                "pose_position_m": 7.457265826334302e-17,
+                "pose_angle_rad": 2.838201732972458e-15,
+                "current_trace_A": 3.4279015112548272e-09
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.001,
+            "raw_signal_difference_T": 0.0
+        },
+        {
+            "differences": {
+                "pose_position_m": 7.457265826334302e-17,
+                "pose_angle_rad": 2.838201732972458e-15,
+                "current_trace_A": 4.63001492700954e-09
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.002,
+            "raw_signal_difference_T": 3.4312606705380264e-08
+        },
+        {
+            "differences": {
+                "pose_position_m": 1.3555252294799514e-16,
+                "pose_angle_rad": 2.838201732972458e-15,
+                "current_trace_A": 6.3811523842716156e-09
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.003,
+            "raw_signal_difference_T": 3.502665784071166e-08
+        },
+        {
+            "differences": {
+                "pose_position_m": 1.3555252294799514e-16,
+                "pose_angle_rad": 7.208514660880086e-15,
+                "current_trace_A": 1.6314485651314214e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.004,
+            "raw_signal_difference_T": 3.502665784071166e-08
+        },
+        {
+            "differences": {
+                "pose_position_m": 1.3555252294799514e-16,
+                "pose_angle_rad": 7.208514660880086e-15,
+                "current_trace_A": 1.6314485651314214e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.005,
+            "raw_signal_difference_T": 3.502665784071166e-08
+        },
+        {
+            "differences": {
+                "pose_position_m": 1.3555252294799514e-16,
+                "pose_angle_rad": 7.889256229892942e-15,
+                "current_trace_A": 1.682923433943273e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.006,
+            "raw_signal_difference_T": 3.502665784071166e-08
+        },
+        {
+            "differences": {
+                "pose_position_m": 1.5211005148783953e-16,
+                "pose_angle_rad": 7.889256229892942e-15,
+                "current_trace_A": 1.682923433943273e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.007,
+            "raw_signal_difference_T": 3.5576341317344884e-08
+        },
+        {
+            "differences": {
+                "pose_position_m": 1.5211005148783953e-16,
+                "pose_angle_rad": 7.889256229892942e-15,
+                "current_trace_A": 1.682923433943273e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.008,
+            "raw_signal_difference_T": 3.5576341317344884e-08
+        },
+        {
+            "differences": {
+                "pose_position_m": 2.580342792149915e-16,
+                "pose_angle_rad": 1.958989286795871e-14,
+                "current_trace_A": 3.89436753955863e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.009,
+            "raw_signal_difference_T": 4.785821517338737e-08
+        },
+        {
+            "differences": {
+                "pose_position_m": 2.580342792149915e-16,
+                "pose_angle_rad": 1.958989286795871e-14,
+                "current_trace_A": 3.89436753955863e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.01,
+            "raw_signal_difference_T": 4.785821517338737e-08
+        },
+        {
+            "differences": {
+                "pose_position_m": 2.580342792149915e-16,
+                "pose_angle_rad": 1.958989286795871e-14,
+                "current_trace_A": 3.89436753955863e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.011,
+            "raw_signal_difference_T": 4.785821517338737e-08
+        },
+        {
+            "differences": {
+                "pose_position_m": 2.580342792149915e-16,
+                "pose_angle_rad": 1.958989286795871e-14,
+                "current_trace_A": 3.89436753955863e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.012,
+            "raw_signal_difference_T": 4.785821517338737e-08
+        },
+        {
+            "differences": {
+                "pose_position_m": 1.286132312585679e-15,
+                "pose_angle_rad": 1.2070916380010918e-13,
+                "current_trace_A": 9.26314542293305e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.013,
+            "raw_signal_difference_T": 4.785821517338737e-08
+        },
+        {
+            "differences": {
+                "pose_position_m": 1.286132312585679e-15,
+                "pose_angle_rad": 1.2070916380010918e-13,
+                "current_trace_A": 9.26314542293305e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.014,
+            "raw_signal_difference_T": 4.785821517338737e-08
+        },
+        {
+            "differences": {
+                "pose_position_m": 1.286132312585679e-15,
+                "pose_angle_rad": 1.2070916380010918e-13,
+                "current_trace_A": 9.26314542293305e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.015,
+            "raw_signal_difference_T": 4.785821517338737e-08
+        },
+        {
+            "differences": {
+                "pose_position_m": 1.286132312585679e-15,
+                "pose_angle_rad": 1.2070916380010918e-13,
+                "current_trace_A": 9.26314542293305e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.016,
+            "raw_signal_difference_T": 4.785821517338737e-08
+        },
+        {
+            "differences": {
+                "pose_position_m": 1.286132312585679e-15,
+                "pose_angle_rad": 1.2070916380010918e-13,
+                "current_trace_A": 9.26314542293305e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.017,
+            "raw_signal_difference_T": 4.785821517338737e-08
+        },
+        {
+            "differences": {
+                "pose_position_m": 1.286132312585679e-15,
+                "pose_angle_rad": 1.2070916380010918e-13,
+                "current_trace_A": 9.26314542293305e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.018,
+            "raw_signal_difference_T": 4.785821517338737e-08
+        },
+        {
+            "differences": {
+                "pose_position_m": 1.286132312585679e-15,
+                "pose_angle_rad": 1.2070916380010918e-13,
+                "current_trace_A": 9.26314542293305e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.019,
+            "raw_signal_difference_T": 4.785821517338737e-08
+        },
+        {
+            "differences": {
+                "pose_position_m": 1.286132312585679e-15,
+                "pose_angle_rad": 1.2070916380010918e-13,
+                "current_trace_A": 9.26314542293305e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "current_trace_A": true,
+                "raw_signal": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "time_s": 0.019,
+            "raw_signal_difference_T": 4.785821517338737e-08
+        }
+    ],
+    "limitations": [
+        "This isolates physics integration from changed digitized sensor decisions.",
+        "The original closed-loop failure and its limits remain unchanged."
+    ],
+    "elapsed_s": 758.8101038788445,
+    "duration_completed_s": 0.019,
+    "stop_reason": null,
+    "integration": {
+        "accepted_steps": 1309,
+        "signed_mechanical_defect_J": -1.0314666984822071e-16,
+        "absolute_mechanical_defect_J": 1.9805054986798337e-16,
+        "signed_total_defect_J": -3.3623593825208545e-11,
+        "absolute_total_defect_J": 3.3623605242499644e-11,
+        "energy_budget_J": 2.229044839004151e-08,
+        "minimum_step_s": 2.5053324984036784e-08,
+        "maximum_step_s": 4.99999999999997e-05
+    },
+    "peaks": {
+        "current_A": 2.4401368247332837,
+        "voltage_V": 1.3576883611739703,
+        "copper_loss_W": 8.52245419479129,
+        "back_emf_V": 0.0002553453936265297,
+        "position_error_m": 4.350511506249142e-05,
+        "angle_error_rad": 0.0028844687927391363,
+        "estimated_position_error_m": 0.0,
+        "estimated_angle_error_rad": 0.0,
+        "required_current_A": 0.0
+    },
+    "instruction_identity": "877c7fb8e9dd5cc37e340473c367f2f13b6074ab94606ff48f621f0ecf4e7c44",
+    "matched_input_sensing": [
+        {
+            "start_s": 0.0,
+            "filter_error_T": 1.5401659323984254e-08,
+            "quadrature_disagreement_T": 1.3530843112619095e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 1.5401659459292685e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.001,
+            "filter_error_T": 1.1862607775530061e-08,
+            "quadrature_disagreement_T": 1.231653667943533e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 1.1862607898695428e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.002,
+            "filter_error_T": 1.2134521914196339e-08,
+            "quadrature_disagreement_T": 1.231653667943533e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 1.2134522037361706e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.003,
+            "filter_error_T": 8.031280186032719e-09,
+            "quadrature_disagreement_T": 1.0842021724855044e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 8.031280294452936e-09,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.004,
+            "filter_error_T": 1.4586298237393575e-08,
+            "quadrature_disagreement_T": 1.457167719820518e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 1.4586298383110347e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.005,
+            "filter_error_T": 1.0541955771975649e-08,
+            "quadrature_disagreement_T": 1.4224732503009818e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 1.0541955914222974e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.006,
+            "filter_error_T": 1.0563189242578097e-08,
+            "quadrature_disagreement_T": 1.5959455978986625e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 1.0563189402172657e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.007,
+            "filter_error_T": 2.7006785814631673e-08,
+            "quadrature_disagreement_T": 1.1796119636642288e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 2.700678593259287e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.008,
+            "filter_error_T": 1.5855767226957695e-08,
+            "quadrature_disagreement_T": 2.0122792321330962e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 1.585576742818562e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.009,
+            "filter_error_T": 1.0377271026805381e-08,
+            "quadrature_disagreement_T": 2.636779683484747e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 1.037727129048335e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.01,
+            "filter_error_T": 1.6724199253985786e-08,
+            "quadrature_disagreement_T": 1.942890293094024e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 1.6724199448274815e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.011,
+            "filter_error_T": 1.4785276503115341e-08,
+            "quadrature_disagreement_T": 1.6653345369377348e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 1.4785276669648795e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.012,
+            "filter_error_T": 8.017162301220127e-09,
+            "quadrature_disagreement_T": 1.6566609195578508e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 8.017162466886218e-09,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.013,
+            "filter_error_T": 1.557119816766872e-08,
+            "quadrature_disagreement_T": 1.8041124150158794e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 1.5571198348079962e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.014,
+            "filter_error_T": 1.700633162418641e-08,
+            "quadrature_disagreement_T": 1.9081958235744878e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 1.7006331815005993e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.015,
+            "filter_error_T": 1.7125370506887103e-08,
+            "quadrature_disagreement_T": 1.734723475976807e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 1.712537068035945e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.016,
+            "filter_error_T": 1.2968866843279803e-08,
+            "quadrature_disagreement_T": 1.5959455978986625e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 1.2968867002874362e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.017,
+            "filter_error_T": 2.1388291242263602e-08,
+            "quadrature_disagreement_T": 1.201296007113939e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 2.1388291362393202e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        }
+    ],
+    "dense_sha256": "97d2c9b1b77696820362e7ad9a93d59d49fa245cc03a1e83f6513c8532e75402"
+}

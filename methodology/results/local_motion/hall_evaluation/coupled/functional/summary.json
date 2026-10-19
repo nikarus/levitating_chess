@@ -1,0 +1,760 @@
+{
+    "scope": "Airborne sensor/driver/MuJoCo trial; provisional model, not flight-envelope qualification",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "acc9d2884b521a79fdd02ed812f6355b705d8ed44426b2cc120be616303ac75d",
+        "levitation_sim.py": "91eea3f343cbfb0722c8325f52f6c55ff49995a2e4ff726584ead98b1e4cd5a3",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "b581ae6204830eec8ccecc9398ae8afe9877592f7d26a4f4dba6d73d36279a47",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "0558fffe5cb8bc3dd6924bc94aaf8d1ddd5328900e6531496786e93a7d77bd00",
+        "methodology/motion.py": "e61946cc0206a57ddc3c9b3eaa71cf012d8a3f4039dc54873ac5c23e4bc8f64b",
+        "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+        "methodology/requirements.txt": "fd94cc8fc4087c9841735e4f5978a742740beb6c30c5dcd81cf1e3b8072ba4df",
+        "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+        "methodology/airborne.py": "a479d6507878e6152edccc9389b589c3561164bfec86822b43754b61f72e3782",
+        "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+        "methodology/sensing.py": "5835a7ec568addaf5ba0cda8e12293b82392fb520875b1149b0e2f1eadc52cc0",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/magnetic_atlas.py": "8f2aa2b8c532abba755b614a2d5780806d127199e12b847ce0e9a93d680932bc",
+        "methodology/magnetic_spline.py": "bf148a591bd019245e0a740f360a62cad0ccb96f4efd707a73a8db36e3609dee",
+        "methodology/magnetic_spline.c": "40ff3cba90d7da6e745a35c49d08232b0cc6fb58c3d57d370219a4e4ec1ee61c",
+        "methodology/joint_airborne.py": "f703a63946cc9623d086909a050c84d46d9a89276e7cc599dd64544e6f890cc5",
+        "methodology/adaptive_airborne.py": "987f2334b809a0433725ca22a2d5fe5347874d8d99f467ad9460e0252a486125",
+        "methodology/benchmark_magnetics.py": "0422b34f24d73bc1cde7e892a45c1e940a7f08ab603227ba8d839c2cb67f2172",
+        "methodology/hover.py": "108df953300f19ba831dfb18f9e7a0fdbec6b29df7d6f9035a3af3dfee8d25c9",
+        "methodology/airborne_verification.py": "998de7bcd33103cbde914e4a3abf5e1cd2a6a6ce9944a940d0309b4f0a910dfa",
+        "methodology/numerical_accuracy.py": "523b9f09adbe613b6e8eabd7af09be8ca114691d6192a14591493fb7636a3b39"
+    },
+    "duration_completed_s": 0.002,
+    "intended_duration_s": 0.002,
+    "disturbed": false,
+    "reference_pose": [
+        0.0,
+        0.0,
+        0.0004999999999999998,
+        0.0,
+        0.0,
+        0.0
+    ],
+    "motion_scenario": "hover",
+    "finished": true,
+    "stop_reason": null,
+    "passed": true,
+    "peaks": {
+        "current_A": 1.8979473924149135,
+        "voltage_V": 1.063551004541415,
+        "copper_loss_W": 4.0577192905748625,
+        "back_emf_V": 0.00011769693693750984,
+        "position_error_m": 3.610709603912005e-06,
+        "angle_error_rad": 7.174672905157097e-06,
+        "estimated_position_error_m": 2.4361338111515856e-05,
+        "estimated_angle_error_rad": 0.0009032283380700022,
+        "required_current_A": 1.2122285708439753
+    },
+    "delivered_moving_scans": 1,
+    "voltage_saturated_updates": 0,
+    "physics_time_step_s": null,
+    "elapsed_s": 154.66451624210458,
+    "trace": [
+        {
+            "time_s": 0.0,
+            "pose": [
+                0.0,
+                0.0,
+                0.0005000000000000004,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "estimated_pose": [
+                -2.428482806034265e-05,
+                -6.588463811577049e-07,
+                0.0004981867592246965,
+                -5.4184022518188786e-05,
+                -0.0006067685279240165,
+                -8.852314472030117e-05
+            ],
+            "reference_pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "currents_A": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "peak_current_A": 0.0,
+            "clearance_m": 0.0036000000000000003,
+            "required_current_A": 1.0356286444879819
+        },
+        {
+            "time_s": 0.00025,
+            "pose": [
+                3.176232511130439e-09,
+                1.5192547568547442e-09,
+                0.0004997336428286415,
+                -2.3644618956065316e-08,
+                -2.7492729426370488e-08,
+                6.503075736695499e-08
+            ],
+            "estimated_pose": [
+                -2.419326295927004e-05,
+                -7.568919890639248e-07,
+                0.0004978511023023634,
+                -4.9923734604628974e-05,
+                -0.0006006426781779016,
+                -8.444001348320184e-05
+            ],
+            "reference_pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "currents_A": [
+                -0.028434243366681385,
+                0.05741665833707703,
+                0.3209726676783424,
+                -0.04460799364000929,
+                -0.07094727724969441,
+                -0.042974830455452515,
+                -0.2616605494923502,
+                0.9917388589210487,
+                0.03228423161956978,
+                -0.07560280057426676,
+                0.15380106320857564,
+                -0.08402385218209849,
+                -1.1234244270463787,
+                -0.06538495255835299,
+                0.18864878190388198,
+                -0.014570312416870686,
+                0.04383226960310802,
+                -0.5433073491668099,
+                0.27883848369606024,
+                0.1213026568589223,
+                0.029804703219171315,
+                -0.007800728414178048,
+                0.10173281064362424,
+                0.055976165642610896,
+                -0.034735975510566
+            ],
+            "peak_current_A": 1.1234244270463787,
+            "clearance_m": 0.0035997329050524835,
+            "required_current_A": 1.0827606263602132
+        },
+        {
+            "time_s": 0.0005,
+            "pose": [
+                2.3956594562517105e-08,
+                1.0627595953550317e-08,
+                0.0004992122595114147,
+                -1.9279656180452851e-07,
+                -7.76244877265242e-08,
+                2.812697916998294e-07
+            ],
+            "estimated_pose": [
+                -2.409196330656055e-05,
+                -8.527407739947074e-07,
+                0.0004972218067867674,
+                -4.5709436852466025e-05,
+                -0.000594357580253175,
+                -8.040615626170002e-05
+            ],
+            "reference_pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "currents_A": [
+                -0.0356788102814996,
+                0.06439924590015937,
+                0.4936268041852814,
+                -0.0554388491512195,
+                -0.09436345766815306,
+                -0.037889161328658584,
+                -0.3768942364326736,
+                1.5032447234683093,
+                0.03741510628321275,
+                -0.12447645434877742,
+                0.22360910979466575,
+                -0.1658731153489954,
+                -1.7224596383612147,
+                -0.12360631090752244,
+                0.29236696021480896,
+                0.008785333594445955,
+                0.04926460591397546,
+                -0.8758079612322408,
+                0.44967231986117234,
+                0.18931028089878896,
+                0.028945314091386155,
+                0.007894352483564956,
+                0.16018414791934882,
+                0.10650371066103165,
+                -0.032322955456000765
+            ],
+            "peak_current_A": 1.7224596383612147,
+            "clearance_m": 0.003599207675789694,
+            "required_current_A": 1.0900068135967527
+        },
+        {
+            "time_s": 0.00075,
+            "pose": [
+                6.902305258677481e-08,
+                2.9731913461356122e-08,
+                0.0004986650368664081,
+                -5.822590969909168e-07,
+                -9.593268268659472e-08,
+                6.002648533668423e-07
+            ],
+            "estimated_pose": [
+                -2.3973653576871096e-05,
+                -9.434828905993209e-07,
+                0.0004965563322583603,
+                -4.162388860140562e-05,
+                -0.0005878426841894832,
+                -7.647761941203236e-05
+            ],
+            "reference_pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "currents_A": [
+                -0.03584709570128228,
+                0.06888217706857434,
+                0.5241249601198206,
+                -0.05830760618899417,
+                -0.09796980454040508,
+                -0.035614195139199334,
+                -0.39742138442519714,
+                1.593320479012167,
+                0.03946815862345422,
+                -0.13059960549678876,
+                0.2606959106647793,
+                -0.19370145948689335,
+                -1.8452443364086135,
+                -0.1264576884687996,
+                0.30320343851744785,
+                0.027193034971618624,
+                0.05475716111119985,
+                -0.9533146399434331,
+                0.48053414934554123,
+                0.19338885491509672,
+                0.028795598049390126,
+                0.01402116476020274,
+                0.17916340819127383,
+                0.11712897027161337,
+                -0.027511421621495474
+            ],
+            "peak_current_A": 1.8452443364086135,
+            "clearance_m": 0.0035986519759385184,
+            "required_current_A": 1.0900068135967527
+        },
+        {
+            "time_s": 0.001,
+            "pose": [
+                1.3892299818934122e-07,
+                5.938067360258465e-08,
+                0.0004981453695494416,
+                -1.2027800381298713e-06,
+                -8.927066375008508e-08,
+                1.0130609977089775e-06
+            ],
+            "estimated_pose": [
+                -2.3837788998787178e-05,
+                -1.028643915947105e-06,
+                0.0004959176660830908,
+                -3.7684587891156865e-05,
+                -0.0005810949808607996,
+                -7.26688122676778e-05
+            ],
+            "reference_pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "currents_A": [
+                -0.03515757839960715,
+                0.07576226261157021,
+                0.5285401034106686,
+                -0.05859207806185199,
+                -0.09989676561876847,
+                -0.03531818355817766,
+                -0.40991137334493566,
+                1.599153255948855,
+                0.040118697938495484,
+                -0.12576929356840685,
+                0.285251357094298,
+                -0.20258918721082322,
+                -1.8735169559793754,
+                -0.12433894006151365,
+                0.2982608254652913,
+                0.04054842089907845,
+                0.05898583907504929,
+                -0.9837206287570884,
+                0.48084074228954526,
+                0.19125160841742236,
+                0.028338105241323946,
+                0.015108141035192011,
+                0.1881936714383183,
+                0.11880391603466156,
+                -0.02248292807754571
+            ],
+            "peak_current_A": 1.8735169559793754,
+            "clearance_m": 0.0035981186645087874,
+            "required_current_A": 1.0900068135967527
+        },
+        {
+            "time_s": 0.00125,
+            "pose": [
+                2.3359633506622204e-07,
+                9.940137952510836e-08,
+                0.0004976651213864942,
+                -2.058683876235914e-06,
+                -9.713648552178711e-08,
+                1.5402009372015329e-06
+            ],
+            "estimated_pose": [
+                -2.3684468725444253e-05,
+                -1.1083168083584642e-06,
+                0.0004953196965124412,
+                -3.389568051023399e-05,
+                -0.0005741511282024961,
+                -6.896331226137837e-05
+            ],
+            "reference_pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "currents_A": [
+                -0.035443283916603625,
+                0.0780780514263481,
+                0.5236352664087843,
+                -0.05830636394598936,
+                -0.09242975110160234,
+                -0.035274664333121986,
+                -0.40692995532078624,
+                1.5844068319527869,
+                0.03892454883305864,
+                -0.11666788054879111,
+                0.29887520060926365,
+                -0.2108445119970662,
+                -1.873087605500175,
+                -0.11897417146765461,
+                0.28807511079059267,
+                0.05066637971248536,
+                0.06052329946531506,
+                -1.000409158157994,
+                0.47270602380167803,
+                0.18603720417983177,
+                0.028661235113756293,
+                0.02038224038815088,
+                0.19286563118286093,
+                0.11810031661697518,
+                -0.022216784464777088
+            ],
+            "peak_current_A": 1.873087605500175,
+            "clearance_m": 0.003597619487710673,
+            "required_current_A": 1.0900068135967527
+        },
+        {
+            "time_s": 0.0015,
+            "pose": [
+                3.518842673489798e-07,
+                1.4913427504660985e-07,
+                0.0004972250589102174,
+                -3.1568810052158475e-06,
+                -1.3678982613285484e-07,
+                2.172807481044288e-06
+            ],
+            "estimated_pose": [
+                -2.3514741281987757e-05,
+                -1.1831592038840789e-06,
+                0.000494763946480474,
+                -3.026567081638153e-05,
+                -0.0005670308834110051,
+                -6.536182836873128e-05
+            ],
+            "reference_pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "currents_A": [
+                -0.029080763113343948,
+                0.08481219325080279,
+                0.5145397004436959,
+                -0.058314136838373457,
+                -0.09166267480042385,
+                -0.03458120934974161,
+                -0.40419576236552157,
+                1.564175488645975,
+                0.032993017533359384,
+                -0.10767207226792923,
+                0.31737241923824927,
+                -0.22178102043120343,
+                -1.8644098239831963,
+                -0.10816445690966454,
+                0.27811523815083833,
+                0.06787828324677458,
+                0.060166277655253425,
+                -1.011520294109897,
+                0.4682550408159848,
+                0.1761814263751684,
+                0.03503865119505728,
+                0.023581065034103836,
+                0.20044216003557483,
+                0.11978421679816553,
+                -0.02296235845573893
+            ],
+            "peak_current_A": 1.8644098239831963,
+            "clearance_m": 0.0035971550953938615,
+            "required_current_A": 1.0900068135967527
+        },
+        {
+            "time_s": 0.00175,
+            "pose": [
+                4.91919038658845e-07,
+                2.0852060339235152e-07,
+                0.0004968233626425674,
+                -4.487867846689093e-06,
+                -2.1059845511928188e-07,
+                2.8929342121632384e-06
+            ],
+            "estimated_pose": [
+                -2.090963687070996e-05,
+                4.7741771423202965e-06,
+                0.0004898611590997774,
+                -7.456397755401183e-06,
+                0.0003440108626518749,
+                -0.0007994521931458866
+            ],
+            "reference_pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "currents_A": [
+                -0.027207275159396107,
+                0.0882941227644408,
+                0.5042842419371614,
+                -0.058447128963269694,
+                -0.0896972141710044,
+                -0.035085052250560855,
+                -0.4051333047098438,
+                1.5448969446205965,
+                0.029290527542742178,
+                -0.1025273406546882,
+                0.33750682456041653,
+                -0.23023476917868682,
+                -1.862875063369302,
+                -0.10637720522336987,
+                0.2750862388395147,
+                0.07988716383149409,
+                0.06019646930694506,
+                -1.021526767809872,
+                0.46132873111193906,
+                0.16665690950202852,
+                0.038116046394901286,
+                0.022647048215715393,
+                0.2045950615227183,
+                0.11888192217105853,
+                -0.02273332520242145
+            ],
+            "peak_current_A": 1.862875063369302,
+            "clearance_m": 0.00359672388385989,
+            "required_current_A": 1.208546281420516
+        },
+        {
+            "time_s": 0.002,
+            "pose": [
+                6.523771026842158e-07,
+                2.763829053260153e-07,
+                0.0004964594858495805,
+                -6.046286743866969e-06,
+                -5.099693451970921e-07,
+                3.828614759844017e-06
+            ],
+            "estimated_pose": [
+                -2.064461390734552e-05,
+                4.877996679438422e-06,
+                0.0004892622107937599,
+                -3.565441331121051e-06,
+                0.00037680716053779047,
+                -0.0008168091259587427
+            ],
+            "reference_pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "currents_A": [
+                0.024397923758487223,
+                0.19595371252140756,
+                0.2873978417230937,
+                -0.026181083091410973,
+                0.024445256304312372,
+                0.004171479599363355,
+                -0.5818452206923768,
+                1.0075808493262008,
+                0.06609845988498966,
+                0.1389621229226775,
+                1.0082623315295516,
+                -0.36828823984986997,
+                -1.8979473924149135,
+                0.016003526786976724,
+                -0.04419129706902523,
+                0.4572018541127958,
+                0.1285689138901478,
+                -1.461970317441201,
+                0.2370229256006548,
+                -0.05715412973640376,
+                0.09551898027594245,
+                0.12547456411120816,
+                0.42486283562958455,
+                0.16326554453062472,
+                -0.009718643261716557
+            ],
+            "peak_current_A": 1.8979473924149135,
+            "clearance_m": 0.0035963251338619884,
+            "required_current_A": 1.2122285708439753
+        }
+    ],
+    "time_refinement": 1,
+    "magnetic_refinement": 1,
+    "force_quadrature_orders": {
+        "physical": 16,
+        "nominal": 16
+    },
+    "wire_segments_mm": {
+        "hall_physical": 0.03125,
+        "hall_nominal": 0.03125
+    },
+    "hardware_rates_Hz": {
+        "command": 4000,
+        "regulator": 20000,
+        "feedback": 1000
+    },
+    "hall_conversion": {
+        "native_bits": 16,
+        "samples_per_sensor": 16,
+        "sample_rate_Hz": 500000,
+        "sensor_noise_rms_T": 1.84e-05
+    },
+    "current_conversion": {
+        "native_bits": 16,
+        "sample_rate_Hz": 20000,
+        "quantum_A": 0.0001983642578125,
+        "sensor_noise_rms_A": 0.001,
+        "command_step_A": 0.01
+    },
+    "control_dynamics_Hz": {
+        "pose": 20,
+        "observer": 20
+    },
+    "mechanical_properties": {
+        "king_mass_kg": 0.022729931617873098,
+        "king_com_from_magnet_bottom_m": [
+            -1.6041965042119606e-15,
+            -5.236087386476415e-18,
+            0.014742337541608933
+        ],
+        "king_inertia_kg_m2": [
+            [
+                1.388967691066038e-05,
+                3.3395508580724707e-22,
+                2.048437863777508e-18
+            ],
+            [
+                3.3395508580724707e-22,
+                1.3899879217463618e-05,
+                -2.1600499167107047e-21
+            ],
+            [
+                2.048437863777508e-18,
+                -2.1600499167107047e-21,
+                2.925058257287492e-06
+            ]
+        ]
+    },
+    "limitations": [
+        "Stationary sensor-only acquisition precedes release; setup motion is frozen and excluded from controlled-flight evidence. Currents start at zero.",
+        "Hall conversion is an ideal uniform quantizer at the stated native precision; converter noise, nonlinearity, reference errors and multiplexing settling need hardware qualification.",
+        "Fixed local coil and sensor windows, nominal CAD mass and magnet properties only; commanded movement does not implement window handoffs.",
+        "Independent RL windings with estimated self-inductance, averaged voltages and constant winding/driver/shunt resistance; no PWM ripple, mutual inductance, bus dynamics or thermal feedback.",
+        "Provisional synchronous current ADCs at the regulator rate, with offset, gain error, noise and quantization. Channel throughput and latency are not hardware-qualified.",
+        "Hall correction reconstructs current history from available measurements and nominal filter startup. Interpolation accuracy requires numerical and measurement-rate checks.",
+        "Pose controller uses PD tracking with reference velocity and acceleration feedforward. Observer propagation uses measured-current acceleration from the held nominal allocation matrix plus an estimated residual; current calibration and nominal force-model errors remain.",
+        "No conductive-sheet drag or neighbours; no time/force-mesh convergence, uncertainty qualification or embedded compute-time evidence.",
+        "Video replays stored physical poses with interpolation; it does not rerun dynamics.",
+        "Atlas force interpolation requires independent direct-field validation; Hall sensing and estimation remain direct.",
+        "Joint RK45 integrates motion and current; passive Hall filtering uses its dense trajectory. Local RMS tolerances and accumulated work diagnostics are not global trajectory bounds. Back-EMF peak includes trial stages. Contact, reconduction and coil handoffs are unsupported."
+    ],
+    "atlas": {
+        "mode": "atlas_forces",
+        "identity": "defbb00fdb1c4422cadc3849b15fc69ddd1415de1be5ed7da4ce3014d6d44fbd",
+        "evaluator": {
+            "method": "native",
+            "build": {
+                "source_sha256": {
+                    "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+                    "methodology/magnetic_spline.py": "bf148a591bd019245e0a740f360a62cad0ccb96f4efd707a73a8db36e3609dee",
+                    "methodology/magnetic_spline.c": "40ff3cba90d7da6e745a35c49d08232b0cc6fb58c3d57d370219a4e4ec1ee61c"
+                },
+                "command": [
+                    "cc",
+                    "-std=c99",
+                    "-O3",
+                    "-fPIC",
+                    "-shared",
+                    "-ffp-contract=off",
+                    "/home/arseniy/projects/flying_chess/methodology/magnetic_spline.c",
+                    "-o",
+                    "methodology/results/hover/native_spline/qualified/native/magnetic_spline.so"
+                ],
+                "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+                "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+                "machine": "x86_64",
+                "library_sha256": "c7a0113cdd5b516bc6acc9f201230b8dcd39c27483c23e1da28e568a01560a03"
+            },
+            "workers": 4,
+            "blas_threads": 1,
+            "blas_libraries": [
+                {
+                    "internal_api": "openblas",
+                    "prefix": "libscipy_openblas",
+                    "version": "0.3.31.188.0",
+                    "num_threads": 1,
+                    "threading_layer": "pthreads",
+                    "architecture": "Haswell"
+                },
+                {
+                    "internal_api": "openblas",
+                    "prefix": "libscipy_openblas",
+                    "version": "0.3.30",
+                    "num_threads": 1,
+                    "threading_layer": "pthreads",
+                    "architecture": "Haswell"
+                }
+            ],
+            "threadpoolctl": "3.7.0"
+        }
+    },
+    "integration_mode": "joint_RK45",
+    "tolerance_scale": 1,
+    "integration": {
+        "accepted_steps": 137,
+        "signed_mechanical_defect_J": -8.949950082221519e-17,
+        "absolute_mechanical_defect_J": 9.38008675112463e-17,
+        "signed_total_defect_J": -5.466887999657439e-12,
+        "absolute_total_defect_J": 5.4668899175683334e-12,
+        "energy_budget_J": 2.229044839004151e-08,
+        "minimum_step_s": 1.0476964389365823e-08,
+        "maximum_step_s": 2.98118550703609e-05,
+        "rhs_evaluations": 1144,
+        "filter_evaluations": 1618
+    },
+    "evaluator": {
+        "hall_method": "functional",
+        "native_runtime": {
+            "method": "native",
+            "build": {
+                "source_sha256": {
+                    "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+                    "methodology/magnetic_spline.py": "bf148a591bd019245e0a740f360a62cad0ccb96f4efd707a73a8db36e3609dee",
+                    "methodology/magnetic_spline.c": "40ff3cba90d7da6e745a35c49d08232b0cc6fb58c3d57d370219a4e4ec1ee61c"
+                },
+                "command": [
+                    "cc",
+                    "-std=c99",
+                    "-O3",
+                    "-fPIC",
+                    "-shared",
+                    "-ffp-contract=off",
+                    "/home/arseniy/projects/flying_chess/methodology/magnetic_spline.c",
+                    "-o",
+                    "methodology/results/hover/native_spline/qualified/native/magnetic_spline.so"
+                ],
+                "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+                "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+                "machine": "x86_64",
+                "library_sha256": "c7a0113cdd5b516bc6acc9f201230b8dcd39c27483c23e1da28e568a01560a03"
+            },
+            "workers": 4,
+            "blas_threads": 1,
+            "blas_libraries": [
+                {
+                    "internal_api": "openblas",
+                    "prefix": "libscipy_openblas",
+                    "version": "0.3.31.188.0",
+                    "num_threads": 1,
+                    "threading_layer": "pthreads",
+                    "architecture": "Haswell"
+                },
+                {
+                    "internal_api": "openblas",
+                    "prefix": "libscipy_openblas",
+                    "version": "0.3.30",
+                    "num_threads": 1,
+                    "threading_layer": "pthreads",
+                    "architecture": "Haswell"
+                }
+            ],
+            "threadpoolctl": "3.7.0"
+        }
+    }
+}

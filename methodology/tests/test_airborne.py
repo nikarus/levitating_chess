@@ -18,6 +18,51 @@ from methodology.cad import magnetics
 
 
 class AirborneReplayTests(unittest.TestCase):
+    def test_archive_reference_does_not_relax_current_source_replay_guard(self):
+        import hashlib
+        from zipfile import ZipFile
+        with tempfile.TemporaryDirectory() as temporary:
+            folder = Path(temporary)
+            source = folder / 'physical.py'
+            recorded = b'original physical source'
+            source.write_bytes(b'changed physical source')
+            metadata = dict(source_sha256={str(source): hashlib.sha256(recorded).hexdigest()})
+            (folder / 'summary.json').write_text(json.dumps(metadata))
+            with ZipFile(folder / 'sources.zip', 'w') as archive:
+                archive.writestr(str(source), recorded)
+            self.assertEqual(airborne_diagnostics.verify_recorded_archive(folder), metadata)
+            with self.assertRaisesRegex(ValueError, 'Physical replay source changed'):
+                airborne_diagnostics.verify_recorded_batch(folder)
+            with ZipFile(folder / 'sources.zip', 'w') as archive:
+                archive.writestr(str(source), b'altered archive')
+            with self.assertRaisesRegex(ValueError, 'Recorded source archive changed'):
+                airborne_diagnostics.verify_recorded_archive(folder)
+
+    def test_runtime_inventory_order_is_irrelevant_but_library_identity_is_not(self):
+        runtime = dict(workers=Fixed.native_spline_workers,
+            blas_libraries=[dict(version='first', num_threads=1), dict(version='second', num_threads=1)])
+        reordered = dict(runtime, blas_libraries=list(reversed(runtime['blas_libraries'])))
+        self.assertTrue(airborne_diagnostics.same_native_runtime(runtime, reordered))
+        changed = deepcopy(reordered)
+        changed['blas_libraries'][0]['num_threads'] = Fixed.qualification_refinement_factor
+        self.assertFalse(airborne_diagnostics.same_native_runtime(runtime, changed))
+        self.assertFalse(airborne_diagnostics.same_native_runtime(runtime, dict(reordered, workers=0)))
+
+    def test_recorded_command_uses_post_event_derivative(self):
+        from scipy.integrate import OdeSolution
+        from scipy.integrate._ivp.rk import RkDenseOutput
+        period = 1 / Fixed.current_command_rate
+        rate = 2 * np.pi * Fixed.setpoint_filter_cutoff
+        before = RkDenseOutput(0., period, np.zeros(1), np.zeros((1, 4)))
+        after = RkDenseOutput(period, 2 * period, np.zeros(1), np.array([[rate, 0., 0., 0.]]))
+        trajectory = OdeSolution([0., period, 2 * period], [before, after])
+        np.testing.assert_array_equal(airborne_diagnostics.recorded_filter_command(trajectory, 0., slice(None)), [0.])
+        np.testing.assert_allclose(airborne_diagnostics.recorded_filter_command(trajectory, period, slice(None)), [1.],
+            rtol=0, atol=Fixed.motion_verification_tolerance)
+        for time in (-period, period / 2, 2 * period):
+            with self.assertRaises(ValueError):
+                airborne_diagnostics.recorded_filter_command(trajectory, time, slice(None))
+
     def test_single_count_intervention_preserves_clock_and_original_frame(self):
         codes = np.array([[100, 101], [102, 103]])
         changed = codes.copy()
@@ -190,6 +235,91 @@ class AirborneCheckpointTests(unittest.TestCase):
             baseline.save_checkpoint(path)
             with self.assertRaises(ValueError):
                 refined.load_checkpoint(path)
+
+
+class InterleavedComparisonTests(unittest.TestCase):
+    def test_drive_capture_records_applied_values_and_excludes_terminal_or_failed_events(self):
+        driver = SimpleNamespace(command=np.array([0.]), voltage=np.array([0.]), requested_voltage=np.array([0.]))
+        simulation = SimpleNamespace(drivers=driver, stop_reason=None)
+        def process(*args):
+            driver.command[:] = 1.
+            driver.voltage[:] = 2.
+            driver.requested_voltage[:] = 3.
+        commands, regulators = [], []
+        airborne_diagnostics.record_joint_drive(simulation, process, commands, regulators, 0., True, True, False)
+        self.assertEqual(commands, [dict(time_s=0., quantized_command_A=[1.])])
+        self.assertEqual(regulators, [dict(time_s=0., voltage_V=[2.], requested_voltage_V=[3.])])
+        driver.command[:] = 4.
+        self.assertEqual(commands[0]['quantized_command_A'], [1.])
+        airborne_diagnostics.record_joint_drive(simulation, process, commands, regulators, 1., True, True, True)
+        simulation.stop_reason = 'failed'
+        airborne_diagnostics.record_joint_drive(simulation, process, commands, regulators, 2., True, True, False)
+        self.assertEqual(len(commands), 1)
+        self.assertEqual(len(regulators), 1)
+
+    def test_controller_comparison_restores_cached_matrix_and_stops_on_disagreement(self):
+        simulation = SimpleNamespace(controller=SimpleNamespace(nominal_matrix=np.zeros((1, 1))), clock=0., stop_reason=None)
+        matrices = iter((np.ones((1, 1)), np.full((1, 1), 2.)))
+        currents = iter((np.array([0.]), np.array([Fixed.driver_channel_current])))
+        def command():
+            simulation.controller.nominal_matrix = next(matrices)
+            return dict(accepted=True, currents=next(currents))
+        checks = []
+        result = airborne_diagnostics.compare_controller_allocation(simulation, command, Mock(), checks)
+        np.testing.assert_array_equal(result['currents'], [0.])
+        np.testing.assert_array_equal(simulation.controller.nominal_matrix, [[1.]])
+        self.assertFalse(checks[0]['passed'])
+        self.assertEqual(simulation.stop_reason, 'matched_controller_allocation_failed')
+
+    def test_dense_physics_comparison_keeps_current_gate_and_rejects_extrapolation(self):
+        from scipy.integrate import OdeSolution
+        from scipy.integrate._ivp.rk import RkDenseOutput
+        state = np.zeros(14)
+        state[3] = 1.
+        end = Fixed.airborne_check_duration
+        piece = RkDenseOutput(0., end, state, np.zeros((14, 4)))
+        reference = OdeSolution([0., end], [piece])
+        simulation = SimpleNamespace(plant=SimpleNamespace(geometry=SimpleNamespace(center_of_mass_height=0.)),
+            dynamics=SimpleNamespace(current=slice(13, 14)))
+        report = dict(hardware_rates_Hz={}, trace=[dict(time_s=end, pose=[0.] * 6, currents_A=[0.])])
+        self.assertTrue(airborne_diagnostics.compare_drive_trajectory(reference, report, simulation)['converged'])
+        report['trace'][0]['currents_A'] = [Fixed.driver_channel_current]
+        self.assertFalse(airborne_diagnostics.compare_drive_trajectory(reference, report, simulation)['converged'])
+        report['trace'][0]['time_s'] = end * Fixed.qualification_refinement_factor
+        with self.assertRaisesRegex(ValueError, 'extrapolate'):
+            airborne_diagnostics.compare_drive_trajectory(reference, report, simulation)
+
+    def test_sensor_reference_failure_stops_before_later_scans(self):
+        from scipy.integrate._ivp.rk import RkDenseOutput
+        piece = RkDenseOutput(0., Fixed.airborne_check_duration, np.zeros(1), np.zeros((1, 4)))
+        recorder = SimpleNamespace(scans=[dict(start_s=0.), dict(start_s=1 / Fixed.pose_feedback_rate)],
+            segments=[SimpleNamespace(sol=SimpleNamespace(physical=SimpleNamespace(interpolants=[piece])))])
+        reference = SimpleNamespace(check=Mock(return_value=dict(passed=False)))
+        checks = []
+        self.assertFalse(airborne_diagnostics.check_recorded_sensor_scans(recorder, reference, checks))
+        reference.check.assert_called_once()
+        self.assertEqual(checks, [dict(passed=False)])
+
+    def test_completed_sensor_checks_are_not_repeated_at_next_checkpoint(self):
+        recorder = SimpleNamespace(scans=[dict(start_s=0.)])
+        reference = SimpleNamespace(check=Mock())
+        self.assertTrue(airborne_diagnostics.check_recorded_sensor_scans(recorder, reference, [dict(passed=True)]))
+        reference.check.assert_not_called()
+
+    def test_checkpoint_yields_before_advancing_the_next_interval(self):
+        simulation = SimpleNamespace(finished=False, advance=Mock(), checkpoint_due=Mock(side_effect=[False, True]))
+        airborne_diagnostics.advance_comparison_checkpoint(simulation)
+        self.assertEqual(simulation.advance.call_count, 2)
+        simulation.checkpoint_due = Mock(return_value=True)
+        airborne_diagnostics.advance_comparison_checkpoint(simulation)
+        self.assertEqual(simulation.advance.call_count, 3)
+
+    def test_mid_interval_stop_prevents_any_further_advancement(self):
+        simulation = SimpleNamespace(finished=False, checkpoint_due=Mock(return_value=False))
+        simulation.advance = Mock(side_effect=lambda: setattr(simulation, 'finished', True))
+        airborne_diagnostics.advance_comparison_checkpoint(simulation)
+        airborne_diagnostics.advance_comparison_checkpoint(simulation)
+        simulation.advance.assert_called_once()
 
 
 class AirborneVerificationTests(unittest.TestCase):

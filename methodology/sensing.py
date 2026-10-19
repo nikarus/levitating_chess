@@ -31,6 +31,8 @@ class HallFieldModel:
         levitation_sim.use_geometry(self.geometry)
         self.magnets = levitation_sim.magnet_layout_from_geometry()
         self.base_radius = construction.piece_properties['bottom_film_radius_m']
+        drivers = electrical.CoilDrivers(construction, ())
+        self.coil_time_constant = drivers.inductance / drivers.resistance
         self.pitch = min(Fixed.hall_pitch_candidates) / 1000
         plane = -self.geometry.gap - array.height - self.geometry.pcb_thickness - self.geometry.hall_standoff
         self.points = levitation_sim.local_hall_points(self.pitch, Fixed.hall_observation_window_side, plane)
@@ -182,7 +184,7 @@ def measured_coil_fields(field_model, readings, frame):
         indices = [field_model.identities.index(identity) for identity in readings.identities]
         matrix = field_model.coil_field[:, indices]
         start = frame.sample_times_s[0, 0] - Fixed.hall_power_settle_time
-        field = filtered_scan(readings.sample_times_s, currents @ matrix.T, start).mean(axis=1)
+        field = filtered_scan(readings.sample_times_s, currents @ matrix.T, start, field_model.coil_time_constant).mean(axis=1)
         magnitude = np.max(np.abs(currents), axis=0)
         error = (Fixed.current_sense_offset_residual / Fixed.current_sense_resistance
                  + Fixed.current_feedback_gain_bound * magnitude + electrical.current_quantum() / 2)

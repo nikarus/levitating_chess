@@ -1,0 +1,335 @@
+{
+    "scope": "Bounded coupled coil-field comparison from one acquired state; not full flight-envelope qualification",
+    "motion_scenario": "local_move",
+    "duration_s": 0.060000000000000005,
+    "reference_order": 5,
+    "status": "coil_cache_tighter_failed",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "acc9d2884b521a79fdd02ed812f6355b705d8ed44426b2cc120be616303ac75d",
+        "levitation_sim.py": "91eea3f343cbfb0722c8325f52f6c55ff49995a2e4ff726584ead98b1e4cd5a3",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "b581ae6204830eec8ccecc9398ae8afe9877592f7d26a4f4dba6d73d36279a47",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "0558fffe5cb8bc3dd6924bc94aaf8d1ddd5328900e6531496786e93a7d77bd00",
+        "methodology/motion.py": "e61946cc0206a57ddc3c9b3eaa71cf012d8a3f4039dc54873ac5c23e4bc8f64b",
+        "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+        "methodology/requirements.txt": "fd94cc8fc4087c9841735e4f5978a742740beb6c30c5dcd81cf1e3b8072ba4df",
+        "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+        "methodology/airborne.py": "a479d6507878e6152edccc9389b589c3561164bfec86822b43754b61f72e3782",
+        "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+        "methodology/sensing.py": "96d18613fef88ff6ccda24674d8f4182f81815d07aba93046d476f1a6e95f4e8",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/magnetic_atlas.py": "74cf8cae44667b6801fa4d35e29e9ecd289015831a8da2ec236c55deb3509578",
+        "methodology/magnetic_spline.py": "bf148a591bd019245e0a740f360a62cad0ccb96f4efd707a73a8db36e3609dee",
+        "methodology/magnetic_spline.c": "40ff3cba90d7da6e745a35c49d08232b0cc6fb58c3d57d370219a4e4ec1ee61c",
+        "methodology/joint_airborne.py": "f703a63946cc9623d086909a050c84d46d9a89276e7cc599dd64544e6f890cc5",
+        "methodology/adaptive_airborne.py": "987f2334b809a0433725ca22a2d5fe5347874d8d99f467ad9460e0252a486125",
+        "methodology/coupling_verification.py": "3540025530485cc662bad2fd97df0a7a6e8ed6b5498fd05934b6bb117091fb06",
+        "methodology/numerical_accuracy.py": "028bd09ea9765c0c6ea3ca4a49e2d9633b40fa52308bc47376cc53df5c4a1fe2",
+        "methodology/coil_field.py": "9713d6e801bdf2c111d23609b608d9347840ad5a2df94b3b524144519104cb72",
+        "methodology/physics_verification.py": "faf8429b6463a146253bf064e1987207e56ef65b387acc24b32a8b83ceb2b5c9",
+        "methodology/benchmark_magnetics.py": "d663d1488830a5799456f2a0a2896149eb140dae0cdffc97f32586fcc35295d8",
+        "methodology/coil_field_verification.py": "1039723f83be7883a9f395d982f610c826e5030504e1c37e6fc44f98d6b40bfa",
+        "methodology/airborne_diagnostics.py": "92abd5345cf6ef77ace4ca218e5b54a2f99f6512ab824a9a75d0f2b56739b711",
+        "methodology/hover.py": "108df953300f19ba831dfb18f9e7a0fdbec6b29df7d6f9035a3af3dfee8d25c9",
+        "methodology/airborne_verification.py": "998de7bcd33103cbde914e4a3abf5e1cd2a6a6ce9944a940d0309b4f0a910dfa"
+    },
+    "runtime": {
+        "method": "native",
+        "build": {
+            "source_sha256": {
+                "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+                "methodology/magnetic_spline.py": "bf148a591bd019245e0a740f360a62cad0ccb96f4efd707a73a8db36e3609dee",
+                "methodology/magnetic_spline.c": "40ff3cba90d7da6e745a35c49d08232b0cc6fb58c3d57d370219a4e4ec1ee61c"
+            },
+            "command": [
+                "cc",
+                "-std=c99",
+                "-O3",
+                "-fPIC",
+                "-shared",
+                "-ffp-contract=off",
+                "/home/arseniy/projects/flying_chess/methodology/magnetic_spline.c",
+                "-o",
+                "methodology/results/hover/native_spline/qualified/native/magnetic_spline.so"
+            ],
+            "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+            "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+            "machine": "x86_64",
+            "library_sha256": "c7a0113cdd5b516bc6acc9f201230b8dcd39c27483c23e1da28e568a01560a03"
+        },
+        "workers": 4,
+        "blas_threads": 1,
+        "blas_libraries": [
+            {
+                "internal_api": "openblas",
+                "prefix": "libscipy_openblas",
+                "version": "0.3.31.188.0",
+                "num_threads": 1,
+                "threading_layer": "pthreads",
+                "architecture": "Haswell"
+            },
+            {
+                "internal_api": "openblas",
+                "prefix": "libscipy_openblas",
+                "version": "0.3.30",
+                "num_threads": 1,
+                "threading_layer": "pthreads",
+                "architecture": "Haswell"
+            }
+        ],
+        "threadpoolctl": "3.7.0"
+    },
+    "atlas_identity": "b7d271b757bfe84bfcddfd5f98506b8e2766f4e652ea6acb4ed00103005e11f3",
+    "candidate": {
+        "cache_sha256": "83b0ef42385b79f39cfcfcac41d3896e426de563050d1b63b69eaab186b9b576",
+        "order": 3,
+        "bounds_m": [
+            [
+                -0.03295777945815118,
+                -0.03525709286268707,
+                0.006916035193058546
+            ],
+            [
+                0.03290213562373097,
+                0.03290213562373097,
+                0.014881966522466586
+            ]
+        ],
+        "native_build": {
+            "source_sha256": {
+                "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+                "methodology/magnetic_spline.py": "bf148a591bd019245e0a740f360a62cad0ccb96f4efd707a73a8db36e3609dee",
+                "methodology/magnetic_spline.c": "40ff3cba90d7da6e745a35c49d08232b0cc6fb58c3d57d370219a4e4ec1ee61c"
+            },
+            "command": [
+                "cc",
+                "-std=c99",
+                "-O3",
+                "-fPIC",
+                "-shared",
+                "-ffp-contract=off",
+                "/home/arseniy/projects/flying_chess/methodology/magnetic_spline.c",
+                "-o",
+                "methodology/results/hover/native_spline/qualified/native/magnetic_spline.so"
+            ],
+            "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+            "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+            "machine": "x86_64",
+            "library_sha256": "c7a0113cdd5b516bc6acc9f201230b8dcd39c27483c23e1da28e568a01560a03"
+        },
+        "production_eligible": false
+    },
+    "reference_build_s": 128.09296854119748,
+    "sensor_gate": "Independent convolution on each identical physical input history; cross-run raw differences are diagnostic",
+    "input_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/results/local_motion/coil_surface/coupling/summary.json": "fd87aaa3150d605fae44e00a1828eaad1e080bd6edb2b1db9ac0e5c1ca39705c",
+        "methodology/results/local_motion/coil_surface/cache_refined/summary.json": "6cb13fd60b4e9d666b63c7a88d4b2ad5ebac07425b794579ba3fe012181f4d1a",
+        "methodology/results/hover/native_spline/qualified/initial_checkpoint.json": "3e34f128630728380b3722964a6329a8ce22794a2fca54bb465aff80485632d3",
+        "methodology/results/hover/native_spline/qualified/atlas.npz": "1c4c11b47029295f88b0132944c3989d6f2137711b65de1f56366a2cd4109166",
+        "methodology/results/local_motion/trial/summary.json": "822ab062e3ca403443ac7e73a1525eed477344f4e734be4f718525db6d5e4eb5",
+        "methodology/results/local_motion/trial/initial_checkpoint.json": "a38df3e8b56198e9a94c5f061c1e2249a0886991230b75e9719ccbe9d0bef667"
+    },
+    "cases": {
+        "magnet_atlas": {
+            "passed": false,
+            "elapsed_s": 1433.600778098451,
+            "duration_completed_s": 0.019,
+            "delivered_moving_scans": 18,
+            "stop_reason": null,
+            "peaks": {
+                "current_A": 2.4401368028179657,
+                "voltage_V": 1.3576883611739672,
+                "copper_loss_W": 8.522454083002,
+                "back_emf_V": 0.00025536652342914837,
+                "position_error_m": 4.350557973802284e-05,
+                "angle_error_rad": 0.0028844476605542624,
+                "estimated_position_error_m": 4.782370531117701e-05,
+                "estimated_angle_error_rad": 0.0023830070170831794,
+                "required_current_A": 1.5151099838576054
+            },
+            "integration": {
+                "accepted_steps": 1158,
+                "signed_mechanical_defect_J": -2.348971327413702e-16,
+                "absolute_mechanical_defect_J": 3.0952407702966536e-16,
+                "signed_total_defect_J": -7.885816865398143e-11,
+                "absolute_total_defect_J": 7.885817634309837e-11,
+                "energy_budget_J": 2.229044839004151e-08,
+                "minimum_step_s": 3.0852075231374565e-08,
+                "maximum_step_s": 4.99999999999997e-05,
+                "rhs_evaluations": 10006,
+                "filter_evaluations": 13954
+            },
+            "simulation_elapsed_s": 1343.0656222410034,
+            "verification_elapsed_s": 88.20578641979955,
+            "checked_scans": 18,
+            "maximum_sensor_error_T": 5.041699379856879e-08
+        },
+        "coil_cache": {
+            "passed": false,
+            "elapsed_s": 617.2097125544678,
+            "duration_completed_s": 0.019,
+            "delivered_moving_scans": 18,
+            "stop_reason": null,
+            "peaks": {
+                "current_A": 2.4401368242263493,
+                "voltage_V": 1.3576883611739703,
+                "copper_loss_W": 8.522454192087148,
+                "back_emf_V": 0.00025534539362744984,
+                "position_error_m": 4.350511506252572e-05,
+                "angle_error_rad": 0.0028844687927383813,
+                "estimated_position_error_m": 4.78235402844742e-05,
+                "estimated_angle_error_rad": 0.0023830076903560778,
+                "required_current_A": 1.5151185201720994
+            },
+            "integration": {
+                "accepted_steps": 1158,
+                "signed_mechanical_defect_J": -2.3857034026733805e-16,
+                "absolute_mechanical_defect_J": 3.0794720469251495e-16,
+                "signed_total_defect_J": -7.885817309664856e-11,
+                "absolute_total_defect_J": 7.885818201430174e-11,
+                "energy_budget_J": 2.229044839004151e-08,
+                "minimum_step_s": 3.0852143787646336e-08,
+                "maximum_step_s": 4.99999999999997e-05,
+                "rhs_evaluations": 10006,
+                "filter_evaluations": 13954
+            },
+            "simulation_elapsed_s": 525.5912419185042,
+            "verification_elapsed_s": 89.17563625867479,
+            "checked_scans": 18,
+            "maximum_sensor_error_T": 5.0416985093726385e-08
+        },
+        "coil_cache_tighter": {
+            "passed": false,
+            "elapsed_s": 658.8662536572665,
+            "duration_completed_s": 0.019,
+            "delivered_moving_scans": 18,
+            "stop_reason": "numerical_comparison_failed",
+            "peaks": {
+                "current_A": 2.4330641548751752,
+                "voltage_V": 1.3540185882036824,
+                "copper_loss_W": 8.491975982391267,
+                "back_emf_V": 0.00025527929580988176,
+                "position_error_m": 4.3513387722852734e-05,
+                "angle_error_rad": 0.002878337560973191,
+                "estimated_position_error_m": 4.776164722176681e-05,
+                "estimated_angle_error_rad": 0.002379478061591976,
+                "required_current_A": 1.5143619733811038
+            },
+            "integration": {
+                "accepted_steps": 1295,
+                "signed_mechanical_defect_J": -1.3293692217036768e-16,
+                "absolute_mechanical_defect_J": 2.274604502626882e-16,
+                "signed_total_defect_J": -4.4310604784527134e-11,
+                "absolute_total_defect_J": 4.431061674887744e-11,
+                "energy_budget_J": 2.229044839004151e-08,
+                "minimum_step_s": 3.1351234292681385e-08,
+                "maximum_step_s": 5.000000000000143e-05,
+                "rhs_evaluations": 10864,
+                "filter_evaluations": 14632
+            },
+            "simulation_elapsed_s": 565.8662547075655,
+            "verification_elapsed_s": 90.33958925213665,
+            "checked_scans": 18,
+            "maximum_sensor_error_T": 2.129998610649053e-08
+        }
+    },
+    "comparisons": {
+        "magnet_atlas_vs_coil_cache": {
+            "differences": {
+                "pose_position_m": 3.529243941129531e-09,
+                "pose_angle_rad": 2.3434395747092453e-08,
+                "estimated_pose_position_m": 6.405783081119223e-10,
+                "estimated_pose_angle_rad": 6.181080229740268e-09,
+                "current_trace_A": 3.7489333859497265e-08
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "estimated_pose_position_m": true,
+                "estimated_pose_angle_rad": true,
+                "current_trace_A": true,
+                "same_scan_times": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "max_analogue_difference_T": 2.212476145346809e-08,
+            "analogue_limit_T": 1e-07,
+            "raw_difference_is_diagnostic": true,
+            "compared_through_s": 0.019
+        },
+        "magnet_atlas_vs_coil_cache_tighter": {
+            "differences": {
+                "pose_position_m": 8.165996329534751e-08,
+                "pose_angle_rad": 9.702576071689139e-06,
+                "estimated_pose_position_m": 4.9700918088167e-07,
+                "estimated_pose_angle_rad": 2.9981085995600106e-05,
+                "current_trace_A": 0.05011356584340254
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "estimated_pose_position_m": true,
+                "estimated_pose_angle_rad": true,
+                "current_trace_A": false,
+                "same_scan_times": true,
+                "matched_input_sensing": true
+            },
+            "converged": false,
+            "max_analogue_difference_T": 4.350602465847905e-05,
+            "analogue_limit_T": 1e-07,
+            "raw_difference_is_diagnostic": true,
+            "compared_through_s": 0.019
+        },
+        "coil_cache_vs_coil_cache_tighter": {
+            "differences": {
+                "pose_position_m": 7.114616242318539e-08,
+                "pose_angle_rad": 8.561907177589867e-06,
+                "estimated_pose_position_m": 4.61112335501934e-07,
+                "estimated_pose_angle_rad": 2.8055972854879292e-05,
+                "current_trace_A": 0.019944328088221108
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "estimated_pose_position_m": true,
+                "estimated_pose_angle_rad": true,
+                "current_trace_A": true,
+                "same_scan_times": true,
+                "matched_input_sensing": true
+            },
+            "converged": true,
+            "max_analogue_difference_T": 4.3503429663724596e-05,
+            "analogue_limit_T": 1e-07,
+            "raw_difference_is_diagnostic": true,
+            "compared_through_s": 0.018
+        }
+    },
+    "total_elapsed_s": 2983.5124528771266
+}

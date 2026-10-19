@@ -19,6 +19,89 @@ class MagneticForceTests(unittest.TestCase):
             dimension=(0.01, 0.01, 0.005), polarization=(0.2, -0.3, 1), position=(0, 0, 0.005))))
         self.center = np.array([0, 0, 0.012])
 
+    def test_rigid_work_path_uses_world_angular_velocity_and_closes(self):
+        from methodology.coil_field_verification import rigid_segment, work_integral
+        start = np.r_[self.center, np.radians(Fixed.motion_check_orientation_deg)]
+        finish = np.r_[-self.center, -start[3:]]
+        pose, tangent = rigid_segment(start, finish, Fixed.coupling_excitation_fraction)
+        step = Fixed.angle_derivative_step
+        before, _ = rigid_segment(start, finish, Fixed.coupling_excitation_fraction - step)
+        after, _ = rigid_segment(start, finish, Fixed.coupling_excitation_fraction + step)
+        actual = (Rotation.from_euler('xyz', after[3:]) * Rotation.from_euler('xyz', before[3:]).inv()).as_rotvec() / (2 * step)
+        np.testing.assert_allclose(tangent[3:], actual, atol=Fixed.motion_verification_tolerance, rtol=Fixed.matrix_rank_tolerance)
+        matrix = np.ones((6, 1))
+        work = work_integral(lambda pose: matrix, [start, finish], min(Fixed.coupling_flux_orders))
+        np.testing.assert_allclose(work, tangent @ matrix, atol=Fixed.singular_value_tolerance, rtol=Fixed.matrix_rank_tolerance)
+        closed = work_integral(lambda pose: matrix, [start, finish, start], min(Fixed.coupling_flux_orders))
+        np.testing.assert_allclose(closed, 0, atol=Fixed.singular_value_tolerance, rtol=0)
+
+    def test_diagnostic_coil_domain_rejects_extrapolation_before_evaluation(self):
+        from methodology.coil_field_verification import DiagnosticCoilCache
+        cache = DiagnosticCoilCache.__new__(DiagnosticCoilCache)
+        cache.bounds = np.array([-self.center - 1, self.center + 1])
+        cache.evaluate = lambda points: np.zeros_like(points)
+        np.testing.assert_array_equal(cache(np.zeros((1, 3))), np.zeros((1, 3)))
+        for points in (cache.bounds * 2, np.full((1, 3), np.nan), np.zeros(3)):
+            with self.assertRaises(ValueError):
+                cache(points)
+
+    def test_magnet_surface_force_and_torque_match_uniform_and_linear_fields(self):
+        from model import Constants
+        from methodology.coupling_verification import magnet_surface_quadrature, magnet_surface_wrench
+        source = self.layout.collection
+        source.rotate(Rotation.from_euler('xyz', np.radians(Fixed.motion_check_orientation_deg)), anchor=self.center)
+        magnet = source.sources_all[0]
+        moment = magnet.orientation.apply(magnet.polarization) * np.prod(magnet.dimension) / Constants.vacuum_permeability
+        field = np.ones(3)
+        gradient = np.diag([1., 1., -2.]) / self.array.short
+        points, charges = magnet_surface_quadrature(source, min(Fixed.coupling_flux_orders))
+        for derivative in (np.zeros((3, 3)), gradient):
+            fields = field + (points - magnet.position) @ derivative.T
+            force = derivative @ moment
+            torque = np.cross(moment, field) + np.cross(magnet.position - self.center, force)
+            actual = magnet_surface_wrench(points, charges, self.center, fields)
+            np.testing.assert_allclose(actual, np.r_[force, torque],
+                atol=Fixed.singular_value_tolerance, rtol=Fixed.matrix_rank_tolerance)
+        np.testing.assert_allclose(charges.sum(), 0, atol=Fixed.singular_value_tolerance, rtol=0)
+
+    def test_magnet_surface_rejects_invalid_geometry_and_fields(self):
+        from methodology.coupling_verification import magnet_surface_quadrature, magnet_surface_wrench
+        with self.assertRaises(ValueError):
+            magnet_surface_quadrature(magpy.Collection(magpy.magnet.Sphere(diameter=1, polarization=(0, 0, 1))),
+                                      min(Fixed.coupling_flux_orders))
+        points, charges = magnet_surface_quadrature(self.layout.collection, min(Fixed.coupling_flux_orders))
+        for fields in (np.zeros((len(points), 2)), np.full(points.shape, np.nan)):
+            with self.assertRaises(ValueError):
+                magnet_surface_wrench(points, charges, self.center, fields)
+
+    def test_reused_coil_fields_preserve_rotation_translation_and_geometry_guard(self):
+        from model import Constants
+        from methodology.coil_field import CoilSurfaceQueries
+        rotation = Rotation.from_euler('xyz', np.radians(Fixed.motion_check_orientation_deg))
+        vertices = self.array.coils[0][0].vertices
+        offsets = np.array([np.zeros(3), self.center])
+        coils = [[magpy.current.Polyline(vertices=rotation.apply(vertices + offset), current=1)] for offset in offsets]
+        samples = [(wire[0].vertices[:-1] + wire[0].vertices[1:]) / 2 for wire in coils]
+        elements = [np.diff(wire[0].vertices, axis=0) for wire in coils]
+        quadrature = levitation_sim.CoilForceQuadrature.from_samples(coils, samples, elements)
+        array = SimpleNamespace(coils=coils, rotation=rotation, height=0., force_quadrature=quadrature,
+            placements=[dict(x=offset[0], y=offset[1], top=offset[2]) for offset in offsets])
+        queries = CoilSurfaceQueries(array, min(Fixed.coupling_flux_orders))
+        points = np.asarray([self.center, -self.center])
+        expected = np.concatenate([rotation.inv().apply(points) - offset for offset in offsets])
+        np.testing.assert_allclose(queries.local_queries(points), expected,
+            atol=Fixed.singular_value_tolerance, rtol=Fixed.matrix_rank_tolerance)
+        field = np.ones(3)
+        matrix = queries.matrix(self.layout.collection, self.center, lambda points: np.broadcast_to(field, points.shape))
+        magnet = self.layout.collection.sources_all[0]
+        moment = magnet.polarization * np.prod(magnet.dimension) / Constants.vacuum_permeability
+        wrench = np.r_[np.zeros(3), np.cross(moment, rotation.apply(field))]
+        np.testing.assert_allclose(matrix, np.repeat(wrench[:, None], len(coils), axis=1),
+            atol=Fixed.singular_value_tolerance, rtol=Fixed.matrix_rank_tolerance)
+        quadrature.points[-1] += self.center
+        with self.assertRaises(ValueError):
+            CoilSurfaceQueries(array, min(Fixed.coupling_flux_orders))
+
     def test_curved_path_field_matches_circular_loop_axis(self):
         from build123d import Edge, Wire
         from model import Constants

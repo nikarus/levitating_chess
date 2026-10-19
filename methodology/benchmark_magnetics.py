@@ -1,5 +1,6 @@
 import argparse
 import cProfile
+from contextlib import nullcontext
 from copy import deepcopy
 from concurrent.futures import ThreadPoolExecutor
 import hashlib
@@ -37,15 +38,334 @@ def worker_candidates():
         min(Fixed.force_field_workers * Fixed.qualification_refinement_factor, len(os.sched_getaffinity(0)))})
 
 
-def recorded_force_geometry(checkpoint):
+def recorded_force_geometry(checkpoint, refinement=None):
     construction = magnetics.ConstructionModel(recorded_piece_properties=checkpoint['construction']['piece_properties'])
     construction.use_cad_mass = checkpoint['construction']['use_cad_mass']
     construction.return_depth = checkpoint['construction']['return_depth']
-    geometry, array, _ = construction(Inputs.cad_coil_layout, min(Fixed.current_demand_mesh_refinements))
+    geometry, array, _ = construction(Inputs.cad_coil_layout,
+        min(Fixed.current_demand_mesh_refinements) if refinement is None else refinement)
     levitation_sim.use_geometry(geometry)
     layout = levitation_sim.magnet_layout_from_geometry()
     array.force_quadrature = array.create_force_quadrature()
     return layout, array
+
+
+def benchmark_coil_surface(folder, output):
+    from methodology import airborne_verification, coupling_verification, magnetic_atlas, numerical_accuracy, physics_verification
+    if output.exists():
+        raise ValueError('Preserve existing coil-surface feasibility evidence')
+    checkpoint_path = folder / 'trial/initial_checkpoint.json'
+    recording_path = folder / 'trial/summary.json'
+    checkpoint = json.loads(checkpoint_path.read_text())
+    trace = json.loads(recording_path.read_text())['trace']
+    layout, coarse_array = recorded_force_geometry(checkpoint)
+    _, refined_array = recorded_force_geometry(checkpoint, max(Fixed.current_demand_mesh_refinements))
+    if tuple(coarse_array.identities) != tuple(refined_array.identities):
+        raise ValueError('Surface comparison requires identical coil identities at both wire refinements')
+    rows = [trace[0], trace[len(trace) // Fixed.qualification_refinement_factor], trace[-1]]
+    poses = [dict(kind='recorded_motion', pose=row['pose']) for row in rows]
+    domain = physics_verification.verification_poses(levitation_sim.G, coarse_array, layout)
+    for axes in ((3,), (4,), (3, 4)):
+        extreme = max(domain, key=lambda row: np.linalg.norm(np.asarray(row['pose'])[list(axes)]))
+        item = dict(kind=extreme['name'], pose=np.asarray(extreme['pose']).tolist())
+        if not any(row['pose'] == item['pose'] for row in poses):
+            poses.append(item)
+    surface_order, refined_surface_order = Fixed.coupling_flux_orders[:2]
+    coarse, refined = coarse_array.force_quadrature, refined_array.force_quadrature
+    report = dict(scope='Finite-magnet surface integration versus curved-wire Lorentz reaction; no cache or flight qualification',
+        status='running', source_sha256=dict(magnetics.fingerprints(), **source_fingerprints(__file__,
+            coupling_verification.__file__, numerical_accuracy.__file__, physics_verification.__file__, magnetic_atlas.__file__)),
+        input_sha256=source_fingerprints(checkpoint_path, recording_path),
+        environment=dict(platform=platform.platform(), python=platform.python_version(), numpy=np.__version__, magpylib=magpylib.__version__),
+        surface_order=surface_order, refined_surface_order=refined_surface_order,
+        relative_limit=Fixed.atlas_matrix_relative_tolerance, workers=Fixed.force_field_workers,
+        wire_points=len(coarse.points), refined_wire_points=len(refined.points),
+        coil_identities=[list(identity) for identity in coarse_array.identities], probes=[])
+    output.mkdir(parents=True)
+    with ZipFile(output / 'sources.zip', 'x', compression=ZIP_DEFLATED) as archive:
+        for name in report['source_sha256']:
+            archive.write(name, name)
+    started = perf_counter()
+
+    def save():
+        report['elapsed_s'] = perf_counter() - started
+        airborne_verification.save_summary(output / 'summary.json', report)
+
+    def accepted(metrics):
+        return all(metrics[key] <= Fixed.atlas_matrix_relative_tolerance
+            for key in ('force_relative_column_error', 'torque_relative_column_error'))
+
+    def surface_matrix(quadrature, order, center, columns):
+        points, charges = coupling_verification.magnet_surface_quadrature(layout.collection, order)
+        def evaluate(column):
+            first, last = quadrature.filament_bounds[quadrature.coil_bounds[column:column + 2]]
+            field = numerical_accuracy.sampled_conductor_field(points, quadrature.points[first:last],
+                quadrature.vectors[first:last] * quadrature.currents[first:last, None])
+            return coupling_verification.magnet_surface_wrench(points, charges, center, field)
+        with ThreadPoolExecutor(max_workers=Fixed.force_field_workers) as executor:
+            matrix = np.asarray(list(executor.map(evaluate, columns))).T
+        return matrix, len(points) * len(columns)
+
+    for item in poses:
+        _, center = levitation_sim.place_piece(layout, *item['pose'])
+        probe = dict(**item, center_m=center.tolist(), checks={})
+        report['probes'].append(probe)
+        reference_started = perf_counter()
+        baseline = coarse.matrix(layout.collection, center)
+        reference = refined.matrix(layout.collection, center)
+        probe.update(wire_reference_s=perf_counter() - reference_started,
+            baseline_matrix=baseline.tolist(), reference_matrix=reference.tolist(),
+            wire_refinement=physics_verification.matrix_refinement_metrics(baseline, reference, Fixed.driver_channel_current))
+        probe['checks']['wire_refinement'] = accepted(probe['wire_refinement'])
+        save()
+        if not probe['checks']['wire_refinement']:
+            report['status'] = 'wire_reference_failed'
+            save()
+            return report
+        surface_started = perf_counter()
+        candidate, queries = surface_matrix(coarse, surface_order, center, list(range(len(coarse_array.coils))))
+        probe.update(surface_s=perf_counter() - surface_started, surface_queries=queries,
+            candidate_matrix=candidate.tolist(),
+            surface_error=physics_verification.matrix_refinement_metrics(candidate, reference, Fixed.driver_channel_current))
+        probe['checks']['surface_accuracy'] = accepted(probe['surface_error'])
+        save()
+        if not probe['checks']['surface_accuracy']:
+            report['status'] = 'surface_accuracy_failed'
+            save()
+            return report
+        selected = sorted(set(int(np.argmax(np.linalg.norm((candidate - reference)[section], axis=0)))
+            for section in (slice(0, 3), slice(3, 6))) | set(int(np.argmax(np.linalg.norm(reference[section], axis=0)))
+            for section in (slice(0, 3), slice(3, 6))))
+        surface_started = perf_counter()
+        refined_wire_surface, _ = surface_matrix(refined, surface_order, center, selected)
+        refined_surface, _ = surface_matrix(refined, refined_surface_order, center, selected)
+        probe.update(refinement_s=perf_counter() - surface_started, refined_coil_columns=selected,
+            refined_wire_surface_matrix=refined_wire_surface.tolist(), refined_surface_matrix=refined_surface.tolist(),
+            coil_field_refinement=physics_verification.matrix_refinement_metrics(candidate[:, selected], refined_wire_surface, Fixed.driver_channel_current),
+            face_refinement=physics_verification.matrix_refinement_metrics(refined_wire_surface, refined_surface, Fixed.driver_channel_current),
+            refined_surface_error=physics_verification.matrix_refinement_metrics(refined_surface, reference[:, selected], Fixed.driver_channel_current))
+        for key in ('coil_field_refinement', 'face_refinement', 'refined_surface_error'):
+            probe['checks'][key] = accepted(probe[key])
+        save()
+        if not all(probe['checks'].values()):
+            report['status'] = 'surface_refinement_failed'
+            save()
+            return report
+    report.update(status='passed', query_reduction=len(coarse.points) / max(row['surface_queries'] for row in report['probes']))
+    save()
+    return report
+
+
+def hall_evaluators(layout):
+    levitation_sim.place_piece(layout)
+    canonical = deepcopy(layout.collection)
+    magnets = canonical.sources_all
+    center_offset = np.array([0, 0, layout.center_of_mass_height])
+    dimensions = np.asarray([magnet.dimension for magnet in magnets])
+    polarizations = np.asarray([magnet.polarization for magnet in magnets])
+    positions = np.asarray([magnet.position for magnet in magnets])
+    orientations = Rotation.concatenate([magnet.orientation for magnet in magnets])
+
+    def canonical_field(query_points, pose, functional):
+        pose = np.asarray(pose)
+        rotation = Rotation.from_euler('xyz', pose[..., 3:])
+        local = rotation.inv().apply(query_points - pose[..., :3] - center_offset) + center_offset
+        if functional:
+            count = len(local)
+            fields = magpylib.func.cuboid_field('B',
+                observers=np.tile(local, (len(magnets), 1)),
+                dimensions=np.repeat(dimensions, count, axis=0),
+                polarizations=np.repeat(polarizations, count, axis=0),
+                positions=np.repeat(positions, count, axis=0),
+                orientations=Rotation.from_quat(np.repeat(orientations.as_quat(), count, axis=0)))
+            field = fields.reshape(len(magnets), count, 3).sum(axis=0)
+        else:
+            field = canonical.getB(local).reshape(-1, 3)
+        return rotation.apply(field)[:, 2]
+
+    return dict(current=lambda query, pose: levitation_sim.hall_field(layout, query, pose),
+        canonical_objects=lambda query, pose: canonical_field(query, pose, False),
+        functional=lambda query, pose: canonical_field(query, pose, True))
+
+
+def benchmark_hall(folder, output):
+    from methodology import magnetic_atlas, sensing
+    if output.exists():
+        raise ValueError('Preserve existing Hall evaluation evidence')
+    checkpoint_path = folder / 'trial/initial_checkpoint.json'
+    recording_path = folder / 'trial/summary.json'
+    checkpoint = json.loads(checkpoint_path.read_text())
+    recorded = json.loads(recording_path.read_text())
+    layout, array = recorded_force_geometry(checkpoint)
+    geometry = levitation_sim.G
+    plane = -geometry.gap - array.height - geometry.pcb_thickness - geometry.hall_standoff
+    points = levitation_sim.local_hall_points(min(Fixed.hall_pitch_candidates) / 1000,
+                                             Fixed.hall_observation_window_side, plane)
+    evaluators = hall_evaluators(layout)
+    trace = recorded['trace']
+    rows = [trace[0], trace[len(trace) // Fixed.qualification_refinement_factor], trace[-1]]
+    poses = [dict(kind='recorded_motion', pose=row['pose']) for row in rows]
+    poses.extend(dict(kind='domain_pose', pose=pose.tolist())
+                 for pose in magnetic_atlas.validation_poses(geometry, array, layout))
+    report = dict(scope='Direct analytical Hall implementation screening; no changes to production sensing or flight qualification',
+        status='running', source_sha256=dict(magnetics.fingerprints(), **source_fingerprints(__file__,
+            sensing.__file__, magnetic_atlas.__file__)), input_sha256=source_fingerprints(checkpoint_path, recording_path),
+        environment=dict(platform=platform.platform(), python=platform.python_version(),
+            numpy=np.__version__, magpylib=magpylib.__version__, threadpools=threadpool_info()),
+        field_tolerances=dict(absolute_T=Fixed.singular_value_tolerance, relative=Fixed.matrix_rank_tolerance),
+        derivative_absolute_tolerance=Fixed.motion_verification_tolerance,
+        sensor_points_m=points.tolist(), magnet_count=len(layout.collection.sources_all), probes=[], timings_s={})
+    output.mkdir(parents=True)
+    with ZipFile(output / 'sources.zip', 'x', compression=ZIP_DEFLATED) as archive:
+        for name in report['source_sha256']:
+            archive.write(name, name)
+
+    def save():
+        (output / 'summary.json').write_text(json.dumps(report, indent=Fixed.report_precision) + '\n')
+
+    steps = [Fixed.hall_position_derivative_step] * 3 + [Fixed.angle_derivative_step] * 3
+    for item in poses:
+        pose = np.asarray(item['pose'])
+        placed, _ = levitation_sim.place_piece(layout, *pose)
+        world_reference = placed.getB(points)[:, 2]
+        expected = evaluators['current'](points, pose)
+        reference_jacobian = levitation_sim.centered_jacobian(lambda value: evaluators['current'](points, value), pose, steps)
+        probe = dict(**item, reference_T=expected.tolist(), world_difference_T=float(np.max(np.abs(expected - world_reference))), checks={})
+        report['probes'].append(probe)
+        for name, evaluate in evaluators.items():
+            actual = evaluate(points, pose)
+            jacobian = levitation_sim.centered_jacobian(lambda value: evaluate(points, value), pose, steps)
+            passed = bool(np.allclose(actual, world_reference, atol=Fixed.singular_value_tolerance, rtol=Fixed.matrix_rank_tolerance)
+                and np.allclose(jacobian, reference_jacobian, atol=Fixed.motion_verification_tolerance, rtol=Fixed.matrix_rank_tolerance))
+            probe['checks'][name] = dict(field_T=actual.tolist(),
+                max_field_difference_T=float(np.max(np.abs(actual - expected))),
+                max_derivative_difference=float(np.max(np.abs(jacobian - reference_jacobian))), passed=passed)
+            save()
+            if not passed:
+                report['status'] = 'field_or_derivative_failed'
+                save()
+                return report
+    moving_poses = np.asarray([poses[index % len(poses)]['pose'] for index in range(len(points))])
+    queries = [('whole_array', points, np.asarray(trace[len(trace) // Fixed.qualification_refinement_factor]['pose'])),
+               ('moving_scan', points, moving_poses),
+               ('exposure_samples', np.repeat(points, Fixed.hall_samples_per_sensor, axis=0),
+                np.repeat(moving_poses, Fixed.hall_samples_per_sensor, axis=0))]
+    report['query_checks'] = {}
+    for kind, query, pose in queries:
+        expected = []
+        for point, item in zip(query, np.broadcast_to(pose, (len(query), 6))):
+            placed, _ = levitation_sim.place_piece(layout, *item)
+            expected.append(placed.getB(point)[2])
+        expected = np.asarray(expected)
+        report['query_checks'][kind] = {}
+        for name, evaluate in evaluators.items():
+            actual = evaluate(query, pose)
+            passed = bool(np.allclose(actual, expected, atol=Fixed.singular_value_tolerance, rtol=Fixed.matrix_rank_tolerance))
+            report['query_checks'][kind][name] = dict(max_difference_T=float(np.max(np.abs(actual - expected))), passed=passed)
+            save()
+            if not passed:
+                report['status'] = 'batched_query_failed'
+                save()
+                return report
+    for repetition in range(Fixed.qualification_refinement_factor):
+        names = list(evaluators)
+        names = names[repetition:] + names[:repetition]
+        for name in names:
+            started = perf_counter()
+            for row in trace:
+                for _, query, _ in queries:
+                    evaluators[name](query, row['pose'])
+                evaluators[name](points, moving_poses)
+            report['timings_s'].setdefault(name, []).append(perf_counter() - started)
+    report['queries_per_repeat'] = len(trace) * (len(queries) + 1)
+    report['median_s'] = {name: float(np.median(times)) for name, times in report['timings_s'].items()}
+    report['speedup'] = {name: report['median_s']['current'] / elapsed for name, elapsed in report['median_s'].items()}
+    report['status'] = 'passed'
+    save()
+    return report
+
+
+def compare_hall_coupled(folder, screen_path, output):
+    from methodology import airborne_verification, hover, magnetic_atlas, magnetic_spline, numerical_accuracy
+    if output.exists():
+        raise ValueError('Preserve existing Hall coupled evidence')
+    screen = json.loads(screen_path.read_text())
+    if screen['status'] != 'passed':
+        raise ValueError('Coupled Hall comparison requires a passing field screen')
+    for name, digest in dict(screen['source_sha256'], **screen['input_sha256']).items():
+        if hashlib.sha256(Path(name).read_bytes()).hexdigest() != digest:
+            raise ValueError('Hall field screen source or input changed: ' + name)
+    atlas = magnetic_atlas.MagneticFieldAtlas.load(folder / 'atlas.npz')
+    initial_geometry = json.loads((folder / 'initial_checkpoint.json').read_text())['construction']
+    construction = magnetics.ConstructionModel(recorded_piece_properties=initial_geometry['piece_properties'])
+    construction.use_cad_mass = initial_geometry['use_cad_mass']
+    construction.return_depth = initial_geometry['return_depth']
+    sources = source_fingerprints(__file__, hover.__file__, airborne_verification.__file__, numerical_accuracy.__file__)
+    with magnetic_spline.native_evaluation(atlas, folder / 'native/magnetic_spline.so') as runtime:
+        simulation = JointAirborneSimulation(construction, Fixed.airborne_check_duration, atlas=atlas, magnetic_mode='atlas_forces')
+        simulation.source.update(sources)
+        initial = deepcopy(simulation.checkpoint_state())
+        report = dict(scope='Short coupled Hall implementation screen from a common acquired state; not sustained flight qualification',
+            status='running', source_sha256=simulation.source, runtime=runtime, atlas_identity=atlas.identity,
+            input_sha256=source_fingerprints(screen_path, folder / 'initial_checkpoint.json'),
+            cases={}, comparisons={})
+        output.mkdir(parents=True)
+        with ZipFile(output / 'sources.zip', 'x', compression=ZIP_DEFLATED) as archive:
+            for name in simulation.source:
+                archive.write(name, name)
+        summaries, scans = {}, {}
+        for name in ('current', 'functional'):
+            if name != 'current':
+                simulation = JointAirborneSimulation(construction, Fixed.airborne_check_duration, initialize=False,
+                    atlas=atlas, magnetic_mode='atlas_forces')
+                simulation.source.update(sources)
+                simulation.restore_checkpoint(deepcopy(initial))
+            if simulation.tracker.estimator.field_model is not simulation.fields:
+                raise ValueError('Hall comparison requires the shared physical and controller geometry')
+            evaluator = hall_evaluators(simulation.fields.magnets)[name]
+            context = (nullcontext() if name == 'current' else patch.object(simulation.fields, 'magnet_field',
+                lambda pose, points=None: evaluator(simulation.fields.points if points is None else points, pose)))
+            case = output / name
+            case.mkdir()
+            identity = dict(hall_method=name, native_runtime=runtime)
+            save_spline_diagnostic(simulation, identity, case / 'initial_snapshot.json')
+            recorder = numerical_accuracy.JointTrajectoryRecorder(simulation)
+
+            def progress(summary):
+                hover.check_operating_limits(simulation, summary)
+                if name != 'current' and simulation.stop_reason is None:
+                    airborne_verification.compare_progress(summaries['current'], summary, simulation, name)
+
+            simulation.started = perf_counter()
+            with context, patch.object(simulation.dynamics, 'integrate', recorder.integrate), \
+                    patch.object(simulation.sensors, 'encode_signal', recorder.encode_signal), \
+                    patch.object(simulation, 'save_checkpoint', lambda path: save_spline_diagnostic(simulation, identity, path)):
+                summary = airborne.run_simulation(simulation, case / 'summary.json', case / 'snapshot.json', progress=progress)
+            summary['evaluator'] = identity
+            airborne_verification.save_summary(case / 'summary.json', summary)
+            airborne_verification.save_summary(case / 'evidence.json', dict(scans=recorder.scans,
+                dense_sha256=recorder.save_dense(case / 'dense.npz')))
+            summaries[name], scans[name] = summary, recorder.scans
+            report['cases'][name] = {key: summary[key] for key in ('passed', 'elapsed_s', 'duration_completed_s',
+                'delivered_moving_scans', 'stop_reason', 'peaks', 'integration')}
+            report['status'] = 'running' if summary['passed'] else name + '_operating_failed'
+            airborne_verification.save_summary(output / 'summary.json', report)
+            if not summary['passed']:
+                return report
+        comparison = airborne_verification.compare_trials(summaries['current'], summaries['functional'])
+        same_times = [row['start_s'] for row in scans['current']] == [row['start_s'] for row in scans['functional']]
+        comparison['checks']['same_scan_times'] = same_times and bool(scans['current'])
+        if same_times and scans['current']:
+            difference = float(np.max(np.abs(np.array([row['samples_T'] for row in scans['current']])
+                - np.array([row['samples_T'] for row in scans['functional']]))))
+            comparison.update(max_analogue_difference_T=difference, analogue_limit_T=Fixed.atlas_field_tolerance)
+            comparison['checks']['analogue_samples'] = difference <= Fixed.atlas_field_tolerance
+        comparison['converged'] = all(comparison['checks'].values())
+        report['comparisons']['functional'] = comparison
+        report.update(status='passed' if comparison['converged'] else 'comparison_failed',
+            coupled_speedup=summaries['current']['elapsed_s'] / summaries['functional']['elapsed_s'])
+        airborne_verification.save_summary(output / 'summary.json', report)
+    return report
 
 
 def benchmark_batches(folder, output):
@@ -725,6 +1045,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Compare optimized magnetic forces and coupled motion against magpylib-force.')
     parser.add_argument('--output', type=Path, default=Path(__file__).with_name('results') / 'magnetic_performance.json')
     parser.add_argument('--profile-hover', type=Path)
+    parser.add_argument('--hall-movement', type=Path)
+    parser.add_argument('--coil-surface-movement', type=Path)
+    parser.add_argument('--hall-coupled', type=Path, help='Passing direct Hall screen; use --spline-hover for its native cache.')
     parser.add_argument('--batch-hover', type=Path)
     parser.add_argument('--atlas-workers', type=Path)
     parser.add_argument('--spline-movement', type=Path)
@@ -734,7 +1057,27 @@ if __name__ == '__main__':
     parser.add_argument('--spline-hover', type=Path, help='Retained SciPy hover folder for native production validation.')
     parser.add_argument('--prepare', action='store_true', help='Build and verify native hover inputs before its long run.')
     arguments = parser.parse_args()
-    if arguments.spline_hover is not None:
+    if arguments.coil_surface_movement is not None:
+        if any(value is not None for value in (arguments.hall_coupled, arguments.hall_movement, arguments.spline_hover,
+                arguments.spline_movement, arguments.spline_library, arguments.spline_coupled, arguments.atlas_workers,
+                arguments.batch_hover, arguments.profile_hover)) or arguments.spline_profile or arguments.prepare:
+            parser.error('Coil surface feasibility requires a single benchmark mode')
+        report = benchmark_coil_surface(arguments.coil_surface_movement, arguments.output)
+        print(json.dumps({key: report[key] for key in ('status', 'elapsed_s', 'query_reduction') if key in report}))
+    elif arguments.hall_coupled is not None:
+        if arguments.spline_hover is None or any(value is not None for value in (arguments.hall_movement, arguments.spline_movement,
+                arguments.spline_library, arguments.spline_coupled, arguments.atlas_workers, arguments.batch_hover,
+                arguments.profile_hover)) or arguments.spline_profile or arguments.prepare:
+            parser.error('Coupled Hall comparison requires only --hall-coupled and --spline-hover')
+        report = compare_hall_coupled(arguments.spline_hover, arguments.hall_coupled, arguments.output)
+        print(json.dumps({key: report[key] for key in ('status', 'coupled_speedup') if key in report}))
+    elif arguments.hall_movement is not None:
+        if any(value is not None for value in (arguments.spline_hover, arguments.spline_movement, arguments.spline_library,
+                arguments.spline_coupled, arguments.atlas_workers, arguments.batch_hover, arguments.profile_hover)) or arguments.spline_profile or arguments.prepare:
+            parser.error('Hall comparison requires a single benchmark mode')
+        report = benchmark_hall(arguments.hall_movement, arguments.output)
+        print(json.dumps({key: report[key] for key in ('status', 'median_s', 'speedup') if key in report}))
+    elif arguments.spline_hover is not None:
         if any(value is not None for value in (arguments.spline_movement, arguments.spline_library, arguments.spline_coupled, arguments.atlas_workers, arguments.batch_hover, arguments.profile_hover)) or arguments.spline_profile:
             parser.error('Native hover requires a single benchmark mode')
         report = (prepare_native_hover if arguments.prepare else run_native_hover)(arguments.spline_hover, arguments.output)

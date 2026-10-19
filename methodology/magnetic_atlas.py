@@ -26,6 +26,16 @@ def local_source_state(source):
         (inverse * magnet.orientation).as_matrix().ravel()] for magnet in source.children])
 
 
+def tensor_product_spline(axes, values, order):
+    coefficients = values
+    knots = []
+    for axis, coordinates in enumerate(axes):
+        spline = make_interp_spline(coordinates, coefficients, k=order, axis=axis)
+        coefficients = np.moveaxis(spline.c, 0, axis)
+        knots.append(spline.t)
+    return NdBSpline(tuple(knots), coefficients, order, extrapolate=False)
+
+
 class MagneticFieldAtlas:
     evaluator_identity = dict(method='scipy')
     evaluator_sources = {}
@@ -40,13 +50,7 @@ class MagneticFieldAtlas:
         if axes is None:
             axes, values = self.sample_grid(source, self.bounds, spacing)
         self.shape = tuple(len(axis) for axis in axes)
-        coefficients = values
-        knots = []
-        for axis, coordinates in enumerate(axes):
-            spline = make_interp_spline(coordinates, coefficients, k=order, axis=axis)
-            coefficients = np.moveaxis(spline.c, 0, axis)
-            knots.append(spline.t)
-        self.interpolator = NdBSpline(tuple(knots), coefficients, order, extrapolate=False)
+        self.interpolator = tensor_product_spline(axes, values, order)
         self.coefficients = self.interpolator.c
         self.provenance = dict(source_sha256=source_fingerprints(__file__, levitation_sim.__file__, Path(levitation_sim.__file__).with_name('model.py')),
             numpy=np.__version__, scipy=scipy.__version__, magpylib=magpylib.__version__)

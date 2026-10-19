@@ -11,9 +11,40 @@ from scipy.linalg import expm
 from scipy.spatial.transform import Rotation
 
 import levitation_sim
-from model import Inputs, Fixed
+from model import Inputs, Fixed, Constants
 from methodology import adaptive_airborne, airborne, airborne_verification, electrical, magnetic_atlas, motion, physics_verification, sensing, source_fingerprints
 from methodology.cad import magnetics
+
+
+def magnet_surface_quadrature(source, order):
+    nodes, weights = leggauss(order)
+    coordinates = np.stack(np.meshgrid(nodes, nodes, indexing='ij'), axis=-1).reshape(-1, 2)
+    area_weights = np.outer(weights, weights).ravel()
+    points, charges = [], []
+    for magnet in source.sources_all:
+        if not isinstance(magnet, magpy.magnet.Cuboid):
+            raise ValueError('Magnet surface quadrature requires uniformly polarized cuboids')
+        for axis in np.flatnonzero(magnet.polarization):
+            tangents = np.delete(np.arange(3), axis)
+            face_weights = area_weights * np.prod(magnet.dimension[tangents]) / 4
+            for sign in (-1, 1):
+                local = np.zeros((len(coordinates), 3))
+                local[:, axis] = sign * magnet.dimension[axis] / 2
+                local[:, tangents] = coordinates * magnet.dimension[tangents] / 2
+                points.append(magnet.orientation.apply(local) + magnet.position)
+                charges.append(sign * magnet.polarization[axis] / Constants.vacuum_permeability * face_weights)
+    if not points:
+        raise ValueError('Magnet surface quadrature requires nonzero magnetization')
+    return np.concatenate(points), np.concatenate(charges)
+
+
+def magnet_surface_wrench(points, charges, center, fields):
+    if (points.ndim != 2 or points.shape[1] != 3 or fields.shape != points.shape
+            or charges.shape != (len(points),) or np.shape(center) != (3,)
+            or not all(np.isfinite(value).all() for value in (points, charges, center, fields))):
+        raise ValueError('Magnet surface wrench requires finite matching samples and a three-axis torque anchor')
+    forces = charges[:, None] * fields
+    return np.r_[forces.sum(axis=0), np.cross(points - center, forces).sum(axis=0)]
 
 
 def surface_flux(source, wire, order):

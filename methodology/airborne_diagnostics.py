@@ -1471,9 +1471,1046 @@ def numerical_diagnosis(baseline, output):
     return result
 
 
+def recorded_dense_trajectory(path, component):
+    from scipy.integrate import OdeSolution
+    from scipy.integrate._ivp.rk import RkDenseOutput
+    with np.load(path, allow_pickle=False) as saved:
+        starts, ends, values, coefficients = [saved[component + '_' + key] for key in ('t_old', 't', 'y_old', 'Q')]
+    if (not len(starts) or np.any(ends <= starts) or not np.array_equal(starts[1:], ends[:-1])
+            or not all(np.isfinite(value).all() for value in (starts, ends, values, coefficients))):
+        raise ValueError('Recorded dense trajectory has invalid intervals or values')
+    return OdeSolution(np.r_[starts[0], ends], [RkDenseOutput(*row) for row in zip(starts, ends, values, coefficients)])
+
+
+def filtered_recorded_scan(trajectory, start, channels, order, evaluate=None):
+    from numpy.polynomial.legendre import leggauss
+    samples = Fixed.hall_samples_per_sensor
+    times = start + Fixed.hall_power_settle_time + np.arange(channels * samples) / Fixed.hall_adc_sample_rate
+    if start < trajectory.t_min or times[-1] > trajectory.t_max:
+        raise ValueError('Recorded filter query extends beyond the saved trajectory')
+    boundaries = np.unique(np.r_[start, times, trajectory.ts[(trajectory.ts > start) & (trajectory.ts < times[-1])]])
+    nodes, weights = leggauss(order)
+    rate = 2 * np.pi * Fixed.hall_sensor_bandwidth
+    halves = np.diff(boundaries) / 2
+    queries = boundaries[:-1, None] + (nodes[None, :] + 1) * halves[:, None]
+    values = (trajectory if evaluate is None else evaluate)(queries.ravel()).reshape(channels, len(halves), order)
+    state, result = np.zeros(channels), np.empty(len(times))
+    for interval, (left, right) in enumerate(zip(boundaries[:-1], boundaries[1:])):
+        state = state * np.exp(-rate * (right - left)) + values[:, interval] @ (weights * rate * halves[interval] * np.exp(-rate * (right - queries[interval])))
+        index = np.searchsorted(times, right)
+        if index < len(times) and times[index] == right:
+            result[index] = state[index // samples]
+    return result.reshape(channels, samples)
+
+
+def matched_sensor_metrics(actual, references, field_difference):
+    reference_error = float(np.max(np.abs(references[0] - references[-1])))
+    filter_error = float(np.max(np.abs(actual - references[-1])))
+    limit = Fixed.atlas_field_tolerance
+    reference_limit = limit * Fixed.coupling_relative_tolerance
+    bound = filter_error + reference_error + field_difference
+    return dict(filter_error_T=filter_error, quadrature_disagreement_T=reference_error,
+        field_implementation_difference_T=field_difference, combined_error_T=bound,
+        limit_T=limit, reference_limit_T=reference_limit,
+        passed=bool(bound <= limit and reference_error <= reference_limit and field_difference <= reference_limit))
+
+
+class MatchedHallReference:
+    def __init__(self, fields, calibration, identities, center_height, current):
+        from methodology.benchmark_magnetics import hall_evaluators
+        self.points = fields.points
+        self.evaluators = hall_evaluators(deepcopy(fields.magnets))
+        self.gain, self.offset = (np.array(calibration[key]) for key in ('gain', 'offset'))
+        indices = [fields.identities.index(identity) for identity in identities]
+        self.coil_field = np.array(calibration['actual_coil_field'])[:, indices]
+        self.center_height, self.current = center_height, current
+
+    def check(self, trajectory, scan, include_samples=False):
+        def poses(states):
+            return np.c_[states[:, :3] - [0, 0, self.center_height],
+                Rotation.from_quat(states[:, 3:7], scalar_first=True).as_euler('xyz')]
+
+        def signal(times):
+            result = []
+            for first in range(0, len(times), Fixed.hall_field_batch_frames):
+                states = trajectory(times[first:first + Fixed.hall_field_batch_frames]).T
+                pose = poses(states)
+                magnet = self.evaluators['functional'](np.tile(self.points, (len(states), 1)),
+                    np.repeat(pose, len(self.points), axis=0)).reshape(len(states), len(self.points)).T
+                result.append(self.gain[:, None] * (magnet + self.coil_field @ states[:, self.current].T) + self.offset[:, None])
+            return np.concatenate(result, axis=1)
+
+        start = scan['start_s']
+        actual = np.array(scan['samples_T'])
+        end = start + Fixed.hall_power_settle_time + (actual.size - 1) / Fixed.hall_adc_sample_rate
+        differences = [float(np.max(np.abs(self.gain * (self.evaluators['current'](self.points, pose)
+            - self.evaluators['functional'](self.points, pose))))) for pose in poses(trajectory(np.array([start, end])).T)]
+        references = [filtered_recorded_scan(trajectory, start, len(self.points), order, signal)
+            for order in Fixed.coupling_flux_orders[-2:]]
+        result = dict(start_s=start, **matched_sensor_metrics(actual, references, max(differences)))
+        if include_samples:
+            result['reference_samples_T'] = references[-1].tolist()
+        return result
+
+
+def verify_recorded_archive(folder):
+    from zipfile import ZipFile
+    batch = json.loads((folder / 'summary.json').read_text())
+    with ZipFile(folder / 'sources.zip') as archive:
+        for name, digest in batch['source_sha256'].items():
+            if hashlib.sha256(archive.read(name)).hexdigest() != digest:
+                raise ValueError('Recorded source archive changed: ' + name)
+    return batch
+
+
+def verify_recorded_batch(folder):
+    batch = verify_recorded_archive(folder)
+    for name, digest in batch['source_sha256'].items():
+        if Path(name).resolve() != Path(__file__).resolve() and hashlib.sha256(Path(name).read_bytes()).hexdigest() != digest:
+            raise ValueError('Physical replay source changed: ' + name)
+    return batch
+
+
+
+def recorded_filter_command(trajectory, time, selection):
+    index = np.searchsorted(trajectory.ts, time, side='right') - 1
+    if index < 0 or index >= len(trajectory.interpolants):
+        raise ValueError('Command replay requires a recorded interval after the event')
+    polynomial = trajectory.interpolants[index]
+    if abs(polynomial.t_old - time) > Fixed.adaptive_clock_tolerance:
+        raise ValueError('Command replay event does not start a saved integration interval')
+    return polynomial.y_old[selection] + polynomial.Q[selection, 0] / (2 * np.pi * Fixed.setpoint_filter_cutoff)
+
+
+
+def same_native_runtime(first, second):
+    return ({key: value for key, value in first.items() if key != 'blas_libraries'}
+            == {key: value for key, value in second.items() if key != 'blas_libraries'}
+            and sorted(json.dumps(value, sort_keys=True) for value in first['blas_libraries'])
+            == sorted(json.dumps(value, sort_keys=True) for value in second['blas_libraries']))
+
+
+def replay_recorded_controller(folder, native_folder, cache_folder, output):
+    from contextlib import ExitStack, nullcontext
+    from zipfile import ZipFile, ZIP_DEFLATED
+    from methodology import coil_field, coil_field_verification, magnetic_atlas, magnetic_spline
+
+    if output.exists():
+        raise ValueError('Preserve existing controller replay evidence')
+    batch = verify_recorded_batch(folder)
+    names = tuple(batch['cases'])
+    saved = {name: {key: json.loads((folder / name / filename).read_text()) for key, filename in
+        (('initial', 'initial_snapshot.json'), ('final', 'snapshot.json'), ('evidence', 'evidence.json'))} for name in names}
+    initial = saved[names[0]]['initial']
+    construction = magnetics.ConstructionModel(recorded_piece_properties=initial['construction']['piece_properties'])
+    construction.use_cad_mass = initial['construction']['use_cad_mass']
+    construction.return_depth = initial['construction']['return_depth']
+    library = native_folder / 'native/magnetic_spline.so'
+    cache = coil_field_verification.DiagnosticCoilCache(cache_folder, library, batch['candidate']['order'], True)
+    atlas = magnetic_atlas.MagneticFieldAtlas.load(folder / 'atlas.npz')
+    if cache.identity != batch['candidate'] or atlas.identity != batch['atlas_identity']:
+        raise ValueError('Controller replay magnetic identity differs')
+    inputs = [folder / 'summary.json', folder / 'sources.zip', folder / 'atlas.npz', cache_folder / 'summary.json', library]
+    for name in names:
+        inputs.extend(folder / name / filename for filename in ('initial_snapshot.json', 'snapshot.json', 'evidence.json', 'dense.npz'))
+    sources = dict(batch['source_sha256'], **source_fingerprints(__file__))
+    result = dict(status='running', scope='Controller and observer replay on saved inputs; no physical integration',
+        source_sha256=sources, input_sha256=source_fingerprints(*inputs), cases={}, comparisons={},
+        limitations=['Recorded acceleration histories are replayed and independently checked, not recomputed into a new trajectory.',
+            'Common-backend command comparisons hold the estimated state fixed; they do not predict a counterfactual flight.',
+            'No numerical, control or operating acceptance limit is changed.'])
+    output.mkdir(parents=True)
+    with ZipFile(output / 'sources.zip', 'x', compression=ZIP_DEFLATED) as archive:
+        for name in sources:
+            archive.write(name, name)
+    started = perf_counter()
+    with ExitStack() as resources:
+        runtime = resources.enter_context(magnetic_spline.native_evaluation(atlas, library))
+        if not same_native_runtime(runtime, batch['runtime']):
+            raise ValueError('Controller replay native runtime differs')
+        cache.evaluate = resources.enter_context(magnetic_spline.spline_workers(cache.native, Fixed.native_spline_workers))
+        fields = sensing.HallFieldModel(construction, magnetic_refinement=Fixed.hall_conductor_refinement * initial['magnetic_refinement'])
+        _, array, _ = construction(Inputs.cad_coil_layout, initial['magnetic_refinement'])
+        identities = tuple(array.identities)
+        drivers = electrical.CoilDrivers(construction, identities)
+        controller = airborne.AirborneController(construction, identities, drivers.current_limit)
+        controller.field_evaluator = atlas.field
+        controller.array.force_quadrature = controller.array.create_force_quadrature()
+        queries = coil_field.CoilSurfaceQueries(controller.array, min(Fixed.coupling_flux_orders))
+        filtered = slice(13 + len(identities), 13 + 2 * len(identities))
+        origin = np.zeros(6)
+        origin[2] = Fixed.airborne_reference_gap_fraction * (controller.geometry.max_flight_gap - controller.geometry.gap)
+        result['coil_identities'] = identities
+
+        def candidate_matrix(quadrature, source, center, field_evaluator=None):
+            if quadrature is not controller.array.force_quadrature:
+                raise ValueError('Unexpected force quadrature in controller-only replay')
+            return queries.matrix(source, center, cache)
+
+        for name in names:
+            state, final, evidence = (saved[name][key] for key in ('initial', 'final', 'evidence'))
+            if (state['construction'] != initial['construction'] or state['source_sha256'] != batch['source_sha256']
+                    or final['source_sha256'] != batch['source_sha256'] or state['motion_scenario'] != 'local_move'):
+                raise ValueError('Controller replay construction, source or scenario differs')
+            path = folder / name / 'dense.npz'
+            if hashlib.sha256(path.read_bytes()).hexdigest() != evidence['dense_sha256']:
+                raise ValueError('Controller replay dense evidence changed')
+            trajectory = recorded_dense_trajectory(path, 'physical')
+            sensors = sensing.VirtualHallArray(fields)
+            for key in ('gain', 'offset', 'actual_coil_field'):
+                setattr(sensors, key, np.array(state['sensors'][key]))
+            sensors.random.bit_generator.state = deepcopy(state['sensors']['random'])
+            tracker = sensing.HallTracker(sensing.HallPoseEstimator(fields))
+            for key in airborne.TRACKER_ARRAY_STATE:
+                setattr(tracker, key, np.array(state['tracker'][key]))
+            for key in airborne.TRACKER_CLOCK_STATE:
+                setattr(tracker, key, state['tracker'][key])
+            tracker.acceleration_times = final['acceleration_times']
+            tracker.accelerations = [np.array(value) for value in final['accelerations']]
+            for key in airborne.DRIVER_STATE:
+                setattr(drivers, key, np.array(state['drivers'][key]))
+            readouts = [electrical.CurrentReadings(identities, np.array(row['sample_times_s']), np.array(row['adc_codes']),
+                row['available_time_s']) for row in final['readouts']]
+            reads = {row.sample_times_s[0]: row for row in readouts}
+            traces = {row['time_s']: row for row in final['trace']}
+            accelerations = dict(zip(final['acceleration_times'], final['accelerations']))
+            commands, packets, regulators = [], [], []
+            errors = dict(pose=0., command_A=0., acceleration=0.)
+            next_scan = 0
+            cached = state['evaluator']['force_method'] == 'coil_cache'
+            for now in final['field_times']:
+                if next_scan < len(evidence['scans']):
+                    scan = evidence['scans'][next_scan]
+                    if now >= sensing.hall_available_time(scan['start_s'], len(fields.points)):
+                        frame = sensors.encode_signal(np.array(scan['samples_T']), scan['start_s'])
+                        available = [reading for reading in readouts if reading.available_time_s <= frame.available_time_s]
+                        history = electrical.CurrentReadings(identities, np.concatenate([row.sample_times_s for row in available]),
+                            np.vstack([row.adc_codes for row in available]), available[-1].available_time_s)
+                        consumed = tracker.consume(frame, history, now)
+                        if not consumed['valid']:
+                            raise ValueError('Recorded controller replay lost tracking')
+                        packets.append(dict(time_s=now, start_s=scan['start_s'], adc_codes=frame.adc_codes.tolist(),
+                            position=tracker.position.tolist(), velocity=tracker.velocity.tolist(), disturbance=tracker.disturbance.tolist()))
+                        next_scan += 1
+                estimate = tracker.predict(now)
+                if not estimate['valid']:
+                    raise ValueError('Recorded controller prediction unavailable')
+                if now in traces:
+                    errors['pose'] = max(errors['pose'], float(np.max(np.abs(np.array(estimate['pose']) - traces[now]['estimated_pose']))))
+                    reference = airborne.smooth_reference(origin, Fixed.airborne_motion_translation, Fixed.airborne_motion_rotation,
+                        now - Fixed.airborne_motion_start, Fixed.airborne_motion_duration)
+                    with patch.object(levitation_sim.CoilForceQuadrature, 'matrix', candidate_matrix) if cached else nullcontext():
+                        allocation = controller.command(estimate, *reference)
+                    if not allocation['accepted']:
+                        raise ValueError('Recorded controller allocation rejected')
+                    nominal = controller.nominal_matrix.copy()
+                    drivers.set_command(allocation['currents'])
+                    inferred = recorded_filter_command(trajectory, now, filtered)
+                    errors['command_A'] = max(errors['command_A'], float(np.max(np.abs(inferred - drivers.command))))
+                    common = controller.command(estimate, *reference) if cached else allocation
+                    if not common['accepted']:
+                        raise ValueError('Common-backend diagnostic allocation rejected')
+                    controller.nominal_matrix = nominal
+                    commands.append(dict(time_s=now, estimate=estimate, command_A=allocation['currents'].tolist(),
+                        quantized_command_A=drivers.command.tolist(), common_backend_command_A=common['currents'].tolist(),
+                        target_wrench=(nominal @ allocation['currents']).tolist()))
+                if now in reads:
+                    drivers.filtered_command = trajectory(now)[filtered].copy()
+                    drivers.regulate(reads[now], now)
+                    acceleration = controller.measured_acceleration(estimate, reads[now], now)
+                    errors['acceleration'] = max(errors['acceleration'], float(np.max(np.abs(acceleration - accelerations[now]))))
+                    regulators.append(dict(time_s=now, adc_codes=reads[now].adc_codes.tolist(),
+                        filtered_command_A=drivers.filtered_command.tolist(), voltage_V=drivers.voltage.tolist(),
+                        requested_voltage_V=drivers.requested_voltage.tolist()))
+            errors['tracker'] = max(float(np.max(np.abs(getattr(tracker, key) - final['tracker'][key]))) for key in airborne.TRACKER_ARRAY_STATE)
+            errors['driver'] = max(float(np.max(np.abs(getattr(drivers, key) - final['drivers'][key])))
+                for key in ('command', 'integral', 'voltage', 'requested_voltage'))
+            passed = (all(value <= Fixed.motion_verification_tolerance for value in errors.values())
+                and sensors.random.bit_generator.state == final['sensors']['random']
+                and next_scan == len(evidence['scans'])
+                and all(getattr(tracker, key) == final['tracker'][key] for key in airborne.TRACKER_CLOCK_STATE))
+            result['cases'][name] = dict(reproduced=passed, replay_errors=errors, commands=commands, packets=packets, regulators=regulators)
+            result['elapsed_s'] = perf_counter() - started
+            airborne_verification.save_summary(output / 'summary.json', result)
+            if not passed:
+                result['status'] = 'replay_mismatch'
+                airborne_verification.save_summary(output / 'summary.json', result)
+                return result
+        for left, right in ((names[0], names[1]), (names[0], names[2]), (names[1], names[2])):
+            first, second = result['cases'][left], result['cases'][right]
+            rows = []
+            for a, b in zip(first['commands'], second['commands']):
+                if a['time_s'] != b['time_s']:
+                    raise ValueError('Recorded command clocks differ')
+                rows.append(dict(time_s=a['time_s'], **{key: float(np.max(np.abs(np.array(b[key]) - a[key])))
+                    for key in ('command_A', 'quantized_command_A', 'common_backend_command_A')},
+                    velocity_difference=(np.array(b['estimate']['velocity']) - a['estimate']['velocity']).tolist(),
+                    target_wrench_difference=(np.array(b['target_wrench']) - a['target_wrench']).tolist()))
+            counts = {}
+            for kind in ('packets', 'regulators'):
+                counts[kind] = [dict(time_s=a['time_s'], changed_counts=int(np.count_nonzero(np.array(b['adc_codes']) - a['adc_codes'])),
+                    maximum_count_difference=int(np.max(np.abs(np.array(b['adc_codes']) - a['adc_codes']))))
+                    for a, b in zip(first[kind], second[kind])]
+            result['comparisons'][left + '_vs_' + right] = dict(commands=rows, sensor_counts=counts,
+                maximum_command_difference_A=max(row['command_A'] for row in rows),
+                maximum_quantized_command_difference_A=max(row['quantized_command_A'] for row in rows),
+                maximum_common_backend_difference_A=max(row['common_backend_command_A'] for row in rows))
+    result.update(status='reproduced', elapsed_s=perf_counter() - started)
+    airborne_verification.save_summary(output / 'summary.json', result)
+    return result
+
+
+
+def recorded_controller_response(folder, replay_folder, native_folder, output):
+    from zipfile import ZipFile, ZIP_DEFLATED
+    from methodology import magnetic_atlas, magnetic_spline
+    if output.exists():
+        raise ValueError('Preserve existing controller response evidence')
+    batch = verify_recorded_batch(folder)
+    replay = verify_recorded_batch(replay_folder)
+    if replay['status'] != 'reproduced':
+        raise ValueError('Controller intervention requires a reproduced original replay')
+    for name, digest in replay['input_sha256'].items():
+        if hashlib.sha256(Path(name).read_bytes()).hexdigest() != digest:
+            raise ValueError('Controller replay input changed: ' + name)
+    names = ('magnet_atlas', 'coil_cache_tighter')
+    saved = {name: json.loads((folder / name / 'snapshot.json').read_text()) for name in names}
+    initial = json.loads((folder / names[0] / 'initial_snapshot.json').read_text())
+    comparison = replay['comparisons']['_vs_'.join(names)]
+    rows = comparison['commands']
+    jump = max(range(1, len(rows)), key=lambda index: rows[index]['command_A'] - rows[index - 1]['command_A'])
+    packets = comparison['sensor_counts']['packets']
+    selected = sorted({next(index for index, row in enumerate(packets) if row['changed_counts']),
+        max(index for index, row in enumerate(packets) if row['time_s'] <= rows[jump]['time_s'])})
+    construction = magnetics.ConstructionModel(recorded_piece_properties=initial['construction']['piece_properties'])
+    construction.use_cad_mass = initial['construction']['use_cad_mass']
+    construction.return_depth = initial['construction']['return_depth']
+    atlas = magnetic_atlas.MagneticFieldAtlas.load(folder / 'atlas.npz')
+    result = dict(scope='One-packet input substitutions at saved observer states; no physical trajectory or control tuning',
+        source_sha256=dict(replay['source_sha256'], **source_fingerprints(__file__)),
+        input_sha256=source_fingerprints(folder / 'summary.json', replay_folder / 'summary.json', replay_folder / 'sources.zip'),
+        cases=[], limitations=['Each substitution retains the selected recorded acceleration history and prior observer state.',
+            'Hall and current signals change together in real flight; swapping only one is a causal diagnostic, not a realizable sensor mode.',
+            'This identifies a local command response, not long-term disturbance recovery or a passed movement.'])
+    output.mkdir(parents=True)
+    with ZipFile(output / 'sources.zip', 'x', compression=ZIP_DEFLATED) as archive:
+        for name in result['source_sha256']:
+            archive.write(name, name)
+    started = perf_counter()
+    with magnetic_spline.native_evaluation(atlas, native_folder / 'native/magnetic_spline.so') as runtime:
+        if not same_native_runtime(runtime, batch['runtime']):
+            raise ValueError('Controller response runtime differs')
+        fields = sensing.HallFieldModel(construction, magnetic_refinement=Fixed.hall_conductor_refinement * initial['magnetic_refinement'])
+        identities = tuple(tuple(value) for value in replay['coil_identities'])
+        drivers = electrical.CoilDrivers(construction, identities)
+        controller = airborne.AirborneController(construction, identities, drivers.current_limit)
+        controller.field_evaluator = atlas.field
+        origin = np.zeros(6)
+        origin[2] = Fixed.airborne_reference_gap_fraction * (controller.geometry.max_flight_gap - controller.geometry.gap)
+        for index in selected:
+            frames, histories, trackers, originals = [], [], [], []
+            command_time = next(row['time_s'] for row in rows if row['time_s'] >= packets[index]['time_s'])
+            for name in names:
+                case = replay['cases'][name]
+                packet = case['packets'][index]
+                codes = np.array(packet['adc_codes'])
+                times = packet['start_s'] + Fixed.hall_power_settle_time + np.arange(codes.size).reshape(codes.shape) / Fixed.hall_adc_sample_rate
+                frame = sensing.HallFrame(codes, times, sensing.hall_available_time(packet['start_s'], len(fields.points)))
+                frames.append(frame)
+                readouts = [row for row in saved[name]['readouts'] if row['available_time_s'] <= frame.available_time_s]
+                histories.append(electrical.CurrentReadings(identities, np.concatenate([row['sample_times_s'] for row in readouts]),
+                    np.vstack([row['adc_codes'] for row in readouts]), readouts[-1]['available_time_s']))
+                tracker = sensing.HallTracker(sensing.HallPoseEstimator(fields))
+                previous = case['packets'][index - 1] if index else initial['tracker']
+                for key in airborne.TRACKER_ARRAY_STATE:
+                    setattr(tracker, key, np.array(previous[key]))
+                tracker.last_delivery = previous['time_s'] if index else initial['tracker']['last_delivery']
+                tracker.measurement_time = (float((previous['start_s'] + Fixed.hall_power_settle_time
+                    + np.arange(codes.size) / Fixed.hall_adc_sample_rate).mean()) if index else initial['tracker']['measurement_time'])
+                tracker.acquisition_start = initial['tracker']['acquisition_start']
+                tracker.acceleration_times = saved[name]['acceleration_times']
+                tracker.accelerations = [np.array(value) for value in saved[name]['accelerations']]
+                trackers.append(tracker)
+                originals.append(next(row for row in case['commands'] if row['time_s'] == command_time))
+            reference = airborne.smooth_reference(origin, Fixed.airborne_motion_translation, Fixed.airborne_motion_rotation,
+                command_time - Fixed.airborne_motion_start, Fixed.airborne_motion_duration)
+            responses = {}
+            for label, state_index, hall_index, current_index in (
+                    ('baseline', 0, 0, 0), ('tighter', 1, 1, 1), ('baseline_with_tighter_hall', 0, 1, 0),
+                    ('baseline_with_tighter_currents', 0, 0, 1), ('baseline_with_both_tighter_readings', 0, 1, 1)):
+                tracker = deepcopy(trackers[state_index])
+                consumed = tracker.consume(frames[hall_index], histories[current_index], packets[index]['time_s'])
+                estimate = tracker.predict(command_time)
+                allocation = controller.command(estimate, *reference)
+                if not consumed['valid'] or not allocation['accepted']:
+                    raise ValueError('Recorded sensor intervention lost tracking or allocation')
+                if label in ('baseline', 'tighter') and (estimate != originals[state_index]['estimate'] or not np.allclose(
+                        allocation['currents'], originals[state_index]['common_backend_command_A'], rtol=0, atol=Fixed.motion_verification_tolerance)):
+                    raise ValueError('Controller response did not reproduce the saved estimate/command')
+                drivers.set_command(allocation['currents'])
+                responses[label] = dict(estimate=estimate, command_A=allocation['currents'].tolist(),
+                    quantized_command_A=drivers.command.tolist(), fitted_pose=consumed['estimate']['pose'])
+            for key in ('pose', 'velocity'):
+                estimate = deepcopy(responses['baseline']['estimate'])
+                estimate[key] = responses['tighter']['estimate'][key]
+                allocation = controller.command(estimate, *reference)
+                if not allocation['accepted']:
+                    raise ValueError('State-component intervention allocation rejected')
+                responses['baseline_with_tighter_' + key] = dict(estimate=estimate, command_A=allocation['currents'].tolist())
+            for response in responses.values():
+                response['maximum_command_change_A'] = float(np.max(np.abs(np.array(response['command_A']) - responses['baseline']['command_A'])))
+            decoded = [(frame.adc_codes + 0.5) * sensing.hall_readout()[2] - Fixed.hall_supply_voltage / 2 / Fixed.hall_sensitivity for frame in frames]
+            correction = [sensing.measured_coil_fields(fields, history, frame)[0] for history, frame in zip(histories, frames)]
+            result['cases'].append(dict(scan_start_s=replay['cases'][names[0]]['packets'][index]['start_s'],
+                delivery_time_s=packets[index]['time_s'], command_time_s=command_time, responses=responses,
+                maximum_decoded_hall_difference_T=float(np.max(np.abs(decoded[1].mean(axis=1) - decoded[0].mean(axis=1)))),
+                maximum_coil_subtraction_difference_T=float(np.max(np.abs(correction[1] - correction[0]))),
+                maximum_corrected_hall_difference_T=float(np.max(np.abs(decoded[1].mean(axis=1) - decoded[0].mean(axis=1) - correction[1] + correction[0])))))
+    result.update(status='reproduced', elapsed_s=perf_counter() - started)
+    airborne_verification.save_summary(output / 'summary.json', result)
+    return result
+
+
+def verify_recorded_sensing(folder, output, worst_only=False):
+    from threadpoolctl import threadpool_limits
+    from zipfile import ZipFile, ZIP_DEFLATED
+    from methodology import benchmark_magnetics
+    if output.exists():
+        raise ValueError('Preserve existing matched-input sensing evidence')
+    batch = verify_recorded_batch(folder)
+    selected_start = None
+    if worst_only:
+        from itertools import combinations
+        scans = {name: json.loads((folder / name / 'evidence.json').read_text())['scans'] for name in batch['cases']}
+        differences = []
+        for left, right in combinations(scans, 2):
+            if [row['start_s'] for row in scans[left]] != [row['start_s'] for row in scans[right]]:
+                raise ValueError('Worst-scan attribution requires identical saved scan clocks')
+            differences.extend((float(np.max(np.abs(np.array(a['samples_T']) - b['samples_T']))), a['start_s'])
+                for a, b in zip(scans[left], scans[right]))
+        selected_start = max(differences)[1]
+    first = next(iter(batch['cases']))
+    initial = json.loads((folder / first / 'initial_snapshot.json').read_text())
+    construction = magnetics.ConstructionModel(recorded_piece_properties=initial['construction']['piece_properties'])
+    construction.use_cad_mass = initial['construction']['use_cad_mass']
+    construction.return_depth = initial['construction']['return_depth']
+    geometry, array, _ = construction(Inputs.cad_coil_layout, initial['magnetic_refinement'])
+    fields = sensing.HallFieldModel(construction, magnetic_refinement=Fixed.hall_conductor_refinement * initial['magnetic_refinement'])
+    current = slice(13, 13 + len(array.identities))
+    inputs = [folder / 'summary.json', folder / 'sources.zip']
+    for name in batch['cases']:
+        inputs.extend(folder / name / filename for filename in ('initial_snapshot.json', 'snapshot.json', 'evidence.json', 'dense.npz'))
+    report = dict(status='running', scope='Independent Hall convolution on each recorded physical trajectory; no closed-loop rerun or flight qualification',
+        source_sha256=dict(magnetics.fingerprints(), **source_fingerprints(__file__, sensing.__file__, benchmark_magnetics.__file__)),
+        input_sha256=source_fingerprints(*inputs), cases={}, selected_scan_start_s=selected_start)
+    output.mkdir(parents=True)
+    with ZipFile(output / 'sources.zip', 'x', compression=ZIP_DEFLATED) as archive:
+        for name in report['source_sha256']:
+            archive.write(name, name)
+    started = perf_counter()
+    with threadpool_limits(limits=Fixed.native_spline_blas_threads, user_api='blas'):
+        for name in batch['cases']:
+            state = json.loads((folder / name / 'initial_snapshot.json').read_text())
+            evidence = json.loads((folder / name / 'evidence.json').read_text())
+            if state['construction'] != initial['construction'] or state['source_sha256'] != batch['source_sha256']:
+                raise ValueError('Recorded sensing construction or source identity differs')
+            path = folder / name / 'dense.npz'
+            if hashlib.sha256(path.read_bytes()).hexdigest() != evidence['dense_sha256']:
+                raise ValueError('Recorded trajectory hash differs')
+            reference = MatchedHallReference(fields, state['sensors'], array.identities, geometry.center_of_mass_height, current)
+            trajectory = recorded_dense_trajectory(path, 'physical')
+            report['cases'][name] = []
+            for scan in evidence['scans']:
+                if worst_only and scan['start_s'] != selected_start:
+                    continue
+                result = reference.check(trajectory, scan, include_samples=worst_only)
+                report['cases'][name].append(result)
+                report['elapsed_s'] = perf_counter() - started
+                if not result['passed']:
+                    report['status'] = 'matched_input_sensing_failed'
+                airborne_verification.save_summary(output / 'summary.json', report)
+                if not result['passed']:
+                    return report
+    if worst_only:
+        report['comparisons'] = {}
+        for left, right in combinations(scans, 2):
+            a, b = (np.array(next(row['samples_T'] for row in scans[name] if row['start_s'] == selected_start))
+                for name in (left, right))
+            reference_a, reference_b = (np.array(report['cases'][name][0]['reference_samples_T']) for name in (left, right))
+            actual = b - a
+            physical = reference_b - reference_a
+            filtering = (b - reference_b) - (a - reference_a)
+            worst = np.unravel_index(np.argmax(np.abs(actual)), actual.shape)
+            closure = float(np.max(np.abs(actual - physical - filtering)))
+            reference_bound = sum(report['cases'][name][0]['quadrature_disagreement_T']
+                + report['cases'][name][0]['field_implementation_difference_T'] for name in (left, right))
+            if closure > Fixed.atlas_field_tolerance * Fixed.coupling_relative_tolerance:
+                raise ValueError('Recorded Hall error decomposition does not close')
+            report['comparisons'][left + '_vs_' + right] = dict(maximum_raw_difference_T=float(np.max(np.abs(actual))),
+                maximum_physical_history_difference_T=float(np.max(np.abs(physical))),
+                maximum_filter_error_difference_T=float(np.max(np.abs(filtering))),
+                reference_error_bound_T=reference_bound, closure_error_T=closure,
+                worst_raw_sample=dict(channel=int(worst[0]), sample=int(worst[1]),
+                    total_T=float(actual[worst]), physical_history_T=float(physical[worst]),
+                    filtering_T=float(filtering[worst]), reference_filter_error_T=float((a - reference_a)[worst]),
+                    candidate_filter_error_T=float((b - reference_b)[worst])))
+        report['scope'] = 'Worst saved Hall scan: independent physical-history versus filtering-error attribution; original failed gate unchanged'
+    report['status'] = 'passed'
+    airborne_verification.save_summary(output / 'summary.json', report)
+    return report
+
+
+def attribute_recorded_coil_signal(folder, output):
+    from scipy.integrate import OdeSolution
+    from scipy.integrate._ivp.rk import RkDenseOutput
+    from threadpoolctl import threadpool_limits
+    from zipfile import ZipFile, ZIP_DEFLATED
+    from methodology import numerical_accuracy, joint_airborne
+
+    if output.exists():
+        raise ValueError('Preserve existing recorded coil-signal attribution')
+    batch = verify_recorded_batch(folder)
+    names = ('magnet_atlas', 'coil_cache', 'coil_cache_tighter')
+    saved = {name: {key: json.loads((folder / name / filename).read_text()) for key, filename in
+        (('initial', 'initial_snapshot.json'), ('final', 'snapshot.json'), ('report', 'summary.json'), ('evidence', 'evidence.json'))}
+        for name in names}
+    original = saved[names[0]]['initial']
+    construction = magnetics.ConstructionModel(recorded_piece_properties=original['construction']['piece_properties'])
+    construction.use_cad_mass = original['construction']['use_cad_mass']
+    construction.return_depth = original['construction']['return_depth']
+    _, array, _ = construction(Inputs.cad_coil_layout, original['magnetic_refinement'])
+    active = tuple(array.identities)
+    array.window = Fixed.cad_patch_cells_per_side * array.short_pitch
+    array.build()
+    all_coils = tuple(array.identities)
+    fields = sensing.HallFieldModel(construction,
+        magnetic_refinement=Fixed.hall_conductor_refinement * original['magnetic_refinement'])
+    if fields.identities != all_coils:
+        raise ValueError('Nominal Hall map ordering differs from recorded coils')
+    indices = [all_coils.index(identity) for identity in active]
+    inputs = [folder / 'summary.json', folder / 'sources.zip']
+    for name in names:
+        inputs.extend(folder / name / filename for filename in ('initial_snapshot.json', 'snapshot.json', 'summary.json', 'evidence.json', 'dense.npz'))
+    result = dict(status='running', scope='Recorded coil-field/filter attribution only; no dynamics rerun, counterfactual controller intervention or flight qualification',
+        source_sha256=dict(magnetics.fingerprints(), **source_fingerprints(__file__, sensing.__file__, numerical_accuracy.__file__, joint_airborne.__file__)),
+        input_sha256=source_fingerprints(*inputs), original_batch_status=batch['status'],
+        limits=dict(raw_signal_T=Fixed.atlas_field_tolerance, independent_reference_T=Fixed.atlas_field_tolerance * Fixed.coupling_relative_tolerance),
+        active_coil_identities=active, hall_map_coil_identities=all_coils, quadrature_orders=Fixed.coupling_flux_orders[-2:],
+        cases={}, comparisons={}, limitations=[
+            'The remainder contains real magnet motion plus numerical filtering/replay error; it is not a pure numerical-error estimate.',
+            'Coil-field separation uses each saved calibrated map and current polynomial, without altering either trajectory or using truth in its controller.',
+            'Exact-current interpolation counterfactuals use truth only for error attribution; the controller still receives measured current codes.',
+            'Exponential reconstruction uses nominal L/R; varying back-EMF and within-sample switching/extinction are not exactly exponential.',
+            'Common injected noise cancels in differences between runs; the corresponding noise/quantization components still include quantization effects.',
+            'The original failed gate remains failed and its acceptance limits are unchanged.'])
+    output.mkdir(parents=True)
+    with ZipFile(output / 'sources.zip', 'x', compression=ZIP_DEFLATED) as archive:
+        for name in result['source_sha256']:
+            archive.write(name, name)
+    started = perf_counter()
+    with threadpool_limits(limits=Fixed.native_spline_blas_threads, user_api='blas'):
+        for name, case in saved.items():
+            initial, final, report, evidence = (case[key] for key in ('initial', 'final', 'report', 'evidence'))
+            if (initial['sensors'] != original['sensors'] or initial['construction'] != original['construction']
+                    or final['trace'] != report['trace'] or final['source_sha256'] != batch['source_sha256']
+                    or final['sensors']['actual_coil_field'] != initial['sensors']['actual_coil_field']):
+                raise ValueError('Recorded signal attribution requires matching source, calibration, construction and traces')
+            dense_path = folder / name / 'dense.npz'
+            if hashlib.sha256(dense_path.read_bytes()).hexdigest() != evidence['dense_sha256']:
+                raise ValueError('Recorded dense trajectory changed')
+            physical = recorded_dense_trajectory(dense_path, 'physical')
+            filtered = recorded_dense_trajectory(dense_path, 'filtered')
+            count = len(initial['drivers']['currents'])
+            if count != len(active):
+                raise ValueError('Recorded current vector differs from the active coil ordering')
+            current = slice(13, 13 + count)
+            gain = np.array(initial['sensors']['gain'])
+            matrix = np.array(initial['sensors']['actual_coil_field'])
+            if matrix.shape != (len(gain), len(all_coils)):
+                raise ValueError('Recorded Hall map differs from the reconstructed coil ordering')
+            calibrated = gain[:, None] * matrix[:, indices]
+            nominal = fields.coil_field[:, indices]
+            coil = OdeSolution(physical.ts, [RkDenseOutput(piece.t_old, piece.t,
+                calibrated @ piece.y_old[current], calibrated @ piece.Q[current]) for piece in physical.interpolants])
+            nominal_coil = OdeSolution(physical.ts, [RkDenseOutput(piece.t_old, piece.t,
+                nominal @ piece.y_old[current], nominal @ piece.Q[current]) for piece in physical.interpolants])
+            readouts = final['readouts']
+            readout_times = np.concatenate([row['sample_times_s'] for row in readouts])
+            exact_currents = physical(readout_times)[current].T
+            calibrated_currents = exact_currents * final['current_sensors']['gain'] + final['current_sensors']['offset']
+
+            sensor = sensing.VirtualHallArray.__new__(sensing.VirtualHallArray)
+            sensor.gain = gain
+            sensor.random = np.random.default_rng()
+            sensor.random.bit_generator.state = deepcopy(initial['sensors']['random'])
+            rows = []
+            for scan in evidence['scans']:
+                start = scan['start_s']
+                actual = np.array(scan['samples_T'])
+                frame = sensor.encode_signal(actual, start)
+                times = frame.sample_times_s
+                channels = np.repeat(np.arange(len(gain)), Fixed.hall_samples_per_sensor)
+                reconstructed = (filtered(times.ravel())[channels, np.arange(times.size)]
+                    - filtered(start)[channels] * np.exp(-2 * np.pi * Fixed.hall_sensor_bandwidth * (times.ravel() - start))).reshape(times.shape)
+                replay_error = float(np.max(np.abs(reconstructed - actual)))
+                estimates = [filtered_recorded_scan(coil, start, len(gain), order) for order in result['quadrature_orders']]
+                nominal_estimates = [filtered_recorded_scan(nominal_coil, start, len(gain), order)
+                    for order in result['quadrature_orders']]
+                disagreement = max(float(np.max(np.abs(pair[0] - pair[-1]))) for pair in (estimates, nominal_estimates))
+                available = readout_times <= frame.available_time_s
+                history = electrical.CurrentReadings(active, readout_times[available],
+                    np.vstack([row['adc_codes'] for row in readouts])[available], readout_times[available][-1])
+                measured = sensing.measured_coil_fields(fields, history, frame)[0]
+                linear = sensing.filtered_scan(readout_times[available], exact_currents[available] @ nominal.T, start).mean(axis=1)
+                calibrated_exponential = sensing.filtered_scan(readout_times[available], calibrated_currents[available] @ nominal.T,
+                    start, fields.coil_time_constant).mean(axis=1)
+                exponential = sensing.filtered_scan(readout_times[available], exact_currents[available] @ nominal.T,
+                    start, fields.coil_time_constant).mean(axis=1)
+                measured_linear = sensing.filtered_scan(history.sample_times_s, history.decode(frame.available_time_s) @ nominal.T, start).mean(axis=1)
+                decoded = ((frame.adc_codes + 0.5) * sensing.hall_readout()[2]
+                    - Fixed.hall_supply_voltage / 2 / Fixed.hall_sensitivity).mean(axis=1)
+                components = dict(magnet_motion_and_filter=actual.mean(axis=1) - estimates[-1].mean(axis=1),
+                    coil_calibration=estimates[-1].mean(axis=1) - nominal_estimates[-1].mean(axis=1),
+                    current_reconstruction=nominal_estimates[-1].mean(axis=1) - exponential,
+                    current_calibration=exponential - calibrated_exponential,
+                    current_noise_and_quantization=calibrated_exponential - measured,
+                    hall_noise_and_quantization=decoded - actual.mean(axis=1))
+                corrected = decoded - measured
+                decomposition_error = float(np.max(np.abs(sum(components.values()) - corrected)))
+                if decomposition_error > result['limits']['independent_reference_T']:
+                    raise ValueError('Corrected Hall attribution does not close')
+                rows.append(dict(start_s=start, adc_codes=frame.adc_codes.tolist(), available_time_s=frame.available_time_s,
+                    dense_replay_error_T=replay_error, coil_reference_disagreement_T=disagreement,
+                    filtered_coil_T=estimates[-1].tolist(), corrected_signal_T=corrected.tolist(),
+                    corrected_signal_components_T={key: value.tolist() for key, value in components.items()},
+                    decomposition_error_T=decomposition_error,
+                    linear_reconstruction_error_T=(nominal_estimates[-1].mean(axis=1) - linear).tolist(),
+                    corrected_linear_signal_T=(decoded - measured_linear).tolist(), reference_passed=max(replay_error, disagreement) <= result['limits']['independent_reference_T']))
+            random_matches = sensor.random.bit_generator.state == final['sensors']['random']
+            result['cases'][name] = dict(scans=rows, sensor_random_state_reproduced=random_matches)
+            if not random_matches or not rows or not all(row['reference_passed'] for row in rows):
+                result['status'] = 'recorded_reference_failed'
+                airborne_verification.save_summary(output / 'summary.json', result)
+                return result
+        for first, second in ((names[0], names[1]), (names[0], names[2]), (names[1], names[2])):
+            rows = []
+            first_scans, second_scans = saved[first]['evidence']['scans'], saved[second]['evidence']['scans']
+            if [row['start_s'] for row in first_scans] != [row['start_s'] for row in second_scans]:
+                raise ValueError('Recorded comparison requires identical scan clocks')
+            for actual_first, actual_second, coil_first, coil_second in zip(first_scans, second_scans,
+                    result['cases'][first]['scans'], result['cases'][second]['scans']):
+                total = np.array(actual_second['samples_T']) - actual_first['samples_T']
+                coil_difference = np.array(coil_second['filtered_coil_T']) - coil_first['filtered_coil_T']
+                remaining = total - coil_difference
+                maximum = np.unravel_index(np.argmax(np.abs(total)), total.shape)
+                reference_bound = sum(row['coil_reference_disagreement_T'] for row in (coil_first, coil_second))
+                rows.append(dict(start_s=actual_first['start_s'], maximum_raw_difference_T=float(np.max(np.abs(total))),
+                    maximum_coil_difference_T=float(np.max(np.abs(coil_difference))),
+                    maximum_remaining_difference_T=float(np.max(np.abs(remaining))),
+                    reference_disagreement_bound_T=reference_bound,
+                    remaining_with_reference_bound_T=float(np.max(np.abs(remaining))) + reference_bound,
+                    within_original_signal_limit=bool(np.max(np.abs(remaining)) + reference_bound <= result['limits']['raw_signal_T']),
+                    worst_raw_sample=dict(channel=int(maximum[0]), sample=int(maximum[1]),
+                        total_T=float(total[maximum]), coil_T=float(coil_difference[maximum]), remaining_T=float(remaining[maximum])),
+                    remaining_difference_T=remaining.tolist(),
+                    corrected_signal_difference_T=(np.array(coil_second['corrected_signal_T']) - coil_first['corrected_signal_T']).tolist(),
+                    corrected_signal_component_differences_T={key: (np.array(coil_second['corrected_signal_components_T'][key])
+                        - coil_first['corrected_signal_components_T'][key]).tolist() for key in coil_first['corrected_signal_components_T']},
+                    corrected_linear_difference_T=(np.array(coil_second['corrected_linear_signal_T'])
+                        - coil_first['corrected_linear_signal_T']).tolist()))
+            result['comparisons'][first + '_vs_' + second] = rows
+    result.update(status='diagnosed', elapsed_s=perf_counter() - started)
+    airborne_verification.save_summary(output / 'summary.json', result)
+    return result
+
+
+def recorded_physical_solution(recorder):
+    from scipy.integrate import OdeSolution
+    pieces = [piece for segment in recorder.segments for piece in segment.sol.physical.interpolants]
+    return OdeSolution(np.r_[pieces[0].t_old, [piece.t for piece in pieces]], pieces)
+
+
+def compare_drive_trajectory(reference, report, simulation):
+    from methodology.airborne_inputs import physical_comparison
+    rows = []
+    for row in report['trace']:
+        if row['time_s'] < reference.ts[0] or row['time_s'] > reference.ts[-1] + Fixed.adaptive_clock_tolerance:
+            raise ValueError('Matched drive comparison cannot extrapolate recorded physics')
+        state = reference(row['time_s'])
+        pose = np.r_[state[:3] - [0, 0, simulation.plant.geometry.center_of_mass_height],
+            Rotation.from_quat(state[3:7], scalar_first=True).as_euler('xyz')]
+        rows.append(dict(time_s=row['time_s'], pose=pose.tolist(), currents_A=state[simulation.dynamics.current].tolist()))
+    return physical_comparison(dict(report, trace=rows), report)
+
+
+def record_joint_drive(simulation, process_events, commands, regulators, now, regulator_due, command_due, complete):
+    process_events(now, regulator_due, command_due, complete)
+    if simulation.stop_reason is not None or complete:
+        return
+    if command_due:
+        commands.append(dict(time_s=now, quantized_command_A=simulation.drivers.command.tolist()))
+    if regulator_due:
+        regulators.append(dict(time_s=now, voltage_V=simulation.drivers.voltage.tolist(),
+            requested_voltage_V=simulation.drivers.requested_voltage.tolist()))
+
+
+def compare_controller_allocation(simulation, command, reference_matrix, checks, *args):
+    candidate = command(*args)
+    if not candidate['accepted']:
+        return candidate
+    nominal = simulation.controller.nominal_matrix.copy()
+    with patch.object(levitation_sim.CoilForceQuadrature, 'matrix', reference_matrix):
+        reference = command(*args)
+    simulation.controller.nominal_matrix = nominal
+    limit = Fixed.driver_channel_current * Fixed.qualification_current_reserve_fraction * Fixed.qualification_convergence_fraction
+    difference = float(np.max(np.abs(reference['currents'] - candidate['currents']))) if reference['accepted'] else None
+    passed = reference['accepted'] and difference <= limit
+    checks.append(dict(time_s=simulation.clock, passed=passed, reference_accepted=reference['accepted'],
+        command_difference_A=difference, limit_A=limit))
+    if not passed:
+        simulation.stop_reason = 'matched_controller_allocation_failed'
+    return candidate
+
+
+def check_recorded_sensor_scans(recorder, reference, checks):
+    if len(checks) == len(recorder.scans):
+        return True
+    trajectory = recorded_physical_solution(recorder)
+    for scan in recorder.scans[len(checks):]:
+        result = reference.check(trajectory, scan)
+        checks.append(result)
+        if not result['passed']:
+            return False
+    return True
+
+
+def advance_comparison_checkpoint(simulation):
+    while not simulation.finished:
+        simulation.advance()
+        if simulation.checkpoint_due():
+            break
+
+
+
+def replay_joint_drive(folder, native_folder, cache_folder, output):
+    from contextlib import ExitStack
+    from zipfile import ZipFile, ZIP_DEFLATED
+    from methodology import airborne_inputs, coil_field, coil_field_verification, magnetic_atlas, magnetic_spline, numerical_accuracy
+    if output.exists():
+        raise ValueError('Preserve existing joint drive replay evidence')
+    batch = verify_recorded_batch(folder)
+    replay_folder = folder / 'controller_replay'
+    replay = verify_recorded_batch(replay_folder)
+    if replay['status'] != 'reproduced':
+        raise ValueError('Joint drive replay requires reproduced controller outputs')
+    for name, digest in replay['input_sha256'].items():
+        if hashlib.sha256(Path(name).read_bytes()).hexdigest() != digest:
+            raise ValueError('Recorded drive replay input changed: ' + name)
+    role = 'coil_cache'
+    initial = json.loads((folder / role / 'initial_snapshot.json').read_text())
+    final = json.loads((folder / role / 'snapshot.json').read_text())
+    evidence = json.loads((folder / role / 'evidence.json').read_text())
+    construction = magnetics.ConstructionModel(recorded_piece_properties=initial['construction']['piece_properties'])
+    construction.use_cad_mass = initial['construction']['use_cad_mass']
+    construction.return_depth = initial['construction']['return_depth']
+    atlas = magnetic_atlas.MagneticFieldAtlas.load(folder / 'atlas.npz')
+    library = native_folder / 'native/magnetic_spline.so'
+    cache = coil_field_verification.DiagnosticCoilCache(cache_folder, library, batch['candidate']['order'], True)
+    if cache.identity != batch['candidate'] or atlas.identity != batch['atlas_identity']:
+        raise ValueError('Joint drive replay magnetic identity differs')
+    reference = recorded_dense_trajectory(folder / role / 'dense.npz', 'physical')
+    signals = {scan['start_s']: np.array(scan['samples_T']) for scan in evidence['scans']}
+    result = dict(status='running', scope='Tighter joint physical integration with identical recorded drive signals; no closed-loop qualification',
+        source_sha256=dict(batch['source_sha256'], **source_fingerprints(__file__, airborne_inputs.__file__)),
+        input_sha256=source_fingerprints(folder / 'summary.json', replay_folder / 'summary.json', replay_folder / 'sources.zip'),
+        comparisons=[], limitations=['This isolates physics integration from changed digitized sensor decisions.',
+            'The original closed-loop failure and its limits remain unchanged.'])
+    output.mkdir(parents=True)
+    with ZipFile(output / 'sources.zip', 'x', compression=ZIP_DEFLATED) as archive:
+        for name in result['source_sha256']:
+            archive.write(name, name)
+    started = perf_counter()
+    with ExitStack() as resources:
+        runtime = resources.enter_context(magnetic_spline.native_evaluation(atlas, library))
+        if not same_native_runtime(runtime, batch['runtime']):
+            raise ValueError('Joint drive replay runtime differs')
+        cache.evaluate = resources.enter_context(magnetic_spline.spline_workers(cache.native, Fixed.native_spline_workers))
+        simulation = airborne_inputs.SharedJointInputSimulation(construction, final['joint']['clock'], initialize=False,
+            tolerance_scale=1 / Fixed.qualification_refinement_factor, atlas=atlas, magnetic_mode='atlas_forces',
+            motion_scenario=initial['motion_scenario'])
+        simulation.configure_recording(initial, replay['cases'][role]['commands'], replay['cases'][role]['regulators'])
+        simulation.source.update(result['source_sha256'])
+        simulation.plant.array.force_quadrature = simulation.plant.array.create_force_quadrature()
+        queries = coil_field.CoilSurfaceQueries(simulation.plant.array, min(Fixed.coupling_flux_orders))
+        def candidate_matrix(quadrature, source, center, field_evaluator=None):
+            if quadrature is not simulation.plant.array.force_quadrature:
+                raise ValueError('Joint drive replay encountered another force quadrature')
+            return queries.matrix(source, center, cache)
+        recorder = numerical_accuracy.JointTrajectoryRecorder(simulation)
+        resources.enter_context(patch.object(levitation_sim.CoilForceQuadrature, 'matrix', candidate_matrix))
+        resources.enter_context(patch.object(simulation.dynamics, 'integrate', recorder.integrate))
+        resources.enter_context(patch.object(simulation.sensors, 'encode_signal', recorder.encode_signal))
+        sensor_reference = MatchedHallReference(simulation.fields, initial['sensors'], simulation.identities,
+            simulation.plant.geometry.center_of_mass_height, simulation.dynamics.current)
+        checks = []
+        simulation.save_checkpoint(output / 'initial_snapshot.json')
+        while not simulation.finished:
+            advance_comparison_checkpoint(simulation)
+            report = simulation.report()
+            comparison = compare_drive_trajectory(reference, report, simulation)
+            raw_difference = max((float(np.max(np.abs(np.array(scan['samples_T']) - signals[scan['start_s']])))
+                for scan in recorder.scans), default=0.)
+            comparison.update(time_s=simulation.clock, raw_signal_difference_T=raw_difference)
+            comparison['checks']['raw_signal'] = raw_difference <= Fixed.atlas_field_tolerance
+            comparison['checks']['matched_input_sensing'] = check_recorded_sensor_scans(recorder, sensor_reference, checks)
+            comparison['converged'] = all(comparison['checks'].values())
+            result['comparisons'].append(comparison)
+            if not comparison['converged'] and simulation.stop_reason is None:
+                simulation.stop_reason, simulation.finished = 'recorded_drive_refinement_failed', True
+            simulation.save_checkpoint(output / 'snapshot.json')
+            result.update(elapsed_s=perf_counter() - started, duration_completed_s=simulation.clock,
+                stop_reason=simulation.stop_reason, integration=simulation.accounting, peaks=simulation.peaks,
+                instruction_identity=simulation.instruction_identity, matched_input_sensing=checks,
+                dense_sha256=recorder.save_dense(output / 'dense.npz'))
+            airborne_verification.save_summary(output / 'summary.json', result)
+        result['status'] = 'passed' if simulation.stop_reason is None and all(row['converged'] for row in result['comparisons']) else 'failed'
+        airborne_verification.save_summary(output / 'summary.json', result)
+    return result
+
+
+def compare_coil_coupled(folder, cache_folder, verification_path, output, movement=None, matched_drive=False):
+    from contextlib import ExitStack
+    from zipfile import ZipFile, ZIP_DEFLATED
+    from methodology import airborne_inputs, coil_field, coil_field_verification, hover, magnetic_atlas, magnetic_spline, numerical_accuracy
+    from methodology.benchmark_magnetics import recorded_force_geometry, save_spline_diagnostic
+    from methodology.joint_airborne import JointAirborneSimulation
+
+    if output.exists():
+        raise ValueError('Preserve existing coupled coil-field evidence')
+    gate = json.loads(verification_path.read_text())
+    if gate['status'] != 'passed':
+        raise ValueError('Coupled coil comparison requires passing derivative and work verification')
+    for name, digest in dict(gate['source_sha256'], **gate['input_sha256']).items():
+        if hashlib.sha256(Path(name).read_bytes()).hexdigest() != digest:
+            raise ValueError('Coil coupling verification source or input changed: ' + name)
+    library = folder / 'native/magnetic_spline.so'
+    cache = coil_field_verification.DiagnosticCoilCache(cache_folder, library, gate['candidate']['order'], True)
+    if cache.identity != gate['candidate']:
+        raise ValueError('Coil cache differs from its coupling verification')
+    initial_path = folder / 'initial_checkpoint.json'
+    recorded = json.loads(initial_path.read_text())
+    geometry_path = next(Path(name) for name in cache.report['input_sha256'] if name.endswith('initial_checkpoint.json'))
+    if recorded['construction'] != json.loads(geometry_path.read_text())['construction']:
+        raise ValueError('Coupled trial construction differs from the verified coil geometry')
+    duration = Fixed.airborne_check_duration
+    scenario = 'hover'
+    inputs = source_fingerprints(verification_path, cache_folder / 'summary.json', initial_path, folder / 'atlas.npz')
+    if movement is not None:
+        retained = json.loads((movement / 'summary.json').read_text())
+        retained_initial = json.loads((movement / 'initial_checkpoint.json').read_text())
+        duration = Fixed.airborne_motion_start + Fixed.airborne_motion_duration + Fixed.airborne_motion_settle_duration
+        scenario = 'local_move'
+        if (not retained['passed'] or retained['motion_scenario'] != scenario or not np.isclose(retained['duration_completed_s'], duration, rtol=0, atol=Fixed.adaptive_clock_tolerance)
+                or retained_initial['construction'] != recorded['construction']):
+            raise ValueError('Movement comparison requires the complete matching retained local movement')
+        inputs.update(source_fingerprints(movement / 'summary.json', movement / 'initial_checkpoint.json'))
+    construction = magnetics.ConstructionModel(recorded_piece_properties=recorded['construction']['piece_properties'])
+    construction.use_cad_mass = recorded['construction']['use_cad_mass']
+    construction.return_depth = recorded['construction']['return_depth']
+    layout, array = recorded_force_geometry(recorded)
+    canonical = coil_field.CoilSurfaceQueries(array, min(Fixed.coupling_flux_orders))
+    levitation_sim.place_piece(layout)
+    with np.load(folder / 'atlas.npz', allow_pickle=False) as saved:
+        bounds = saved['bounds']
+        reference_order = min(Fixed.atlas_spline_orders) if movement is None else int(saved['orders'][0])
+        if movement is not None and not np.all(saved['orders'] == reference_order):
+            raise ValueError('Movement reference requires the retained uniform spline order')
+    output.mkdir(parents=True)
+    started = perf_counter()
+    atlas = magnetic_atlas.MagneticFieldAtlas(layout.collection, bounds,
+        min(Fixed.atlas_grid_spacings), reference_order)
+    atlas.save(output / 'atlas.npz')
+    reference_build_s = perf_counter() - started
+    sources = dict(gate['source_sha256'], **source_fingerprints(__file__, hover.__file__,
+        airborne_verification.__file__, numerical_accuracy.__file__, airborne_inputs.__file__))
+    with ExitStack() as resources:
+        runtime = resources.enter_context(magnetic_spline.native_evaluation(atlas, library))
+        cache.evaluate = resources.enter_context(magnetic_spline.spline_workers(cache.native, Fixed.native_spline_workers))
+        simulation = JointAirborneSimulation(construction, duration, atlas=atlas, magnetic_mode='atlas_forces', motion_scenario=scenario)
+        simulation.source.update(sources)
+        initial = deepcopy(simulation.checkpoint_state())
+        report = dict(scope='Bounded coupled coil-field comparison from one acquired state; not full flight-envelope qualification',
+            motion_scenario=scenario, duration_s=duration, reference_order=reference_order,
+            status='running', source_sha256=simulation.source, runtime=runtime, atlas_identity=atlas.identity,
+            candidate=cache.identity, reference_build_s=reference_build_s,
+            sensor_gate='Independent convolution on each physical history; cross-run raw differences are also gated for matched drive',
+            input_sha256=inputs, cases={}, comparisons={})
+        with ZipFile(output / 'sources.zip', 'x', compression=ZIP_DEFLATED) as archive:
+            for name in simulation.source:
+                archive.write(name, name)
+        airborne_verification.save_summary(output / 'summary.json', report)
+        if matched_drive:
+            report.update(scope='Matched-drive numerical comparison plus one independent sensor-feedback movement; disturbance recovery remains unqualified',
+                qualification_basis='Identical recorded commands and voltages; unchanged physical/current/sensing limits',
+                feedback_robustness='pending', speed_comparison='Not comparable: reference replays omit controller computation')
+        cases, queries = {}, {}
+        commands, regulators, allocation_checks = [], [], []
+        reference_matrix = levitation_sim.CoilForceQuadrature.matrix
+        specifications = [('magnet_atlas', False, 1), ('coil_cache', True, 1)]
+        if movement is not None:
+            specifications.append(('coil_cache_tighter', True, 1 / Fixed.qualification_refinement_factor))
+        if matched_drive:
+            specifications = [('coil_cache', True, 1), ('magnet_atlas', False, 1),
+                ('coil_cache_tighter', True, 1 / Fixed.qualification_refinement_factor)]
+        for name, cached, scale in specifications:
+            shared = matched_drive and name != 'coil_cache'
+            if shared:
+                simulation = airborne_inputs.SharedJointInputSimulation(construction, duration, initialize=False,
+                    atlas=atlas, magnetic_mode='atlas_forces', motion_scenario=scenario)
+                simulation.configure_recording(dict(deepcopy(initial), schema='spline-evaluator-diagnostic-v1'), [], [])
+                simulation.source.update(sources)
+            elif name != 'magnet_atlas':
+                simulation = JointAirborneSimulation(construction, duration, initialize=False,
+                    atlas=atlas, magnetic_mode='atlas_forces', motion_scenario=scenario)
+                simulation.source.update(sources)
+                simulation.restore_checkpoint(deepcopy(initial))
+            simulation.tolerance_scale = scale
+            if cached:
+                for selected in (simulation.plant.array, simulation.controller.array):
+                    selected.force_quadrature = selected.create_force_quadrature()
+                    query = coil_field.CoilSurfaceQueries(selected, canonical.order)
+                    if any(first.shape != second.shape or not np.allclose(first, second,
+                            atol=Fixed.singular_value_tolerance, rtol=Fixed.matrix_rank_tolerance)
+                            for first, second in ((query.positions, canonical.positions), (query.elements, canonical.elements))):
+                        raise ValueError('Coupled coil quadrature differs from the verified cache geometry')
+                    queries[selected.force_quadrature] = query
+            path = output / name
+            path.mkdir()
+            identity = dict(force_method='coil_cache' if cached else 'magnet_atlas', native_runtime=runtime,
+                coil_cache=cache.identity if cached else None, tolerance_scale=scale,
+                scope='Prescribed-drive physical replay; controller inactive' if shared else 'Diagnostic force-matrix override for plant and controller; direct sensing unchanged')
+            save_spline_diagnostic(simulation, identity, path / 'initial_snapshot.json')
+            cases[name] = dict(simulation=simulation, cached=cached, shared=shared, path=path, identity=identity,
+                recorder=numerical_accuracy.JointTrajectoryRecorder(simulation), elapsed_s=0., simulation_elapsed_s=0.,
+                verification_elapsed_s=0., sensor_checks=[], sensor_reference=MatchedHallReference(simulation.fields,
+                    initial['sensors'], simulation.identities, simulation.plant.geometry.center_of_mass_height,
+                    simulation.dynamics.current))
+
+        def candidate_matrix(quadrature, source, center, field_evaluator=None):
+            return queries[quadrature].matrix(source, center, cache)
+
+        def compare(reference_name, candidate_name):
+            reference, candidate = cases[reference_name], cases[candidate_name]
+            if matched_drive:
+                comparison = compare_drive_trajectory(recorded_physical_solution(reference['recorder']),
+                    candidate['summary'], candidate['simulation'])
+            else:
+                comparison = airborne_verification.compare_trials(reference['summary'], candidate['summary'], trace_only=True)
+            scans = reference['recorder'].scans, candidate['recorder'].scans
+            same_times = [row['start_s'] for row in scans[0]] == [row['start_s'] for row in scans[1]]
+            comparison['checks']['same_scan_times'] = same_times
+            if same_times and scans[0]:
+                difference = float(np.max(np.abs(np.array([row['samples_T'] for row in scans[0]])
+                    - np.array([row['samples_T'] for row in scans[1]]))))
+                comparison.update(max_analogue_difference_T=difference, analogue_limit_T=Fixed.atlas_field_tolerance)
+                comparison['raw_difference_is_diagnostic'] = not matched_drive
+                if matched_drive:
+                    comparison['checks']['raw_signal'] = difference <= Fixed.atlas_field_tolerance
+            comparison['checks']['matched_input_sensing'] = all(check['passed'] for case in (reference, candidate) for check in case['sensor_checks'])
+            if reference['simulation'].finished and candidate['simulation'].finished:
+                if matched_drive:
+                    comparison['checks']['completed_without_stop'] = all(case['simulation'].stop_reason is None
+                        and abs(case['simulation'].clock - duration) <= Fixed.adaptive_clock_tolerance for case in (reference, candidate))
+                else:
+                    comparison['checks'].update(airborne_verification.compare_trials(reference['summary'], candidate['summary'])['checks'])
+                comparison['checks']['delivered_scans'] = bool(scans[0]) and bool(scans[1])
+            comparison.update(converged=all(comparison['checks'].values()), compared_through_s=candidate['summary']['duration_completed_s'])
+            return comparison
+
+        while not all(case['simulation'].finished for case in cases.values()):
+            for name, case in cases.items():
+                simulation, recorder, path, identity = (case[key] for key in ('simulation', 'recorder', 'path', 'identity'))
+                simulation.started = perf_counter() - case['elapsed_s']
+                if case['shared']:
+                    simulation.commands = {row['time_s']: np.array(row['quantized_command_A']) for row in commands}
+                    simulation.instructions = {row['time_s']: row for row in regulators}
+                    simulation.instruction_identity = hashlib.sha256(json.dumps(dict(commands=commands, regulators=regulators), sort_keys=True).encode()).hexdigest()
+                with ExitStack() as trial:
+                    if matched_drive and not case['shared']:
+                        process_events = simulation.process_events
+                        trial.enter_context(patch.object(simulation, 'process_events',
+                            lambda *args: record_joint_drive(simulation, process_events, commands, regulators, *args)))
+                    if case['cached']:
+                        trial.enter_context(patch.object(levitation_sim.CoilForceQuadrature, 'matrix', candidate_matrix))
+                    if matched_drive and not case['shared']:
+                        command = simulation.controller.command
+                        trial.enter_context(patch.object(simulation.controller, 'command',
+                            lambda *args: compare_controller_allocation(simulation, command, reference_matrix, allocation_checks, *args)))
+                    trial.enter_context(patch.object(simulation.dynamics, 'integrate', recorder.integrate))
+                    trial.enter_context(patch.object(simulation.sensors, 'encode_signal', recorder.encode_signal))
+                    advance_started = perf_counter()
+                    advance_comparison_checkpoint(simulation)
+                    case['simulation_elapsed_s'] += perf_counter() - advance_started
+                verification_started = perf_counter()
+                if simulation.stop_reason is None and not check_recorded_sensor_scans(recorder, case['sensor_reference'], case['sensor_checks']):
+                    simulation.stop_reason = 'matched_input_sensing_failed'
+                    simulation.finished = True
+                case['verification_elapsed_s'] += perf_counter() - verification_started
+                hover.check_operating_limits(simulation, simulation.report())
+                case['summary'] = simulation.report()
+                if (case['shared'] if matched_drive else case['cached']) and simulation.stop_reason is None:
+                    references = (['coil_cache'] if name == 'magnet_atlas' else ['coil_cache', 'magnet_atlas']) if matched_drive else (['magnet_atlas'] if name == 'coil_cache' else ['magnet_atlas', 'coil_cache'])
+                    for reference_name in references:
+                        comparison = compare(reference_name, name)
+                        report['comparisons'][reference_name + '_vs_' + name] = comparison
+                        if not comparison['converged']:
+                            simulation.stop_reason = 'numerical_comparison_failed'
+                            simulation.finished = True
+                            break
+                save_spline_diagnostic(simulation, identity, path / 'snapshot.json')
+                if matched_drive and not case['shared']:
+                    airborne_verification.save_summary(output / 'drive.json', dict(commands=commands, regulators=regulators, allocation_checks=allocation_checks))
+                airborne_verification.save_summary(path / 'evidence.json', dict(scans=recorder.scans, matched_input_sensing=case['sensor_checks'],
+                    dense_sha256=recorder.save_dense(path / 'dense.npz')))
+                case['summary'] = dict(simulation.report(), evaluator=identity)
+                case['elapsed_s'] = case['summary']['elapsed_s']
+                airborne_verification.save_summary(path / 'summary.json', case['summary'])
+                report['cases'][name] = {key: case['summary'][key] for key in ('passed', 'elapsed_s', 'duration_completed_s',
+                    'delivered_moving_scans', 'stop_reason', 'peaks', 'integration')}
+                report['cases'][name].update(simulation_elapsed_s=case['simulation_elapsed_s'],
+                    verification_elapsed_s=case['verification_elapsed_s'], checked_scans=len(case['sensor_checks']),
+                    maximum_sensor_error_T=max((check['combined_error_T'] for check in case['sensor_checks']), default=None))
+                if matched_drive:
+                    report.update(allocation_checks=allocation_checks, drive_sha256=source_fingerprints(output / 'drive.json'))
+                report.update(total_elapsed_s=perf_counter() - started,
+                    status='running' if simulation.stop_reason is None else name + '_failed')
+                airborne_verification.save_summary(output / 'summary.json', report)
+                print(f"{name}: {simulation.clock:.6f} s, stop={simulation.stop_reason}", flush=True)
+                if simulation.stop_reason is not None:
+                    return report
+        if matched_drive:
+            passed = cases['coil_cache']['summary']['passed'] and all(row['converged'] for row in report['comparisons'].values())
+            report.update(status='numerical_passed_feedback_pending' if passed else 'incomplete',
+                numerical_passed=passed, closed_loop_movement_passed=cases['coil_cache']['summary']['passed'],
+                drive_sha256=source_fingerprints(output / 'drive.json'), total_elapsed_s=perf_counter() - started)
+        else:
+            report.update(status='passed' if all(case['summary']['passed'] for case in cases.values()) else 'incomplete',
+                coupled_speedup=cases['magnet_atlas']['simulation_elapsed_s'] / cases['coil_cache']['simulation_elapsed_s'],
+                validated_run_speedup=cases['magnet_atlas']['elapsed_s'] / cases['coil_cache']['elapsed_s'],
+                total_elapsed_s=perf_counter() - started)
+        airborne_verification.save_summary(output / 'summary.json', report)
+    return report
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Diagnose airborne numerical and sensing sensitivity using saved inputs and targeted coupled trials.')
     mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--drive-replay', type=Path, help='Replay verified fixed drive signals with tighter physics integration.')
+    mode.add_argument('--controller-response', type=Path, help='Isolate saved Hall/current inputs at the largest command change.')
+    mode.add_argument('--controller-replay', type=Path, help='Replay saved controller decisions without physical integration.')
+    mode.add_argument('--matched-sensing', type=Path, help='Check independent Hall convolution on saved matching physical inputs.')
+    mode.add_argument('--coil-signal-attribution', type=Path, help='Separate coil-field changes using saved dense trajectories; no dynamics rerun.')
+    mode.add_argument('--coil-cache', type=Path, help='Compare a verified coil cache against the native baseline; --comparison supplies its work/derivative report.')
     mode.add_argument('--numerics', action='store_true', help='Diagnose pose-fit sensitivity and magnetic refinement at identical states.')
     mode.add_argument('--feedback', action='store_true', help='Isolate feedback errors using recorded sensors and diagnostic truth substitutions.')
     mode.add_argument('--observer', action='store_true', help='Compare observer settings and independent Hall noise on recorded motion.')
@@ -1488,17 +2525,50 @@ if __name__ == '__main__':
     parser.add_argument('--capture', type=Path, help='Existing coarse sensor capture to compare with a recorded magnetic-refinement checkpoint.')
     parser.add_argument('--checkpoint', type=Path)
     parser.add_argument('--atlas', type=Path, help='Qualified atlas required to replay an adaptive atlas recording.')
+    parser.add_argument('--movement', type=Path, help='With --coil-cache, compare the retained local-movement folder and tighter integration.')
+    parser.add_argument('--worst-scan', action='store_true', help='With --matched-sensing, attribute the largest saved cross-run Hall discrepancy.')
+    parser.add_argument('--matched-drive', action='store_true', help='With --coil-cache and --movement, compare physics on identical recorded drive signals.')
     parser.add_argument('--fixed-reference', action='store_true', help='With --refine-hover, halve the recorded fixed reference step instead of adaptive tolerances.')
     parser.add_argument('--output', type=Path)
     arguments = parser.parse_args()
+    if arguments.movement is not None and arguments.coil_cache is None:
+        parser.error('--movement requires --coil-cache')
+    if arguments.worst_scan and arguments.matched_sensing is None:
+        parser.error('--worst-scan requires --matched-sensing')
+    if arguments.matched_drive and (arguments.coil_cache is None or arguments.movement is None):
+        parser.error('--matched-drive requires --coil-cache and --movement')
     if arguments.fixed_reference and not arguments.refine_hover:
         parser.error('--fixed-reference requires --refine-hover')
     if arguments.atlas is not None and not (arguments.recorded_resolution or arguments.refine_hover or arguments.count_feedback):
         parser.error('--atlas requires --recorded-resolution, --refine-hover or --count-feedback')
-    if not (arguments.sensor_resolution or arguments.count_response or arguments.count_feedback or arguments.precision or arguments.recorded_resolution or arguments.refine_hover) and (arguments.comparison is not None or arguments.capture is not None):
+    if not (arguments.drive_replay or arguments.controller_response or arguments.controller_replay or arguments.coil_cache or arguments.sensor_resolution or arguments.count_response or arguments.count_feedback or arguments.precision or arguments.recorded_resolution or arguments.refine_hover) and (arguments.comparison is not None or arguments.capture is not None):
         parser.error('--comparison and --capture require a sensor/count diagnostic')
     results = Path(__file__).with_name('results')
-    if arguments.refine_hover:
+    if arguments.drive_replay:
+        if any(value is None for value in (arguments.baseline, arguments.comparison, arguments.output)):
+            parser.error('--drive-replay requires --baseline (native folder), --comparison (coil cache) and --output')
+        replay_joint_drive(arguments.drive_replay, arguments.baseline, arguments.comparison, arguments.output)
+    elif arguments.controller_response:
+        if any(value is None for value in (arguments.baseline, arguments.comparison, arguments.output)):
+            parser.error('--controller-response requires --baseline (native folder), --comparison (controller replay) and --output')
+        recorded_controller_response(arguments.controller_response, arguments.comparison, arguments.baseline, arguments.output)
+    elif arguments.controller_replay:
+        if any(value is None for value in (arguments.baseline, arguments.comparison, arguments.output)):
+            parser.error('--controller-replay requires --baseline (native folder), --comparison (coil cache) and --output')
+        replay_recorded_controller(arguments.controller_replay, arguments.baseline, arguments.comparison, arguments.output)
+    elif arguments.matched_sensing:
+        if arguments.output is None or any(value is not None for value in (arguments.baseline, arguments.comparison, arguments.capture, arguments.checkpoint, arguments.atlas)):
+            parser.error('--matched-sensing requires only its recordings folder and --output')
+        verify_recorded_sensing(arguments.matched_sensing, arguments.output, arguments.worst_scan)
+    elif arguments.coil_signal_attribution:
+        if arguments.output is None or any(value is not None for value in (arguments.baseline, arguments.comparison, arguments.capture, arguments.checkpoint, arguments.atlas)):
+            parser.error('--coil-signal-attribution requires only its recordings folder and --output')
+        attribute_recorded_coil_signal(arguments.coil_signal_attribution, arguments.output)
+    elif arguments.coil_cache:
+        if any(value is None for value in (arguments.baseline, arguments.comparison, arguments.output)) or arguments.capture is not None or arguments.checkpoint is not None:
+            parser.error('--coil-cache requires --baseline (native folder), --comparison (verification) and --output')
+        compare_coil_coupled(arguments.baseline, arguments.coil_cache, arguments.comparison, arguments.output, arguments.movement, arguments.matched_drive)
+    elif arguments.refine_hover:
         if any(value is None for value in (arguments.baseline, arguments.comparison, arguments.checkpoint, arguments.atlas, arguments.output)) or arguments.capture is not None:
             parser.error('--refine-hover requires --baseline, --comparison, --checkpoint (release), --atlas and --output')
         refine_recorded_hover(arguments.baseline, arguments.comparison, arguments.checkpoint, arguments.atlas, arguments.output, arguments.fixed_reference)

@@ -4,7 +4,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from scipy.interpolate import NdBSpline, make_interp_spline
+from scipy.interpolate import NdBSpline
 
 import magpylib as magpy
 import numpy as np
@@ -137,16 +137,12 @@ class NativeSplineTests(unittest.TestCase):
         np.testing.assert_allclose(evaluator(points), spline(points), atol=Fixed.singular_value_tolerance, rtol=Fixed.matrix_rank_tolerance)
 
     def test_independent_vector_polynomial_and_empty_queries(self):
+        from methodology.magnetic_atlas import tensor_product_spline
         order = max(Fixed.atlas_spline_orders)
         coordinates = np.linspace(0., 1., order + 1)
         x, y, z = np.meshgrid(coordinates, coordinates, coordinates, indexing='ij')
         coefficients = np.stack((x*x + y*z, x*y*z, x-y+z), axis=-1)
-        knots = []
-        for axis in range(3):
-            spline = make_interp_spline(coordinates, coefficients, k=order, axis=axis)
-            coefficients = np.moveaxis(spline.c, 0, axis)
-            knots.append(spline.t)
-        evaluator = TensorSplineEvaluator(NdBSpline(tuple(knots), coefficients, order), self.library)
+        evaluator = TensorSplineEvaluator(tensor_product_spline([coordinates] * 3, coefficients, order), self.library)
         points = np.random.default_rng(Fixed.atlas_validation_seed).uniform(size=(Fixed.atlas_validation_points, 3))
         x, y, z = points.T
         expected = np.column_stack((x*x+y*z, x*y*z, x-y+z))

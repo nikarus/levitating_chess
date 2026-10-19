@@ -42,6 +42,10 @@ def current_box_bound(difference, current_limit):
 
 def cad_field_quadrature(path, points, order, return_depth):
     positions, elements = magnetics.curved_conductor_samples(path, order, return_depth)
+    return sampled_conductor_field(points, positions, elements)
+
+
+def sampled_conductor_field(points, positions, elements):
     fields = []
     for point in points:
         displacement = point - positions

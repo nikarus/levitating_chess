@@ -11,6 +11,7 @@ import numpy as np
 from model import Fixed
 from methodology import airborne, airborne_verification, electrical, hover, sensing, source_fingerprints
 from methodology.magnetic_atlas import AtlasAirborneSimulation, MagneticFieldAtlas
+from methodology.joint_airborne import JointAirborneSimulation
 
 
 def reconstruct_instructions(drivers, initial, checkpoint, commands):
@@ -101,6 +102,68 @@ class SharedInputSimulation(AtlasAirborneSimulation):
     def checkpoint_state(self):
         state = super().checkpoint_state()
         state['shared_input'] = dict(instruction_identity=self.instruction_identity, target_s=self.target)
+        return state
+
+
+
+class SharedJointInputSimulation(JointAirborneSimulation):
+    physical_row = SharedInputSimulation.physical_row
+
+    def configure_recording(self, initial, commands, regulators):
+        if initial['schema'] != 'spline-evaluator-diagnostic-v1' or initial['joint']['clock'] != 0:
+            raise ValueError('Joint drive replay requires a recorded diagnostic release')
+        if initial['construction'] != self.construction_state() or initial['motion_scenario'] != self.motion_scenario:
+            raise ValueError('Joint drive replay construction or reference differs')
+        self.plant.restore_checkpoint(initial['plant'])
+        for name in airborne.DRIVER_STATE:
+            setattr(self.drivers, name, np.array(initial['drivers'][name]))
+        for name in ('gain', 'offset', 'actual_coil_field'):
+            setattr(self.sensors, name, np.array(initial['sensors'][name]))
+        self.sensors.random.bit_generator.state = deepcopy(initial['sensors']['random'])
+        for name in airborne.TRACKER_ARRAY_STATE:
+            setattr(self.tracker, name, None if initial['tracker'][name] is None else np.array(initial['tracker'][name]))
+        for name in airborne.TRACKER_CLOCK_STATE:
+            setattr(self.tracker, name, initial['tracker'][name])
+        self.hall_filter = np.array(initial['joint']['hall_filter'])
+        self.commands = {row['time_s']: np.array(row['quantized_command_A']) for row in commands}
+        self.instructions = {row['time_s']: row for row in regulators}
+        self.instruction_identity = hashlib.sha256(json.dumps(dict(commands=commands, regulators=regulators), sort_keys=True).encode()).hexdigest()
+        self.source.update(source_fingerprints(__file__))
+
+    def process_events(self, now, regulator_due, command_due, complete):
+        if not complete:
+            if command_due:
+                self.drivers.command = self.commands[now].copy()
+            if regulator_due:
+                for name in ('voltage', 'requested_voltage'):
+                    setattr(self.drivers, name, np.array(self.instructions[now][name + '_V']))
+        if now >= sensing.hall_available_time(self.next_scan / Fixed.pose_feedback_rate, len(self.fields.points)):
+            self.moving_hall_frame(self.next_scan / Fixed.pose_feedback_rate)
+            self.next_scan += 1
+            self.delivered_scans += 1
+        self.observe_physics(self.plant.truth())
+        if np.max(np.abs(self.drivers.currents)) > self.drivers.current_limit:
+            self.stop_reason = 'current_limit_exceeded'
+        self.finished = bool(self.stop_reason or complete)
+        if regulator_due or self.finished:
+            self.trace.append(self.physical_row())
+
+    def report(self):
+        report = super().report()
+        trace = list(self.trace)
+        if not trace or trace[-1]['time_s'] < self.clock:
+            trace.append(self.physical_row())
+        report.update(scope='Joint physical integration under recorded commands and voltages; no sensor feedback',
+            passed=False, diagnostic_completed=self.finished and self.stop_reason is None,
+            instruction_identity=self.instruction_identity, trace=trace)
+        report['limitations'] = ['Recomputes physical currents, filtered setpoints, back-EMF, motion and passive Hall signals under identical recorded drive instructions.',
+            'The observer and current regulator do not receive the new sensor readings; this is a physical refinement diagnostic, not a controlled flight.',
+            'Only the recorded movement prefix and its magnetic domain are tested.']
+        return report
+
+    def checkpoint_state(self):
+        state = super().checkpoint_state()
+        state.update(schema='airborne-joint-shared-input-v1', instruction_identity=self.instruction_identity)
         return state
 
 

@@ -11,6 +11,25 @@ from methodology import airborne, airborne_inputs, electrical
 
 
 class SharedInputTests(unittest.TestCase):
+    def test_shared_joint_drive_preserves_physical_filter_and_does_not_call_feedback(self):
+        driver = SimpleNamespace(command=np.zeros(1), currents=np.zeros(1), filtered_command=np.ones(1),
+            current_limit=Fixed.driver_channel_current, regulate=Mock(side_effect=AssertionError('Unexpected regulator')))
+        simulation = SimpleNamespace(drivers=driver, commands={0.: np.array([2.])},
+            instructions={0.: dict(voltage_V=[3.], requested_voltage_V=[4.])},
+            next_scan=0, fields=SimpleNamespace(points=[0]), observe_physics=Mock(),
+            plant=SimpleNamespace(truth=Mock(return_value={})), stop_reason=None,
+            trace=[], physical_row=Mock(return_value=dict(time_s=0.)))
+        airborne_inputs.SharedJointInputSimulation.process_events(simulation, 0., True, True, False)
+        np.testing.assert_array_equal(driver.command, [2.])
+        np.testing.assert_array_equal(driver.voltage, [3.])
+        np.testing.assert_array_equal(driver.filtered_command, [1.])
+        driver.regulate.assert_not_called()
+        self.assertFalse(simulation.finished)
+        simulation.commands.clear()
+        simulation.instructions.clear()
+        airborne_inputs.SharedJointInputSimulation.process_events(simulation, 0., True, True, True)
+        self.assertTrue(simulation.finished)
+
     def driver(self):
         driver = electrical.CoilDrivers.__new__(electrical.CoilDrivers)
         driver.identities = (0,)

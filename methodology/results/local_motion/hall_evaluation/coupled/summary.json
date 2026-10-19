@@ -1,0 +1,191 @@
+{
+    "scope": "Short coupled Hall implementation screen from a common acquired state; not sustained flight qualification",
+    "status": "passed",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "acc9d2884b521a79fdd02ed812f6355b705d8ed44426b2cc120be616303ac75d",
+        "levitation_sim.py": "91eea3f343cbfb0722c8325f52f6c55ff49995a2e4ff726584ead98b1e4cd5a3",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "b581ae6204830eec8ccecc9398ae8afe9877592f7d26a4f4dba6d73d36279a47",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "0558fffe5cb8bc3dd6924bc94aaf8d1ddd5328900e6531496786e93a7d77bd00",
+        "methodology/motion.py": "e61946cc0206a57ddc3c9b3eaa71cf012d8a3f4039dc54873ac5c23e4bc8f64b",
+        "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+        "methodology/requirements.txt": "fd94cc8fc4087c9841735e4f5978a742740beb6c30c5dcd81cf1e3b8072ba4df",
+        "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+        "methodology/airborne.py": "a479d6507878e6152edccc9389b589c3561164bfec86822b43754b61f72e3782",
+        "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+        "methodology/sensing.py": "5835a7ec568addaf5ba0cda8e12293b82392fb520875b1149b0e2f1eadc52cc0",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/magnetic_atlas.py": "8f2aa2b8c532abba755b614a2d5780806d127199e12b847ce0e9a93d680932bc",
+        "methodology/magnetic_spline.py": "bf148a591bd019245e0a740f360a62cad0ccb96f4efd707a73a8db36e3609dee",
+        "methodology/magnetic_spline.c": "40ff3cba90d7da6e745a35c49d08232b0cc6fb58c3d57d370219a4e4ec1ee61c",
+        "methodology/joint_airborne.py": "f703a63946cc9623d086909a050c84d46d9a89276e7cc599dd64544e6f890cc5",
+        "methodology/adaptive_airborne.py": "987f2334b809a0433725ca22a2d5fe5347874d8d99f467ad9460e0252a486125",
+        "methodology/benchmark_magnetics.py": "0422b34f24d73bc1cde7e892a45c1e940a7f08ab603227ba8d839c2cb67f2172",
+        "methodology/hover.py": "108df953300f19ba831dfb18f9e7a0fdbec6b29df7d6f9035a3af3dfee8d25c9",
+        "methodology/airborne_verification.py": "998de7bcd33103cbde914e4a3abf5e1cd2a6a6ce9944a940d0309b4f0a910dfa",
+        "methodology/numerical_accuracy.py": "523b9f09adbe613b6e8eabd7af09be8ca114691d6192a14591493fb7636a3b39"
+    },
+    "runtime": {
+        "method": "native",
+        "build": {
+            "source_sha256": {
+                "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+                "methodology/magnetic_spline.py": "bf148a591bd019245e0a740f360a62cad0ccb96f4efd707a73a8db36e3609dee",
+                "methodology/magnetic_spline.c": "40ff3cba90d7da6e745a35c49d08232b0cc6fb58c3d57d370219a4e4ec1ee61c"
+            },
+            "command": [
+                "cc",
+                "-std=c99",
+                "-O3",
+                "-fPIC",
+                "-shared",
+                "-ffp-contract=off",
+                "/home/arseniy/projects/flying_chess/methodology/magnetic_spline.c",
+                "-o",
+                "methodology/results/hover/native_spline/qualified/native/magnetic_spline.so"
+            ],
+            "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+            "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+            "machine": "x86_64",
+            "library_sha256": "c7a0113cdd5b516bc6acc9f201230b8dcd39c27483c23e1da28e568a01560a03"
+        },
+        "workers": 4,
+        "blas_threads": 1,
+        "blas_libraries": [
+            {
+                "internal_api": "openblas",
+                "prefix": "libscipy_openblas",
+                "version": "0.3.31.188.0",
+                "num_threads": 1,
+                "threading_layer": "pthreads",
+                "architecture": "Haswell"
+            },
+            {
+                "internal_api": "openblas",
+                "prefix": "libscipy_openblas",
+                "version": "0.3.30",
+                "num_threads": 1,
+                "threading_layer": "pthreads",
+                "architecture": "Haswell"
+            }
+        ],
+        "threadpoolctl": "3.7.0"
+    },
+    "atlas_identity": "defbb00fdb1c4422cadc3849b15fc69ddd1415de1be5ed7da4ce3014d6d44fbd",
+    "input_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/results/local_motion/hall_evaluation/screen/summary.json": "e8e4bd858f1ef9d2ef828eccc454c66d7fe3babf696aa88c39472cb0dc120731",
+        "methodology/results/hover/native_spline/qualified/initial_checkpoint.json": "3e34f128630728380b3722964a6329a8ce22794a2fca54bb465aff80485632d3"
+    },
+    "cases": {
+        "current": {
+            "passed": true,
+            "elapsed_s": 177.5231690229848,
+            "duration_completed_s": 0.002,
+            "delivered_moving_scans": 1,
+            "stop_reason": null,
+            "peaks": {
+                "current_A": 1.8979473924149135,
+                "voltage_V": 1.063551004541415,
+                "copper_loss_W": 4.0577192905748625,
+                "back_emf_V": 0.00011769693693750984,
+                "position_error_m": 3.610709603912005e-06,
+                "angle_error_rad": 7.174672905157097e-06,
+                "estimated_position_error_m": 2.4361338111515856e-05,
+                "estimated_angle_error_rad": 0.0009032283380700022,
+                "required_current_A": 1.2122285708439753
+            },
+            "integration": {
+                "accepted_steps": 137,
+                "signed_mechanical_defect_J": -8.949950082221519e-17,
+                "absolute_mechanical_defect_J": 9.38008675112463e-17,
+                "signed_total_defect_J": -5.466887999657439e-12,
+                "absolute_total_defect_J": 5.4668899175683334e-12,
+                "energy_budget_J": 2.229044839004151e-08,
+                "minimum_step_s": 1.0476964389365823e-08,
+                "maximum_step_s": 2.98118550703609e-05,
+                "rhs_evaluations": 1144,
+                "filter_evaluations": 1618
+            }
+        },
+        "functional": {
+            "passed": true,
+            "elapsed_s": 154.66451624210458,
+            "duration_completed_s": 0.002,
+            "delivered_moving_scans": 1,
+            "stop_reason": null,
+            "peaks": {
+                "current_A": 1.8979473924149135,
+                "voltage_V": 1.063551004541415,
+                "copper_loss_W": 4.0577192905748625,
+                "back_emf_V": 0.00011769693693750984,
+                "position_error_m": 3.610709603912005e-06,
+                "angle_error_rad": 7.174672905157097e-06,
+                "estimated_position_error_m": 2.4361338111515856e-05,
+                "estimated_angle_error_rad": 0.0009032283380700022,
+                "required_current_A": 1.2122285708439753
+            },
+            "integration": {
+                "accepted_steps": 137,
+                "signed_mechanical_defect_J": -8.949950082221519e-17,
+                "absolute_mechanical_defect_J": 9.38008675112463e-17,
+                "signed_total_defect_J": -5.466887999657439e-12,
+                "absolute_total_defect_J": 5.4668899175683334e-12,
+                "energy_budget_J": 2.229044839004151e-08,
+                "minimum_step_s": 1.0476964389365823e-08,
+                "maximum_step_s": 2.98118550703609e-05,
+                "rhs_evaluations": 1144,
+                "filter_evaluations": 1618
+            }
+        }
+    },
+    "comparisons": {
+        "functional": {
+            "differences": {
+                "pose_position_m": 0.0,
+                "pose_angle_rad": 0.0,
+                "estimated_pose_position_m": 0.0,
+                "estimated_pose_angle_rad": 0.0,
+                "current_trace_A": 0.0,
+                "peak_current_A": 0.0,
+                "peak_required_current_A": 0.0,
+                "peak_voltage_V": 0.0,
+                "peak_copper_loss_W": 0.0
+            },
+            "limits": {
+                "pose_position_m": 8.000000000000001e-06,
+                "pose_angle_rad": 0.00025,
+                "estimated_pose_position_m": 8.000000000000001e-06,
+                "estimated_pose_angle_rad": 0.00025,
+                "current_trace_A": 0.027500000000000004,
+                "peak_current_A": 0.027500000000000004,
+                "peak_required_current_A": 0.027500000000000004,
+                "peak_voltage_V": 0.05317755022707075,
+                "peak_copper_loss_W": 0.20288596452874313
+            },
+            "checks": {
+                "pose_position_m": true,
+                "pose_angle_rad": true,
+                "estimated_pose_position_m": true,
+                "estimated_pose_angle_rad": true,
+                "current_trace_A": true,
+                "peak_current_A": true,
+                "peak_required_current_A": true,
+                "peak_voltage_V": true,
+                "peak_copper_loss_W": true,
+                "both_trials_passed": true,
+                "same_scan_times": true,
+                "analogue_samples": true
+            },
+            "converged": true,
+            "max_analogue_difference_T": 0.0,
+            "analogue_limit_T": 1e-07
+        }
+    },
+    "coupled_speedup": 1.1477950685540461
+}

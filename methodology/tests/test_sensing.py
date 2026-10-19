@@ -46,8 +46,29 @@ class JointRecordingTests(unittest.TestCase):
                     restored = RkDenseOutput(saved[component + '_t_old'][-1], saved[component + '_t'][-1],
                         saved[component + '_y_old'][-1], saved[component + '_Q'][-1])
                     np.testing.assert_array_equal(restored(solution.t[-1]), filtered(solution.t[-1]))
+            from methodology.airborne_diagnostics import recorded_dense_trajectory
+            times = (solution.t[1:] + solution.t[:-1]) / 2
+            for component in ('physical', 'filtered'):
+                reconstructed = recorded_dense_trajectory(path, component)
+                np.testing.assert_array_equal(reconstructed(times), filtered(times))
 
 class AcceleratedSensingBudgetTests(unittest.TestCase):
+    def test_matching_input_gate_accepts_changed_physical_signal_but_rejects_numerical_bias(self):
+        from methodology.airborne_diagnostics import matched_sensor_metrics
+        first = np.zeros((1, Fixed.hall_samples_per_sensor))
+        second = np.full_like(first, Fixed.hall_output_noise)
+        for actual in (first, second):
+            self.assertTrue(matched_sensor_metrics(actual, [actual, actual], 0.)['passed'])
+            biased = actual + Fixed.atlas_field_tolerance * Fixed.qualification_refinement_factor
+            self.assertFalse(matched_sensor_metrics(biased, [actual, actual], 0.)['passed'])
+
+    def test_matching_input_gate_requires_resolved_reference_even_when_fine_result_matches(self):
+        from methodology.airborne_diagnostics import matched_sensor_metrics
+        fine = np.zeros((1, Fixed.hall_samples_per_sensor))
+        coarse = fine + Fixed.atlas_field_tolerance * Fixed.coupling_relative_tolerance * Fixed.qualification_refinement_factor
+        self.assertFalse(matched_sensor_metrics(fine, [coarse, fine], 0.)['passed'])
+        self.assertFalse(matched_sensor_metrics(fine, [fine, fine], float(coarse.max()))['passed'])
+
     def test_opposite_component_errors_cannot_cancel(self):
         from methodology.numerical_accuracy import accelerated_sensor_comparison
         zero = np.zeros((2, 1))
@@ -70,6 +91,40 @@ class AcceleratedSensingBudgetTests(unittest.TestCase):
         self.assertTrue(result['passed'])
 
 class HallFilterTests(unittest.TestCase):
+    def test_recorded_scan_resets_filter_and_keeps_sequential_sample_times(self):
+        from scipy.integrate import OdeSolution
+        from scipy.integrate._ivp.rk import RkDenseOutput
+        from methodology.airborne_diagnostics import filtered_recorded_scan
+        amplitudes = Fixed.hall_output_noise * np.array([1., -1.])
+        start = Fixed.hall_power_settle_time
+        end = start + Fixed.hall_power_settle_time + len(amplitudes) * Fixed.hall_samples_per_sensor / Fixed.hall_adc_sample_rate
+        trajectory = OdeSolution([0., end], [RkDenseOutput(0., end, amplitudes, np.zeros((len(amplitudes), 4)))])
+        times = Fixed.hall_power_settle_time + np.arange(len(amplitudes) * Fixed.hall_samples_per_sensor).reshape(len(amplitudes), -1) / Fixed.hall_adc_sample_rate
+        expected = amplitudes[:, None] * (1 - np.exp(-2 * np.pi * Fixed.hall_sensor_bandwidth * times))
+        for order in Fixed.coupling_flux_orders[-2:]:
+            actual = filtered_recorded_scan(trajectory, start, len(amplitudes), order)
+            np.testing.assert_allclose(actual, expected, rtol=Fixed.coupling_reference_tolerance, atol=0)
+        with self.assertRaises(ValueError):
+            filtered_recorded_scan(trajectory, end, len(amplitudes), max(Fixed.coupling_flux_orders))
+
+    def test_recorded_polynomial_extinction_matches_independent_convolution(self):
+        from scipy.integrate import OdeSolution
+        from scipy.integrate._ivp.rk import RkDenseOutput
+        from methodology.airborne_diagnostics import filtered_recorded_scan
+        amplitude = Fixed.hall_output_noise
+        stop = Fixed.hall_power_settle_time / Fixed.qualification_refinement_factor
+        end = Fixed.hall_power_settle_time + Fixed.hall_samples_per_sensor / Fixed.hall_adc_sample_rate
+        ramp = RkDenseOutput(0., stop, np.array([amplitude]), np.array([[amplitude / stop, 0., 0., 0.]]))
+        extinct = RkDenseOutput(stop, end, np.zeros(1), np.zeros((1, 4)))
+        trajectory = OdeSolution([0., stop, end], [ramp, extinct])
+        times = Fixed.hall_power_settle_time + np.arange(Fixed.hall_samples_per_sensor) / Fixed.hall_adc_sample_rate
+        rate = 2 * np.pi * Fixed.hall_sensor_bandwidth
+        expected = np.array([quad(lambda time: rate * amplitude * (1 + time / stop) * np.exp(-rate * (sample - time)),
+            0., stop, epsabs=Fixed.atlas_field_tolerance * Fixed.coupling_reference_tolerance)[0] for sample in times])
+        for order in Fixed.coupling_flux_orders[-2:]:
+            actual = filtered_recorded_scan(trajectory, 0., 1, order)[0]
+            np.testing.assert_allclose(actual, expected, rtol=Fixed.coupling_reference_tolerance, atol=0)
+
     def test_independent_scan_reference_matches_analytic_power_up_and_component_split(self):
         from methodology.numerical_accuracy import reference_filtered_scan
         components = Fixed.hall_output_noise * np.array([1., -1., -1., 1.])
@@ -183,17 +238,26 @@ class HallInterfaceTests(unittest.TestCase):
         current_sensors.offset[:] = 0
         current_sensors.gain[:] = 1
         times = np.arange(round(Fixed.qualification_sensor_latency * Fixed.current_regulator_rate) + 1) / Fixed.current_regulator_rate
-        currents = np.linspace(-Fixed.driver_channel_current / 2, Fixed.driver_channel_current / 2, len(times))[:, None] * np.ones((1, count))
+        tau = self.fields.coil_time_constant
+        amplitude = np.full(count, Fixed.driver_channel_current / 2)
+        currents = (1 - 2 * np.exp(-times / tau))[:, None] * amplitude
+
         magnet_field = self.fields.magnet_field(np.zeros(6))
-        fields = magnet_field + currents @ self.fields.coil_field.T
+        sample_times = Fixed.hall_power_settle_time + np.arange(len(self.fields.points) * Fixed.hall_samples_per_sensor).reshape(len(self.fields.points), -1) / Fixed.hall_adc_sample_rate
+        rate = 2 * np.pi * Fixed.hall_sensor_bandwidth
+        decay = np.exp(-rate * sample_times)
+        coil_signal = (self.fields.coil_field @ amplitude)[:, None] * (1 - decay
+            - 2 * rate / (rate - 1 / tau) * (np.exp(-sample_times / tau) - decay))
+        magnet_signal = magnet_field[:, None] * (1 - decay)
+
         with patch.object(Fixed, 'hall_output_noise', 0), patch.object(Fixed, 'current_feedback_noise', 0):
-            packet = self.sensors.sample_moving(times, fields, 0)
+            packet = self.sensors.encode_signal(magnet_signal + coil_signal, 0)
             readouts = [current_sensors.sample(current, time) for current, time in zip(currents, times)]
         history = electrical.CurrentReadings(self.fields.identities, times, np.vstack([r.adc_codes for r in readouts]), times[-1])
         corrected_field, _, _ = sensing.measured_coil_fields(self.fields, history, packet)
         samples, _, quantum = sensing.hall_readout()
         decoded = (packet.adc_codes.mean(axis=1) + .5) * quantum - Fixed.hall_supply_voltage / 2 / Fixed.hall_sensitivity
-        expected = sensing.filtered_scan(times, np.tile(magnet_field, (len(times), 1)), 0).mean(axis=1)
+        expected = magnet_signal.mean(axis=1)
         bound = quantum / 2 + np.abs(self.fields.coil_field).sum(axis=1) * electrical.current_quantum() / 2
         self.assertTrue(np.all(np.abs(decoded - corrected_field - expected) <= bound))
         snapshot = self.fields.coil_field @ currents[-1]
