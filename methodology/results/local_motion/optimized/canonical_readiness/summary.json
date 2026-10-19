@@ -1,0 +1,235 @@
+{
+    "status": "restart_mismatch",
+    "scope": "Integrated coil-cache readiness for the nominal local CAD movement, not flight-envelope qualification",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/magnetic_atlas.py": "41f9ce95352489aa097f910d5449f8e98b8d1eea7a8daf61300644081bd2db19",
+        "levitation_sim.py": "57b8b6765bdedeb8264bd8c084c6028b7a02053d0e116abe7ca4353e47d28e9c",
+        "model.py": "9a56696953745719e93138a54953d60c3f976d24a42d5865f1b2bbdb6f0ad367",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "b581ae6204830eec8ccecc9398ae8afe9877592f7d26a4f4dba6d73d36279a47",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "0558fffe5cb8bc3dd6924bc94aaf8d1ddd5328900e6531496786e93a7d77bd00",
+        "methodology/coil_field.py": "74dab54180c1e8b328d3bc6235e4e8dca5a21053c8617178dafb43e16650c660",
+        "methodology/coupling_verification.py": "3540025530485cc662bad2fd97df0a7a6e8ed6b5498fd05934b6bb117091fb06",
+        "methodology/numerical_accuracy.py": "2d8900280baca81bb3f8f3ceb99b008bc35a259ade794881a6083019dce91c08",
+        "methodology/local_motion.py": "860f18e12248b9a39d9b3b8595146c657ba5a0cdf2920c025db96be91bda3154",
+        "methodology/airborne_diagnostics.py": "419a503adbb4667154aded8a9fc5d33c50e231612007b96fba114004e00fcdb9"
+    },
+    "input_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/results/local_motion/optimized/canonical_fields/summary.json": "15d18c882aae127f940cfd333027042a79e9852dbc0a3734e5aebddcb50c4aeb",
+        "methodology/results/local_motion/optimized/canonical_fields/atlas.npz": "1f83826ee0bb7be796687d580b34c9575ac3033d36633bf8ab4cda6fde2495b3",
+        "methodology/results/local_motion/optimized/native/magnetic_spline.so": "c7a0113cdd5b516bc6acc9f201230b8dcd39c27483c23e1da28e568a01560a03",
+        "methodology/results/local_motion/optimized/native/magnetic_spline.json": "7f62ca03579042d18c7f3813f9072d015655695ea9d74c94c25a0f981100e6be"
+    },
+    "cache_identity": "7d808a799e6ac7e70c3d9186db3534b0ba67af7f5e7ba8fd7c894e922658e68f",
+    "checks": {
+        "integrated_matrices": true,
+        "uninterrupted": true,
+        "pause": true,
+        "resume": true,
+        "initial_checkpoint_exact": true,
+        "checkpoint_exact": false,
+        "scans_exact": true,
+        "dense_exact": true
+    },
+    "matrix_checks": [
+        {
+            "time_s": 0.0,
+            "pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "errors": {
+                "force_relative_column_error": 2.673751800180281e-07,
+                "force_error_bound_at_channel_limits": 6.14972066127188e-07,
+                "torque_relative_column_error": 3.524047528006047e-07,
+                "torque_error_bound_at_channel_limits": 7.972726390219656e-09
+            },
+            "passed": true
+        },
+        {
+            "time_s": 0.012,
+            "pose": [
+                3.474375000000001e-07,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                1.1581250000000005e-05
+            ],
+            "errors": {
+                "force_relative_column_error": 2.67371867022317e-07,
+                "force_error_bound_at_channel_limits": 6.149775718889179e-07,
+                "torque_relative_column_error": 3.524527377080682e-07,
+                "torque_error_bound_at_channel_limits": 7.973320669948551e-09
+            },
+            "passed": true
+        },
+        {
+            "time_s": 0.05,
+            "pose": [
+                0.0003,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.01
+            ],
+            "errors": {
+                "force_relative_column_error": 2.85353748734822e-07,
+                "force_error_bound_at_channel_limits": 6.134601220572411e-07,
+                "torque_relative_column_error": 3.7880948434282713e-07,
+                "torque_error_bound_at_channel_limits": 7.618968078880074e-09
+            },
+            "passed": true
+        }
+    ],
+    "processes": [
+        {
+            "stage": "uninterrupted",
+            "command": [
+                "/home/arseniy/projects/flying_chess/methodology/cad/.venv/bin/python",
+                "-m",
+                "methodology.local_motion",
+                "--coil-cache",
+                "--readiness",
+                "--output",
+                "methodology/results/local_motion/optimized/canonical_readiness/uninterrupted",
+                "--fields",
+                "methodology/results/local_motion/optimized/canonical_fields",
+                "--native-library",
+                "methodology/results/local_motion/optimized/native/magnetic_spline.so",
+                "--deadline",
+                "2026-10-19T12:18:53.497125+00:00"
+            ],
+            "returncode": 0,
+            "elapsed_s": 519.6437003389001
+        },
+        {
+            "stage": "pause",
+            "command": [
+                "/home/arseniy/projects/flying_chess/methodology/cad/.venv/bin/python",
+                "-m",
+                "methodology.local_motion",
+                "--coil-cache",
+                "--readiness",
+                "--output",
+                "methodology/results/local_motion/optimized/canonical_readiness/restarted",
+                "--fields",
+                "methodology/results/local_motion/optimized/canonical_fields",
+                "--native-library",
+                "methodology/results/local_motion/optimized/native/magnetic_spline.so",
+                "--deadline",
+                "2026-10-19T12:18:53.497125+00:00",
+                "--pause-for-restart",
+                "--start-checkpoint",
+                "methodology/results/local_motion/optimized/canonical_readiness/uninterrupted/initial_checkpoint.json"
+            ],
+            "returncode": 0,
+            "elapsed_s": 434.67213538708165
+        },
+        {
+            "stage": "resume",
+            "command": [
+                "/home/arseniy/projects/flying_chess/methodology/cad/.venv/bin/python",
+                "-m",
+                "methodology.local_motion",
+                "--coil-cache",
+                "--readiness",
+                "--output",
+                "methodology/results/local_motion/optimized/canonical_readiness/restarted",
+                "--fields",
+                "methodology/results/local_motion/optimized/canonical_fields",
+                "--native-library",
+                "methodology/results/local_motion/optimized/native/magnetic_spline.so",
+                "--deadline",
+                "2026-10-19T12:18:53.497125+00:00",
+                "--resume",
+                "--start-checkpoint",
+                "methodology/results/local_motion/optimized/canonical_readiness/uninterrupted/initial_checkpoint.json"
+            ],
+            "returncode": 0,
+            "elapsed_s": 184.15465054195374
+        }
+    ],
+    "elapsed_s": 1216.2890660939738,
+    "runtime": {
+        "method": "native",
+        "build": {
+            "source_sha256": {
+                "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+                "methodology/magnetic_spline.py": "4a3a26697259e2f7f047633afaad0890d1c7deb630d33ac79d6d3233a11b62a0",
+                "methodology/magnetic_spline.c": "40ff3cba90d7da6e745a35c49d08232b0cc6fb58c3d57d370219a4e4ec1ee61c"
+            },
+            "command": [
+                "cc",
+                "-std=c99",
+                "-O3",
+                "-fPIC",
+                "-shared",
+                "-ffp-contract=off",
+                "/home/arseniy/projects/flying_chess/methodology/magnetic_spline.c",
+                "-o",
+                "methodology/results/local_motion/optimized/native/magnetic_spline.so"
+            ],
+            "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+            "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+            "machine": "x86_64",
+            "library_sha256": "c7a0113cdd5b516bc6acc9f201230b8dcd39c27483c23e1da28e568a01560a03"
+        },
+        "workers": 4,
+        "blas_threads": 1,
+        "blas_libraries": [
+            {
+                "internal_api": "openblas",
+                "prefix": "libscipy_openblas",
+                "version": "0.3.30",
+                "num_threads": 1,
+                "threading_layer": "pthreads",
+                "architecture": "Haswell"
+            },
+            {
+                "internal_api": "openblas",
+                "prefix": "libscipy_openblas",
+                "version": "0.3.31.188.0",
+                "num_threads": 1,
+                "threading_layer": "pthreads",
+                "architecture": "Haswell"
+            }
+        ],
+        "threadpoolctl": "3.7.0"
+    },
+    "reference_run": "methodology/results/local_motion/optimized/canonical_readiness/uninterrupted",
+    "restart_pause": {
+        "time_s": 0.0101,
+        "pending_sample_counts": [
+            256,
+            1
+        ]
+    },
+    "runtime_s": {
+        "uninterrupted": {
+            "setup": 151.6793752091471,
+            "integration": 347.10894379974343,
+            "recording": 1.1384092038497329,
+            "run": 363.3976079260465,
+            "total": 515.0769845140167
+        },
+        "restarted": {
+            "setup": 242.75979877798818,
+            "integration": 350.5864088360686,
+            "recording": 1.2927665538154542,
+            "run": 367.05392618617043,
+            "total": 609.8137271869928
+        }
+    }
+}

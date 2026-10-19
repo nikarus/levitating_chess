@@ -180,6 +180,7 @@ class Fixed:
     airborne_motion_start = 0.01               # s; initial stationary command before the first local movement
     airborne_motion_duration = 0.04            # s; smooth rest-to-rest translation and rotation interval
     airborne_motion_settle_duration = 0.01      # s; stationary endpoint observation after the first local movement
+    airborne_readiness_duration = airborne_motion_start + airborne_check_duration # s; integration check covering startup and the beginning of commanded movement
     adaptive_max_step = 1 / current_regulator_rate # s; largest attempted interval, also clipped to hardware events
     adaptive_min_step = adaptive_max_step / 256 # s; smallest attempted interval before an explicit accuracy failure
     adaptive_clock_tolerance = 1e-12           # s; event-time roundoff snapping only, far below the minimum physical step
@@ -255,6 +256,7 @@ class Fixed:
     hall_max_condition = 16384                  # dimensionless; retained static Hall observability condition limit, independent of ADC precision
     hall_package_standoff = 0.6                 # mm (SOT-23 sensing element below PCB underside)
     hall_power_settle_time = 0.0001             # s (gated sensor group power-up + RC settle before burst)
+    airborne_readiness_pause = airborne_motion_start + hall_power_settle_time # s; request a restart checkpoint during moving Hall acquisition, at the next accepted advance
     hall_gate_switch_price = 0.0206             # USD (GOODWORK AO3401A catalog tier; production RFQ needed)
     thermal_sensor_area_mm2 = 5000              # mm2 of motor area per distributed temperature sensor
     thermal_sensor_price = 0.0091               # USD (10k 1% 0402 NTC, LCSC catalog class) [TO BE SOURCED]
@@ -333,6 +335,8 @@ class Fixed:
     native_spline_blas_threads = 1             # BLAS threads during native runs; prevents competing numerical-library thread pools
     atlas_grid_spacings = (0.001, 0.0005, 0.00025, 0.0002) # m; coarse-to-fine candidates for the local magnetic-field atlas screen
     atlas_spline_orders = (3, 5)               # polynomial degrees; standard cubic and quintic interpolation candidates
+    coil_cache_grid_spacing = 0.00025         # m; coil-field grid verified by the matched-drive movement comparison
+    coil_cache_spline_order = 3                # degree; cubic coil-field interpolation selected by accuracy and runtime checks
     atlas_padding_cells = 12                  # cells; sampled guard region around the query domain to reduce spline boundary effects
     atlas_max_storage_bytes = 768 * 1024 ** 2  # bytes; cap on three simultaneous grid-sized arrays during atlas construction
     atlas_validation_points = 4096            # points; independent random probes plus explicit domain-face probes

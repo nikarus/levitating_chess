@@ -1,0 +1,23 @@
+{
+  "differing_checkpoint_fields": [
+    "tracker",
+    "nominal_matrix",
+    "accelerations",
+    "trace"
+  ],
+  "first_acceleration_difference_time_s": 0.0101,
+  "matrix_memory_order_probe": {
+    "identical_entries": true,
+    "C_minus_F_wrench": [
+      0.0,
+      -1.214306433183765e-17,
+      2.7755575615628914e-17,
+      1.3552527156068805e-20,
+      -2.710505431213761e-20,
+      -1.3552527156068805e-20
+    ]
+  },
+  "scans_exact": true,
+  "dense_exact": true,
+  "cause": "Controller matrices are column-major in normal execution, but checkpoint restoration made them row-major. BLAS accumulation order changes the last digits of predicted acceleration after restart. Canonical array order must be preserved."
+}

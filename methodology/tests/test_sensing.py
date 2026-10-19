@@ -52,6 +52,36 @@ class JointRecordingTests(unittest.TestCase):
                 reconstructed = recorded_dense_trajectory(path, component)
                 np.testing.assert_array_equal(reconstructed(times), filtered(times))
 
+    def test_dense_recording_resume_preserves_prefix_and_accepts_empty_start(self):
+        from methodology.joint_airborne import FilteredTrajectory
+        from methodology.numerical_accuracy import JointTrajectoryRecorder
+        from methodology.airborne_diagnostics import recorded_dense_trajectory
+        first = solve_ivp(lambda time, state: state, (0., 1.), [1.], dense_output=True)
+        second = solve_ivp(lambda time, state: state, (1., 2.), first.y[:, -1], dense_output=True)
+        for segment in (first, second):
+            segment.sol = FilteredTrajectory(segment.sol, segment.sol)
+        simulation = SimpleNamespace(dynamics=SimpleNamespace(integrate=Mock()), sensors=SimpleNamespace(encode_signal=Mock()))
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'dense.npz'
+            empty = JointTrajectoryRecorder(simulation)
+            empty.save_dense(path)
+            prefix = JointTrajectoryRecorder(simulation)
+            prefix.restore_dense(path, [])
+            prefix.segments.append(first)
+            prefix.save_dense(path)
+            resumed = JointTrajectoryRecorder(simulation)
+            resumed.restore_dense(path, [])
+            resumed.save_dense(path)
+            np.testing.assert_array_equal(recorded_dense_trajectory(path, 'physical')(.5), first.sol.physical(.5))
+            resumed.segments.append(second)
+            resumed.save_dense(path)
+            for component in ('physical', 'filtered'):
+                trajectory = recorded_dense_trajectory(path, component)
+                np.testing.assert_array_equal(trajectory(.5), first.sol.physical(.5))
+                np.testing.assert_array_equal(trajectory(1.5), second.sol.physical(1.5))
+            with self.assertRaisesRegex(ValueError, 'fresh recorder'):
+                resumed.restore_dense(path, [])
+
 class AcceleratedSensingBudgetTests(unittest.TestCase):
     def test_matching_input_gate_accepts_changed_physical_signal_but_rejects_numerical_bias(self):
         from methodology.airborne_diagnostics import matched_sensor_metrics

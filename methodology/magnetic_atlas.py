@@ -37,6 +37,7 @@ def tensor_product_spline(axes, values, order):
 
 
 class MagneticFieldAtlas:
+    cache_schema = 'magnetic-atlas-v1'
     evaluator_identity = dict(method='scipy')
     evaluator_sources = {}
 
@@ -52,9 +53,13 @@ class MagneticFieldAtlas:
         self.shape = tuple(len(axis) for axis in axes)
         self.interpolator = tensor_product_spline(axes, values, order)
         self.coefficients = self.interpolator.c
-        self.provenance = dict(source_sha256=source_fingerprints(__file__, levitation_sim.__file__, Path(levitation_sim.__file__).with_name('model.py')),
-            numpy=np.__version__, scipy=scipy.__version__, magpylib=magpylib.__version__)
+        self.provenance = self.current_provenance()
         self.identity = self.content_identity()
+
+    @classmethod
+    def current_provenance(cls):
+        return dict(source_sha256=source_fingerprints(__file__, levitation_sim.__file__, Path(levitation_sim.__file__).with_name('model.py')),
+            numpy=np.__version__, scipy=scipy.__version__, magpylib=magpylib.__version__)
 
     def content_identity(self):
         digest = hashlib.sha256(json.dumps(self.provenance, sort_keys=True).encode())
@@ -71,7 +76,7 @@ class MagneticFieldAtlas:
         with temporary.open('wb') as stream:
             np.savez(stream, bounds=self.bounds, source_state=self.source_state, coefficients=self.coefficients,
                 orders=self.interpolator.k, **{f'knots_{axis}': knots for axis, knots in enumerate(self.interpolator.t)},
-                metadata=json.dumps(dict(schema='magnetic-atlas-v1', identity=self.identity, provenance=self.provenance)))
+                metadata=json.dumps(dict(schema=self.cache_schema, identity=self.identity, provenance=self.provenance)))
         temporary.replace(path)
 
     @classmethod
@@ -79,7 +84,7 @@ class MagneticFieldAtlas:
         atlas = cls.__new__(cls)
         with np.load(path, allow_pickle=False) as saved:
             metadata = json.loads(str(saved['metadata']))
-            if metadata['schema'] != 'magnetic-atlas-v1':
+            if metadata['schema'] != cls.cache_schema:
                 raise ValueError('Atlas cache schema differs')
             atlas.provenance = metadata['provenance']
             for name in ('bounds', 'source_state', 'coefficients'):
@@ -90,9 +95,7 @@ class MagneticFieldAtlas:
         atlas.identity = atlas.content_identity()
         if atlas.identity != metadata['identity']:
             raise ValueError('Atlas cache content digest differs')
-        if (atlas.provenance['source_sha256'] != source_fingerprints(__file__, levitation_sim.__file__, Path(levitation_sim.__file__).with_name('model.py'))
-                or atlas.provenance['numpy'] != np.__version__ or atlas.provenance['scipy'] != scipy.__version__
-                or atlas.provenance['magpylib'] != magpylib.__version__):
+        if atlas.provenance != cls.current_provenance():
             raise ValueError('Atlas cache source or dependencies differ')
         return atlas
 
@@ -145,7 +148,7 @@ class MagneticFieldAtlas:
 
 class MagneticBackend:
     def configure_atlas(self, atlas, mode):
-        if mode not in ('direct', 'atlas_controller', 'atlas_forces'):
+        if mode not in ('direct', 'atlas_controller', 'atlas_forces', 'coil_cache'):
             raise ValueError('Unknown magnetic backend')
         if mode != 'direct' and atlas is None:
             raise ValueError('Accelerated simulation requires an explicit atlas')
@@ -155,11 +158,29 @@ class MagneticBackend:
             if self.atlas_configuration['evaluator'] != atlas.evaluator_identity:
                 raise ValueError('Active atlas evaluator differs from the configured simulation runtime')
             return atlas.field(source, points)
-        self.controller.field_evaluator = None if mode == 'direct' else evaluate
+        self.controller.matrix_evaluator = self.plant.matrix_evaluator = None
+        self.controller.field_evaluator = evaluate if mode in ('atlas_controller', 'atlas_forces') else None
         self.plant.field_evaluator = evaluate if mode == 'atlas_forces' else None
+        if mode == 'coil_cache':
+            from methodology.coil_field import CoilFieldCache
+            if not isinstance(atlas, CoilFieldCache):
+                raise ValueError('Coil backend requires a production coil-field cache')
+            if atlas.evaluator_identity['method'] != 'native':
+                raise ValueError('Coil backend requires its explicit native runtime')
+            def bind(array):
+                matrix = atlas.bind(array)
+                def evaluate_matrix(source, center):
+                    if self.atlas_configuration['evaluator'] != atlas.evaluator_identity:
+                        raise ValueError('Active coil evaluator differs from the configured simulation runtime')
+                    return matrix(source, center)
+                return evaluate_matrix
+            self.controller.matrix_evaluator = bind(self.controller.array)
+            self.plant.matrix_evaluator = bind(self.plant.array)
         self.source.update(source_fingerprints(__file__))
         if mode != 'direct':
             self.source.update(atlas.evaluator_sources)
+            if mode == 'coil_cache':
+                self.source.update(atlas.provenance['source_sha256'])
 
     def checkpoint_state(self):
         state = super().checkpoint_state()

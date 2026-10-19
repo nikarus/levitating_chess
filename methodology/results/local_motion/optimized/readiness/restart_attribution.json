@@ -1,0 +1,27 @@
+{
+  "cause": "Independent CAD regeneration changed mass properties before the first physics step; the restart comparison did not share an identical initial state.",
+  "physical_sources_equal": true,
+  "same_cache": true,
+  "construction_equal": false,
+  "initial_mass_g": [
+    22.729931617873095,
+    22.729931617873092
+  ],
+  "initial_com_mm": [
+    [
+      -1.604196504211961e-12,
+      -5.314237944483526e-15,
+      14.742337541608922
+    ],
+    [
+      -1.6091981399244163e-12,
+      -6.252044640568855e-15,
+      14.742337541608892
+    ]
+  ],
+  "initial_scene_sha256": [
+    "101a43ca4289641b4607dd6c44765611809b4231e46d3bdd4b932c7f3e391dc9",
+    "926dd2b50834de34a59ada28c6d7b05f79f8afca65eb477ace8e177578e4c29c"
+  ],
+  "remedy": "Repeat only the restart branch from the retained uninterrupted production initial checkpoint; preserve strict source checks and exact comparison."
+}

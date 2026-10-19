@@ -519,15 +519,26 @@ class JointTrajectoryRecorder:
         self.original_encode = simulation.sensors.encode_signal
         self.segments = []
         self.scans = []
+        self.previous_dense = None
+        self.integration_elapsed_s = 0.
 
     def integrate(self, *args, **kwargs):
+        started = perf_counter()
         result = self.original_integrate(*args, **kwargs)
+        self.integration_elapsed_s += perf_counter() - started
         self.segments.extend(result)
         return result
 
     def encode_signal(self, signal, start):
         self.scans.append(dict(start_s=start, samples_T=signal.copy().tolist()))
         return self.original_encode(signal, start)
+
+    def restore_dense(self, path, scans):
+        if self.segments or self.scans or self.previous_dense is not None:
+            raise ValueError('Dense recording restore requires a fresh recorder')
+        with np.load(path, allow_pickle=False) as saved:
+            self.previous_dense = dict(saved)
+        self.scans = list(scans)
 
     def save_dense(self, path):
         arrays = dict(segment_bounds_s=np.array([[segment.t[0], segment.t[-1]] for segment in self.segments]))
@@ -536,6 +547,9 @@ class JointTrajectoryRecorder:
             for attribute in ('t_old', 't', 'y_old', 'Q'):
                 arrays[component + '_' + attribute] = np.array([getattr(item, attribute) for item in interpolants])
             arrays[component + '_segment_counts'] = np.array([len(getattr(segment.sol, component).interpolants) for segment in self.segments])
+        if self.previous_dense is not None:
+            arrays = ({name: np.concatenate((self.previous_dense[name], values)) if self.previous_dense[name].size else values
+                for name, values in arrays.items()} if self.segments else self.previous_dense)
         temporary = path.with_suffix('.tmp')
         with temporary.open('wb') as stream:
             np.savez_compressed(stream, **arrays)

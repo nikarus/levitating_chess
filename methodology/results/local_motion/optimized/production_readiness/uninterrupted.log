@@ -1,0 +1,14 @@
+0.001000 s: peak current 1.874 A, stop=None
+0.002000 s: peak current 1.892 A, stop=None
+0.003000 s: peak current 1.909 A, stop=None
+0.004000 s: peak current 1.909 A, stop=None
+0.005000 s: peak current 1.909 A, stop=None
+0.006000 s: peak current 1.909 A, stop=None
+0.007000 s: peak current 1.909 A, stop=None
+0.008000 s: peak current 1.909 A, stop=None
+0.009000 s: peak current 1.909 A, stop=None
+0.010000 s: peak current 1.909 A, stop=None
+0.011000 s: peak current 2.015 A, stop=None
+0.012000 s: peak current 2.076 A, stop=None
+0.012000 s: peak current 2.076 A, stop=None
+{"status": "passed"}

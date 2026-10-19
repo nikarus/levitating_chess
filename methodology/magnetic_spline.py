@@ -38,6 +38,7 @@ def native_evaluation(atlas, library_path):
         evaluator = resources.enter_context(spline_workers(native, Fixed.native_spline_workers))
         libraries = [{key: info[key] for key in ('internal_api', 'prefix', 'version', 'num_threads', 'threading_layer', 'architecture')}
             for info in threadpoolctl.threadpool_info() if info['user_api'] == 'blas']
+        libraries.sort(key=lambda entry: json.dumps(entry, sort_keys=True))
         identity = dict(method='native', build=native.build, workers=Fixed.native_spline_workers,
             blas_threads=Fixed.native_spline_blas_threads, blas_libraries=libraries, threadpoolctl=threadpoolctl.__version__)
         for name, value in dict(interpolator=evaluator, evaluator_identity=identity,

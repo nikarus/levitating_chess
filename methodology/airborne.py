@@ -44,6 +44,7 @@ class AirborneController:
         levitation_sim.use_geometry(self.geometry)
         self.magnets = levitation_sim.magnet_layout_from_geometry()
         self.field_evaluator = None
+        self.matrix_evaluator = None
         self.nominal_matrix = None
         self.current_budget = ((1 - Fixed.qualification_current_reserve_fraction) * current_limit
                                - Fixed.current_sense_offset_residual / Fixed.current_sense_resistance
@@ -67,7 +68,9 @@ class AirborneController:
         target[3:] = world_inertia @ acceleration[3:] + np.cross(angular_velocity, world_inertia @ angular_velocity)
         levitation_sim.use_geometry(self.geometry)
         _, center = levitation_sim.place_piece(self.magnets, *pose)
-        matrix = levitation_sim.actuator_matrix(self.magnets, self.array, center, self.field_evaluator)
+        matrix = (levitation_sim.actuator_matrix(self.magnets, self.array, center, self.field_evaluator)
+            if self.matrix_evaluator is None else self.matrix_evaluator(self.magnets.collection, center))
+        matrix = np.asfortranarray(matrix)
         self.nominal_matrix = matrix
         required, initial = levitation_sim.min_peak_current(matrix, target)
         if required > self.current_budget:
@@ -318,7 +321,7 @@ class AirborneSimulation:
         if state['motion_scenario'] != self.motion_scenario:
             raise ValueError('Coupled checkpoint motion scenario differs')
         self.plant.restore_checkpoint(state['plant'])
-        self.controller.nominal_matrix = None if state['nominal_matrix'] is None else np.array(state['nominal_matrix'])
+        self.controller.nominal_matrix = None if state['nominal_matrix'] is None else np.array(state['nominal_matrix'], order='F')
         self.tracker.acceleration_times = state['acceleration_times']
         self.tracker.accelerations = [np.array(value) for value in state['accelerations']]
         for name in DRIVER_STATE:
@@ -375,9 +378,9 @@ class AirborneSimulation:
                 'Video replays stored physical poses with interpolation; it does not rerun dynamics.'])
 
 
-def run_simulation(simulation, output, checkpoint, deadline=None, progress=None):
+def run_simulation(simulation, output, checkpoint, deadline=None, progress=None, pause_at=None):
     while not simulation.finished:
-        if deadline is not None and time() >= deadline:
+        if (deadline is not None and time() >= deadline) or (pause_at is not None and simulation.clock >= pause_at):
             simulation.save_checkpoint(checkpoint)
             report = simulation.report()
             output.write_text(json.dumps(report, indent=Fixed.report_precision, allow_nan=False) + '\n')

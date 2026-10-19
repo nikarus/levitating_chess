@@ -1,0 +1,349 @@
+{
+    "status": "simulation_ready",
+    "scope": "Integrated coil-cache readiness for the nominal local CAD movement, not flight-envelope qualification",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/magnetic_atlas.py": "41f9ce95352489aa097f910d5449f8e98b8d1eea7a8daf61300644081bd2db19",
+        "levitation_sim.py": "57b8b6765bdedeb8264bd8c084c6028b7a02053d0e116abe7ca4353e47d28e9c",
+        "model.py": "9a56696953745719e93138a54953d60c3f976d24a42d5865f1b2bbdb6f0ad367",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "b581ae6204830eec8ccecc9398ae8afe9877592f7d26a4f4dba6d73d36279a47",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "0558fffe5cb8bc3dd6924bc94aaf8d1ddd5328900e6531496786e93a7d77bd00",
+        "methodology/coil_field.py": "74dab54180c1e8b328d3bc6235e4e8dca5a21053c8617178dafb43e16650c660",
+        "methodology/coupling_verification.py": "3540025530485cc662bad2fd97df0a7a6e8ed6b5498fd05934b6bb117091fb06",
+        "methodology/numerical_accuracy.py": "2d8900280baca81bb3f8f3ceb99b008bc35a259ade794881a6083019dce91c08",
+        "methodology/local_motion.py": "860f18e12248b9a39d9b3b8595146c657ba5a0cdf2920c025db96be91bda3154",
+        "methodology/airborne_diagnostics.py": "419a503adbb4667154aded8a9fc5d33c50e231612007b96fba114004e00fcdb9"
+    },
+    "input_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/results/local_motion/optimized/canonical_fields/summary.json": "15d18c882aae127f940cfd333027042a79e9852dbc0a3734e5aebddcb50c4aeb",
+        "methodology/results/local_motion/optimized/canonical_fields/atlas.npz": "1f83826ee0bb7be796687d580b34c9575ac3033d36633bf8ab4cda6fde2495b3",
+        "methodology/results/local_motion/optimized/native/magnetic_spline.so": "c7a0113cdd5b516bc6acc9f201230b8dcd39c27483c23e1da28e568a01560a03",
+        "methodology/results/local_motion/optimized/native/magnetic_spline.json": "7f62ca03579042d18c7f3813f9072d015655695ea9d74c94c25a0f981100e6be"
+    },
+    "cache_identity": "7d808a799e6ac7e70c3d9186db3534b0ba67af7f5e7ba8fd7c894e922658e68f",
+    "checks": {
+        "integrated_matrices": true,
+        "uninterrupted": true,
+        "pause": true,
+        "resume": true,
+        "initial_checkpoint_exact": true,
+        "checkpoint_exact": true,
+        "scans_exact": true,
+        "dense_exact": true,
+        "independent_sensing": true
+    },
+    "matrix_checks": [
+        {
+            "time_s": 0.0,
+            "pose": [
+                0.0,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.0
+            ],
+            "errors": {
+                "force_relative_column_error": 2.673751800180281e-07,
+                "force_error_bound_at_channel_limits": 6.14972066127188e-07,
+                "torque_relative_column_error": 3.524047528006047e-07,
+                "torque_error_bound_at_channel_limits": 7.972726390249033e-09
+            },
+            "passed": true
+        },
+        {
+            "time_s": 0.012,
+            "pose": [
+                3.474375000000001e-07,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                1.1581250000000005e-05
+            ],
+            "errors": {
+                "force_relative_column_error": 2.67371867022317e-07,
+                "force_error_bound_at_channel_limits": 6.149775718889179e-07,
+                "torque_relative_column_error": 3.5245273771749804e-07,
+                "torque_error_bound_at_channel_limits": 7.97332066994887e-09
+            },
+            "passed": true
+        },
+        {
+            "time_s": 0.05,
+            "pose": [
+                0.0003,
+                0.0,
+                0.0004999999999999998,
+                0.0,
+                0.0,
+                0.01
+            ],
+            "errors": {
+                "force_relative_column_error": 2.85353748734822e-07,
+                "force_error_bound_at_channel_limits": 6.134601220572411e-07,
+                "torque_relative_column_error": 3.788094842835476e-07,
+                "torque_error_bound_at_channel_limits": 7.618968081267759e-09
+            },
+            "passed": true
+        }
+    ],
+    "processes": [
+        {
+            "stage": "uninterrupted",
+            "command": [
+                "/home/arseniy/projects/flying_chess/methodology/cad/.venv/bin/python",
+                "-m",
+                "methodology.local_motion",
+                "--coil-cache",
+                "--readiness",
+                "--output",
+                "methodology/results/local_motion/optimized/production_readiness/uninterrupted",
+                "--fields",
+                "methodology/results/local_motion/optimized/canonical_fields",
+                "--native-library",
+                "methodology/results/local_motion/optimized/native/magnetic_spline.so",
+                "--deadline",
+                "2026-10-19T11:51:35.333986+00:00"
+            ],
+            "returncode": 0,
+            "elapsed_s": 510.97490462008864
+        },
+        {
+            "stage": "pause",
+            "command": [
+                "/home/arseniy/projects/flying_chess/methodology/cad/.venv/bin/python",
+                "-m",
+                "methodology.local_motion",
+                "--coil-cache",
+                "--readiness",
+                "--output",
+                "methodology/results/local_motion/optimized/production_readiness/restarted",
+                "--fields",
+                "methodology/results/local_motion/optimized/canonical_fields",
+                "--native-library",
+                "methodology/results/local_motion/optimized/native/magnetic_spline.so",
+                "--deadline",
+                "2026-10-19T11:51:35.333986+00:00",
+                "--pause-for-restart",
+                "--start-checkpoint",
+                "methodology/results/local_motion/optimized/production_readiness/uninterrupted/initial_checkpoint.json"
+            ],
+            "returncode": 0,
+            "elapsed_s": 421.75505475280806
+        },
+        {
+            "stage": "resume",
+            "command": [
+                "/home/arseniy/projects/flying_chess/methodology/cad/.venv/bin/python",
+                "-m",
+                "methodology.local_motion",
+                "--coil-cache",
+                "--readiness",
+                "--output",
+                "methodology/results/local_motion/optimized/production_readiness/restarted",
+                "--fields",
+                "methodology/results/local_motion/optimized/canonical_fields",
+                "--native-library",
+                "methodology/results/local_motion/optimized/native/magnetic_spline.so",
+                "--deadline",
+                "2026-10-19T11:51:35.333986+00:00",
+                "--resume",
+                "--start-checkpoint",
+                "methodology/results/local_motion/optimized/production_readiness/uninterrupted/initial_checkpoint.json"
+            ],
+            "returncode": 0,
+            "elapsed_s": 179.52245731302537
+        }
+    ],
+    "elapsed_s": 1328.2472165031359,
+    "runtime": {
+        "method": "native",
+        "build": {
+            "source_sha256": {
+                "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+                "methodology/magnetic_spline.py": "4a3a26697259e2f7f047633afaad0890d1c7deb630d33ac79d6d3233a11b62a0",
+                "methodology/magnetic_spline.c": "40ff3cba90d7da6e745a35c49d08232b0cc6fb58c3d57d370219a4e4ec1ee61c"
+            },
+            "command": [
+                "cc",
+                "-std=c99",
+                "-O3",
+                "-fPIC",
+                "-shared",
+                "-ffp-contract=off",
+                "/home/arseniy/projects/flying_chess/methodology/magnetic_spline.c",
+                "-o",
+                "methodology/results/local_motion/optimized/native/magnetic_spline.so"
+            ],
+            "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+            "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+            "machine": "x86_64",
+            "library_sha256": "c7a0113cdd5b516bc6acc9f201230b8dcd39c27483c23e1da28e568a01560a03"
+        },
+        "workers": 4,
+        "blas_threads": 1,
+        "blas_libraries": [
+            {
+                "internal_api": "openblas",
+                "prefix": "libscipy_openblas",
+                "version": "0.3.30",
+                "num_threads": 1,
+                "threading_layer": "pthreads",
+                "architecture": "Haswell"
+            },
+            {
+                "internal_api": "openblas",
+                "prefix": "libscipy_openblas",
+                "version": "0.3.31.188.0",
+                "num_threads": 1,
+                "threading_layer": "pthreads",
+                "architecture": "Haswell"
+            }
+        ],
+        "threadpoolctl": "3.7.0"
+    },
+    "reference_run": "methodology/results/local_motion/optimized/production_readiness/uninterrupted",
+    "restart_pause": {
+        "time_s": 0.0101,
+        "pending_sample_counts": [
+            256,
+            1
+        ]
+    },
+    "runtime_s": {
+        "uninterrupted": {
+            "setup": 144.05382345197722,
+            "integration": 346.14655241766013,
+            "recording": 1.2067637480795383,
+            "run": 362.34148441581056,
+            "total": 506.39531178888865
+        },
+        "restarted": {
+            "setup": 229.4243426900357,
+            "integration": 346.2777596740052,
+            "recording": 1.2680448533501476,
+            "run": 362.7366365159396,
+            "total": 592.1609820558224
+        }
+    },
+    "sensing_checks": [
+        {
+            "start_s": 0.0,
+            "filter_error_T": 2.8894785071998524e-08,
+            "quadrature_disagreement_T": 1.0408340855860843e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 2.8894785176081933e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.001,
+            "filter_error_T": 3.5263559834989786e-08,
+            "quadrature_disagreement_T": 1.5005358067199381e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 3.5263559985043366e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.002,
+            "filter_error_T": 2.57572103767173e-08,
+            "quadrature_disagreement_T": 1.4137996329210978e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 2.5757210518097262e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.003,
+            "filter_error_T": 2.805886676444328e-08,
+            "quadrature_disagreement_T": 1.0928757898653885e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 2.805886687373086e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.004,
+            "filter_error_T": 3.722992474031184e-08,
+            "quadrature_disagreement_T": 1.8735013540549517e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 3.722992492766197e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.005,
+            "filter_error_T": 3.8189725964921095e-08,
+            "quadrature_disagreement_T": 1.1102230246251565e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 3.81897260759434e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.006,
+            "filter_error_T": 2.1969045927491132e-08,
+            "quadrature_disagreement_T": 1.43982048506075e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 2.196904607147318e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.007,
+            "filter_error_T": 4.6678709197424395e-08,
+            "quadrature_disagreement_T": 1.6653345369377348e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 4.667870936395785e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.008,
+            "filter_error_T": 5.0416987459889206e-08,
+            "quadrature_disagreement_T": 1.682681771697503e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 5.0416987628157384e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.009,
+            "filter_error_T": 2.2487150259931088e-08,
+            "quadrature_disagreement_T": 1.8214596497756474e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 2.2487150442077053e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        },
+        {
+            "start_s": 0.01,
+            "filter_error_T": 3.587495963583995e-08,
+            "quadrature_disagreement_T": 1.8041124150158794e-16,
+            "field_implementation_difference_T": 0.0,
+            "combined_error_T": 3.587495981625119e-08,
+            "limit_T": 1e-07,
+            "reference_limit_T": 1e-11,
+            "passed": true
+        }
+    ],
+    "sensing_verification_s": 61.70313719008118
+}

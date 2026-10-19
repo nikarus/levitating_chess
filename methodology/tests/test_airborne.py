@@ -148,6 +148,17 @@ class AirborneCheckpointTests(unittest.TestCase):
         simulation.controller.command = Mock(return_value=dict(accepted=True, required_current_A=0.,
                                                                currents=np.full(len(simulation.identities), Fixed.max_current_command_error)))
 
+    def test_checkpoint_preserves_controller_matrix_accumulation_order(self):
+        simulation = airborne.AirborneSimulation(self.construction, Fixed.airborne_check_duration)
+        random = np.random.default_rng(Fixed.hall_virtual_seed)
+        matrix = np.asfortranarray(random.normal(size=(6, len(simulation.identities))))
+        currents = random.normal(size=len(simulation.identities))
+        simulation.controller.nominal_matrix = matrix
+        saved = json.loads(json.dumps(simulation.checkpoint_state()))
+        simulation.restore_checkpoint(saved)
+        self.assertTrue(simulation.controller.nominal_matrix.flags.f_contiguous)
+        np.testing.assert_array_equal(simulation.controller.nominal_matrix @ currents, matrix @ currents)
+
     def test_interior_release_and_sensor_acquisition_share_the_reported_reference(self):
         simulation = airborne.AirborneSimulation(self.construction, Fixed.airborne_check_duration)
         truth = simulation.plant.truth()
@@ -347,6 +358,16 @@ class AirborneVerificationTests(unittest.TestCase):
         refined['hardware_rates_Hz']['feedback'] *= 2
         with self.assertRaises(ValueError):
             airborne_verification.compare_trials(baseline, refined)
+
+    def test_simulated_pause_saves_unfinished_state_without_advance(self):
+        simulation = Mock(finished=False, clock=Fixed.airborne_readiness_pause)
+        simulation.report.return_value = dict(finished=False, passed=False)
+        with tempfile.TemporaryDirectory() as folder:
+            output, checkpoint = Path(folder) / 'report.json', Path(folder) / 'checkpoint.json'
+            result = airborne.run_simulation(simulation, output, checkpoint, pause_at=Fixed.airborne_readiness_pause)
+            simulation.advance.assert_not_called()
+            simulation.save_checkpoint.assert_called_once_with(checkpoint)
+            self.assertFalse(result['passed'])
 
     def test_deadline_saves_unfinished_state_without_claiming_success(self):
         simulation = Mock(finished=False)

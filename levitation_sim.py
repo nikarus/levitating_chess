@@ -82,6 +82,7 @@ class MagnetLayout:
         self.platform_side = self.blocks_per_side * self.lateral_edge
 
         self.collection = self.build()
+        self.block_positions = np.array([magnet.position for magnet in self.collection.children])
         self.center_of_mass_height = G.center_of_mass_height
 
     def block_center(self, index):
@@ -267,10 +268,14 @@ def blended_window_centers(position):
 def place_piece(layout, x=0.0, y=0.0, z=0.0, roll=0.0, pitch=0.0, yaw=0.0):
     rotation = Rotation.from_euler("xyz", [roll, pitch, yaw])
     collection = layout.collection
-    collection.position = (0.0, 0.0, 0.0)
-    collection.orientation = Rotation.identity()
-    collection.rotate(rotation, anchor=(0.0, 0.0, layout.center_of_mass_height))
-    collection.move((x, y, z))
+    anchor = np.array([0., 0., layout.center_of_mass_height])
+    translation = np.array([x, y, z])
+    collection.position = anchor + rotation.apply(-anchor) + translation
+    collection.orientation = rotation
+    positions = rotation.apply(layout.block_positions - anchor) + anchor + translation
+    for magnet, position in zip(collection.children, positions):
+        magnet.position = position
+        magnet.orientation = rotation
     center_of_mass = np.array([x, y, layout.center_of_mass_height + z])
     return collection, center_of_mass
 

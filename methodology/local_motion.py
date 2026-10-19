@@ -1,6 +1,10 @@
 import argparse
+from datetime import datetime
 import hashlib
 import json
+import subprocess
+import sys
+from time import perf_counter
 from pathlib import Path
 from unittest.mock import patch
 from zipfile import ZipFile, ZIP_DEFLATED
@@ -89,11 +93,239 @@ def run(output, reference_folder, field_folder):
     return context
 
 
+def run_cached(output, field_folder, library, resume=False, deadline=None, readiness=False, pause_at=None, start_checkpoint=None):
+    started = perf_counter()
+    from methodology.coil_field import CoilFieldCache
+    from methodology.magnetic_spline import native_evaluation
+    if output.exists() != resume:
+        raise ValueError('Use a fresh output directory, or explicitly resume an existing run')
+    screen = json.loads((field_folder / 'summary.json').read_text())
+    cache = CoilFieldCache.load(field_folder / 'atlas.npz')
+    if (screen['status'] != 'field_screen_passed' or screen['atlas_identity'] != cache.identity
+            or screen['source_sha256'] != cache.provenance['source_sha256']):
+        raise ValueError('Production coil-cache screen or identity differs')
+    inputs = source_fingerprints(field_folder / 'summary.json', field_folder / 'atlas.npz')
+    if start_checkpoint is not None:
+        inputs.update(source_fingerprints(start_checkpoint))
+    checkpoint = output / 'checkpoint.json'
+    evidence_path = output / 'evidence.json'
+    with native_evaluation(cache, library):
+        duration = (Fixed.airborne_readiness_duration if readiness else
+            Fixed.airborne_motion_start + Fixed.airborne_motion_duration + Fixed.airborne_motion_settle_duration)
+        if resume:
+            context = json.loads(evidence_path.read_text())
+            if inputs != context['inputs_sha256']:
+                raise ValueError('Local-motion cache inputs changed')
+            for name, digest in context['source_sha256'].items():
+                if hashlib.sha256(Path(name).read_bytes()).hexdigest() != digest:
+                    raise ValueError('Local-motion source changed: ' + name)
+            simulation = JointAirborneSimulation.from_checkpoint(checkpoint, atlas=cache)
+            if simulation.clock != context['completed_duration_s'] or simulation.duration != duration:
+                raise ValueError('Local-motion checkpoint and recording clocks differ')
+        else:
+            if start_checkpoint is None:
+                simulation = JointAirborneSimulation(magnetics.ConstructionModel(), duration, atlas=cache,
+                    magnetic_mode='coil_cache', motion_scenario='local_move')
+            else:
+                simulation = JointAirborneSimulation.from_checkpoint(start_checkpoint, atlas=cache)
+                if simulation.clock != 0 or simulation.duration != duration or simulation.motion_scenario != 'local_move':
+                    raise ValueError('Local-motion start requires an initial checkpoint for this scenario')
+                if simulation.checkpoint_state() != json.loads(start_checkpoint.read_text()):
+                    raise ValueError('Local-motion initial checkpoint did not restore exactly')
+            output.mkdir(parents=True)
+            source = dict(simulation.source, **source_fingerprints(__file__, numerical_accuracy.__file__, hover.__file__))
+            with ZipFile(output / 'sources.zip', 'x', compression=ZIP_DEFLATED) as archive:
+                for name in source:
+                    archive.write(name, name)
+            simulation.save_checkpoint(output / 'initial_checkpoint.json')
+            context = dict(scope='Sensor-feedback local movement using the production coil cache; bounded flight evidence',
+                source_sha256=source, inputs_sha256=inputs, atlas_identity=cache.identity, scans=[], dense_sha256=None, runtime_s={})
+        recorder = JointTrajectoryRecorder(simulation)
+        if resume and context['dense_sha256'] is not None:
+            if hashlib.sha256((output / 'dense.npz').read_bytes()).hexdigest() != context['dense_sha256']:
+                raise ValueError('Local-motion dense recording changed')
+            recorder.restore_dense(output / 'dense.npz', context['scans'])
+
+        previous_runtime = dict(context['runtime_s'])
+        setup_elapsed = perf_counter() - started
+        recording_elapsed = 0.
+        run_started = perf_counter()
+
+        def progress(report):
+            nonlocal recording_elapsed
+            recording_started = perf_counter()
+            hover.check_operating_limits(simulation, report)
+            context.update(scans=recorder.scans, dense_sha256=recorder.save_dense(output / 'dense.npz'),
+                completed_duration_s=simulation.clock, stop_reason=simulation.stop_reason,
+                status=('failed' if simulation.stop_reason is not None or (simulation.finished and not report['passed'])
+                    else 'passed' if simulation.finished else 'paused'))
+            recording_elapsed += perf_counter() - recording_started
+            times = dict(setup=setup_elapsed, integration=recorder.integration_elapsed_s,
+                recording=recording_elapsed, run=perf_counter() - run_started, total=perf_counter() - started)
+            context['runtime_s'] = {name: previous_runtime.get(name, 0.) + value for name, value in times.items()}
+            airborne_verification.save_summary(evidence_path, context)
+
+        with patch.object(simulation.dynamics, 'integrate', recorder.integrate), patch.object(simulation.sensors, 'encode_signal', recorder.encode_signal):
+            report = airborne.run_simulation(simulation, output / 'summary.json', checkpoint, deadline=deadline, progress=progress, pause_at=pause_at)
+        progress(report)
+        simulation.save_checkpoint(checkpoint)
+        airborne_verification.save_summary(output / 'summary.json', simulation.report())
+        return context
+
+
+def verify_readiness(output, field_folder, library, deadline, reference_run=None):
+    import levitation_sim
+    from methodology import airborne_diagnostics, coil_field, magnetic_spline, physics_verification
+    if output.exists():
+        raise ValueError('Preserve existing readiness evidence')
+    output.mkdir(parents=True)
+    started = perf_counter()
+    cache = coil_field.CoilFieldCache.load(field_folder / 'atlas.npz')
+    screen = json.loads((field_folder / 'summary.json').read_text())
+    if screen['status'] != 'field_screen_passed' or screen['atlas_identity'] != cache.identity:
+        raise ValueError('Readiness requires passing production field evidence')
+    result = dict(status='running', scope='Integrated coil-cache readiness for the nominal local CAD movement, not flight-envelope qualification',
+        source_sha256=dict(cache.provenance['source_sha256'], **source_fingerprints(__file__, airborne_diagnostics.__file__)),
+        input_sha256=source_fingerprints(field_folder / 'summary.json', field_folder / 'atlas.npz', library, library.with_suffix('.json')),
+        cache_identity=cache.identity, checks={}, matrix_checks=[], processes=[])
+
+    def save():
+        result['elapsed_s'] = perf_counter() - started
+        airborne_verification.save_summary(output / 'summary.json', result)
+
+    with ZipFile(output / 'sources.zip', 'x', compression=ZIP_DEFLATED) as archive:
+        for name in result['source_sha256']:
+            archive.write(name, name)
+    save()
+    with magnetic_spline.native_evaluation(cache, library) as runtime:
+        simulation = JointAirborneSimulation(magnetics.ConstructionModel(), Fixed.airborne_readiness_duration,
+            initialize=False, atlas=cache, magnetic_mode='coil_cache', motion_scenario='local_move')
+        result['runtime'] = runtime
+        for time in (0., Fixed.airborne_readiness_duration, Fixed.airborne_motion_start + Fixed.airborne_motion_duration):
+            pose, _, _ = simulation.reference_state(time)
+            _, center = levitation_sim.place_piece(simulation.controller.magnets, *pose)
+            matrix = simulation.controller.matrix_evaluator(simulation.controller.magnets.collection, center)
+            reference = levitation_sim.actuator_matrix(simulation.controller.magnets, simulation.controller.array, center)
+            errors = physics_verification.matrix_refinement_metrics(matrix, reference, Fixed.driver_channel_current)
+            passed = all(errors[key] <= Fixed.atlas_matrix_relative_tolerance
+                for key in ('force_relative_column_error', 'torque_relative_column_error'))
+            result['matrix_checks'].append(dict(time_s=time, pose=pose.tolist(), errors=errors, passed=passed))
+            if not passed:
+                result['status'] = 'matrix_failed'
+                save()
+                return result
+    result['checks']['integrated_matrices'] = True
+    if reference_run is None:
+        reference_run = output / 'uninterrupted'
+        jobs = [('uninterrupted', reference_run, [])]
+    else:
+        recorded = airborne_diagnostics.verify_recorded_archive(reference_run)
+        if not recorded['passed'] or recorded['source_sha256'] != simulation.source:
+            raise ValueError('Retained readiness reference differs from current physical sources or did not pass')
+        result['input_sha256'].update(source_fingerprints(*[reference_run / name for name in
+            ('summary.json', 'initial_checkpoint.json', 'checkpoint.json', 'evidence.json', 'dense.npz', 'sources.zip')]))
+        result['checks']['uninterrupted'] = True
+        jobs = []
+    start = reference_run / 'initial_checkpoint.json'
+    jobs.extend([('pause', output / 'restarted', ['--pause-for-restart', '--start-checkpoint', str(start)]),
+        ('resume', output / 'restarted', ['--resume', '--start-checkpoint', str(start)])])
+    result['reference_run'] = str(reference_run)
+    save()
+    for label, folder, options in jobs:
+        command = [sys.executable, '-m', 'methodology.local_motion', '--coil-cache', '--readiness',
+            '--output', str(folder), '--fields', str(field_folder), '--native-library', str(library),
+            '--deadline', deadline.isoformat(), *options]
+        process_started = perf_counter()
+        with (output / (label + '.log')).open('w') as log:
+            process = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT)
+        result['processes'].append(dict(stage=label, command=command, returncode=process.returncode,
+            elapsed_s=perf_counter() - process_started))
+        if process.returncode:
+            result['status'] = label + '_process_failed'
+            save()
+            return result
+        context = json.loads((folder / 'evidence.json').read_text())
+        state = json.loads((folder / 'checkpoint.json').read_text())
+        if label == 'pause':
+            samples = [scan['sample_count'] for scan in state['joint']['pending_scans'].values()]
+            expected = context['status'] == 'paused' and state['stop_reason'] is None and any(count > 0 for count in samples)
+            result['restart_pause'] = dict(time_s=state['joint']['clock'], pending_sample_counts=samples)
+        else:
+            expected = context['status'] == 'passed'
+        result['checks'][label] = expected
+        if not expected:
+            result['status'] = label + '_check_failed'
+            save()
+            return result
+        save()
+    folders = [reference_run, output / 'restarted']
+    initial = [json.loads((folder / 'initial_checkpoint.json').read_text()) for folder in folders]
+    result['checks']['initial_checkpoint_exact'] = initial[0] == initial[1]
+    states = [json.loads((folder / 'checkpoint.json').read_text()) for folder in folders]
+    contexts = [json.loads((folder / 'evidence.json').read_text()) for folder in folders]
+    result['checks']['checkpoint_exact'] = states[0] == states[1]
+    result['checks']['scans_exact'] = contexts[0]['scans'] == contexts[1]['scans']
+    with np.load(folders[0] / 'dense.npz', allow_pickle=False) as first, np.load(folders[1] / 'dense.npz', allow_pickle=False) as second:
+        result['checks']['dense_exact'] = set(first.files) == set(second.files) and all(np.array_equal(first[name], second[name]) for name in first.files)
+    result['runtime_s'] = {name: context['runtime_s'] for name, context in zip(('uninterrupted', 'restarted'), contexts)}
+    if not all(result['checks'].values()):
+        result['status'] = 'restart_mismatch'
+        save()
+        return result
+    with magnetic_spline.native_evaluation(cache, library):
+        simulation = JointAirborneSimulation.from_checkpoint(folders[0] / 'checkpoint.json', atlas=cache)
+        reference = airborne_diagnostics.MatchedHallReference(simulation.fields, states[0]['sensors'], simulation.identities,
+            simulation.plant.geometry.center_of_mass_height, simulation.dynamics.current)
+        trajectory = airborne_diagnostics.recorded_dense_trajectory(folders[0] / 'dense.npz', 'physical')
+        verification_started = perf_counter()
+        result['sensing_checks'] = []
+        for scan in contexts[0]['scans']:
+            check = reference.check(trajectory, scan)
+            result['sensing_checks'].append(check)
+            if not check['passed']:
+                result['status'] = 'sensing_failed'
+                save()
+                return result
+        result['sensing_verification_s'] = perf_counter() - verification_started
+    result['checks']['independent_sensing'] = bool(result['sensing_checks'])
+    result['status'] = 'simulation_ready' if all(result['checks'].values()) else 'readiness_failed'
+    save()
+    return result
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Run a bounded local movement with the verified joint solver.')
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--reference', type=Path, required=True)
+    parser.add_argument('--reference', type=Path)
     parser.add_argument('--fields', type=Path, required=True)
+    parser.add_argument('--coil-cache', action='store_true', help='Use the integrated coil-field backend.')
+    parser.add_argument('--native-library', type=Path)
+    parser.add_argument('--resume', action='store_true')
+    parser.add_argument('--start-checkpoint', type=Path, help='Start a repeated experiment from an identical production initial state.')
+    parser.add_argument('--reference-run', type=Path, help='Reuse an unchanged completed readiness reference.')
+    parser.add_argument('--readiness', action='store_true', help='Run the short integration-readiness movement prefix.')
+    parser.add_argument('--pause-for-restart', action='store_true')
+    parser.add_argument('--verify-ready', action='store_true', help='Run the bounded integrated-backend readiness checks.')
+    parser.add_argument('--deadline', type=datetime.fromisoformat)
     args = parser.parse_args()
-    result = run(args.output, args.reference, args.fields)
+    if args.reference_run is not None and not args.verify_ready:
+        parser.error('A retained reference is only used for readiness verification')
+    if args.start_checkpoint is not None and (not args.coil_cache or args.verify_ready):
+        parser.error('An initial checkpoint belongs to a normal coil-cache run')
+    if args.pause_for_restart and (not args.readiness or args.resume or args.verify_ready):
+        parser.error('A readiness restart pause requires a fresh short run')
+    if args.coil_cache:
+        if args.reference is not None or args.native_library is None or args.deadline is None or args.deadline.tzinfo is None:
+            parser.error('Coil runs require a native library and timezone-aware deadline, without a hover reference')
+        if args.verify_ready:
+            if args.resume or args.readiness:
+                parser.error('The readiness batch owns its short-run and resume options')
+            result = verify_readiness(args.output, args.fields, args.native_library, args.deadline, args.reference_run)
+        else:
+            result = run_cached(args.output, args.fields, args.native_library, args.resume, args.deadline.timestamp(),
+                args.readiness, Fixed.airborne_readiness_pause if args.pause_for_restart else None, args.start_checkpoint)
+    else:
+        if args.reference is None or args.native_library is not None or args.resume or args.deadline is not None or args.readiness or args.verify_ready or args.pause_for_restart:
+            parser.error('Legacy local movement requires a hover reference without coil-cache options')
+        result = run(args.output, args.reference, args.fields)
     print(json.dumps(dict(status=result['status'])), flush=True)

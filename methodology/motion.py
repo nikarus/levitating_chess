@@ -41,6 +41,7 @@ class MotionPlant:
             min(Fixed.current_demand_mesh_refinements) if magnetic_refinement is None else magnetic_refinement)
         self.magnets = levitation_sim.magnet_layout_from_geometry()
         self.field_evaluator = None
+        self.matrix_evaluator = None
         self.physical_identities = set(self.metadata['physical_identities'])
         self.full_coil_patch = full_coil_patch
         if full_coil_patch:
@@ -77,7 +78,8 @@ class MotionPlant:
         _, magnet_center = levitation_sim.place_piece(self.magnets, *translation, *truth['rotation'].as_euler('xyz'))
         if not np.allclose(center, magnet_center, atol=Fixed.cad_geometry_tolerance / 1000, rtol=0):
             raise ValueError('Magnetic and mechanical centre-of-mass coordinates disagree')
-        return levitation_sim.actuator_matrix(self.magnets, self.array, center, self.field_evaluator)
+        return (levitation_sim.actuator_matrix(self.magnets, self.array, center, self.field_evaluator)
+            if self.matrix_evaluator is None else self.matrix_evaluator(self.magnets.collection, center))
 
     def apply_wrench(self, wrench):
         self.data.qfrc_applied[:] = 0

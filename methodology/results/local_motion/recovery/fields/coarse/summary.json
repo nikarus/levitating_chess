@@ -1,0 +1,57 @@
+{
+  "scope": "Sampled coil-field cache accuracy and actuator-matrix timing; no coupled or full-domain qualification",
+  "status": "interrupted_for_scope_review",
+  "spacing_m": 0.0005,
+  "grid_shape": [
+    157,
+    162,
+    35
+  ],
+  "grid_bytes": 21364560,
+  "bounds_m": [
+    [
+      -0.03295777945815118,
+      -0.03525709286268707,
+      0.006916035193058546
+    ],
+    [
+      0.03290213562373097,
+      0.03290213562373097,
+      0.014881966522466586
+    ]
+  ],
+  "source_sha256": {
+    "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+    "model.py": "a9838b6ebf0ce6134307d2fff81280fb0aa2c8b8689dedb448cd8e3ffb7475d0",
+    "levitation_sim.py": "91eea3f343cbfb0722c8325f52f6c55ff49995a2e4ff726584ead98b1e4cd5a3",
+    "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+    "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+    "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+    "methodology/cad/assembly.py": "b581ae6204830eec8ccecc9398ae8afe9877592f7d26a4f4dba6d73d36279a47",
+    "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+    "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+    "methodology/cad/magnetics.py": "0558fffe5cb8bc3dd6924bc94aaf8d1ddd5328900e6531496786e93a7d77bd00",
+    "methodology/coupling_verification.py": "3540025530485cc662bad2fd97df0a7a6e8ed6b5498fd05934b6bb117091fb06",
+    "methodology/numerical_accuracy.py": "028bd09ea9765c0c6ea3ca4a49e2d9633b40fa52308bc47376cc53df5c4a1fe2",
+    "methodology/coil_field.py": "9713d6e801bdf2c111d23609b608d9347840ad5a2df94b3b524144519104cb72",
+    "methodology/magnetic_atlas.py": "74cf8cae44667b6801fa4d35e29e9ecd289015831a8da2ec236c55deb3509578",
+    "methodology/magnetic_spline.py": "bf148a591bd019245e0a740f360a62cad0ccb96f4efd707a73a8db36e3609dee",
+    "methodology/magnetic_spline.c": "40ff3cba90d7da6e745a35c49d08232b0cc6fb58c3d57d370219a4e4ec1ee61c",
+    "methodology/physics_verification.py": "faf8429b6463a146253bf064e1987207e56ef65b387acc24b32a8b83ceb2b5c9",
+    "methodology/benchmark_magnetics.py": "d663d1488830a5799456f2a0a2896149eb140dae0cdffc97f32586fcc35295d8"
+  },
+  "input_sha256": {
+    "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+    "methodology/results/local_motion/recovery/fields/surface/summary.json": "d88b8097e5d8f32def1cd1797b9bb73592a90088a1e3862a83481173f9de2f93",
+    "methodology/results/local_motion/trial/initial_checkpoint.json": "a38df3e8b56198e9a94c5f061c1e2249a0886991230b75e9719ccbe9d0bef667",
+    "methodology/results/hover/native_spline/qualified/atlas.npz": "1c4c11b47029295f88b0132944c3989d6f2137711b65de1f56366a2cd4109166"
+  },
+  "limits": {
+    "field_T": 1e-07,
+    "gradient_relative": 0.001,
+    "matrix_relative": 0.0001,
+    "matrix_speedup": 2.0
+  },
+  "candidates": [],
+  "stop_reason": "Stopped at user request during field preparation; no recovery flight started."
+}

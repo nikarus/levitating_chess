@@ -1,0 +1,22 @@
+{
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/magnetic_spline.py": "4a3a26697259e2f7f047633afaad0890d1c7deb630d33ac79d6d3233a11b62a0",
+        "methodology/magnetic_spline.c": "40ff3cba90d7da6e745a35c49d08232b0cc6fb58c3d57d370219a4e4ec1ee61c"
+    },
+    "command": [
+        "cc",
+        "-std=c99",
+        "-O3",
+        "-fPIC",
+        "-shared",
+        "-ffp-contract=off",
+        "/home/arseniy/projects/flying_chess/methodology/magnetic_spline.c",
+        "-o",
+        "methodology/results/local_motion/optimized/native/magnetic_spline.so"
+    ],
+    "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "machine": "x86_64",
+    "library_sha256": "c7a0113cdd5b516bc6acc9f201230b8dcd39c27483c23e1da28e568a01560a03"
+}

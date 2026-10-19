@@ -19,6 +19,25 @@ class MagneticForceTests(unittest.TestCase):
             dimension=(0.01, 0.01, 0.005), polarization=(0.2, -0.3, 1), position=(0, 0, 0.005))))
         self.center = np.array([0, 0, 0.012])
 
+    def test_piece_placement_is_exactly_independent_of_previous_poses(self):
+        from model import Inputs, Constants
+        levitation_sim.use_geometry(SimpleNamespace(settings=Fixed, center_of_mass_height=self.center[2]))
+        layout = levitation_sim.MagnetLayout(Inputs.magnet_lateral_edge / 1000, Inputs.magnet_thickness / 1000,
+            Inputs.periods_per_side, Inputs.magnets_per_period, Constants.ndfeb_remanence_br)
+        target = np.r_[self.center, np.radians(Fixed.motion_check_orientation_deg)]
+        levitation_sim.place_piece(layout, *target)
+        positions = np.array([magnet.position for magnet in layout.collection.children])
+        orientations = np.array([magnet.orientation.as_quat() for magnet in layout.collection.children])
+        field = layout.collection.getB(-self.center)
+        for pose in (np.zeros(6), -target, target / Fixed.qualification_refinement_factor, target):
+            levitation_sim.place_piece(layout, *pose)
+        np.testing.assert_array_equal([magnet.position for magnet in layout.collection.children], positions)
+        np.testing.assert_array_equal([magnet.orientation.as_quat() for magnet in layout.collection.children], orientations)
+        np.testing.assert_array_equal(layout.collection.getB(-self.center), field)
+        rotation = Rotation.from_euler('xyz', target[3:])
+        expected = rotation.apply(layout.block_positions - [0, 0, self.center[2]]) + [0, 0, self.center[2]] + target[:3]
+        np.testing.assert_array_equal(positions, expected)
+
     def test_rigid_work_path_uses_world_angular_velocity_and_closes(self):
         from methodology.coil_field_verification import rigid_segment, work_integral
         start = np.r_[self.center, np.radians(Fixed.motion_check_orientation_deg)]

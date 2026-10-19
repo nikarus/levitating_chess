@@ -1,0 +1,8 @@
+{
+  "cause": "Magpylib child positions accumulated floating-point changes under incremental collection resets. Those hidden coordinates were not part of the checkpoint.",
+  "shared_initial_checkpoint_exact": true,
+  "first_differing_physical_interval_start_s": 0.0101,
+  "recorded_prefix_Hall_samples_exact": true,
+  "pose_history_surface_coordinate_difference_m": 3.5041414214731503e-16,
+  "remedy": "Derive magnet positions and orientations from immutable block coordinates and the requested rigid pose on every call; retain exact restart acceptance."
+}

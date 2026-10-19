@@ -10,7 +10,7 @@ import numpy as np
 from threadpoolctl import threadpool_limits
 
 import levitation_sim
-from model import Fixed
+from model import Fixed, Inputs
 from methodology import airborne_verification, coupling_verification, magnetic_atlas, magnetic_spline, numerical_accuracy, physics_verification, source_fingerprints
 from methodology.benchmark_magnetics import recorded_force_geometry
 from methodology.cad import magnetics
@@ -23,6 +23,8 @@ class CoilSurfaceQueries:
         self.origins = np.array([coil[0].orientation.apply(array.rotation.apply(
             [placement['x'], placement['y'], placement['top'] - array.height])) + coil[0].position
             for placement, coil in zip(array.placements, array.coils)])
+        if array.force_quadrature is None or not array.force_quadrature.matches(array.coils):
+            array.force_quadrature = array.create_force_quadrature()
         quadrature = array.force_quadrature
         if any(len(coil) != 1 for coil in array.coils) or not np.all(quadrature.currents == 1):
             raise ValueError('Coil field reuse requires single unit-current CAD windings')
@@ -52,6 +54,119 @@ class CoilSurfaceQueries:
             for rotation, field in zip(self.rotations, fields)]).T
 
 
+def coil_query_bounds(queries, layout, poses):
+    corners = np.array(np.meshgrid(*[[-1, 1]] * 3)).reshape(3, -1).T
+    bounds = np.array([[np.inf] * 3, [-np.inf] * 3])
+    for pose in poses:
+        levitation_sim.place_piece(layout, *pose)
+        points = np.concatenate([magnet.orientation.apply(corners * magnet.dimension / 2) + magnet.position
+            for magnet in layout.collection.sources_all])
+        local = queries.local_queries(points)
+        bounds[0] = np.minimum(bounds[0], local.min(axis=0))
+        bounds[1] = np.maximum(bounds[1], local.max(axis=0))
+    return bounds
+
+
+def coil_grid_axes(queries, bounds, spacing):
+    bounds = np.asarray(bounds, dtype=float)
+    if bounds.shape != (2, 3) or not np.isfinite(bounds).all() or np.any(bounds[1] <= bounds[0]):
+        raise ValueError('Coil cache requires finite increasing three-dimensional bounds')
+    if not np.isfinite(spacing) or spacing <= 0:
+        raise ValueError('Coil cache spacing must be positive')
+    lower = np.floor(bounds[0] / spacing).astype(int) - Fixed.atlas_padding_cells
+    upper = np.ceil(bounds[1] / spacing).astype(int) + Fixed.atlas_padding_cells
+    lower[2] = max(lower[2], int(np.floor(queries.positions[:, 2].max() / spacing + .5)))
+    axes = [(np.arange(first, last + 1) + .5) * spacing for first, last in zip(lower, upper)]
+    if any(not len(axis) or axis[0] > bounds[0, index] or axis[-1] < bounds[1, index] for index, axis in enumerate(axes)):
+        raise ValueError('Coil field lattice does not cover its sampled exterior domain')
+    storage = int(np.prod([len(axis) for axis in axes])) * 3 * np.dtype(float).itemsize
+    if 3 * storage > Fixed.atlas_max_storage_bytes:
+        raise ValueError('Coil grid and coefficients exceed the configured memory budget')
+    return axes
+
+
+def sample_coil_grid(queries, axes):
+    values = np.empty((*[len(axis) for axis in axes], 3))
+    yz = np.stack(np.meshgrid(axes[1], axes[2], indexing='ij'), axis=-1).reshape(-1, 2)
+    for index, x in enumerate(axes[0]):
+        points = np.column_stack((np.full(len(yz), x), yz))
+        values[index] = queries.direct(points).reshape(len(axes[1]), len(axes[2]), 3)
+    return values
+
+
+class CoilFieldCache(magnetic_atlas.MagneticFieldAtlas):
+    cache_schema = 'coil-field-cache-v1'
+
+    @classmethod
+    def current_provenance(cls):
+        provenance = super().current_provenance()
+        provenance['source_sha256'].update(magnetics.fingerprints())
+        provenance['source_sha256'].update(source_fingerprints(__file__, coupling_verification.__file__, numerical_accuracy.__file__))
+        return provenance
+
+    def __init__(self, array, bounds):
+        queries = CoilSurfaceQueries(array, min(Fixed.coupling_flux_orders))
+        self.bounds = np.asarray(bounds, dtype=float)
+        self.source_state = np.column_stack((queries.positions, queries.elements))
+        axes = coil_grid_axes(queries, self.bounds, Fixed.coil_cache_grid_spacing)
+        values = sample_coil_grid(queries, axes)
+        self.interpolator = magnetic_atlas.tensor_product_spline(axes, values, Fixed.coil_cache_spline_order)
+        self.coefficients = self.interpolator.c
+        self.shape = self.coefficients.shape[:3]
+        self.provenance = self.current_provenance()
+        self.identity = self.content_identity()
+
+    def field(self, source, points):
+        raise ValueError('Coil cache supplies actuator matrices, not moving-magnet fields')
+
+    def __call__(self, points):
+        points = np.asarray(points)
+        if (points.ndim != 2 or points.shape[1] != 3 or not np.isfinite(points).all()
+                or np.any(points < self.bounds[0]) or np.any(points > self.bounds[1])):
+            raise ValueError('Coil field query is outside its declared exterior domain')
+        return self.interpolator(points)
+
+    def bind(self, array):
+        queries = CoilSurfaceQueries(array, min(Fixed.coupling_flux_orders))
+        state = np.column_stack((queries.positions, queries.elements))
+        if (state.shape != self.source_state.shape or not np.allclose(state, self.source_state,
+                atol=Fixed.singular_value_tolerance, rtol=Fixed.matrix_rank_tolerance)):
+            raise ValueError('Coil cache winding geometry or quadrature differs')
+        quadrature = array.force_quadrature
+        def matrix(source, center):
+            if array.force_quadrature is not quadrature or not quadrature.matches(array.coils):
+                raise ValueError('Coil cache bound window or winding geometry changed')
+            return queries.matrix(source, center, self)
+        return matrix
+
+
+def prepare_cache(output):
+    if output.exists():
+        raise ValueError('Preserve existing coil-cache preparation')
+    construction = magnetics.ConstructionModel()
+    geometry, array, _ = construction(Inputs.cad_coil_layout, min(Fixed.current_demand_mesh_refinements))
+    layout = levitation_sim.magnet_layout_from_geometry()
+    queries = CoilSurfaceQueries(array, min(Fixed.coupling_flux_orders))
+    poses = physics_verification.verification_poses(geometry, array, layout)
+    bounds = coil_query_bounds(queries, layout, [row['pose'] for row in poses])
+    output.mkdir(parents=True)
+    started = perf_counter()
+    cache = CoilFieldCache(array, bounds)
+    cache.save(output / 'atlas.npz')
+    source = cache.provenance['source_sha256']
+    with ZipFile(output / 'sources.zip', 'x', compression=ZIP_DEFLATED) as archive:
+        for name in source:
+            archive.write(name, name)
+    points = np.random.default_rng(Fixed.atlas_validation_seed).uniform(*bounds, size=(Fixed.atlas_validation_points, 3))
+    field_error = magnetic_atlas.vector_error(cache(points), queries.direct(points))
+    report = dict(status='field_screen_passed' if field_error <= Fixed.atlas_field_tolerance else 'field_screen_failed',
+        scope='Fresh production coil cache with off-grid field check; not new motion qualification',
+        source_sha256=source, atlas_identity=cache.identity, bounds_m=bounds.tolist(),
+        field_error_T=field_error, field_limit_T=Fixed.atlas_field_tolerance, elapsed_s=perf_counter() - started)
+    airborne_verification.save_summary(output / 'summary.json', report)
+    return report
+
+
 def screen(surface_folder, native_folder, output, spacing):
     if output.exists():
         raise ValueError('Preserve existing coil-field cache evidence')
@@ -68,25 +183,10 @@ def screen(surface_folder, native_folder, output, spacing):
     layout, array = recorded_force_geometry(json.loads(checkpoint_path.read_text()))
     queries = CoilSurfaceQueries(array, surface['surface_order'])
     domain = physics_verification.verification_poses(levitation_sim.G, array, layout)
-    corners = np.array(np.meshgrid(*[[-1, 1]] * 3)).reshape(3, -1).T
-    bounds = np.array([[np.inf] * 3, [-np.inf] * 3])
-    for pose in [row['pose'] for row in domain] + [row['pose'] for row in surface['probes']]:
-        levitation_sim.place_piece(layout, *pose)
-        points = np.concatenate([magnet.orientation.apply(corners * magnet.dimension / 2) + magnet.position
-            for magnet in layout.collection.sources_all])
-        local = queries.local_queries(points)
-        bounds[0] = np.minimum(bounds[0], local.min(axis=0))
-        bounds[1] = np.maximum(bounds[1], local.max(axis=0))
-    lower = np.floor(bounds[0] / spacing).astype(int) - Fixed.atlas_padding_cells
-    upper = np.ceil(bounds[1] / spacing).astype(int) + Fixed.atlas_padding_cells
-    lower[2] = max(lower[2], int(np.floor(queries.positions[:, 2].max() / spacing + .5)))
-    axes = [(np.arange(first, last + 1) + .5) * spacing for first, last in zip(lower, upper)]
-    if any(axis[0] > bounds[0, index] or axis[-1] < bounds[1, index] for index, axis in enumerate(axes)):
-        raise ValueError('Coil field lattice does not cover its sampled exterior domain')
+    bounds = coil_query_bounds(queries, layout, [row['pose'] for row in domain] + [row['pose'] for row in surface['probes']])
+    axes = coil_grid_axes(queries, bounds, spacing)
     shape = tuple(len(axis) for axis in axes)
     storage = int(np.prod(shape)) * 3 * np.dtype(float).itemsize
-    if 3 * storage > Fixed.atlas_max_storage_bytes:
-        raise ValueError('Coil grid and coefficients exceed the configured memory budget')
     report = dict(scope='Sampled coil-field cache accuracy and actuator-matrix timing; no coupled or full-domain qualification',
         status='running', spacing_m=spacing, grid_shape=shape, grid_bytes=storage, bounds_m=bounds.tolist(),
         source_sha256=dict(physical_sources, **source_fingerprints(__file__, magnetic_atlas.__file__, magnetic_spline.__file__,
@@ -105,12 +205,8 @@ def screen(surface_folder, native_folder, output, spacing):
         airborne_verification.save_summary(output / 'summary.json', report)
 
     save()
-    values = np.empty((*shape, 3))
-    yz = np.stack(np.meshgrid(axes[1], axes[2], indexing='ij'), axis=-1).reshape(-1, 2)
     started = perf_counter()
-    for index, x in enumerate(axes[0]):
-        points = np.column_stack((np.full(len(yz), x), yz))
-        values[index] = queries.direct(points).reshape(*shape[1:], 3)
+    values = sample_coil_grid(queries, axes)
     report['grid_build_s'] = perf_counter() - started
     random = np.random.default_rng(Fixed.atlas_validation_seed)
     probes = random.uniform(*bounds, size=(Fixed.atlas_validation_points, 3))
@@ -185,12 +281,21 @@ def screen(surface_folder, native_folder, output, spacing):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Bounded coil-field cache feasibility; no simulator backend changes.')
-    parser.add_argument('--surface', type=Path, required=True)
-    parser.add_argument('--native-reference', type=Path, required=True)
+    parser = argparse.ArgumentParser(description='Prepare production coil-field caches or run bounded diagnostic screens.')
+    parser.add_argument('--prepare', action='store_true', help='Build a fresh source-checked cache for the normal simulator.')
+    parser.add_argument('--surface', type=Path)
+    parser.add_argument('--native-reference', type=Path)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--spacing', type=float, choices=Fixed.atlas_grid_spacings, default=max(Fixed.atlas_grid_spacings))
     arguments = parser.parse_args()
-    result = screen(arguments.surface, arguments.native_reference, arguments.output, arguments.spacing)
-    print(json.dumps(dict(status=result['status'], grid_build_s=result['grid_build_s'],
-        candidates=[dict(order=row['order'], speedup=row['matrix_speedup'], checks=row['checks']) for row in result['candidates']])))
+    if arguments.prepare:
+        if arguments.surface is not None or arguments.native_reference is not None:
+            parser.error('Production preparation does not accept diagnostic inputs')
+        result = prepare_cache(arguments.output)
+        print(json.dumps(result))
+    else:
+        if arguments.surface is None or arguments.native_reference is None:
+            parser.error('The diagnostic screen requires surface and native reference evidence')
+        result = screen(arguments.surface, arguments.native_reference, arguments.output, arguments.spacing)
+        print(json.dumps(dict(status=result['status'], grid_build_s=result['grid_build_s'],
+            candidates=[dict(order=row['order'], speedup=row['matrix_speedup'], checks=row['checks']) for row in result['candidates']])))
