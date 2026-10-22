@@ -10,6 +10,96 @@ def current_quantum():
     return 2 * Fixed.driver_peak_current / 2 ** Fixed.current_feedback_bits
 
 
+def hardware_interface_requirements(current_channels, hall_channels):
+    if any(not isinstance(count, int) or isinstance(count, bool) or count <= 0
+           for count in (current_channels, hall_channels)):
+        raise ValueError('Hardware interface channel counts must be positive integers')
+    return dict(
+        ratings=dict(full_bus_V=Inputs.selected_bus_voltage,
+            usable_terminal_voltage_V=Inputs.selected_bus_voltage * Fixed.coil_bus_voltage_fraction * Fixed.usable_bus_voltage_fraction,
+            regulated_channel_current_A=Fixed.driver_channel_current,
+            instantaneous_current_limit_A=Fixed.driver_peak_current,
+            allowed_ripple_peak_deviation_A=Fixed.driver_max_ripple_current),
+        rates_Hz=dict(command=Fixed.current_command_rate, current_regulator=Fixed.current_regulator_rate,
+            pose_feedback=Fixed.pose_feedback_rate, pwm_carrier=Fixed.driver_pwm_frequency),
+        dynamics_Hz=dict(current_loop_bandwidth=Fixed.current_loop_bandwidth,
+            command_filter_cutoff=Fixed.setpoint_filter_cutoff,
+            pose_controller=Fixed.pose_controller_frequency,
+            pose_observer=Fixed.pose_controller_frequency * Fixed.pose_observer_frequency_ratio),
+        current_acquisition=dict(channels=current_channels, nominal_converter_bits=Fixed.current_feedback_bits,
+            bipolar_range_A=[-Fixed.driver_peak_current, Fixed.driver_peak_current],
+            quantum_A=current_quantum(), noise_rms_A=Fixed.current_feedback_noise,
+            residual_offset_bound_A=Fixed.current_sense_offset_residual / Fixed.current_sense_resistance,
+            residual_gain_fraction=Fixed.current_feedback_gain_bound,
+            shunt_ohm=Fixed.current_sense_resistance,
+            shunt_input_peak_V=Fixed.driver_peak_current * Fixed.current_sense_resistance,
+            input_referred_noise_rms_V=Fixed.current_feedback_noise * Fixed.current_sense_resistance,
+            command_quantum_A=2 * Fixed.max_current_command_error,
+            aggregate_samples_per_s=current_channels * Fixed.current_regulator_rate,
+            raw_sample_payload_bits_per_s=current_channels * Fixed.current_regulator_rate * Fixed.current_feedback_bits,
+            timing='All channels sampled at the regulator event and available immediately; no acquisition skew or conversion/transport delay is modeled.',
+            consumers=['Current regulation', 'Hall coil-field subtraction', 'Observer acceleration prediction']),
+        hall_acquisition=dict(channels=hall_channels, nominal_converter_bits=Fixed.hall_adc_native_bits,
+            samples_per_sensor=Fixed.hall_samples_per_sensor,
+            configured_conversion_rate_per_scan_engine=Fixed.hall_adc_sample_rate,
+            aggregate_samples_per_s=hall_channels * Fixed.hall_samples_per_sensor * Fixed.pose_feedback_rate,
+            raw_sample_payload_bits_per_s=hall_channels * Fixed.hall_samples_per_sensor * Fixed.pose_feedback_rate * Fixed.hall_adc_native_bits),
+        limitations=[
+            'Configured simulation assumptions, not component specifications or validated worst-case product requirements.',
+            'Raw payload excludes addressing, timestamps, framing, retries and scheduling overhead; local processing may avoid transmitting it all.',
+            'Nominal converter bits do not establish effective resolution, total accuracy or settling performance.',
+            'Counts describe the supplied local observation/drive window, not a selected PCB tile or the installed whole-board population.',
+            'The averaged electrical simulation does not qualify the PWM carrier, ripple, dead time, switching losses or bus dynamics.'])
+
+
+def export_hardware_requirements(evidence_directory, output):
+    import hashlib
+    import json
+    from zipfile import ZipFile, ZIP_DEFLATED
+    import model
+    from methodology import source_fingerprints
+
+    if output.exists():
+        raise ValueError('Preserve existing electronics requirements evidence')
+    filenames = ('summary.json', 'verification.json', 'initial_checkpoint.json')
+    evidence = {name: json.loads((evidence_directory / name).read_text()) for name in filenames}
+    summary, verification, checkpoint = (evidence[name] for name in filenames)
+    if not summary['finished'] or summary['stop_reason'] is not None or not verification['passed']:
+        raise ValueError('Requirements reference must be a completed, verified bounded flight case')
+    requirements = hardware_interface_requirements(len(checkpoint['drivers']['currents']), len(checkpoint['joint']['hall_filter']))
+    if summary['hardware_rates_Hz'] != {name: requirements['rates_Hz'][key]
+            for name, key in (('command', 'command'), ('regulator', 'current_regulator'), ('feedback', 'pose_feedback'))}:
+        raise ValueError('Reference flight timing differs from current requirements')
+    for key, value in (('native_bits', Fixed.current_feedback_bits), ('sample_rate_Hz', Fixed.current_regulator_rate),
+                       ('quantum_A', current_quantum()), ('sensor_noise_rms_A', Fixed.current_feedback_noise),
+                       ('command_step_A', 2 * Fixed.max_current_command_error)):
+        if summary['current_conversion'][key] != value:
+            raise ValueError(f'Reference current-conversion assumption differs: {key}')
+    report = dict(status='provisional_interface_audit_not_hardware_qualified',
+        source_sha256=source_fingerprints(__file__, model.__file__),
+        reference_directory=str(evidence_directory.resolve()),
+        reference_sha256={name: hashlib.sha256((evidence_directory / name).read_bytes()).hexdigest() for name in filenames},
+        reference_source_sha256=summary['source_sha256'],
+        reference=dict(duration_s=summary['duration_completed_s'], scenario=summary['motion_scenario'],
+            verification_passed=verification['passed'], observed_peaks=summary['peaks'],
+            limitations=summary['limitations']),
+        requirements=requirements,
+        unresolved=['Choose a realizable sampled-current sensing/regulation architecture; the legacy comparator/delta-sigma BOM is a historical reference only.',
+            'Check channel acquisition throughput, skew, latency, reference accuracy, noise and PWM sample timing using selected circuits.',
+            'Recalculate installed channel and sensor counts for the square coil bed before scaling the old BOM.',
+            'Derive time/location-dependent losses from workload currents and selected components; no whole-board temperature or supply sizing follows from this bounded flight.',
+            'Qualify simultaneous sliding-reset, local dwell and repeated-move workloads; preserve existing thermal failures and uncertainty.',
+            'Account for every repeated and shared circuit component, PCB construction, interconnect, cooling, manufacturing and production testing.'])
+    output.mkdir(parents=True)
+    with ZipFile(output / 'sources.zip', 'x', compression=ZIP_DEFLATED) as archive:
+        for name in report['source_sha256']:
+            archive.write(name, name)
+        for name in filenames:
+            archive.write(evidence_directory / name, f'reference/{name}')
+    (output / 'requirements.json').write_text(json.dumps(report, indent=Fixed.report_precision) + '\n')
+    return report
+
+
 @dataclass(frozen=True)
 class CurrentReadings:
     identities: tuple
@@ -99,3 +189,14 @@ class CoilDrivers:
         self.currents = next_currents
         self.filtered_command = self.command + (self.filtered_command - self.command) * np.exp(-2 * np.pi * Fixed.setpoint_filter_cutoff * period)
         return average
+
+
+if __name__ == '__main__':
+    import argparse
+    from pathlib import Path
+
+    parser = argparse.ArgumentParser(description='Export provisional electronics requirements from a completed bounded flight.')
+    parser.add_argument('--flight-evidence', type=Path, required=True)
+    parser.add_argument('--output', type=Path, required=True)
+    arguments = parser.parse_args()
+    export_hardware_requirements(arguments.flight_evidence, arguments.output)

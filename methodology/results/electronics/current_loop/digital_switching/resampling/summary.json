@@ -1,0 +1,27 @@
+{
+    "status": "recorded_switching_trace_resampling_diagnosis",
+    "peak_current_refinement_difference_A": 3.1465419336740297e-07,
+    "peak_linear_interpolation_current_difference_A": 0.00010469009538049967,
+    "peak_analog_sensor_refinement_difference_A": 1.7377585059819012e-06,
+    "peak_sampled_feedback_difference_A": 0.0,
+    "numerical_pass": true,
+    "current_comparison": "Both native time grids, cubic Hermite reconstruction using winding voltage/current slopes; linear interpolation retained as a diagnostic",
+    "original_numerical_pass": false,
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/switching_loop.py": "78aa70e1e9e571bf787fdc518a89113905fc73576756c3e2c832c197e44de7fd",
+        "model.py": "c45da213b17904b99dc25037e59c8de9dd99ab979896fb248657fe8691559999",
+        "methodology/electronics/power_stage.py": "7d4ce36e0a4c72b6dce2f0257a11120a7aae559826caa9a26c9c2dbf6c425534"
+    },
+    "input_sha256": {
+        "methodology/results/electronics/current_loop/digital_switching/summary.json": "223557aafb26b0ea1f6fd4d1420db6a5f23a1e1edb8282d529ad3e978642d657",
+        "methodology/results/electronics/current_loop/digital_switching/refinement_1.npz": "3a708990edb8d68c6f6bbb681aa867a6a90b46e8e7f2c4927c6e7b8e1ada5609",
+        "methodology/results/electronics/current_loop/digital_switching/refinement_2.npz": "962d15b9ea87109019e90c4babeb1fbce977bf835e1917c49796fd8f7f39f58c"
+    },
+    "hardware_qualified": false,
+    "limitations": [
+        "Reconstructs saved continuous winding current from native states and the winding differential equation; no controller commands or physical states are changed.",
+        "Checks both native grids against the opposite reconstruction with the unchanged current tolerance. This is a recorded numerical comparison, not additional hardware or component-corner qualification.",
+        "The original linear-interpolation failure remains preserved. Filtered analog readout is still conservatively compared with linear interpolation."
+    ]
+}

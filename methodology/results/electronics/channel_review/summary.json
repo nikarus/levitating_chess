@@ -1,0 +1,272 @@
+{
+    "status": "draft_channel_incomplete_no_manufacturing_release",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/review.py": "f3a05a7080db5475b87d0a89f17f565b3b05c5465b3d38c55647102f2183dfcb",
+        "model.py": "30be44319e9b915eff96bee970ffd0246069fee1bf6b152be72a655935c93ded",
+        "methodology/electronics/channel.kicad_sch": "f2ddb655028908d2097f915c3e288495ba3b06ae2a4e1d24afc2e06b84bfb1f4",
+        "methodology/electronics/channel.kicad_pro": "684afdbcc17a88f37f6ac9df5cfb63e3a5fd3e50d4aa00d257fb772033484cc8",
+        "methodology/electronics/fp-lib-table": "86e22ac78e8131a78d876ef71a9d869303f4d08f803890de621f8c4dc645f47d",
+        "methodology/electronics/sym-lib-table": "e9932f51e452e6d4289876a52f6e0d83f7455e6c8edfc76a1ca5432c938ed1f3",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe"
+    },
+    "footprint_sha256": {
+        "Capacitor_SMD.pretty/C_0603_1608Metric.kicad_mod": "86a101f1dbc512aa9a73532f4b837db141edd5bded65094b0d13dca3fc3f6c68",
+        "Capacitor_SMD.pretty/C_0805_2012Metric.kicad_mod": "1e9871a31457c9d9932d22edb68ed91c275a6270066239b08d192eead990c301",
+        "Capacitor_SMD.pretty/C_1210_3225Metric.kicad_mod": "dc1d0a7bce3d19e41856e1e02896abcc84ef4ee752999c7f4162f4519df9d5f8",
+        "Diode_SMD.pretty/D_SOD-123F.kicad_mod": "f68c220c1b2988766c2ac52416af553c1a89b54e4c6f7f442c4d55cb16e63803",
+        "Package_SO.pretty/VSSOP-8_3x3mm_P0.65mm.kicad_mod": "d1efa90ea0430bf6d590f47c73b0626332d51f3628fae98db5191ab73639e830",
+        "Package_SON.pretty/VSON-8_3.3x3.3mm_P0.65mm_NexFET.kicad_mod": "a822c9ac47a4fae5c3a7dd4acd59ffcfa9b5f90e20386c5f85c1244acf5bf9b7",
+        "Package_SON.pretty/WSON-10-1EP_4x4mm_P0.8mm_EP2.6x3mm_ThermalVias.kicad_mod": "d5c63c12b2adf8403484636625e34329ac5ff523857237cb8faa50587d78330f",
+        "Resistor_SMD.pretty/R_0603_1608Metric.kicad_mod": "32e6f926b4be772aeabae6060210133fbf78854a3fe12ca7011b4916ed49f134",
+        "Resistor_SMD.pretty/R_2512_6332Metric.kicad_mod": "5b21a75a329ffda1a2f6a355fd5ca5241c3fac2265d592a758aca2b667e9b90b"
+    },
+    "component_count": 28,
+    "components": [
+        {
+            "reference": "C1",
+            "mpn": "C0603C104K5RACTU",
+            "value": "1e-07",
+            "model_parameter": "electronics_bootstrap_capacitance",
+            "footprint": "Capacitor_SMD:C_0603_1608Metric",
+            "courtyard_area_mm2": 4.2775
+        },
+        {
+            "reference": "C2",
+            "mpn": "C0805C105K5RACTU",
+            "value": "1e-06",
+            "model_parameter": "electronics_gate_bypass_capacitance",
+            "footprint": "Capacitor_SMD:C_0805_2012Metric",
+            "courtyard_area_mm2": 6.6105
+        },
+        {
+            "reference": "C3",
+            "mpn": "GRM32ER71H475KA88L",
+            "value": "4.7e-06",
+            "model_parameter": "electronics_channel_bus_capacitance",
+            "footprint": "Capacitor_SMD:C_1210_3225Metric",
+            "courtyard_area_mm2": 14.6421
+        },
+        {
+            "reference": "C4",
+            "mpn": "C0603C104K5RACTU",
+            "value": "1e-07",
+            "model_parameter": "electronics_bootstrap_capacitance",
+            "footprint": "Capacitor_SMD:C_0603_1608Metric",
+            "courtyard_area_mm2": 4.2775
+        },
+        {
+            "reference": "C5",
+            "mpn": "C0805C105K5RACTU",
+            "value": "1e-06",
+            "model_parameter": "electronics_gate_bypass_capacitance",
+            "footprint": "Capacitor_SMD:C_0805_2012Metric",
+            "courtyard_area_mm2": 6.6105
+        },
+        {
+            "reference": "C6",
+            "mpn": "GRM32ER71H475KA88L",
+            "value": "4.7e-06",
+            "model_parameter": "electronics_channel_bus_capacitance",
+            "footprint": "Capacitor_SMD:C_1210_3225Metric",
+            "courtyard_area_mm2": 14.6421
+        },
+        {
+            "reference": "C7",
+            "mpn": "C0603C104K5RACTU",
+            "value": "1e-07",
+            "model_parameter": "electronics_analog_bypass_capacitance",
+            "footprint": "Capacitor_SMD:C_0603_1608Metric",
+            "courtyard_area_mm2": 4.2775
+        },
+        {
+            "reference": "D1",
+            "mpn": "BAS21H,115",
+            "value": "BAS21H",
+            "model_parameter": null,
+            "footprint": "Diode_SMD:D_SOD-123F",
+            "courtyard_area_mm2": 10.0531
+        },
+        {
+            "reference": "D2",
+            "mpn": "BAS21H,115",
+            "value": "BAS21H",
+            "model_parameter": null,
+            "footprint": "Diode_SMD:D_SOD-123F",
+            "courtyard_area_mm2": 10.0531
+        },
+        {
+            "reference": "Q1",
+            "mpn": "CSD18543Q3A",
+            "value": "CSD18543Q3A",
+            "model_parameter": null,
+            "footprint": "Package_SON:VSON-8_3.3x3.3mm_P0.65mm_NexFET",
+            "courtyard_area_mm2": 15.1221
+        },
+        {
+            "reference": "Q2",
+            "mpn": "CSD18543Q3A",
+            "value": "CSD18543Q3A",
+            "model_parameter": null,
+            "footprint": "Package_SON:VSON-8_3.3x3.3mm_P0.65mm_NexFET",
+            "courtyard_area_mm2": 15.1221
+        },
+        {
+            "reference": "Q3",
+            "mpn": "CSD18543Q3A",
+            "value": "CSD18543Q3A",
+            "model_parameter": null,
+            "footprint": "Package_SON:VSON-8_3.3x3.3mm_P0.65mm_NexFET",
+            "courtyard_area_mm2": 15.1221
+        },
+        {
+            "reference": "Q4",
+            "mpn": "CSD18543Q3A",
+            "value": "CSD18543Q3A",
+            "model_parameter": null,
+            "footprint": "Package_SON:VSON-8_3.3x3.3mm_P0.65mm_NexFET",
+            "courtyard_area_mm2": 15.1221
+        },
+        {
+            "reference": "R1",
+            "mpn": "RC0603FR-074R7L",
+            "value": "4.7",
+            "model_parameter": "electronics_gate_resistance",
+            "footprint": "Resistor_SMD:R_0603_1608Metric",
+            "courtyard_area_mm2": 4.2775
+        },
+        {
+            "reference": "R2",
+            "mpn": "RC0603FR-074R7L",
+            "value": "4.7",
+            "model_parameter": "electronics_gate_resistance",
+            "footprint": "Resistor_SMD:R_0603_1608Metric",
+            "courtyard_area_mm2": 4.2775
+        },
+        {
+            "reference": "R3",
+            "mpn": "RC0603FR-074R7L",
+            "value": "4.7",
+            "model_parameter": "electronics_gate_resistance",
+            "footprint": "Resistor_SMD:R_0603_1608Metric",
+            "courtyard_area_mm2": 4.2775
+        },
+        {
+            "reference": "R4",
+            "mpn": "RC0603FR-074R7L",
+            "value": "4.7",
+            "model_parameter": "electronics_gate_resistance",
+            "footprint": "Resistor_SMD:R_0603_1608Metric",
+            "courtyard_area_mm2": 4.2775
+        },
+        {
+            "reference": "R5",
+            "mpn": "RC0603FR-0710KL",
+            "value": "10000",
+            "model_parameter": "electronics_gate_pulldown",
+            "footprint": "Resistor_SMD:R_0603_1608Metric",
+            "courtyard_area_mm2": 4.2775
+        },
+        {
+            "reference": "R6",
+            "mpn": "RC0603FR-0710KL",
+            "value": "10000",
+            "model_parameter": "electronics_gate_pulldown",
+            "footprint": "Resistor_SMD:R_0603_1608Metric",
+            "courtyard_area_mm2": 4.2775
+        },
+        {
+            "reference": "R7",
+            "mpn": "RC0603FR-0710KL",
+            "value": "10000",
+            "model_parameter": "electronics_gate_pulldown",
+            "footprint": "Resistor_SMD:R_0603_1608Metric",
+            "courtyard_area_mm2": 4.2775
+        },
+        {
+            "reference": "R8",
+            "mpn": "RC0603FR-0710KL",
+            "value": "10000",
+            "model_parameter": "electronics_gate_pulldown",
+            "footprint": "Resistor_SMD:R_0603_1608Metric",
+            "courtyard_area_mm2": 4.2775
+        },
+        {
+            "reference": "R9",
+            "mpn": "RC0603FR-0710KL",
+            "value": "10000",
+            "model_parameter": "electronics_deadtime_resistance",
+            "footprint": "Resistor_SMD:R_0603_1608Metric",
+            "courtyard_area_mm2": 4.2775
+        },
+        {
+            "reference": "R10",
+            "mpn": "RC0603FR-0710KL",
+            "value": "10000",
+            "model_parameter": "electronics_deadtime_resistance",
+            "footprint": "Resistor_SMD:R_0603_1608Metric",
+            "courtyard_area_mm2": 4.2775
+        },
+        {
+            "reference": "R11",
+            "mpn": "WSL2512R0200FEA18",
+            "value": "0.02",
+            "model_parameter": "current_sense_resistance",
+            "footprint": "Resistor_SMD:R_2512_6332Metric",
+            "courtyard_area_mm2": 29.4525
+        },
+        {
+            "reference": "R12",
+            "mpn": "RC0603FR-0710KL",
+            "value": "10000",
+            "model_parameter": "electronics_gate_pulldown",
+            "footprint": "Resistor_SMD:R_0603_1608Metric",
+            "courtyard_area_mm2": 4.2775
+        },
+        {
+            "reference": "U1",
+            "mpn": "LM5106SD/NOPB",
+            "value": "LM5106SD",
+            "model_parameter": null,
+            "footprint": "Package_SON:WSON-10-1EP_4x4mm_P0.8mm_EP2.6x3mm_ThermalVias",
+            "courtyard_area_mm2": 23.1925
+        },
+        {
+            "reference": "U2",
+            "mpn": "LM5106SD/NOPB",
+            "value": "LM5106SD",
+            "model_parameter": null,
+            "footprint": "Package_SON:WSON-10-1EP_4x4mm_P0.8mm_EP2.6x3mm_ThermalVias",
+            "courtyard_area_mm2": 23.1925
+        },
+        {
+            "reference": "U3",
+            "mpn": "INA241A1DGKR",
+            "value": "INA241A1",
+            "model_parameter": null,
+            "footprint": "Package_SO:VSSOP-8_3x3mm_P0.65mm",
+            "courtyard_area_mm2": 20.6171
+        }
+    ],
+    "placement_bound": {
+        "courtyard_sum_mm2": 279.4394,
+        "coil_pitch_area_mm2": 60.839999999999996,
+        "double_sided_area_per_coil_mm2": 121.67999999999999,
+        "minimum_area_ratio_to_double_sided": 2.296510519395135,
+        "fits_even_before_routing": false
+    },
+    "erc": {
+        "errors": 5,
+        "warnings": 0,
+        "passed": false
+    },
+    "complete_hardware_baseline": false,
+    "limitations": [
+        "Courtyard sum is an optimistic placement lower bound for this candidate and these footprints; no routing, shared circuit or thermal-spreading area is included.",
+        "Both PCB faces are credited as fully usable, despite winding terminations and mechanical constraints.",
+        "This area result does not exclude a different integrated driver or denser component selection.",
+        "This is a channel draft: power generation/regeneration, ADC, buffered reference, independent overcurrent shutdown, control and interconnect are not implemented.",
+        "Power flags mark external supply contracts, not verified supplies. ERC failures are retained, not waived.",
+        "No component price, production BOM, thermal pass or hardware equivalence to the averaged simulator is claimed."
+    ]
+}

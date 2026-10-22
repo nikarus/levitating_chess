@@ -12,3 +12,8 @@ methodology/results/**/*.so
 
 # OS
 .DS_Store
+
+# Electronics study: rebuildable raw solver traces and oversized archives (summaries, netlists and source snapshots stay tracked)
+methodology/results/electronics/**/transient.dat
+methodology/results/electronics/**/*.npz
+methodology/results/electronics/current_loop/diagnostics.zip

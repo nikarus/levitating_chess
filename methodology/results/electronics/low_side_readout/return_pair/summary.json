@@ -1,0 +1,520 @@
+{
+    "status": "one_amplifier_two_shunt_mean_acquisition_screen_not_qualified",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/readout.py": "91b6e709acb572a993a26850d35503a6a8f15dd8a5fb826c85d6e9bafaa995e0",
+        "model.py": "cff1e9dcbc2e78a705cbfff9cbf490c892472913cf0a26af161e21ae9e87521d",
+        "methodology/electrical.py": "23b46a33113f8059459a005b5ff9f301c8daefd9839a54b160f935fe48e1ad27",
+        "methodology/electronics/power_stage.py": "3fa14f2d6756047b5ffbf409ddd4af4920d80acc2d19e70e7ec2584c84ac3173",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757"
+    },
+    "vendor_sha256": "b21a12037058848645c9c0569555905686a85a77430ff612dfd87d96caee21a6",
+    "vendor_url": "https://www.ti.com/lit/zip/SBOMBB7",
+    "compatibility": "ngspice ps, klu; unchanged TI model",
+    "ngspice_version": "******\n** ngspice-45.2 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2025, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Fri Sep 12 11:58:13 UTC 2025\n******\n",
+    "amplifiers_per_coil": 1,
+    "shunts_per_coil": 2,
+    "shunt_ohm": 0.005,
+    "mean_signal_scale_V_per_A": 0.1,
+    "peak_shunt_drop_V": 0.0325,
+    "ideal_constant_peak_total_shunt_loss_W": 0.21125,
+    "amplifier_cost": {
+        "area_equivalent_channels": 5680.473372781065,
+        "production_boards": 100,
+        "area_equivalent_production_amplifiers": 568047.3372781065,
+        "amplifier_all_powered_quiescent_upper_W": 8.520710059171599,
+        "signal_scale_V_per_A": 0.2,
+        "price_observation_date": "2026-10-20",
+        "price_scenarios": [
+            {
+                "description": "TI INA181A1IDBVR LCSC C2058943",
+                "catalog_quantity": 1000,
+                "unit_USD": 0.2538,
+                "amplifier_only_USD_per_board": 1441.7041420118346,
+                "source": "https://www.lcsc.com/product-detail/C2058943.html"
+            }
+        ],
+        "limitations": [
+            "Area times existing independent-channel density, not a finalized edge count or module BOM.",
+            "Catalogue prices are extrapolated at their published tiers; no production-volume quotation or guaranteed discount exists.",
+            "Only amplifier IC cost is included; shunts, ADC/reference, bridge, control, assembly and cooling are additional.",
+            "One amplifier per coil is a normalization only; a low-side architecture may need additional sensing channels and shunts.",
+            "All-powered quiescent ceiling excludes shunts and dynamic losses; selective power gating and wake-up behaviour are not designed."
+        ]
+    },
+    "ideal_full_supply_adc_bits_for_mean": 18,
+    "typical_amplifier_only_max_ENBW_Hz": 15625.000000000004,
+    "trials": [
+        {
+            "command_V": -18.0,
+            "current_A": -6.5,
+            "assumed_deadtime_s": 0.0,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "carrier_mean_A": -6.493286085933731,
+                    "raw_mean_error_A": 0.006713914066269311,
+                    "mean_error_after_ideal_dc_correction_A": -0.0007249010288514768,
+                    "ideal_input_mean_error_A": -7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": 9.139193750229424e-06,
+                    "raw_carrier_ripple_rms_A": 2.037801005360117,
+                    "output_range_V": [
+                        1.3781151294426335,
+                        2.323233825658397
+                    ]
+                },
+                {
+                    "refinement": 2,
+                    "carrier_mean_A": -6.493281159134443,
+                    "raw_mean_error_A": 0.006718840865556963,
+                    "mean_error_after_ideal_dc_correction_A": -0.0007199742295638245,
+                    "ideal_input_mean_error_A": -7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": 1.089098306827907e-05,
+                    "raw_carrier_ripple_rms_A": 2.037796259833021,
+                    "output_range_V": [
+                        1.3781118932978522,
+                        2.323239745317359
+                    ]
+                }
+            ],
+            "waveform_refinement_difference_A": 0.00012623611485551578,
+            "waveform_refinement_pass": false,
+            "carrier_mean_refinement_difference_A": 4.926799287652273e-06,
+            "carrier_mean_refinement_pass": true,
+            "cycle_mean_settled": true
+        },
+        {
+            "command_V": -18.0,
+            "current_A": 6.5,
+            "assumed_deadtime_s": 0.0,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "carrier_mean_A": 6.505386060879674,
+                    "raw_mean_error_A": 0.005386060879674304,
+                    "mean_error_after_ideal_dc_correction_A": -9.941034765148515e-05,
+                    "ideal_input_mean_error_A": 7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": -1.008039875216582e-05,
+                    "raw_carrier_ripple_rms_A": 2.0377957984741557,
+                    "output_range_V": [
+                        2.6779817740305387,
+                        3.623090606520379
+                    ]
+                },
+                {
+                    "refinement": 2,
+                    "carrier_mean_A": 6.5053842384827085,
+                    "raw_mean_error_A": 0.0053842384827085255,
+                    "mean_error_after_ideal_dc_correction_A": -0.00010123274461726339,
+                    "ideal_input_mean_error_A": 7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": -1.0467164998750889e-05,
+                    "raw_carrier_ripple_rms_A": 2.037796746634749,
+                    "output_range_V": [
+                        2.6779681425744903,
+                        3.623098377641206
+                    ]
+                }
+            ],
+            "waveform_refinement_difference_A": 0.00015243444378554294,
+            "waveform_refinement_pass": false,
+            "carrier_mean_refinement_difference_A": 1.822396965778239e-06,
+            "carrier_mean_refinement_pass": true,
+            "cycle_mean_settled": true
+        },
+        {
+            "command_V": -18.0,
+            "current_A": -6.5,
+            "assumed_deadtime_s": 3e-07,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "carrier_mean_A": -6.4932777041765615,
+                    "raw_mean_error_A": 0.006722295823438529,
+                    "mean_error_after_ideal_dc_correction_A": -0.0007165192716822588,
+                    "ideal_input_mean_error_A": -7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": 1.3391451289201939e-05,
+                    "raw_carrier_ripple_rms_A": 2.753272693611057,
+                    "output_range_V": [
+                        1.2896271782818158,
+                        2.4117379083880097
+                    ]
+                },
+                {
+                    "refinement": 2,
+                    "carrier_mean_A": -6.4932750069825005,
+                    "raw_mean_error_A": 0.006724993017499514,
+                    "mean_error_after_ideal_dc_correction_A": -0.0007138220776212734,
+                    "ideal_input_mean_error_A": -7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": 1.2291702146782768e-05,
+                    "raw_carrier_ripple_rms_A": 2.753272190735487,
+                    "output_range_V": [
+                        1.2896130892966922,
+                        2.4117449189042963
+                    ]
+                }
+            ],
+            "waveform_refinement_difference_A": 0.0001480108164075844,
+            "waveform_refinement_pass": false,
+            "carrier_mean_refinement_difference_A": 2.6971940609854528e-06,
+            "carrier_mean_refinement_pass": true,
+            "cycle_mean_settled": true
+        },
+        {
+            "command_V": -18.0,
+            "current_A": 6.5,
+            "assumed_deadtime_s": 3e-07,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "carrier_mean_A": 6.505389950419455,
+                    "raw_mean_error_A": 0.005389950419455225,
+                    "mean_error_after_ideal_dc_correction_A": -9.552080787056383e-05,
+                    "ideal_input_mean_error_A": 1.7763568394002505e-15,
+                    "previous_cycle_mean_difference_A": -8.027513278108245e-06,
+                    "raw_carrier_ripple_rms_A": 1.200287888148589,
+                    "output_range_V": [
+                        2.8318850503396606,
+                        3.4691958349522842
+                    ]
+                },
+                {
+                    "refinement": 2,
+                    "carrier_mean_A": 6.505387389021805,
+                    "raw_mean_error_A": 0.0053873890218048,
+                    "mean_error_after_ideal_dc_correction_A": -9.808220552098845e-05,
+                    "ideal_input_mean_error_A": 0.0,
+                    "previous_cycle_mean_difference_A": -1.094529245460052e-05,
+                    "raw_carrier_ripple_rms_A": 1.200290381644091,
+                    "output_range_V": [
+                        2.8318722472388407,
+                        3.4691994472920866
+                    ]
+                }
+            ],
+            "waveform_refinement_difference_A": 0.00017277474481947053,
+            "waveform_refinement_pass": false,
+            "carrier_mean_refinement_difference_A": 2.561397650424624e-06,
+            "carrier_mean_refinement_pass": true,
+            "cycle_mean_settled": true
+        },
+        {
+            "command_V": 0.0,
+            "current_A": -6.5,
+            "assumed_deadtime_s": 0.0,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "carrier_mean_A": -6.4932631001814975,
+                    "raw_mean_error_A": 0.006736899818502451,
+                    "mean_error_after_ideal_dc_correction_A": -0.0007019152766183367,
+                    "ideal_input_mean_error_A": -7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": 1.091342243686455e-05,
+                    "raw_carrier_ripple_rms_A": 5.546343691179664,
+                    "output_range_V": [
+                        1.1953535355996088,
+                        2.5059974399298004
+                    ]
+                },
+                {
+                    "refinement": 2,
+                    "carrier_mean_A": -6.493253234653283,
+                    "raw_mean_error_A": 0.006746765346717254,
+                    "mean_error_after_ideal_dc_correction_A": -0.0006920497484035337,
+                    "ideal_input_mean_error_A": -7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": 1.1635233774676124e-05,
+                    "raw_carrier_ripple_rms_A": 5.5463375648429505,
+                    "output_range_V": [
+                        1.1953538461196311,
+                        2.5059971301405892
+                    ]
+                }
+            ],
+            "waveform_refinement_difference_A": 0.00022467107267054587,
+            "waveform_refinement_pass": false,
+            "carrier_mean_refinement_difference_A": 9.865528214803021e-06,
+            "carrier_mean_refinement_pass": true,
+            "cycle_mean_settled": true
+        },
+        {
+            "command_V": 0.0,
+            "current_A": 6.5,
+            "assumed_deadtime_s": 0.0,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "carrier_mean_A": 6.505376327931033,
+                    "raw_mean_error_A": 0.005376327931032598,
+                    "mean_error_after_ideal_dc_correction_A": -0.00010914329629319042,
+                    "ideal_input_mean_error_A": 7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": -1.0956588980981508e-05,
+                    "raw_carrier_ripple_rms_A": 5.54634541623372,
+                    "output_range_V": [
+                        2.4952128934422175,
+                        3.805856829300292
+                    ]
+                },
+                {
+                    "refinement": 2,
+                    "carrier_mean_A": 6.505363623491342,
+                    "raw_mean_error_A": 0.005363623491342118,
+                    "mean_error_after_ideal_dc_correction_A": -0.00012184773598367116,
+                    "ideal_input_mean_error_A": 7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": -1.095287555230584e-05,
+                    "raw_carrier_ripple_rms_A": 5.54633804716962,
+                    "output_range_V": [
+                        2.495213206957211,
+                        3.8058564967270128
+                    ]
+                }
+            ],
+            "waveform_refinement_difference_A": 0.0003255706257423441,
+            "waveform_refinement_pass": false,
+            "carrier_mean_refinement_difference_A": 1.270443969048074e-05,
+            "carrier_mean_refinement_pass": true,
+            "cycle_mean_settled": true
+        },
+        {
+            "command_V": 0.0,
+            "current_A": -6.5,
+            "assumed_deadtime_s": 3e-07,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "carrier_mean_A": -6.493241524294882,
+                    "raw_mean_error_A": 0.0067584757051175615,
+                    "mean_error_after_ideal_dc_correction_A": -0.0006803393900032262,
+                    "ideal_input_mean_error_A": -7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": 1.0417293680120565e-05,
+                    "raw_carrier_ripple_rms_A": 5.451560183394152,
+                    "output_range_V": [
+                        1.1955364377861553,
+                        2.5058141605366173
+                    ]
+                },
+                {
+                    "refinement": 2,
+                    "carrier_mean_A": -6.493239279810503,
+                    "raw_mean_error_A": 0.006760720189497249,
+                    "mean_error_after_ideal_dc_correction_A": -0.0006780949056235386,
+                    "ideal_input_mean_error_A": -7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": 1.0872263565886442e-05,
+                    "raw_carrier_ripple_rms_A": 5.451554652242329,
+                    "output_range_V": [
+                        1.195536732971695,
+                        2.505813872890803
+                    ]
+                }
+            ],
+            "waveform_refinement_difference_A": 0.0001514063064469908,
+            "waveform_refinement_pass": false,
+            "carrier_mean_refinement_difference_A": 2.2444843796876057e-06,
+            "carrier_mean_refinement_pass": true,
+            "cycle_mean_settled": true
+        },
+        {
+            "command_V": 0.0,
+            "current_A": 6.5,
+            "assumed_deadtime_s": 3e-07,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "carrier_mean_A": 6.50535418802646,
+                    "raw_mean_error_A": 0.005354188026459816,
+                    "mean_error_after_ideal_dc_correction_A": -0.00013128320086597256,
+                    "ideal_input_mean_error_A": 7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": -1.0915535489708361e-05,
+                    "raw_carrier_ripple_rms_A": 5.451561586432721,
+                    "output_range_V": [
+                        2.49539567345562,
+                        3.8056734005537876
+                    ]
+                },
+                {
+                    "refinement": 2,
+                    "carrier_mean_A": 6.505351180538374,
+                    "raw_mean_error_A": 0.00535118053837369,
+                    "mean_error_after_ideal_dc_correction_A": -0.00013429068895209895,
+                    "ideal_input_mean_error_A": 7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": -1.0944135496515628e-05,
+                    "raw_carrier_ripple_rms_A": 5.451554282642026,
+                    "output_range_V": [
+                        2.4953959669910537,
+                        3.805673109447457
+                    ]
+                }
+            ],
+            "waveform_refinement_difference_A": 0.00015468963696863014,
+            "waveform_refinement_pass": false,
+            "carrier_mean_refinement_difference_A": 3.0074880861263864e-06,
+            "carrier_mean_refinement_pass": true,
+            "cycle_mean_settled": true
+        },
+        {
+            "command_V": 18.0,
+            "current_A": -6.5,
+            "assumed_deadtime_s": 0.0,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "carrier_mean_A": -6.493213745176552,
+                    "raw_mean_error_A": 0.006786254823447635,
+                    "mean_error_after_ideal_dc_correction_A": -0.0006525602716731527,
+                    "ideal_input_mean_error_A": -7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": 8.103460626074366e-06,
+                    "raw_carrier_ripple_rms_A": 2.0377972444036923,
+                    "output_range_V": [
+                        1.378116966634993,
+                        2.3232320341165185
+                    ]
+                },
+                {
+                    "refinement": 2,
+                    "carrier_mean_A": -6.493208422237533,
+                    "raw_mean_error_A": 0.0067915777624669715,
+                    "mean_error_after_ideal_dc_correction_A": -0.0006472373326538161,
+                    "ideal_input_mean_error_A": -7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": 1.1101567792159983e-05,
+                    "raw_carrier_ripple_rms_A": 2.0377967682327847,
+                    "output_range_V": [
+                        1.3781097960173447,
+                        2.323237180359602
+                    ]
+                }
+            ],
+            "waveform_refinement_difference_A": 0.00012365688304072364,
+            "waveform_refinement_pass": false,
+            "carrier_mean_refinement_difference_A": 5.322939019336559e-06,
+            "carrier_mean_refinement_pass": true,
+            "cycle_mean_settled": true
+        },
+        {
+            "command_V": 18.0,
+            "current_A": 6.5,
+            "assumed_deadtime_s": 0.0,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "carrier_mean_A": 6.505313371239471,
+                    "raw_mean_error_A": 0.005313371239471287,
+                    "mean_error_after_ideal_dc_correction_A": -0.00017209998785450153,
+                    "ideal_input_mean_error_A": 7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": -1.1189999130856165e-05,
+                    "raw_carrier_ripple_rms_A": 2.0377985419161955,
+                    "output_range_V": [
+                        2.677982028159244,
+                        3.623095777617829
+                    ]
+                },
+                {
+                    "refinement": 2,
+                    "carrier_mean_A": 6.505311561048317,
+                    "raw_mean_error_A": 0.005311561048316982,
+                    "mean_error_after_ideal_dc_correction_A": -0.00017391017900880712,
+                    "ideal_input_mean_error_A": 7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": -1.0934404371276685e-05,
+                    "raw_carrier_ripple_rms_A": 2.0377957645091884,
+                    "output_range_V": [
+                        2.6779739477776108,
+                        3.623099723339897
+                    ]
+                }
+            ],
+            "waveform_refinement_difference_A": 0.00017131832373351585,
+            "waveform_refinement_pass": false,
+            "carrier_mean_refinement_difference_A": 1.8101911543055849e-06,
+            "carrier_mean_refinement_pass": true,
+            "cycle_mean_settled": true
+        },
+        {
+            "command_V": 18.0,
+            "current_A": -6.5,
+            "assumed_deadtime_s": 3e-07,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "carrier_mean_A": -6.493202778734259,
+                    "raw_mean_error_A": 0.006797221265740561,
+                    "mean_error_after_ideal_dc_correction_A": -0.000641593829380227,
+                    "ideal_input_mean_error_A": -2.6645352591003757e-15,
+                    "previous_cycle_mean_difference_A": 1.0913267184164965e-05,
+                    "raw_carrier_ripple_rms_A": 1.2002889393059557,
+                    "output_range_V": [
+                        1.5320211973230702,
+                        2.1693359689533636
+                    ]
+                },
+                {
+                    "refinement": 2,
+                    "carrier_mean_A": -6.493202518606244,
+                    "raw_mean_error_A": 0.006797481393755689,
+                    "mean_error_after_ideal_dc_correction_A": -0.0006413337013650988,
+                    "ideal_input_mean_error_A": -2.6645352591003757e-15,
+                    "previous_cycle_mean_difference_A": 1.0885097150747924e-05,
+                    "raw_carrier_ripple_rms_A": 1.2002886360063219,
+                    "output_range_V": [
+                        1.5320144945412917,
+                        2.1693379007738596
+                    ]
+                }
+            ],
+            "waveform_refinement_difference_A": 0.00017428056034152206,
+            "waveform_refinement_pass": false,
+            "carrier_mean_refinement_difference_A": 2.601280151282026e-07,
+            "carrier_mean_refinement_pass": true,
+            "cycle_mean_settled": true
+        },
+        {
+            "command_V": 18.0,
+            "current_A": 6.5,
+            "assumed_deadtime_s": 3e-07,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "carrier_mean_A": 6.5053113752118135,
+                    "raw_mean_error_A": 0.005311375211813463,
+                    "mean_error_after_ideal_dc_correction_A": -0.00017409601551232612,
+                    "ideal_input_mean_error_A": 7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": -1.704160530291432e-05,
+                    "raw_carrier_ripple_rms_A": 2.753276011054367,
+                    "output_range_V": [
+                        2.5894679439453006,
+                        3.7115855552912684
+                    ]
+                },
+                {
+                    "refinement": 2,
+                    "carrier_mean_A": 6.505314920957131,
+                    "raw_mean_error_A": 0.005314920957131264,
+                    "mean_error_after_ideal_dc_correction_A": -0.00017055027019452496,
+                    "ideal_input_mean_error_A": 7.105427357601002e-15,
+                    "previous_cycle_mean_difference_A": -1.1225492037247875e-05,
+                    "raw_carrier_ripple_rms_A": 2.7532715777315735,
+                    "output_range_V": [
+                        2.589469536554902,
+                        3.711601813369721
+                    ]
+                }
+            ],
+            "waveform_refinement_difference_A": 0.00016466525154257283,
+            "waveform_refinement_pass": false,
+            "carrier_mean_refinement_difference_A": 3.5457453178011633e-06,
+            "carrier_mean_refinement_pass": true,
+            "cycle_mean_settled": true
+        }
+    ],
+    "hardware_qualified": false,
+    "limitations": [
+        "One amplifier measures PGND_B minus PGND_A across two separate shunts. Imposed signed currents represent each conducting low-side path, not a transistor-level bridge.",
+        "For constant current and complementary ideal leg duties, the differential input averages to current times one shunt. Both low sides produce twice that signal; both high sides produce zero.",
+        "The shunts are each half the previous trial value to preserve peak amplifier output headroom. Mean sensitivity is halved, increasing ADC-resolution and noise-filtering demands.",
+        "Dead-time cases assume equal delays: the sourcing-leg body diode extends its conducting interval while the sinking-leg interval shortens. Unequal delays, reverse recovery, output capacitance, shunt mismatch and parasitics are not covered.",
+        "Carrier integration is an ideal recorded-waveform diagnostic, not a selected ADC or filter. No analog filtering, aliasing, acquisition aperture, digital delay or current reconstruction is implemented.",
+        "Constant imposed currents exclude coil ripple, changing commands, current zero crossings and mutual coupling. Carrier mean is not instantaneous current for Hall-field subtraction.",
+        "Ideal DC correction is diagnostic; calibration and temperature drift are not qualified. Ordinary transient simulations do not inject the manufacturer small-signal noise.",
+        "Carrier-mean and full-waveform numerical checks use the same existing discrepancy limit and are reported separately. A mean pass does not erase a waveform failure or qualify hardware.",
+        "Cost covers one amplifier only; the two shunts, ADC, reference, filtering, control and assembly remain additional."
+    ]
+}

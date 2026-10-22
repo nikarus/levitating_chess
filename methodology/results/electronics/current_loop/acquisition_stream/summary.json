@@ -1,0 +1,138 @@
+{
+    "status": "behavioral_acquisition_stream_fault_screen",
+    "passed": true,
+    "measurements": [
+        {
+            "channel": 0,
+            "mean_code": 131071.5,
+            "sample_ticks": [
+                0,
+                400
+            ],
+            "latch_tick": 1600
+        },
+        {
+            "channel": 1,
+            "mean_code": 131071.5,
+            "sample_ticks": [
+                800,
+                1200
+            ],
+            "latch_tick": 2400
+        },
+        {
+            "channel": 2,
+            "mean_code": 131071.5,
+            "sample_ticks": [
+                1600,
+                2000
+            ],
+            "latch_tick": 3200
+        },
+        {
+            "channel": 3,
+            "mean_code": 131071.5,
+            "sample_ticks": [
+                2400,
+                2800
+            ],
+            "latch_tick": 4000
+        },
+        {
+            "channel": 4,
+            "mean_code": 131071.5,
+            "sample_ticks": [
+                3200,
+                3600
+            ],
+            "latch_tick": 4800
+        },
+        {
+            "channel": 5,
+            "mean_code": 131071.5,
+            "sample_ticks": [
+                4000,
+                4400
+            ],
+            "latch_tick": 5600
+        },
+        {
+            "channel": 6,
+            "mean_code": 131071.5,
+            "sample_ticks": [
+                4800,
+                5200
+            ],
+            "latch_tick": 6400
+        },
+        {
+            "channel": 7,
+            "mean_code": 131071.5,
+            "sample_ticks": [
+                5600,
+                6000
+            ],
+            "latch_tick": 7200
+        }
+    ],
+    "injected_failures": [
+        {
+            "injected": "pio_stall",
+            "latched_fault": "pio_stall",
+            "regulation_allowed": false
+        },
+        {
+            "injected": "dma_error",
+            "latched_fault": "dma_error",
+            "regulation_allowed": false
+        },
+        {
+            "injected": "missing_or_repeated_frame",
+            "latched_fault": "missing_or_repeated_frame",
+            "regulation_allowed": false
+        },
+        {
+            "injected": "incomplete_conversion",
+            "latched_fault": "incomplete_conversion",
+            "regulation_allowed": false
+        },
+        {
+            "injected": "invalid_fifo_frame",
+            "latched_fault": "invalid_fifo_frame",
+            "regulation_allowed": false
+        },
+        {
+            "injected": "invalid_channel_or_frame",
+            "latched_fault": "invalid_channel_or_frame",
+            "regulation_allowed": false
+        },
+        {
+            "injected": "acquisition_deadline_missed",
+            "latched_fault": "acquisition_deadline_missed",
+            "regulation_allowed": false
+        }
+    ],
+    "silent_loss_detected": true,
+    "hardware_qualified": false,
+    "limitations": [
+        "Tests host-side frame assembly and latched inhibition semantics, not a deployed DMA/interrupt implementation or independent hardware shutdown.",
+        "Frame sequence and service timestamps must come from trustworthy DMA counters and the hardware clock; PIO stall and DMA error flags must be observed.",
+        "Deadline expiration needs an independent scheduled watchdog call; a stopped processor cannot enforce this Python state machine.",
+        "Valid-looking conversion-bit corruption is not detected by channel tags. Analog alarms, signal integrity and disturbance rejection remain separate.",
+        "A fault prevents new regulation results. Existing PWM must be disabled by the separate hardware enable gate; its response time is not established here."
+    ],
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/acquisition.py": "a7f5135146e1b655480a25abaef4ffbad95ea29f95ecdde889c34b6662b3a7db",
+        "methodology/electronics/logic.py": "a82a11375890637fdabf909a3dbf64fb3d4753e264b3449fe3fc221d6404e99f",
+        "model.py": "3d1527cf04cc3ad5d02410cf63a75cb39c02a47b8ab83a6f82cdaef78cae38e6",
+        "methodology/electronics/readout.py": "8a81ad47b637364d01284c24fdd84d330b4270e20cd7fd2e0d4ab52e0d0f04e8",
+        "methodology/electrical.py": "23b46a33113f8059459a005b5ff9f301c8daefd9839a54b160f935fe48e1ad27",
+        "methodology/electronics/power_stage.py": "7d4ce36e0a4c72b6dce2f0257a11120a7aae559826caa9a26c9c2dbf6c425534",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/qualification.py": "7d1232db4b9045a1ac7d244ffb71468b64d636953203c81daee2f92627a33f54",
+        "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757"
+    },
+    "recorded_input_sha256": {}
+}

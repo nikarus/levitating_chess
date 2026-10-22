@@ -1,0 +1,73 @@
+{
+    "status": "schematic_based_partial_power_and_inductive_return_envelope",
+    "channels": 8,
+    "driver_packages": 4,
+    "converter_packages": 1,
+    "operating_bus_V": 24.0,
+    "operating_bus_ceiling_V": 25.200000000000003,
+    "inductance_upper_H": 0.00010315066420846904,
+    "simultaneous_disabled_coil_energy_bound_J": 0.017432462251231268,
+    "local_nominal_motor_capacitance_F": 3.76e-05,
+    "lossless_bus_voltage_after_disable_from_nominal_V": 38.771879376484215,
+    "minimum_effective_capacitance_from_nominal_F": 0.0005905305640660979,
+    "local_nominal_capacitance_passes_operating_envelope": false,
+    "driver_typical_awake_no_load_W": 0.5760000000000001,
+    "no_load_modes": {
+        "all_awake_converting": {
+            "driver_VM_W": 0.8639999999999999,
+            "analog_5V_W": 0.098,
+            "partial_no_load_W": 0.9619999999999999
+        },
+        "drivers_asleep_ADC_standby": {
+            "driver_VM_W": 0.000768,
+            "analog_5V_W": 0.040499999999999994,
+            "partial_no_load_W": 0.04126799999999999
+        },
+        "drivers_asleep_ADC_power_down": {
+            "driver_VM_W": 0.000768,
+            "analog_5V_W": 0.018099999999999998,
+            "partial_no_load_W": 0.018868
+        }
+    },
+    "area_equivalent_installed_channels": 5680.473372781065,
+    "area_equivalent_whole_board_partial_no_load_W": {
+        "all_awake_converting": 683.076923076923,
+        "drivers_asleep_ADC_standby": 29.30272189349112,
+        "drivers_asleep_ADC_power_down": 13.397396449704143
+    },
+    "wake_waits_s": {
+        "driver": 0.0012,
+        "driver_cold_start": 0.0013,
+        "ADC_from_standby": 2e-05,
+        "ADC_from_power_down": 0.015
+    },
+    "continuous_all_channel_coil_copper_loss_W": 115.12012572417413,
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/supply.py": "2854fd8a54cd6dab46e6ac3b750ecf8f8b7ab25458dc0207019d784d2a42f63a",
+        "model.py": "975ba3b1490b5bdae6a2a865c18cdb552362b780c9b577603bf8750d0174330b",
+        "methodology/electronics/current_loop.py": "c65490723601c968a5de9f7036eaa20b8e57e386502573e004254c1d7a8d3b3b",
+        "methodology/electronics/power_stage.py": "7d4ce36e0a4c72b6dce2f0257a11120a7aae559826caa9a26c9c2dbf6c425534",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757"
+    },
+    "input_sha256": {
+        "methodology/results/cad/electronics/control_group/summary.json": "1e0afea835a2383b863e992a40c27086564ce11d0fc81dbf0536269a19106255"
+    },
+    "complete_supply_or_thermal_qualification": false,
+    "sources": [
+        "https://www.ti.com/lit/ds/symlink/drv8962.pdf",
+        "https://www.ti.com/lit/ds/symlink/ads8698.pdf",
+        "https://www.ti.com/lit/ds/symlink/ina181.pdf",
+        "https://www.ti.com/lit/ds/symlink/ref50.pdf"
+    ],
+    "limitations": [
+        "Worst-case stored coil energy at the existing physical peak and inductance upper sensitivity bound, returned without dissipation or source absorption. Lossless energy conservation bounds this isolated inductive return, not externally supplied mechanical energy.",
+        "Local capacitance is nameplate capacitance, before DC bias, tolerance, temperature, ESR, ESL and distribution inductance. The calculation does not qualify a bulk capacitor or clamp circuit.",
+        "A capacitor alone cannot keep the bus below its operating ceiling if it starts at that ceiling. An explicit supply headroom and/or absorbing clamp is required; no supply is assumed to sink current.",
+        "No-load modes sum specified maximum driver VM, converter AVDD, amplifier and reference supply currents at their stated voltages. MCU, digital I/O, reference output load, watchdog, Hall sensing, other logic, conversion losses and output switching are excluded. These are partial scenarios, not whole-board upper bounds.",
+        "All-powered installed-channel scaling is area-equivalent, before edge and module rounding. Selective sleep and wake sequencing are required design functions, not implemented by this inventory calculation.",
+        "The all-channel copper-loss value is a continuous group stress envelope at cold resistance, not an actual chess workload. Full-board workload, hot resistance, driver losses, motion regeneration, bus wiring and thermal paths remain unresolved."
+    ]
+}

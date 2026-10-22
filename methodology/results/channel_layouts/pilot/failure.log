@@ -1,0 +1,15 @@
+{"name": "square_reference", "geometry": "square_7_5", "connection": "independent", "rotation_deg": 45, "outer_dimensions_mm": [7.5, 7.5], "spacing_mm": 0.3, "electrical_repeat_mm": 7.8, "coils_per_m2": 16436.55489809336, "channels_per_m2": 16436.55489809336, "turns": 56, "winding_resistance_20C_ohm": 0.47570299886022366, "all_sampled_ranks_full": true, "sampled_current_reserve_met": true, "peak_required_current_A": 1.9499787139393765, "peak_copper_loss_W": 14.365731747129328}
+{"name": "square_spaced", "geometry": "square_7_5", "connection": "independent", "rotation_deg": 45, "outer_dimensions_mm": [7.5, 7.5], "spacing_mm": 1.5, "electrical_repeat_mm": 9.0, "coils_per_m2": 12345.679012345681, "channels_per_m2": 12345.679012345681, "turns": 56, "winding_resistance_20C_ohm": 0.47570299886022366, "all_sampled_ranks_full": true, "sampled_current_reserve_met": true, "peak_required_current_A": 3.345216552236194, "peak_copper_loss_W": 34.55857584001686}
+{"name": "square_larger", "geometry": "square_10", "connection": "independent", "rotation_deg": 45, "outer_dimensions_mm": [10, 10], "spacing_mm": 0.3, "electrical_repeat_mm": 10.3, "coils_per_m2": 9425.959091337543, "channels_per_m2": 9425.959091337543, "turns": 56, "winding_resistance_20C_ohm": 0.6788709988602237, "all_sampled_ranks_full": true, "sampled_current_reserve_met": false, "peak_required_current_A": 7.209711331671175, "peak_copper_loss_W": 171.53976094418334}
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/arseniy/.codex/worktrees/coil-channel-study/flying_chess/methodology/coil_layouts.py", line 442, in <module>
+    run_channel_pilot(arguments.output)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/home/arseniy/.codex/worktrees/coil-channel-study/flying_chess/methodology/coil_layouts.py", line 410, in run_channel_pilot
+    current = levitation_sim.min_loss_current(matrix, target,
+        max(report['limits']['reserved_current_A'], peak), resistances=resistance, initial_currents=initial)
+  File "/home/arseniy/.codex/worktrees/coil-channel-study/flying_chess/levitation_sim.py", line 475, in min_loss_current
+    raise RuntimeError(f"Current allocation failed: {result.message}")
+RuntimeError: Current allocation failed: Inequality constraints incompatible

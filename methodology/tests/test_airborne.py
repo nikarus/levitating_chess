@@ -137,6 +137,70 @@ class AirborneReplayTests(unittest.TestCase):
         self.assertEqual(len(list(airborne_diagnostics.recorded_events(simulation, state))), count + 1)
 
 
+class SettlingTests(unittest.TestCase):
+    def test_velocity_is_checked_even_when_position_is_on_target(self):
+        from methodology.local_motion import settling_metrics, settling_limits
+        states = np.zeros((2, 13))
+        states[:, 3] = 1
+        states[1, 7] = 2 * Fixed.airborne_settling_speed
+        metrics = settling_metrics(states, np.zeros(6), 0.)
+        self.assertEqual(metrics['position_error_m'], 0.)
+        self.assertGreater(metrics['speed_m_per_s'], settling_limits()['speed_m_per_s'])
+
+    def test_orientation_wrap_and_rotated_angular_velocity_use_vector_errors(self):
+        from methodology.local_motion import settling_metrics
+        states = np.zeros((1, 13))
+        reference = np.r_[np.zeros(3), Fixed.motion_check_orientation_deg]
+        rotation = Rotation.from_euler('xyz', reference[3:])
+        states[0, 3:7] = -rotation.as_quat(scalar_first=True)
+        states[0, 10:13] = rotation.apply([Fixed.airborne_settling_angular_speed, 0, 0])
+        metrics = settling_metrics(states, reference, 0.)
+        self.assertLess(metrics['angle_error_rad'], Fixed.motion_verification_tolerance)
+        self.assertAlmostEqual(metrics['angular_speed_rad_per_s'], Fixed.airborne_settling_angular_speed)
+
+    def test_settling_window_ignores_earlier_motion_and_requires_complete_observation(self):
+        from methodology.local_motion import observe_settling, settling_limits
+        duration = Fixed.airborne_motion_start + Fixed.airborne_motion_duration + Fixed.airborne_motion_settle_duration
+        start = duration - Fixed.airborne_settling_window
+        simulation = SimpleNamespace(stop_reason=None, finished=False,
+            plant=SimpleNamespace(geometry=SimpleNamespace(center_of_mass_height=0.)),
+            reference_state=lambda time: (np.zeros(6), None, None))
+        result = dict(start_s=start, end_s=duration, samples=0, observed_until_s=None,
+            peaks=dict.fromkeys(settling_limits(), 0.), limits=settling_limits(), limits_met=True, passed=False)
+        def states(times):
+            values = np.zeros((13, len(times)))
+            values[3] = 1
+            values[7, times < start] = 2 * Fixed.airborne_settling_speed
+            return values
+        segment = SimpleNamespace(t=np.array([0., start]), sol=states)
+        observe_settling(simulation, [segment], result)
+        self.assertTrue(result['limits_met'])
+        self.assertFalse(result['passed'])
+        self.assertIsNone(simulation.stop_reason)
+        resumed = json.loads(json.dumps(result))
+        observe_settling(simulation, [SimpleNamespace(t=np.array([start, duration]), sol=states)], resumed)
+        self.assertTrue(resumed['passed'])
+
+    def test_settling_failure_stops_and_does_not_replace_an_existing_failure(self):
+        from methodology.local_motion import observe_settling, settling_limits
+        duration = Fixed.airborne_settling_window
+        def states(times):
+            values = np.zeros((13, len(times)))
+            values[3] = 1
+            values[10] = 2 * Fixed.airborne_settling_angular_speed
+            return values
+        for previous in (None, 'current_limit_exceeded'):
+            simulation = SimpleNamespace(stop_reason=previous, finished=previous is not None,
+                plant=SimpleNamespace(geometry=SimpleNamespace(center_of_mass_height=0.)),
+                reference_state=lambda time: (np.zeros(6), None, None))
+            result = dict(start_s=0., end_s=duration, samples=0, observed_until_s=None,
+                peaks=dict.fromkeys(settling_limits(), 0.), limits=settling_limits(), limits_met=True, passed=False)
+            observe_settling(simulation, [SimpleNamespace(t=np.array([0., duration]), sol=states)], result)
+            self.assertFalse(result['passed'])
+            self.assertTrue(simulation.finished)
+            self.assertEqual(simulation.stop_reason, previous or 'endpoint_settling_limits_exceeded')
+
+
 class AirborneCheckpointTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):

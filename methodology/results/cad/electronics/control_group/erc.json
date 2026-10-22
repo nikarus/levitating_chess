@@ -1,0 +1,824 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-10-21T22:05:09+0200",
+    "included_severities": [
+        "error",
+        "warning"
+    ],
+    "kicad_version": "9.0.8",
+    "sheets": [
+        {
+            "path": "/Controller/",
+            "uuid_path": "/43f1792e-740a-597d-a0ee-e4f409a6f811/c0db1266-319b-5ae7-b4f2-54131ecf2dd1",
+            "violations": [
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'SWCLK'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 0.5588
+                            },
+                            "uuid": "5094c9f0-bf74-52a6-8bd4-a8b04036d29f"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'SWDIO'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 0.6096
+                            },
+                            "uuid": "a387f918-3944-5566-a29a-5b25e8daa597"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'HOST_RX'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 2.3368
+                            },
+                            "uuid": "4fe61f89-bb47-5b74-89a8-491f8dfe26f9"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'HOST_CS_N'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 2.3876
+                            },
+                            "uuid": "9358784f-2101-576e-9e56-71ff851f67c4"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'HOST_SCLK'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 2.4384
+                            },
+                            "uuid": "811ade7d-2eb7-5690-be5f-8585a89e7573"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'HOST_TX'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 2.4892
+                            },
+                            "uuid": "45f8edda-b39f-555c-9341-d7f58c61c942"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'HOST_SYNC'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 2.6924
+                            },
+                            "uuid": "8f9f8aa9-9864-5ccd-80c1-6e58788f6242"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'HALL_RX'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 2.7432
+                            },
+                            "uuid": "29bda777-0ad6-5893-833e-ba3f98890fd5"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'HALL_CS_N'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 2.794
+                            },
+                            "uuid": "f70281b5-1e1a-5630-ba19-ccfd0a99be7b"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'HALL_SCLK'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 2.8448
+                            },
+                            "uuid": "6e84eecb-aafb-50e2-afcf-413ff3c150a8"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'HALL_TX'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 2.8956
+                            },
+                            "uuid": "d46a68b6-b07d-5e01-bd38-5e0c21853167"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'TEMP_DRIVER'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 2.9464
+                            },
+                            "uuid": "46cde644-ac5c-54f0-af71-78228c833ed1"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'TEMP_COIL'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 2.9972
+                            },
+                            "uuid": "25f4c708-876f-55ee-9af4-f044be6bbc63"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'V_MOTOR_MONITOR'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 3.048
+                            },
+                            "uuid": "eb4d9ac2-f165-5259-992f-0da877d67bca"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U620 Pin 61 [VREG_AVDD, Power input, Line]",
+                            "pos": {
+                                "x": 0.5588,
+                                "y": 0.5842
+                            },
+                            "uuid": "73d27f74-5f7d-468b-a4aa-013afec802eb"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U620 Pin 10 [DVDD, Power input, Line]",
+                            "pos": {
+                                "x": 0.8636,
+                                "y": 0.5842
+                            },
+                            "uuid": "fb105a14-8622-4d59-8324-68596d3247b6"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'SWCLK'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.3716
+                            },
+                            "uuid": "57db10b3-6423-5ac5-8be1-fbcd60e24b1b"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U620 Pin 33 [SWCLK, Input, Line]",
+                            "pos": {
+                                "x": 0.4826,
+                                "y": 1.3716
+                            },
+                            "uuid": "545ed3ae-1abb-48ef-8978-80de73f52bc1"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'SWDIO'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.397
+                            },
+                            "uuid": "e163a6e8-ca8c-5a93-8e5d-1c23b889214e"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HALL_RX'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.4732
+                            },
+                            "uuid": "78c783d7-84fc-5e76-93c7-f0a82eb5f7b2"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HALL_CS_N'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.4986
+                            },
+                            "uuid": "5e2c1722-c3b5-5704-8f9a-de3bd488b8e7"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HALL_SCLK'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.524
+                            },
+                            "uuid": "cf4789a7-5eda-5e35-ab73-c679c36b1dec"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HALL_TX'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.5494
+                            },
+                            "uuid": "9e72fdb8-d06f-5679-ab37-b833e1827926"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'TEMP_DRIVER'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.5748
+                            },
+                            "uuid": "43020b6a-06de-5ad5-94bf-7b23eebd2d90"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'TEMP_COIL'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.6002
+                            },
+                            "uuid": "0cd7e029-e483-5879-a319-5cc7c300142f"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'V_MOTOR_MONITOR'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.6256
+                            },
+                            "uuid": "223d5ee2-8749-5e07-a135-0d3359e5129f"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HOST_RX'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.4732
+                            },
+                            "uuid": "fc6726e6-4e0e-527e-a264-f543c7749362"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HOST_CS_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.4986
+                            },
+                            "uuid": "eee06e4f-ea1f-58a5-81d1-c26919245827"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HOST_SCLK'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.524
+                            },
+                            "uuid": "6f0e25e6-6796-553a-9464-06b8b33a6955"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HOST_TX'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.5494
+                            },
+                            "uuid": "f0d44be1-db18-5daa-9f84-445da65f6bb6"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HOST_SYNC'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.651
+                            },
+                            "uuid": "ab66f154-7da8-5894-9377-a40b1c04e2a5"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                }
+            ]
+        },
+        {
+            "path": "/Acquisition/",
+            "uuid_path": "/43f1792e-740a-597d-a0ee-e4f409a6f811/d42f2736-5acb-53fb-9f49-58e4132a6829",
+            "violations": [
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U510 Pin 34 [DVDD, Power input, Line]",
+                            "pos": {
+                                "x": 0.7874,
+                                "y": 0.5842
+                            },
+                            "uuid": "3c439abc-4474-405f-8c2e-bc840d7bc37f"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                }
+            ]
+        },
+        {
+            "path": "/Driver_0/",
+            "uuid_path": "/43f1792e-740a-597d-a0ee-e4f409a6f811/7e6531a0-67fc-5752-a0eb-7d1dd599ded5",
+            "violations": [
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U401 Pin 1 [GND, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 0.5715
+                            },
+                            "uuid": "7fd5238b-fe66-4522-91f8-9068a8ce7f35"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U401 Pin 2 [VM, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 0.5969
+                            },
+                            "uuid": "57e084f7-071f-4443-9a59-2fce71ca11a1"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U401 Pin 3 [PGND3, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 0.6223
+                            },
+                            "uuid": "dee6f45f-c983-4763-9339-f2e267c794e8"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U401 Pin 10 [PGND4, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 0.8001
+                            },
+                            "uuid": "05255ed5-5b5a-40ea-9103-bb7a29ec6087"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U401 Pin 13 [PGND2, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 0.8763
+                            },
+                            "uuid": "39a0fe99-f955-4a31-a0ab-93f2be8ae341"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U401 Pin 20 [PGND1, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 1.0541
+                            },
+                            "uuid": "86ce7e9f-601a-4d9d-805e-18e45ff1c673"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U402 Pin 6 [V+, Power input, Line]",
+                            "pos": {
+                                "x": 1.5494,
+                                "y": 1.8796
+                            },
+                            "uuid": "60b50853-080b-4043-9fe8-417528b5056f"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                }
+            ]
+        },
+        {
+            "path": "/Driver_1/",
+            "uuid_path": "/43f1792e-740a-597d-a0ee-e4f409a6f811/210f9a02-21f2-5782-8760-2a9c9021020d",
+            "violations": [
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U401 Pin 3 [PGND3, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 0.6223
+                            },
+                            "uuid": "dee6f45f-c983-4763-9339-f2e267c794e8"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U401 Pin 10 [PGND4, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 0.8001
+                            },
+                            "uuid": "05255ed5-5b5a-40ea-9103-bb7a29ec6087"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U401 Pin 13 [PGND2, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 0.8763
+                            },
+                            "uuid": "39a0fe99-f955-4a31-a0ab-93f2be8ae341"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U401 Pin 20 [PGND1, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 1.0541
+                            },
+                            "uuid": "86ce7e9f-601a-4d9d-805e-18e45ff1c673"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                }
+            ]
+        },
+        {
+            "path": "/Driver_2/",
+            "uuid_path": "/43f1792e-740a-597d-a0ee-e4f409a6f811/dd3a178d-db19-5543-be6f-829a89b62852",
+            "violations": [
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U401 Pin 3 [PGND3, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 0.6223
+                            },
+                            "uuid": "dee6f45f-c983-4763-9339-f2e267c794e8"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U401 Pin 10 [PGND4, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 0.8001
+                            },
+                            "uuid": "05255ed5-5b5a-40ea-9103-bb7a29ec6087"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U401 Pin 13 [PGND2, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 0.8763
+                            },
+                            "uuid": "39a0fe99-f955-4a31-a0ab-93f2be8ae341"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U401 Pin 20 [PGND1, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 1.0541
+                            },
+                            "uuid": "86ce7e9f-601a-4d9d-805e-18e45ff1c673"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                }
+            ]
+        },
+        {
+            "path": "/Driver_3/",
+            "uuid_path": "/43f1792e-740a-597d-a0ee-e4f409a6f811/674741db-9b86-516d-963f-d7dddf0986cb",
+            "violations": [
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U401 Pin 3 [PGND3, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 0.6223
+                            },
+                            "uuid": "dee6f45f-c983-4763-9339-f2e267c794e8"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U401 Pin 10 [PGND4, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 0.8001
+                            },
+                            "uuid": "05255ed5-5b5a-40ea-9103-bb7a29ec6087"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U401 Pin 13 [PGND2, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 0.8763
+                            },
+                            "uuid": "39a0fe99-f955-4a31-a0ab-93f2be8ae341"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U401 Pin 20 [PGND1, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 1.0541
+                            },
+                            "uuid": "86ce7e9f-601a-4d9d-805e-18e45ff1c673"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                }
+            ]
+        },
+        {
+            "path": "/Protection/",
+            "uuid_path": "/43f1792e-740a-597d-a0ee-e4f409a6f811/6fe4c208-5134-525c-8e87-3fe67f29791f",
+            "violations": []
+        },
+        {
+            "path": "/",
+            "uuid_path": "/43f1792e-740a-597d-a0ee-e4f409a6f811",
+            "violations": []
+        }
+    ],
+    "source": "control_group.kicad_sch"
+}

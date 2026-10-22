@@ -1,0 +1,1187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>/home/arseniy/.codex/worktrees/coil-channel-study/flying_chess/methodology/electronics/controller.kicad_sch</source>
+    <date>2026-10-21T21:56:14+0200</date>
+    <tool>Eeschema 9.0.8+dfsg-1</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title>Eight-coil local controller - DRAFT</title>
+        <company/>
+        <rev>working</rev>
+        <date/>
+        <source>controller.kicad_sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="C40">
+      <value>4.7e-06</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R60J475ME47D</field>
+        <field name="ModelParameter">electronics_logic_regulator_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R60J475ME47D"/>
+      <property name="ModelParameter" value="electronics_logic_regulator_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>2827673f-7cb6-5b79-85c1-9a14d5046261</tstamps>
+    </comp>
+    <comp ref="C41">
+      <value>4.7e-06</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R60J475ME47D</field>
+        <field name="ModelParameter">electronics_logic_regulator_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R60J475ME47D"/>
+      <property name="ModelParameter" value="electronics_logic_regulator_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>7e2327d6-5c65-512e-b73d-5bf168f2031f</tstamps>
+    </comp>
+    <comp ref="C42">
+      <value>4.7e-06</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R60J475ME47D</field>
+        <field name="ModelParameter">electronics_logic_regulator_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R60J475ME47D"/>
+      <property name="ModelParameter" value="electronics_logic_regulator_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>18165936-cbd1-5a0c-b31b-17b1d21d04eb</tstamps>
+    </comp>
+    <comp ref="C43">
+      <value>1.5e-11</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM1555C1H150JA01D</field>
+        <field name="ModelParameter">electronics_logic_crystal_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM1555C1H150JA01D"/>
+      <property name="ModelParameter" value="electronics_logic_crystal_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b0e16300-2f92-5327-a5b7-d03c9fad4bf3</tstamps>
+    </comp>
+    <comp ref="C44">
+      <value>1.5e-11</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM1555C1H150JA01D</field>
+        <field name="ModelParameter">electronics_logic_crystal_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM1555C1H150JA01D"/>
+      <property name="ModelParameter" value="electronics_logic_crystal_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>bbffefe3-66c3-5d6c-85c9-e12cf4d7ea29</tstamps>
+    </comp>
+    <comp ref="C45">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f45c69ee-b5e2-5f1d-90b7-91c706b61050</tstamps>
+    </comp>
+    <comp ref="C46">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>684b32eb-bb5e-5bac-8681-099f8c402b52</tstamps>
+    </comp>
+    <comp ref="C47">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>83588fb9-4fc7-52c4-8d7c-801c41ee73bb</tstamps>
+    </comp>
+    <comp ref="C48">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>c5b73d74-1113-53af-aa37-79bccab1f6b9</tstamps>
+    </comp>
+    <comp ref="C49">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>731f7714-1c03-585b-b587-632fe603a0cd</tstamps>
+    </comp>
+    <comp ref="C50">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>433de383-549c-5820-bac0-d0799a3f1e5e</tstamps>
+    </comp>
+    <comp ref="C51">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>37c0d1cc-81c2-5ba9-9cd3-4bfa5819723e</tstamps>
+    </comp>
+    <comp ref="C52">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3ed948f3-47ef-5302-bf81-a5687459d0d3</tstamps>
+    </comp>
+    <comp ref="C53">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8cb0d660-329f-52ae-bb61-98a5400b47de</tstamps>
+    </comp>
+    <comp ref="C54">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>dcfd013e-8723-5acb-9f77-4efa413757b6</tstamps>
+    </comp>
+    <comp ref="C55">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>27dde422-0de2-538b-8d7d-b14afe51c68b</tstamps>
+    </comp>
+    <comp ref="C56">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>643e26a1-741f-5e00-a4a3-2be448a5e3dc</tstamps>
+    </comp>
+    <comp ref="C57">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>fd6386d4-e3cc-530e-a453-4651d3dd680f</tstamps>
+    </comp>
+    <comp ref="C58">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>13c8b5fa-da92-593e-ba41-e83fb8addc0c</tstamps>
+    </comp>
+    <comp ref="L20">
+      <value>3.3e-06</value>
+      <footprint>FlyingChess:AOTA_B201610S3R3_101_T_RPi</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">AOTA-B201610S3R3-101-T</field>
+        <field name="ModelParameter">electronics_logic_inductance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">FlyingChess:AOTA_B201610S3R3_101_T_RPi</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="L" description="Inductor"/>
+      <property name="MPN" value="AOTA-B201610S3R3-101-T"/>
+      <property name="ModelParameter" value="electronics_logic_inductance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="inductor choke coil reactor magnetic"/>
+      <property name="ki_fp_filters" value="Choke_* *Coil* Inductor_* L_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>4f4a8dd2-6dc6-503d-bdf8-93012aadb237</tstamps>
+    </comp>
+    <comp ref="R30">
+      <value>33.0</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0402FR-0733RL</field>
+        <field name="ModelParameter">electronics_logic_regulator_filter</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0402FR-0733RL"/>
+      <property name="ModelParameter" value="electronics_logic_regulator_filter"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>47ece403-1cfd-5edd-9103-31ae12acd2e6</tstamps>
+    </comp>
+    <comp ref="R31">
+      <value>1000.0</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0402FR-071KL</field>
+        <field name="ModelParameter">electronics_logic_crystal_resistance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0402FR-071KL"/>
+      <property name="ModelParameter" value="electronics_logic_crystal_resistance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>84bd4b6c-19ef-545c-b4ae-5cec2e0fb076</tstamps>
+    </comp>
+    <comp ref="R32">
+      <value>10000.0</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0402FR-0710KL</field>
+        <field name="ModelParameter">electronics_logic_pull_resistance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0402FR-0710KL"/>
+      <property name="ModelParameter" value="electronics_logic_pull_resistance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f7e2a0bc-b63c-53ce-99e6-2fb17ea4f1a4</tstamps>
+    </comp>
+    <comp ref="R33">
+      <value>10000.0</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0402FR-0710KL</field>
+        <field name="ModelParameter">electronics_logic_pull_resistance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0402FR-0710KL"/>
+      <property name="ModelParameter" value="electronics_logic_pull_resistance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ecce91a9-e20f-519e-b4d5-c6ccb2edbc87</tstamps>
+    </comp>
+    <comp ref="U20">
+      <value>RP2354B</value>
+      <footprint>Package_DFN_QFN:QFN-80-1EP_10x10mm_P0.4mm_EP3.4x3.4mm</footprint>
+      <datasheet>https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf</datasheet>
+      <fields>
+        <field name="MPN">RP2354B</field>
+        <field name="ModelParameter"/>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels">8</field>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Package_DFN_QFN:QFN-80-1EP_10x10mm_P0.4mm_EP3.4x3.4mm</field>
+        <field name="Datasheet">https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="MCU_RaspberryPi" part="RP2354B" description="A microcontroller by Raspberry Pi, dual CPU architecture (ARM Cortex-M33 / RISC-V Hazard3), 150MHz, 2MB flash, 520KB SRAM, 12 PIO state machines, VQFN-80"/>
+      <property name="MPN" value="RP2354B"/>
+      <property name="ModelParameter" value=""/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value="8"/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="RPi Pico USB QSPI I2C UART ADC SC1512"/>
+      <property name="ki_fp_filters" value="*QFN*10x10mm?P0.4mm?EP3.4x3.4mm*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b149d44c-5531-5cbf-882d-7ba7bd89eaf6</tstamps>
+    </comp>
+    <comp ref="Y20">
+      <value>12000000.0</value>
+      <footprint>Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">ABM8-272-T3</field>
+        <field name="ModelParameter">electronics_logic_crystal_frequency</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete</field>
+        <field name="Footprint">Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="Crystal_GND24" description="Four pin crystal, GND on pins 2 and 4"/>
+      <property name="MPN" value="ABM8-272-T3"/>
+      <property name="ModelParameter" value="electronics_logic_crystal_frequency"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Controller candidate; independent shutdown, supply generation, firmware timing and module interfaces incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="controller.kicad_sch"/>
+      <property name="ki_keywords" value="quartz ceramic resonator oscillator"/>
+      <property name="ki_fp_filters" value="Crystal*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>674334e6-ec29-517b-862b-5683872c7b79</tstamps>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="Device" part="C">
+      <description>Unpolarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Unpolarized capacitor</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="Crystal_GND24">
+      <description>Four pin crystal, GND on pins 2 and 4</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Crystal*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">Y</field>
+        <field name="Value">Crystal_GND24</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Four pin crystal, GND on pins 2 and 4</field>
+        <field name="KLC_S3.3">The rectangle is not a symbol body but a graphical element</field>
+        <field name="KLC_S4.1">Some pins are on 50mil grid to make the symbol small</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="G" type="passive"/>
+        <pin num="3" name="3" type="passive"/>
+        <pin num="4" name="G" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="L">
+      <description>Inductor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Choke_*</fp>
+        <fp>*Coil*</fp>
+        <fp>Inductor_*</fp>
+        <fp>L_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">L</field>
+        <field name="Value">L</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Inductor</field>
+      </fields>
+      <pins>
+        <pin num="1" name="1" type="passive"/>
+        <pin num="2" name="2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="R">
+      <description>Resistor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Resistor</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="MCU_RaspberryPi" part="RP2354B">
+      <description>A microcontroller by Raspberry Pi, dual CPU architecture (ARM Cortex-M33 / RISC-V Hazard3), 150MHz, 2MB flash, 520KB SRAM, 12 PIO state machines, VQFN-80</description>
+      <docs>https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf</docs>
+      <footprints>
+        <fp>*QFN*10x10mm?P0.4mm?EP3.4x3.4mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">RP2354B</field>
+        <field name="Footprint">Package_DFN_QFN:QFN-80-1EP_10x10mm_P0.4mm_EP3.4x3.4mm</field>
+        <field name="Datasheet">https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf</field>
+        <field name="Description">A microcontroller by Raspberry Pi, dual CPU architecture (ARM Cortex-M33 / RISC-V Hazard3), 150MHz, 2MB flash, 520KB SRAM, 12 PIO state machines, VQFN-80</field>
+        <field name="KLC_S4.2_DVDD">Not a standalone power converter; internal on-chip voltage regulator for digital core supply; DVDD is the digital core power supply, should be placed next to voltage regulator output.</field>
+        <field name="KLC_S4.2_VREG_LX">Should be placed next to DVDD.</field>
+      </fields>
+      <pins>
+        <pin num="1" name="GPIO4" type="bidirectional"/>
+        <pin num="2" name="GPIO5" type="bidirectional"/>
+        <pin num="3" name="GPIO6" type="bidirectional"/>
+        <pin num="4" name="GPIO7" type="bidirectional"/>
+        <pin num="5" name="IOVDD" type="power_in"/>
+        <pin num="6" name="GPIO8" type="bidirectional"/>
+        <pin num="7" name="GPIO9" type="bidirectional"/>
+        <pin num="8" name="GPIO10" type="bidirectional"/>
+        <pin num="9" name="GPIO11" type="bidirectional"/>
+        <pin num="10" name="DVDD" type="power_in"/>
+        <pin num="11" name="GPIO12" type="bidirectional"/>
+        <pin num="12" name="GPIO13" type="bidirectional"/>
+        <pin num="13" name="GPIO14" type="bidirectional"/>
+        <pin num="14" name="GPIO15" type="bidirectional"/>
+        <pin num="15" name="IOVDD" type="passive"/>
+        <pin num="16" name="GPIO16" type="bidirectional"/>
+        <pin num="17" name="GPIO17" type="bidirectional"/>
+        <pin num="18" name="GPIO18" type="bidirectional"/>
+        <pin num="19" name="GPIO19" type="bidirectional"/>
+        <pin num="20" name="GPIO20" type="bidirectional"/>
+        <pin num="21" name="GPIO21" type="bidirectional"/>
+        <pin num="22" name="GPIO22" type="bidirectional"/>
+        <pin num="23" name="GPIO23" type="bidirectional"/>
+        <pin num="24" name="IOVDD" type="passive"/>
+        <pin num="25" name="GPIO24" type="bidirectional"/>
+        <pin num="26" name="GPIO25" type="bidirectional"/>
+        <pin num="27" name="GPIO26" type="bidirectional"/>
+        <pin num="28" name="GPIO27" type="bidirectional"/>
+        <pin num="29" name="IOVDD" type="passive"/>
+        <pin num="30" name="XIN" type="input"/>
+        <pin num="31" name="XOUT" type="output"/>
+        <pin num="32" name="DVDD" type="passive"/>
+        <pin num="33" name="SWCLK" type="input"/>
+        <pin num="34" name="SWDIO" type="bidirectional"/>
+        <pin num="35" name="RUN" type="input"/>
+        <pin num="36" name="GPIO28" type="bidirectional"/>
+        <pin num="37" name="GPIO29" type="bidirectional"/>
+        <pin num="38" name="GPIO30" type="bidirectional"/>
+        <pin num="39" name="GPIO31" type="bidirectional"/>
+        <pin num="40" name="GPIO32" type="bidirectional"/>
+        <pin num="41" name="IOVDD" type="passive"/>
+        <pin num="42" name="GPIO33" type="bidirectional"/>
+        <pin num="43" name="GPIO34" type="bidirectional"/>
+        <pin num="44" name="GPIO35" type="bidirectional"/>
+        <pin num="45" name="GPIO36" type="bidirectional"/>
+        <pin num="46" name="GPIO37" type="bidirectional"/>
+        <pin num="47" name="GPIO38" type="bidirectional"/>
+        <pin num="48" name="GPIO39" type="bidirectional"/>
+        <pin num="49" name="GPIO40/ADC0" type="bidirectional"/>
+        <pin num="50" name="IOVDD" type="passive"/>
+        <pin num="51" name="DVDD" type="passive"/>
+        <pin num="52" name="GPIO41/ADC1" type="bidirectional"/>
+        <pin num="53" name="GPIO42/ADC2" type="bidirectional"/>
+        <pin num="54" name="GPIO43/ADC3" type="bidirectional"/>
+        <pin num="55" name="GPIO44/ADC4" type="bidirectional"/>
+        <pin num="56" name="GPIO45/ADC5" type="bidirectional"/>
+        <pin num="57" name="GPIO46/ADC6" type="bidirectional"/>
+        <pin num="58" name="GPIO47/ADC7" type="bidirectional"/>
+        <pin num="59" name="ADC_AVDD" type="power_in"/>
+        <pin num="60" name="IOVDD" type="passive"/>
+        <pin num="61" name="VREG_AVDD" type="power_in"/>
+        <pin num="62" name="VREG_PGND" type="power_in"/>
+        <pin num="63" name="VREG_LX" type="power_out"/>
+        <pin num="64" name="VREG_VIN" type="power_in"/>
+        <pin num="65" name="VREG_FB" type="passive"/>
+        <pin num="66" name="USB_DM" type="bidirectional"/>
+        <pin num="67" name="USB_DP" type="bidirectional"/>
+        <pin num="68" name="USB_OTP_VDD" type="power_in"/>
+        <pin num="69" name="QSPI_IOVDD" type="power_in"/>
+        <pin num="70" name="QSPI_SD3" type="bidirectional"/>
+        <pin num="71" name="QSPI_SCLK" type="output"/>
+        <pin num="72" name="QSPI_SD0" type="bidirectional"/>
+        <pin num="73" name="QSPI_SD2" type="bidirectional"/>
+        <pin num="74" name="QSPI_SD1" type="bidirectional"/>
+        <pin num="75" name="~{QSPI_SS}" type="output"/>
+        <pin num="76" name="IOVDD" type="passive"/>
+        <pin num="77" name="GPIO0" type="bidirectional"/>
+        <pin num="78" name="GPIO1" type="bidirectional"/>
+        <pin num="79" name="GPIO2" type="bidirectional"/>
+        <pin num="80" name="GPIO3" type="bidirectional"/>
+        <pin num="81" name="GND" type="power_in"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="Device">
+      <uri>/home/arseniy/.local/share/flying-chess-tools/root/usr/share/kicad/symbols/Device.kicad_sym</uri>
+    </library>
+    <library logical="MCU_RaspberryPi">
+      <uri>/home/arseniy/.local/share/flying-chess-tools/root/usr/share/kicad/symbols/MCU_RaspberryPi.kicad_sym</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="/ADC_ALARM" class="Default">
+      <node ref="U20" pin="37" pinfunction="GPIO29" pintype="bidirectional"/>
+    </net>
+    <net code="2" name="/ADC_CS_N" class="Default">
+      <node ref="U20" pin="26" pinfunction="GPIO25" pintype="bidirectional"/>
+    </net>
+    <net code="3" name="/ADC_RESET_N" class="Default">
+      <node ref="U20" pin="36" pinfunction="GPIO28" pintype="bidirectional"/>
+    </net>
+    <net code="4" name="/ADC_SCLK" class="Default">
+      <node ref="U20" pin="25" pinfunction="GPIO24" pintype="bidirectional"/>
+    </net>
+    <net code="5" name="/ADC_SDI" class="Default">
+      <node ref="U20" pin="27" pinfunction="GPIO26" pintype="bidirectional"/>
+    </net>
+    <net code="6" name="/ADC_SDO" class="Default">
+      <node ref="U20" pin="28" pinfunction="GPIO27" pintype="bidirectional"/>
+    </net>
+    <net code="7" name="/ARM_REQUEST" class="Default">
+      <node ref="U20" pin="47" pinfunction="GPIO38" pintype="bidirectional"/>
+    </net>
+    <net code="8" name="/AWAKE" class="Default">
+      <node ref="U20" pin="38" pinfunction="GPIO30" pintype="bidirectional"/>
+    </net>
+    <net code="9" name="/ENABLE_REQUEST_0" class="Default">
+      <node ref="U20" pin="16" pinfunction="GPIO16" pintype="bidirectional"/>
+    </net>
+    <net code="10" name="/ENABLE_REQUEST_1" class="Default">
+      <node ref="U20" pin="17" pinfunction="GPIO17" pintype="bidirectional"/>
+    </net>
+    <net code="11" name="/ENABLE_REQUEST_2" class="Default">
+      <node ref="U20" pin="18" pinfunction="GPIO18" pintype="bidirectional"/>
+    </net>
+    <net code="12" name="/ENABLE_REQUEST_3" class="Default">
+      <node ref="U20" pin="19" pinfunction="GPIO19" pintype="bidirectional"/>
+    </net>
+    <net code="13" name="/ENABLE_REQUEST_4" class="Default">
+      <node ref="U20" pin="20" pinfunction="GPIO20" pintype="bidirectional"/>
+    </net>
+    <net code="14" name="/ENABLE_REQUEST_5" class="Default">
+      <node ref="U20" pin="21" pinfunction="GPIO21" pintype="bidirectional"/>
+    </net>
+    <net code="15" name="/ENABLE_REQUEST_6" class="Default">
+      <node ref="U20" pin="22" pinfunction="GPIO22" pintype="bidirectional"/>
+    </net>
+    <net code="16" name="/ENABLE_REQUEST_7" class="Default">
+      <node ref="U20" pin="23" pinfunction="GPIO23" pintype="bidirectional"/>
+    </net>
+    <net code="17" name="/FAULT_N" class="Default">
+      <node ref="U20" pin="39" pinfunction="GPIO31" pintype="bidirectional"/>
+    </net>
+    <net code="18" name="/GND" class="Default">
+      <node ref="C40" pin="2" pintype="passive"/>
+      <node ref="C41" pin="2" pintype="passive"/>
+      <node ref="C42" pin="2" pintype="passive"/>
+      <node ref="C43" pin="2" pintype="passive"/>
+      <node ref="C44" pin="2" pintype="passive"/>
+      <node ref="C45" pin="2" pintype="passive"/>
+      <node ref="C46" pin="2" pintype="passive"/>
+      <node ref="C47" pin="2" pintype="passive"/>
+      <node ref="C48" pin="2" pintype="passive"/>
+      <node ref="C49" pin="2" pintype="passive"/>
+      <node ref="C50" pin="2" pintype="passive"/>
+      <node ref="C51" pin="2" pintype="passive"/>
+      <node ref="C52" pin="2" pintype="passive"/>
+      <node ref="C53" pin="2" pintype="passive"/>
+      <node ref="C54" pin="2" pintype="passive"/>
+      <node ref="C55" pin="2" pintype="passive"/>
+      <node ref="C56" pin="2" pintype="passive"/>
+      <node ref="C57" pin="2" pintype="passive"/>
+      <node ref="C58" pin="2" pintype="passive"/>
+      <node ref="R33" pin="2" pintype="passive"/>
+      <node ref="U20" pin="62" pinfunction="VREG_PGND" pintype="power_in"/>
+      <node ref="U20" pin="81" pinfunction="GND" pintype="power_in"/>
+      <node ref="Y20" pin="2" pinfunction="G" pintype="passive"/>
+      <node ref="Y20" pin="4" pinfunction="G" pintype="passive"/>
+    </net>
+    <net code="19" name="/HALL_CS_N" class="Default">
+      <node ref="U20" pin="52" pinfunction="GPIO41/ADC1" pintype="bidirectional"/>
+    </net>
+    <net code="20" name="/HALL_RX" class="Default">
+      <node ref="U20" pin="49" pinfunction="GPIO40/ADC0" pintype="bidirectional"/>
+    </net>
+    <net code="21" name="/HALL_SCLK" class="Default">
+      <node ref="U20" pin="53" pinfunction="GPIO42/ADC2" pintype="bidirectional"/>
+    </net>
+    <net code="22" name="/HALL_TX" class="Default">
+      <node ref="U20" pin="54" pinfunction="GPIO43/ADC3" pintype="bidirectional"/>
+    </net>
+    <net code="23" name="/HOST_CS_N" class="Default">
+      <node ref="U20" pin="42" pinfunction="GPIO33" pintype="bidirectional"/>
+    </net>
+    <net code="24" name="/HOST_RX" class="Default">
+      <node ref="U20" pin="40" pinfunction="GPIO32" pintype="bidirectional"/>
+    </net>
+    <net code="25" name="/HOST_SCLK" class="Default">
+      <node ref="U20" pin="43" pinfunction="GPIO34" pintype="bidirectional"/>
+    </net>
+    <net code="26" name="/HOST_SYNC" class="Default">
+      <node ref="U20" pin="48" pinfunction="GPIO39" pintype="bidirectional"/>
+    </net>
+    <net code="27" name="/HOST_TX" class="Default">
+      <node ref="U20" pin="44" pinfunction="GPIO35" pintype="bidirectional"/>
+    </net>
+    <net code="28" name="/POWER_FAULT_N" class="Default">
+      <node ref="U20" pin="58" pinfunction="GPIO47/ADC7" pintype="bidirectional"/>
+    </net>
+    <net code="29" name="/PWM_0_N" class="Default">
+      <node ref="U20" pin="78" pinfunction="GPIO1" pintype="bidirectional"/>
+    </net>
+    <net code="30" name="/PWM_0_P" class="Default">
+      <node ref="U20" pin="77" pinfunction="GPIO0" pintype="bidirectional"/>
+    </net>
+    <net code="31" name="/PWM_1_N" class="Default">
+      <node ref="U20" pin="80" pinfunction="GPIO3" pintype="bidirectional"/>
+    </net>
+    <net code="32" name="/PWM_1_P" class="Default">
+      <node ref="U20" pin="79" pinfunction="GPIO2" pintype="bidirectional"/>
+    </net>
+    <net code="33" name="/PWM_2_N" class="Default">
+      <node ref="U20" pin="2" pinfunction="GPIO5" pintype="bidirectional"/>
+    </net>
+    <net code="34" name="/PWM_2_P" class="Default">
+      <node ref="U20" pin="1" pinfunction="GPIO4" pintype="bidirectional"/>
+    </net>
+    <net code="35" name="/PWM_3_N" class="Default">
+      <node ref="U20" pin="4" pinfunction="GPIO7" pintype="bidirectional"/>
+    </net>
+    <net code="36" name="/PWM_3_P" class="Default">
+      <node ref="U20" pin="3" pinfunction="GPIO6" pintype="bidirectional"/>
+    </net>
+    <net code="37" name="/PWM_4_N" class="Default">
+      <node ref="U20" pin="7" pinfunction="GPIO9" pintype="bidirectional"/>
+    </net>
+    <net code="38" name="/PWM_4_P" class="Default">
+      <node ref="U20" pin="6" pinfunction="GPIO8" pintype="bidirectional"/>
+    </net>
+    <net code="39" name="/PWM_5_N" class="Default">
+      <node ref="U20" pin="9" pinfunction="GPIO11" pintype="bidirectional"/>
+    </net>
+    <net code="40" name="/PWM_5_P" class="Default">
+      <node ref="U20" pin="8" pinfunction="GPIO10" pintype="bidirectional"/>
+    </net>
+    <net code="41" name="/PWM_6_N" class="Default">
+      <node ref="U20" pin="12" pinfunction="GPIO13" pintype="bidirectional"/>
+    </net>
+    <net code="42" name="/PWM_6_P" class="Default">
+      <node ref="U20" pin="11" pinfunction="GPIO12" pintype="bidirectional"/>
+    </net>
+    <net code="43" name="/PWM_7_N" class="Default">
+      <node ref="U20" pin="14" pinfunction="GPIO15" pintype="bidirectional"/>
+    </net>
+    <net code="44" name="/PWM_7_P" class="Default">
+      <node ref="U20" pin="13" pinfunction="GPIO14" pintype="bidirectional"/>
+    </net>
+    <net code="45" name="/RUN" class="Default">
+      <node ref="R32" pin="1" pintype="passive"/>
+      <node ref="U20" pin="35" pinfunction="RUN" pintype="input"/>
+    </net>
+    <net code="46" name="/SAFE_OK" class="Default">
+      <node ref="R33" pin="1" pintype="passive"/>
+      <node ref="U20" pin="46" pinfunction="GPIO37" pintype="bidirectional"/>
+    </net>
+    <net code="47" name="/SWCLK" class="Default">
+      <node ref="U20" pin="33" pinfunction="SWCLK" pintype="input"/>
+    </net>
+    <net code="48" name="/SWDIO" class="Default">
+      <node ref="U20" pin="34" pinfunction="SWDIO" pintype="bidirectional"/>
+    </net>
+    <net code="49" name="/TEMP_COIL" class="Default">
+      <node ref="U20" pin="56" pinfunction="GPIO45/ADC5" pintype="bidirectional"/>
+    </net>
+    <net code="50" name="/TEMP_DRIVER" class="Default">
+      <node ref="U20" pin="55" pinfunction="GPIO44/ADC4" pintype="bidirectional"/>
+    </net>
+    <net code="51" name="/VREG_AVDD" class="Default">
+      <node ref="C42" pin="1" pintype="passive"/>
+      <node ref="R30" pin="2" pintype="passive"/>
+      <node ref="U20" pin="61" pinfunction="VREG_AVDD" pintype="power_in"/>
+    </net>
+    <net code="52" name="/VREG_LX" class="Default">
+      <node ref="L20" pin="2" pinfunction="2" pintype="passive"/>
+      <node ref="U20" pin="63" pinfunction="VREG_LX" pintype="power_out"/>
+    </net>
+    <net code="53" name="/V_CORE" class="Default">
+      <node ref="C41" pin="1" pintype="passive"/>
+      <node ref="C56" pin="1" pintype="passive"/>
+      <node ref="C57" pin="1" pintype="passive"/>
+      <node ref="C58" pin="1" pintype="passive"/>
+      <node ref="L20" pin="1" pinfunction="1" pintype="passive"/>
+      <node ref="U20" pin="10" pinfunction="DVDD" pintype="power_in"/>
+      <node ref="U20" pin="32" pinfunction="DVDD" pintype="passive"/>
+      <node ref="U20" pin="51" pinfunction="DVDD" pintype="passive"/>
+      <node ref="U20" pin="65" pinfunction="VREG_FB" pintype="passive"/>
+    </net>
+    <net code="54" name="/V_LOGIC" class="Default">
+      <node ref="C40" pin="1" pintype="passive"/>
+      <node ref="C45" pin="1" pintype="passive"/>
+      <node ref="C46" pin="1" pintype="passive"/>
+      <node ref="C47" pin="1" pintype="passive"/>
+      <node ref="C48" pin="1" pintype="passive"/>
+      <node ref="C49" pin="1" pintype="passive"/>
+      <node ref="C50" pin="1" pintype="passive"/>
+      <node ref="C51" pin="1" pintype="passive"/>
+      <node ref="C52" pin="1" pintype="passive"/>
+      <node ref="C53" pin="1" pintype="passive"/>
+      <node ref="C54" pin="1" pintype="passive"/>
+      <node ref="C55" pin="1" pintype="passive"/>
+      <node ref="R30" pin="1" pintype="passive"/>
+      <node ref="R32" pin="2" pintype="passive"/>
+      <node ref="U20" pin="15" pinfunction="IOVDD" pintype="passive"/>
+      <node ref="U20" pin="24" pinfunction="IOVDD" pintype="passive"/>
+      <node ref="U20" pin="29" pinfunction="IOVDD" pintype="passive"/>
+      <node ref="U20" pin="41" pinfunction="IOVDD" pintype="passive"/>
+      <node ref="U20" pin="5" pinfunction="IOVDD" pintype="power_in"/>
+      <node ref="U20" pin="50" pinfunction="IOVDD" pintype="passive"/>
+      <node ref="U20" pin="59" pinfunction="ADC_AVDD" pintype="power_in"/>
+      <node ref="U20" pin="60" pinfunction="IOVDD" pintype="passive"/>
+      <node ref="U20" pin="64" pinfunction="VREG_VIN" pintype="power_in"/>
+      <node ref="U20" pin="68" pinfunction="USB_OTP_VDD" pintype="power_in"/>
+      <node ref="U20" pin="69" pinfunction="QSPI_IOVDD" pintype="power_in"/>
+      <node ref="U20" pin="76" pinfunction="IOVDD" pintype="passive"/>
+    </net>
+    <net code="55" name="/V_MOTOR_MONITOR" class="Default">
+      <node ref="U20" pin="57" pinfunction="GPIO46/ADC6" pintype="bidirectional"/>
+    </net>
+    <net code="56" name="/WATCHDOG_PULSE" class="Default">
+      <node ref="U20" pin="45" pinfunction="GPIO36" pintype="bidirectional"/>
+    </net>
+    <net code="57" name="/XIN" class="Default">
+      <node ref="C43" pin="1" pintype="passive"/>
+      <node ref="U20" pin="30" pinfunction="XIN" pintype="input"/>
+      <node ref="Y20" pin="1" pinfunction="1" pintype="passive"/>
+    </net>
+    <net code="58" name="/XOUT" class="Default">
+      <node ref="R31" pin="1" pintype="passive"/>
+      <node ref="U20" pin="31" pinfunction="XOUT" pintype="output"/>
+    </net>
+    <net code="59" name="/XTAL_OUT" class="Default">
+      <node ref="C44" pin="1" pintype="passive"/>
+      <node ref="R31" pin="2" pintype="passive"/>
+      <node ref="Y20" pin="3" pinfunction="3" pintype="passive"/>
+    </net>
+    <net code="60" name="unconnected-(U20-QSPI_SCLK-Pad71)" class="Default">
+      <node ref="U20" pin="71" pinfunction="QSPI_SCLK" pintype="output+no_connect"/>
+    </net>
+    <net code="61" name="unconnected-(U20-QSPI_SD0-Pad72)" class="Default">
+      <node ref="U20" pin="72" pinfunction="QSPI_SD0" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="62" name="unconnected-(U20-QSPI_SD1-Pad74)" class="Default">
+      <node ref="U20" pin="74" pinfunction="QSPI_SD1" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="63" name="unconnected-(U20-QSPI_SD2-Pad73)" class="Default">
+      <node ref="U20" pin="73" pinfunction="QSPI_SD2" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="64" name="unconnected-(U20-QSPI_SD3-Pad70)" class="Default">
+      <node ref="U20" pin="70" pinfunction="QSPI_SD3" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="65" name="unconnected-(U20-USB_DM-Pad66)" class="Default">
+      <node ref="U20" pin="66" pinfunction="USB_DM" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="66" name="unconnected-(U20-USB_DP-Pad67)" class="Default">
+      <node ref="U20" pin="67" pinfunction="USB_DP" pintype="bidirectional+no_connect"/>
+    </net>
+    <net code="67" name="unconnected-(U20-~{QSPI_SS}-Pad75)" class="Default">
+      <node ref="U20" pin="75" pinfunction="~{QSPI_SS}" pintype="output+no_connect"/>
+    </net>
+  </nets>
+</export>

@@ -1,0 +1,60 @@
+{
+    "status": "resolved_switching_bridge_with_sampled_regulator_and_reduced_readout",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/switching_loop.py": "8a850190145e4c4528e8934eebfc982cf02dd2efdca491d6ce50b9f72f692f78",
+        "model.py": "f67b884cbdb6f56853cc16860298741924d56af469c06e4961d84077fd9eaf5e",
+        "methodology/qualification.py": "7d1232db4b9045a1ac7d244ffb71468b64d636953203c81daee2f92627a33f54",
+        "methodology/electronics/acquisition.py": "85dc1ebeb49263ca4cafc1294b55306431fbe3f64d443ac99f8b5ea6b31002b9",
+        "methodology/electronics/current_loop.py": "d9fdf5d50d34592bb5aecbce23e28b57380ca7083f9e42e0c0395f5613e75773",
+        "methodology/electronics/power_stage.py": "12deef834e25133d1db80b6bbb6aba13e8b0e12926bc794ed3a7ff5c8698850f",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe"
+    },
+    "trials": [
+        {
+            "refinement": 1,
+            "stopped": false,
+            "completed_time_s": 0.001,
+            "commanded_current_A": 0.0,
+            "final_mean_tracking_allowance_A": 0.17750000000000002,
+            "final_mean_tracking_pass": true,
+            "peak_current_A": 5.560864646595333,
+            "final_regulator_period_mean_A": 0.03517109972691115,
+            "initial_mean_A": 5.385060023367785,
+            "initial_plant_path": "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_3_refinement_1/plant.npz",
+            "initial_plant_sha256": "25de53c2a420601c3b2c7eb34a037d44a3f5cb465110fbc80b033ef1926bf1de",
+            "controller_samples": 20,
+            "native_points": 317989
+        },
+        {
+            "refinement": 2,
+            "stopped": false,
+            "completed_time_s": 0.001,
+            "commanded_current_A": 0.0,
+            "final_mean_tracking_allowance_A": 0.17750000000000002,
+            "final_mean_tracking_pass": true,
+            "peak_current_A": 5.560864654175198,
+            "final_regulator_period_mean_A": 0.035171090080084046,
+            "initial_mean_A": 5.385060023367785,
+            "initial_plant_path": "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_3_refinement_2/plant.npz",
+            "initial_plant_sha256": "0bb55aa46120c98cf4e56407763ca24ce1fc64461c1cb4668b039dacf897edc3",
+            "controller_samples": 20,
+            "native_points": 428348
+        }
+    ],
+    "peak_current_refinement_difference_A": 8.384226634416958e-05,
+    "peak_analog_sensor_refinement_difference_A": 1.7157240490561776e-06,
+    "peak_sampled_feedback_difference_A": 0.0,
+    "numerical_pass": true,
+    "final_mean_tracking_pass": true,
+    "hardware_qualified": false,
+    "limitations": [
+        "Physical bridge circuit and passive output filter are resolved with a stiff integrator and exact derivatives. The amplifier and ADC internal response remain reduced typical-bandwidth models.",
+        "Controller receives only quantized, filtered, delayed sensing with the existing noise budget; actual coil current is used only for plant integration and diagnostics.",
+        "Initial bridge comes from the verified positive periodic state. Electronic states use the corresponding periodic reduced-model response; the integral starts at its known holding command minus dead-time and nominal resistive feedforward.",
+        "Dead-time feedforward uses the smoothed requested current at actuation and typical timing/diode estimates; this is a prediction to avoid delayed-sign correction, not a true-current measurement. Reference feedforward supplies nominal R*i+L*di/dt; feedback compares the measured signal with the nominally filtered paired reference. Saturation and anti-windup remain inside the shared regulator.",
+        "Two-point load correction removes the known nominal resistor-divider gain and bias only. Manufacturer-model replay must verify the reduced readout during this reversal.",
+        "No amplifier input loading feedback, guaranteed timing/temperature bounds, shared supply dynamics, EMI, back-EMF, mutual coupling or fault lifecycle is qualified."
+    ]
+}

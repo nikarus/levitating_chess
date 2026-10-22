@@ -71,6 +71,23 @@ class Inputs:
     prototype_inner_corner_radius = 1.0         # mm; proposed winding-window radius; continuous conductor bends still need virtual detailing
     prototype_coil_spacing = 0.3                # mm; minimum nominal assembly gap between winding envelopes
     cad_coil_layout = 'square_7_5'              # candidate shown in the integrated virtual assembly; main hardware targets remain under review
+    channel_layout_candidates = (
+        ('square_reference', 'square_7_5', 45, prototype_coil_spacing, 'independent'),
+        ('square_spaced', 'square_7_5', 45, 1.5, 'independent'),
+        ('square_larger', 'square_10', 45, prototype_coil_spacing, 'independent'),
+        ('square_largest', 'square_12_5', 45, prototype_coil_spacing, 'independent'),
+        ('parquet_reference', 'parquet_5', 0, prototype_coil_spacing, 'independent'),
+        ('parquet_larger', 'parquet_7_5', 0, prototype_coil_spacing, 'independent'),
+        ('paired_same', 'square_7_5', 45, prototype_coil_spacing, 'series_same'),
+        ('paired_opposed', 'square_7_5', 45, prototype_coil_spacing, 'series_opposed'),
+    )                                          # study name, existing geometry, lattice angle (deg), envelope spacing (mm), local driver connection; not adopted hardware
+    channel_comparison_candidates = ('square_reference', 'square_larger') # retained independent-coil designs for the broader static comparison
+    channel_sweep_square_sizes = (7.5, 8.25, 9., 10., 12.5) # mm; square outside dimensions for the compact geometry sweep
+    channel_sweep_parquet_sizes = (5., 6.25, 7.5, 10.) # mm; short outside dimension, with the implemented two-to-one parquet rectangle
+    channel_sweep_spacings = (prototype_coil_spacing, 0.75, 1.5) # mm; gaps along the short lattice axis; parquet long-axis gaps are doubled
+    channel_sweep_connections = ('independent', 'series_same', 'series_opposed') # square driver branches; parquet currently supports independent coils only
+    electronics_full_bridge_buses = (24., selected_bus_voltage) # V; single-supply bridge candidates, retaining the existing simulated terminal-voltage limit
+    electronics_placement_cells_per_side = 4    # coils per tile edge; density-study window aligned with the existing coil lattice, not a selected production module
 
 
 class Fixed:
@@ -127,6 +144,187 @@ class Fixed:
     driver_peak_current = 6.5                   # A per coil; provisional instantaneous power-stage/protection capability including switching ripple
     driver_max_ripple_current = 0.5             # A; allowed peak deviation from cycle-average current in the split-rail PWM screen
     driver_pwm_frequency = 160000               # Hz; provisional carrier target set by the low-inductance ripple screen, not pose control
+    electronics_supply_tolerance = 0.05         # fraction; provisional supply excursion for topology screening, not a qualified PSU specification
+    electronics_pwm_screen_points = 101         # mean-voltage samples over each polarity for the independent winding switching screen
+    electronics_spice_cycles = 8                # PWM ripple periods per independently solved circuit check, initialized at periodic equilibrium
+    electronics_spice_steps_per_cycle = 512     # maximum integration step denominator for the ngspice reference, repeated at twice this resolution
+    electronics_spice_edge_fraction = 0.00001   # rise/fall duration divided by ripple period for the ideal voltage-source reference; not a MOSFET switching-time claim
+    electronics_spice_current_tolerance = 0.0001 # A; maximum analytic/SPICE ripple and mean discrepancy, and SPICE refinement discrepancy
+    electronics_spice_relative_tolerance = 1e-8 # dimensionless; ngspice solver relative tolerance for the RL reference circuit
+    electronics_spice_absolute_tolerance = 1e-10 # A; ngspice solver absolute current tolerance for the RL reference circuit
+    electronics_spice_case_timeout = 600.       # s wall-time budget per base vendor-model case; scaled by replay duration/refinement, preserving logs on timeout; not a numerical tolerance
+    electronics_readout_spice_method = 'gear' # INA181 diagnostic integration method; verify time-step refinement with the unchanged vendor model
+    electronics_readout_spice_order = 2        # maximum integration order for the INA181 diagnostic
+    electronics_readout_spice_solver = 'klu'  # matrix solver for the ill-conditioned vendor macro-model; no change to its electrical equations
+    electronics_readout_spice_compatibility = 'ps' # PSpice compatibility for the TI model, kept separate from the ADI LTspice diagnostic
+    electronics_readout_spice_relative_tolerance = 1e-6 # dimensionless; vendor macro-model DC solver tolerance, with unchanged output discrepancy acceptance
+    electronics_low_side_spice_steps_per_cycle = 2048 # maximum step denominator for INA181 switching transients, verified against twice this resolution
+    electronics_readout_supply_rise = 1e-6    # s; power-on ramp excitation for vendor-model startup verification, not a selected supply specification
+    electronics_replay_compression_fraction = 0.5 # fraction of numerical current-discrepancy limit per shunt input for replay simplification; final output refinement remains mandatory
+    electronics_readout_startup_cycles = 16    # carrier cycles for power-ramped INA181 replay; adjacent final means must independently meet the unchanged settling limit
+    electronics_readout_test_load = 10000.    # ohm; TI INA181 reference-test output load, not a selected ADC interface
+    electronics_channel_bus_capacitance = 4.7e-6 # F; preliminary local bridge decoupling; shared regenerative/bulk network remains required
+    electronics_analog_bypass_capacitance = 100e-9 # F; local current-sense amplifier supply bypass
+    electronics_current_amplifier_gain = 10.   # V/V; INA241A1 candidate, retaining the existing shunt resistance
+    electronics_analog_supply = 5.             # V; provisional local current-sensing supply
+    electronics_current_reference = 2.5        # V; separate REF5025 current-sense zero reference; loading and noise qualification remain open
+    electronics_readout_trial_shunt = 0.01    # ohm; total resistance of the candidate equal return-shunt pair; each physical leg uses half, with the flight model unchanged
+    electronics_ina241_edge_spacing = 3e-6    # s; datasheet minimum edge separation for enhanced PWM rejection, not a guaranteed settling-to-accuracy bound
+    electronics_max49925_gain_test_excursion = 0.8 # V about the reference; output-referred input range used for the published gain-error specification
+    electronics_drv8962_deadtime = 300e-9     # s; typical datasheet dead time, not a guaranteed worst-case timing bound
+    electronics_drv8962_on_resistance = 0.053 # ohm per FET; typical at 25 C and 5 A, not the hot maximum
+    electronics_drv8962_input_delay = 600e-9 # s; typical IN-to-output delay, common to both legs in the representative circuit; no guaranteed skew bound
+    electronics_drv8962_enable_delay = 2e-6 # s; maximum EN-to-output delay from DRV8962 Rev B table 6.5, distinct from typical IN/PWM propagation
+    electronics_drv8962_supply_currents = (6e-3, 9e-3, 8e-6) # A/package; typical/max awake no-load and max sleep with VCC=DVDD, TI Rev B
+    electronics_drv8962_wake_time = 1.2e-3 # s; maximum wake-to-output availability, with rails already powered
+    electronics_drv8962_sleep_time = 120e-6 # s; minimum nSLEEP low duration to enter sleep (DRV8962 table 6.5), distinct from the shorter fault-reset pulse
+    electronics_drv8962_turn_on_time = 1.3e-3 # s; maximum motor-rail UVLO crossing to output availability
+    electronics_sar_analog_currents = (16e-3, 4.5e-3, 20e-6) # A/device; maximum ADS8698 conversion, standby and power-down AVDD currents at 5 V
+    electronics_sar_wake_times = (20e-6, 15e-3) # s; datasheet standby and internal-reference power-down recovery waits; distinguish reference stabilization from driver wake
+    electronics_reference_quiescent_current = 1.2e-3 # A; maximum REF5025 supply current, excluding delivered reference load
+    electronics_shared_bulk_candidate = ('EEUFR1H102', 1000e-6, 0.2, 50., 0.016, 3.32) # MPN, F, tolerance, V, ohm at 100 kHz/20 C, A RMS at 100 kHz/105 C; Panasonic FR candidate; impedance is not a qualified broadband ESR bound
+    electronics_pwm_interleave_span = 0.5 # fraction of a carrier spread across counter preloads for the interleaved PWM candidate; firmware deployment and phase-dependent sensing remain unqualified
+    electronics_shared_source_tolerance = 0.02 # fractional design envelope for a regulated motor source including static regulation; component/source selection remains open
+    electronics_shared_feed_resistance = 0.05 # ohm per eight-coil branch; exploratory combined source and distribution resistance, not a routed-board measurement
+    electronics_shared_source_current = 10. # A per eight-coil branch; provisional source-current allocation for the coupled supply study
+    electronics_shared_bulk_counts = (0, 1, 2) # candidate capacitors per logical eight-coil group for the regeneration screen; zero retains only existing local bypass, not a production placement
+    electronics_bridge_output_capacitances = (100e-12, 1e-9) # F per FET; exploratory constant-Coss sensitivity points, not a DRV8962 manufacturer bound
+    electronics_bridge_diode = (0.8, 0.02)    # V knee, ohm slope; exploratory body-diode approximation, not manufacturer characterization
+    electronics_bridge_off_resistance = 1e9  # ohm; numerical off-state path in the representative switch model, not specified driver leakage
+    electronics_bridge_spice_solver = 'sparse' # matrix solver for the physical bridge network; standalone amplifier fixtures retain their separate solver
+    electronics_bridge_spice_steps_per_cycle = 4096 # maximum step denominator for finite-conductance/body-diode bridge carrier means; independently doubled before acceptance
+    electronics_bridge_charge_tolerance = 1e-18 # C; explicit capacitor-charge truncation tolerance for milliohm return paths; refine against the unchanged current discrepancy limit
+    electronics_bridge_absolute_tolerance = 1e-8 # A; nonlinear solve tolerance for the bridge, tightened with refinement; distinct from unchanged output accuracy acceptance
+    electronics_bridge_voltage_tolerance = 1e-9 # V; node-voltage solver tolerance for bridge-state integration; independently tightened in refinement checks
+    electronics_bridge_periodic_evaluations = 80 # maximum shooting-map evaluations for a periodic circuit state; acceptance still uses physical state closure
+    electronics_bridge_settling_constants = 12 # coil L/R time constants before retaining the switching readout window
+    electronics_readout_sample_guard = 100e-9 # s; provisional sample clearance before the next PWM edge; ADC aperture and jitter not yet selected
+    electronics_drv8962_shunt_drop_limit = 0.3 # V; recommended maximum external PGND sense-resistor drop
+    electronics_ina181_bandwidth = 350e3       # Hz; typical A1 bandwidth, used only for a first-order settling screen, not a guaranteed pulse-response bound
+    electronics_acquisition_filter_resistance = 200. # ohm; candidate series output isolation/filter resistor; bounded switched/vendor verification passed; component corners remain open
+    electronics_acquisition_filter_capacitance = 200e-9 # F; physical output capacitor, implemented as two parallel equal capacitors in the schematic
+    electronics_acquisition_filter_cycles = 48 # carrier cycles for the loaded-amplifier startup check; final adjacent means still must pass the unchanged limit
+    electronics_acquisition_sar_input_resistance = 1e6 # ohm; typical ADS8698 resistive input; internal bias/impedance variation still require bounds
+    electronics_acquisition_sar_input_bias = 2.5 # V; ADS8698 input-leakage equivalent bias for the selected unipolar range, independent of the external INA181 reference
+    electronics_acquisition_bulk_capacitance = 22e-6 # F nominal; ADC rail and reference bypass, requiring at least 10 uF effective capacitance after bias/tolerance
+    electronics_acquisition_local_capacitance = 1e-6 # F; local ADC rail/reference high-frequency bypass and REF5025 input/output/NR capacitors
+    electronics_bias_reference_capacitor_esr = 1. # ohm; intentional series resistance in REF5025 output-capacitor branch, within TI's low-noise recommendation
+    electronics_readout_shunt_accuracy = (0.01, 110e-6) # fractional initial tolerance and maximum component TCR /K for WSLP12065L000FEA, including terminations
+    electronics_shunt_land_pattern = (1.78, 1.93, 1.55) # mm; WSLP1206 2..5.9 mOhm recommended pad length, pad width and inner gap, Vishay 30122
+    electronics_shunt_body = (3.20, 1.60) # mm; nominal WSLP1206 body outline, not an assembly clearance envelope
+    electronics_footprint_courtyard_margin = 0.25 # mm beyond solder-pad extents for the custom shunt courtyard; copper spreading and Kelvin routes require additional area
+    electronics_ina181_accuracy = (150e-6, 1e-6, 0.01, 20e-6) # input offset V, drift V/K, gain fraction, gain drift /K; maximum INA181A1 values near ground common mode
+    electronics_sar_accuracy = (0.002, 3e-6, 0.0005, 4e-6, 5.) # offset V, drift FSR/K, gain fraction, gain drift /K, endpoint INL LSB; ADS8698 selected range with internal reference
+    electronics_bias_reference_accuracy = (0.0005, 3e-6) # initial fractional accuracy and maximum drift /K; REF5025IDR high grade, distinct from ADC internal reference
+    electronics_calibration_gain_allocation = 0.001 # fractional residual-gain design allocation after two-point calibration; requires a realizable calibration reference and procedure
+    electronics_acquisition_cutoffs = (8000., 16000., 32000.) # Hz per pole; ideal buffered RC candidates for recorded-waveform screening, not selected components
+    electronics_acquisition_orders = (1, 2, 3) # identical RC poles per candidate; loading and component tolerances require circuit verification
+    electronics_acquisition_samples_per_carrier = (1, 2, 4, 16) # equally spaced ADC samples per PWM period, compared across all sampled starting phases
+    electronics_acquisition_adc_bits = (16, 18) # ideal full-supply SAR quantizers for acquisition screening; not ENOB or adopted ADC specifications
+    electronics_acquisition_grid_refinement = 4 # uniform samples relative to the base vendor transient resolution; repeat with twice this density
+    electronics_acquisition_shunt_mismatch = (0.001, 0.01) # opposing fractional shunt errors for sensitivity tests; not selected resistor tolerances
+    electronics_acquisition_sample_skews = (5e-9, 25e-9, 100e-9) # s; last-sample timing offsets for sensitivity tests, not a guaranteed ADC jitter specification
+    electronics_acquisition_leg_skew = 50e-9  # s; relative leg propagation delay tested in the ideal switching bridge; no vendor tolerance is asserted
+    electronics_acquisition_adc = 'ADS131M08IPBSR' # eight-channel delta-sigma comparison candidate; not selected or schematic-qualified
+    electronics_acquisition_adc_channels = 8  # simultaneous channels per candidate ADC, not a final board partition
+    electronics_acquisition_adc_resolution = 24 # nominal output bits; use input noise separately
+    electronics_acquisition_adc_reference = 1.2 # V; candidate internal reference, giving +/- Vref input range at gain one
+    electronics_acquisition_adc_osr = 128     # modulator samples per output; minimum datasheet OSR, for the candidate sinc3 filter
+    electronics_acquisition_adc_sinc_order = 3 # steady-state digital-filter order at the candidate OSR
+    electronics_acquisition_adc_clock_divisor = 2 # external clock / modulator clock for ADS131M08
+    electronics_acquisition_adc_supply = 3.3  # V; candidate ADC supply, requiring a revised amplifier bias or level translation
+    electronics_acquisition_adc_noise = 21.31e-6 # V RMS; typical gain-one/OSR-128 datasheet result at nominal clock; not a guaranteed bound at the proposed clock
+    electronics_acquisition_adc_nominal_clock = 8.192e6 # Hz; clock used for the cited ADC noise measurements
+    electronics_acquisition_adc_startup_clocks = 856 # external-clock cycles; datasheet startup/resynchronization settling at OSR 128
+    electronics_acquisition_adc_frame_words = 10 # status, eight channel results and CRC in the default full SPI frame
+    electronics_acquisition_adc_max_sclk = 25e6 # Hz; candidate datasheet serial clock maximum, not yet a selected PCB timing budget
+    electronics_acquisition_adc_price = (1000, 2.9058, 'https://www.lcsc.com/product-detail/C2862610.html') # quantity, USD/chip, source observed 2026-10-20; no production quote
+    electronics_acquisition_sar = ('ADS8698IDBTR', 18, 8, 500e3, 5.12, 15e3) # MPN, bits, multiplexed channels, total samples/s, input span V, typical input bandwidth Hz; technical comparison, not selected
+    electronics_acquisition_sar_frame_bits = 40 # clocks; byte-aligned transfer containing the ADS8698 command and 18-bit result; local processor not selected yet
+    electronics_acquisition_sar_serial_clock = 16e6 # Hz; proposed local SPI clock below the datasheet 18 MHz ceiling
+    electronics_acquisition_sar_frame_guard = 20e-9 # s; combined CS setup/end allowance for the local serial timing screen
+    electronics_regulation_samples_per_carrier = 2 # fixed acquisition burst size for the current paired-sample regulator candidate
+    electronics_acquisition_sar_max_sclk = 18e6 # Hz; ADS8698 datasheet serial-clock ceiling
+    electronics_regulation_compute_time = 5e-6 # s; per-channel compiled acquisition/reference/PI/PWM allocation; preserves the carrier latch, requiring ARM worst-case execution-time verification
+    electronics_logic_supply = 3.3          # V; selected local MCU/watchdog/logic rail, distinct from the analog ADC supply
+    electronics_local_controller = 'RP2354B' # candidate 48-GPIO MCU with stacked flash, eight coil loops per shared ADC; firmware and board timing not yet qualified
+    electronics_logic_gpio_nets = (         # net assigned to GPIO0..47; PWM pairs use slices 0..7, host uses SPI0 and Hall interface uses SPI1
+        'PWM_0_P','PWM_0_N','PWM_1_P','PWM_1_N','PWM_2_P','PWM_2_N','PWM_3_P','PWM_3_N',
+        'PWM_4_P','PWM_4_N','PWM_5_P','PWM_5_N','PWM_6_P','PWM_6_N','PWM_7_P','PWM_7_N',
+        'ENABLE_REQUEST_0','ENABLE_REQUEST_1','ENABLE_REQUEST_2','ENABLE_REQUEST_3',
+        'ENABLE_REQUEST_4','ENABLE_REQUEST_5','ENABLE_REQUEST_6','ENABLE_REQUEST_7',
+        'ADC_SCLK','ADC_CS_N','ADC_SDI','ADC_SDO','ADC_RESET_N','ADC_ALARM','AWAKE','FAULT_N',
+        'HOST_RX','HOST_CS_N','HOST_SCLK','HOST_TX','WATCHDOG_PULSE','SAFE_OK','ARM_REQUEST','HOST_SYNC',
+        'HALL_RX','HALL_CS_N','HALL_SCLK','HALL_TX','TEMP_DRIVER','TEMP_COIL','V_MOTOR_MONITOR','POWER_FAULT_N')
+    electronics_watchdog_part = 'LTC6993IS6-2#TRMPBF' # rising-edge retriggerable hardware missing-pulse detector, shared by eight independently driven coils
+    electronics_watchdog_set_resistance = 51100. # ohm; RC0402FR-0751K1L, above the LTC6993 minimum even with tolerance and temperature
+    electronics_watchdog_divider_top = 976000. # ohm; RC0402FR-07976KL, manufacturer DIVCODE=1 divider
+    electronics_watchdog_divider_bottom = 102000. # ohm; RC0402FR-07102KL, manufacturer DIVCODE=1 divider
+    electronics_protection_resistor_accuracy = (0.01, 100e-6) # initial fractional tolerance and /K TCR bound for the selected RC0402 timing/divider resistors; aging not included
+    electronics_protection_temperature = (-40., 85.) # C; circuit timing screening interval limited by the selected LTC6993I grade
+    electronics_protection_reference_temperature = 25. # C; initial component tolerance reference for the protection screen
+    electronics_watchdog_trigger_duration = 100e-9 # s; behavioral commit-pulse width, above the LTC6993 typical recognition width; pad-level timing remains unqualified
+    electronics_watchdog_pulse_error = 0.044 # fractional full-temperature LTC6993 error at NDIV=8, distinct from its 25 C headline specification
+    electronics_protection_logic_delays = (4.9e-9, 5.9e-9, 4.7e-9) # s; maximum 3.3 V/50 pF delays for SN74LVC1G11, SN74LVC1G74 asynchronous clear and SN74LVC2G08 at -40..85 C; PCB loads must be bounded
+    electronics_logic_regulator_capacitance = 4.7e-6 # F; RP2354 input/output and regulator analog bypass, following the recommended native switching-regulator layout
+    electronics_logic_bypass_capacitance = 100e-9 # F; per-pin MCU core/IO/USB/ADC/QSPI bypass, independent of the current-amplifier supply filter
+    electronics_logic_regulator_filter = 33. # ohm; series feed for RP2354 VREG_AVDD
+    electronics_logic_inductance = 3.3e-6     # H; polarity-marked Abracon AOTA-B201610S3R3-101-T, orientation and exact layout must follow the manufacturer
+    electronics_logic_crystal_frequency = 12e6 # Hz; manufacturer-recommended ABM8-272-T3 crystal for the MCU PLL
+    electronics_logic_crystal_capacitance = 15e-12 # F per crystal leg; PCB parasitics and oscillator startup still require verification
+    electronics_logic_crystal_resistance = 1e3 # ohm; series crystal drive resistance at 3.3 V IOVDD
+    electronics_logic_clock = 128e6 # Hz; RP2350-family candidate system clock, allowing integer carrier periods and PIO serial clocks; firmware timing remains unqualified
+    electronics_logic_clock_max = 150e6 # Hz; published RP2350 maximum system clock, no overclocking assumed
+    electronics_deadtime_compensation_current = 0.1 # A; smooth requested-current sign transition for provisional dead-time feedforward; bounded switching checks do not qualify every low-current case
+    electronics_regulation_integral_gain_ratio = 0.375 # candidate integral-gain scale for the revised output filter; the flight regulator default remains unchanged
+    electronics_regulation_switching_duration = 0.001 # s; resolved-switching command transition and settling window, with automatic peak-current stop and numerical refinement
+    electronics_regulation_lifecycle_cases = (
+        # Name, recorded initial-current fraction, requested-current fraction, bridge enabled; fractions use the regulated channel rating, duration uses electronics_regulation_hold.
+        ('zero_hold', 0., 0., True),
+        ('low_positive', 0., 0.05, True),
+        ('low_negative', 0., -0.05, True),
+        ('enable_positive', 0., 1., True),
+        ('reverse_positive', -1., 1., True),
+        ('release_hold', 1., 0., True),
+        ('disable_positive', 1., 0., False),
+        ('disable_negative', -1., 0., False),
+    )
+    electronics_regulation_commands = (0., 1., -1., 0.) # fractions of channel rating for startup, positive hold, reversal and release
+    electronics_group_command_fractions = (1., -1., .75, -.75, .5, -.5, .25, 0.) # independent eight-coil commands; includes a stationary neighbour channel
+    electronics_regulation_hold = 0.002       # s per constant command in the startup/reversal/release check
+    electronics_regulation_settling_window = 0.0005 # s; final portion of each command plateau used to check existing tracking headroom
+    electronics_regulation_resistance_factors = (1., 1.5) # exploratory total-series-resistance sensitivity, not a qualified hot-part bound
+    electronics_regulation_filter_factors = (0.8, 1., 1.2) # exploratory amplifier/filter bandwidth sensitivity, not a manufacturer tolerance claim
+    electronics_acquisition_sar_filter_order = 2 # datasheet internal LPF order; equal real poles matching typical -3 dB bandwidth are a screening approximation, not a manufacturer transient model
+    electronics_acquisition_sar_snr = (90.5, 88.) # dB; typical/minimum ADS8698 SNR for the selected 0..5.12 V range, internal reference, at the datasheet test amplitude
+    electronics_acquisition_sar_test_dbfs = -0.5 # dBFS; sinusoidal amplitude used for the cited ADS8698 SNR specification
+    electronics_acquisition_sar_price = (100, 13.1351, 'https://www.lcsc.com/product-image/C2926478.html?whichImg=sch') # quantity, USD/chip, inspected LCSC tier on 2026-10-20; production-volume price unavailable
+    electronics_readout_specs = (
+        # Name, gain V/V, typical input-noise V/sqrt(Hz), maximum quiescent A; datasheet values for candidate screening, not qualified circuits.
+        ('INA241A1', electronics_current_amplifier_gain, 62e-9, 3.2e-3),
+        ('AD8410A', 20., 38e-9, 10.8e-3),
+        ('MAX49925', 10., 150e-9, 7e-3),
+        ('TPA132A1', 20., 80e-9, 4e-3),
+        ('INA181A1', 20., 40e-9, 300e-6),
+    )
+    electronics_readout_price_observations = (
+        # Candidate, description, published quantity, USD/unit, source; observed 2026-10-20, not production quotations or adopted BOM prices.
+        ('AD8410A', 'AD8410A family starting price', 1000, 1.68, 'https://www.analog.com/en/products/ad8410a.html'),
+        ('AD8410A', 'AD8410AWBRMZ-RL DigiKey reel', 3000, 2.34335, 'https://www.digikey.com/en/products/detail/analog-devices-inc/AD8410AWBRMZ-RL/21333813'),
+        ('TPA132A1', '3PEAK TPA132A1-TS1R-S LCSC C44859266', 1000, 0.8091, 'https://www.lcsc.com/product-detail/C44859266.html'),
+        ('INA181A1', 'TI INA181A1IDBVR LCSC C2058943', 1000, 0.2538, 'https://www.lcsc.com/product-detail/C2058943.html'),
+    )
+    electronics_placement_board_count = 2      # physical PCBs beneath one coil layer in the exploratory integrated-driver placement; not an adopted mechanical stack
+    electronics_integrated_driver = ('DRV8962DDVR', 'Package_SO:HTSSOP-44_6.1x14mm_P0.635mm_TopEP4.14x7.01mm', 2) # MPN, provisional DDV library footprint, independent full bridges per package; manufacturer land-pattern verification remains open
+    electronics_driver_package_envelope = (8.3, 14.1, 1.2) # mm; provisional DDV0044D maximum lead-span, length and height from the footprint's TI package drawing; clearance envelope, not a detailed DRV8962 vendor model
+    electronics_integrated_bus_bypass = 10e-9  # F; DRV8962 local VM ceramic bypass; separate from shared bus bulk capacitance
+    electronics_charge_pump_reservoir = 1e-6   # F; DRV8962 VCP-to-VM reservoir from the manufacturer application circuit
+    electronics_charge_pump_flying = 100e-9   # F; DRV8962 CPH-to-CPL capacitor; voltage rating must cover the motor supply
+    electronics_driver_ldo_bypass = 1e-6      # F; DRV8962 DVDD bypass; internal logic rail, not the precision current reference
+    electronics_logic_pull_resistance = 10000. # ohm; default-disable/sleep pulldowns and open-drain fault pullup in the repeated driver sheet
+    electronics_sense_placement = ((0.25, 0.35), (0.75, 0.35)) # shunt and amplifier centers as fractions of a two-pitch-wide, one-pitch-high placement cell
+    electronics_bypass_placement_x = (0.125, 0.375, 0.625, 0.875) # fractions of sense-cell width for amplifier and driver support capacitors
+    electronics_bypass_placement_y = 0.82      # fraction of sense-cell height for the support-capacitor row
     current_regulator_rate = 20000              # Hz; sampled current-regulator update rate, independent of the PWM carrier
     driver_switching_time = 1e-07               # s
     driver_hot_resistance = 0.08                # ohm
@@ -137,7 +335,7 @@ class Fixed:
     pose_feedback_rate = 1000                  # Hz; conservative candidate pose-estimation/feedback rate, to be tested rather than minimized
     pose_controller_frequency = 20             # Hz; natural frequency of the candidate six-axis critically damped pose controller
     pose_controller_damping = 1                 # ratio; candidate second-order pose-controller damping
-    pose_observer_frequency_ratio = 1           # ratio; observer pole frequency / pose-controller frequency; recorded-noise screen selected, coupled validation pending
+    pose_observer_frequency_ratio = 0.5         # ratio; observer pole frequency / pose-controller frequency; smoother recorded-noise candidate, coupled settling validation pending
     pose_observer_ratio_candidates = (0.5, 1., 2.) # ratios; recorded-sensor screening candidates relative to the unchanged pose-controller frequency
     qualification_sensor_latency = 0.001        # s; assumed maximum additional pose-estimate age at the feedback tick
     qualification_position_error = 0.00016      # m; bounded vector magnitude of injected position error, provisional sensing requirement
@@ -179,7 +377,10 @@ class Fixed:
     airborne_motion_rotation = (0., 0., 0.01)  # rad; world-axis rotation vector for the first local-flight command
     airborne_motion_start = 0.01               # s; initial stationary command before the first local movement
     airborne_motion_duration = 0.04            # s; smooth rest-to-rest translation and rotation interval
-    airborne_motion_settle_duration = 0.01      # s; stationary endpoint observation after the first local movement
+    airborne_motion_settle_duration = 0.2       # s; stationary endpoint observation after the first local movement
+    airborne_settling_window = 0.1             # s; final continuous observation window for the move-and-hold settling screen
+    airborne_settling_speed = qualification_position_error / airborne_settling_window # m/s; residual speed that would consume one position-error budget over the observation window
+    airborne_settling_angular_speed = qualification_angle_error / airborne_settling_window # rad/s; residual angular speed that would consume one angle-error budget over the observation window
     airborne_readiness_duration = airborne_motion_start + airborne_check_duration # s; integration check covering startup and the beginning of commanded movement
     adaptive_max_step = 1 / current_regulator_rate # s; largest attempted interval, also clipped to hardware events
     adaptive_min_step = adaptive_max_step / 256 # s; smallest attempted interval before an explicit accuracy failure
@@ -404,7 +605,11 @@ class Fixed:
     cad_king_cross_thickness_fraction = 0.12    # fraction of base diameter; candidate crown stem and bar thickness
     cad_king_crossbar_height_fraction = 0.55    # fraction of crown height; visual crossbar centre
     layout_screen_window_side = 45              # mm; common square local support window for the layout comparison
+    channel_screen_window_sides = (layout_screen_window_side, 60) # mm; retained local support and a wider diagnostic window to distinguish selection limits from topology limits
+    channel_screen_yaws_deg = tuple(range(0, 360, 45)) # deg; full-turn yaw samples in the broader independent-coil comparison
     layout_screen_phase_samples = 4             # samples per local lattice axis for the initial static comparison
+    channel_pilot_phase_points = ((0., 0.), (0.125, 0.375), (0.25, 0.5), (0.375, 0.125),
+                                 (0.5, 0.75), (0.625, 0.875), (0.75, 0.25), (0.875, 0.625)) # normalized x/y samples within a repeating electrical cell; pilot only, not spatial convergence
     layout_screen_rotations_deg = (0, 45)       # deg; single-layer coil-array rotations relative to the existing magnet axes
     layout_refinement_phase_samples = 8        # samples per lattice axis for shortlisted layouts, including between the coarse parquet phases
     layout_refinement_yaws_deg = (0, 22.5, 45, 67.5, 90) # deg; additional yaw checks for the layout shortlist
@@ -479,7 +684,33 @@ class Fixed:
 
 
 class Constants:
+    ltc6993_time_per_resistance = 1e-6/50000. # s/ohm; datasheet oscillator transfer, not a chosen timeout
+    ltc6993_divcode = 1                     # hardware divider code selected by 976k/102k; active-high output, divide by eight
+    ltc6993_divisor = 8                     # timer divider corresponding to DIVCODE=1
+    ltc6993_divcode_levels = 16             # number of internal DIV ADC codes
+    ltc6993_divcode_margin = 0.015          # allowable absolute deviation of DIV/V+ from code center
+    ltc6993_set_resistance_range = (50000., 800000.) # ohm; specified timing resistor range
+    ltc6993_divider_impedance_limit = 500000. # ohm; maximum DIV Thevenin impedance
+    ltc6993_divider_leakage = 10e-9         # A; maximum DIV input current
+    ltc6993_startup_master_cycles = 500    # typical startup in oscillator periods, not a guaranteed timeout
+
     # Board definition and physical/material reference values; units are explicit for each entry.
+    rp2350_pwm_compare_bits = 16             # width of each A/B compare field in the PWM CC register
+    rp2350_pio_word_bits = 32                  # width of PIO shift registers and FIFO words
+    rp2350_pio_immediate_bits = 5              # SET instruction immediate width
+    rp2350_pio_delay_side_bits = 5             # instruction bits shared between side-set and delay
+    ads8698_serial_timing = (30e-9, 10e-9, 30e-9, 5e-9, 5e-9, 825e-9, 1175e-9) # s; minimum CS-to-falling-clock, last-clock-to-CS, CS high, SDI setup/hold, maximum conversion and minimum acquisition
+    ads8698_command_bits = 16                   # SPI command word width; input latched on falling SCLK edges
+    ads8698_register_bits = 8                   # program register data width
+    ads8698_address_shift = 9                   # register address starts at command bit 9
+    ads8698_write_bit = 8                       # write-enable command bit
+    ads8698_manual_command = 0xC000             # manual channel-zero selection opcode
+    ads8698_manual_channel_shift = 10          # manual channel selection field offset
+    ads8698_feature_register = 0x03             # SDO format and alarm configuration register
+    ads8698_first_range_register = 0x05         # channel-zero input-range register; subsequent channels are contiguous
+    ads8698_unipolar_range_code = 0x06         # input range 0..1.25*Vref, or 0..5.12 V with the internal reference
+    ads8698_channel_tag_format = 0x01           # conversion result followed by the four-bit channel address
+    ads8698_channel_tag_bits = 4                # width of the optional returned channel address
     board_squares_per_side = 8                  # chess squares along each side of the playing area
     ndfeb_remanence_br = 1.36                   # T; baseline N48SH remanence at material_reference_temperature; supplier grade/lot verification outstanding
     ndfeb_br_tempco = -0.0011                   # 1/K; assumed reversible NdFeB remanence coefficient relative to material_reference_temperature

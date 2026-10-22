@@ -1,0 +1,205 @@
+{
+    "status": "draft_acquisition_incomplete_no_manufacturing_release",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/review.py": "58da94cda9a577e865e2e122004bb3700103eca829c1f0159f10fadcf3ec5b20",
+        "model.py": "7c55cce6322f8ad6973d0b36d2ecfd45314cf012bd94e4f93542793667154e97",
+        "methodology/electronics/acquisition.kicad_sch": "980b1e7cf4cdee439984ee5e9e8d02594c9c68c9027cf907f0b6e1e32818de4d",
+        "methodology/electronics/FlyingChess.kicad_sym": "83578b4305dab7a93b11c7e7f77a2d2e42ae272907f1543944aecac9c308e590",
+        "methodology/electronics/acquisition.kicad_pro": "684afdbcc17a88f37f6ac9df5cfb63e3a5fd3e50d4aa00d257fb772033484cc8",
+        "methodology/electronics/fp-lib-table": "86e22ac78e8131a78d876ef71a9d869303f4d08f803890de621f8c4dc645f47d",
+        "methodology/electronics/sym-lib-table": "e21a77771413a798f226bbd433098f5fffbd90765045f5e3be965af52429a87f",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe"
+    },
+    "footprint_sha256": {
+        "Capacitor_SMD.pretty/C_0603_1608Metric.kicad_mod": "86a101f1dbc512aa9a73532f4b837db141edd5bded65094b0d13dca3fc3f6c68",
+        "Capacitor_SMD.pretty/C_0805_2012Metric.kicad_mod": "1e9871a31457c9d9932d22edb68ed91c275a6270066239b08d192eead990c301",
+        "Capacitor_SMD.pretty/C_1210_3225Metric.kicad_mod": "dc1d0a7bce3d19e41856e1e02896abcc84ef4ee752999c7f4162f4519df9d5f8",
+        "Package_SO.pretty/SOIC-8_3.9x4.9mm_P1.27mm.kicad_mod": "623e154d907cd3e49387a81775898feee35c4ed5fd3317865ad11c322f72adfb",
+        "Package_SO.pretty/TSSOP-38_4.4x9.7mm_P0.5mm.kicad_mod": "53d6955d25e3610a78942b3fbde86ffa0c875dde414442a8db8babd6cf48d9fb",
+        "Resistor_SMD.pretty/R_0603_1608Metric.kicad_mod": "32e6f926b4be772aeabae6060210133fbf78854a3fe12ca7011b4916ed49f134"
+    },
+    "component_count": 17,
+    "coil_channel_count": 8,
+    "components": [
+        {
+            "reference": "C20",
+            "mpn": "GRM32ER61C226KE20L",
+            "value": "2.2e-05",
+            "model_parameter": "electronics_acquisition_bulk_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_1210_3225Metric",
+            "courtyard_area_mm2": 14.6421
+        },
+        {
+            "reference": "C21",
+            "mpn": "GRM21BR71H105KA12L",
+            "value": "1e-06",
+            "model_parameter": "electronics_acquisition_local_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0805_2012Metric",
+            "courtyard_area_mm2": 6.6105
+        },
+        {
+            "reference": "C22",
+            "mpn": "GRM32ER61C226KE20L",
+            "value": "2.2e-05",
+            "model_parameter": "electronics_acquisition_bulk_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_1210_3225Metric",
+            "courtyard_area_mm2": 14.6421
+        },
+        {
+            "reference": "C23",
+            "mpn": "GRM21BR71H105KA12L",
+            "value": "1e-06",
+            "model_parameter": "electronics_acquisition_local_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0805_2012Metric",
+            "courtyard_area_mm2": 6.6105
+        },
+        {
+            "reference": "C24",
+            "mpn": "GRM32ER61C226KE20L",
+            "value": "2.2e-05",
+            "model_parameter": "electronics_acquisition_bulk_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_1210_3225Metric",
+            "courtyard_area_mm2": 14.6421
+        },
+        {
+            "reference": "C25",
+            "mpn": "C0603C104K5RACTU",
+            "value": "1e-07",
+            "model_parameter": "electronics_analog_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0603_1608Metric",
+            "courtyard_area_mm2": 4.2775
+        },
+        {
+            "reference": "C26",
+            "mpn": "GRM32ER61C226KE20L",
+            "value": "2.2e-05",
+            "model_parameter": "electronics_acquisition_bulk_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_1210_3225Metric",
+            "courtyard_area_mm2": 14.6421
+        },
+        {
+            "reference": "C27",
+            "mpn": "GRM32ER61C226KE20L",
+            "value": "2.2e-05",
+            "model_parameter": "electronics_acquisition_bulk_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_1210_3225Metric",
+            "courtyard_area_mm2": 14.6421
+        },
+        {
+            "reference": "C28",
+            "mpn": "GRM21BR71H105KA12L",
+            "value": "1e-06",
+            "model_parameter": "electronics_acquisition_local_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0805_2012Metric",
+            "courtyard_area_mm2": 6.6105
+        },
+        {
+            "reference": "C29",
+            "mpn": "GRM21BR71H105KA12L",
+            "value": "1e-06",
+            "model_parameter": "electronics_acquisition_local_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0805_2012Metric",
+            "courtyard_area_mm2": 6.6105
+        },
+        {
+            "reference": "C30",
+            "mpn": "GRM21BR71H105KA12L",
+            "value": "1e-06",
+            "model_parameter": "electronics_acquisition_local_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0805_2012Metric",
+            "courtyard_area_mm2": 6.6105
+        },
+        {
+            "reference": "C31",
+            "mpn": "GRM21BR71H105KA12L",
+            "value": "1e-06",
+            "model_parameter": "electronics_acquisition_local_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0805_2012Metric",
+            "courtyard_area_mm2": 6.6105
+        },
+        {
+            "reference": "R20",
+            "mpn": "RC0603FR-071RL",
+            "value": "1.0",
+            "model_parameter": "electronics_bias_reference_capacitor_esr",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0603_1608Metric",
+            "courtyard_area_mm2": 4.2775
+        },
+        {
+            "reference": "R21",
+            "mpn": "RC0603FR-0710KL",
+            "value": "10000.0",
+            "model_parameter": "electronics_logic_pull_resistance",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0603_1608Metric",
+            "courtyard_area_mm2": 4.2775
+        },
+        {
+            "reference": "R22",
+            "mpn": "RC0603FR-0710KL",
+            "value": "10000.0",
+            "model_parameter": "electronics_logic_pull_resistance",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0603_1608Metric",
+            "courtyard_area_mm2": 4.2775
+        },
+        {
+            "reference": "U10",
+            "mpn": "ADS8698IDBTR",
+            "value": "ADS8698",
+            "model_parameter": null,
+            "model_divisor": 1.0,
+            "footprint": "Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm",
+            "courtyard_area_mm2": 77.2411
+        },
+        {
+            "reference": "U11",
+            "mpn": "REF5025IDR",
+            "value": "REF5025ID",
+            "model_parameter": null,
+            "model_divisor": 1.0,
+            "footprint": "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm",
+            "courtyard_area_mm2": 38.3921
+        }
+    ],
+    "connectivity": {
+        "passed": true,
+        "checked_pins": 72,
+        "scope": "ADS8698 pin table, internal reference support and independent REF5025 bias; shared rails and logic remain external"
+    },
+    "placement_bound": {
+        "courtyard_sum_mm2": 245.6167,
+        "courtyard_per_channel_mm2": 30.7020875,
+        "coil_pitch_area_mm2": 60.839999999999996,
+        "double_sided_area_per_coil_mm2": 121.67999999999999,
+        "minimum_area_ratio_to_double_sided": 0.252318273339908,
+        "fits_even_before_routing": true
+    },
+    "erc": {
+        "errors": 22,
+        "warnings": 0,
+        "passed": false
+    },
+    "complete_hardware_baseline": false,
+    "limitations": [
+        "Native shared acquisition and bias sheet serves the configured ADC channel group; it is not yet composed with repeated channel sheets or selected logic and supplies.",
+        "Pin connectivity and nominal passives are checked. Datasheet electrical limits, DC-bias capacitance, reference loading/noise, startup, calibration and PCB routing still require verification.",
+        "Unconnected reference DNC/NC and unused TEMP pins are deliberate; missing power and digital drivers remain visible in ERC without power flags or exclusions.",
+        "Courtyard sum amortized per served coil is only an optimistic placement-area contribution; this sheet does not contain the coil driver channels.",
+        "The ADC and reference remain costed technical candidates, not a production BOM or complete functional simulation."
+    ]
+}

@@ -1,0 +1,178 @@
+{
+    "status": "screening_seed_not_coverage_certificate",
+    "source_report_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/results/channel_layouts/pose_comparison/summary.json": "ee2804572e19bfb3243331d7f1e2193bebfa8ebde9e26e0873c8cdc017d52c47"
+    },
+    "selection_source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/coil_layouts.py": "f9582e82ccf404d735be5220a55d99947eb81dea5b092c765503a572a46ff8f0"
+    },
+    "support_window_mm": 60.0,
+    "coordinates": "Phase is a fraction of the candidate electrical repeat in its lattice axes. Yaw and tilt-axis azimuth are world-frame angles. Gap is the upright reference magnet-bottom to top-coil separation; tilt about the centre of mass changes rim clearance. Tilt fraction multiplies the existing rim-clearance limit.",
+    "evaluation": "Recompute all channel_wrench_targets at every pose for each candidate; origin actions and observed values explain selection and are not new acceptance limits.",
+    "limitations": [
+        "Selected from recorded independent-square comparisons; other layouts can have different worst poses.",
+        "Normalized phase transfers relative placement, not identical physical world coordinates.",
+        "A passing seed screen requires further weakness search and finalist verification.",
+        "Static authority only; inherited source-report limitations remain applicable."
+    ],
+    "poses": [
+        {
+            "phase": [
+                0.25,
+                0.25
+            ],
+            "gap_m": 0.0045,
+            "yaw_deg": 45,
+            "tilt_fraction": 1.0,
+            "tilt_direction_deg": 270.0,
+            "origins": [
+                {
+                    "candidate": "square_reference",
+                    "stage": "spatial",
+                    "row_index": 82,
+                    "scope": "all_poses",
+                    "criterion": "minimum_peak_current_A",
+                    "action": "translation_1",
+                    "observed_value": 2.289042761973443
+                }
+            ]
+        },
+        {
+            "phase": [
+                0.875,
+                0.25
+            ],
+            "gap_m": 0.0045,
+            "yaw_deg": 135,
+            "tilt_fraction": 1.0,
+            "tilt_direction_deg": 0.0,
+            "origins": [
+                {
+                    "candidate": "square_reference",
+                    "stage": "spatial",
+                    "row_index": 58,
+                    "scope": "all_poses",
+                    "criterion": "copper_loss_W",
+                    "action": "translation_2",
+                    "observed_value": 29.6610276591706
+                }
+            ]
+        },
+        {
+            "phase": [
+                0.5,
+                0.75
+            ],
+            "gap_m": 0.0045,
+            "yaw_deg": 315,
+            "tilt_fraction": 0.0,
+            "tilt_direction_deg": 0.0,
+            "origins": [
+                {
+                    "candidate": "square_reference",
+                    "stage": "coarse",
+                    "row_index": 1084,
+                    "scope": "level_only",
+                    "criterion": "minimum_peak_current_A",
+                    "action": "translation_0",
+                    "observed_value": 1.9518026469181886
+                }
+            ]
+        },
+        {
+            "phase": [
+                0.25,
+                0.5
+            ],
+            "gap_m": 0.0045,
+            "yaw_deg": 315,
+            "tilt_fraction": 0.0,
+            "tilt_direction_deg": 0.0,
+            "origins": [
+                {
+                    "candidate": "square_reference",
+                    "stage": "coarse",
+                    "row_index": 1082,
+                    "scope": "level_only",
+                    "criterion": "copper_loss_W",
+                    "action": "translation_7",
+                    "observed_value": 18.150637132736293
+                },
+                {
+                    "candidate": "square_larger",
+                    "stage": "coarse",
+                    "row_index": 1082,
+                    "scope": "level_only",
+                    "criterion": "minimum_peak_current_A",
+                    "action": "translation_7",
+                    "observed_value": 4.192895450336574
+                }
+            ]
+        },
+        {
+            "phase": [
+                0.25,
+                0.5
+            ],
+            "gap_m": 0.0035,
+            "yaw_deg": 45,
+            "tilt_fraction": 1.0,
+            "tilt_direction_deg": 90.0,
+            "origins": [
+                {
+                    "candidate": "square_larger",
+                    "stage": "coarse",
+                    "row_index": 98,
+                    "scope": "all_poses",
+                    "criterion": "minimum_peak_current_A",
+                    "action": "translation_3",
+                    "observed_value": 5.203177077299208
+                }
+            ]
+        },
+        {
+            "phase": [
+                0.875,
+                0.625
+            ],
+            "gap_m": 0.0045,
+            "yaw_deg": 225,
+            "tilt_fraction": 1.0,
+            "tilt_direction_deg": 225.0,
+            "origins": [
+                {
+                    "candidate": "square_larger",
+                    "stage": "coarse",
+                    "row_index": 991,
+                    "scope": "all_poses",
+                    "criterion": "copper_loss_W",
+                    "action": "translation_7",
+                    "observed_value": 324.6034208977349
+                }
+            ]
+        },
+        {
+            "phase": [
+                0.25,
+                0.5
+            ],
+            "gap_m": 0.0035,
+            "yaw_deg": 315,
+            "tilt_fraction": 0.0,
+            "tilt_direction_deg": 0.0,
+            "origins": [
+                {
+                    "candidate": "square_larger",
+                    "stage": "coarse",
+                    "row_index": 506,
+                    "scope": "level_only",
+                    "criterion": "copper_loss_W",
+                    "action": "translation_7",
+                    "observed_value": 118.76880280320309
+                }
+            ]
+        }
+    ]
+}

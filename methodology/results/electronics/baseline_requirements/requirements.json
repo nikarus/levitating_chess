@@ -1,0 +1,139 @@
+{
+    "status": "provisional_interface_audit_not_hardware_qualified",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electrical.py": "520cdf4e063f52129418ccb79096756932680e655d3c8cb61dc4e296ee87b1bd",
+        "model.py": "8f764776f9be606200afe679b7480f7e63733659e863039a725853138b9e2111"
+    },
+    "reference_directory": "/home/arseniy/projects/flying_chess/methodology/results/local_motion/settling/smoothed/trial",
+    "reference_sha256": {
+        "summary.json": "78215fa5b56cf0786826ce2767e38c65adde712421f5a7d07a45978fdb38168d",
+        "verification.json": "aae909eaa1c57e8d64fc24d5e614bb11ecc0604e17cd694bfdd5c2eb3e493257",
+        "initial_checkpoint.json": "7d76e161934ee12ef767f39156e84c6c17db2d239c568fbc0fe4b2fce3cf82da"
+    },
+    "reference_source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "dcdf9a8967a4dbd91b77f96290f47c2a598001675722ac44d0a9a56652c44ffd",
+        "levitation_sim.py": "57b8b6765bdedeb8264bd8c084c6028b7a02053d0e116abe7ca4353e47d28e9c",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "0128ec3db373ce16e875288579b93af974a973378275b0b44f4eb3f0798eb460",
+        "methodology/prototype_coils.py": "80418c7b26e5347fd20684fad13ed956627f3d84bfb3cf429c7b37103ee598c1",
+        "methodology/cad/assembly.py": "b581ae6204830eec8ccecc9398ae8afe9877592f7d26a4f4dba6d73d36279a47",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "0558fffe5cb8bc3dd6924bc94aaf8d1ddd5328900e6531496786e93a7d77bd00",
+        "methodology/motion.py": "16f3f27d8a6cd51fdd3312f764f8f0b7b71f946c70b7b5bea20038d00c8ff595",
+        "methodology/cad/motion_scene.py": "4012b0fecdce875019858dc2dbd73df1253f0b5f9a1340ff893a3c65e0560f9e",
+        "methodology/requirements.txt": "fd94cc8fc4087c9841735e4f5978a742740beb6c30c5dcd81cf1e3b8072ba4df",
+        "methodology/cad/environment.lock.txt": "4166276659c058fc7fa094b3e1c62489cf1ec2e5df74fe9843942a482c2e1818",
+        "methodology/airborne.py": "8f90d463ff18252f6b207db21652a06b7c3619c9d207d12471063741d0440c64",
+        "methodology/electrical.py": "db98ce2c8828d18959a1aca9e26b707111ff55bc3b7f162b93a7e3572f51ccee",
+        "methodology/sensing.py": "96d18613fef88ff6ccda24674d8f4182f81815d07aba93046d476f1a6e95f4e8",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/magnetic_atlas.py": "41f9ce95352489aa097f910d5449f8e98b8d1eea7a8daf61300644081bd2db19",
+        "methodology/magnetic_spline.py": "4a3a26697259e2f7f047633afaad0890d1c7deb630d33ac79d6d3233a11b62a0",
+        "methodology/magnetic_spline.c": "40ff3cba90d7da6e745a35c49d08232b0cc6fb58c3d57d370219a4e4ec1ee61c",
+        "methodology/coil_field.py": "74dab54180c1e8b328d3bc6235e4e8dca5a21053c8617178dafb43e16650c660",
+        "methodology/coupling_verification.py": "3540025530485cc662bad2fd97df0a7a6e8ed6b5498fd05934b6bb117091fb06",
+        "methodology/numerical_accuracy.py": "2d8900280baca81bb3f8f3ceb99b008bc35a259ade794881a6083019dce91c08",
+        "methodology/joint_airborne.py": "f703a63946cc9623d086909a050c84d46d9a89276e7cc599dd64544e6f890cc5",
+        "methodology/adaptive_airborne.py": "987f2334b809a0433725ca22a2d5fe5347874d8d99f467ad9460e0252a486125"
+    },
+    "reference": {
+        "duration_s": 0.25,
+        "scenario": "local_move",
+        "verification_passed": true,
+        "observed_peaks": {
+            "current_A": 1.9912256246326554,
+            "voltage_V": 1.1076528954871059,
+            "copper_loss_W": 4.9621435046313564,
+            "back_emf_V": 0.0004293103956254799,
+            "position_error_m": 0.00011154819756960537,
+            "angle_error_rad": 0.004105064339185525,
+            "estimated_position_error_m": 6.513528586188678e-05,
+            "estimated_angle_error_rad": 0.0022042511717034604,
+            "required_current_A": 1.2162127076409064
+        },
+        "limitations": [
+            "Stationary sensor-only acquisition precedes release; setup motion is frozen and excluded from controlled-flight evidence. Currents start at zero.",
+            "Hall conversion is an ideal uniform quantizer at the stated native precision; converter noise, nonlinearity, reference errors and multiplexing settling need hardware qualification.",
+            "Fixed local coil and sensor windows, nominal CAD mass and magnet properties only; commanded movement does not implement window handoffs.",
+            "Independent RL windings with estimated self-inductance, averaged voltages and constant winding/driver/shunt resistance; no PWM ripple, mutual inductance, bus dynamics or thermal feedback.",
+            "Provisional synchronous current ADCs at the regulator rate, with offset, gain error, noise and quantization. Channel throughput and latency are not hardware-qualified.",
+            "Hall correction reconstructs current history from available measurements and nominal filter startup. Interpolation accuracy requires numerical and measurement-rate checks.",
+            "Pose controller uses PD tracking with reference velocity and acceleration feedforward. Observer propagation uses measured-current acceleration from the held nominal allocation matrix plus an estimated residual; current calibration and nominal force-model errors remain.",
+            "No conductive-sheet drag or neighbours; no time/force-mesh convergence, uncertainty qualification or embedded compute-time evidence.",
+            "Video replays stored physical poses with interpolation; it does not rerun dynamics.",
+            "Atlas force interpolation requires independent direct-field validation; Hall sensing and estimation remain direct.",
+            "Joint RK45 integrates motion and current; passive Hall filtering uses its dense trajectory. Local RMS tolerances and accumulated work diagnostics are not global trajectory bounds. Back-EMF peak includes trial stages. Contact, reconduction and coil handoffs are unsupported."
+        ]
+    },
+    "requirements": {
+        "ratings": {
+            "full_bus_V": 40,
+            "usable_terminal_voltage_V": 18.0,
+            "regulated_channel_current_A": 5.5,
+            "instantaneous_current_limit_A": 6.5,
+            "allowed_ripple_peak_deviation_A": 0.5
+        },
+        "rates_Hz": {
+            "command": 4000,
+            "current_regulator": 20000,
+            "pose_feedback": 1000,
+            "pwm_carrier": 160000
+        },
+        "dynamics_Hz": {
+            "current_loop_bandwidth": 2000,
+            "command_filter_cutoff": 1000,
+            "pose_controller": 20,
+            "pose_observer": 10.0
+        },
+        "current_acquisition": {
+            "channels": 25,
+            "nominal_converter_bits": 16,
+            "bipolar_range_A": [
+                -6.5,
+                6.5
+            ],
+            "quantum_A": 0.0001983642578125,
+            "noise_rms_A": 0.001,
+            "residual_offset_bound_A": 0.05,
+            "residual_gain_fraction": 0.005,
+            "shunt_ohm": 0.02,
+            "shunt_input_peak_V": 0.13,
+            "input_referred_noise_rms_V": 2e-05,
+            "command_quantum_A": 0.01,
+            "aggregate_samples_per_s": 500000,
+            "raw_sample_payload_bits_per_s": 8000000,
+            "timing": "All channels sampled at the regulator event and available immediately; no acquisition skew or conversion/transport delay is modeled.",
+            "consumers": [
+                "Current regulation",
+                "Hall coil-field subtraction",
+                "Observer acceleration prediction"
+            ]
+        },
+        "hall_acquisition": {
+            "channels": 16,
+            "nominal_converter_bits": 16,
+            "samples_per_sensor": 16,
+            "configured_conversion_rate_per_scan_engine": 500000,
+            "aggregate_samples_per_s": 256000,
+            "raw_sample_payload_bits_per_s": 4096000
+        },
+        "limitations": [
+            "Configured simulation assumptions, not component specifications or validated worst-case product requirements.",
+            "Raw payload excludes addressing, timestamps, framing, retries and scheduling overhead; local processing may avoid transmitting it all.",
+            "Nominal converter bits do not establish effective resolution, total accuracy or settling performance.",
+            "Counts describe the supplied local observation/drive window, not a selected PCB tile or the installed whole-board population.",
+            "The averaged electrical simulation does not qualify the PWM carrier, ripple, dead time, switching losses or bus dynamics."
+        ]
+    },
+    "unresolved": [
+        "Reconcile sampled current feedback with the legacy comparator/delta-sigma BOM and choose a realizable sensing/regulation architecture.",
+        "Check channel acquisition throughput, skew, latency, reference accuracy, noise and PWM sample timing using selected circuits.",
+        "Recalculate installed channel and sensor counts for the square coil bed before scaling the old BOM.",
+        "Derive time/location-dependent losses from workload currents and selected components; no whole-board temperature or supply sizing follows from this bounded flight.",
+        "Qualify simultaneous sliding-reset, local dwell and repeated-move workloads; preserve existing thermal failures and uncertainty.",
+        "Account for every repeated and shared circuit component, PCB construction, interconnect, cooling, manufacturing and production testing."
+    ]
+}

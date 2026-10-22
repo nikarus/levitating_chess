@@ -1,0 +1,35 @@
+
+Note: No compatibility mode selected!
+
+
+Circuit: independent periodic rl reference; ideal differential drive, not a transistor model
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+Operating point simulation skipped by 'uic',
+  now using transient initial conditions.
+
+No. of Data Rows : 4280
+ngspice-45.2 done
+Error opening code model "/usr/lib/x86_64-linux-gnu/ngspice/spice2poly.cm"
+: /usr/lib/x86_64-linux-gnu/ngspice/spice2poly.cm: cannot open shared object file: No such file or directory
+Error: Library /usr/lib/x86_64-linux-gnu/ngspice/spice2poly.cm couldn't be loaded!
+Error opening code model "/usr/lib/x86_64-linux-gnu/ngspice/analog.cm"
+: /usr/lib/x86_64-linux-gnu/ngspice/analog.cm: cannot open shared object file: No such file or directory
+Error: Library /usr/lib/x86_64-linux-gnu/ngspice/analog.cm couldn't be loaded!
+Error opening code model "/usr/lib/x86_64-linux-gnu/ngspice/digital.cm"
+: /usr/lib/x86_64-linux-gnu/ngspice/digital.cm: cannot open shared object file: No such file or directory
+Error: Library /usr/lib/x86_64-linux-gnu/ngspice/digital.cm couldn't be loaded!
+Error opening code model "/usr/lib/x86_64-linux-gnu/ngspice/xtradev.cm"
+: /usr/lib/x86_64-linux-gnu/ngspice/xtradev.cm: cannot open shared object file: No such file or directory
+Error: Library /usr/lib/x86_64-linux-gnu/ngspice/xtradev.cm couldn't be loaded!
+Error opening code model "/usr/lib/x86_64-linux-gnu/ngspice/xtraevt.cm"
+: /usr/lib/x86_64-linux-gnu/ngspice/xtraevt.cm: cannot open shared object file: No such file or directory
+Error: Library /usr/lib/x86_64-linux-gnu/ngspice/xtraevt.cm couldn't be loaded!
+Error opening code model "/usr/lib/x86_64-linux-gnu/ngspice/table.cm"
+: /usr/lib/x86_64-linux-gnu/ngspice/table.cm: cannot open shared object file: No such file or directory
+Error: Library /usr/lib/x86_64-linux-gnu/ngspice/table.cm couldn't be loaded!
+Error opening code model "/usr/lib/x86_64-linux-gnu/ngspice/tlines.cm"
+: /usr/lib/x86_64-linux-gnu/ngspice/tlines.cm: cannot open shared object file: No such file or directory
+Error: Library /usr/lib/x86_64-linux-gnu/ngspice/tlines.cm couldn't be loaded!

@@ -1,0 +1,8 @@
+"References","Value","MPN","Footprint","Quantity","ModelParameter"
+"C20,C22,C24,C26,C27","2.2e-05","GRM32ER61C226KE20L","Capacitor_SMD:C_1210_3225Metric","5","electronics_acquisition_bulk_capacitance"
+"C21,C23,C28-C31","1e-06","GRM21BR71H105KA12L","Capacitor_SMD:C_0805_2012Metric","6","electronics_acquisition_local_capacitance"
+"C25","1e-07","C0603C104K5RACTU","Capacitor_SMD:C_0603_1608Metric","1","electronics_analog_bypass_capacitance"
+"R20","1.0","RC0603FR-071RL","Resistor_SMD:R_0603_1608Metric","1","electronics_bias_reference_capacitor_esr"
+"R21,R22","10000.0","RC0603FR-0710KL","Resistor_SMD:R_0603_1608Metric","2","electronics_logic_pull_resistance"
+"U10","ADS8698","ADS8698IDBTR","Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm","1",""
+"U11","REF5025ID","REF5025IDR","Package_SO:SOIC-8_3.9x4.9mm_P1.27mm","1",""

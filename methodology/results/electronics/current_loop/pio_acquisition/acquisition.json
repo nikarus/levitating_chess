@@ -1,0 +1,47 @@
+{
+	"pioASMVersion": "2.3.1",
+	"publicSymbols": {
+	},
+	"programs": [
+		{
+			"name": "flying_chess_acquisition",
+			"pioVersion": 0,
+			"wrapTarget": 0,
+			"wrap": 12,
+			"origin": -1,
+			"usedGPIORanges": 0,
+			"publicSymbols": {
+			},
+			"publicLabels": {
+			},
+			"in": null,
+			"out": null,
+			"setCount": null,
+			"sideset": {"size": 2, "optional": false, "pindirs": false},
+			"movStatus": null,
+			"fifoConfig": null,
+			"clockDiv": null,
+			"instructions": [
+				{"hex": "E033", "instruction": "set    x, 19           side 0"},
+				{"hex": "6B01", "instruction": "out    pins, 1         side 1 [3]"},
+				{"hex": "A142", "instruction": "nop                    side 0 [1]"},
+				{"hex": "4001", "instruction": "in     pins, 1         side 0"},
+				{"hex": "A042", "instruction": "nop                    side 0"},
+				{"hex": "6B01", "instruction": "out    pins, 1         side 1 [3]"},
+				{"hex": "A142", "instruction": "nop                    side 0 [1]"},
+				{"hex": "4001", "instruction": "in     pins, 1         side 0"},
+				{"hex": "0041", "instruction": "jmp    x--, 1          side 0"},
+				{"hex": "9020", "instruction": "push   block           side 2"},
+				{"hex": "90A0", "instruction": "pull   block           side 2"},
+				{"hex": "F158", "instruction": "set    y, 24           side 2 [1]"},
+				{"hex": "128C", "instruction": "jmp    y--, 12         side 2 [2]"}
+			],
+			"codeBlocks": [
+
+			],
+			"langOpts": [
+
+			]
+		}
+	]
+}

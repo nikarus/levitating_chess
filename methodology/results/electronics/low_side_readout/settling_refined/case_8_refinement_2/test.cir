@@ -1,0 +1,20 @@
+INA181A1 low-side acquisition diagnostic; imposed shunt current, not a complete bridge
+.include ina181a1.lib
+Vs supply 0 5
+Vref reference 0 2.5
+Vshunt shunt 0 PULSE(-0.065000000000000002 0 3.2894736842105227e-07 9.9999999999999995e-08 9.9999999999999995e-08 5.4921052631578959e-06 6.2500000000000003e-06)
+Xamp shunt 0 supply 0 reference output INA181A1
+Rload output 0 10000
+.options klu method=gear maxord=2 reltol=9.9999999999999995e-07 abstol=1e-10
+.control
+set wr_singlescale
+set wr_vecnames
+set numdgt=17
+dc Vshunt -0.065000000000000002 0.065000000000000002 0.0012999999999999999
+wrdata dc.dat v(output)
+tran 1.5258789062500001e-09 5.0000000000000002e-05 0 1.5258789062500001e-09
+let reported_current = (v(output)-2.5)/0.20000000000000001
+wrdata transient.dat v(shunt) reported_current
+quit
+.endc
+.end

@@ -1,0 +1,14 @@
+
+Note: No compatibility mode selected!
+
+
+Circuit: independent periodic rl reference; ideal differential drive, not a transistor model
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+Operating point simulation skipped by 'uic',
+  now using transient initial conditions.
+
+No. of Data Rows : 4339
+ngspice-45.2 done

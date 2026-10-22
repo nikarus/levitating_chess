@@ -134,12 +134,12 @@ def rl_step(current, voltage, back_emf, resistance, inductance, period, enabled=
     return rl_interval(current, voltage, back_emf, resistance, inductance, period, enabled)[0]
 
 
-def current_regulator(error, integral, resistance, inductance, voltage_limit):
+def current_regulator(error, integral, resistance, inductance, voltage_limit, integral_gain_ratio=1., feedforward_voltage=0.):
     frequency = 2 * np.pi * model.Fixed.current_loop_bandwidth
-    requested = inductance * frequency * error + integral
+    requested = inductance * frequency * error + integral + feedforward_voltage
     voltage = np.clip(requested, -voltage_limit, voltage_limit)
     integrate = (voltage == requested) | (error * requested < 0)
-    integral = integral + integrate * resistance * frequency * error / model.Fixed.current_regulator_rate
+    integral = integral + integrate * resistance * frequency * integral_gain_ratio * error / model.Fixed.current_regulator_rate
     return voltage, integral, requested
 
 

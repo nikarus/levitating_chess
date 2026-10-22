@@ -1,0 +1,741 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>/home/arseniy/.codex/worktrees/coil-channel-study/flying_chess/methodology/electronics/acquisition.kicad_sch</source>
+    <date>2026-10-21T17:33:59+0200</date>
+    <tool>Eeschema 9.0.8+dfsg-1</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title>Shared current acquisition - DRAFT</title>
+        <company/>
+        <rev>working</rev>
+        <date/>
+        <source>acquisition.kicad_sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="C20">
+      <value>2.2e-05</value>
+      <footprint>Capacitor_SMD:C_1210_3225Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM32ER61C226KE20L</field>
+        <field name="ModelParameter">electronics_acquisition_bulk_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_1210_3225Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM32ER61C226KE20L"/>
+      <property name="ModelParameter" value="electronics_acquisition_bulk_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="acquisition.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a9b00ec1-3edb-50f4-8fd8-1b22bc51b06d</tstamps>
+    </comp>
+    <comp ref="C21">
+      <value>1e-06</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM21BR71H105KA12L</field>
+        <field name="ModelParameter">electronics_acquisition_local_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM21BR71H105KA12L"/>
+      <property name="ModelParameter" value="electronics_acquisition_local_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="acquisition.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>de2b9440-5704-5daa-84e0-d52f38980deb</tstamps>
+    </comp>
+    <comp ref="C22">
+      <value>2.2e-05</value>
+      <footprint>Capacitor_SMD:C_1210_3225Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM32ER61C226KE20L</field>
+        <field name="ModelParameter">electronics_acquisition_bulk_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_1210_3225Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM32ER61C226KE20L"/>
+      <property name="ModelParameter" value="electronics_acquisition_bulk_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="acquisition.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>02bf827c-5b8b-5691-8026-63c90a1fa5af</tstamps>
+    </comp>
+    <comp ref="C23">
+      <value>1e-06</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM21BR71H105KA12L</field>
+        <field name="ModelParameter">electronics_acquisition_local_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM21BR71H105KA12L"/>
+      <property name="ModelParameter" value="electronics_acquisition_local_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="acquisition.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>667c73a7-41a5-568a-b52f-057171a1227b</tstamps>
+    </comp>
+    <comp ref="C24">
+      <value>2.2e-05</value>
+      <footprint>Capacitor_SMD:C_1210_3225Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM32ER61C226KE20L</field>
+        <field name="ModelParameter">electronics_acquisition_bulk_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_1210_3225Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM32ER61C226KE20L"/>
+      <property name="ModelParameter" value="electronics_acquisition_bulk_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="acquisition.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>73ab3d4c-329f-5619-8acc-4e39712004ee</tstamps>
+    </comp>
+    <comp ref="C25">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">C0603C104K5RACTU</field>
+        <field name="ModelParameter">electronics_analog_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0603_1608Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0603C104K5RACTU"/>
+      <property name="ModelParameter" value="electronics_analog_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="acquisition.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9d25c66c-e1d5-5be6-a655-dece867efa2f</tstamps>
+    </comp>
+    <comp ref="C26">
+      <value>2.2e-05</value>
+      <footprint>Capacitor_SMD:C_1210_3225Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM32ER61C226KE20L</field>
+        <field name="ModelParameter">electronics_acquisition_bulk_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_1210_3225Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM32ER61C226KE20L"/>
+      <property name="ModelParameter" value="electronics_acquisition_bulk_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="acquisition.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>13251080-87a7-5e8f-bd13-78ba6caf3ef2</tstamps>
+    </comp>
+    <comp ref="C27">
+      <value>2.2e-05</value>
+      <footprint>Capacitor_SMD:C_1210_3225Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM32ER61C226KE20L</field>
+        <field name="ModelParameter">electronics_acquisition_bulk_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_1210_3225Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM32ER61C226KE20L"/>
+      <property name="ModelParameter" value="electronics_acquisition_bulk_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="acquisition.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>5a35e6cc-14f8-5393-a563-a36d98d78eb0</tstamps>
+    </comp>
+    <comp ref="C28">
+      <value>1e-06</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM21BR71H105KA12L</field>
+        <field name="ModelParameter">electronics_acquisition_local_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM21BR71H105KA12L"/>
+      <property name="ModelParameter" value="electronics_acquisition_local_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="acquisition.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>2742d904-58f4-5886-8322-0f1ba1fb50e7</tstamps>
+    </comp>
+    <comp ref="C29">
+      <value>1e-06</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM21BR71H105KA12L</field>
+        <field name="ModelParameter">electronics_acquisition_local_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM21BR71H105KA12L"/>
+      <property name="ModelParameter" value="electronics_acquisition_local_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="acquisition.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a0d43f55-cac4-5304-b487-1e39b9994133</tstamps>
+    </comp>
+    <comp ref="C30">
+      <value>1e-06</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM21BR71H105KA12L</field>
+        <field name="ModelParameter">electronics_acquisition_local_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM21BR71H105KA12L"/>
+      <property name="ModelParameter" value="electronics_acquisition_local_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="acquisition.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>108e5d22-ccf4-59a8-87c2-a0733bffc53e</tstamps>
+    </comp>
+    <comp ref="C31">
+      <value>1e-06</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM21BR71H105KA12L</field>
+        <field name="ModelParameter">electronics_acquisition_local_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM21BR71H105KA12L"/>
+      <property name="ModelParameter" value="electronics_acquisition_local_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="acquisition.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>48035e5f-d645-5fe6-af60-c46435ddad4e</tstamps>
+    </comp>
+    <comp ref="R20">
+      <value>1.0</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0603FR-071RL</field>
+        <field name="ModelParameter">electronics_bias_reference_capacitor_esr</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0603FR-071RL"/>
+      <property name="ModelParameter" value="electronics_bias_reference_capacitor_esr"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="acquisition.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ac069349-cf06-5a97-a110-240f5ddf45e7</tstamps>
+    </comp>
+    <comp ref="R21">
+      <value>10000.0</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0603FR-0710KL</field>
+        <field name="ModelParameter">electronics_logic_pull_resistance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0603FR-0710KL"/>
+      <property name="ModelParameter" value="electronics_logic_pull_resistance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="acquisition.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>38905d90-f194-5662-9d7a-56746b1ce84b</tstamps>
+    </comp>
+    <comp ref="R22">
+      <value>10000.0</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0603FR-0710KL</field>
+        <field name="ModelParameter">electronics_logic_pull_resistance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0603FR-0710KL"/>
+      <property name="ModelParameter" value="electronics_logic_pull_resistance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="acquisition.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6e24ed04-a04d-5362-af39-7c49cf5fe0a6</tstamps>
+    </comp>
+    <comp ref="U10">
+      <value>ADS8698</value>
+      <footprint>Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/ads8698.pdf</datasheet>
+      <fields>
+        <field name="MPN">ADS8698IDBTR</field>
+        <field name="ModelParameter"/>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels">8</field>
+        <field name="DesignStatus">Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete</field>
+        <field name="Footprint">Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/ads8698.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="FlyingChess" part="ADS8698" description="18-bit ADS8698, datasheet SBAS686 pin table; ALARM replaces ADS8688 DNC pin 35"/>
+      <property name="MPN" value="ADS8698IDBTR"/>
+      <property name="ModelParameter" value=""/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value="8"/>
+      <property name="DesignStatus" value="Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="acquisition.kicad_sch"/>
+      <property name="ki_keywords" value="adc analog digital spi bipolar input"/>
+      <property name="ki_fp_filters" value="TSSOP*4.4x9.7mm*P0.5mm*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>83d0e54a-8077-5bca-8e81-8a950a932cd8</tstamps>
+    </comp>
+    <comp ref="U11">
+      <value>REF5025ID</value>
+      <footprint>Package_SO:SOIC-8_3.9x4.9mm_P1.27mm</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/ref5030a-q1.pdf</datasheet>
+      <fields>
+        <field name="MPN">REF5025IDR</field>
+        <field name="ModelParameter"/>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete</field>
+        <field name="Footprint">Package_SO:SOIC-8_3.9x4.9mm_P1.27mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/ref5030a-q1.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="FlyingChess" part="REF5025ID" description="2.5V high-grade reference, SOIC-8"/>
+      <property name="MPN" value="REF5025IDR"/>
+      <property name="ModelParameter" value=""/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Shared acquisition candidate; supplies, logic, thermal and hardware validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="acquisition.kicad_sch"/>
+      <property name="ki_keywords" value="Low Noise Precision Voltage Reference 2.048V"/>
+      <property name="ki_fp_filters" value="SOIC*3.9x4.9mm*P1.27mm*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>4eea52a4-6c5e-5a32-aae6-4da3af253a59</tstamps>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="Device" part="C">
+      <description>Unpolarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Unpolarized capacitor</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="R">
+      <description>Resistor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Resistor</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="FlyingChess" part="ADS8698">
+      <description>18-bit ADS8698, datasheet SBAS686 pin table; ALARM replaces ADS8688 DNC pin 35</description>
+      <docs>https://www.ti.com/lit/ds/symlink/ads8698.pdf</docs>
+      <footprints>
+        <fp>TSSOP*4.4x9.7mm*P0.5mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">ADS8698</field>
+        <field name="Footprint">Package_SO:TSSOP-38_4.4x9.7mm_P0.5mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/ads8698.pdf</field>
+        <field name="Description">18-bit ADS8698, datasheet SBAS686 pin table; ALARM replaces ADS8688 DNC pin 35</field>
+      </fields>
+      <pins>
+        <pin num="1" name="SDI" type="input"/>
+        <pin num="2" name="~{RST/PD}" type="input"/>
+        <pin num="3" name="DAISY" type="input"/>
+        <pin num="4" name="~{REFSEL}" type="input"/>
+        <pin num="5" name="REFIO" type="passive"/>
+        <pin num="6" name="REFGND" type="power_in"/>
+        <pin num="7" name="REFCAP" type="passive"/>
+        <pin num="8" name="AGND" type="power_in"/>
+        <pin num="9" name="AVDD" type="power_in"/>
+        <pin num="10" name="AUX_IN" type="input"/>
+        <pin num="11" name="AUX_GND" type="input"/>
+        <pin num="12" name="AIN_6P" type="input"/>
+        <pin num="13" name="AIN_6GND" type="input"/>
+        <pin num="14" name="AIN_7P" type="input"/>
+        <pin num="15" name="AIN_7GND" type="input"/>
+        <pin num="16" name="AIN_0P" type="input"/>
+        <pin num="17" name="AIN_0GND" type="input"/>
+        <pin num="18" name="AIN_1P" type="input"/>
+        <pin num="19" name="AIN_1GND" type="input"/>
+        <pin num="20" name="AIN_2GND" type="input"/>
+        <pin num="21" name="AIN_2P" type="input"/>
+        <pin num="22" name="AIN_3GND" type="input"/>
+        <pin num="23" name="AIN_3P" type="input"/>
+        <pin num="24" name="AIN_4GND" type="input"/>
+        <pin num="25" name="AIN_4P" type="input"/>
+        <pin num="26" name="AIN_5GND" type="input"/>
+        <pin num="27" name="AIN_5P" type="input"/>
+        <pin num="28" name="AGND" type="passive"/>
+        <pin num="29" name="AGND" type="passive"/>
+        <pin num="30" name="AVDD" type="power_in"/>
+        <pin num="31" name="AGND" type="passive"/>
+        <pin num="32" name="AGND" type="passive"/>
+        <pin num="33" name="DGND" type="power_in"/>
+        <pin num="34" name="DVDD" type="power_in"/>
+        <pin num="35" name="ALARM" type="output"/>
+        <pin num="36" name="SDO" type="output"/>
+        <pin num="37" name="SCLK" type="input"/>
+        <pin num="38" name="~{CS}" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="FlyingChess" part="REF5025ID">
+      <description>2.5V high-grade reference, SOIC-8</description>
+      <docs>https://www.ti.com/lit/ds/symlink/ref5030a-q1.pdf</docs>
+      <footprints>
+        <fp>SOIC*3.9x4.9mm*P1.27mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">REF5025ID</field>
+        <field name="Footprint">Package_SO:SOIC-8_3.9x4.9mm_P1.27mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/ref5030a-q1.pdf</field>
+        <field name="Description">2.5V high-grade reference, SOIC-8</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DNC" type="no_connect"/>
+        <pin num="2" name="Vin" type="power_in"/>
+        <pin num="3" name="Temp" type="passive"/>
+        <pin num="4" name="GND" type="power_in"/>
+        <pin num="5" name="Trim/NR" type="passive"/>
+        <pin num="6" name="Vout" type="power_out"/>
+        <pin num="7" name="NC" type="no_connect"/>
+        <pin num="8" name="DNC" type="no_connect"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="Device">
+      <uri>/home/arseniy/.local/share/flying-chess-tools/root/usr/share/kicad/symbols/Device.kicad_sym</uri>
+    </library>
+    <library logical="FlyingChess">
+      <uri>/home/arseniy/.codex/worktrees/coil-channel-study/flying_chess/methodology/electronics/FlyingChess.kicad_sym</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="/ADC_ALARM" class="Default">
+      <node ref="U10" pin="35" pinfunction="ALARM" pintype="output"/>
+    </net>
+    <net code="2" name="/ADC_CS_N" class="Default">
+      <node ref="R22" pin="1" pintype="passive"/>
+      <node ref="U10" pin="38" pinfunction="~{CS}" pintype="input"/>
+    </net>
+    <net code="3" name="/ADC_REFCAP" class="Default">
+      <node ref="C27" pin="1" pintype="passive"/>
+      <node ref="C28" pin="1" pintype="passive"/>
+      <node ref="U10" pin="7" pinfunction="REFCAP" pintype="passive"/>
+    </net>
+    <net code="4" name="/ADC_REFIO" class="Default">
+      <node ref="C26" pin="1" pintype="passive"/>
+      <node ref="U10" pin="5" pinfunction="REFIO" pintype="passive"/>
+    </net>
+    <net code="5" name="/ADC_RESET_N" class="Default">
+      <node ref="R21" pin="1" pintype="passive"/>
+      <node ref="U10" pin="2" pinfunction="~{RST/PD}" pintype="input"/>
+    </net>
+    <net code="6" name="/ADC_SCLK" class="Default">
+      <node ref="U10" pin="37" pinfunction="SCLK" pintype="input"/>
+    </net>
+    <net code="7" name="/ADC_SDI" class="Default">
+      <node ref="U10" pin="1" pinfunction="SDI" pintype="input"/>
+    </net>
+    <net code="8" name="/ADC_SDO" class="Default">
+      <node ref="U10" pin="36" pinfunction="SDO" pintype="output"/>
+    </net>
+    <net code="9" name="/BIAS_CAP" class="Default">
+      <node ref="C30" pin="1" pintype="passive"/>
+      <node ref="R20" pin="2" pintype="passive"/>
+    </net>
+    <net code="10" name="/BIAS_NR" class="Default">
+      <node ref="C31" pin="1" pintype="passive"/>
+      <node ref="U11" pin="5" pinfunction="Trim/NR" pintype="passive"/>
+    </net>
+    <net code="11" name="/CURRENT_0" class="Default">
+      <node ref="U10" pin="16" pinfunction="AIN_0P" pintype="input"/>
+    </net>
+    <net code="12" name="/CURRENT_1" class="Default">
+      <node ref="U10" pin="18" pinfunction="AIN_1P" pintype="input"/>
+    </net>
+    <net code="13" name="/CURRENT_2" class="Default">
+      <node ref="U10" pin="21" pinfunction="AIN_2P" pintype="input"/>
+    </net>
+    <net code="14" name="/CURRENT_3" class="Default">
+      <node ref="U10" pin="23" pinfunction="AIN_3P" pintype="input"/>
+    </net>
+    <net code="15" name="/CURRENT_4" class="Default">
+      <node ref="U10" pin="25" pinfunction="AIN_4P" pintype="input"/>
+    </net>
+    <net code="16" name="/CURRENT_5" class="Default">
+      <node ref="U10" pin="27" pinfunction="AIN_5P" pintype="input"/>
+    </net>
+    <net code="17" name="/CURRENT_6" class="Default">
+      <node ref="U10" pin="12" pinfunction="AIN_6P" pintype="input"/>
+    </net>
+    <net code="18" name="/CURRENT_7" class="Default">
+      <node ref="U10" pin="14" pinfunction="AIN_7P" pintype="input"/>
+    </net>
+    <net code="19" name="/GND" class="Default">
+      <node ref="C20" pin="2" pintype="passive"/>
+      <node ref="C21" pin="2" pintype="passive"/>
+      <node ref="C22" pin="2" pintype="passive"/>
+      <node ref="C23" pin="2" pintype="passive"/>
+      <node ref="C24" pin="2" pintype="passive"/>
+      <node ref="C25" pin="2" pintype="passive"/>
+      <node ref="C26" pin="2" pintype="passive"/>
+      <node ref="C27" pin="2" pintype="passive"/>
+      <node ref="C28" pin="2" pintype="passive"/>
+      <node ref="C29" pin="2" pintype="passive"/>
+      <node ref="C30" pin="2" pintype="passive"/>
+      <node ref="C31" pin="2" pintype="passive"/>
+      <node ref="R21" pin="2" pintype="passive"/>
+      <node ref="U10" pin="10" pinfunction="AUX_IN" pintype="input"/>
+      <node ref="U10" pin="11" pinfunction="AUX_GND" pintype="input"/>
+      <node ref="U10" pin="13" pinfunction="AIN_6GND" pintype="input"/>
+      <node ref="U10" pin="15" pinfunction="AIN_7GND" pintype="input"/>
+      <node ref="U10" pin="17" pinfunction="AIN_0GND" pintype="input"/>
+      <node ref="U10" pin="19" pinfunction="AIN_1GND" pintype="input"/>
+      <node ref="U10" pin="20" pinfunction="AIN_2GND" pintype="input"/>
+      <node ref="U10" pin="22" pinfunction="AIN_3GND" pintype="input"/>
+      <node ref="U10" pin="24" pinfunction="AIN_4GND" pintype="input"/>
+      <node ref="U10" pin="26" pinfunction="AIN_5GND" pintype="input"/>
+      <node ref="U10" pin="28" pinfunction="AGND" pintype="passive"/>
+      <node ref="U10" pin="29" pinfunction="AGND" pintype="passive"/>
+      <node ref="U10" pin="3" pinfunction="DAISY" pintype="input"/>
+      <node ref="U10" pin="31" pinfunction="AGND" pintype="passive"/>
+      <node ref="U10" pin="32" pinfunction="AGND" pintype="passive"/>
+      <node ref="U10" pin="33" pinfunction="DGND" pintype="power_in"/>
+      <node ref="U10" pin="4" pinfunction="~{REFSEL}" pintype="input"/>
+      <node ref="U10" pin="6" pinfunction="REFGND" pintype="power_in"/>
+      <node ref="U10" pin="8" pinfunction="AGND" pintype="power_in"/>
+      <node ref="U11" pin="4" pinfunction="GND" pintype="power_in"/>
+    </net>
+    <net code="20" name="/VREF_CURRENT" class="Default">
+      <node ref="R20" pin="1" pintype="passive"/>
+      <node ref="U11" pin="6" pinfunction="Vout" pintype="power_out"/>
+    </net>
+    <net code="21" name="/V_ANALOG" class="Default">
+      <node ref="C20" pin="1" pintype="passive"/>
+      <node ref="C21" pin="1" pintype="passive"/>
+      <node ref="C22" pin="1" pintype="passive"/>
+      <node ref="C23" pin="1" pintype="passive"/>
+      <node ref="C29" pin="1" pintype="passive"/>
+      <node ref="U10" pin="30" pinfunction="AVDD" pintype="power_in"/>
+      <node ref="U10" pin="9" pinfunction="AVDD" pintype="power_in"/>
+      <node ref="U11" pin="2" pinfunction="Vin" pintype="power_in"/>
+    </net>
+    <net code="22" name="/V_LOGIC" class="Default">
+      <node ref="C24" pin="1" pintype="passive"/>
+      <node ref="C25" pin="1" pintype="passive"/>
+      <node ref="R22" pin="2" pintype="passive"/>
+      <node ref="U10" pin="34" pinfunction="DVDD" pintype="power_in"/>
+    </net>
+    <net code="23" name="unconnected-(U11-DNC-Pad1)" class="Default">
+      <node ref="U11" pin="1" pinfunction="DNC" pintype="no_connect"/>
+    </net>
+    <net code="24" name="unconnected-(U11-DNC-Pad8)" class="Default">
+      <node ref="U11" pin="8" pinfunction="DNC" pintype="no_connect"/>
+    </net>
+    <net code="25" name="unconnected-(U11-NC-Pad7)" class="Default">
+      <node ref="U11" pin="7" pinfunction="NC" pintype="no_connect"/>
+    </net>
+    <net code="26" name="unconnected-(U11-Temp-Pad3)" class="Default">
+      <node ref="U11" pin="3" pinfunction="Temp" pintype="passive+no_connect"/>
+    </net>
+  </nets>
+</export>

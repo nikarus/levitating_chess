@@ -1,0 +1,91 @@
+
+Note: Compatibility modes selected: ps lt a
+
+
+Circuit: ad8410a isolated macromodel check; not a complete coil channel
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+
+No. of Data Rows : 101
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+supply                                       5
+reference                                  2.5
+common                                       0
+differential                            -0.065
+plus                                   -0.0325
+minus                                   0.0325
+xamp.vsx                                     5
+xamp.n014                                 79.3
+xamp.n009                                -19.3
+xamp.n018                          -0.00540702
+xamp.n019                          -0.00540702
+xamp.n020                             -4.40196
+xamp.n022                                   -5
+xamp.n003                             -4.40196
+xamp.n001                                   -5
+xamp.n023                                  1.5
+xamp.n021                             0.901973
+xamp.n004                             0.901973
+xamp.n002                                  1.5
+xamp.vsl_inn                         0.0325019
+xamp.vsl_inp                           -0.0325
+xamp.n006                            0.0325019
+xamp.n007                            0.0881012
+xamp.inpx                            0.0881012
+xamp.vsl_outp                        -0.032496
+xamp.innx                            0.0881012
+xamp.outx                              1.20007
+xamp.refmid                             2.3794
+xamp.n013                                 0.65
+xamp.n012                                    0
+xamp.n011                                 0.65
+xamp.n010                                    0
+xamp.n008                               317.39
+xamp.vx                                1.20007
+xamp.vy                                1.20007
+xamp.vz                                34.2877
+xamp.vo                                1.20007
+xamp.n015                                 -150
+xamp.n016                                  150
+xamp.n017                               0.8403
+xamp.n005                               4.2237
+output                                 1.20007
+h.xamp.h2#branch                             0
+v.xamp.vn3#branch                      0.44716
+h.xamp.h1#branch                             0
+v.xamp.vn1#branch                      0.44716
+l.xamp.lcm_inn#branch             -1.85328e-06
+e.xamp.evsx#branch                -3.03363e-12
+eminus#branch                     -5.77729e-08
+eplus#branch                       5.78859e-08
+v.xamp.v9#branch                   3.03363e-12
+v.xamp.v8#branch                   3.69765e-13
+v.xamp.v7#branch                   1.15722e-10
+v.xamp.v6#branch                  -1.84298e-10
+v.xamp.vn4#branch                     -0.44716
+v.xamp.vn2#branch                     -0.44716
+v.xamp.vos#branch                  1.85328e-06
+v.xamp.v5#branch                      -0.00011
+v.xamp.v4#branch                      -0.00011
+v.xamp.v13#branch                  0.000110049
+v.xamp.v12#branch                  0.000110049
+v.xamp.v11#branch                   -3.862e-11
+v.xamp.v10#branch                  -1.5862e-10
+vdiff#branch                                 0
+vcommon#branch                        1.13e-10
+vref#branch                       -4.01991e-06
+vs#branch                              -0.0078
+
+ Reference value :  2.80998e-05
+No. of Data Rows : 15737
+ngspice-45.2 done

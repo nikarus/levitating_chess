@@ -1,0 +1,79 @@
+{
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/firmware.py": "410594b8c5ad7c4285d09cda477d2c90e22701e56d2cdd00e7a95246cd39f652",
+        "methodology/electronics/regulator.c": "95cba9b34b09bc5660291cc65546a726c4ea3ae4ae8c42ef8a8f2a71e241875a",
+        "methodology/results/electronics/system/current_delivery/compiled/regulator_settings.h": "69ff8650753e0cc0057ea1ca8d330919fecfaa23fa3f5e914b3352a028e289af",
+        "model.py": "ebe3d280e5a9e7d2189e61dc797b071ea3d56f777dfe8730639a824a3502156a"
+    },
+    "commands": [
+        {
+            "command": [
+                "/usr/bin/gcc",
+                "-O2",
+                "-std=c11",
+                "-fno-fast-math",
+                "-ffp-contract=off",
+                "-fPIC",
+                "-shared",
+                "-I",
+                "methodology/results/electronics/system/current_delivery/compiled",
+                "/home/arseniy/.codex/worktrees/coil-channel-study/flying_chess/methodology/electronics/regulator.c",
+                "-o",
+                "methodology/results/electronics/system/current_delivery/compiled/regulator.so"
+            ],
+            "stdout": "",
+            "stderr": ""
+        },
+        {
+            "command": [
+                "/home/arseniy/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/linux-x86_64/bin/clang",
+                "--target=arm-none-eabi",
+                "-mcpu=cortex-m33",
+                "-mfpu=fpv5-sp-d16",
+                "-mfloat-abi=hard",
+                "-O2",
+                "-std=c11",
+                "-fno-fast-math",
+                "-ffp-contract=off",
+                "-I",
+                "methodology/results/electronics/system/current_delivery/compiled",
+                "-S",
+                "/home/arseniy/.codex/worktrees/coil-channel-study/flying_chess/methodology/electronics/regulator.c",
+                "-o",
+                "methodology/results/electronics/system/current_delivery/compiled/regulator.arm.s"
+            ],
+            "stdout": "",
+            "stderr": ""
+        },
+        {
+            "command": [
+                "/home/arseniy/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/linux-x86_64/bin/clang",
+                "--target=arm-none-eabi",
+                "-mcpu=cortex-m33",
+                "-mfpu=fpv5-sp-d16",
+                "-mfloat-abi=hard",
+                "-O2",
+                "-std=c11",
+                "-fno-fast-math",
+                "-ffp-contract=off",
+                "-I",
+                "methodology/results/electronics/system/current_delivery/compiled",
+                "-c",
+                "/home/arseniy/.codex/worktrees/coil-channel-study/flying_chess/methodology/electronics/regulator.c",
+                "-o",
+                "methodology/results/electronics/system/current_delivery/compiled/regulator.arm.o"
+            ],
+            "stdout": "",
+            "stderr": ""
+        }
+    ],
+    "binaries": {
+        "regulator.so": "7afed0b5fed5bee5a3bab5704ea967ea3bf0cace0f49d0772b34062ad452e24b",
+        "regulator.arm.o": "0407b2ab443f463045cb16cdd247ce1a57c3ad24b884e30a22f99d56710df445"
+    },
+    "toolchains": {
+        "/usr/bin/gcc": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+        "/home/arseniy/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/linux-x86_64/bin/clang": "Android (6454773 based on r365631c2) clang version 9.0.8 (https://android.googlesource.com/toolchain/llvm-project 98c855489587874b2a325e7a516b99d838599c6f) (based on LLVM 9.0.8svn)\nTarget: x86_64-unknown-linux-gnu\nThread model: posix\nInstalledDir: /home/arseniy/Android/Sdk/ndk/21.3.6528147/toolchains/llvm/prebuilt/linux-x86_64/bin\n"
+    }
+}

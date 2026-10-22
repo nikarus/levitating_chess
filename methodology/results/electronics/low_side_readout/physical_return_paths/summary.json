@@ -1,0 +1,23 @@
+{
+    "status": "periodic_bridge_vendor_amplifier_and_loaded_filter_verified_within_recorded_scope",
+    "hardware_qualified": false,
+    "full_coupled_spice_convergence_resolved": false,
+    "acceptance_limits_changed": false,
+    "schematic_changed": false,
+    "flight_sources_changed": false,
+    "bridge_evidence": "settled_bridge_readout/summary.json",
+    "loaded_filter_evidence": "../acquisition/loaded_filter_replay/summary.json",
+    "sampled_acquisition_evidence": "../acquisition/loaded_filter_sampling/summary.json",
+    "bridge_max_mean_refinement_A": 7.521961862266835e-07,
+    "loaded_filter_max_mean_refinement_A": 1.5809881572792506e-06,
+    "sampled_max_quantized_calibrated_error_A": 0.00010088610241698603,
+    "evidence_archive": "failed_checks.zip",
+    "evidence_archive_sha256": "bcb419fc83f6e3edface106462cde09f9070b1b52852106062cec0ea37b80a38",
+    "archive_note": "Exact earlier diagnostic reports, source snapshots, native waveforms and logs. Original recorded paths/hashes are unchanged. New archive members verified against consolidation_manifest.json before loose files were removed.",
+    "remaining": [
+        "Amplifier-input loading feedback and driver timing/temperature/parasitic uncertainty.",
+        "ADC input bias, internal response bounds, noise and complete timing.",
+        "Changing-current acquisition distortion and sampled current-loop verification.",
+        "Schematic reconciliation, shared functions, representative routing, thermal evidence and complete BOM."
+    ]
+}

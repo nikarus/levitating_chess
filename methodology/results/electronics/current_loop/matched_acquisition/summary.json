@@ -1,0 +1,2157 @@
+{
+    "status": "sampled_current_loop_timing_and_averaged_plant_screen",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/current_loop.py": "695c105724eca59a52e266f83098c60b98bab6b1187770a60f0ef123d469001d",
+        "model.py": "f67b884cbdb6f56853cc16860298741924d56af469c06e4961d84077fd9eaf5e",
+        "methodology/qualification.py": "7d1232db4b9045a1ac7d244ffb71468b64d636953203c81daee2f92627a33f54",
+        "methodology/electronics/acquisition.py": "85dc1ebeb49263ca4cafc1294b55306431fbe3f64d443ac99f8b5ea6b31002b9",
+        "methodology/electronics/power_stage.py": "12deef834e25133d1db80b6bbb6aba13e8b0e12926bc794ed3a7ff5c8698850f",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe"
+    },
+    "schedule": {
+        "samples_per_carrier": 2,
+        "sample_spacing_s": 3.125e-06,
+        "frame_s": 2.52e-06,
+        "result_ready_s": 5.645e-06,
+        "computation_ready_s": 6.645e-06,
+        "pwm_latch_s": 1.25e-05,
+        "actuation_s": 1.31e-05,
+        "serial_utilization": 0.8064,
+        "computation_utilization": 0.16,
+        "extra_age_if_all_channels_update_together_s": 4.375e-05
+    },
+    "stability": [
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 0.5,
+            "filter_factor": 0.8,
+            "measurement_gain": 0.995,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8146932467268393,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 0.5,
+            "filter_factor": 0.8,
+            "measurement_gain": 0.995,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8704280651739269,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 0.5,
+            "filter_factor": 0.8,
+            "measurement_gain": 1.005,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8138702281161754,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 0.5,
+            "filter_factor": 0.8,
+            "measurement_gain": 1.005,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8735140952874072,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 0.5,
+            "filter_factor": 1.0,
+            "measurement_gain": 0.995,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8178045335536268,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 0.5,
+            "filter_factor": 1.0,
+            "measurement_gain": 0.995,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8583484423577968,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 0.5,
+            "filter_factor": 1.0,
+            "measurement_gain": 1.005,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8169845258579074,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 0.5,
+            "filter_factor": 1.0,
+            "measurement_gain": 1.005,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8615670473668817,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 0.5,
+            "filter_factor": 1.2,
+            "measurement_gain": 0.995,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8198398888184288,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 0.5,
+            "filter_factor": 1.2,
+            "measurement_gain": 0.995,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8478063272952496,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 0.5,
+            "filter_factor": 1.2,
+            "measurement_gain": 1.005,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8190225514541386,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 0.5,
+            "filter_factor": 1.2,
+            "measurement_gain": 1.005,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8511225275417824,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 1.0,
+            "filter_factor": 0.8,
+            "measurement_gain": 0.995,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.7919207340533967,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 1.0,
+            "filter_factor": 0.8,
+            "measurement_gain": 0.995,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8330430239749979,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 1.0,
+            "filter_factor": 0.8,
+            "measurement_gain": 1.005,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.791092424742369,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 1.0,
+            "filter_factor": 0.8,
+            "measurement_gain": 1.005,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8356628335882835,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 1.0,
+            "filter_factor": 1.0,
+            "measurement_gain": 0.995,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.795519128843429,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 1.0,
+            "filter_factor": 1.0,
+            "measurement_gain": 0.995,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8116266981792568,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 1.0,
+            "filter_factor": 1.0,
+            "measurement_gain": 1.005,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.7946782702359508,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 1.0,
+            "filter_factor": 1.0,
+            "measurement_gain": 1.005,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8143611029223063,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 1.0,
+            "filter_factor": 1.2,
+            "measurement_gain": 0.995,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.7978794713321313,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 1.0,
+            "filter_factor": 1.2,
+            "measurement_gain": 0.995,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.7944940272181846,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 1.0,
+            "filter_factor": 1.2,
+            "measurement_gain": 1.005,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.7970319409578039,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 1.0,
+            "filter_factor": 1.2,
+            "measurement_gain": 1.005,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.7973018639875971,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 2,
+            "filter_factor": 0.8,
+            "measurement_gain": 0.995,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.6948178207852658,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 2,
+            "filter_factor": 0.8,
+            "measurement_gain": 0.995,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8177549843286964,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 2,
+            "filter_factor": 0.8,
+            "measurement_gain": 1.005,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.6925707849146998,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 2,
+            "filter_factor": 0.8,
+            "measurement_gain": 1.005,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.819139500579916,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 2,
+            "filter_factor": 1.0,
+            "measurement_gain": 0.995,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.6976608726073082,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 2,
+            "filter_factor": 1.0,
+            "measurement_gain": 0.995,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.7915987621572024,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 2,
+            "filter_factor": 1.0,
+            "measurement_gain": 1.005,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.6940346908252277,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 2,
+            "filter_factor": 1.0,
+            "measurement_gain": 1.005,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.7929302194258281,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 2,
+            "filter_factor": 1.2,
+            "measurement_gain": 0.995,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.707092503104955,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 2,
+            "filter_factor": 1.2,
+            "measurement_gain": 0.995,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.7720108147166794,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 2,
+            "filter_factor": 1.2,
+            "measurement_gain": 1.005,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.7040264741804882,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.0,
+            "inductance_factor": 2,
+            "filter_factor": 1.2,
+            "measurement_gain": 1.005,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.7732490671838989,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 0.5,
+            "filter_factor": 0.8,
+            "measurement_gain": 0.995,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8551412557279379,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 0.5,
+            "filter_factor": 0.8,
+            "measurement_gain": 0.995,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8420499909452297,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 0.5,
+            "filter_factor": 0.8,
+            "measurement_gain": 1.005,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8542633028560982,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 0.5,
+            "filter_factor": 0.8,
+            "measurement_gain": 1.005,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8410954762113899,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 0.5,
+            "filter_factor": 1.0,
+            "measurement_gain": 0.995,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8576400938874624,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 0.5,
+            "filter_factor": 1.0,
+            "measurement_gain": 0.995,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8450531434237392,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 0.5,
+            "filter_factor": 1.0,
+            "measurement_gain": 1.005,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8567795804377456,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 0.5,
+            "filter_factor": 1.0,
+            "measurement_gain": 1.005,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8441153661853589,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 0.5,
+            "filter_factor": 1.2,
+            "measurement_gain": 0.995,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.859271735838326,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 0.5,
+            "filter_factor": 1.2,
+            "measurement_gain": 0.995,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8469867674091622,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 0.5,
+            "filter_factor": 1.2,
+            "measurement_gain": 1.005,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8584227331729455,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 0.5,
+            "filter_factor": 1.2,
+            "measurement_gain": 1.005,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8460602489792539,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 1.0,
+            "filter_factor": 0.8,
+            "measurement_gain": 0.995,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8449348900862126,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 1.0,
+            "filter_factor": 0.8,
+            "measurement_gain": 0.995,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8296039367037673,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 1.0,
+            "filter_factor": 0.8,
+            "measurement_gain": 1.005,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8439825748435338,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 1.0,
+            "filter_factor": 0.8,
+            "measurement_gain": 1.005,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8285828084840219,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 1.0,
+            "filter_factor": 1.0,
+            "measurement_gain": 0.995,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8478137770953982,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 1.0,
+            "filter_factor": 1.0,
+            "measurement_gain": 0.995,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8330637036186248,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 1.0,
+            "filter_factor": 1.0,
+            "measurement_gain": 1.005,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8468794065039943,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 1.0,
+            "filter_factor": 1.0,
+            "measurement_gain": 1.005,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8320557885095177,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 1.0,
+            "filter_factor": 1.2,
+            "measurement_gain": 0.995,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8496698807292636,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 1.0,
+            "filter_factor": 1.2,
+            "measurement_gain": 0.995,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8352856365655186,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 1.0,
+            "filter_factor": 1.2,
+            "measurement_gain": 1.005,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8487474004371086,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 1.0,
+            "filter_factor": 1.2,
+            "measurement_gain": 1.005,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.8342871857530871,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 2,
+            "filter_factor": 0.8,
+            "measurement_gain": 0.995,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8083405264684849,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 2,
+            "filter_factor": 0.8,
+            "measurement_gain": 0.995,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.7846184716408722,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 2,
+            "filter_factor": 0.8,
+            "measurement_gain": 1.005,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.807116938239195,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 2,
+            "filter_factor": 0.8,
+            "measurement_gain": 1.005,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.7835089065099954,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 2,
+            "filter_factor": 1.0,
+            "measurement_gain": 0.995,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8130678556677051,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 2,
+            "filter_factor": 1.0,
+            "measurement_gain": 0.995,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.7896948597162721,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 2,
+            "filter_factor": 1.0,
+            "measurement_gain": 1.005,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8118511814527878,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 2,
+            "filter_factor": 1.0,
+            "measurement_gain": 1.005,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.7885424002727202,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 2,
+            "filter_factor": 1.2,
+            "measurement_gain": 0.995,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8160915948888579,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 2,
+            "filter_factor": 1.2,
+            "measurement_gain": 0.995,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.7930422157222379,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 2,
+            "filter_factor": 1.2,
+            "measurement_gain": 1.005,
+            "extra_age_s": 0.0,
+            "spectral_radius": 0.8148827683076791,
+            "stable": true
+        },
+        {
+            "resistance_factor": 1.5,
+            "inductance_factor": 2,
+            "filter_factor": 1.2,
+            "measurement_gain": 1.005,
+            "extra_age_s": 4.375e-05,
+            "spectral_radius": 0.7918675586299859,
+            "stable": true
+        }
+    ],
+    "trials": [
+        {
+            "configuration": {},
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.501420131526182,
+            "peak_with_conservative_ripple_A": 5.692279521409539,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.0008672475704383231,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.2279372072850263,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {},
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.551832969714255,
+            "peak_with_conservative_ripple_A": 5.742692359597611,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.051482146726113065,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.2580000576663797,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.527387293316527,
+            "peak_with_conservative_ripple_A": 5.909092860584304,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.02737756479982778,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.2429511393486035,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.579536507432207,
+            "peak_with_conservative_ripple_A": 5.961242074699984,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.07922777825943683,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.2740524679281116,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.47241288142306,
+            "peak_with_conservative_ripple_A": 5.854118448690837,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.0306031661429067,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.210695891498524,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.524163958267736,
+            "peak_with_conservative_ripple_A": 5.905869525535513,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.07998602371142294,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.241553495204041,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.527273911758044,
+            "peak_with_conservative_ripple_A": 5.908979479025821,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.027260325848378564,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.2428911359736365,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.579172119099373,
+            "peak_with_conservative_ripple_A": 5.96087768636715,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.07889630861263619,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.2737830567413218,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.472306623629763,
+            "peak_with_conservative_ripple_A": 5.8540121908975395,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.03187101084077604,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.210639669346996,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.523808108329919,
+            "peak_with_conservative_ripple_A": 5.905513675597696,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.08037675155395174,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.241302083839815,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.527184603404229,
+            "peak_with_conservative_ripple_A": 5.908890170672006,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.027167969986265028,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.242843887939331,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.578794824695102,
+            "peak_with_conservative_ripple_A": 5.960500391962879,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.07854229884980413,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.2735223523899397,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.4722228238841994,
+            "peak_with_conservative_ripple_A": 5.853928391151976,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.032822065115087895,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.2105953743641393,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.523466378596147,
+            "peak_with_conservative_ripple_A": 5.905171945863924,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.08064199422303808,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.241059379311003,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.531068823672792,
+            "peak_with_conservative_ripple_A": 5.721928213556148,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.028895228349608892,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.246058608294809,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.5817471531400615,
+            "peak_with_conservative_ripple_A": 5.772606543023418,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.07940244644933436,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.2752621380213665,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.476771617110571,
+            "peak_with_conservative_ripple_A": 5.667631006993927,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.027257360312116674,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.2144041716445675,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.5266914731204455,
+            "peak_with_conservative_ripple_A": 5.717550863003802,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.07818993880991698,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.243341418785772,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.52888075869678,
+            "peak_with_conservative_ripple_A": 5.7197401485801365,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.028449547980816448,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.244014181441442,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.579561554419163,
+            "peak_with_conservative_ripple_A": 5.770420944302519,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.07934287333624823,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.274343896558967,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.4742434000619635,
+            "peak_with_conservative_ripple_A": 5.66510278994532,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.02727835172207449,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.2120158740868248,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.524479612729702,
+            "peak_with_conservative_ripple_A": 5.715339002613058,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.07830093064493049,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.2418182171769097,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.528098894634881,
+            "peak_with_conservative_ripple_A": 5.718958284518237,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.02807728464146031,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.243430017208536,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.579558044316304,
+            "peak_with_conservative_ripple_A": 5.77041743419966,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.07932877835345309,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.2743804823558476,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.473316955417689,
+            "peak_with_conservative_ripple_A": 5.664176345301045,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.02729815630944632,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.2113265778451066,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.524088004093857,
+            "peak_with_conservative_ripple_A": 5.714947393977213,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.0783420372540542,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 3.241809510341495,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 6.229951019491454,
+            "peak_with_conservative_ripple_A": 6.325381540271369,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.02869197183311023,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.787540866063459,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 6.279943387569945,
+            "peak_with_conservative_ripple_A": 6.375373908349861,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.07881029026491593,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.8157131987252955,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 6.181280566194616,
+            "peak_with_conservative_ripple_A": 6.276711086974531,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.02731676317201437,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.765655257331924,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 6.230785902212361,
+            "peak_with_conservative_ripple_A": 6.326216422992276,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.07775446907779848,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.7934951905289065,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 6.087430408675552,
+            "peak_with_conservative_ripple_A": 6.182860929455468,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.028489982776026324,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.55437748322948,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 6.1374867581000485,
+            "peak_with_conservative_ripple_A": 6.232917278879964,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.07875194498996052,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.582523752731772,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 6.0341913042521975,
+            "peak_with_conservative_ripple_A": 6.129621825032113,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.027323193087151587,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.532712873118847,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 6.083758564979366,
+            "peak_with_conservative_ripple_A": 6.1791890857592815,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.0778369933388241,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.560581603391319,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 6.0057770166984765,
+            "peak_with_conservative_ripple_A": 6.101207537478392,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.028634588301825303,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.412893457189339,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 6.055169636752187,
+            "peak_with_conservative_ripple_A": 6.150600157532103,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.07874093379154345,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.441075420549848,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.953828743734871,
+            "peak_with_conservative_ripple_A": 6.049259264514786,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.02733560512488875,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.3917120932462455,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 6.003396841309068,
+            "peak_with_conservative_ripple_A": 6.098827362088984,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.07786167290964752,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.4196152487972675,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.522116026661765,
+            "peak_with_conservative_ripple_A": 5.903821593929542,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.023067267721507682,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.859945907109846,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.5673183779680455,
+            "peak_with_conservative_ripple_A": 5.9490239452358225,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.07295842411281708,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.900014143452019,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.467450331829521,
+            "peak_with_conservative_ripple_A": 5.849155899097298,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.07123841114721685,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.811827232783778,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.512426243508642,
+            "peak_with_conservative_ripple_A": 5.894131810776419,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.09828566462923938,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.85168227524748,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.52117550085636,
+            "peak_with_conservative_ripple_A": 5.902881068124137,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.026259971060449742,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.859144995999898,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.5654650447631555,
+            "peak_with_conservative_ripple_A": 5.9471706120309324,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.07621821138215823,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.898472606380231,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.4665547728765,
+            "peak_with_conservative_ripple_A": 5.848260340144277,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.07741724823720997,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.811064834932018,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.51068963955057,
+            "peak_with_conservative_ripple_A": 5.892395206818347,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.10141965382038798,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.850239444123956,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.520484715408472,
+            "peak_with_conservative_ripple_A": 5.902190282676249,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.02965667250531645,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.858556358555,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.564108934899422,
+            "peak_with_conservative_ripple_A": 5.945814502167199,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.07855606039181749,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.897334013785158,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.465896169897158,
+            "peak_with_conservative_ripple_A": 5.847601737164935,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.08185313328247901,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.810503779708003,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.509471443803829,
+            "peak_with_conservative_ripple_A": 5.891177011071606,
+            "ripple_bound_A": 0.38170556726777666,
+            "plateau_current_error_A": 0.10364764290563944,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.849236143274014,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.524476065613023,
+            "peak_with_conservative_ripple_A": 5.71533545549638,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.024367842668872264,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.8622202428073615,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.572212620413035,
+            "peak_with_conservative_ripple_A": 5.7630720102963915,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.07195710442981529,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.904748512058006,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.469693373391076,
+            "peak_with_conservative_ripple_A": 5.660552763274432,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.05561586467592683,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.813984830201912,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.517144152012243,
+            "peak_with_conservative_ripple_A": 5.708003541895599,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.0908079624513114,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.856246524766675,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.523806432082695,
+            "peak_with_conservative_ripple_A": 5.714665821966052,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.02367821647313484,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.86170117105136,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.570833931181648,
+            "peak_with_conservative_ripple_A": 5.761693321065004,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.07053665271025444,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.903681918753206,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.469059861337537,
+            "peak_with_conservative_ripple_A": 5.659919251220893,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.060584964904979444,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.813494358744321,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.515800182121317,
+            "peak_with_conservative_ripple_A": 5.706659572004673,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.09327197537677634,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.855206638119862,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.523311133691578,
+            "peak_with_conservative_ripple_A": 5.714170523574935,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.02316845617290042,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.861316091955826,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.569817464618449,
+            "peak_with_conservative_ripple_A": 5.760676854501805,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.06948751764891181,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.902902150306029,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.46859050345321,
+            "peak_with_conservative_ripple_A": 5.659449893336566,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.06416113268101675,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.813129879734662,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.514848455750523,
+            "peak_with_conservative_ripple_A": 5.70570784563388,
+            "ripple_bound_A": 0.1908593898833566,
+            "plateau_current_error_A": 0.09509304569603039,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.854480869140389,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.5274904639553455,
+            "peak_with_conservative_ripple_A": 5.622920984735261,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.027481918375243275,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.8645564455258405,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.578295904020562,
+            "peak_with_conservative_ripple_A": 5.673726424800478,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.07823399612333404,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.910387286404549,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.47252502766632,
+            "peak_with_conservative_ripple_A": 5.5679555484462355,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.02955724538297222,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.816170056320334,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.52288156412409,
+            "peak_with_conservative_ripple_A": 5.618312084904005,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.07838612227558706,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.861607181091011,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.527320293834095,
+            "peak_with_conservative_ripple_A": 5.622750814614011,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.027303262811164686,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.864469837452661,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.577906302525499,
+            "peak_with_conservative_ripple_A": 5.673336823305415,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.07783202670727984,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.910047048230959,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.472370260783853,
+            "peak_with_conservative_ripple_A": 5.5678007815637685,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.031603995914855965,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.816092041528489,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.522505235331544,
+            "peak_with_conservative_ripple_A": 5.61793575611146,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.07901241979637064,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.861302942562562,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.52717782069191,
+            "peak_with_conservative_ripple_A": 5.6226083414718255,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.0271539594376371,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.864395285709282,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.577642082375469,
+            "peak_with_conservative_ripple_A": 5.673072603155385,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.07755333492953298,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.909868808460491,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "quantization_and_noise": false,
+            "stopped": false,
+            "peak_average_current_A": 5.472239825200703,
+            "peak_with_conservative_ripple_A": 5.567670345980619,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.03321385172016722,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.816024365638506,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        },
+        {
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "quantization_and_noise": true,
+            "stopped": false,
+            "peak_average_current_A": 5.522237037598492,
+            "peak_with_conservative_ripple_A": 5.6176675583784075,
+            "ripple_bound_A": 0.0954305207799158,
+            "plateau_current_error_A": 0.07979069129937422,
+            "existing_tracking_allowance_A": 0.17750000000000002,
+            "peak_voltage_V": 4.861124702792093,
+            "passed": true,
+            "numerical_difference_A": 0.0,
+            "numerical_pass": true,
+            "refined_passed": true
+        }
+    ],
+    "hardware_qualified": false,
+    "passed": true,
+    "limitations": [
+        "Exact matrix exponentials advance an averaged linear RL plant and approximate amplifier/RC/ADC filter cascade. The existing PI regulator uses a candidate integral-gain scale, nominal R*i+L*di/dt feedforward and a reference passed through the nominal sensor filter; its flight default is unchanged.",
+        "Paired samples, serial-frame completion, provisional computation time, PWM latching and driver propagation delay are explicit. No processor or timer implementation is qualified.",
+        "Physical PWM commutation, dead-time distortion, capacitor return currents, changing-current readout distortion, back-EMF and shared bus behavior are not yet coupled in these trajectories.",
+        "Resistance and filter factors are exploratory sensitivities, not guaranteed component bounds. Coil inductance uses the existing geometry-uncertainty interval.",
+        "The stochastic check injects the existing complete per-update noise budget and a positive residual-offset bound; it does not establish the component noise budget or exhaustive stochastic robustness.",
+        "Carrier ripple uses the shared all-duty bound with each trial inductance, high bus voltage and cold coil resistance without credit for extra driver resistance. It is not a resolved switching waveform."
+    ]
+}

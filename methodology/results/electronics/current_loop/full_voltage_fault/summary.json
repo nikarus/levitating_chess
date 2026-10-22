@@ -1,0 +1,30 @@
+{
+    "status": "instant_detection_full_bus_command_fault_bound",
+    "initial_current_A": 5.5,
+    "bus_voltage_V": 25.200000000000003,
+    "inductance_H": 2.578766605211726e-05,
+    "resistance_ohm": 0.5867029988602237,
+    "allowed_peak_current_A": 6.5,
+    "driver_disable_delay_bound_s": 2e-06,
+    "time_to_operating_peak_s": 1.189552553897894e-06,
+    "current_at_maximum_disable_delay_A": 7.165967993146223,
+    "latest_ideal_trip_current_for_peak_limit_A": 4.803028711705885,
+    "meets_operating_peak_limit": false,
+    "source": "https://www.ti.com/lit/ds/symlink/drv8962.pdf",
+    "limitations": [
+        "An erroneous full-bus PWM command starts at the normal regulated current. Detection is instantaneous and EN is lowered immediately, but output disable may take its specified maximum. This is a command fault with an otherwise functional driver, not a physically shorted transistor.",
+        "Uses the existing minimum screened inductance, nominal cold path resistance, and maximum operating bus; no sensor, comparator, logic or wiring delay is charged. Extra delay or lower resistance worsens this bound.",
+        "This checks whether the existing operating peak can also be guaranteed during this fault. It does not predict that the device will always use its maximum delay, establish damage at the computed current, or qualify a separate transient fault-current allowance.",
+        "The native sheet disables internal current regulation. This screen does not include a redesigned independent current limiter or faster isolation stage; the missing-pulse watchdog covers a different fault."
+    ],
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/protection.py": "0dc1b2215dce3197d85b934b2317f6b7d2f221334d030172716909174b0106ca",
+        "model.py": "461480583d3fb8c067b8dd8697a2b44bc745cb419ac70b30f3abe50a1181e374",
+        "methodology/qualification.py": "7d1232db4b9045a1ac7d244ffb71468b64d636953203c81daee2f92627a33f54",
+        "methodology/electronics/current_loop.py": "c65490723601c968a5de9f7036eaa20b8e57e386502573e004254c1d7a8d3b3b",
+        "methodology/electronics/power_stage.py": "7d4ce36e0a4c72b6dce2f0257a11120a7aae559826caa9a26c9c2dbf6c425534",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe"
+    }
+}

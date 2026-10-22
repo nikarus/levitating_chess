@@ -1,0 +1,52 @@
+{
+    "status": "candidate_current_acquisition_component_noise_budget",
+    "current_noise_budget_rms_A": 0.001,
+    "amplifier_typical_white_noise_rms_A": 0.0005616269404708785,
+    "paired_sample_ENBW_Hz": 4928.512816604372,
+    "amplifier_pair_correlation": 0.9919562031552207,
+    "amplifier_regulator_period_correlation": 0.38319136612953725,
+    "converter_samples_averaging_credit": false,
+    "scenarios": [
+        {
+            "specification": "typical",
+            "SNR_dB": 90.5,
+            "converter_input_noise_rms_A": 0.0005102838431267963,
+            "combined_noise_rms_A": 0.0007588243675706076,
+            "within_existing_budget": true,
+            "remaining_independent_noise_rms_A": 0.0006512953087356513
+        },
+        {
+            "specification": "minimum_specified_SNR",
+            "SNR_dB": 88.0,
+            "converter_input_noise_rms_A": 0.0006804744412962504,
+            "combined_noise_rms_A": 0.0008823096313200508,
+            "within_existing_budget": true,
+            "remaining_independent_noise_rms_A": 0.0004706694322769177
+        }
+    ],
+    "hardware_qualified": false,
+    "sources": [
+        "https://www.ti.com/lit/ds/symlink/ina181.pdf",
+        "https://www.ti.com/lit/ds/symlink/ads8698.pdf"
+    ],
+    "limitations": [
+        "Amplifier spot noise is typical and treated as white through the same approximate amplifier/RC/ADC poles used by regulation. Flicker and maximum amplifier noise remain unbounded.",
+        "Stationary covariance includes correlation between paired samples. No independent-sample averaging benefit is assumed for the converter.",
+        "Converter noise is inferred from the selected range SNR at its stated sine amplitude. Its quantization and internal-reference contributions are already included; do not add them twice.",
+        "This is an allocation screen, not a stochastic switched-circuit simulation. The minimum-SNR case still uses typical amplifier noise and filter bandwidth.",
+        "External bias-reference, shunt/filter thermal noise, supply coupling, interference and clock jitter must fit the reported remaining allowance. Deterministic gain, offset and switching distortion require a separate accuracy budget."
+    ],
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/acquisition.py": "85dc1ebeb49263ca4cafc1294b55306431fbe3f64d443ac99f8b5ea6b31002b9",
+        "model.py": "2d964daf2be6fdc568f93175a09830cd5f9bc5ef9f43468e116328ff51e440bc",
+        "methodology/electronics/readout.py": "8a81ad47b637364d01284c24fdd84d330b4270e20cd7fd2e0d4ab52e0d0f04e8",
+        "methodology/electrical.py": "23b46a33113f8059459a005b5ff9f301c8daefd9839a54b160f935fe48e1ad27",
+        "methodology/electronics/power_stage.py": "5fa392cff0fbf00704978dc3ebc99ecac6eebb07d76eb5d7cba0ef937ed12e41",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/qualification.py": "7d1232db4b9045a1ac7d244ffb71468b64d636953203c81daee2f92627a33f54",
+        "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757"
+    },
+    "recorded_input_sha256": {}
+}

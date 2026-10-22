@@ -1,0 +1,147 @@
+{
+    "status": "analytical_low_side_architecture_screen_not_hardware_qualification",
+    "candidate": "INA181A1IDBVR",
+    "vendor_model_verification_complete": false,
+    "current_readout_schematic_changed": false,
+    "bus_low_V": 22.799999999999997,
+    "command_limit_V": 18.0,
+    "shunt_ohm": 0.01,
+    "peak_shunt_drop_V": 0.065,
+    "recommended_driver_shunt_drop_limit_V": 0.3,
+    "signal_scale_V_per_A": 0.2,
+    "assumed_single_pole_time_to_existing_gain_fraction_s": 2.4092954255878673e-06,
+    "two_leg_total_shunt_loss_at_constant_peak_A_W": 0.4225,
+    "cost_one_amplifier_per_coil": {
+        "area_equivalent_channels": 5680.473372781065,
+        "production_boards": 100,
+        "area_equivalent_production_amplifiers": 568047.3372781065,
+        "amplifier_all_powered_quiescent_upper_W": 8.520710059171599,
+        "signal_scale_V_per_A": 0.2,
+        "price_observation_date": "2026-10-20",
+        "price_scenarios": [
+            {
+                "description": "TI INA181A1IDBVR LCSC C2058943",
+                "catalog_quantity": 1000,
+                "unit_USD": 0.2538,
+                "amplifier_only_USD_per_board": 1441.7041420118346,
+                "source": "https://www.lcsc.com/product-detail/C2058943.html"
+            }
+        ],
+        "limitations": [
+            "Area times existing independent-channel density, not a finalized edge count or module BOM.",
+            "Catalogue prices are extrapolated at their published tiers; no production-volume quotation or guaranteed discount exists.",
+            "Only amplifier IC cost is included; shunts, ADC/reference, bridge, control, assembly and cooling are additional.",
+            "One amplifier per coil is a normalization only; a low-side architecture may need additional sensing channels and shunts.",
+            "All-powered quiescent ceiling excludes shunts and dynamic losses; selective power gating and wake-up behaviour are not designed."
+        ]
+    },
+    "amplifier_only_cost_options": [
+        {
+            "amplifiers_per_coil": 1,
+            "shunts_per_coil": 1,
+            "unit_price_USD": 0.2538,
+            "area_equivalent_production_amplifiers": 568047.3372781065,
+            "amplifier_only_USD_per_board": 1441.7041420118346,
+            "all_powered_amplifier_quiescent_upper_W": 8.520710059171599
+        },
+        {
+            "amplifiers_per_coil": 2,
+            "shunts_per_coil": 2,
+            "unit_price_USD": 0.2538,
+            "area_equivalent_production_amplifiers": 1136094.674556213,
+            "amplifier_only_USD_per_board": 2883.4082840236692,
+            "all_powered_amplifier_quiescent_upper_W": 17.041420118343197
+        }
+    ],
+    "samples": [
+        {
+            "command_V": -18.0,
+            "leg": 0,
+            "high_duty": 0.10526315789473678,
+            "ideal_low_interval_s": 5.592105263157896e-06,
+            "settled_input_to_sample_s": 5.092105263157896e-06,
+            "sample_phase_s": 2.696052631578948e-06,
+            "assumed_single_pole_full_step_residue_fraction": 1.369986827376682e-05,
+            "assumed_single_pole_full_step_residue_at_peak_A": 8.904914377948432e-05
+        },
+        {
+            "command_V": -18.0,
+            "leg": 1,
+            "high_duty": 0.8947368421052633,
+            "ideal_low_interval_s": 6.578947368421045e-07,
+            "settled_input_to_sample_s": 1.5789473684210456e-07,
+            "sample_phase_s": 2.2894736842105227e-07,
+            "assumed_single_pole_full_step_residue_fraction": 0.7066437274176139,
+            "assumed_single_pole_full_step_residue_at_peak_A": 4.593184228214491
+        },
+        {
+            "command_V": 0.0,
+            "leg": 0,
+            "high_duty": 0.5,
+            "ideal_low_interval_s": 3.125e-06,
+            "settled_input_to_sample_s": 2.6250000000000003e-06,
+            "sample_phase_s": 1.4625e-06,
+            "assumed_single_pole_full_step_residue_fraction": 0.0031114186446225644,
+            "assumed_single_pole_full_step_residue_at_peak_A": 0.02022422119004667
+        },
+        {
+            "command_V": 0.0,
+            "leg": 1,
+            "high_duty": 0.5,
+            "ideal_low_interval_s": 3.125e-06,
+            "settled_input_to_sample_s": 2.6250000000000003e-06,
+            "sample_phase_s": 1.4625e-06,
+            "assumed_single_pole_full_step_residue_fraction": 0.0031114186446225644,
+            "assumed_single_pole_full_step_residue_at_peak_A": 0.02022422119004667
+        },
+        {
+            "command_V": 18.0,
+            "leg": 0,
+            "high_duty": 0.8947368421052633,
+            "ideal_low_interval_s": 6.578947368421045e-07,
+            "settled_input_to_sample_s": 1.5789473684210456e-07,
+            "sample_phase_s": 2.2894736842105227e-07,
+            "assumed_single_pole_full_step_residue_fraction": 0.7066437274176139,
+            "assumed_single_pole_full_step_residue_at_peak_A": 4.593184228214491
+        },
+        {
+            "command_V": 18.0,
+            "leg": 1,
+            "high_duty": 0.10526315789473678,
+            "ideal_low_interval_s": 5.592105263157896e-06,
+            "settled_input_to_sample_s": 5.092105263157896e-06,
+            "sample_phase_s": 2.696052631578948e-06,
+            "assumed_single_pole_full_step_residue_fraction": 1.369986827376682e-05,
+            "assumed_single_pole_full_step_residue_at_peak_A": 8.904914377948432e-05
+        }
+    ],
+    "datasheets": {
+        "INA241A1": "https://www.ti.com/lit/ds/symlink/ina241a.pdf",
+        "AD8410A": "https://www.analog.com/media/en/technical-documentation/data-sheets/ad8410a.pdf",
+        "MAX49925": "https://www.analog.com/media/en/technical-documentation/data-sheets/max49925.pdf",
+        "TPA132A1": "https://static.3peak.com/res/doc/ds/Datasheet_TPA132.pdf",
+        "INA181A1": "https://www.ti.com/lit/ds/symlink/ina181.pdf"
+    },
+    "driver_datasheet": "https://www.ti.com/lit/ds/symlink/drv8962.pdf",
+    "limitations": [
+        "Two separate PGND shunts support selection of the longer conducting leg; one shared return shunt cancels recirculation current when both low sides conduct.",
+        "One fixed leg must tolerate both extreme duties; two legs still have only a half-cycle low-side interval at zero voltage command.",
+        "Single-pole settling based on typical bandwidth is only a screening heuristic. Slew limiting, overshoot, model/part variation, noise and actual switching paths are not represented. It neither qualifies nor conclusively rejects the component.",
+        "Dead time is a typical datasheet value, with provisional edge and sampling guards. Body-diode conduction can alter the measured pulse. Actual limits, ADC aperture and jitter require verification.",
+        "The existing gain-error allowance is compared with settling alone. Calibration, gain/offset drift, shunt tolerance, ADC/reference, filtering and timing also need budgets; limits are unchanged.",
+        "Two-shunt loss assumes ideal complementary leg duties and constant coil current. The summed low-side duty is one; it is not two continuously conducting shunts. Ripple, dead time, temperature and workload change losses.",
+        "Amplifier prices are published catalogue tiers, not production quotations or a complete BOM. Neither acquisition architecture is adopted.",
+        "Duty-dependent sampling does not implement simultaneous current feedback or establish ripple reconstruction and Hall-subtraction timing."
+    ],
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/readout.py": "79313f399605d191291ae0a550f6117e1dd14e91901cd52acccd3ab3fa1ca273",
+        "model.py": "8f0e25d3d1d09513be133e21286073772013abf704ef6252c32eaa8ba94f28b5",
+        "methodology/electrical.py": "23b46a33113f8059459a005b5ff9f301c8daefd9839a54b160f935fe48e1ad27",
+        "methodology/electronics/power_stage.py": "3fa14f2d6756047b5ffbf409ddd4af4920d80acc2d19e70e7ec2584c84ac3173",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757"
+    }
+}

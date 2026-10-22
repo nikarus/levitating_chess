@@ -1,0 +1,312 @@
+{
+    "status": "draft_protection_incomplete_no_manufacturing_release",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/review.py": "8a68089f536d004397a936574002a07c4ae2fdf03bf87eb5dd0a7513a85c8d00",
+        "model.py": "461480583d3fb8c067b8dd8697a2b44bc745cb419ac70b30f3abe50a1181e374",
+        "methodology/electronics/protection.kicad_sch": "6bd03f3bcd53b4580380d331007fbd357f8c5fe98e5b0fea42ed9469a149c752",
+        "methodology/electronics/FlyingChess.kicad_sym": "a0a97fc17b748d0e8462c4f7ff5dd360f51aeefaded3559deda6c9e85cc8386c",
+        "methodology/electronics/protection.kicad_pro": "684afdbcc17a88f37f6ac9df5cfb63e3a5fd3e50d4aa00d257fb772033484cc8",
+        "methodology/electronics/fp-lib-table": "6195c37332f0e5242b7dd8a4afc65f1aa11b7213ab2a1d4f36bfeb6b0ca67341",
+        "methodology/electronics/sym-lib-table": "2db6c0fa38644121ac63a2579f7f1cce3d5fd7ea8eb38c9e7ac16a9cabf26425",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe"
+    },
+    "footprint_sha256": {
+        "Capacitor_SMD.pretty/C_0402_1005Metric.kicad_mod": "88232454c8ab84afbcda21beeeccc8a2b0b745b15c0515a83e3d56ff9be2d412",
+        "Package_SO.pretty/VSSOP-8_2.3x2mm_P0.5mm.kicad_mod": "448325b2c778e96e8447a433c1d39c5ab00de010889220c928ab355e1fd318eb",
+        "Package_TO_SOT_SMD.pretty/SOT-23-6.kicad_mod": "84743605d3330f6c4825d699837b02d3db0b862006bc4e2d57ee55f55eec54a0",
+        "Package_TO_SOT_SMD.pretty/TSOT-23-6.kicad_mod": "a61152835f7573bdbcd4321367edd2022ae167c800152b42fcaed4f2d98b1b7e",
+        "Resistor_SMD.pretty/R_0402_1005Metric.kicad_mod": "3d0936db48c6ab489699460947c0404419ffeb7b715a627460c54e101212ce02"
+    },
+    "component_count": 29,
+    "coil_channel_count": 8,
+    "components": [
+        {
+            "reference": "C70",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C71",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C72",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C73",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C74",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C75",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C76",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "R40",
+            "mpn": "RC0402FR-0751K1L",
+            "value": "51100.0",
+            "model_parameter": "electronics_watchdog_set_resistance",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0402_1005Metric",
+            "courtyard_area_mm2": 1.7205
+        },
+        {
+            "reference": "R41",
+            "mpn": "RC0402FR-07976KL",
+            "value": "976000.0",
+            "model_parameter": "electronics_watchdog_divider_top",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0402_1005Metric",
+            "courtyard_area_mm2": 1.7205
+        },
+        {
+            "reference": "R42",
+            "mpn": "RC0402FR-07102KL",
+            "value": "102000.0",
+            "model_parameter": "electronics_watchdog_divider_bottom",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0402_1005Metric",
+            "courtyard_area_mm2": 1.7205
+        },
+        {
+            "reference": "R43",
+            "mpn": "RC0402FR-0710KL",
+            "value": "10000.0",
+            "model_parameter": "electronics_logic_pull_resistance",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0402_1005Metric",
+            "courtyard_area_mm2": 1.7205
+        },
+        {
+            "reference": "R44",
+            "mpn": "RC0402FR-0710KL",
+            "value": "10000.0",
+            "model_parameter": "electronics_logic_pull_resistance",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0402_1005Metric",
+            "courtyard_area_mm2": 1.7205
+        },
+        {
+            "reference": "R45",
+            "mpn": "RC0402FR-0710KL",
+            "value": "10000.0",
+            "model_parameter": "electronics_logic_pull_resistance",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0402_1005Metric",
+            "courtyard_area_mm2": 1.7205
+        },
+        {
+            "reference": "R46",
+            "mpn": "RC0402FR-0710KL",
+            "value": "10000.0",
+            "model_parameter": "electronics_logic_pull_resistance",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0402_1005Metric",
+            "courtyard_area_mm2": 1.7205
+        },
+        {
+            "reference": "R47",
+            "mpn": "RC0402FR-0710KL",
+            "value": "10000.0",
+            "model_parameter": "electronics_logic_pull_resistance",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0402_1005Metric",
+            "courtyard_area_mm2": 1.7205
+        },
+        {
+            "reference": "R48",
+            "mpn": "RC0402FR-0710KL",
+            "value": "10000.0",
+            "model_parameter": "electronics_logic_pull_resistance",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0402_1005Metric",
+            "courtyard_area_mm2": 1.7205
+        },
+        {
+            "reference": "R49",
+            "mpn": "RC0402FR-0710KL",
+            "value": "10000.0",
+            "model_parameter": "electronics_logic_pull_resistance",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0402_1005Metric",
+            "courtyard_area_mm2": 1.7205
+        },
+        {
+            "reference": "R50",
+            "mpn": "RC0402FR-0710KL",
+            "value": "10000.0",
+            "model_parameter": "electronics_logic_pull_resistance",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0402_1005Metric",
+            "courtyard_area_mm2": 1.7205
+        },
+        {
+            "reference": "R51",
+            "mpn": "RC0402FR-0710KL",
+            "value": "10000.0",
+            "model_parameter": "electronics_logic_pull_resistance",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0402_1005Metric",
+            "courtyard_area_mm2": 1.7205
+        },
+        {
+            "reference": "R52",
+            "mpn": "RC0402FR-0710KL",
+            "value": "10000.0",
+            "model_parameter": "electronics_logic_pull_resistance",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0402_1005Metric",
+            "courtyard_area_mm2": 1.7205
+        },
+        {
+            "reference": "R53",
+            "mpn": "RC0402FR-0710KL",
+            "value": "10000.0",
+            "model_parameter": "electronics_logic_pull_resistance",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0402_1005Metric",
+            "courtyard_area_mm2": 1.7205
+        },
+        {
+            "reference": "R54",
+            "mpn": "RC0402FR-0710KL",
+            "value": "10000.0",
+            "model_parameter": "electronics_logic_pull_resistance",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0402_1005Metric",
+            "courtyard_area_mm2": 1.7205
+        },
+        {
+            "reference": "U30",
+            "mpn": "LTC6993IS6-2#TRMPBF",
+            "value": "LTC6993xS6-2",
+            "model_parameter": null,
+            "model_divisor": 1.0,
+            "footprint": "Package_TO_SOT_SMD:TSOT-23-6",
+            "courtyard_area_mm2": 13.0651
+        },
+        {
+            "reference": "U31",
+            "mpn": "SN74LVC1G11DBVR",
+            "value": "74LVC1G11",
+            "model_parameter": null,
+            "model_divisor": 1.0,
+            "footprint": "Package_TO_SOT_SMD:SOT-23-6",
+            "courtyard_area_mm2": 13.0651
+        },
+        {
+            "reference": "U32",
+            "mpn": "SN74LVC1G74DCUR",
+            "value": "SN74LVC1G74",
+            "model_parameter": null,
+            "model_divisor": 1.0,
+            "footprint": "Package_SO:VSSOP-8_2.3x2mm_P0.5mm",
+            "courtyard_area_mm2": 11.0831
+        },
+        {
+            "reference": "U33",
+            "mpn": "SN74LVC2G08DCUR",
+            "value": "74LVC2G08",
+            "model_parameter": null,
+            "model_divisor": 1.0,
+            "footprint": "Package_SO:VSSOP-8_2.3x2mm_P0.5mm",
+            "courtyard_area_mm2": 11.0831
+        },
+        {
+            "reference": "U34",
+            "mpn": "SN74LVC2G08DCUR",
+            "value": "74LVC2G08",
+            "model_parameter": null,
+            "model_divisor": 1.0,
+            "footprint": "Package_SO:VSSOP-8_2.3x2mm_P0.5mm",
+            "courtyard_area_mm2": 11.0831
+        },
+        {
+            "reference": "U35",
+            "mpn": "SN74LVC2G08DCUR",
+            "value": "74LVC2G08",
+            "model_parameter": null,
+            "model_divisor": 1.0,
+            "footprint": "Package_SO:VSSOP-8_2.3x2mm_P0.5mm",
+            "courtyard_area_mm2": 11.0831
+        },
+        {
+            "reference": "U36",
+            "mpn": "SN74LVC2G08DCUR",
+            "value": "74LVC2G08",
+            "model_parameter": null,
+            "model_divisor": 1.0,
+            "footprint": "Package_SO:VSSOP-8_2.3x2mm_P0.5mm",
+            "courtyard_area_mm2": 11.0831
+        }
+    ],
+    "connectivity": {
+        "passed": true,
+        "checked_pins": 95,
+        "scope": "Independent watchdog, asynchronous fault latch and separately gated coil enables; electrical timing, power supervision and arbitrary overcurrent protection remain unqualified"
+    },
+    "placement_bound": {
+        "courtyard_sum_mm2": 118.88289999999999,
+        "courtyard_per_channel_mm2": 14.860362499999999,
+        "coil_pitch_area_mm2": 60.839999999999996,
+        "double_sided_area_per_coil_mm2": 121.67999999999999,
+        "minimum_area_ratio_to_double_sided": 0.12212658201840894,
+        "fits_even_before_routing": true
+    },
+    "erc": {
+        "errors": 35,
+        "warnings": 0,
+        "passed": false
+    },
+    "complete_hardware_baseline": false,
+    "limitations": [
+        "Native independent missing-pulse watchdog, asynchronous fault latch and per-coil enable gates; no autonomous current-limit comparator or complete supply supervisor is included.",
+        "POWER_FAULT_N is externally driven by the unfinished rail-supervision circuit. Its pulldown keeps the group disabled until that circuit reports healthy power.",
+        "Watchdog pulses must follow successfully validated sequential control commits. Hardware does not decode channel numbers or detect arbitrary corrupted PWM values.",
+        "All propagation bounds depend on rail, temperature, load and input-edge conditions. Driver EN delay uses its specified maximum; timer output/trigger and complete shutdown timing remain unqualified.",
+        "Cold startup, pad-level logic, independent rail supervision, layout and thermal coupling remain to be verified. No power flags or ERC exclusions hide missing interfaces."
+    ]
+}

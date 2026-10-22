@@ -1,0 +1,27 @@
+import json
+import sys
+from pathlib import Path
+from uuid import uuid4
+import FreeCAD as App
+import FreeCADGui as Gui
+sys.path.insert(0, '/home/arseniy/.codex/worktrees/coil-channel-study/flying_chess/methodology/cad')
+import freecad_view
+output = Path('/home/arseniy/.codex/worktrees/coil-channel-study/flying_chess/methodology/results/cad/electronics')
+for document in list(App.listDocuments().values()):
+    document.saveCopy(str(Path('/tmp') / (document.Name + '_before_electronics_' + uuid4().hex + '.FCStd')))
+    App.closeDocument(document.Name)
+report = json.loads((output / 'geometry.json').read_text())
+result = freecad_view.create_document(output, 'driver_assembly', 'driver_assembly.step',
+    report['parts'], report['preview'])
+if result['imported_solids'] != report['export']['solids']:
+    raise ValueError('Electronics STEP import changed the solid count')
+document = App.activeDocument()
+for obj in document.Objects:
+    if 'GeometryStatus' in obj.PropertiesList:
+        obj.GeometryStatus = 'Exploded review only; package and winding models remain unqualified'
+        if 'CLEARANCE_ENVELOPE' in obj.Label:
+            obj.GeometryStatus = 'Provisional DDV package clearance envelope; not detailed vendor CAD'
+        if 'LIBRARY_PACKAGE' in obj.Label:
+            obj.GeometryStatus = 'Generic KiCad package model; exact MPN mechanical qualification pending'
+document.save()
+(output / 'freecad_validation.json').write_text(json.dumps(result, indent=4) + '\n')

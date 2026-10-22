@@ -1,0 +1,349 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-10-21T17:34:01+0200",
+    "included_severities": [
+        "error",
+        "warning"
+    ],
+    "kicad_version": "9.0.8",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/4373a996-d7fa-5b31-9b5c-3139399fcd96",
+            "violations": [
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'CURRENT_0'",
+                            "pos": {
+                                "x": 0.5842,
+                                "y": 0.6858
+                            },
+                            "uuid": "9db63dcf-be3a-51ed-bde5-766e57ef425f"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U10 Pin 16 [AIN_0P, Input, Line]",
+                            "pos": {
+                                "x": 0.635,
+                                "y": 0.6858
+                            },
+                            "uuid": "001e91a2-de2f-4f21-b654-eba6ceff510e"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U10 Pin 9 [AVDD, Power input, Line]",
+                            "pos": {
+                                "x": 0.7366,
+                                "y": 0.5842
+                            },
+                            "uuid": "35894d45-34c2-48fb-9607-216f3d868db9"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U10 Pin 18 [AIN_1P, Input, Line]",
+                            "pos": {
+                                "x": 0.635,
+                                "y": 0.7366
+                            },
+                            "uuid": "d0aa3b97-b308-481d-a3e8-3beebe234f10"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U10 Pin 34 [DVDD, Power input, Line]",
+                            "pos": {
+                                "x": 0.7874,
+                                "y": 0.5842
+                            },
+                            "uuid": "42deceff-2f7f-4cbd-a789-f55e5d42fbe1"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U10 Pin 21 [AIN_2P, Input, Line]",
+                            "pos": {
+                                "x": 0.635,
+                                "y": 0.7874
+                            },
+                            "uuid": "a06f7c87-91e7-486b-8945-973bd0322149"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'CURRENT_3'",
+                            "pos": {
+                                "x": 0.5842,
+                                "y": 0.8382
+                            },
+                            "uuid": "e49f4fb8-24f3-5942-812e-e3082102cfc0"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U10 Pin 23 [AIN_3P, Input, Line]",
+                            "pos": {
+                                "x": 0.635,
+                                "y": 0.8382
+                            },
+                            "uuid": "44932702-41a5-4fab-9cf5-bddb39f042b4"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'CURRENT_4'",
+                            "pos": {
+                                "x": 0.5842,
+                                "y": 0.889
+                            },
+                            "uuid": "56627186-6039-59a0-862b-6cd4e7c09da9"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U10 Pin 25 [AIN_4P, Input, Line]",
+                            "pos": {
+                                "x": 0.635,
+                                "y": 0.889
+                            },
+                            "uuid": "066bd65e-92a6-4c5e-9b03-86dac9930c03"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'CURRENT_5'",
+                            "pos": {
+                                "x": 0.5842,
+                                "y": 0.9398
+                            },
+                            "uuid": "d829bda2-ad19-5a15-b24d-c9c1825335d7"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U10 Pin 27 [AIN_5P, Input, Line]",
+                            "pos": {
+                                "x": 0.635,
+                                "y": 0.9398
+                            },
+                            "uuid": "09a4365d-046a-468a-b9d4-ce74ac2beb80"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U10 Pin 1 [SDI, Input, Line]",
+                            "pos": {
+                                "x": 0.889,
+                                "y": 0.7112
+                            },
+                            "uuid": "3ff7e304-8afd-4294-a0cb-483cc47aa5a7"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'CURRENT_6'",
+                            "pos": {
+                                "x": 0.5842,
+                                "y": 0.9906
+                            },
+                            "uuid": "137243fb-43c9-5370-9cba-71754d5809ea"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U10 Pin 37 [SCLK, Input, Line]",
+                            "pos": {
+                                "x": 0.889,
+                                "y": 0.7366
+                            },
+                            "uuid": "0951a097-0f27-4933-a951-30a2e5120d29"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'ADC_SDO'",
+                            "pos": {
+                                "x": 0.9398,
+                                "y": 0.6858
+                            },
+                            "uuid": "e26181a6-c675-56ad-a48e-b43fdfc3b506"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U10 Pin 12 [AIN_6P, Input, Line]",
+                            "pos": {
+                                "x": 0.635,
+                                "y": 0.9906
+                            },
+                            "uuid": "fa1060a5-42d6-4384-a02a-6f4f12d2cd47"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'ADC_SDI'",
+                            "pos": {
+                                "x": 0.9398,
+                                "y": 0.7112
+                            },
+                            "uuid": "5479aa4f-0157-5d21-8c2c-de0a0339d943"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'CURRENT_7'",
+                            "pos": {
+                                "x": 0.5842,
+                                "y": 1.0414
+                            },
+                            "uuid": "5de1d403-8e04-5548-930e-ac99d381d14c"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U10 Pin 14 [AIN_7P, Input, Line]",
+                            "pos": {
+                                "x": 0.635,
+                                "y": 1.0414
+                            },
+                            "uuid": "ad62c352-a755-433b-b098-ea69ae58e5d1"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'ADC_ALARM'",
+                            "pos": {
+                                "x": 0.9398,
+                                "y": 0.9652
+                            },
+                            "uuid": "087b3279-15fa-5382-8180-39e9006794a1"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U10 Pin 6 [REFGND, Power input, Line]",
+                            "pos": {
+                                "x": 0.889,
+                                "y": 1.143
+                            },
+                            "uuid": "cfb12baa-b943-4a81-8e89-185a908406e5"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                }
+            ]
+        }
+    ],
+    "source": "acquisition.kicad_sch"
+}

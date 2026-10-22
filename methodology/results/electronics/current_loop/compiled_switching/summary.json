@@ -1,0 +1,186 @@
+{
+    "status": "resolved_switching_bridge_with_sampled_regulator_and_reduced_readout",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/switching_loop.py": "224ec422c6b664694f785d0bfa6ee112206ab23a52102be3200261ee0eb7774d",
+        "model.py": "3d1527cf04cc3ad5d02410cf63a75cb39c02a47b8ab83a6f82cdaef78cae38e6",
+        "methodology/qualification.py": "7d1232db4b9045a1ac7d244ffb71468b64d636953203c81daee2f92627a33f54",
+        "methodology/electronics/acquisition.py": "a7f5135146e1b655480a25abaef4ffbad95ea29f95ecdde889c34b6662b3a7db",
+        "methodology/electronics/logic.py": "a82a11375890637fdabf909a3dbf64fb3d4753e264b3449fe3fc221d6404e99f",
+        "methodology/electronics/current_loop.py": "c65490723601c968a5de9f7036eaa20b8e57e386502573e004254c1d7a8d3b3b",
+        "methodology/electronics/power_stage.py": "7d4ce36e0a4c72b6dce2f0257a11120a7aae559826caa9a26c9c2dbf6c425534",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/electronics/firmware.py": "b86b834e9a03c1f3adc5cd3bef0781ecea6d54691740e370f062c0e162caead9",
+        "methodology/electronics/regulator.c": "9e3d07beb12ffc4e75185d7d359cc0c065208e85543d725eaad56e1fa84aed2b",
+        "methodology/results/electronics/current_loop/compiled_regulator/regulator.so": "57d00cb257869d86c868a2bb92203f3168d77e1578e279dda7cc4679039921b4",
+        "methodology/results/electronics/current_loop/compiled_regulator/build.json": "686dd8b06f2539380cfe7f3d2da919042e3e2d9118b4baae71ab0894f8850d82",
+        "methodology/results/electronics/current_loop/compiled_regulator/regulator_settings.h": "3ea1e1d2e1bbf47685cb8cb110c315b7c57382e4917f2c375c2af9dd896b0610"
+    },
+    "trials": [
+        {
+            "refinement": 1,
+            "stopped": false,
+            "completed_time_s": 0.001,
+            "commanded_current_A": -5.5,
+            "bridge_enabled": true,
+            "settled_period_means_A": [],
+            "plateau_error_A": null,
+            "plateau_tracking_pass": null,
+            "final_mean_tracking_allowance_A": 0.17750000000000002,
+            "final_mean_tracking_pass": true,
+            "peak_current_A": 5.682752763094343,
+            "final_regulator_period_mean_A": -5.496043907261281,
+            "initial_mean_A": 5.385060023367785,
+            "initial_plant_path": "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_3_refinement_1/plant.npz",
+            "initial_plant_sha256": "25de53c2a420601c3b2c7eb34a037d44a3f5cb465110fbc80b033ef1926bf1de",
+            "controller_samples": 20,
+            "native_points": 314013
+        },
+        {
+            "refinement": 2,
+            "stopped": false,
+            "completed_time_s": 0.001,
+            "commanded_current_A": -5.5,
+            "bridge_enabled": true,
+            "settled_period_means_A": [],
+            "plateau_error_A": null,
+            "plateau_tracking_pass": null,
+            "final_mean_tracking_allowance_A": 0.17750000000000002,
+            "final_mean_tracking_pass": true,
+            "peak_current_A": 5.682752704314153,
+            "final_regulator_period_mean_A": -5.496043917510436,
+            "initial_mean_A": 5.385060023367785,
+            "initial_plant_path": "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_3_refinement_2/plant.npz",
+            "initial_plant_sha256": "0bb55aa46120c98cf4e56407763ca24ce1fc64461c1cb4668b039dacf897edc3",
+            "controller_samples": 20,
+            "native_points": 420030
+        }
+    ],
+    "peak_current_refinement_difference_A": 2.1054688925659093e-07,
+    "peak_linear_interpolation_current_difference_A": 0.00010173075642283536,
+    "peak_analog_sensor_refinement_difference_A": 1.7377585059819012e-06,
+    "peak_sampled_feedback_difference_A": 0.0,
+    "numerical_pass": true,
+    "current_comparison": "Both native time grids, cubic Hermite reconstruction using winding voltage/current slopes; linear interpolation retained as a diagnostic",
+    "lifecycle_scenario": null,
+    "single_precision_regulator_and_integer_PWM": true,
+    "compiled_reference_and_regulator": true,
+    "plateau_tracking_pass": null,
+    "final_mean_tracking_pass": true,
+    "hardware_qualified": false,
+    "limitations": [
+        "Physical bridge circuit and passive output filter are resolved with a stiff integrator and exact derivatives. The amplifier and ADC internal response remain reduced typical-bandwidth models.",
+        "Controller receives only quantized, filtered, delayed sensing with the existing noise budget; actual coil current is used only for plant integration and diagnostics.",
+        "Initial bridge comes from a verified powered periodic state. Electronic states use the corresponding periodic reduced-model response; the integral starts at its known holding command minus dead-time and nominal resistive feedforward. Enable tests begin after supplies and bias settle; they do not qualify cold power-on. Disabled gates turn off after the modeled propagation delay, with diode and capacitor paths retained.",
+        "Dead-time feedforward uses the smoothed requested current at actuation and typical timing/diode estimates; this is a prediction to avoid delayed-sign correction, not a true-current measurement. Reference feedforward supplies nominal R*i+L*di/dt; feedback compares the measured signal with the nominally filtered paired reference. Saturation and anti-windup remain inside the shared regulator.",
+        "Two-point load correction removes the known nominal resistor-divider gain and bias only. Manufacturer-model replay must verify the reduced readout during this reversal.",
+        "No amplifier input loading feedback, guaranteed timing/temperature bounds, shared supply dynamics, EMI, back-EMF, mutual coupling or fault lifecycle is qualified.",
+        "Reference states and PI arguments/results use single precision and both leg duties use integer PWM compares. This is not compiled firmware or a worst-case execution-time qualification."
+    ],
+    "controller_schedule": {
+        "status": "integer_clock_controller_schedule_not_firmware_WCET_qualification",
+        "clock_Hz": 128000000.0,
+        "carrier_ticks": 800,
+        "pwm_TOP": 399,
+        "serial_clock_ticks": 8,
+        "frame_guard_ticks": 3,
+        "frame_ticks": 323,
+        "conversion_minimum_ticks": 256,
+        "allocated_compute_ticks": 128,
+        "maximum_compute_ticks_before_next_job_or_latch": 800,
+        "compute_utilization": 0.16,
+        "channels": [
+            {
+                "channel": 0,
+                "sample_ticks": [
+                    0,
+                    400
+                ],
+                "result_ready_ticks": 723,
+                "compute_ready_ticks": 851,
+                "latch_ticks": 1600
+            },
+            {
+                "channel": 1,
+                "sample_ticks": [
+                    800,
+                    1200
+                ],
+                "result_ready_ticks": 1523,
+                "compute_ready_ticks": 1651,
+                "latch_ticks": 2400
+            },
+            {
+                "channel": 2,
+                "sample_ticks": [
+                    1600,
+                    2000
+                ],
+                "result_ready_ticks": 2323,
+                "compute_ready_ticks": 2451,
+                "latch_ticks": 3200
+            },
+            {
+                "channel": 3,
+                "sample_ticks": [
+                    2400,
+                    2800
+                ],
+                "result_ready_ticks": 3123,
+                "compute_ready_ticks": 3251,
+                "latch_ticks": 4000
+            },
+            {
+                "channel": 4,
+                "sample_ticks": [
+                    3200,
+                    3600
+                ],
+                "result_ready_ticks": 3923,
+                "compute_ready_ticks": 4051,
+                "latch_ticks": 4800
+            },
+            {
+                "channel": 5,
+                "sample_ticks": [
+                    4000,
+                    4400
+                ],
+                "result_ready_ticks": 4723,
+                "compute_ready_ticks": 4851,
+                "latch_ticks": 5600
+            },
+            {
+                "channel": 6,
+                "sample_ticks": [
+                    4800,
+                    5200
+                ],
+                "result_ready_ticks": 5523,
+                "compute_ready_ticks": 5651,
+                "latch_ticks": 6400
+            },
+            {
+                "channel": 7,
+                "sample_ticks": [
+                    5600,
+                    6000
+                ],
+                "result_ready_ticks": 6323,
+                "compute_ready_ticks": 6451,
+                "latch_ticks": 7200
+            }
+        ],
+        "preserves_screened_actuation_phase": true,
+        "hardware_qualified": false,
+        "source": "https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf",
+        "limitations": [
+            "RP2350-family clock and PWM candidate only; board-level clock tolerance, pin assignment, firmware and processor worst-case execution time are not qualified.",
+            "Phase-correct TOP and compare latches follow the datasheet; all PWM slices must be started synchronously. A carrier is assigned to each paired channel readout.",
+            "The SPI guard is rounded upward to whole system clocks. Conversion, transfer and compute precede the same carrier latch used by the analog control screen.",
+            "The allocated compute duration is a design assumption. The maximum cycle count is a scheduling deadline, not evidence that code meets it.",
+            "Shared command transport, fault handling, calibration and Hall sensing need separate timing/resource allocations."
+        ]
+    }
+}

@@ -1,0 +1,965 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>/home/arseniy/.codex/worktrees/coil-channel-study/flying_chess/methodology/electronics/channel.kicad_sch</source>
+    <date>2026-10-20T09:49:47+0200</date>
+    <tool>Eeschema 9.0.8+dfsg-1</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title>Draft repeated power/current-sense channel</title>
+        <company/>
+        <rev>draft</rev>
+        <date/>
+        <source>channel.kicad_sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="C1">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">C0603C104K5RACTU</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter">electronics_bootstrap_capacitance</field>
+        <field name="Footprint">Capacitor_SMD:C_0603_1608Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0603C104K5RACTU"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value="electronics_bootstrap_capacitance"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>2e5b660b-ae94-5eab-b93d-0dc1027f70c0</tstamps>
+    </comp>
+    <comp ref="C2">
+      <value>1e-06</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">C0805C105K5RACTU</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter">electronics_gate_bypass_capacitance</field>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0805C105K5RACTU"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value="electronics_gate_bypass_capacitance"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b7d72f98-40fa-59a6-a2f4-706d93acc89e</tstamps>
+    </comp>
+    <comp ref="C3">
+      <value>4.7e-06</value>
+      <footprint>Capacitor_SMD:C_1210_3225Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM32ER71H475KA88L</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter">electronics_channel_bus_capacitance</field>
+        <field name="Footprint">Capacitor_SMD:C_1210_3225Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM32ER71H475KA88L"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value="electronics_channel_bus_capacitance"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3848b849-0c01-5d45-9e96-a0127fe6d825</tstamps>
+    </comp>
+    <comp ref="C4">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">C0603C104K5RACTU</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter">electronics_bootstrap_capacitance</field>
+        <field name="Footprint">Capacitor_SMD:C_0603_1608Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0603C104K5RACTU"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value="electronics_bootstrap_capacitance"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>eeb0403a-f769-5f06-901c-f62d07ecceb5</tstamps>
+    </comp>
+    <comp ref="C5">
+      <value>1e-06</value>
+      <footprint>Capacitor_SMD:C_0805_2012Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">C0805C105K5RACTU</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter">electronics_gate_bypass_capacitance</field>
+        <field name="Footprint">Capacitor_SMD:C_0805_2012Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0805C105K5RACTU"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value="electronics_gate_bypass_capacitance"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>0bd68347-047d-5b63-b681-1244202d45ee</tstamps>
+    </comp>
+    <comp ref="C6">
+      <value>4.7e-06</value>
+      <footprint>Capacitor_SMD:C_1210_3225Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM32ER71H475KA88L</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter">electronics_channel_bus_capacitance</field>
+        <field name="Footprint">Capacitor_SMD:C_1210_3225Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM32ER71H475KA88L"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value="electronics_channel_bus_capacitance"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f775ccfd-990a-5f68-860d-699098e0b3d8</tstamps>
+    </comp>
+    <comp ref="C7">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">C0603C104K5RACTU</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter">electronics_analog_bypass_capacitance</field>
+        <field name="Footprint">Capacitor_SMD:C_0603_1608Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="C0603C104K5RACTU"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value="electronics_analog_bypass_capacitance"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>cfff5869-c069-5815-9271-2b0df4dba595</tstamps>
+    </comp>
+    <comp ref="D1">
+      <value>BAS21H</value>
+      <footprint>Diode_SMD:D_SOD-123F</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">BAS21H,115</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter"/>
+        <field name="Footprint">Diode_SMD:D_SOD-123F</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="D" description="Diode"/>
+      <property name="MPN" value="BAS21H,115"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="diode"/>
+      <property name="ki_fp_filters" value="TO-???* *_Diode_* *SingleDiode* D_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>292b88a7-9311-5fb7-9764-986800f847a4</tstamps>
+    </comp>
+    <comp ref="D2">
+      <value>BAS21H</value>
+      <footprint>Diode_SMD:D_SOD-123F</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">BAS21H,115</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter"/>
+        <field name="Footprint">Diode_SMD:D_SOD-123F</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="D" description="Diode"/>
+      <property name="MPN" value="BAS21H,115"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="diode"/>
+      <property name="ki_fp_filters" value="TO-???* *_Diode_* *SingleDiode* D_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>93b8d416-e201-5346-a20f-f3d6705bde07</tstamps>
+    </comp>
+    <comp ref="Q1">
+      <value>CSD18543Q3A</value>
+      <footprint>Package_SON:VSON-8_3.3x3.3mm_P0.65mm_NexFET</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/csd18543q3a.pdf</datasheet>
+      <fields>
+        <field name="MPN">CSD18543Q3A</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter"/>
+        <field name="Footprint">Package_SON:VSON-8_3.3x3.3mm_P0.65mm_NexFET</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/csd18543q3a.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Transistor_FET" part="CSD18543Q3A" description="35A Id, 60V Vds, NexFET N-Channel Power MOSFET, 8.1mOhm Ron, Qg Typ 11.1nC, VSON-8 3.3x3.3mm"/>
+      <property name="MPN" value="CSD18543Q3A"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="NexFET Power MOSFET N-MOS"/>
+      <property name="ki_fp_filters" value="VSON*3.3x3.3mm*P0.65mm*NexFET*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>51bacd98-d775-5479-8a1f-bf2400ebed87</tstamps>
+    </comp>
+    <comp ref="Q2">
+      <value>CSD18543Q3A</value>
+      <footprint>Package_SON:VSON-8_3.3x3.3mm_P0.65mm_NexFET</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/csd18543q3a.pdf</datasheet>
+      <fields>
+        <field name="MPN">CSD18543Q3A</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter"/>
+        <field name="Footprint">Package_SON:VSON-8_3.3x3.3mm_P0.65mm_NexFET</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/csd18543q3a.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Transistor_FET" part="CSD18543Q3A" description="35A Id, 60V Vds, NexFET N-Channel Power MOSFET, 8.1mOhm Ron, Qg Typ 11.1nC, VSON-8 3.3x3.3mm"/>
+      <property name="MPN" value="CSD18543Q3A"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="NexFET Power MOSFET N-MOS"/>
+      <property name="ki_fp_filters" value="VSON*3.3x3.3mm*P0.65mm*NexFET*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>4e74e07d-79be-5ad8-b083-3612656b738b</tstamps>
+    </comp>
+    <comp ref="Q3">
+      <value>CSD18543Q3A</value>
+      <footprint>Package_SON:VSON-8_3.3x3.3mm_P0.65mm_NexFET</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/csd18543q3a.pdf</datasheet>
+      <fields>
+        <field name="MPN">CSD18543Q3A</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter"/>
+        <field name="Footprint">Package_SON:VSON-8_3.3x3.3mm_P0.65mm_NexFET</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/csd18543q3a.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Transistor_FET" part="CSD18543Q3A" description="35A Id, 60V Vds, NexFET N-Channel Power MOSFET, 8.1mOhm Ron, Qg Typ 11.1nC, VSON-8 3.3x3.3mm"/>
+      <property name="MPN" value="CSD18543Q3A"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="NexFET Power MOSFET N-MOS"/>
+      <property name="ki_fp_filters" value="VSON*3.3x3.3mm*P0.65mm*NexFET*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b6106d49-f040-5c17-ab17-cbc5f17530e8</tstamps>
+    </comp>
+    <comp ref="Q4">
+      <value>CSD18543Q3A</value>
+      <footprint>Package_SON:VSON-8_3.3x3.3mm_P0.65mm_NexFET</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/csd18543q3a.pdf</datasheet>
+      <fields>
+        <field name="MPN">CSD18543Q3A</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter"/>
+        <field name="Footprint">Package_SON:VSON-8_3.3x3.3mm_P0.65mm_NexFET</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/csd18543q3a.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Transistor_FET" part="CSD18543Q3A" description="35A Id, 60V Vds, NexFET N-Channel Power MOSFET, 8.1mOhm Ron, Qg Typ 11.1nC, VSON-8 3.3x3.3mm"/>
+      <property name="MPN" value="CSD18543Q3A"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="NexFET Power MOSFET N-MOS"/>
+      <property name="ki_fp_filters" value="VSON*3.3x3.3mm*P0.65mm*NexFET*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b0d2890f-3638-57b2-816d-d8e612dce049</tstamps>
+    </comp>
+    <comp ref="R1">
+      <value>4.7</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0603FR-074R7L</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter">electronics_gate_resistance</field>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0603FR-074R7L"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value="electronics_gate_resistance"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>54f685ff-e8a6-51d5-b7a4-ff970594a151</tstamps>
+    </comp>
+    <comp ref="R2">
+      <value>4.7</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0603FR-074R7L</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter">electronics_gate_resistance</field>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0603FR-074R7L"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value="electronics_gate_resistance"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>5f99e00a-625e-5149-b647-59108f775c8f</tstamps>
+    </comp>
+    <comp ref="R3">
+      <value>4.7</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0603FR-074R7L</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter">electronics_gate_resistance</field>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0603FR-074R7L"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value="electronics_gate_resistance"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>4013e1b6-17c7-55da-942f-6a1d41170daf</tstamps>
+    </comp>
+    <comp ref="R4">
+      <value>4.7</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0603FR-074R7L</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter">electronics_gate_resistance</field>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0603FR-074R7L"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value="electronics_gate_resistance"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ba9fe2f2-527c-5137-b8f5-9a506f0a840b</tstamps>
+    </comp>
+    <comp ref="R5">
+      <value>10000</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0603FR-0710KL</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter">electronics_gate_pulldown</field>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0603FR-0710KL"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value="electronics_gate_pulldown"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9eaf35a2-e9ac-51c6-a171-21c2b63e9abc</tstamps>
+    </comp>
+    <comp ref="R6">
+      <value>10000</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0603FR-0710KL</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter">electronics_gate_pulldown</field>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0603FR-0710KL"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value="electronics_gate_pulldown"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3beb1a50-8cfd-544b-af2c-39db040672c4</tstamps>
+    </comp>
+    <comp ref="R7">
+      <value>10000</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0603FR-0710KL</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter">electronics_gate_pulldown</field>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0603FR-0710KL"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value="electronics_gate_pulldown"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a12ff782-ad45-5587-a599-2d20ab630648</tstamps>
+    </comp>
+    <comp ref="R8">
+      <value>10000</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0603FR-0710KL</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter">electronics_gate_pulldown</field>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0603FR-0710KL"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value="electronics_gate_pulldown"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>3076c7f5-1019-5c40-a2a3-8c8bdeb743e8</tstamps>
+    </comp>
+    <comp ref="R9">
+      <value>10000</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0603FR-0710KL</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter">electronics_deadtime_resistance</field>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0603FR-0710KL"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value="electronics_deadtime_resistance"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b366b215-71d7-5486-9ecc-6c0cdd894af5</tstamps>
+    </comp>
+    <comp ref="R10">
+      <value>10000</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0603FR-0710KL</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter">electronics_deadtime_resistance</field>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0603FR-0710KL"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value="electronics_deadtime_resistance"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>590aef43-b08c-59dc-b928-f0d3f8fc6c49</tstamps>
+    </comp>
+    <comp ref="R11">
+      <value>0.02</value>
+      <footprint>Resistor_SMD:R_2512_6332Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">WSL2512R0200FEA18</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter">current_sense_resistance</field>
+        <field name="Footprint">Resistor_SMD:R_2512_6332Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="WSL2512R0200FEA18"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value="current_sense_resistance"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ff309962-f98c-5081-ab2a-87843d4badd8</tstamps>
+    </comp>
+    <comp ref="R12">
+      <value>10000</value>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0603FR-0710KL</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter">electronics_gate_pulldown</field>
+        <field name="Footprint">Resistor_SMD:R_0603_1608Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0603FR-0710KL"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value="electronics_gate_pulldown"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>ad94e064-b3c9-50eb-9a9d-ec8635424697</tstamps>
+    </comp>
+    <comp ref="U1">
+      <value>LM5106SD</value>
+      <footprint>Package_SON:WSON-10-1EP_4x4mm_P0.8mm_EP2.6x3mm_ThermalVias</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/lm5106.pdf</datasheet>
+      <fields>
+        <field name="MPN">LM5106SD/NOPB</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter"/>
+        <field name="Footprint">Package_SON:WSON-10-1EP_4x4mm_P0.8mm_EP2.6x3mm_ThermalVias</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/lm5106.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Driver_FET" part="LM5106SD" description="Half-Bridge Gate Driver, Output Current 1.8A, 100V, WSON-10"/>
+      <property name="MPN" value="LM5106SD/NOPB"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="High-Voltage Texas"/>
+      <property name="ki_fp_filters" value="WSON*1EP*4x4mm*P0.8mm*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8d7ae672-c210-58e7-bebe-cb91e6e0abc7</tstamps>
+    </comp>
+    <comp ref="U2">
+      <value>LM5106SD</value>
+      <footprint>Package_SON:WSON-10-1EP_4x4mm_P0.8mm_EP2.6x3mm_ThermalVias</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/lm5106.pdf</datasheet>
+      <fields>
+        <field name="MPN">LM5106SD/NOPB</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter"/>
+        <field name="Footprint">Package_SON:WSON-10-1EP_4x4mm_P0.8mm_EP2.6x3mm_ThermalVias</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/lm5106.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Driver_FET" part="LM5106SD" description="Half-Bridge Gate Driver, Output Current 1.8A, 100V, WSON-10"/>
+      <property name="MPN" value="LM5106SD/NOPB"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="High-Voltage Texas"/>
+      <property name="ki_fp_filters" value="WSON*1EP*4x4mm*P0.8mm*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1e4c05a7-dece-5cf5-afa1-605af5e830e2</tstamps>
+    </comp>
+    <comp ref="U3">
+      <value>INA241A1</value>
+      <footprint>Package_SO:VSSOP-8_3x3mm_P0.65mm</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/ina241b.pdf</datasheet>
+      <fields>
+        <field name="MPN">INA241A1DGKR</field>
+        <field name="DesignStatus">DRAFT: shared protection, ADC, reference and supply sheets not implemented</field>
+        <field name="ModelParameter"/>
+        <field name="Footprint">Package_SO:VSSOP-8_3x3mm_P0.65mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/ina241b.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Amplifier_Current" part="INA241A1xDGK" description="High- and Low-Side, Bidirectional, Zero-Drift, Current-Sense Amplifier With Enhanced PWM Rejection, 10V/V, ±0.01% Gain Accuracy, ±10 μV Offset Voltage, VSSOP-8"/>
+      <property name="MPN" value="INA241A1DGKR"/>
+      <property name="DesignStatus" value="DRAFT: shared protection, ADC, reference and supply sheets not implemented"/>
+      <property name="ModelParameter" value=""/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="channel.kicad_sch"/>
+      <property name="ki_keywords" value="current monitor shunt sensor bidirectional high low"/>
+      <property name="ki_fp_filters" value="VSSOP*3x3mm*P0.65mm*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>43c4c028-b9a3-5b72-8f47-c9958d971a68</tstamps>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="Amplifier_Current" part="INA241A1xDGK">
+      <description>High- and Low-Side, Bidirectional, Zero-Drift, Current-Sense Amplifier With Enhanced PWM Rejection, 10V/V, ±0.01% Gain Accuracy, ±10 μV Offset Voltage, VSSOP-8</description>
+      <docs>https://www.ti.com/lit/ds/symlink/ina241b.pdf</docs>
+      <footprints>
+        <fp>VSSOP*3x3mm*P0.65mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">INA241A1xDGK</field>
+        <field name="Footprint">Package_SO:VSSOP-8_3x3mm_P0.65mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/ina241b.pdf</field>
+        <field name="Description">High- and Low-Side, Bidirectional, Zero-Drift, Current-Sense Amplifier With Enhanced PWM Rejection, 10V/V, ±0.01% Gain Accuracy, ±10 μV Offset Voltage, VSSOP-8</field>
+      </fields>
+      <pins>
+        <pin num="1" name="-" type="input"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="REF2" type="passive"/>
+        <pin num="4" name="GND" type="passive"/>
+        <pin num="5" name="" type="output"/>
+        <pin num="6" name="V+" type="power_in"/>
+        <pin num="7" name="REF1" type="passive"/>
+        <pin num="8" name="+" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="C">
+      <description>Unpolarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Unpolarized capacitor</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="D">
+      <description>Diode</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>TO-???*</fp>
+        <fp>*_Diode_*</fp>
+        <fp>*SingleDiode*</fp>
+        <fp>D_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">D</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Diode</field>
+        <field name="Sim.Device">D</field>
+        <field name="Sim.Pins">1=K 2=A</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="R">
+      <description>Resistor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Resistor</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Driver_FET" part="LM5106SD">
+      <description>Half-Bridge Gate Driver, Output Current 1.8A, 100V, WSON-10</description>
+      <docs>https://www.ti.com/lit/ds/symlink/lm5106.pdf</docs>
+      <footprints>
+        <fp>WSON*1EP*4x4mm*P0.8mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">LM5106SD</field>
+        <field name="Footprint">Package_SON:WSON-10-1EP_4x4mm_P0.8mm_EP2.6x3mm_ThermalVias</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/lm5106.pdf</field>
+        <field name="Description">Half-Bridge Gate Driver, Output Current 1.8A, 100V, WSON-10</field>
+      </fields>
+      <pins>
+        <pin num="1" name="VDD" type="power_in"/>
+        <pin num="2" name="HB" type="passive"/>
+        <pin num="3" name="HO" type="output"/>
+        <pin num="4" name="HS" type="passive"/>
+        <pin num="5" name="NC" type="no_connect"/>
+        <pin num="6" name="RDT" type="passive"/>
+        <pin num="7" name="EN" type="input"/>
+        <pin num="8" name="IN" type="input"/>
+        <pin num="9" name="VSS" type="power_in"/>
+        <pin num="10" name="LO" type="output"/>
+        <pin num="11" name="EP" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Transistor_FET" part="CSD18543Q3A">
+      <description>35A Id, 60V Vds, NexFET N-Channel Power MOSFET, 8.1mOhm Ron, Qg Typ 11.1nC, VSON-8 3.3x3.3mm</description>
+      <docs>https://www.ti.com/lit/ds/symlink/csd18543q3a.pdf</docs>
+      <footprints>
+        <fp>VSON*3.3x3.3mm*P0.65mm*NexFET*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">Q</field>
+        <field name="Value">CSD18543Q3A</field>
+        <field name="Footprint">Package_SON:VSON-8_3.3x3.3mm_P0.65mm_NexFET</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/csd18543q3a.pdf</field>
+        <field name="Description">35A Id, 60V Vds, NexFET N-Channel Power MOSFET, 8.1mOhm Ron, Qg Typ 11.1nC, VSON-8 3.3x3.3mm</field>
+      </fields>
+      <pins>
+        <pin num="1" name="S" type="passive"/>
+        <pin num="2" name="S" type="passive"/>
+        <pin num="3" name="S" type="passive"/>
+        <pin num="4" name="G" type="input"/>
+        <pin num="5" name="D" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="Amplifier_Current">
+      <uri>/home/arseniy/.local/share/flying-chess-tools/root/usr/share/kicad/symbols/Amplifier_Current.kicad_sym</uri>
+    </library>
+    <library logical="Device">
+      <uri>/home/arseniy/.local/share/flying-chess-tools/root/usr/share/kicad/symbols/Device.kicad_sym</uri>
+    </library>
+    <library logical="Driver_FET">
+      <uri>/home/arseniy/.local/share/flying-chess-tools/root/usr/share/kicad/symbols/Driver_FET.kicad_sym</uri>
+    </library>
+    <library logical="Transistor_FET">
+      <uri>/home/arseniy/.local/share/flying-chess-tools/root/usr/share/kicad/symbols/Transistor_FET.kicad_sym</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="/BOOT_A" class="Default">
+      <node ref="C1" pin="1" pintype="passive"/>
+      <node ref="D1" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="U1" pin="2" pinfunction="HB" pintype="passive"/>
+    </net>
+    <net code="2" name="/BOOT_B" class="Default">
+      <node ref="C4" pin="1" pintype="passive"/>
+      <node ref="D2" pin="1" pinfunction="K" pintype="passive"/>
+      <node ref="U2" pin="2" pinfunction="HB" pintype="passive"/>
+    </net>
+    <net code="3" name="/COIL_A" class="Default">
+      <node ref="R11" pin="2" pintype="passive"/>
+      <node ref="U3" pin="1" pinfunction="-" pintype="input"/>
+    </net>
+    <net code="4" name="/CURRENT_OUT" class="Default">
+      <node ref="U3" pin="5" pintype="output"/>
+    </net>
+    <net code="5" name="/DT_A" class="Default">
+      <node ref="R9" pin="1" pintype="passive"/>
+      <node ref="U1" pin="6" pinfunction="RDT" pintype="passive"/>
+    </net>
+    <net code="6" name="/DT_B" class="Default">
+      <node ref="R10" pin="1" pintype="passive"/>
+      <node ref="U2" pin="6" pinfunction="RDT" pintype="passive"/>
+    </net>
+    <net code="7" name="/ENABLE_LATCHED" class="Default">
+      <node ref="R12" pin="1" pintype="passive"/>
+      <node ref="U1" pin="7" pinfunction="EN" pintype="input"/>
+      <node ref="U2" pin="7" pinfunction="EN" pintype="input"/>
+    </net>
+    <net code="8" name="/GH_A" class="Default">
+      <node ref="Q1" pin="4" pinfunction="G" pintype="input"/>
+      <node ref="R1" pin="2" pintype="passive"/>
+      <node ref="R5" pin="1" pintype="passive"/>
+    </net>
+    <net code="9" name="/GH_B" class="Default">
+      <node ref="Q3" pin="4" pinfunction="G" pintype="input"/>
+      <node ref="R3" pin="2" pintype="passive"/>
+      <node ref="R7" pin="1" pintype="passive"/>
+    </net>
+    <net code="10" name="/GL_A" class="Default">
+      <node ref="Q2" pin="4" pinfunction="G" pintype="input"/>
+      <node ref="R2" pin="2" pintype="passive"/>
+      <node ref="R6" pin="1" pintype="passive"/>
+    </net>
+    <net code="11" name="/GL_B" class="Default">
+      <node ref="Q4" pin="4" pinfunction="G" pintype="input"/>
+      <node ref="R4" pin="2" pintype="passive"/>
+      <node ref="R8" pin="1" pintype="passive"/>
+    </net>
+    <net code="12" name="/GND" class="Default">
+      <node ref="C2" pin="2" pintype="passive"/>
+      <node ref="C3" pin="2" pintype="passive"/>
+      <node ref="C5" pin="2" pintype="passive"/>
+      <node ref="C6" pin="2" pintype="passive"/>
+      <node ref="C7" pin="2" pintype="passive"/>
+      <node ref="Q2" pin="1" pinfunction="S" pintype="passive"/>
+      <node ref="Q2" pin="2" pinfunction="S" pintype="passive"/>
+      <node ref="Q2" pin="3" pinfunction="S" pintype="passive"/>
+      <node ref="Q4" pin="1" pinfunction="S" pintype="passive"/>
+      <node ref="Q4" pin="2" pinfunction="S" pintype="passive"/>
+      <node ref="Q4" pin="3" pinfunction="S" pintype="passive"/>
+      <node ref="R10" pin="2" pintype="passive"/>
+      <node ref="R12" pin="2" pintype="passive"/>
+      <node ref="R6" pin="2" pintype="passive"/>
+      <node ref="R8" pin="2" pintype="passive"/>
+      <node ref="R9" pin="2" pintype="passive"/>
+      <node ref="U1" pin="11" pinfunction="EP" pintype="passive"/>
+      <node ref="U1" pin="9" pinfunction="VSS" pintype="power_in"/>
+      <node ref="U2" pin="11" pinfunction="EP" pintype="passive"/>
+      <node ref="U2" pin="9" pinfunction="VSS" pintype="power_in"/>
+      <node ref="U3" pin="2" pinfunction="GND" pintype="power_in"/>
+      <node ref="U3" pin="4" pinfunction="GND" pintype="passive"/>
+    </net>
+    <net code="13" name="/HO_A" class="Default">
+      <node ref="R1" pin="1" pintype="passive"/>
+      <node ref="U1" pin="3" pinfunction="HO" pintype="output"/>
+    </net>
+    <net code="14" name="/HO_B" class="Default">
+      <node ref="R3" pin="1" pintype="passive"/>
+      <node ref="U2" pin="3" pinfunction="HO" pintype="output"/>
+    </net>
+    <net code="15" name="/LO_A" class="Default">
+      <node ref="R2" pin="1" pintype="passive"/>
+      <node ref="U1" pin="10" pinfunction="LO" pintype="output"/>
+    </net>
+    <net code="16" name="/LO_B" class="Default">
+      <node ref="R4" pin="1" pintype="passive"/>
+      <node ref="U2" pin="10" pinfunction="LO" pintype="output"/>
+    </net>
+    <net code="17" name="/PWM_A" class="Default">
+      <node ref="U1" pin="8" pinfunction="IN" pintype="input"/>
+    </net>
+    <net code="18" name="/PWM_B" class="Default">
+      <node ref="U2" pin="8" pinfunction="IN" pintype="input"/>
+    </net>
+    <net code="19" name="/SW_A" class="Default">
+      <node ref="C1" pin="2" pintype="passive"/>
+      <node ref="Q1" pin="1" pinfunction="S" pintype="passive"/>
+      <node ref="Q1" pin="2" pinfunction="S" pintype="passive"/>
+      <node ref="Q1" pin="3" pinfunction="S" pintype="passive"/>
+      <node ref="Q2" pin="5" pinfunction="D" pintype="passive"/>
+      <node ref="R11" pin="1" pintype="passive"/>
+      <node ref="R5" pin="2" pintype="passive"/>
+      <node ref="U1" pin="4" pinfunction="HS" pintype="passive"/>
+      <node ref="U3" pin="8" pinfunction="+" pintype="input"/>
+    </net>
+    <net code="20" name="/SW_B" class="Default">
+      <node ref="C4" pin="2" pintype="passive"/>
+      <node ref="Q3" pin="1" pinfunction="S" pintype="passive"/>
+      <node ref="Q3" pin="2" pinfunction="S" pintype="passive"/>
+      <node ref="Q3" pin="3" pinfunction="S" pintype="passive"/>
+      <node ref="Q4" pin="5" pinfunction="D" pintype="passive"/>
+      <node ref="R7" pin="2" pintype="passive"/>
+      <node ref="U2" pin="4" pinfunction="HS" pintype="passive"/>
+    </net>
+    <net code="21" name="/VREF_CURRENT" class="Default">
+      <node ref="U3" pin="3" pinfunction="REF2" pintype="passive"/>
+      <node ref="U3" pin="7" pinfunction="REF1" pintype="passive"/>
+    </net>
+    <net code="22" name="/V_ANALOG" class="Default">
+      <node ref="C7" pin="1" pintype="passive"/>
+      <node ref="U3" pin="6" pinfunction="V+" pintype="power_in"/>
+    </net>
+    <net code="23" name="/V_GATE" class="Default">
+      <node ref="C2" pin="1" pintype="passive"/>
+      <node ref="C5" pin="1" pintype="passive"/>
+      <node ref="D1" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="D2" pin="2" pinfunction="A" pintype="passive"/>
+      <node ref="U1" pin="1" pinfunction="VDD" pintype="power_in"/>
+      <node ref="U2" pin="1" pinfunction="VDD" pintype="power_in"/>
+    </net>
+    <net code="24" name="/V_MOTOR" class="Default">
+      <node ref="C3" pin="1" pintype="passive"/>
+      <node ref="C6" pin="1" pintype="passive"/>
+      <node ref="Q1" pin="5" pinfunction="D" pintype="passive"/>
+      <node ref="Q3" pin="5" pinfunction="D" pintype="passive"/>
+    </net>
+    <net code="25" name="unconnected-(U1-NC-Pad5)" class="Default">
+      <node ref="U1" pin="5" pinfunction="NC" pintype="no_connect"/>
+    </net>
+    <net code="26" name="unconnected-(U2-NC-Pad5)" class="Default">
+      <node ref="U2" pin="5" pinfunction="NC" pintype="no_connect"/>
+    </net>
+  </nets>
+</export>

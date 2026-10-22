@@ -1,0 +1,286 @@
+{
+    "status": "draft_controller_incomplete_no_manufacturing_release",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/review.py": "8a68089f536d004397a936574002a07c4ae2fdf03bf87eb5dd0a7513a85c8d00",
+        "model.py": "461480583d3fb8c067b8dd8697a2b44bc745cb419ac70b30f3abe50a1181e374",
+        "methodology/electronics/controller.kicad_sch": "b7a5c3681537fa313e6662e61caf6b0bc06fbf713d9b49bba93e119fff412660",
+        "methodology/electronics/FlyingChess.kicad_sym": "a0a97fc17b748d0e8462c4f7ff5dd360f51aeefaded3559deda6c9e85cc8386c",
+        "methodology/electronics/controller.kicad_pro": "684afdbcc17a88f37f6ac9df5cfb63e3a5fd3e50d4aa00d257fb772033484cc8",
+        "methodology/electronics/fp-lib-table": "6195c37332f0e5242b7dd8a4afc65f1aa11b7213ab2a1d4f36bfeb6b0ca67341",
+        "methodology/electronics/sym-lib-table": "2db6c0fa38644121ac63a2579f7f1cce3d5fd7ea8eb38c9e7ac16a9cabf26425",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe"
+    },
+    "footprint_sha256": {
+        "FlyingChess.pretty/AOTA_B201610S3R3_101_T_RPi.kicad_mod": "a7741a616137df19df10a033a2aef87a4d4a89581f4dd2cfd3546be086eee694",
+        "Capacitor_SMD.pretty/C_0402_1005Metric.kicad_mod": "88232454c8ab84afbcda21beeeccc8a2b0b745b15c0515a83e3d56ff9be2d412",
+        "Crystal.pretty/Crystal_SMD_3225-4Pin_3.2x2.5mm.kicad_mod": "4d7cc6e99752c0973cd8d87fa2e5a52df5611eccce0fb95165d67c22dbf6716b",
+        "Package_DFN_QFN.pretty/QFN-80-1EP_10x10mm_P0.4mm_EP3.4x3.4mm.kicad_mod": "8c69891c5aedc5a05598292afd9b300968faa31888275a7e5f0e3ad01df243cc",
+        "Resistor_SMD.pretty/R_0402_1005Metric.kicad_mod": "3d0936db48c6ab489699460947c0404419ffeb7b715a627460c54e101212ce02"
+    },
+    "component_count": 26,
+    "coil_channel_count": 8,
+    "components": [
+        {
+            "reference": "C40",
+            "mpn": "GRM155R60J475ME47D",
+            "value": "4.7e-06",
+            "model_parameter": "electronics_logic_regulator_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C41",
+            "mpn": "GRM155R60J475ME47D",
+            "value": "4.7e-06",
+            "model_parameter": "electronics_logic_regulator_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C42",
+            "mpn": "GRM155R60J475ME47D",
+            "value": "4.7e-06",
+            "model_parameter": "electronics_logic_regulator_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C43",
+            "mpn": "GRM1555C1H150JA01D",
+            "value": "1.5e-11",
+            "model_parameter": "electronics_logic_crystal_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C44",
+            "mpn": "GRM1555C1H150JA01D",
+            "value": "1.5e-11",
+            "model_parameter": "electronics_logic_crystal_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C45",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C46",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C47",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C48",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C49",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C50",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C51",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C52",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C53",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C54",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C55",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C56",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C57",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "C58",
+            "mpn": "GRM155R71E104KE14D",
+            "value": "1e-07",
+            "model_parameter": "electronics_logic_bypass_capacitance",
+            "model_divisor": 1.0,
+            "footprint": "Capacitor_SMD:C_0402_1005Metric",
+            "courtyard_area_mm2": 1.6471
+        },
+        {
+            "reference": "L20",
+            "mpn": "AOTA-B201610S3R3-101-T",
+            "value": "3.3e-06",
+            "model_parameter": "electronics_logic_inductance",
+            "model_divisor": 1.0,
+            "footprint": "FlyingChess:AOTA_B201610S3R3_101_T_RPi",
+            "courtyard_area_mm2": 3.9201
+        },
+        {
+            "reference": "R30",
+            "mpn": "RC0402FR-0733RL",
+            "value": "33.0",
+            "model_parameter": "electronics_logic_regulator_filter",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0402_1005Metric",
+            "courtyard_area_mm2": 1.7205
+        },
+        {
+            "reference": "R31",
+            "mpn": "RC0402FR-071KL",
+            "value": "1000.0",
+            "model_parameter": "electronics_logic_crystal_resistance",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0402_1005Metric",
+            "courtyard_area_mm2": 1.7205
+        },
+        {
+            "reference": "R32",
+            "mpn": "RC0402FR-0710KL",
+            "value": "10000.0",
+            "model_parameter": "electronics_logic_pull_resistance",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0402_1005Metric",
+            "courtyard_area_mm2": 1.7205
+        },
+        {
+            "reference": "R33",
+            "mpn": "RC0402FR-0710KL",
+            "value": "10000.0",
+            "model_parameter": "electronics_logic_pull_resistance",
+            "model_divisor": 1.0,
+            "footprint": "Resistor_SMD:R_0402_1005Metric",
+            "courtyard_area_mm2": 1.7205
+        },
+        {
+            "reference": "U20",
+            "mpn": "RP2354B",
+            "value": "RP2354B",
+            "model_parameter": null,
+            "model_divisor": 1.0,
+            "footprint": "Package_DFN_QFN:QFN-80-1EP_10x10mm_P0.4mm_EP3.4x3.4mm",
+            "courtyard_area_mm2": 121.6461
+        },
+        {
+            "reference": "Y20",
+            "mpn": "ABM8-272-T3",
+            "value": "12000000.0",
+            "model_parameter": "electronics_logic_crystal_frequency",
+            "model_divisor": 1.0,
+            "footprint": "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm",
+            "courtyard_area_mm2": 14.6231
+        }
+    ],
+    "connectivity": {
+        "passed": true,
+        "checked_pins": 125,
+        "scope": "RP2354B pin assignment, core supply, clock and bypass connectivity; firmware, protection, rails and PCB layout unqualified"
+    },
+    "placement_bound": {
+        "courtyard_sum_mm2": 178.3662,
+        "courtyard_per_channel_mm2": 22.295775,
+        "coil_pitch_area_mm2": 60.839999999999996,
+        "double_sided_area_per_coil_mm2": 121.67999999999999,
+        "minimum_area_ratio_to_double_sided": 0.18323286489151874,
+        "fits_even_before_routing": true
+    },
+    "erc": {
+        "errors": 104,
+        "warnings": 0,
+        "passed": false
+    },
+    "complete_hardware_baseline": false,
+    "limitations": [
+        "RP2354B is a candidate. Pin connectivity does not qualify real-time execution, GPIO timing, DMA service, PWM synchronization or watchdog shutdown.",
+        "Core regulator parts and inductor polarity follow Raspberry Pi RP2350B Minimal R4. Exact critical placement/routing and effective capacitance must also follow the reference before acceptance.",
+        "Three core, eight IOVDD, ADC, USB/OTP and QSPI supply bypass capacitors are included; stacked flash needs no external memory chip.",
+        "Programming, host, Hall, temperature and fault nets are external interfaces. Independent enable gating is on the protection sheet; shared power supervision and rails remain external interfaces.",
+        "No power flags or ERC exclusions hide missing rails or external circuitry. This is not a complete module or manufacturing release.",
+        "Courtyard area is only a lower bound; crystal/regulator layout clearances, interfaces, routing and thermal paths require additional area."
+    ]
+}

@@ -55,6 +55,7 @@ python-dateutil==2.9.0.post0
 requests==2.34.2
 scikit-learn==1.9.1
 scipy==1.17.1
+sexpdata==1.0.2
 six==1.17.0
 stack-data==0.6.3
 svgelements==1.9.6

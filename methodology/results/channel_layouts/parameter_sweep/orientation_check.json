@@ -1,0 +1,305 @@
+{
+    "scope": "Rigidly rotate the known failing coil/piece alignment; recompute all world-frame demands.",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "model.py": "8f764776f9be606200afe679b7480f7e63733659e863039a725853138b9e2111",
+        "levitation_sim.py": "57b8b6765bdedeb8264bd8c084c6028b7a02053d0e116abe7ca4353e47d28e9c",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/cad/assembly.py": "b581ae6204830eec8ccecc9398ae8afe9877592f7d26a4f4dba6d73d36279a47",
+        "methodology/cad/piece.py": "8f2c0d69fe25c5f0ffaa42be67868a714f597be519c649835b6a3c917e9d88c3",
+        "methodology/cad/winding.py": "8aeeafe928d1bffa533cdc188ebbfb02a5d0b53011d529e5f698bba1cc9c23f4",
+        "methodology/cad/magnetics.py": "0558fffe5cb8bc3dd6924bc94aaf8d1ddd5328900e6531496786e93a7d77bd00"
+    },
+    "input_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/results/channel_layouts/hard_poses.json": "b7081f774721779f161297b2a81d7532bbce18ebc094917af2ed9a0687011b76",
+        "methodology/results/channel_layouts/parameter_sweep/summary.json": "d687a8a3a7cd3b94a5b2151d370dbb62c57edd4acc8689c2428cce18582bb000"
+    },
+    "candidate": {
+        "name": "square_10_gap_0.3_angle_0_independent",
+        "pattern": "square",
+        "width_mm": 10.0,
+        "length_mm": 10.0,
+        "spacing_mm": 0.3,
+        "rotation_deg": 0,
+        "connection": "independent"
+    },
+    "collection_pose_index": 4,
+    "rotation_delta_deg": -45,
+    "result": {
+        "phase": [
+            0.25,
+            0.5
+        ],
+        "gap_m": 0.0035,
+        "yaw_deg": 0,
+        "tilt_fraction": 1.0,
+        "tilt_direction_deg": 45.0,
+        "pose_rad": [
+            0.06726531212232979,
+            0.06711365131549418,
+            0.0022589088151512143
+        ],
+        "channels": 20,
+        "available_coils": 20,
+        "driven_coils": 20,
+        "world_xy_mm": [
+            2.575,
+            5.15
+        ],
+        "augmented_rank": 7,
+        "demands": [
+            {
+                "action": "hover",
+                "target_wrench": [
+                    0.0,
+                    0.0,
+                    0.2229044839004152,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "minimum_peak_current_A": 3.300574213050708,
+                "copper_loss_W": 61.23906972971717,
+                "current_reserve_met": true,
+                "residual": 4.440892098500626e-16
+            },
+            {
+                "action": "lift_reserve",
+                "target_wrench": [
+                    0.0,
+                    0.0,
+                    0.2897758290705398,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "minimum_peak_current_A": 4.2907464769659205,
+                "copper_loss_W": 114.26640151619938,
+                "current_reserve_met": true,
+                "residual": 8.881784197001252e-16
+            },
+            {
+                "action": "translation_0",
+                "target_wrench": [
+                    0.04458089678008304,
+                    0.0,
+                    0.2229044839004152,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "minimum_peak_current_A": 3.029961169008544,
+                "copper_loss_W": 54.131792851095284,
+                "current_reserve_met": true,
+                "residual": 4.440892098500626e-16
+            },
+            {
+                "action": "translation_1",
+                "target_wrench": [
+                    0.03152345442457424,
+                    0.031523454424574236,
+                    0.2229044839004152,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "minimum_peak_current_A": 4.454565281746003,
+                "copper_loss_W": 128.64511627801318,
+                "current_reserve_met": true,
+                "residual": 8.881784197001252e-16
+            },
+            {
+                "action": "translation_2",
+                "target_wrench": [
+                    2.729792627242362e-18,
+                    0.04458089678008304,
+                    0.2229044839004152,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "minimum_peak_current_A": 5.203177077299181,
+                "copper_loss_W": null,
+                "current_reserve_met": false,
+                "residual": 6.572520305780927e-14
+            },
+            {
+                "action": "translation_3",
+                "target_wrench": [
+                    -0.031523454424574236,
+                    0.03152345442457424,
+                    0.2229044839004152,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "minimum_peak_current_A": 4.8372699187855,
+                "copper_loss_W": 192.20399938488666,
+                "current_reserve_met": true,
+                "residual": 2.6645352591003757e-15
+            },
+            {
+                "action": "translation_4",
+                "target_wrench": [
+                    -0.04458089678008304,
+                    5.459585254484724e-18,
+                    0.2229044839004152,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "minimum_peak_current_A": 3.5769380880662918,
+                "copper_loss_W": 71.73886111497382,
+                "current_reserve_met": true,
+                "residual": 8.881784197001252e-16
+            },
+            {
+                "action": "translation_5",
+                "target_wrench": [
+                    -0.03152345442457425,
+                    -0.031523454424574236,
+                    0.2229044839004152,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "minimum_peak_current_A": 2.2157406179107566,
+                "copper_loss_W": 28.270050984733253,
+                "current_reserve_met": true,
+                "residual": 2.220446049250313e-16
+            },
+            {
+                "action": "translation_6",
+                "target_wrench": [
+                    -8.189377881727086e-18,
+                    -0.04458089678008304,
+                    0.2229044839004152,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "minimum_peak_current_A": 1.4854379301035137,
+                "copper_loss_W": 14.186954817557952,
+                "current_reserve_met": true,
+                "residual": 1.1102230246251565e-16
+            },
+            {
+                "action": "translation_7",
+                "target_wrench": [
+                    0.03152345442457423,
+                    -0.03152345442457425,
+                    0.2229044839004152,
+                    0.0,
+                    0.0,
+                    0.0
+                ],
+                "minimum_peak_current_A": 1.764485151664679,
+                "copper_loss_W": 21.11152924562444,
+                "current_reserve_met": true,
+                "residual": 1.4432899320127035e-15
+            },
+            {
+                "action": "torque_0_-1",
+                "target_wrench": [
+                    0.0,
+                    0.0,
+                    0.2229044839004152,
+                    -5.842759504127902e-05,
+                    -2.0827427004243e-07,
+                    3.0901946954542697e-06
+                ],
+                "minimum_peak_current_A": 3.370853279301363,
+                "copper_loss_W": 63.77414091263151,
+                "current_reserve_met": true,
+                "residual": 1.1102230246251565e-15
+            },
+            {
+                "action": "torque_0_1",
+                "target_wrench": [
+                    0.0,
+                    0.0,
+                    0.2229044839004152,
+                    5.842759504127902e-05,
+                    2.0827427004243e-07,
+                    -3.0901946954542697e-06
+                ],
+                "minimum_peak_current_A": 3.2302951468000534,
+                "copper_loss_W": 58.79153189224171,
+                "current_reserve_met": true,
+                "residual": 4.440892098500626e-16
+            },
+            {
+                "action": "torque_1_-1",
+                "target_wrench": [
+                    0.0,
+                    0.0,
+                    0.2229044839004152,
+                    -2.0827427004243e-07,
+                    -5.8470470306059485e-05,
+                    -3.0930830711062016e-06
+                ],
+                "minimum_peak_current_A": 3.312153658835963,
+                "copper_loss_W": 61.52353731925009,
+                "current_reserve_met": true,
+                "residual": 6.661338147750939e-16
+            },
+            {
+                "action": "torque_1_1",
+                "target_wrench": [
+                    0.0,
+                    0.0,
+                    0.2229044839004152,
+                    2.0827427004243e-07,
+                    5.8470470306059485e-05,
+                    3.0930830711062016e-06
+                ],
+                "minimum_peak_current_A": 3.2889947672654536,
+                "copper_loss_W": 60.97106654772111,
+                "current_reserve_met": true,
+                "residual": 6.661338147750939e-16
+            },
+            {
+                "action": "torque_2_-1",
+                "target_wrench": [
+                    0.0,
+                    0.0,
+                    0.2229044839004152,
+                    1.8397346872179038e-05,
+                    -1.8414542697686052e-05,
+                    -7.599463684020361e-05
+                ],
+                "minimum_peak_current_A": 3.364901837073728,
+                "copper_loss_W": 62.91396985781213,
+                "current_reserve_met": true,
+                "residual": 1.7763568394002505e-15
+            },
+            {
+                "action": "torque_2_1",
+                "target_wrench": [
+                    0.0,
+                    0.0,
+                    0.2229044839004152,
+                    -1.8397346872179038e-05,
+                    1.8414542697686052e-05,
+                    7.599463684020361e-05
+                ],
+                "minimum_peak_current_A": 3.2362465890276884,
+                "copper_loss_W": 59.64032574329455,
+                "current_reserve_met": true,
+                "residual": 1.1102230246251565e-15
+            }
+        ]
+    },
+    "summary": {
+        "pose_count": 1,
+        "deficient_pose_count": 0,
+        "over_budget_demand_count": 1,
+        "peak_required_current_A": 5.203177077299181,
+        "peak_feasible_copper_loss_W": 192.20399938488666,
+        "sampled_current_reserve_met": false
+    },
+    "reproduction_script": "import json\nfrom pathlib import Path\nimport numpy as np\nimport levitation_sim\nfrom model import Inputs,Fixed\nfrom methodology import coil_layouts,prototype_coils,source_fingerprints\nfrom methodology.cad import magnetics\n\nroot=Path('methodology/results/channel_layouts')\ncollection_path=root/'hard_poses.json'\nsweep_path=root/'parameter_sweep/summary.json'\ncollection=json.loads(collection_path.read_text())\nsweep=json.loads(sweep_path.read_text())\nname,layout,source_angle,spacing,connection=next(row for row in Inputs.channel_layout_candidates if row[0]=='square_larger')\n_,coil,_=prototype_coils.prototype_geometry(layout)\ncandidate=next(row['candidate'] for row in sweep['results'] if row['candidate']['pattern']=='square'\n    and row['candidate']['width_mm']==coil.outer_width and row['candidate']['spacing_mm']==spacing\n    and row['candidate']['connection']==connection and row['candidate']['rotation_deg']==min(Fixed.layout_screen_rotations_deg))\nindex,pose=next((index,pose) for index,pose in enumerate(collection['poses']) if any(origin['candidate']==name\n    and origin['scope']=='all_poses' and origin['criterion']=='minimum_peak_current_A' for origin in pose['origins']))\ndelta=candidate['rotation_deg']-source_angle\nrotated=dict(pose,yaw_deg=(pose['yaw_deg']+delta)%360,tilt_direction_deg=(pose['tilt_direction_deg']+delta)%360)\nconstruction=magnetics.ConstructionModel()\ngeometry,_,_=construction(Inputs.cad_coil_layout,min(Fixed.current_demand_mesh_refinements))\nmagnet=levitation_sim.magnet_layout_from_geometry()\ncoil,winding=prototype_coils.round_wire_geometry(candidate['width_mm'],candidate['length_mm'])\narray=coil_layouts.LayoutArray(candidate['pattern'],coil,winding,candidate['rotation_deg'],min(Fixed.current_demand_mesh_refinements),spacing)\narray.window=collection['support_window_mm']/1000\nrow,_=coil_layouts.channel_pose_case(array,winding,geometry,magnet,*coil_layouts.channel_case_specification(rotated),connection=connection)\nreport=dict(scope='Rigidly rotate the known failing coil/piece alignment; recompute all world-frame demands.',\n    source_sha256=magnetics.fingerprints(),input_sha256=source_fingerprints(collection_path,sweep_path),\n    candidate=candidate,collection_pose_index=index,rotation_delta_deg=delta,result=row,\n    summary=coil_layouts.channel_case_summary([row]),reproduction_script=Path('/tmp/flying-chess-orientation-check.py').read_text())\noutput=root/'parameter_sweep/orientation_check.json'\nwith output.open('x') as handle:\n    handle.write(json.dumps(report,indent=Fixed.report_precision)+'\\n')\nprint(json.dumps(report['summary']))\n"
+}

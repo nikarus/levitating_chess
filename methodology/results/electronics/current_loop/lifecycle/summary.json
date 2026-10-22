@@ -1,0 +1,55 @@
+{
+    "status": "completed",
+    "stages": [
+        {
+            "name": "zero_hold",
+            "status": "passed",
+            "exit_code": 0,
+            "passed": true
+        },
+        {
+            "name": "low_positive",
+            "status": "passed",
+            "exit_code": 0,
+            "passed": true
+        },
+        {
+            "name": "low_negative",
+            "status": "passed",
+            "exit_code": 0,
+            "passed": true
+        },
+        {
+            "name": "enable_positive",
+            "status": "passed",
+            "exit_code": 0,
+            "passed": true
+        },
+        {
+            "name": "reverse_positive",
+            "status": "passed",
+            "exit_code": 0,
+            "passed": true
+        },
+        {
+            "name": "release_hold",
+            "status": "passed",
+            "exit_code": 0,
+            "passed": true
+        },
+        {
+            "name": "disable_positive",
+            "status": "passed",
+            "exit_code": 0,
+            "passed": true
+        },
+        {
+            "name": "disable_negative",
+            "status": "passed",
+            "exit_code": 0,
+            "passed": true
+        }
+    ],
+    "passed": true,
+    "hardware_qualified": false
+}

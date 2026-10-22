@@ -1,0 +1,1579 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-10-21T21:56:16+0200",
+    "included_severities": [
+        "error",
+        "warning"
+    ],
+    "kicad_version": "9.0.8",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/f62e0abf-b5a6-5009-b305-a7e698ca7ced",
+            "violations": [
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U20 Pin 61 [VREG_AVDD, Power input, Line]",
+                            "pos": {
+                                "x": 0.5588,
+                                "y": 0.5842
+                            },
+                            "uuid": "9e02a970-8c15-4bc8-9649-b164af3c036f"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Hierarchical label \"V_LOGIC\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'V_LOGIC'",
+                            "pos": {
+                                "x": 0.6096,
+                                "y": 0.5334
+                            },
+                            "uuid": "dcd74d79-871f-5513-9452-e0f84e7dad59"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U20 Pin 5 [IOVDD, Power input, Line]",
+                            "pos": {
+                                "x": 0.7112,
+                                "y": 0.5842
+                            },
+                            "uuid": "829a524d-665e-4369-8c46-97d30f5a3077"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U20 Pin 10 [DVDD, Power input, Line]",
+                            "pos": {
+                                "x": 0.8636,
+                                "y": 0.5842
+                            },
+                            "uuid": "ca062e22-4585-4fd9-b173-b394fdbe62ba"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_0_P'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.6604
+                            },
+                            "uuid": "664f3dda-98b0-5b55-bcc2-de62aec7411f"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"PWM_0_P\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_0_P'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.6604
+                            },
+                            "uuid": "664f3dda-98b0-5b55-bcc2-de62aec7411f"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_0_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.6858
+                            },
+                            "uuid": "585c4bd9-65a6-54ff-a3b8-1baed57abaa7"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"PWM_0_N\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_0_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.6858
+                            },
+                            "uuid": "585c4bd9-65a6-54ff-a3b8-1baed57abaa7"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_1_P'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.7112
+                            },
+                            "uuid": "69fbe177-1afe-549f-91de-ce5449c05a41"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"PWM_1_P\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_1_P'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.7112
+                            },
+                            "uuid": "69fbe177-1afe-549f-91de-ce5449c05a41"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_1_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.7366
+                            },
+                            "uuid": "4081316f-9911-5f80-89c4-7688f1f84159"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"PWM_1_N\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_1_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.7366
+                            },
+                            "uuid": "4081316f-9911-5f80-89c4-7688f1f84159"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_2_P'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.762
+                            },
+                            "uuid": "a5f9ef5f-7186-5999-b7c0-2443cb4efe18"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"PWM_2_P\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_2_P'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.762
+                            },
+                            "uuid": "a5f9ef5f-7186-5999-b7c0-2443cb4efe18"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_2_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.7874
+                            },
+                            "uuid": "2979aa88-a4eb-5a77-ba0e-963afd3585f3"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"PWM_2_N\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_2_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.7874
+                            },
+                            "uuid": "2979aa88-a4eb-5a77-ba0e-963afd3585f3"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_3_P'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.8128
+                            },
+                            "uuid": "5829c093-8eb0-5f5b-b1ba-52fdef24010a"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"PWM_3_P\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_3_P'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.8128
+                            },
+                            "uuid": "5829c093-8eb0-5f5b-b1ba-52fdef24010a"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_3_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.8382
+                            },
+                            "uuid": "b8c397bd-ba29-5fc9-805c-76cda51d31f5"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"PWM_3_N\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_3_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.8382
+                            },
+                            "uuid": "b8c397bd-ba29-5fc9-805c-76cda51d31f5"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_4_P'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.8636
+                            },
+                            "uuid": "36e0cdf6-a414-539f-bedb-9bd43da124a5"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"PWM_4_P\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_4_P'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.8636
+                            },
+                            "uuid": "36e0cdf6-a414-539f-bedb-9bd43da124a5"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_4_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.889
+                            },
+                            "uuid": "7f8f50a9-5fe8-5422-9131-782724bfe786"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"PWM_4_N\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_4_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.889
+                            },
+                            "uuid": "7f8f50a9-5fe8-5422-9131-782724bfe786"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_5_P'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.9144
+                            },
+                            "uuid": "e90910b3-9b93-51ec-869f-50525feac16f"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"PWM_5_P\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_5_P'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.9144
+                            },
+                            "uuid": "e90910b3-9b93-51ec-869f-50525feac16f"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_5_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.9398
+                            },
+                            "uuid": "ce190621-614c-5229-af16-29aee5ba9e99"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"PWM_5_N\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_5_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.9398
+                            },
+                            "uuid": "ce190621-614c-5229-af16-29aee5ba9e99"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_6_P'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.9652
+                            },
+                            "uuid": "bcfdbf4c-5f3c-5091-b296-c477f16b7957"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"PWM_6_P\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_6_P'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.9652
+                            },
+                            "uuid": "bcfdbf4c-5f3c-5091-b296-c477f16b7957"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_6_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.9906
+                            },
+                            "uuid": "b3b370d8-9b1a-50da-95d9-c2669e26ab7c"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"PWM_6_N\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_6_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 0.9906
+                            },
+                            "uuid": "b3b370d8-9b1a-50da-95d9-c2669e26ab7c"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'SWCLK'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.3716
+                            },
+                            "uuid": "57db10b3-6423-5ac5-8be1-fbcd60e24b1b"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"SWCLK\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'SWCLK'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.3716
+                            },
+                            "uuid": "57db10b3-6423-5ac5-8be1-fbcd60e24b1b"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U20 Pin 33 [SWCLK, Input, Line]",
+                            "pos": {
+                                "x": 0.4826,
+                                "y": 1.3716
+                            },
+                            "uuid": "de330451-3c64-434f-a2cf-c58da1878cc4"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_7_P'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.016
+                            },
+                            "uuid": "7cfdaae2-0f11-522b-9383-96ea806a405e"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"PWM_7_P\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_7_P'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.016
+                            },
+                            "uuid": "7cfdaae2-0f11-522b-9383-96ea806a405e"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'SWDIO'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.397
+                            },
+                            "uuid": "e163a6e8-ca8c-5a93-8e5d-1c23b889214e"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"SWDIO\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'SWDIO'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.397
+                            },
+                            "uuid": "e163a6e8-ca8c-5a93-8e5d-1c23b889214e"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_7_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.0414
+                            },
+                            "uuid": "5d2d4e86-69a6-5b69-94e7-6ffb6e7d9cd6"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"PWM_7_N\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'PWM_7_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.0414
+                            },
+                            "uuid": "5d2d4e86-69a6-5b69-94e7-6ffb6e7d9cd6"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ENABLE_REQUEST_0'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.0668
+                            },
+                            "uuid": "e2863580-81b9-5fd7-8125-606dcb6b7f29"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"ENABLE_REQUEST_0\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ENABLE_REQUEST_0'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.0668
+                            },
+                            "uuid": "e2863580-81b9-5fd7-8125-606dcb6b7f29"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ENABLE_REQUEST_1'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.0922
+                            },
+                            "uuid": "505d72c2-855d-52ad-ade8-aaea5cad42f4"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"ENABLE_REQUEST_1\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ENABLE_REQUEST_1'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.0922
+                            },
+                            "uuid": "505d72c2-855d-52ad-ade8-aaea5cad42f4"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ENABLE_REQUEST_2'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.1176
+                            },
+                            "uuid": "b688fbda-85ac-50d4-b302-f3cd3c79e6ac"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"ENABLE_REQUEST_2\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ENABLE_REQUEST_2'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.1176
+                            },
+                            "uuid": "b688fbda-85ac-50d4-b302-f3cd3c79e6ac"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HALL_RX'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.4732
+                            },
+                            "uuid": "78c783d7-84fc-5e76-93c7-f0a82eb5f7b2"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"HALL_RX\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HALL_RX'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.4732
+                            },
+                            "uuid": "78c783d7-84fc-5e76-93c7-f0a82eb5f7b2"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ENABLE_REQUEST_3'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.143
+                            },
+                            "uuid": "749d2f13-bb8f-535a-acba-a3a1de5affbb"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"ENABLE_REQUEST_3\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ENABLE_REQUEST_3'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.143
+                            },
+                            "uuid": "749d2f13-bb8f-535a-acba-a3a1de5affbb"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HALL_CS_N'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.4986
+                            },
+                            "uuid": "5e2c1722-c3b5-5704-8f9a-de3bd488b8e7"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"HALL_CS_N\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HALL_CS_N'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.4986
+                            },
+                            "uuid": "5e2c1722-c3b5-5704-8f9a-de3bd488b8e7"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ENABLE_REQUEST_4'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.1684
+                            },
+                            "uuid": "1243667d-1dee-561f-9fdb-99db2ac308d6"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"ENABLE_REQUEST_4\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ENABLE_REQUEST_4'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.1684
+                            },
+                            "uuid": "1243667d-1dee-561f-9fdb-99db2ac308d6"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HALL_SCLK'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.524
+                            },
+                            "uuid": "cf4789a7-5eda-5e35-ab73-c679c36b1dec"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"HALL_SCLK\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HALL_SCLK'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.524
+                            },
+                            "uuid": "cf4789a7-5eda-5e35-ab73-c679c36b1dec"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ENABLE_REQUEST_5'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.1938
+                            },
+                            "uuid": "8bf66c2c-ceb2-5661-80aa-216f75f42de8"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"ENABLE_REQUEST_5\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ENABLE_REQUEST_5'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.1938
+                            },
+                            "uuid": "8bf66c2c-ceb2-5661-80aa-216f75f42de8"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ENABLE_REQUEST_6'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.2192
+                            },
+                            "uuid": "ff80b402-b954-5e21-8bc6-5b5b9f11699e"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"ENABLE_REQUEST_6\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ENABLE_REQUEST_6'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.2192
+                            },
+                            "uuid": "ff80b402-b954-5e21-8bc6-5b5b9f11699e"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HALL_TX'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.5494
+                            },
+                            "uuid": "9e72fdb8-d06f-5679-ab37-b833e1827926"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"HALL_TX\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HALL_TX'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.5494
+                            },
+                            "uuid": "9e72fdb8-d06f-5679-ab37-b833e1827926"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ENABLE_REQUEST_7'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.2446
+                            },
+                            "uuid": "bb8e7161-fd82-57ce-9a85-12af237477dc"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"ENABLE_REQUEST_7\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ENABLE_REQUEST_7'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.2446
+                            },
+                            "uuid": "bb8e7161-fd82-57ce-9a85-12af237477dc"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'TEMP_DRIVER'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.5748
+                            },
+                            "uuid": "43020b6a-06de-5ad5-94bf-7b23eebd2d90"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"TEMP_DRIVER\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'TEMP_DRIVER'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.5748
+                            },
+                            "uuid": "43020b6a-06de-5ad5-94bf-7b23eebd2d90"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ADC_SCLK'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.27
+                            },
+                            "uuid": "cbb385f2-0fe8-58c3-88dc-6fd92bec8266"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"ADC_SCLK\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ADC_SCLK'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.27
+                            },
+                            "uuid": "cbb385f2-0fe8-58c3-88dc-6fd92bec8266"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'TEMP_COIL'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.6002
+                            },
+                            "uuid": "0cd7e029-e483-5879-a319-5cc7c300142f"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"TEMP_COIL\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'TEMP_COIL'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.6002
+                            },
+                            "uuid": "0cd7e029-e483-5879-a319-5cc7c300142f"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ADC_CS_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.2954
+                            },
+                            "uuid": "eeb1dd2d-3b04-5269-b6b9-850a297cb529"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"ADC_CS_N\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ADC_CS_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.2954
+                            },
+                            "uuid": "eeb1dd2d-3b04-5269-b6b9-850a297cb529"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'V_MOTOR_MONITOR'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.6256
+                            },
+                            "uuid": "223d5ee2-8749-5e07-a135-0d3359e5129f"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"V_MOTOR_MONITOR\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'V_MOTOR_MONITOR'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.6256
+                            },
+                            "uuid": "223d5ee2-8749-5e07-a135-0d3359e5129f"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ADC_SDO'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.3462
+                            },
+                            "uuid": "b2979e14-dac7-59cc-9c64-fa2195f3c7a1"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"ADC_SDO\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ADC_SDO'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.3462
+                            },
+                            "uuid": "b2979e14-dac7-59cc-9c64-fa2195f3c7a1"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'POWER_FAULT_N'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.651
+                            },
+                            "uuid": "f3b659cf-f067-53c9-8e1f-df44094e85cd"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"POWER_FAULT_N\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'POWER_FAULT_N'",
+                            "pos": {
+                                "x": 0.4318,
+                                "y": 1.651
+                            },
+                            "uuid": "f3b659cf-f067-53c9-8e1f-df44094e85cd"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ADC_RESET_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.3716
+                            },
+                            "uuid": "2d985a1a-69f0-56d6-b3ca-5fc5fcb0931b"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"ADC_RESET_N\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ADC_RESET_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.3716
+                            },
+                            "uuid": "2d985a1a-69f0-56d6-b3ca-5fc5fcb0931b"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ADC_ALARM'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.397
+                            },
+                            "uuid": "e7f3b5ef-2cf7-5028-ac33-17d0e3045ef4"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"ADC_ALARM\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ADC_ALARM'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.397
+                            },
+                            "uuid": "e7f3b5ef-2cf7-5028-ac33-17d0e3045ef4"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'AWAKE'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.4224
+                            },
+                            "uuid": "4b345a50-4089-50ad-a728-5091dad103a4"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"AWAKE\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'AWAKE'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.4224
+                            },
+                            "uuid": "4b345a50-4089-50ad-a728-5091dad103a4"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'FAULT_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.4478
+                            },
+                            "uuid": "ba3090c5-f8cb-5804-86fc-dc0515a4f83d"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"FAULT_N\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'FAULT_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.4478
+                            },
+                            "uuid": "ba3090c5-f8cb-5804-86fc-dc0515a4f83d"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HOST_RX'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.4732
+                            },
+                            "uuid": "fc6726e6-4e0e-527e-a264-f543c7749362"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"HOST_RX\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HOST_RX'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.4732
+                            },
+                            "uuid": "fc6726e6-4e0e-527e-a264-f543c7749362"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HOST_CS_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.4986
+                            },
+                            "uuid": "eee06e4f-ea1f-58a5-81d1-c26919245827"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"HOST_CS_N\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HOST_CS_N'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.4986
+                            },
+                            "uuid": "eee06e4f-ea1f-58a5-81d1-c26919245827"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HOST_SCLK'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.524
+                            },
+                            "uuid": "6f0e25e6-6796-553a-9464-06b8b33a6955"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"HOST_SCLK\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HOST_SCLK'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.524
+                            },
+                            "uuid": "6f0e25e6-6796-553a-9464-06b8b33a6955"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HOST_TX'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.5494
+                            },
+                            "uuid": "f0d44be1-db18-5daa-9f84-445da65f6bb6"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"HOST_TX\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HOST_TX'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.5494
+                            },
+                            "uuid": "f0d44be1-db18-5daa-9f84-445da65f6bb6"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U20 Pin 62 [VREG_PGND, Power input, Line]",
+                            "pos": {
+                                "x": 0.7112,
+                                "y": 1.7272
+                            },
+                            "uuid": "65dda72d-4819-48a1-b653-757532cf8f1b"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'WATCHDOG_PULSE'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.5748
+                            },
+                            "uuid": "3e2a2cf6-5b4a-56b5-8984-af130b3c3799"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"WATCHDOG_PULSE\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'WATCHDOG_PULSE'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.5748
+                            },
+                            "uuid": "3e2a2cf6-5b4a-56b5-8984-af130b3c3799"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Hierarchical label \"SAFE_OK\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'SAFE_OK'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.6002
+                            },
+                            "uuid": "93cbc154-12d3-5243-9d59-cb7d338ee0be"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Hierarchical label \"GND\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'GND'",
+                            "pos": {
+                                "x": 0.7112,
+                                "y": 1.778
+                            },
+                            "uuid": "ae07cf4b-f45d-58a8-bb8a-6e5174c8ff2a"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ARM_REQUEST'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.6256
+                            },
+                            "uuid": "627afdb9-ba48-5c18-99e8-b46b7f32580d"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"ARM_REQUEST\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'ARM_REQUEST'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.6256
+                            },
+                            "uuid": "627afdb9-ba48-5c18-99e8-b46b7f32580d"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HOST_SYNC'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.651
+                            },
+                            "uuid": "ab66f154-7da8-5894-9377-a40b1c04e2a5"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Hierarchical label \"HOST_SYNC\" in root sheet cannot be connected to non-existent parent sheet",
+                    "items": [
+                        {
+                            "description": "Hierarchical Label 'HOST_SYNC'",
+                            "pos": {
+                                "x": 1.0414,
+                                "y": 1.651
+                            },
+                            "uuid": "ab66f154-7da8-5894-9377-a40b1c04e2a5"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_connected"
+                }
+            ]
+        }
+    ],
+    "source": "controller.kicad_sch"
+}

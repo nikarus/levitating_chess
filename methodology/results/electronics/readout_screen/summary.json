@@ -1,0 +1,1956 @@
+{
+    "status": "analytical_candidate_screen_not_component_qualification",
+    "required_current_quantum_A": 0.0001983642578125,
+    "required_current_noise_rms_A": 0.001,
+    "pwm_carrier_Hz": 160000,
+    "shortest_interval_case": {
+        "mean_voltage_V": -18.0,
+        "bus_V": 22.799999999999997,
+        "shortest_common_mode_edge_interval_s": 6.578947368421045e-07,
+        "ina241_documented_edge_spacing_met": false
+    },
+    "ina241_documented_edge_spacing_covers_command_envelope": false,
+    "ina241_edge_spacing_voltage_interval_V": [
+        -0.9119999999999981,
+        0.9119999999999981
+    ],
+    "samples": [
+        {
+            "mean_voltage_V": -18.0,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 6.578947368421045e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -17.64,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 7.072368421052629e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -17.28,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 7.565789473684206e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -16.92,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 8.05921052631578e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -16.56,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 8.552631578947367e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -16.2,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 9.046052631578941e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -15.84,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 9.539473684210524e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -15.48,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.0032894736842102e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -15.120000000000001,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.0526315789473675e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -14.76,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.1019736842105258e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -14.4,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.1513157894736836e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -14.04,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.200657894736842e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -13.68,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.2499999999999997e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -13.32,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.2993421052631578e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -12.96,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.3486842105263156e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -12.600000000000001,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.398026315789473e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -12.24,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.4473684210526313e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -11.879999999999999,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.4967105263157892e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -11.52,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.5460526315789474e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -11.16,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.595394736842105e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -10.8,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.6447368421052628e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -10.440000000000001,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.6940789473684208e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -10.08,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.7434210526315787e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -9.72,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.7927631578947362e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -9.36,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.8421052631578948e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -9.0,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.8914473684210523e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -8.64,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.9407894736842103e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -8.280000000000001,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.9901315789473684e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -7.92,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.0394736842105266e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -7.5600000000000005,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.088815789473684e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -7.200000000000001,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.1381578947368417e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -6.84,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.1875e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -6.48,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.236842105263158e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -6.120000000000001,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.2861842105263153e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -5.76,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.335526315789474e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -5.4,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.384868421052631e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -5.040000000000001,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.4342105263157893e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -4.68,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.4835526315789475e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -4.32,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.532894736842105e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -3.960000000000001,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.582236842105263e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -3.6000000000000014,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.631578947368421e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -3.24,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.680921052631579e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -2.880000000000001,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.7302631578947366e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -2.5200000000000014,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.7796052631578943e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -2.16,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.8289473684210525e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -1.8000000000000007,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.8782894736842106e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -1.4400000000000013,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.9276315789473684e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -1.0800000000000018,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.9769736842105257e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -0.7199999999999989,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 3.0263157894736843e-06,
+            "ina241_documented_edge_spacing_met": true
+        },
+        {
+            "mean_voltage_V": -0.35999999999999943,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 3.075657894736842e-06,
+            "ina241_documented_edge_spacing_met": true
+        },
+        {
+            "mean_voltage_V": 0.0,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 3.125e-06,
+            "ina241_documented_edge_spacing_met": true
+        },
+        {
+            "mean_voltage_V": 0.35999999999999943,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 3.075657894736842e-06,
+            "ina241_documented_edge_spacing_met": true
+        },
+        {
+            "mean_voltage_V": 0.7199999999999989,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 3.0263157894736843e-06,
+            "ina241_documented_edge_spacing_met": true
+        },
+        {
+            "mean_voltage_V": 1.0799999999999983,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.9769736842105265e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 1.4399999999999977,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.9276315789473684e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 1.8000000000000007,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.8782894736842106e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 2.16,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.8289473684210525e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 2.5199999999999996,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.7796052631578947e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 2.879999999999999,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.730263157894737e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 3.2399999999999984,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.680921052631579e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 3.599999999999998,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.631578947368421e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 3.960000000000001,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.582236842105263e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 4.32,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.532894736842105e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 4.68,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.4835526315789475e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 5.039999999999999,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.4342105263157893e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 5.399999999999999,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.384868421052631e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 5.759999999999998,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.335526315789474e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 6.119999999999997,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.286184210526316e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 6.48,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.236842105263158e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 6.84,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.1875e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 7.199999999999999,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.1381578947368417e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 7.559999999999999,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.0888157894736843e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 7.919999999999998,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 2.0394736842105266e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 8.279999999999998,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.9901315789473684e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 8.64,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.9407894736842103e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 9.0,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.8914473684210523e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 9.36,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.8421052631578948e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 9.719999999999999,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.7927631578947369e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 10.079999999999998,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.7434210526315787e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 10.439999999999998,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.6940789473684212e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 10.799999999999997,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.6447368421052635e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 11.16,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.595394736842105e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 11.52,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.5460526315789474e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 11.879999999999999,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.4967105263157892e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 12.239999999999998,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.4473684210526315e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 12.599999999999998,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.398026315789474e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 12.959999999999997,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.3486842105263158e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 13.32,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.2993421052631578e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 13.68,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.2499999999999997e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 14.04,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.200657894736842e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 14.399999999999999,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.1513157894736844e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 14.759999999999998,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.1019736842105263e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 15.119999999999997,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.0526315789473685e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 15.479999999999997,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 1.0032894736842102e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 15.839999999999996,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 9.539473684210528e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 16.199999999999996,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 9.046052631578951e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 16.560000000000002,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 8.552631578947364e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 16.92,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 8.05921052631578e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 17.28,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 7.565789473684206e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 17.64,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 7.072368421052629e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 18.0,
+            "bus_V": 22.799999999999997,
+            "shortest_common_mode_edge_interval_s": 6.578947368421045e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -18.0,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 7.8125e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -17.64,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 8.28125e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -17.28,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 8.749999999999994e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -16.92,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 9.218749999999997e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -16.56,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 9.687500000000003e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -16.2,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.0156250000000001e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -15.84,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.0624999999999996e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -15.48,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.1093749999999999e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -15.120000000000001,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.15625e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -14.76,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.203125e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -14.4,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.2499999999999997e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -14.04,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.2968750000000002e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -13.68,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.34375e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -13.32,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.3906249999999995e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -12.96,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.4374999999999998e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -12.600000000000001,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.4843749999999999e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -12.24,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.53125e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -11.879999999999999,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.5781250000000005e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -11.52,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.6250000000000001e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -11.16,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.6718749999999998e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -10.8,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.71875e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -10.440000000000001,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.765625e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -10.08,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.8125000000000002e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -9.72,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.8593749999999999e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -9.36,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.9062500000000004e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -9.0,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.953125e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -8.64,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.9999999999999995e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -8.280000000000001,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.046875e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -7.92,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.0937499999999996e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -7.5600000000000005,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.1406250000000004e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -7.200000000000001,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.1875e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -6.84,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.234375e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -6.48,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.28125e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -6.120000000000001,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.328125e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -5.76,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.375e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -5.4,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.4218749999999996e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -5.040000000000001,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.46875e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -4.68,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.5156249999999997e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -4.32,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.5625e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -3.960000000000001,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.609375e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -3.6000000000000014,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.6562499999999998e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -3.24,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.703125e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -2.880000000000001,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.7499999999999995e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -2.5200000000000014,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.796875e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -2.16,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.8437499999999997e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -1.8000000000000007,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.890625e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -1.4400000000000013,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.9375e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -1.0800000000000018,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.9843749999999997e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -0.7199999999999989,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 3.03125e-06,
+            "ina241_documented_edge_spacing_met": true
+        },
+        {
+            "mean_voltage_V": -0.35999999999999943,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 3.078125e-06,
+            "ina241_documented_edge_spacing_met": true
+        },
+        {
+            "mean_voltage_V": 0.0,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 3.125e-06,
+            "ina241_documented_edge_spacing_met": true
+        },
+        {
+            "mean_voltage_V": 0.35999999999999943,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 3.078125e-06,
+            "ina241_documented_edge_spacing_met": true
+        },
+        {
+            "mean_voltage_V": 0.7199999999999989,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 3.03125e-06,
+            "ina241_documented_edge_spacing_met": true
+        },
+        {
+            "mean_voltage_V": 1.0799999999999983,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.984375e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 1.4399999999999977,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.9375000000000003e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 1.8000000000000007,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.890625e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 2.16,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.8437499999999997e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 2.5199999999999996,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.7968750000000002e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 2.879999999999999,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.75e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 3.2399999999999984,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.703125e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 3.599999999999998,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.65625e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 3.960000000000001,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.609375e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 4.32,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.5625e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 4.68,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.5156249999999997e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 5.039999999999999,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.4687500000000003e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 5.399999999999999,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.421875e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 5.759999999999998,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.375e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 6.119999999999997,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.3281250000000003e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 6.48,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.28125e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 6.84,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.234375e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 7.199999999999999,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.1875e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 7.559999999999999,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.1406250000000004e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 7.919999999999998,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.0937500000000005e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 8.279999999999998,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 2.046875e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 8.64,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.9999999999999995e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 9.0,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.953125e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 9.36,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.9062500000000004e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 9.719999999999999,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.8593749999999999e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 10.079999999999998,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.8125000000000002e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 10.439999999999998,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.7656250000000006e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 10.799999999999997,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.71875e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 11.16,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.6718749999999998e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 11.52,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.6250000000000001e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 11.879999999999999,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.5781250000000005e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 12.239999999999998,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.5312500000000004e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 12.599999999999998,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.4843750000000003e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 12.959999999999997,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.4374999999999998e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 13.32,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.3906249999999995e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 13.68,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.34375e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 14.04,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.2968750000000002e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 14.399999999999999,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.2499999999999997e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 14.759999999999998,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.2031250000000004e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 15.119999999999997,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.1562500000000004e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 15.479999999999997,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.1093749999999999e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 15.839999999999996,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.0625000000000006e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 16.199999999999996,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 1.0156250000000005e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 16.560000000000002,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 9.687499999999998e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 16.92,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 9.218749999999997e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 17.28,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 8.749999999999994e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 17.64,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 8.28125e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 18.0,
+            "bus_V": 24.0,
+            "shortest_common_mode_edge_interval_s": 7.8125e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -18.0,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 8.928571428571432e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -17.64,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 9.375000000000001e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -17.28,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 9.821428571428572e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -16.92,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.0267857142857145e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -16.56,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.0714285714285718e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -16.2,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.1160714285714289e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -15.84,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.1607142857142857e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -15.48,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.2053571428571428e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -15.120000000000001,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.2499999999999997e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -14.76,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.2946428571428574e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -14.4,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.3392857142857145e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -14.04,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.3839285714285718e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -13.68,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.4285714285714286e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -13.32,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.4732142857142861e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -12.96,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.517857142857143e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -12.600000000000001,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.5625e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -12.24,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.607142857142857e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -11.879999999999999,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.6517857142857147e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -11.52,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.6964285714285717e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -11.16,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.7410714285714286e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -10.8,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.7857142857142857e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -10.440000000000001,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.8303571428571425e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -10.08,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.8750000000000003e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -9.72,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.9196428571428573e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -9.36,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.9642857142857144e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -9.0,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.008928571428571e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -8.64,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.053571428571428e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -8.280000000000001,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.098214285714286e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -7.92,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.1428571428571427e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -7.5600000000000005,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.1875e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -7.200000000000001,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.2321428571428573e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -6.84,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.2767857142857144e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -6.48,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.3214285714285715e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -6.120000000000001,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.3660714285714285e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -5.76,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.4107142857142856e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -5.4,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.4553571428571427e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -5.040000000000001,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.5e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -4.68,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.5446428571428573e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -4.32,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.589285714285714e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -3.960000000000001,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.633928571428571e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -3.6000000000000014,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.6785714285714285e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -3.24,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.7232142857142856e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -2.880000000000001,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.7678571428571427e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -2.5200000000000014,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.8124999999999998e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -2.16,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.8571428571428573e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -1.8000000000000007,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.9017857142857143e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -1.4400000000000013,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.9464285714285714e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -1.0800000000000018,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.9910714285714285e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": -0.7199999999999989,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 3.035714285714286e-06,
+            "ina241_documented_edge_spacing_met": true
+        },
+        {
+            "mean_voltage_V": -0.35999999999999943,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 3.080357142857143e-06,
+            "ina241_documented_edge_spacing_met": true
+        },
+        {
+            "mean_voltage_V": 0.0,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 3.125e-06,
+            "ina241_documented_edge_spacing_met": true
+        },
+        {
+            "mean_voltage_V": 0.35999999999999943,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 3.080357142857143e-06,
+            "ina241_documented_edge_spacing_met": true
+        },
+        {
+            "mean_voltage_V": 0.7199999999999989,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 3.035714285714286e-06,
+            "ina241_documented_edge_spacing_met": true
+        },
+        {
+            "mean_voltage_V": 1.0799999999999983,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.9910714285714285e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 1.4399999999999977,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.946428571428572e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 1.8000000000000007,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.9017857142857143e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 2.16,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.8571428571428573e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 2.5199999999999996,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.8124999999999998e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 2.879999999999999,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.7678571428571427e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 3.2399999999999984,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.7232142857142856e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 3.599999999999998,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.678571428571429e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 3.960000000000001,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.633928571428571e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 4.32,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.589285714285714e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 4.68,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.5446428571428573e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 5.039999999999999,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.5e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 5.399999999999999,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.455357142857143e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 5.759999999999998,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.410714285714286e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 6.119999999999997,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.3660714285714294e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 6.48,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.3214285714285715e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 6.84,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.2767857142857144e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 7.199999999999999,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.2321428571428577e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 7.559999999999999,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.1875000000000002e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 7.919999999999998,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.142857142857143e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 8.279999999999998,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.098214285714286e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 8.64,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.053571428571428e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 9.0,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 2.008928571428571e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 9.36,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.9642857142857144e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 9.719999999999999,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.9196428571428573e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 10.079999999999998,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.8750000000000003e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 10.439999999999998,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.8303571428571434e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 10.799999999999997,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.7857142857142863e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 11.16,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.7410714285714286e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 11.52,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.6964285714285717e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 11.879999999999999,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.6517857142857147e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 12.239999999999998,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.6071428571428576e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 12.599999999999998,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.5625000000000007e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 12.959999999999997,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.517857142857143e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 13.32,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.4732142857142861e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 13.68,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.4285714285714286e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 14.04,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.3839285714285718e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 14.399999999999999,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.3392857142857147e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 14.759999999999998,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.2946428571428578e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 15.119999999999997,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.2500000000000003e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 15.479999999999997,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.2053571428571434e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 15.839999999999996,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.1607142857142864e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 16.199999999999996,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.1160714285714295e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 16.560000000000002,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.0714285714285714e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 16.92,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 1.0267857142857145e-06,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 17.28,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 9.821428571428572e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 17.64,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 9.375000000000001e-07,
+            "ina241_documented_edge_spacing_met": false
+        },
+        {
+            "mean_voltage_V": 18.0,
+            "bus_V": 25.200000000000003,
+            "shortest_common_mode_edge_interval_s": 8.928571428571432e-07,
+            "ina241_documented_edge_spacing_met": false
+        }
+    ],
+    "candidates": [
+        {
+            "name": "INA241A1",
+            "gain_V_per_V": 10.0,
+            "shunt_ohm": 0.02,
+            "sensitivity_V_per_A": 0.2,
+            "nominal_output_range_V": [
+                1.2,
+                3.8
+            ],
+            "ideal_supply_rail_check": true,
+            "peak_shunt_loss_W": 0.845,
+            "amplifier_quiescent_upper_W": 0.016,
+            "full_supply_adc_quantum_A": 0.0003814697265625,
+            "minimum_ideal_full_supply_adc_bits": 17,
+            "typical_white_noise_only_max_ENBW_Hz": 104058.27263267433,
+            "corresponding_single_pole_cutoff_Hz": 66245.55383637686,
+            "total_readout_qualified": false
+        },
+        {
+            "name": "AD8410A",
+            "gain_V_per_V": 20.0,
+            "shunt_ohm": 0.02,
+            "sensitivity_V_per_A": 0.4,
+            "nominal_output_range_V": [
+                -0.10000000000000009,
+                5.1
+            ],
+            "ideal_supply_rail_check": false,
+            "peak_shunt_loss_W": 0.845,
+            "amplifier_quiescent_upper_W": 0.054000000000000006,
+            "full_supply_adc_quantum_A": 0.00019073486328125,
+            "minimum_ideal_full_supply_adc_bits": 16,
+            "typical_white_noise_only_max_ENBW_Hz": 277008.3102493074,
+            "corresponding_single_pole_cutoff_Hz": 176348.96741484245,
+            "total_readout_qualified": false
+        },
+        {
+            "name": "AD8410A",
+            "gain_V_per_V": 20.0,
+            "shunt_ohm": 0.01,
+            "sensitivity_V_per_A": 0.2,
+            "nominal_output_range_V": [
+                1.2,
+                3.8
+            ],
+            "ideal_supply_rail_check": true,
+            "peak_shunt_loss_W": 0.4225,
+            "amplifier_quiescent_upper_W": 0.054000000000000006,
+            "full_supply_adc_quantum_A": 0.0003814697265625,
+            "minimum_ideal_full_supply_adc_bits": 17,
+            "typical_white_noise_only_max_ENBW_Hz": 69252.07756232686,
+            "corresponding_single_pole_cutoff_Hz": 44087.24185371061,
+            "total_readout_qualified": false
+        },
+        {
+            "name": "MAX49925",
+            "gain_V_per_V": 10.0,
+            "shunt_ohm": 0.02,
+            "sensitivity_V_per_A": 0.2,
+            "nominal_output_range_V": [
+                1.2,
+                3.8
+            ],
+            "ideal_supply_rail_check": true,
+            "peak_shunt_loss_W": 0.845,
+            "amplifier_quiescent_upper_W": 0.035,
+            "full_supply_adc_quantum_A": 0.0003814697265625,
+            "minimum_ideal_full_supply_adc_bits": 17,
+            "typical_white_noise_only_max_ENBW_Hz": 17777.77777777778,
+            "corresponding_single_pole_cutoff_Hz": 11317.684842090337,
+            "total_readout_qualified": false,
+            "within_published_gain_error_test_excursion": false
+        },
+        {
+            "name": "MAX49925",
+            "gain_V_per_V": 10.0,
+            "shunt_ohm": 0.01,
+            "sensitivity_V_per_A": 0.1,
+            "nominal_output_range_V": [
+                1.85,
+                3.15
+            ],
+            "ideal_supply_rail_check": true,
+            "peak_shunt_loss_W": 0.4225,
+            "amplifier_quiescent_upper_W": 0.035,
+            "full_supply_adc_quantum_A": 0.000762939453125,
+            "minimum_ideal_full_supply_adc_bits": 18,
+            "typical_white_noise_only_max_ENBW_Hz": 4444.444444444445,
+            "corresponding_single_pole_cutoff_Hz": 2829.4212105225843,
+            "total_readout_qualified": false,
+            "within_published_gain_error_test_excursion": true
+        }
+    ],
+    "datasheets": {
+        "INA241A1": "https://www.ti.com/lit/ds/symlink/ina241a.pdf",
+        "AD8410A": "https://www.analog.com/media/en/technical-documentation/data-sheets/ad8410a.pdf",
+        "MAX49925": "https://www.analog.com/media/en/technical-documentation/data-sheets/max49925.pdf"
+    },
+    "limitations": [
+        "Ideal centered unipolar leg timing; finite edge times, dead time, parasitics and movement are not simulated here.",
+        "Meeting an edge-spacing condition does not establish sampling accuracy; violating it removes that documented rejection condition, not all amplifier functionality.",
+        "Noise uses typical spot input-noise densities as white-noise estimates and assigns the entire existing RMS budget to the amplifier. Flicker, spectral variation, reference, ADC, shunt noise, aliasing and PWM residue require separate analysis.",
+        "The illustrative single-pole noise bandwidth is not a selected filter or a verified delay budget.",
+        "ADC bits assume a full-supply input span and ideal quantization. A narrower converter range changes this calculation; bits alone do not establish accuracy or noise.",
+        "Output checks only screen ideal supply rails; actual output swing, gain/offset variation and ADC loading remain unqualified.",
+        "Shunt alternatives are screening cases only; no schematic, controller or flight setting has been changed.",
+        "INA241A vendor macro-model omits enhanced PWM rejection. This screen does not execute or qualify manufacturer circuit models."
+    ],
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/readout.py": "c7d5027ede7691dc5322de3a9dee1b3f2421a47d2be0ca70d4c6c7b81cbae7ab",
+        "model.py": "0b8ff5aba5e80db8e4c9789e28dc9f3560f25b67dac5e4b1e5b2444475d7fe83",
+        "methodology/electrical.py": "23b46a33113f8059459a005b5ff9f301c8daefd9839a54b160f935fe48e1ad27",
+        "methodology/electronics/power_stage.py": "3fa14f2d6756047b5ffbf409ddd4af4920d80acc2d19e70e7ec2584c84ac3173",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061"
+    }
+}

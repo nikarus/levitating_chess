@@ -1,0 +1,152 @@
+{
+    "status": "physical_bridge_recorded_SAR_acquisition_screen",
+    "converter": "ADS8698IDBTR",
+    "external_filter_load_simulated": true,
+    "nominal_code_A": 0.00019531249999999998,
+    "numerical_limit_A": 0.0001,
+    "candidates": [
+        {
+            "cutoff_per_pole_Hz": 7958.542929310226,
+            "poles": 1,
+            "samples_per_carrier": 1,
+            "calibration": {
+                "gain": 1.0010973985301677,
+                "offset_A": -0.0030398885120801467,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 3.3655494426041194e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -23.915812939865017,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.00897958404120125,
+                    "calibrated_phase_max_error_A": 0.014538897748940904,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 0.014609123068543894,
+                    "vendor_refinement_max_difference_A": 1.1449216534842321e-06,
+                    "resampling_refinement_max_difference_A": 3.3920599662451423e-10
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 0.003021940195251108,
+                    "calibrated_phase_max_error_A": 1.8323584461996623e-05,
+                    "calibrated_fixed_phase_error_A": 1.8174584170996253e-05,
+                    "quantized_calibrated_phase_max_error_A": 1.2530426670488818e-05,
+                    "vendor_refinement_max_difference_A": 2.272281655149068e-07,
+                    "resampling_refinement_max_difference_A": 9.498184335397786e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.007385922874444617,
+                    "calibrated_phase_max_error_A": 0.0072706453062334475,
+                    "calibrated_fixed_phase_error_A": 7.780470449958443e-05,
+                    "quantized_calibrated_phase_max_error_A": 0.007253947946237016,
+                    "vendor_refinement_max_difference_A": 1.3313479669818662e-06,
+                    "resampling_refinement_max_difference_A": 1.4716325935637542e-09
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.011685368854677414,
+                    "calibrated_phase_max_error_A": 0.014539082129746639,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 0.014573854733449743,
+                    "vendor_refinement_max_difference_A": 1.6277113186191627e-06,
+                    "resampling_refinement_max_difference_A": 3.1361482299985255e-09
+                }
+            ]
+        },
+        {
+            "cutoff_per_pole_Hz": 7958.542929310226,
+            "poles": 1,
+            "samples_per_carrier": 2,
+            "calibration": {
+                "gain": 0.999748785183982,
+                "offset_A": -0.00303994949643549,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 3.521799442604119e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -25.04081293986502,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.0016871522469719125,
+                    "calibrated_phase_max_error_A": 1.534947580150714e-05,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 5.905133338490742e-05,
+                    "vendor_refinement_max_difference_A": 1.0876318290442555e-06,
+                    "resampling_refinement_max_difference_A": 2.241495877797206e-10
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 0.0030217776120605184,
+                    "calibrated_phase_max_error_A": 1.8223084137748294e-05,
+                    "calibrated_fixed_phase_error_A": 1.8200154858441654e-05,
+                    "quantized_calibrated_phase_max_error_A": 1.2608330084417358e-05,
+                    "vendor_refinement_max_difference_A": 2.2721227568335556e-07,
+                    "resampling_refinement_max_difference_A": 9.258957840881099e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.0037059436803712487,
+                    "calibrated_phase_max_error_A": 1.0552291745291598e-05,
+                    "calibrated_fixed_phase_error_A": 1.0536048819620447e-05,
+                    "quantized_calibrated_phase_max_error_A": 5.301714343897146e-05,
+                    "vendor_refinement_max_difference_A": 1.3149191251393688e-06,
+                    "resampling_refinement_max_difference_A": 1.3703784773611005e-09
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.004401344985584643,
+                    "calibrated_phase_max_error_A": 8.59078426529436e-06,
+                    "calibrated_fixed_phase_error_A": 8.881784197001252e-16,
+                    "quantized_calibrated_phase_max_error_A": 0.00010088610241698603,
+                    "vendor_refinement_max_difference_A": 1.581855055832193e-06,
+                    "resampling_refinement_max_difference_A": 3.043198582020068e-09
+                }
+            ]
+        }
+    ],
+    "hardware_qualified": false,
+    "limitations": [
+        "Recorded physical bridge and unchanged vendor amplifier with a physical passive output filter and typical resistive ADC load; internal ADC input bias and impedance variation remain unmodeled.",
+        "The ADC internal filter uses equal real poles matching its published typical order and -3 dB bandwidth. This is a screening approximation, not a vendor dynamic model or a guaranteed timing bound.",
+        "The same two-point gain/offset correction is applied to every current and phase. Reference-current accuracy, calibration implementation, temperature drift and component tolerances remain unqualified.",
+        "Quantization uses the selected nominal input span. ADC noise, reference error, INL/DNL, loading, communication and current-loop stability are not qualified.",
+        "Only the saved periodic currents are tested; this does not qualify changing-current distortion or arbitrary switching patterns."
+    ],
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/acquisition.py": "ed473e3b5a99a1d41b42f4fa53e0d0ec7dd958f8d62fe7de07e95aa00e2ab0da",
+        "model.py": "19813481d4c1f15b9b5a854ed08f2f3dc93cf436808da6b17caa45a011f7ab47",
+        "methodology/electronics/readout.py": "4412a23cdc31f78040d16439ffb3044331ae0e91d2995ca8077ea838054ae662",
+        "methodology/electrical.py": "23b46a33113f8059459a005b5ff9f301c8daefd9839a54b160f935fe48e1ad27",
+        "methodology/electronics/power_stage.py": "7c9969db433177cf7dc029d4c4b851afb557e9bcbbf25e38ad63c20b0810a6d5",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757"
+    },
+    "recorded_input_sha256": {
+        "methodology/results/electronics/low_side_readout/acquisition/loaded_filter_replay/summary.json": "b2b918ef1bf3bd82cbca7e8d12da1835444fde8832f27fbe017bb12662f0e263",
+        "methodology/results/electronics/low_side_readout/acquisition/loaded_filter_replay/case_0_refinement_1/transient.dat": "915396f055e9baceee7205bc26753a002a7d85a03513b4509002b99c9e54c380",
+        "methodology/results/electronics/low_side_readout/acquisition/loaded_filter_replay/case_0_refinement_2/transient.dat": "4d2a89fb014c14766d7443f94034b371d4b49557ecc45a8e9d88db3773c94b20",
+        "methodology/results/electronics/low_side_readout/acquisition/loaded_filter_replay/case_1_refinement_1/transient.dat": "e70bfe158f40dd2c4caf0a8cf3230ba800116f5c68313dc12be52d36a130e13d",
+        "methodology/results/electronics/low_side_readout/acquisition/loaded_filter_replay/case_1_refinement_2/transient.dat": "a18b5ddc867d9dcda877fa28d73b22e62df325c823f68a05939005c3435248f5",
+        "methodology/results/electronics/low_side_readout/acquisition/loaded_filter_replay/case_2_refinement_1/transient.dat": "069b2219ec0444737d107d204755025e10396379108e232e5349461391e52cea",
+        "methodology/results/electronics/low_side_readout/acquisition/loaded_filter_replay/case_2_refinement_2/transient.dat": "ee68fec8d94e3cac36f26dae04090b095a0b30d1dab3e1d2293cd8d9900c277f",
+        "methodology/results/electronics/low_side_readout/acquisition/loaded_filter_replay/case_3_refinement_1/transient.dat": "953aa8483da6f2cd161247e49679a4d7c55b987fdde9ca2f77a4eaf175114830",
+        "methodology/results/electronics/low_side_readout/acquisition/loaded_filter_replay/case_3_refinement_2/transient.dat": "0647910586e480129d53915e1a7662070e62e4bd065f4f20b9d3286125936f60"
+    }
+}

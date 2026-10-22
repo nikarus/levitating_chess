@@ -1,0 +1,214 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-10-20T15:27:22+0200",
+    "included_severities": [
+        "error",
+        "warning"
+    ],
+    "kicad_version": "9.0.8",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/caf22fa2-25c0-50fc-9fc1-15d77ce7e6bd",
+            "violations": [
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U1 Pin 1 [GND, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 0.5715
+                            },
+                            "uuid": "4ccb9c31-b27b-4e66-aa70-c944bbafde6d"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U1 Pin 2 [VM, Power input, Line]",
+                            "pos": {
+                                "x": 0.508,
+                                "y": 0.5969
+                            },
+                            "uuid": "75a49e9e-044a-4a42-b981-1147eaa012ed"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U1 Pin 29 [IN4, Input, Line]",
+                            "pos": {
+                                "x": 0.8128,
+                                "y": 0.9525
+                            },
+                            "uuid": "d5774437-daf4-4c90-8e9f-7ff36bd331d7"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U1 Pin 28 [IN3, Input, Line]",
+                            "pos": {
+                                "x": 0.8128,
+                                "y": 0.9779
+                            },
+                            "uuid": "37187b84-af27-48be-b7fd-793b09c8a9dc"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U1 Pin 27 [IN2, Input, Line]",
+                            "pos": {
+                                "x": 0.8128,
+                                "y": 1.0033
+                            },
+                            "uuid": "39112323-8bec-4cb1-a7e4-40e3bbfa7a24"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'PWM_B_N'",
+                            "pos": {
+                                "x": 0.889,
+                                "y": 0.9525
+                            },
+                            "uuid": "a1b24a58-c176-5881-8adc-f6a6d62afca4"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U1 Pin 26 [IN1, Input, Line]",
+                            "pos": {
+                                "x": 0.8128,
+                                "y": 1.0287
+                            },
+                            "uuid": "aec4ba50-b43f-4bd6-9d74-3352afd2de08"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'PWM_B_P'",
+                            "pos": {
+                                "x": 0.889,
+                                "y": 0.9779
+                            },
+                            "uuid": "ce6defd7-b07c-5fd8-88ea-39be8f2cbc60"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'PWM_A_N'",
+                            "pos": {
+                                "x": 0.889,
+                                "y": 1.0033
+                            },
+                            "uuid": "b44f093e-6681-566f-a4b4-837fe290bebd"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'PWM_A_P'",
+                            "pos": {
+                                "x": 0.889,
+                                "y": 1.0287
+                            },
+                            "uuid": "20cffefc-5130-5484-be15-8661d89d96fa"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Input Power pin not driven by any Output Power pins",
+                    "items": [
+                        {
+                            "description": "Symbol U2 Pin 6 [V+, Power input, Line]",
+                            "pos": {
+                                "x": 1.3462,
+                                "y": 1.8796
+                            },
+                            "uuid": "fb6b40a7-3427-4c14-8f41-f7e3ef0aa74c"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "power_pin_not_driven"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'CURRENT_A'",
+                            "pos": {
+                                "x": 1.524,
+                                "y": 1.9558
+                            },
+                            "uuid": "bbd96bce-5b85-577a-8436-2fd87a7962a6"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'CURRENT_B'",
+                            "pos": {
+                                "x": 1.524,
+                                "y": 2.3876
+                            },
+                            "uuid": "f3ac7919-51cb-5ead-9674-ede5cf586f9e"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                }
+            ]
+        }
+    ],
+    "source": "channel.kicad_sch"
+}

@@ -1,0 +1,62 @@
+{
+    "status": "manufacturer_amplifier_replay_of_resolved_switching_reversal",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/readout.py": "8a81ad47b637364d01284c24fdd84d330b4270e20cd7fd2e0d4ab52e0d0f04e8",
+        "model.py": "57f5cfe65f8b8e5132aed6e121125d3adcce03eaa838262435a5e9db3747674b",
+        "methodology/electrical.py": "23b46a33113f8059459a005b5ff9f301c8daefd9839a54b160f935fe48e1ad27",
+        "methodology/electronics/power_stage.py": "5fa392cff0fbf00704978dc3ebc99ecac6eebb07d76eb5d7cba0ef937ed12e41",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/qualification.py": "7d1232db4b9045a1ac7d244ffb71468b64d636953203c81daee2f92627a33f54",
+        "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757",
+        "methodology/electronics/switching_loop.py": "414d0dd8e3325c3051b1bce7e079236f243a5c870e11e2e002ee52c5c4998d10",
+        "methodology/electronics/current_loop.py": "d9fdf5d50d34592bb5aecbce23e28b57380ca7083f9e42e0c0395f5613e75773",
+        "methodology/electronics/acquisition.py": "85dc1ebeb49263ca4cafc1294b55306431fbe3f64d443ac99f8b5ea6b31002b9",
+        "methodology/electronics/bridge_readout.py": "e017449a39c11c50c229817f55ad967d543f656289db3209d7a4abec361ee052"
+    },
+    "transition_only": true,
+    "recorded_input_sha256": {
+        "methodology/results/electronics/current_loop/lifecycle/reverse_positive/summary.json": "68c41b156633d99e3e5a586b7b91d9b848b1f111c47a0fea176c31477ba6f2db",
+        "methodology/results/electronics/current_loop/lifecycle/reverse_positive/refinement_1.npz": "0f6354b64c54e01c78169e5a9966d0578244c8c41ce253b373178b3054c3c882",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_0_refinement_1/plant.npz": "906d6d715c8537f21f3f606b303ba0bfa94cc71ee37ca7c2bb21fa74dea1ca4f",
+        "methodology/results/electronics/current_loop/lifecycle/reverse_positive/refinement_2.npz": "1898d0e7675e0bf153f52e2d71f9491d83660c96b196d3ae25f521981eb1b8f5",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_0_refinement_2/plant.npz": "a959f1a7555b83f1ebcbc1defd19fb2daeb8096c2d735354ae049ee63948b8a8"
+    },
+    "vendor_sha256": "b21a12037058848645c9c0569555905686a85a77430ff612dfd87d96caee21a6",
+    "trials": [
+        {
+            "refinement": 1,
+            "reused_case_from": null,
+            "replayed_duration_s": 0.001,
+            "controller_samples": 20,
+            "replay_voltage_error_bound_V": 2.5000000000000004e-07,
+            "peak_reduced_model_discrepancy_A": 0.023047767083786676,
+            "rms_deterministic_discrepancy_A": 0.009216226595767322,
+            "peak_feedback_discrepancy_A": 0.022367753906249677,
+            "within_existing_gain_offset_envelope": true,
+            "peak_input_loading_A": 3.433277452512068e-08
+        },
+        {
+            "refinement": 2,
+            "reused_case_from": null,
+            "replayed_duration_s": 0.001,
+            "controller_samples": 20,
+            "replay_voltage_error_bound_V": 1.2500000000000002e-07,
+            "peak_reduced_model_discrepancy_A": 0.023048800923155126,
+            "rms_deterministic_discrepancy_A": 0.009216067902325147,
+            "peak_feedback_discrepancy_A": 0.022367753906249677,
+            "within_existing_gain_offset_envelope": true,
+            "peak_input_loading_A": 3.433277525017032e-08
+        }
+    ],
+    "peak_numerical_discrepancy_A": 6.251774747667582e-06,
+    "numerical_pass": true,
+    "hardware_qualified": false,
+    "limitations": [
+        "Exact recorded bridge voltages drive the unchanged TI amplifier and physical output filter; converter internal dynamics remain the same typical two-pole approximation.",
+        "The replay compares the reduced sensor model during one closed-loop reversal. It does not feed the manufacturer output back into a new bridge trajectory.",
+        "The existing gain/offset envelope is checked without changing it. Agreement within that envelope does not establish an error allocation for every remaining component.",
+        "RMS discrepancy is deterministic model error, not random noise. Input loading is measured but not coupled back; supply/reference noise, ADC INL/DNL and temperature remain unqualified."
+    ]
+}

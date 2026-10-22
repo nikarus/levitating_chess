@@ -12,6 +12,26 @@ from methodology import airborne, electrical, sensing
 
 
 class ElectricalInterfaceTests(unittest.TestCase):
+    def test_hardware_requirements_scale_acquisition_without_changing_accuracy(self):
+        first = electrical.hardware_interface_requirements(1, 1)
+        second = electrical.hardware_interface_requirements(2, 2)
+        for section in ('current_acquisition', 'hall_acquisition'):
+            for key in ('aggregate_samples_per_s', 'raw_sample_payload_bits_per_s'):
+                self.assertEqual(second[section][key], 2 * first[section][key])
+        self.assertEqual(first['current_acquisition']['quantum_A'], electrical.current_quantum())
+        self.assertEqual(first['current_acquisition']['quantum_A'], second['current_acquisition']['quantum_A'])
+        sensors = electrical.VirtualCurrentSensors(('a', 'b'))
+        self.assertLessEqual(np.max(np.abs(sensors.offset)), first['current_acquisition']['residual_offset_bound_A'])
+        self.assertEqual(first['current_acquisition']['input_referred_noise_rms_V'],
+            Fixed.current_feedback_noise * Fixed.current_sense_resistance)
+
+    def test_hardware_requirements_reject_invalid_channel_counts(self):
+        for count in (0, -1, True, 1.5):
+            with self.assertRaises(ValueError):
+                electrical.hardware_interface_requirements(count, 1)
+            with self.assertRaises(ValueError):
+                electrical.hardware_interface_requirements(1, count)
+
     def setUp(self):
         self.identities = ('coil-a', 'coil-b')
         construction = SimpleNamespace(configuration=SimpleNamespace(resistance=1., turns=10, coil_height=1.),

@@ -1,0 +1,3426 @@
+{
+    "status": "ideal_bridge_acquisition_sensitivity_not_vendor_or_hardware_qualification",
+    "filter_cutoff_Hz": 8000.0,
+    "filter_order": 1,
+    "assumed_amplifier_single_pole_Hz": 350000.0,
+    "coil_resistance_ohm": 0.47570299886022366,
+    "coil_inductance_H": 2.578766605211726e-05,
+    "current_motion_frequency_Hz": 2000,
+    "numerical_limit_A": 0.0001,
+    "trials": [
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "nominal",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.0686564400639327e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 3.254285729781259e-12,
+            "RMS_distortion_excluding_matched_filter_delay_A": 3.071459335592048e-12,
+            "peak_distortion_after_own_mean_removed_A": 1.8562928971732617e-13,
+            "peak_total_error_against_instantaneous_current_A": 0.1398173863224752,
+            "numerical_refinement_difference_A": 1.6111556533360272e-12,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003753420083434378
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.410398183185009e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "nominal",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.068667498926092e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 3.083755473198835e-12,
+            "RMS_distortion_excluding_matched_filter_delay_A": 3.0686770064786378e-12,
+            "peak_distortion_after_own_mean_removed_A": 1.5087974272742777e-14,
+            "peak_total_error_against_instantaneous_current_A": 0.13798186157787473,
+            "numerical_refinement_difference_A": 1.5201173653167647e-12,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00031742462550710115
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.431725561397485e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "nominal",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.068639960190911e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 3.072209153742733e-12,
+            "RMS_distortion_excluding_matched_filter_delay_A": 3.0686401405237178e-12,
+            "peak_distortion_after_own_mean_removed_A": 3.5691935518222806e-15,
+            "peak_total_error_against_instantaneous_current_A": 0.13768110915272658,
+            "numerical_refinement_difference_A": 1.5130119379591633e-12,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00016062241924252874
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.485897388712857e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "opposed_shunts_0.001",
+                "shunt_error": 0.001,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.0005997144968157286,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0006202296571604649,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0005999324938812274,
+            "peak_distortion_after_own_mean_removed_A": 2.8621470368861424e-05,
+            "peak_total_error_against_instantaneous_current_A": 0.14041097199435804,
+            "numerical_refinement_difference_A": 5.631939359318494e-12,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00037254175439471737
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.39166870521646e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "opposed_shunts_0.001",
+                "shunt_error": 0.001,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.0005997144968157438,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0006055657122150393,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0005997334986110773,
+            "peak_distortion_after_own_mean_removed_A": 8.061059138435214e-06,
+            "peak_total_error_against_instantaneous_current_A": 0.13858102935754335,
+            "numerical_refinement_difference_A": 3.770761480836882e-12,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00031722859604244036
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.324480825461222e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "opposed_shunts_0.001",
+                "shunt_error": 0.001,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.000599714496815733,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0005997912550474993,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0005997144986272647,
+            "peak_distortion_after_own_mean_removed_A": 7.675823176633151e-08,
+            "peak_total_error_against_instantaneous_current_A": 0.13828089667851806,
+            "numerical_refinement_difference_A": 2.5868196473766147e-12,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00015402009962617313
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 3.8022285106187326e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "opposed_shunts_0.01",
+                "shunt_error": 0.01,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.005997144940534049,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.006202296545231967,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.00599932491120759,
+            "peak_distortion_after_own_mean_removed_A": 0.0002862147031912343,
+            "peak_total_error_against_instantaneous_current_A": 0.14575324304130888,
+            "numerical_refinement_difference_A": 4.3307135655368256e-11,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003751148158146478
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.369872663800294e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "opposed_shunts_0.01",
+                "shunt_error": 0.01,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.005997144940534065,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.006055657094572453,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.005997334958488609,
+            "peak_distortion_after_own_mean_removed_A": 8.061059145971113e-05,
+            "peak_total_error_against_instantaneous_current_A": 0.1439735393745547,
+            "numerical_refinement_difference_A": 2.4027446698937638e-11,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003393528169901572
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.21856938690857e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "opposed_shunts_0.01",
+                "shunt_error": 0.01,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.005997144940534063,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.005997912522847315,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.005997144958649381,
+            "peak_distortion_after_own_mean_removed_A": 7.675823132519133e-07,
+            "peak_total_error_against_instantaneous_current_A": 0.14367898441063165,
+            "numerical_refinement_difference_A": 1.2250200853713977e-11,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00017117399221078244
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 4.410667195031692e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "leg_skew_-1",
+                "shunt_error": 0.0,
+                "leg_skew_s": -5e-08,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.65891689363542,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 0.018464386625101525,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.021247979830611108,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.018490617922315454,
+            "peak_distortion_after_own_mean_removed_A": 0.0027835932055095824,
+            "peak_total_error_against_instantaneous_current_A": 0.17346897458995425,
+            "numerical_refinement_difference_A": 9.377085774531224e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00037641429984880403
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.255042589018103e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "leg_skew_-1",
+                "shunt_error": 0.0,
+                "leg_skew_s": -5e-08,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.65891689363542,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 0.018464386625101525,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.019513865014335607,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.018471538666174733,
+            "peak_distortion_after_own_mean_removed_A": 0.001049478389234082,
+            "peak_total_error_against_instantaneous_current_A": 0.17403571967712939,
+            "numerical_refinement_difference_A": 7.110760869011301e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003326093150413101
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 7.912014041355775e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "leg_skew_-1",
+                "shunt_error": 0.0,
+                "leg_skew_s": -5e-08,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.65891689363542,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 0.018464386625101525,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.018492226526046096,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.018464396196104852,
+            "peak_distortion_after_own_mean_removed_A": 2.9675738713486055e-05,
+            "peak_total_error_against_instantaneous_current_A": 0.17446576476640718,
+            "numerical_refinement_difference_A": 5.77684566849257e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00018356636409055938
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 3.266571583715461e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "sample_skew_-5e-09",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -5e-09
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.0686642463195746e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0006713254182972861,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0005678642277482202,
+            "peak_distortion_after_own_mean_removed_A": 0.0006713254152286218,
+            "peak_total_error_against_instantaneous_current_A": 0.14001560146812952,
+            "numerical_refinement_difference_A": 1.0368093050772131e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00037407732157390683
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.311781713883249e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "sample_skew_-5e-09",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -5e-09
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.06865969267045e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0003356627105999266,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.00028393211387431073,
+            "peak_distortion_after_own_mean_removed_A": 0.0003356627075312669,
+            "peak_total_error_against_instantaneous_current_A": 0.13808096915070145,
+            "numerical_refinement_difference_A": 5.19200238358053e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00033093288521168773
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.60448309563111e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "sample_skew_-5e-09",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -5e-09
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.068632153935269e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 8.391567994880944e-05,
+            "RMS_distortion_excluding_matched_filter_delay_A": 7.098302846856807e-05,
+            "peak_distortion_after_own_mean_removed_A": 8.391567688017729e-05,
+            "peak_total_error_against_instantaneous_current_A": 0.13770588604593392,
+            "numerical_refinement_difference_A": 1.3092726902641516e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00019633877845848247
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.6206810501002735e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "sample_skew_-2.5e-08",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -2.5e-08
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.068659258989581e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0033566107904832165,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0028392176470399453,
+            "peak_distortion_after_own_mean_removed_A": 0.0033566107874145575,
+            "peak_total_error_against_instantaneous_current_A": 0.14089590556144405,
+            "numerical_refinement_difference_A": 9.017369069323766e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003758318830264784
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.328429689681172e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "sample_skew_-2.5e-08",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -2.5e-08
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.0686629452769676e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0016783053966920036,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0014196088235201478,
+            "peak_distortion_after_own_mean_removed_A": 0.0016783053936233407,
+            "peak_total_error_against_instantaneous_current_A": 0.1385211211973587,
+            "numerical_refinement_difference_A": 4.516307328117364e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00032720148956766337
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.932082837986854e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "sample_skew_-2.5e-08",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -2.5e-08
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.06864473068047e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0004195763514722728,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0003549022058800369,
+            "peak_distortion_after_own_mean_removed_A": 0.00041957634840362806,
+            "peak_total_error_against_instantaneous_current_A": 0.13781592405759824,
+            "numerical_refinement_difference_A": 1.1403589184055818e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00019756100195333914
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.5969521300269776e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "sample_skew_-1e-07",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -1e-07
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.068646031723077e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.013425428277695772,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.011350447586425585,
+            "peak_distortion_after_own_mean_removed_A": 0.013425428274627126,
+            "peak_total_error_against_instantaneous_current_A": 0.14832090374477858,
+            "numerical_refinement_difference_A": 2.228775386470261e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00037354747425766277
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.465908831973735e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "sample_skew_-1e-07",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -1e-07
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.0686620779152296e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.006712714140296505,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.005675223793212913,
+            "peak_distortion_after_own_mean_removed_A": 0.0067127141372278435,
+            "peak_total_error_against_instantaneous_current_A": 0.1424540616410832,
+            "numerical_refinement_difference_A": 1.1135887767466102e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00034420370428378533
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 7.964700048912476e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "sample_skew_-1e-07",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -1e-07
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.068633888658745e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0016781785373733982,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0014188059483032152,
+            "peak_distortion_after_own_mean_removed_A": 0.0016781785343047643,
+            "peak_total_error_against_instantaneous_current_A": 0.1383481467270542,
+            "numerical_refinement_difference_A": 2.7726843043751614e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0002031461620148889
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.7829190486025084e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "combined_-1",
+                "shunt_error": -0.01,
+                "leg_skew_s": -5e-08,
+                "sample_skew_s": -1e-07
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.65891689363542,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 0.024461616715327317,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.037256302026398735,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.02700160665862253,
+            "peak_distortion_after_own_mean_removed_A": 0.014141375063679185,
+            "peak_total_error_against_instantaneous_current_A": 0.19242113043345377,
+            "numerical_refinement_difference_A": 2.2725448051152952e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00037171716075512506
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.453727037289639e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "combined_-1",
+                "shunt_error": -0.01,
+                "leg_skew_s": -5e-08,
+                "sample_skew_s": -1e-07
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.65891689363542,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 0.024461616715327324,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.03215915271958014,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.02512117746834872,
+            "peak_distortion_after_own_mean_removed_A": 0.007697536004252818,
+            "peak_total_error_against_instantaneous_current_A": 0.18658726118657665,
+            "numerical_refinement_difference_A": 1.465961567415075e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003305139392253409
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.101749104838518e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "combined_-1",
+                "shunt_error": -0.01,
+                "leg_skew_s": -5e-08,
+                "sample_skew_s": -1e-07
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.65891689363542,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 0.02446161671532736,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.026175520882395276,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.024503047254450187,
+            "peak_distortion_after_own_mean_removed_A": 0.0017139041670679173,
+            "peak_total_error_against_instantaneous_current_A": 0.1821157627908505,
+            "numerical_refinement_difference_A": 6.876184066584301e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00024679463182053496
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 4.7801106497047385e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "leg_skew_+1",
+                "shunt_error": 0.0,
+                "leg_skew_s": 5e-08,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.658917932854253,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.018464386431670476,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.02124797879210938,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.01849061773261358,
+            "peak_distortion_after_own_mean_removed_A": 0.0027835923604389023,
+            "peak_total_error_against_instantaneous_current_A": 0.1819920765802383,
+            "numerical_refinement_difference_A": 1.6602430541468038e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00036722317486592715
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.39300147990707e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "leg_skew_+1",
+                "shunt_error": 0.0,
+                "leg_skew_s": 5e-08,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.658917932854253,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.018464386431670473,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.019513860677481176,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.018471538473532157,
+            "peak_distortion_after_own_mean_removed_A": 0.0010494742458107033,
+            "peak_total_error_against_instantaneous_current_A": 0.17856841870486928,
+            "numerical_refinement_difference_A": 1.593867704485774e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003225580330337152
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.199761689819951e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "leg_skew_+1",
+                "shunt_error": 0.0,
+                "leg_skew_s": 5e-08,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.658917932854253,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.018464386431670504,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.018492224200194585,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.018464396002664422,
+            "peak_distortion_after_own_mean_removed_A": 2.967443367032918e-05,
+            "peak_total_error_against_instantaneous_current_A": 0.17735646628035617,
+            "numerical_refinement_difference_A": 1.3622116767919579e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00017342069386572234
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 3.663334346981628e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "sample_skew_5e-09",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 5e-09
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.068661861074795e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0006713254118633216,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.000567864227749079,
+            "peak_distortion_after_own_mean_removed_A": 0.0006713254149319835,
+            "peak_total_error_against_instantaneous_current_A": 0.1400109146188342,
+            "numerical_refinement_difference_A": 9.528018374282965e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00037809597743265755
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.393271609070553e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "sample_skew_5e-09",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 5e-09
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.068659258989581e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0003356627044794891,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.00028393211387433794,
+            "peak_distortion_after_own_mean_removed_A": 0.00033566270754814835,
+            "peak_total_error_against_instantaneous_current_A": 0.13807862572562968,
+            "numerical_refinement_difference_A": 4.771578687723377e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00033953412386367177
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.454997188955815e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "sample_skew_5e-09",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 5e-09
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.068643429637863e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 8.391567382037834e-05,
+            "RMS_distortion_excluding_matched_filter_delay_A": 7.098302846858501e-05,
+            "peak_distortion_after_own_mean_removed_A": 8.391567688902177e-05,
+            "peak_total_error_against_instantaneous_current_A": 0.1377053001890305,
+            "numerical_refinement_difference_A": 1.2042233876741193e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00019613802972884287
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.635854297025844e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "sample_skew_2.5e-08",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 2.5e-08
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.0686551390213257e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0033566107474740647,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0028392176470408022,
+            "peak_distortion_after_own_mean_removed_A": 0.00335661075054272,
+            "peak_total_error_against_instantaneous_current_A": 0.1406830959906289,
+            "numerical_refinement_difference_A": 9.361822424051869e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00037645958961363135
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.402257704405059e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "sample_skew_2.5e-08",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 2.5e-08
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.068660560032188e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0016783053722848607,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0014196088235201982,
+            "peak_distortion_after_own_mean_removed_A": 0.0016783053753535212,
+            "peak_total_error_against_instantaneous_current_A": 0.13841471641152747,
+            "numerical_refinement_difference_A": 4.688853747544103e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003411626334290929
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.627514041670281e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "sample_skew_2.5e-08",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 2.5e-08
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.0686423454356904e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.000419576340770611,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.00035490220588005144,
+            "peak_distortion_after_own_mean_removed_A": 0.00041957634383925336,
+            "peak_total_error_against_instantaneous_current_A": 0.13778932286050516,
+            "numerical_refinement_difference_A": 1.1834977437083158e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00019495626241106123
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.7106904802317615e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "sample_skew_1e-07",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 1e-07
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.0686612105534916e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.013425427943598578,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.01135044758642643,
+            "peak_distortion_after_own_mean_removed_A": 0.01342542794666724,
+            "peak_total_error_against_instantaneous_current_A": 0.14718696990067137,
+            "numerical_refinement_difference_A": 1.9496848554026447e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00037801784851598796
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.518743917436012e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "sample_skew_1e-07",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 1e-07
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.0686612105534916e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.006712713970342676,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.005675223793212943,
+            "peak_distortion_after_own_mean_removed_A": 0.006712713973411338,
+            "peak_total_error_against_instantaneous_current_A": 0.14187996499779487,
+            "numerical_refinement_difference_A": 9.756386796545835e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003367243947076659
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.640964452411026e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "sample_skew_1e-07",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 1e-07
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -3.0686358402226555e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.001678178490285731,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.00141880594830324,
+            "peak_distortion_after_own_mean_removed_A": 0.001678178493354367,
+            "peak_total_error_against_instantaneous_current_A": 0.13793173379855084,
+            "numerical_refinement_difference_A": 2.4503998797501675e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00019952669495193476
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 6.343933982932981e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "combined_+1",
+                "shunt_error": 0.01,
+                "leg_skew_s": 5e-08,
+                "sample_skew_s": 1e-07
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.658917932854253,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.024461616521888274,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.03714286610900697,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.026961246571995147,
+            "peak_distortion_after_own_mean_removed_A": 0.014027932539839583,
+            "peak_total_error_against_instantaneous_current_A": 0.1865908259081328,
+            "numerical_refinement_difference_A": 2.3042816543750178e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00037462338439731013
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.24305470499931e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "combined_+1",
+                "shunt_error": 0.01,
+                "leg_skew_s": 5e-08,
+                "sample_skew_s": 1e-07
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.658917932854253,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.024461616521888274,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.03212652739206234,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.025110482719563294,
+            "peak_distortion_after_own_mean_removed_A": 0.007664910870174069,
+            "peak_total_error_against_instantaneous_current_A": 0.18387646884930042,
+            "numerical_refinement_difference_A": 1.9357084823923287e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003198683899974242
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.202475782326246e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_positive",
+            "perturbation": {
+                "name": "combined_+1",
+                "shunt_error": 0.01,
+                "leg_skew_s": 5e-08,
+                "sample_skew_s": 1e-07
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.658917932854253,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.02446161652188829,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.026159448565523213,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.024502372922649503,
+            "peak_distortion_after_own_mean_removed_A": 0.001701628084967783,
+            "peak_total_error_against_instantaneous_current_A": 0.18317793039872576,
+            "numerical_refinement_difference_A": 1.4823653415874105e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00017171577247232506
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.370564040241277e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "nominal",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.0686564400639327e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 3.254285729781259e-12,
+            "RMS_distortion_excluding_matched_filter_delay_A": 3.071459335592048e-12,
+            "peak_distortion_after_own_mean_removed_A": 1.8562928971732617e-13,
+            "peak_total_error_against_instantaneous_current_A": 0.1398173863224752,
+            "numerical_refinement_difference_A": 1.6111556533360272e-12,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003753420083434378
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.410398183185009e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "nominal",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.068667498926092e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 3.083755473198835e-12,
+            "RMS_distortion_excluding_matched_filter_delay_A": 3.0686770064786378e-12,
+            "peak_distortion_after_own_mean_removed_A": 1.5087974272742777e-14,
+            "peak_total_error_against_instantaneous_current_A": 0.13798186157787473,
+            "numerical_refinement_difference_A": 1.5201173653167647e-12,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00031742462550710115
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.431725561397485e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "nominal",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.068639960190911e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 3.072209153742733e-12,
+            "RMS_distortion_excluding_matched_filter_delay_A": 3.0686401405237178e-12,
+            "peak_distortion_after_own_mean_removed_A": 3.5691935518222806e-15,
+            "peak_total_error_against_instantaneous_current_A": 0.13768110915272658,
+            "numerical_refinement_difference_A": 1.5130119379591633e-12,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00016062241924252874
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.485897388712857e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "opposed_shunts_0.001",
+                "shunt_error": 0.001,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.0005997144906784158,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0006202296513002636,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0005999324877480371,
+            "peak_distortion_after_own_mean_removed_A": 2.8621470259615478e-05,
+            "peak_total_error_against_instantaneous_current_A": 0.1392238006505906,
+            "numerical_refinement_difference_A": 2.7400304247748863e-12,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00037129341726771514
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.070422525336852e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "opposed_shunts_0.001",
+                "shunt_error": 0.001,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.0005997144906784038,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0006055657060874964,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0005997334924740054,
+            "peak_distortion_after_own_mean_removed_A": 8.061059156171677e-06,
+            "peak_total_error_against_instantaneous_current_A": 0.13738269379820522,
+            "numerical_refinement_difference_A": 1.878497357665765e-12,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003228727416910715
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 7.393828902468869e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "opposed_shunts_0.001",
+                "shunt_error": 0.001,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.0005997144906784331,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0005997912489110746,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0005997144924899648,
+            "peak_distortion_after_own_mean_removed_A": 7.67582326414995e-08,
+            "peak_total_error_against_instantaneous_current_A": 0.1370813216269342,
+            "numerical_refinement_difference_A": 8.393286066166183e-13,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.000146691045102898
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 4.402822167026699e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "opposed_shunts_0.01",
+                "shunt_error": 0.01,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.005997144934397625,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.006202296539375318,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.005999324905075288,
+            "peak_distortion_after_own_mean_removed_A": 0.0002862147030819884,
+            "peak_total_error_against_instantaneous_current_A": 0.14090063989103285,
+            "numerical_refinement_difference_A": 4.04165589884542e-11,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003751826942322012
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.208661841597632e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "opposed_shunts_0.01",
+                "shunt_error": 0.01,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.005997144934397608,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.006055657088444022,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.00599733495235242,
+            "peak_distortion_after_own_mean_removed_A": 8.061059147477807e-05,
+            "peak_total_error_against_instantaneous_current_A": 0.14181719440848095,
+            "numerical_refinement_difference_A": 2.099298512803216e-11,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003255160646951083
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 7.972500317698916e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "opposed_shunts_0.01",
+                "shunt_error": 0.01,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.005997144934397621,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.005997912516708226,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.005997144952512938,
+            "peak_distortion_after_own_mean_removed_A": 7.675823106047253e-07,
+            "peak_total_error_against_instantaneous_current_A": 0.14175741409692932,
+            "numerical_refinement_difference_A": 9.230394226733551e-12,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0001498811604321304
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 4.2438448764059444e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "leg_skew_-1",
+                "shunt_error": 0.0,
+                "leg_skew_s": -5e-08,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.658916893638505,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 0.018464386631460883,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.02124797983669069,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.01849061792865617,
+            "peak_distortion_after_own_mean_removed_A": 0.0027835932052298062,
+            "peak_total_error_against_instantaneous_current_A": 0.18199357132601524,
+            "numerical_refinement_difference_A": 9.407616907708416e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00037543625286140525
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.365807557237815e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "leg_skew_-1",
+                "shunt_error": 0.0,
+                "leg_skew_s": -5e-08,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.658916893638505,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 0.018464386631460883,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.01951386502071717,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.018471538672531998,
+            "peak_distortion_after_own_mean_removed_A": 0.0010494783892562864,
+            "peak_total_error_against_instantaneous_current_A": 0.1785687677810559,
+            "numerical_refinement_difference_A": 7.079461461501069e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003093065849517629
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.201836352483838e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "leg_skew_-1",
+                "shunt_error": 0.0,
+                "leg_skew_s": -5e-08,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.658916893638505,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 0.01846438663146094,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.018492226532404565,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.01846439620246426,
+            "peak_distortion_after_own_mean_removed_A": 2.9675738714429745e-05,
+            "peak_total_error_against_instantaneous_current_A": 0.17735556703161315,
+            "numerical_refinement_difference_A": 5.745648401500603e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0001266666064170252
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 4.431926572490141e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "sample_skew_-5e-09",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -5e-09
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.0686642463195746e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0006713254182972861,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0005678642277482202,
+            "peak_distortion_after_own_mean_removed_A": 0.0006713254152286218,
+            "peak_total_error_against_instantaneous_current_A": 0.14001560146812952,
+            "numerical_refinement_difference_A": 1.0368093050772131e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00037407732157390683
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.311781713883249e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "sample_skew_-5e-09",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -5e-09
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.06865969267045e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0003356627105999266,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.00028393211387431073,
+            "peak_distortion_after_own_mean_removed_A": 0.0003356627075312669,
+            "peak_total_error_against_instantaneous_current_A": 0.13808096915070145,
+            "numerical_refinement_difference_A": 5.19200238358053e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00033093288521168773
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.60448309563111e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "sample_skew_-5e-09",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -5e-09
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.068632153935269e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 8.391567994880944e-05,
+            "RMS_distortion_excluding_matched_filter_delay_A": 7.098302846856807e-05,
+            "peak_distortion_after_own_mean_removed_A": 8.391567688017729e-05,
+            "peak_total_error_against_instantaneous_current_A": 0.13770588604593392,
+            "numerical_refinement_difference_A": 1.3092726902641516e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00019633877845848247
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.6206810501002735e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "sample_skew_-2.5e-08",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -2.5e-08
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.068659258989581e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0033566107904832165,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0028392176470399453,
+            "peak_distortion_after_own_mean_removed_A": 0.0033566107874145575,
+            "peak_total_error_against_instantaneous_current_A": 0.14089590556144405,
+            "numerical_refinement_difference_A": 9.017369069323766e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003758318830264784
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.328429689681172e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "sample_skew_-2.5e-08",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -2.5e-08
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.0686629452769676e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0016783053966920036,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0014196088235201478,
+            "peak_distortion_after_own_mean_removed_A": 0.0016783053936233407,
+            "peak_total_error_against_instantaneous_current_A": 0.1385211211973587,
+            "numerical_refinement_difference_A": 4.516307328117364e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00032720148956766337
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.932082837986854e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "sample_skew_-2.5e-08",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -2.5e-08
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.06864473068047e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0004195763514722728,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0003549022058800369,
+            "peak_distortion_after_own_mean_removed_A": 0.00041957634840362806,
+            "peak_total_error_against_instantaneous_current_A": 0.13781592405759824,
+            "numerical_refinement_difference_A": 1.1403589184055818e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00019756100195333914
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.5969521300269776e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "sample_skew_-1e-07",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -1e-07
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.068646031723077e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.013425428277695772,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.011350447586425585,
+            "peak_distortion_after_own_mean_removed_A": 0.013425428274627126,
+            "peak_total_error_against_instantaneous_current_A": 0.14832090374477858,
+            "numerical_refinement_difference_A": 2.228775386470261e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00037354747425766277
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.465908831973735e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "sample_skew_-1e-07",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -1e-07
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.0686620779152296e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.006712714140296505,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.005675223793212913,
+            "peak_distortion_after_own_mean_removed_A": 0.0067127141372278435,
+            "peak_total_error_against_instantaneous_current_A": 0.1424540616410832,
+            "numerical_refinement_difference_A": 1.1135887767466102e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00034420370428378533
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 7.964700048912476e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "sample_skew_-1e-07",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -1e-07
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.068633888658745e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0016781785373733982,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0014188059483032152,
+            "peak_distortion_after_own_mean_removed_A": 0.0016781785343047643,
+            "peak_total_error_against_instantaneous_current_A": 0.1383481467270542,
+            "numerical_refinement_difference_A": 2.7726843043751614e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0002031461620148889
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.7829190486025084e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "combined_-1",
+                "shunt_error": -0.01,
+                "leg_skew_s": -5e-08,
+                "sample_skew_s": -1e-07
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.658916893638505,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 0.02446161672169289,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.037189082537651075,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.02696168139798178,
+            "peak_distortion_after_own_mean_removed_A": 0.01406649502865065,
+            "peak_total_error_against_instantaneous_current_A": 0.19260227257416762,
+            "numerical_refinement_difference_A": 2.282277034026947e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00037754165735126577
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.347807008097675e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "combined_-1",
+                "shunt_error": -0.01,
+                "leg_skew_s": -5e-08,
+                "sample_skew_s": -1e-07
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.658916893638505,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 0.024461616721692885,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.03216188328693814,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.02511050631842059,
+            "peak_distortion_after_own_mean_removed_A": 0.007700266565245258,
+            "peak_total_error_against_instantaneous_current_A": 0.18688295744111194,
+            "numerical_refinement_difference_A": 1.4691732275196046e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00035784407058336853
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.452960735283455e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "combined_-1",
+                "shunt_error": -0.01,
+                "leg_skew_s": -5e-08,
+                "sample_skew_s": -1e-07
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.658916893638505,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 0.0244616167216929,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.026156791359336573,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.024502373125277577,
+            "peak_distortion_after_own_mean_removed_A": 0.001698834745485385,
+            "peak_total_error_against_instantaneous_current_A": 0.18393024981484185,
+            "numerical_refinement_difference_A": 6.860805257247193e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00014855986865214277
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 4.684806710120171e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "leg_skew_+1",
+                "shunt_error": 0.0,
+                "leg_skew_s": 5e-08,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.65891793285078,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.018464386425805834,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.021247978786528954,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.018490617726766995,
+            "peak_distortion_after_own_mean_removed_A": 0.0027835923607231194,
+            "peak_total_error_against_instantaneous_current_A": 0.1734671653250972,
+            "numerical_refinement_difference_A": 1.6574830397075857e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00036857485688823743
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.423709284384074e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "leg_skew_+1",
+                "shunt_error": 0.0,
+                "leg_skew_s": 5e-08,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.65891793285078,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.018464386425805848,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.01951386067159344,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.01847153846766945,
+            "peak_distortion_after_own_mean_removed_A": 0.0010494742457875933,
+            "peak_total_error_against_instantaneous_current_A": 0.1740350069271157,
+            "numerical_refinement_difference_A": 1.5911001405299885e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003273436865489643
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.011065852464583e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "leg_skew_+1",
+                "shunt_error": 0.0,
+                "leg_skew_s": 5e-08,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.65891793285078,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.018464386425805838,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.018492224194329943,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.01846439599679976,
+            "peak_distortion_after_own_mean_removed_A": 2.967443366675218e-05,
+            "peak_total_error_against_instantaneous_current_A": 0.1744652382167935,
+            "numerical_refinement_difference_A": 1.3594396719440738e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00014300024950930634
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 3.8725984793153145e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "sample_skew_5e-09",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 5e-09
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.068661861074795e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0006713254118633216,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.000567864227749079,
+            "peak_distortion_after_own_mean_removed_A": 0.0006713254149319835,
+            "peak_total_error_against_instantaneous_current_A": 0.1400109146188342,
+            "numerical_refinement_difference_A": 9.528018374282965e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00037809597743265755
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.393271609070553e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "sample_skew_5e-09",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 5e-09
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.068659258989581e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0003356627044794891,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.00028393211387433794,
+            "peak_distortion_after_own_mean_removed_A": 0.00033566270754814835,
+            "peak_total_error_against_instantaneous_current_A": 0.13807862572562968,
+            "numerical_refinement_difference_A": 4.771578687723377e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00033953412386367177
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.454997188955815e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "sample_skew_5e-09",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 5e-09
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.068643429637863e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 8.391567382037834e-05,
+            "RMS_distortion_excluding_matched_filter_delay_A": 7.098302846858501e-05,
+            "peak_distortion_after_own_mean_removed_A": 8.391567688902177e-05,
+            "peak_total_error_against_instantaneous_current_A": 0.1377053001890305,
+            "numerical_refinement_difference_A": 1.2042233876741193e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00019613802972884287
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.635854297025844e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "sample_skew_2.5e-08",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 2.5e-08
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.0686551390213257e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0033566107474740647,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0028392176470408022,
+            "peak_distortion_after_own_mean_removed_A": 0.00335661075054272,
+            "peak_total_error_against_instantaneous_current_A": 0.1406830959906289,
+            "numerical_refinement_difference_A": 9.361822424051869e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00037645958961363135
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.402257704405059e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "sample_skew_2.5e-08",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 2.5e-08
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.068660560032188e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0016783053722848607,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0014196088235201982,
+            "peak_distortion_after_own_mean_removed_A": 0.0016783053753535212,
+            "peak_total_error_against_instantaneous_current_A": 0.13841471641152747,
+            "numerical_refinement_difference_A": 4.688853747544103e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003411626334290929
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.627514041670281e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "sample_skew_2.5e-08",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 2.5e-08
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.0686423454356904e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.000419576340770611,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.00035490220588005144,
+            "peak_distortion_after_own_mean_removed_A": 0.00041957634383925336,
+            "peak_total_error_against_instantaneous_current_A": 0.13778932286050516,
+            "numerical_refinement_difference_A": 1.1834977437083158e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00019495626241106123
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.7106904802317615e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "sample_skew_1e-07",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 1e-07
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.0686612105534916e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.013425427943598578,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.01135044758642643,
+            "peak_distortion_after_own_mean_removed_A": 0.01342542794666724,
+            "peak_total_error_against_instantaneous_current_A": 0.14718696990067137,
+            "numerical_refinement_difference_A": 1.9496848554026447e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00037801784851598796
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.518743917436012e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "sample_skew_1e-07",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 1e-07
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.0686612105534916e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.006712713970342676,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.005675223793212943,
+            "peak_distortion_after_own_mean_removed_A": 0.006712713973411338,
+            "peak_total_error_against_instantaneous_current_A": 0.14187996499779487,
+            "numerical_refinement_difference_A": 9.756386796545835e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003367243947076659
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.640964452411026e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "sample_skew_1e-07",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 1e-07
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.637681375390321,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": 3.0686358402226555e-12,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.001678178490285731,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.00141880594830324,
+            "peak_distortion_after_own_mean_removed_A": 0.001678178493354367,
+            "peak_total_error_against_instantaneous_current_A": 0.13793173379855084,
+            "numerical_refinement_difference_A": 2.4503998797501675e-10,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00019952669495193476
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 6.343933982932981e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "combined_+1",
+                "shunt_error": 0.01,
+                "leg_skew_s": 5e-08,
+                "sample_skew_s": 1e-07
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.65891793285078,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.024461616516016527,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.03730218049196399,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.027002040472633854,
+            "peak_distortion_after_own_mean_removed_A": 0.014179549147593562,
+            "peak_total_error_against_instantaneous_current_A": 0.1666808084602529,
+            "numerical_refinement_difference_A": 2.280133415411001e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003794117417150744
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.444794424062763e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "combined_+1",
+                "shunt_error": 0.01,
+                "leg_skew_s": 5e-08,
+                "sample_skew_s": 1e-07
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.65891793285078,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.02446161651601654,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.03222078228606762,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.025121200668187654,
+            "peak_distortion_after_own_mean_removed_A": 0.007759165770051077,
+            "peak_total_error_against_instantaneous_current_A": 0.17371481244541442,
+            "numerical_refinement_difference_A": 1.9222055058776277e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003284566371757336
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.904182640456781e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "steady_negative",
+            "perturbation": {
+                "name": "combined_+1",
+                "shunt_error": 0.01,
+                "leg_skew_s": 5e-08,
+                "sample_skew_s": 1e-07
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.65891793285078,
+            "peak_command_V": 2.6163664937312303,
+            "mean_measurement_bias_A": -0.024461616516016513,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.026171419676213503,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.024503047058530802,
+            "peak_distortion_after_own_mean_removed_A": 0.0017122977344960905,
+            "peak_total_error_against_instantaneous_current_A": 0.17889732602603825,
+            "numerical_refinement_difference_A": 1.4802563619298326e-09,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00017879667689424394
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 4.8152191016725965e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "nominal",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.7304174466411554e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.0173981107863721,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.004231630568118853,
+            "peak_distortion_after_own_mean_removed_A": 0.017398110786367372,
+            "peak_total_error_against_instantaneous_current_A": 1.6410233390643185,
+            "numerical_refinement_difference_A": 1.6153046695360773e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00038055073514708937
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.511849137489037e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "nominal",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.730243974293558e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.013538268781208895,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.00357220754571523,
+            "peak_distortion_after_own_mean_removed_A": 0.013538268781204165,
+            "peak_total_error_against_instantaneous_current_A": 1.6904072720289063,
+            "numerical_refinement_difference_A": 1.5791691322653012e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00036446085949126683
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.300774854192895e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "nominal",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.730504182814954e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.01330796328377959,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0034354356797405747,
+            "peak_distortion_after_own_mean_removed_A": 0.013307963283774859,
+            "peak_total_error_against_instantaneous_current_A": 1.7282658366054933,
+            "numerical_refinement_difference_A": 1.565843331212402e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0002241622537404453
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.828738470925465e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "opposed_shunts_0.001",
+                "shunt_error": 0.001,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": -0.0002904061622696904,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.01741761058191127,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.004247430501570393,
+            "peak_distortion_after_own_mean_removed_A": 0.017669045720881876,
+            "peak_total_error_against_instantaneous_current_A": 1.6410480274765156,
+            "numerical_refinement_difference_A": 1.6153044474047362e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.000381191913916723
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.527469254599907e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "opposed_shunts_0.001",
+                "shunt_error": 0.001,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": -0.00029040616226969074,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.013557833450110746,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0035908932210547647,
+            "peak_distortion_after_own_mean_removed_A": 0.013809115076851314,
+            "peak_total_error_against_instantaneous_current_A": 1.690432745523173,
+            "numerical_refinement_difference_A": 1.5792413154969154e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003665452404177927
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.236868142803445e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "opposed_shunts_0.001",
+                "shunt_error": 0.001,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": -0.00029040616226968954,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.01332757506839588,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0034548587956892488,
+            "peak_distortion_after_own_mean_removed_A": 0.013578769360241575,
+            "peak_total_error_against_instantaneous_current_A": 1.7282917564076763,
+            "numerical_refinement_difference_A": 1.5659120665076354e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0002241499126069968
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.705644487896677e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "opposed_shunts_0.01",
+                "shunt_error": 0.01,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": -0.002904061622739617,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.01840223708414257,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.005594958206133927,
+            "peak_distortion_after_own_mean_removed_A": 0.020108808087919504,
+            "peak_total_error_against_instantaneous_current_A": 1.6412702231862881,
+            "numerical_refinement_difference_A": 1.6153048248805646e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003809322177543706
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.522774811276946e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "opposed_shunts_0.01",
+                "shunt_error": 0.01,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": -0.002904061622739617,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.015295965023181424,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.005113257697884308,
+            "peak_distortion_after_own_mean_removed_A": 0.016246961031387806,
+            "peak_total_error_against_instantaneous_current_A": 1.6906620069715752,
+            "numerical_refinement_difference_A": 1.5801128848066948e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003715366791945396
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.359942837017243e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "opposed_shunts_0.01",
+                "shunt_error": 0.01,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": -0.0029040616227396176,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.015143648585543623,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.00501849750038773,
+            "peak_distortion_after_own_mean_removed_A": 0.01601653180916853,
+            "peak_total_error_against_instantaneous_current_A": 1.7285250346273222,
+            "numerical_refinement_difference_A": 1.5665511996984516e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0002407578886440831
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.800277615797267e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "leg_skew_-1",
+                "shunt_error": 0.0,
+                "leg_skew_s": -5e-08,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.739278730888907,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 0.019493612388988397,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.038786300210003066,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.020008525481618616,
+            "peak_distortion_after_own_mean_removed_A": 0.01929268782101467,
+            "peak_total_error_against_instantaneous_current_A": 1.6685157717406613,
+            "numerical_refinement_difference_A": 1.2711531385822816e-07,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00038113589948762794
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.525117423425655e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "leg_skew_-1",
+                "shunt_error": 0.0,
+                "leg_skew_s": -5e-08,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.739278730888907,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 0.019493612388988397,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.03547989199276724,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.019872215188942163,
+            "peak_distortion_after_own_mean_removed_A": 0.015986279603778845,
+            "peak_total_error_against_instantaneous_current_A": 1.7256928646732992,
+            "numerical_refinement_difference_A": 1.241086080919218e-07,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003640052600697441
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.23546905138295e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "leg_skew_-1",
+                "shunt_error": 0.0,
+                "leg_skew_s": -5e-08,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.739278730888907,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 0.019493612388988397,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.035112434319455765,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.019845428740121598,
+            "peak_distortion_after_own_mean_removed_A": 0.015618821930467368,
+            "peak_total_error_against_instantaneous_current_A": 1.7690475218889132,
+            "numerical_refinement_difference_A": 1.2297692259313764e-07,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00025733458446541846
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 6.180743127953692e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "sample_skew_-5e-09",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -5e-09
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.7300705019459596e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.017560238825338637,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.004315371979887781,
+            "peak_distortion_after_own_mean_removed_A": 0.017560238825333908,
+            "peak_total_error_against_instantaneous_current_A": 1.6412023757319125,
+            "numerical_refinement_difference_A": 1.6153739251616173e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003810218873230298
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.527071333081949e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "sample_skew_-5e-09",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -5e-09
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.729897029598362e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.013535338645958905,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0036167800902042408,
+            "peak_distortion_after_own_mean_removed_A": 0.013535338645954175,
+            "peak_total_error_against_instantaneous_current_A": 1.6904967903627033,
+            "numerical_refinement_difference_A": 1.597238034715953e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00037205160508979596
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.293871653071051e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "sample_skew_-5e-09",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -5e-09
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.730330710467356e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.013305477863169823,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.003445631730347893,
+            "peak_distortion_after_own_mean_removed_A": 0.013305477863165093,
+            "peak_total_error_against_instantaneous_current_A": 1.7282882161889426,
+            "numerical_refinement_difference_A": 1.5662584880102304e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00022006694695164697
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.6183924881603176e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "sample_skew_-2.5e-08",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -2.5e-08
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.73085112751015e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.018352455307839577,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.004990565807886823,
+            "peak_distortion_after_own_mean_removed_A": 0.018352455307834845,
+            "peak_total_error_against_instantaneous_current_A": 1.6419159447885558,
+            "numerical_refinement_difference_A": 1.615457591482017e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003794904308214164
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.524468541499687e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "sample_skew_-2.5e-08",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -2.5e-08
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.730157238119759e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.013531508080679266,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0039010957811610055,
+            "peak_distortion_after_own_mean_removed_A": 0.013531508080674536,
+            "peak_total_error_against_instantaneous_current_A": 1.690853574891025,
+            "numerical_refinement_difference_A": 1.6151783143597553e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00036876454805723213
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.310087484948326e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "sample_skew_-2.5e-08",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -2.5e-08
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.730504182814954e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.013295614304508874,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0034938135684856953,
+            "peak_distortion_after_own_mean_removed_A": 0.013295614304504143,
+            "peak_total_error_against_instantaneous_current_A": 1.728377412321023,
+            "numerical_refinement_difference_A": 1.5680063124648425e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00022087236984980052
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.8853815402493126e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "sample_skew_-1e-07",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -1e-07
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.7307643913363505e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.025590052525553908,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.009855684926052894,
+            "peak_distortion_after_own_mean_removed_A": 0.025590052525555088,
+            "peak_total_error_against_instantaneous_current_A": 1.644564634074829,
+            "numerical_refinement_difference_A": 1.7737619591867704e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003810404501853881
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.5185279231913e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "sample_skew_-1e-07",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -1e-07
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.730330710467356e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.015505590148078063,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.005950552114976383,
+            "peak_distortion_after_own_mean_removed_A": 0.015505590148081018,
+            "peak_total_error_against_instantaneous_current_A": 1.6921779195341615,
+            "numerical_refinement_difference_A": 1.6945074000213056e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00036756294996420635
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.31289985812711e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "sample_skew_-1e-07",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": -1e-07
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.731111336031546e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.013259881740415036,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0037715613530034044,
+            "peak_distortion_after_own_mean_removed_A": 0.013259881740410305,
+            "peak_total_error_against_instantaneous_current_A": 1.728708498481807,
+            "numerical_refinement_difference_A": 1.5772640209535393e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00021891665591056153
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 6.118429857782104e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "combined_-1",
+                "shunt_error": -0.01,
+                "leg_skew_s": -5e-08,
+                "sample_skew_s": -1e-07
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.739278730888907,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 0.022397763957868938,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.048728115318350085,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.024510752643683523,
+            "peak_distortion_after_own_mean_removed_A": 0.026330351360481147,
+            "peak_total_error_against_instantaneous_current_A": 1.671290956861575,
+            "numerical_refinement_difference_A": 1.2706339088536245e-07,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00038079001758362097
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.519644147992778e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "combined_-1",
+                "shunt_error": -0.01,
+                "leg_skew_s": -5e-08,
+                "sample_skew_s": -1e-07
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.739278730888907,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 0.022397763957868938,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.03865242808831315,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.02321296237824146,
+            "peak_distortion_after_own_mean_removed_A": 0.016254664130444213,
+            "peak_total_error_against_instantaneous_current_A": 1.7269460817281042,
+            "numerical_refinement_difference_A": 1.242591047452557e-07,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003674284873174116
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.305867708420124e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "combined_-1",
+                "shunt_error": -0.01,
+                "leg_skew_s": -5e-08,
+                "sample_skew_s": -1e-07
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.739278730888907,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 0.02239776395786894,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.035250573436653276,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.02275039880747933,
+            "peak_distortion_after_own_mean_removed_A": 0.013601804201436727,
+            "peak_total_error_against_instantaneous_current_A": 1.769161968411725,
+            "numerical_refinement_difference_A": 1.231126347533973e-07,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0002375281943234886
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.8178410273335146e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "leg_skew_+1",
+                "shunt_error": 0.0,
+                "leg_skew_s": 5e-08,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.739279423565566,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": -0.019493612394321208,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.038786301377876864,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.02000852549090189,
+            "peak_distortion_after_own_mean_removed_A": 0.019292688983555656,
+            "peak_total_error_against_instantaneous_current_A": 1.668515973882766,
+            "numerical_refinement_difference_A": 1.2630178480507737e-07,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003810520030542719
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.523969588043357e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "leg_skew_+1",
+                "shunt_error": 0.0,
+                "leg_skew_s": 5e-08,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.739279423565566,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": -0.019493612394321205,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.03547989215632352,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.019872215197524485,
+            "peak_distortion_after_own_mean_removed_A": 0.015986279762002318,
+            "peak_total_error_against_instantaneous_current_A": 1.7256922892555036,
+            "numerical_refinement_difference_A": 1.2331610221502642e-07,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003645695494882695
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.187490687478927e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "leg_skew_+1",
+                "shunt_error": 0.0,
+                "leg_skew_s": 5e-08,
+                "sample_skew_s": 0.0
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.739279423565566,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": -0.019493612394321208,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.03511243350070936,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.01984542874848425,
+            "peak_distortion_after_own_mean_removed_A": 0.015618821106388153,
+            "peak_total_error_against_instantaneous_current_A": 1.7690467092146085,
+            "numerical_refinement_difference_A": 1.222448995294445e-07,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00023067867223036664
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.85310465535116e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "sample_skew_5e-09",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 5e-09
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.731371544552942e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.017247507917761862,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0041872456492627694,
+            "peak_distortion_after_own_mean_removed_A": 0.01724750791775713,
+            "peak_total_error_against_instantaneous_current_A": 1.6408440291339095,
+            "numerical_refinement_difference_A": 1.6153201460450406e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00038122649392846597
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.524761089885203e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "sample_skew_5e-09",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 5e-09
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.730157238119759e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.013541805923124262,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0035391830392415935,
+            "peak_distortion_after_own_mean_removed_A": 0.013541805923119531,
+            "peak_total_error_against_instantaneous_current_A": 1.6903176170637018,
+            "numerical_refinement_difference_A": 1.5855680790891058e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00035657988044768274
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 8.902562161861027e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "sample_skew_5e-09",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 5e-09
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.730330710467356e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.013310455710838998,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.003425993451845095,
+            "peak_distortion_after_own_mean_removed_A": 0.013310455710834267,
+            "peak_total_error_against_instantaneous_current_A": 1.728243422864192,
+            "numerical_refinement_difference_A": 1.5654326375111327e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00023130650665903474
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.839293812126556e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "sample_skew_2.5e-08",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 2.5e-08
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.731631753074339e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.016739168556064055,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.004411204239845095,
+            "peak_distortion_after_own_mean_removed_A": 0.016739168556059322,
+            "peak_total_error_against_instantaneous_current_A": 1.640123995777305,
+            "numerical_refinement_difference_A": 1.6151898059486858e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003808927186819133
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.531988232525102e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "sample_skew_2.5e-08",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 2.5e-08
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.7304174466411554e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.013560846277944183,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0035273458095535825,
+            "peak_distortion_after_own_mean_removed_A": 0.013560846277939452,
+            "peak_total_error_against_instantaneous_current_A": 1.6899576003853995,
+            "numerical_refinement_difference_A": 1.581587862932443e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00037017355583768285
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.002589509554682e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "sample_skew_2.5e-08",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 2.5e-08
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.73085112751015e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.01332049719944095,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.0033958809423833215,
+            "peak_distortion_after_own_mean_removed_A": 0.01332049719943622,
+            "peak_total_error_against_instantaneous_current_A": 1.7281534186946166,
+            "numerical_refinement_difference_A": 1.5637964350528888e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0002240649221469937
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.782405214005415e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "sample_skew_1e-07",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 1e-07
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.730590918988753e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.01996374718388161,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.008680310878056713,
+            "peak_distortion_after_own_mean_removed_A": 0.0199637471838819,
+            "peak_total_error_against_instantaneous_current_A": 1.6373870752311026,
+            "numerical_refinement_difference_A": 1.614676059524811e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003810630898843925
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.511979114906755e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "sample_skew_1e-07",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 1e-07
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.730655971119102e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.015941762442833962,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.004930043070620441,
+            "peak_distortion_after_own_mean_removed_A": 0.015941762442834254,
+            "peak_total_error_against_instantaneous_current_A": 1.6885891401122983,
+            "numerical_refinement_difference_A": 1.5784235716208295e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003674635076604815
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.084473141296456e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "sample_skew_1e-07",
+                "shunt_error": 0.0,
+                "leg_skew_s": 0.0,
+                "sample_skew_s": 1e-07
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.718092331968209,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": 4.730243974293558e-15,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.013359033327622782,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.003395041627970356,
+            "peak_distortion_after_own_mean_removed_A": 0.013359033327618052,
+            "peak_total_error_against_instantaneous_current_A": 1.7278113036263414,
+            "numerical_refinement_difference_A": 1.55866978057001e-08,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0002220081448767175
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 5.837611154113631e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "combined_+1",
+                "shunt_error": 0.01,
+                "leg_skew_s": 5e-08,
+                "sample_skew_s": 1e-07
+            },
+            "samples_per_carrier": 2,
+            "peak_current_A": 5.739279423565566,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": -0.022397763963211092,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.04309006263291337,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.024063579304717253,
+            "peak_distortion_after_own_mean_removed_A": 0.02069229866970228,
+            "peak_total_error_against_instantaneous_current_A": 1.6650271371404002,
+            "numerical_refinement_difference_A": 1.2633474288925584e-07,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.00038034267864262006
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.529515439865577e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "combined_+1",
+                "shunt_error": 0.01,
+                "leg_skew_s": 5e-08,
+                "sample_skew_s": 1e-07
+            },
+            "samples_per_carrier": 4,
+            "peak_current_A": 5.739279423565566,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": -0.022397763963211092,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.03910285750374598,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.022973188180489275,
+            "peak_distortion_after_own_mean_removed_A": 0.01670509354053489,
+            "peak_total_error_against_instantaneous_current_A": 1.7238134972128407,
+            "numerical_refinement_difference_A": 1.2317292874194918e-07,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0003628581186632118
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 9.281316493670033e-05
+                }
+            ]
+        },
+        {
+            "trajectory": "changing_current_and_reversal",
+            "perturbation": {
+                "name": "combined_+1",
+                "shunt_error": 0.01,
+                "leg_skew_s": 5e-08,
+                "sample_skew_s": 1e-07
+            },
+            "samples_per_carrier": 16,
+            "peak_current_A": 5.739279423565566,
+            "peak_command_V": 3.0390781906467152,
+            "mean_measurement_bias_A": -0.022397763963211092,
+            "peak_distortion_excluding_matched_filter_delay_A": 0.03574390396141247,
+            "RMS_distortion_excluding_matched_filter_delay_A": 0.02269116547010675,
+            "peak_distortion_after_own_mean_removed_A": 0.013685324852749713,
+            "peak_total_error_against_instantaneous_current_A": 1.7683781539702366,
+            "numerical_refinement_difference_A": 1.2206422006499906e-07,
+            "numerical_refinement_pass": true,
+            "quantizers": [
+                {
+                    "bits": 16,
+                    "maximum_quantization_shift_A": 0.0002399554706213891
+                },
+                {
+                    "bits": 18,
+                    "maximum_quantization_shift_A": 6.1005153805471224e-05
+                }
+            ]
+        }
+    ],
+    "hardware_qualified": false,
+    "limitations": [
+        "Ideal finite-edge complementary voltage-source bridge and periodic linear RL solution. No transistor/diode, deadtime, bypass routing, back EMF, mutual coupling, parasitics or thermal effects are modeled.",
+        "Changing current uses sampled feed-forward voltage from the existing coil R/L at the current-loop bandwidth. It is an excitation for diagnosis, not a closed-loop current-controller test.",
+        "The amplifier is a typical-bandwidth single-pole approximation, not the vendor model. These results can expose a mechanism but cannot qualify INA181 transient accuracy or calibrate away its recorded residual.",
+        "Opposing shunt errors and timing offsets are exploratory values, not selected parts or guaranteed production bounds. Combined cases are examples, not exhaustive corner qualification.",
+        "Matched filtering and averaging of actual coil current provide the reference for distortion. The separate instantaneous-current comparison includes ordinary delay and must not be called sensor distortion.",
+        "All sample phases on the grids are evaluated. No phase is optimized independently for each test. Numerical refinement is separate from physical accuracy.",
+        "The ideal quantizer is evaluated on the waveform at displaced sample times before averaging. No claim of extra ENOB, ADC settling, stochastic noise or real converter behavior is made.",
+        "Mean removal is diagnostic per trial, not a realizable automatic calibration across changing commands."
+    ],
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/acquisition_stress.py": "87363f2dd514f64a5554fb2c6089787d8f999a20beb3aea82dc327e6761cd170",
+        "model.py": "53c1b7a2ea5aadaa6a995e081181e0b48b8db703214b0ccaec311975b2ac674c",
+        "methodology/electronics/acquisition.py": "52c21dcf444c30de88a653290babb9dac63ad28ae093ed20d3528ad9da18163a",
+        "methodology/electronics/power_stage.py": "3fa14f2d6756047b5ffbf409ddd4af4920d80acc2d19e70e7ec2584c84ac3173",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061"
+    }
+}

@@ -1,0 +1,16 @@
+Independent periodic RL reference; ideal differential drive, not a transistor model
+VlegA drive 0 PULSE(0 25.200000000000003 7.8125000000000004e-07 3.1250000000000002e-11 3.1250000000000002e-11 4.6874687500000008e-06 6.2500000000000003e-06)
+VlegB return 0 PULSE(0 25.200000000000003 2.3437500000000002e-06 3.1250000000000002e-11 3.1250000000000002e-11 1.56246875e-06 6.2500000000000003e-06)
+Rcoil drive winding 0.47570299886022366
+Lcoil winding return 2.578766605211726e-05 IC=26.484364529386301
+.options reltol=1e-08 abstol=1e-10
+.control
+set wr_singlescale
+set wr_vecnames
+set numdgt=17
+tran 6.1035156250000003e-09 2.5000000000000001e-05 0 6.1035156250000003e-09 uic
+let differential_voltage = v(drive)-v(return)
+wrdata unipolar_full_bridge_24V_1.dat i(Lcoil) differential_voltage
+quit
+.endc
+.end

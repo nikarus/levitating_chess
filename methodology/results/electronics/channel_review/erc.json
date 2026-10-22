@@ -1,0 +1,94 @@
+{
+    "$schema": "https://schemas.kicad.org/erc.v1.json",
+    "coordinate_units": "mm",
+    "date": "2026-10-20T09:49:49+0200",
+    "included_severities": [
+        "error",
+        "warning"
+    ],
+    "kicad_version": "9.0.8",
+    "sheets": [
+        {
+            "path": "/",
+            "uuid_path": "/564ebfe9-9afe-580c-b640-289b993dbd93",
+            "violations": [
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'PWM_A'",
+                            "pos": {
+                                "x": 0.2286,
+                                "y": 0.4572
+                            },
+                            "uuid": "a5258bfb-3a51-5fe7-b333-601a5911ed1f"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U1 Pin 8 [IN, Input, Line]",
+                            "pos": {
+                                "x": 0.2794,
+                                "y": 0.4572
+                            },
+                            "uuid": "7ca83f56-bd14-41a5-a2ad-f93d147b94ad"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'PWM_B'",
+                            "pos": {
+                                "x": 0.2286,
+                                "y": 1.3208
+                            },
+                            "uuid": "6acee1e0-2629-5e12-9cc2-61947738222f"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                },
+                {
+                    "description": "Input pin not driven by any Output pins",
+                    "items": [
+                        {
+                            "description": "Symbol U2 Pin 8 [IN, Input, Line]",
+                            "pos": {
+                                "x": 0.2794,
+                                "y": 1.3208
+                            },
+                            "uuid": "20582ee5-5258-400c-abe8-25705be579f5"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "pin_not_driven"
+                },
+                {
+                    "description": "Label not connected to anything",
+                    "items": [
+                        {
+                            "description": "Label 'CURRENT_OUT'",
+                            "pos": {
+                                "x": 1.1176,
+                                "y": 2.1844
+                            },
+                            "uuid": "93d7cea7-8769-5787-8757-ed0da19883e2"
+                        }
+                    ],
+                    "severity": "error",
+                    "type": "label_dangling"
+                }
+            ]
+        }
+    ],
+    "source": "channel.kicad_sch"
+}

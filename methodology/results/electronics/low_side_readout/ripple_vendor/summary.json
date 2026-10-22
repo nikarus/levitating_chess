@@ -1,0 +1,97 @@
+{
+    "status": "vendor_amplifier_imposed_RL_ripple_and_leg_delay_diagnostic_not_complete_bridge",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/readout.py": "a9909ac3e230f13794fc2b1597ca83671e2fce1c4f8f02fcca4718473addaea9",
+        "model.py": "53c1b7a2ea5aadaa6a995e081181e0b48b8db703214b0ccaec311975b2ac674c",
+        "methodology/electrical.py": "23b46a33113f8059459a005b5ff9f301c8daefd9839a54b160f935fe48e1ad27",
+        "methodology/electronics/power_stage.py": "3fa14f2d6756047b5ffbf409ddd4af4920d80acc2d19e70e7ec2584c84ac3173",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757",
+        "methodology/electronics/acquisition_stress.py": "989d698630fd608ed95f501948dc478ab1ecd5efb008dd0464c53beeb5032a13",
+        "methodology/electronics/acquisition.py": "52c21dcf444c30de88a653290babb9dac63ad28ae093ed20d3528ad9da18163a"
+    },
+    "vendor_sha256": "b21a12037058848645c9c0569555905686a85a77430ff612dfd87d96caee21a6",
+    "vendor_url": "https://www.ti.com/lit/zip/SBOMBB7",
+    "trials": [
+        {
+            "relative_leg_delay_s": 0.0,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "carrier_mean_A": 5.505433826674451,
+                    "mean_error_after_ideal_dc_correction_A": -0.0002019017735133133,
+                    "previous_cycle_mean_difference_A": -8.952012662710729e-06
+                },
+                {
+                    "refinement": 2,
+                    "carrier_mean_A": 5.505449900062387,
+                    "mean_error_after_ideal_dc_correction_A": -0.00018582838557712478,
+                    "previous_cycle_mean_difference_A": -9.283291254824633e-06
+                }
+            ],
+            "carrier_mean_refinement_difference_A": 1.607338793618851e-05,
+            "carrier_mean_refinement_pass": true,
+            "cycle_mean_settled": true,
+            "sample_refinement": [
+                {
+                    "samples_per_carrier": 2,
+                    "max_refinement_difference_A": 1.6512240758714825e-05
+                },
+                {
+                    "samples_per_carrier": 4,
+                    "max_refinement_difference_A": 1.6192012765259278e-05
+                },
+                {
+                    "samples_per_carrier": 16,
+                    "max_refinement_difference_A": 1.60826464012942e-05
+                }
+            ]
+        },
+        {
+            "relative_leg_delay_s": 5e-08,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "carrier_mean_A": 5.486970993602382,
+                    "mean_error_after_ideal_dc_correction_A": -0.018664734845581954,
+                    "previous_cycle_mean_difference_A": -8.864253278950684e-06
+                },
+                {
+                    "refinement": 2,
+                    "carrier_mean_A": 5.486986615129599,
+                    "mean_error_after_ideal_dc_correction_A": -0.018649113318365274,
+                    "previous_cycle_mean_difference_A": -9.564050504451416e-06
+                }
+            ],
+            "carrier_mean_refinement_difference_A": 1.562152721668042e-05,
+            "carrier_mean_refinement_pass": true,
+            "cycle_mean_settled": true,
+            "sample_refinement": [
+                {
+                    "samples_per_carrier": 2,
+                    "max_refinement_difference_A": 1.6058465507562403e-05
+                },
+                {
+                    "samples_per_carrier": 4,
+                    "max_refinement_difference_A": 1.5732878875240885e-05
+                },
+                {
+                    "samples_per_carrier": 16,
+                    "max_refinement_difference_A": 1.563247945313151e-05
+                }
+            ]
+        }
+    ],
+    "measured_incremental_mean_bias_A": -0.01846328493278815,
+    "hardware_qualified": false,
+    "limitations": [
+        "Unchanged vendor amplifier model with imposed current from the ideal periodic RL bridge. Shunt terminal voltages are controlled sources, not physical PGND current paths or a transistor model.",
+        "The imposed current and the delayed leg use the same voltage-waveform timing. Input waveform density and SPICE step are refined together.",
+        "The leg delay is exploratory, with zero deadtime and no shunt mismatch. It is not a DRV8962 guaranteed propagation tolerance.",
+        "Ideal DC correction uses a separate static curve; real calibration, component temperature and noise are not established.",
+        "The output filter is applied in periodic postprocessing, not as an ADC/RC load on the amplifier. Current-changing waveform and controller stability qualification remain open."
+    ]
+}

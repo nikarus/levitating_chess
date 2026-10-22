@@ -1,0 +1,130 @@
+{
+    "status": "compiled_current_regulation_averaged_screen",
+    "passed": true,
+    "trial_count": 74,
+    "feedforward_approximation": {
+        "table_entries": 564,
+        "table_bytes": 2256,
+        "argument_domain": 6.014525290227439,
+        "interpolation_and_rounding_bound_V": 2.933265368380711e-05,
+        "saturated_tail_bound_V": 2.9335149943011186e-05,
+        "comparison_voltage_budget_V": 5.867029988602237e-05,
+        "method": "Linear interpolation uses max abs(tanh second derivative)=4/(3 sqrt(3)); saturation tail is explicit. Rounding reserves eight float32 relative epsilons times the voltage scale.",
+        "scope": "Feedforward voltage before PWM quantization; not a closed-loop trajectory-equivalence bound"
+    },
+    "host_execution_verified": true,
+    "arm_object_compiled": true,
+    "worst_case_execution_time_qualified": false,
+    "hardware_qualified": false,
+    "schedule": {
+        "status": "integer_clock_controller_schedule_not_firmware_WCET_qualification",
+        "clock_Hz": 128000000.0,
+        "carrier_ticks": 800,
+        "pwm_TOP": 399,
+        "serial_clock_ticks": 8,
+        "frame_guard_ticks": 3,
+        "frame_ticks": 323,
+        "conversion_minimum_ticks": 256,
+        "allocated_compute_ticks": 128,
+        "maximum_compute_ticks_before_next_job_or_latch": 800,
+        "compute_utilization": 0.16,
+        "channels": [
+            {
+                "channel": 0,
+                "sample_ticks": [
+                    0,
+                    400
+                ],
+                "result_ready_ticks": 723,
+                "compute_ready_ticks": 851,
+                "latch_ticks": 1600
+            },
+            {
+                "channel": 1,
+                "sample_ticks": [
+                    800,
+                    1200
+                ],
+                "result_ready_ticks": 1523,
+                "compute_ready_ticks": 1651,
+                "latch_ticks": 2400
+            },
+            {
+                "channel": 2,
+                "sample_ticks": [
+                    1600,
+                    2000
+                ],
+                "result_ready_ticks": 2323,
+                "compute_ready_ticks": 2451,
+                "latch_ticks": 3200
+            },
+            {
+                "channel": 3,
+                "sample_ticks": [
+                    2400,
+                    2800
+                ],
+                "result_ready_ticks": 3123,
+                "compute_ready_ticks": 3251,
+                "latch_ticks": 4000
+            },
+            {
+                "channel": 4,
+                "sample_ticks": [
+                    3200,
+                    3600
+                ],
+                "result_ready_ticks": 3923,
+                "compute_ready_ticks": 4051,
+                "latch_ticks": 4800
+            },
+            {
+                "channel": 5,
+                "sample_ticks": [
+                    4000,
+                    4400
+                ],
+                "result_ready_ticks": 4723,
+                "compute_ready_ticks": 4851,
+                "latch_ticks": 5600
+            },
+            {
+                "channel": 6,
+                "sample_ticks": [
+                    4800,
+                    5200
+                ],
+                "result_ready_ticks": 5523,
+                "compute_ready_ticks": 5651,
+                "latch_ticks": 6400
+            },
+            {
+                "channel": 7,
+                "sample_ticks": [
+                    5600,
+                    6000
+                ],
+                "result_ready_ticks": 6323,
+                "compute_ready_ticks": 6451,
+                "latch_ticks": 7200
+            }
+        ],
+        "preserves_screened_actuation_phase": true,
+        "hardware_qualified": false,
+        "source": "https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf",
+        "limitations": [
+            "RP2350-family clock and PWM candidate only; board-level clock tolerance, pin assignment, firmware and processor worst-case execution time are not qualified.",
+            "Phase-correct TOP and compare latches follow the datasheet; all PWM slices must be started synchronously. A carrier is assigned to each paired channel readout.",
+            "The SPI guard is rounded upward to whole system clocks. Conversion, transfer and compute precede the same carrier latch used by the analog control screen.",
+            "The allocated compute duration is a design assumption. The maximum cycle count is a scheduling deadline, not evidence that code meets it.",
+            "Shared command transport, fault handling, calibration and Hall sensing need separate timing/resource allocations."
+        ]
+    },
+    "limitations": [
+        "Runs C reference filtering and the PI/feedforward/PWM kernel inside the existing averaged plant; acquisition and scheduling remain Python implementations.",
+        "The same source compiles for Cortex-M33, but only the host binary is executed here. ARM library linkage, runtime and cycle timing are not established.",
+        "The bounded interpolation removes the transcendental library call. Kernel, reference filtering, acquisition and PWM writes still need processor cycle-time verification.",
+        "No interrupts, DMA contention, flash stalls or processor faults are simulated by this compilation check."
+    ]
+}

@@ -6,7 +6,7 @@ Each entry is a family of parameterized cases, not one animation or a promise to
 
 ## Current coverage
 
-Short hover and one small combined sideways/yaw trial pass their recorded limits. These are partial evidence, not completion of the families below. The [original movement evidence](../results/local_motion/trial/verification.json) and [tracking plot](../results/local_motion/trial/tracking.png) retain the baseline; the [optimized movement and matched-drive comparison](../results/local_motion/coil_surface/dense_matched_drive_movement/summary.json) adds bounded numerical and nominal feedback evidence. Endpoint settling, sustained control, broad motion, contact and other piece geometries remain unqualified.
+Short hover and one small combined sideways/yaw trial pass their recorded limits. These are partial evidence, not completion of the families below. The [original movement evidence](../results/local_motion/trial/verification.json) and [tracking plot](../results/local_motion/trial/tracking.png) retain the baseline; the [optimized movement and matched-drive comparison](../results/local_motion/coil_surface/dense_matched_drive_movement/summary.json) adds bounded numerical and nominal feedback evidence. The [longer move-and-hold trial](../results/local_motion/settling/trial/verification.json) fails the angular-speed settling limit while retaining position/orientation and sensing margins. Endpoint settling, sustained control, broad motion, contact and other piece geometries remain unqualified.
 
 ## Basic airborne control
 

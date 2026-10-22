@@ -1,0 +1,65 @@
+{
+    "status": "manufacturer_amplifier_replay_of_resolved_switching_reversal",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/readout.py": "8a81ad47b637364d01284c24fdd84d330b4270e20cd7fd2e0d4ab52e0d0f04e8",
+        "model.py": "ebe3d280e5a9e7d2189e61dc797b071ea3d56f777dfe8730639a824a3502156a",
+        "methodology/electrical.py": "23b46a33113f8059459a005b5ff9f301c8daefd9839a54b160f935fe48e1ad27",
+        "methodology/electronics/power_stage.py": "7d4ce36e0a4c72b6dce2f0257a11120a7aae559826caa9a26c9c2dbf6c425534",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/qualification.py": "7d1232db4b9045a1ac7d244ffb71468b64d636953203c81daee2f92627a33f54",
+        "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757",
+        "methodology/electronics/switching_loop.py": "c9a178e837e25943cd0a0e628d687956fc0ed1ed49eef40cbb8936a8b0ea8c7f",
+        "methodology/electronics/current_loop.py": "861f76285d164c572651bcb5fd8a80c9817e84935d6d6f044815a681f748505d",
+        "methodology/electronics/acquisition.py": "d7bc0bb172f83ceb2177f2d5716d6dab46d3f317666594c795f1afcd9c367f4d",
+        "methodology/electronics/logic.py": "acd6fbe350e7e0fb1df89d8b6527c5f8264d5f4b08d85dd4354598150ea14f91",
+        "methodology/electronics/bridge_readout.py": "42476528cf694c2d7f86d0ae026dfabab7437fbf6daaa0e4bb27800ff7727483"
+    },
+    "transition_only": false,
+    "recorded_input_sha256": {
+        "methodology/results/electronics/current_loop/phase_validation/channel_5/summary.json": "bc25353fa90a20a491575897cd5b52268d9fd621b2d5f5d16b3f6830cead8419",
+        "methodology/results/electronics/current_loop/phase_validation/channel_5/refinement_1.npz": "9a788c2c26036a0b81704bbefb4e15cd2163466dc49fd0c6fd643d1165c132b8",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_3_refinement_1/plant.npz": "25de53c2a420601c3b2c7eb34a037d44a3f5cb465110fbc80b033ef1926bf1de",
+        "methodology/results/electronics/current_loop/phase_validation/channel_5/refinement_2.npz": "d02be7e4564930cec8e953f75fe7352028c34ec76bf7e70d0c9a566f104010d1",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_3_refinement_2/plant.npz": "0bb55aa46120c98cf4e56407763ca24ce1fc64461c1cb4668b039dacf897edc3"
+    },
+    "vendor_sha256": "b21a12037058848645c9c0569555905686a85a77430ff612dfd87d96caee21a6",
+    "trials": [
+        {
+            "physical_gate_phase_shift_s": 5.078125e-06,
+            "refinement": 1,
+            "reused_case_from": null,
+            "replayed_duration_s": 0.001,
+            "controller_samples": 20,
+            "replay_voltage_error_bound_V": 2.5000000000000004e-07,
+            "peak_reduced_model_discrepancy_A": 0.030365939450561395,
+            "rms_deterministic_discrepancy_A": 0.004323133075193987,
+            "peak_feedback_discrepancy_A": 0.028912031250000858,
+            "within_existing_gain_offset_envelope": true,
+            "peak_input_loading_A": 3.4329082398196596e-08
+        },
+        {
+            "physical_gate_phase_shift_s": 5.078125e-06,
+            "refinement": 2,
+            "reused_case_from": null,
+            "replayed_duration_s": 0.001,
+            "controller_samples": 20,
+            "replay_voltage_error_bound_V": 1.2500000000000002e-07,
+            "peak_reduced_model_discrepancy_A": 0.030368125757361957,
+            "rms_deterministic_discrepancy_A": 0.00432393721715705,
+            "peak_feedback_discrepancy_A": 0.028912031250000858,
+            "within_existing_gain_offset_envelope": true,
+            "peak_input_loading_A": 3.432867050930913e-08
+        }
+    ],
+    "peak_numerical_discrepancy_A": 8.28123973573014e-06,
+    "numerical_pass": true,
+    "hardware_qualified": false,
+    "limitations": [
+        "Exact recorded bridge voltages drive the unchanged TI amplifier and physical output filter; converter internal dynamics remain the same typical two-pole approximation.",
+        "The replay compares the reduced sensor model during one closed-loop reversal. It does not feed the manufacturer output back into a new bridge trajectory.",
+        "The existing gain/offset envelope is checked without changing it. Agreement within that envelope does not establish an error allocation for every remaining component.",
+        "RMS discrepancy is deterministic model error, not random noise. Input loading is measured but not coupled back; supply/reference noise, ADC INL/DNL and temperature remain unqualified."
+    ]
+}

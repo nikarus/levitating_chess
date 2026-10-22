@@ -13,9 +13,14 @@ from methodology import coil_layouts, design, source_fingerprints
 
 def prototype_geometry(name):
     candidate = next(row for row in Inputs.coil_layout_candidates if row[0] == name)
+    coil, winding = round_wire_geometry(candidate[2], candidate[3])
+    return candidate, coil, winding
+
+
+def round_wire_geometry(width, length):
     pitch = Fixed.prototype_wire_outer_diameter + Fixed.prototype_turn_spacing
     wall = Inputs.prototype_radial_turns * pitch + Fixed.coil_winding_clearance
-    coil = design.CoilGeometry(candidate[2], candidate[3], wall, wall + Inputs.prototype_inner_corner_radius)
+    coil = design.CoilGeometry(width, length, wall, wall + Inputs.prototype_inner_corner_radius)
     wire = design.Wire(f'{Inputs.prototype_wire_diameter:g} mm round, Grade 2 maximum OD', pitch, pitch,
                        np.pi * (Inputs.prototype_wire_diameter / 2000) ** 2)
     turns = Inputs.prototype_radial_turns * Inputs.prototype_axial_layers
@@ -25,7 +30,7 @@ def prototype_geometry(name):
                                      resistance_per_m=max(Fixed.prototype_wire_resistance_per_m))
     if winding.layers % 2 or Inputs.prototype_inner_corner_radius <= 0:
         raise ValueError('Prototype requires paired winding layers and a positive inner bend radius')
-    return candidate, coil, winding
+    return coil, winding
 
 
 def prototype_array(name, refinement=1):

@@ -1,0 +1,188 @@
+{
+    "status": "state_space_bridge_and_vendor_amplifier_carrier_mean_verification",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/readout.py": "4412a23cdc31f78040d16439ffb3044331ae0e91d2995ca8077ea838054ae662",
+        "model.py": "45ee1ba8390a2c488e31bef02bd6511f368e8b4b9aa99735561dc1a0b4061910",
+        "methodology/electrical.py": "23b46a33113f8059459a005b5ff9f301c8daefd9839a54b160f935fe48e1ad27",
+        "methodology/electronics/power_stage.py": "7c9969db433177cf7dc029d4c4b851afb557e9bcbbf25e38ad63c20b0810a6d5",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757",
+        "methodology/electronics/bridge_readout.py": "037531053d7b9d09d41b0ee1691851059ebcff80779f1b278a4ba648d8cace01"
+    },
+    "vendor_sha256": "b21a12037058848645c9c0569555905686a85a77430ff612dfd87d96caee21a6",
+    "trials": [
+        {
+            "settings": {
+                "start_s": 0.00065625,
+                "stop_s": 0.0007062500000000001,
+                "command_V": -5.684466493731231,
+                "maximum_step_s": 1.52587890625e-09,
+                "on_resistance_ohm": 0.053,
+                "requested_current_A": -5.5,
+                "relative_leg_delay_s": 0.0,
+                "bulk_return": "pgndA",
+                "fet_output_capacitance_F": 1e-10
+            },
+            "checks": [
+                {
+                    "refinement": 1,
+                    "actual_mean_A": -5.385070113576916,
+                    "shunt_mean_A": -5.38504311446646,
+                    "reported_mean_A": -5.384501639738853,
+                    "reported_error_A": 0.0005684738380624665,
+                    "peak_amplifier_input_current_A": 3.433277450788876e-08,
+                    "periodic_closure_A": 1.039352042586231e-09,
+                    "root_success": false,
+                    "root_evaluations": 49,
+                    "adjacent_reported_mean_difference_A": 3.2203092859006688e-06
+                },
+                {
+                    "refinement": 2,
+                    "actual_mean_A": -5.385070229681743,
+                    "shunt_mean_A": -5.385043225054532,
+                    "reported_mean_A": -5.384501990786548,
+                    "reported_error_A": 0.0005682388951946393,
+                    "peak_amplifier_input_current_A": 3.433277524014285e-08,
+                    "periodic_closure_A": 1.1256142768391818e-09,
+                    "root_success": true,
+                    "root_evaluations": 12,
+                    "adjacent_reported_mean_difference_A": 3.8506624147061075e-06
+                }
+            ],
+            "numerical_mean_difference_A": 3.5104769491312027e-07,
+            "numerical_mean_pass": true
+        },
+        {
+            "settings": {
+                "start_s": 0.00065625,
+                "stop_s": 0.0007062500000000001,
+                "command_V": 0.0,
+                "maximum_step_s": 1.52587890625e-09,
+                "on_resistance_ohm": 0.053,
+                "requested_current_A": 0.0,
+                "relative_leg_delay_s": 0.0,
+                "bulk_return": "pgndA",
+                "fet_output_capacitance_F": 1e-10
+            },
+            "checks": [
+                {
+                    "refinement": 1,
+                    "actual_mean_A": 5.740545472882665e-10,
+                    "shunt_mean_A": 3.111523151680351e-08,
+                    "reported_mean_A": -2.959934266813426e-05,
+                    "reported_error_A": -2.959991672268155e-05,
+                    "peak_amplifier_input_current_A": 8.076701189531018e-09,
+                    "periodic_closure_A": 1.620495518942844e-13,
+                    "root_success": true,
+                    "root_evaluations": 51,
+                    "adjacent_reported_mean_difference_A": 1.1256089722315415e-05
+                },
+                {
+                    "refinement": 2,
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "shunt_mean_A": 3.1125707355601305e-08,
+                    "reported_mean_A": -2.9387943002022763e-05,
+                    "reported_error_A": -2.9388526899634557e-05,
+                    "peak_amplifier_input_current_A": 8.076704291430517e-09,
+                    "periodic_closure_A": 1.2356925381280326e-12,
+                    "root_success": false,
+                    "root_evaluations": 24,
+                    "adjacent_reported_mean_difference_A": 1.125644421235019e-05
+                }
+            ],
+            "numerical_mean_difference_A": 2.1139966611149712e-07,
+            "numerical_mean_pass": true
+        },
+        {
+            "settings": {
+                "start_s": 0.00065625,
+                "stop_s": 0.0007062500000000001,
+                "command_V": 4.071033246865616,
+                "maximum_step_s": 1.52587890625e-09,
+                "on_resistance_ohm": 0.053,
+                "requested_current_A": 2.75,
+                "relative_leg_delay_s": 0.0,
+                "bulk_return": "pgndA",
+                "fet_output_capacitance_F": 1e-10
+            },
+            "checks": [
+                {
+                    "refinement": 1,
+                    "actual_mean_A": 2.6723106076958643,
+                    "shunt_mean_A": 2.672295367919508,
+                    "reported_mean_A": 2.6719219516007535,
+                    "reported_error_A": -0.00038865609511073984,
+                    "peak_amplifier_input_current_A": 2.0797867366618438e-08,
+                    "periodic_closure_A": 3.237268943478349e-10,
+                    "root_success": true,
+                    "root_evaluations": 31,
+                    "adjacent_reported_mean_difference_A": 9.005570164255516e-06
+                },
+                {
+                    "refinement": 2,
+                    "actual_mean_A": 2.672310613440789,
+                    "shunt_mean_A": 2.67229537374924,
+                    "reported_mean_A": 2.671921205149492,
+                    "reported_error_A": -0.0003894082912969665,
+                    "peak_amplifier_input_current_A": 2.0797732822720858e-08,
+                    "periodic_closure_A": 5.1137291466319475e-11,
+                    "root_success": true,
+                    "root_evaluations": 9,
+                    "adjacent_reported_mean_difference_A": 8.965188796228318e-06
+                }
+            ],
+            "numerical_mean_difference_A": 7.521961862266835e-07,
+            "numerical_mean_pass": true
+        },
+        {
+            "settings": {
+                "start_s": 0.00065625,
+                "stop_s": 0.0007062500000000001,
+                "command_V": 5.684466493731231,
+                "maximum_step_s": 1.52587890625e-09,
+                "on_resistance_ohm": 0.053,
+                "requested_current_A": 5.5,
+                "relative_leg_delay_s": 0.0,
+                "bulk_return": "pgndA",
+                "fet_output_capacitance_F": 1e-10
+            },
+            "checks": [
+                {
+                    "refinement": 1,
+                    "actual_mean_A": 5.385060003912699,
+                    "shunt_mean_A": 5.385032474278112,
+                    "reported_mean_A": 5.384327411730003,
+                    "reported_error_A": -0.0007325921826959458,
+                    "peak_amplifier_input_current_A": 3.4320207394254287e-08,
+                    "periodic_closure_A": 3.732831653842754e-10,
+                    "root_success": true,
+                    "root_evaluations": 21,
+                    "adjacent_reported_mean_difference_A": 1.0671632248104856e-05
+                },
+                {
+                    "refinement": 2,
+                    "actual_mean_A": 5.385060023367785,
+                    "shunt_mean_A": 5.385032493691275,
+                    "reported_mean_A": 5.384326907470342,
+                    "reported_error_A": -0.0007331158974430707,
+                    "peak_amplifier_input_current_A": 3.431979554303728e-08,
+                    "periodic_closure_A": 9.674200643926399e-10,
+                    "root_success": true,
+                    "root_evaluations": 11,
+                    "adjacent_reported_mean_difference_A": 1.0431805682387107e-05
+                }
+            ],
+            "numerical_mean_difference_A": 5.237147471248704e-07,
+            "numerical_mean_pass": true
+        }
+    ],
+    "hardware_qualified": false,
+    "limitations": [
+        "Behavioral driver, constant exploratory output capacitance, stiff supply and reference; not a manufacturer driver qualification.",
+        "Physical shunt voltages are solved by Radau and replayed through the unchanged TI amplifier model. Input loading is recorded but not fed back to the bridge in this diagnostic.",
+        "Mean verification does not qualify raw waveform accuracy, sampled ADC accuracy, noise, calibration, thermal behavior or current-loop stability."
+    ]
+}

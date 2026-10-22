@@ -10,6 +10,7 @@ from unittest.mock import patch
 from zipfile import ZipFile, ZIP_DEFLATED
 
 import numpy as np
+from scipy.spatial.transform import Rotation
 
 from model import Fixed
 from methodology import airborne, airborne_verification, hover, numerical_accuracy, source_fingerprints
@@ -17,6 +18,59 @@ from methodology.cad import magnetics
 from methodology.joint_airborne import JointAirborneSimulation
 from methodology.magnetic_atlas import MagneticFieldAtlas
 from methodology.numerical_accuracy import JointTrajectoryRecorder
+
+
+def settling_limits():
+    return dict(position_error_m=Fixed.qualification_position_error, angle_error_rad=Fixed.qualification_angle_error,
+        speed_m_per_s=Fixed.airborne_settling_speed, angular_speed_rad_per_s=Fixed.airborne_settling_angular_speed)
+
+
+def settling_metrics(states, reference, center_height):
+    positions = states[:, :3] - [0, 0, center_height]
+    rotations = Rotation.from_quat(states[:, 3:7], scalar_first=True)
+    return dict(position_error_m=float(np.max(np.linalg.norm(positions - reference[:3], axis=1))),
+        angle_error_rad=float(np.max((rotations * Rotation.from_euler('xyz', reference[3:]).inv()).magnitude())),
+        speed_m_per_s=float(np.max(np.linalg.norm(states[:, 7:10], axis=1))),
+        angular_speed_rad_per_s=float(np.max(np.linalg.norm(states[:, 10:13], axis=1))))
+
+
+def observe_settling(simulation, segments, result):
+    for segment in segments:
+        if segment.t[-1] < result['start_s']:
+            continue
+        times = np.unique(np.r_[segment.t, (segment.t[:-1] + segment.t[1:]) / 2,
+            max(segment.t[0], result['start_s'])])
+        times = times[(times >= result['start_s']) & (times <= result['end_s'])]
+        if not len(times):
+            continue
+        metrics = settling_metrics(segment.sol(times).T, simulation.reference_state(result['end_s'])[0],
+            simulation.plant.geometry.center_of_mass_height)
+        result['samples'] += len(times)
+        result['observed_until_s'] = float(times[-1])
+        for name, value in metrics.items():
+            result['peaks'][name] = max(result['peaks'][name], value)
+        result['limits_met'] = all(result['peaks'][name] <= limit for name, limit in result['limits'].items())
+        if not result['limits_met'] and simulation.stop_reason is None:
+            simulation.stop_reason = 'endpoint_settling_limits_exceeded'
+            simulation.finished = True
+    result['passed'] = bool(result['samples'] and result['limits_met']
+        and result['observed_until_s'] >= result['end_s'] - Fixed.adaptive_clock_tolerance)
+
+
+def verify_recorded_sensing(simulation, folder, scans):
+    from methodology import airborne_diagnostics
+    started = perf_counter()
+    reference = airborne_diagnostics.MatchedHallReference(simulation.fields, simulation.checkpoint_state()['sensors'],
+        simulation.identities, simulation.plant.geometry.center_of_mass_height, simulation.dynamics.current)
+    trajectory = airborne_diagnostics.recorded_dense_trajectory(folder / 'dense.npz', 'physical')
+    checks = []
+    for scan in scans:
+        check = reference.check(trajectory, scan)
+        checks.append(check)
+        if not check['passed']:
+            break
+    return dict(passed=bool(checks) and len(checks) == len(scans) and all(row['passed'] for row in checks),
+        checks=checks, elapsed_s=perf_counter() - started)
 
 
 def run(output, reference_folder, field_folder):
@@ -140,6 +194,12 @@ def run_cached(output, field_folder, library, resume=False, deadline=None, readi
             simulation.save_checkpoint(output / 'initial_checkpoint.json')
             context = dict(scope='Sensor-feedback local movement using the production coil cache; bounded flight evidence',
                 source_sha256=source, inputs_sha256=inputs, atlas_identity=cache.identity, scans=[], dense_sha256=None, runtime_s={})
+            if not readiness:
+                if not 0 < Fixed.airborne_settling_window <= Fixed.airborne_motion_settle_duration:
+                    raise ValueError('Settling window must fit inside the stationary endpoint hold')
+                context['settling'] = dict(start_s=duration - Fixed.airborne_settling_window, end_s=duration,
+                    samples=0, observed_until_s=None, peaks=dict.fromkeys(settling_limits(), 0.),
+                    limits=settling_limits(), limits_met=True, passed=False)
         recorder = JointTrajectoryRecorder(simulation)
         if resume and context['dense_sha256'] is not None:
             if hashlib.sha256((output / 'dense.npz').read_bytes()).hexdigest() != context['dense_sha256']:
@@ -149,12 +209,16 @@ def run_cached(output, field_folder, library, resume=False, deadline=None, readi
         previous_runtime = dict(context['runtime_s'])
         setup_elapsed = perf_counter() - started
         recording_elapsed = 0.
+        observed_segments = 0
         run_started = perf_counter()
 
         def progress(report):
-            nonlocal recording_elapsed
+            nonlocal recording_elapsed, observed_segments
             recording_started = perf_counter()
             hover.check_operating_limits(simulation, report)
+            if not readiness:
+                observe_settling(simulation, recorder.segments[observed_segments:], context['settling'])
+                observed_segments = len(recorder.segments)
             context.update(scans=recorder.scans, dense_sha256=recorder.save_dense(output / 'dense.npz'),
                 completed_duration_s=simulation.clock, stop_reason=simulation.stop_reason,
                 status=('failed' if simulation.stop_reason is not None or (simulation.finished and not report['passed'])
@@ -170,6 +234,17 @@ def run_cached(output, field_folder, library, resume=False, deadline=None, readi
         progress(report)
         simulation.save_checkpoint(checkpoint)
         airborne_verification.save_summary(output / 'summary.json', simulation.report())
+        if not readiness and recorder.scans and simulation.finished:
+            sensing = verify_recorded_sensing(simulation, output, recorder.scans)
+            passed = simulation.report()['passed'] and context['settling']['passed'] and sensing['passed']
+            context.update(status='passed' if passed else 'failed', verification_passed=passed)
+            context['runtime_s']['verification'] = sensing['elapsed_s']
+            airborne_verification.save_summary(evidence_path, context)
+            verification = dict(source_sha256=context['source_sha256'],
+                inputs_sha256=source_fingerprints(output / 'summary.json', evidence_path, checkpoint, output / 'dense.npz'),
+                control_passed=simulation.report()['passed'], settling=context['settling'],
+                sensing=sensing, passed=passed)
+            airborne_verification.save_summary(output / 'verification.json', verification)
         return context
 
 
@@ -274,20 +349,10 @@ def verify_readiness(output, field_folder, library, deadline, reference_run=None
         return result
     with magnetic_spline.native_evaluation(cache, library):
         simulation = JointAirborneSimulation.from_checkpoint(folders[0] / 'checkpoint.json', atlas=cache)
-        reference = airborne_diagnostics.MatchedHallReference(simulation.fields, states[0]['sensors'], simulation.identities,
-            simulation.plant.geometry.center_of_mass_height, simulation.dynamics.current)
-        trajectory = airborne_diagnostics.recorded_dense_trajectory(folders[0] / 'dense.npz', 'physical')
-        verification_started = perf_counter()
-        result['sensing_checks'] = []
-        for scan in contexts[0]['scans']:
-            check = reference.check(trajectory, scan)
-            result['sensing_checks'].append(check)
-            if not check['passed']:
-                result['status'] = 'sensing_failed'
-                save()
-                return result
-        result['sensing_verification_s'] = perf_counter() - verification_started
-    result['checks']['independent_sensing'] = bool(result['sensing_checks'])
+        sensing = verify_recorded_sensing(simulation, folders[0], contexts[0]['scans'])
+        result['sensing_checks'] = sensing['checks']
+        result['sensing_verification_s'] = sensing['elapsed_s']
+    result['checks']['independent_sensing'] = sensing['passed']
     result['status'] = 'simulation_ready' if all(result['checks'].values()) else 'readiness_failed'
     save()
     return result

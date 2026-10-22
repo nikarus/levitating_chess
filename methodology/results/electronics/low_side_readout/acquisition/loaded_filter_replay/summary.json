@@ -1,0 +1,120 @@
+{
+    "status": "physical_output_filter_vendor_amplifier_verification",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/readout.py": "4412a23cdc31f78040d16439ffb3044331ae0e91d2995ca8077ea838054ae662",
+        "model.py": "19813481d4c1f15b9b5a854ed08f2f3dc93cf436808da6b17caa45a011f7ab47",
+        "methodology/electrical.py": "23b46a33113f8059459a005b5ff9f301c8daefd9839a54b160f935fe48e1ad27",
+        "methodology/electronics/power_stage.py": "7c9969db433177cf7dc029d4c4b851afb557e9bcbbf25e38ad63c20b0810a6d5",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757",
+        "methodology/electronics/bridge_readout.py": "eab5280a3d7f3692a4f801b325fe62456184192041d0391028cb1ff05fd9cf7e"
+    },
+    "recorded_input_sha256": {
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/summary.json": "c6cad2bc846b24efb84b664cd7e1f14d9eca6576ecf0095da5dcf38f385e915f",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_0_refinement_1/plant.npz": "906d6d715c8537f21f3f606b303ba0bfa94cc71ee37ca7c2bb21fa74dea1ca4f",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_0_refinement_2/plant.npz": "a959f1a7555b83f1ebcbc1defd19fb2daeb8096c2d735354ae049ee63948b8a8",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_1_refinement_1/plant.npz": "2e9cc49c0405f06e57527be49a3221e8959d00cc762446adf4e02dacb1734a35",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_1_refinement_2/plant.npz": "efd7b5a73f8acd0c41dc6a30dc35e28f1fb399db3335d0ae7de6f0c0ef59a3db",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_2_refinement_1/plant.npz": "532e35ac29748be5ebd15751554bd61973bf74cab58b2279962861bd26acf9f4",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_2_refinement_2/plant.npz": "05388ba6f0d8deed41e71854f82538f690d7935df7aa61f7e63f648ebb5aa842",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_3_refinement_1/plant.npz": "25de53c2a420601c3b2c7eb34a037d44a3f5cb465110fbc80b033ef1926bf1de",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_3_refinement_2/plant.npz": "0bb55aa46120c98cf4e56407763ca24ce1fc64461c1cb4668b039dacf897edc3"
+    },
+    "vendor_sha256": "b21a12037058848645c9c0569555905686a85a77430ff612dfd87d96caee21a6",
+    "trials": [
+        {
+            "checks": [
+                {
+                    "refinement": 1,
+                    "reported_mean_A": -5.386750738323165,
+                    "actual_mean_A": -5.385070113576916,
+                    "adjacent_reported_mean_difference_A": 2.4487608383694237e-05,
+                    "peak_amplifier_input_current_A": 3.4332774507896157e-08
+                },
+                {
+                    "refinement": 2,
+                    "reported_mean_A": -5.386749652663657,
+                    "actual_mean_A": -5.385070229681743,
+                    "adjacent_reported_mean_difference_A": 2.4539675269608097e-05,
+                    "peak_amplifier_input_current_A": 3.433277524460202e-08
+                }
+            ],
+            "numerical_mean_difference_A": 1.0856595080710463e-06,
+            "numerical_mean_pass": true
+        },
+        {
+            "checks": [
+                {
+                    "refinement": 1,
+                    "reported_mean_A": -0.003021980230876481,
+                    "actual_mean_A": 5.740545472882665e-10,
+                    "adjacent_reported_mean_difference_A": 3.125264921475211e-05,
+                    "peak_amplifier_input_current_A": 8.076701207600565e-09
+                },
+                {
+                    "refinement": 2,
+                    "reported_mean_A": -0.0030217530410085033,
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "adjacent_reported_mean_difference_A": 3.1252466148374083e-05,
+                    "peak_amplifier_input_current_A": 8.07670430174188e-09
+                }
+            ],
+            "numerical_mean_difference_A": 2.2718986797789012e-07,
+            "numerical_mean_pass": true
+        },
+        {
+            "checks": [
+                {
+                    "refinement": 1,
+                    "reported_mean_A": 2.6686059638192567,
+                    "actual_mean_A": 2.6723106076958643,
+                    "adjacent_reported_mean_difference_A": 3.511272393996734e-05,
+                    "peak_amplifier_input_current_A": 2.0797867374073e-08
+                },
+                {
+                    "refinement": 2,
+                    "reported_mean_A": 2.668607276075823,
+                    "actual_mean_A": 2.672310613440789,
+                    "adjacent_reported_mean_difference_A": 3.5101011428118056e-05,
+                    "peak_amplifier_input_current_A": 2.0797732828648262e-08
+                }
+            ],
+            "numerical_mean_difference_A": 1.3122565660772523e-06,
+            "numerical_mean_pass": true
+        },
+        {
+            "checks": [
+                {
+                    "refinement": 1,
+                    "reported_mean_A": 5.38066141835998,
+                    "actual_mean_A": 5.385060003912699,
+                    "adjacent_reported_mean_difference_A": 3.9355508998362154e-05,
+                    "peak_amplifier_input_current_A": 3.432020739425281e-08
+                },
+                {
+                    "refinement": 2,
+                    "reported_mean_A": 5.380662999348138,
+                    "actual_mean_A": 5.385060023367785,
+                    "adjacent_reported_mean_difference_A": 3.934881570888393e-05,
+                    "peak_amplifier_input_current_A": 3.431979554741804e-08
+                }
+            ],
+            "numerical_mean_difference_A": 1.5809881572792506e-06,
+            "numerical_mean_pass": true
+        }
+    ],
+    "external_filter": {
+        "resistance_ohm": 100.0,
+        "capacitance_F": 2e-07,
+        "load_ohm": 1000000.0
+    },
+    "hardware_qualified": false,
+    "limitations": [
+        "Actual passive output filter loads the unchanged amplifier model. The ADC load is represented by its typical input resistance to ground, omitting internal bias and impedance variation.",
+        "Physical bridge recordings are reused without amplifier-input loading feedback. ADC internal filtering, quantization, noise, conversion timing and current regulation remain separate.",
+        "Component tolerances, bias/reference impedance, shared supply dynamics, thermal drift and protection remain unqualified."
+    ]
+}

@@ -1,0 +1,10 @@
+(fp_lib_table
+(lib (name "Capacitor_SMD") (type "KiCad") (uri "${KICAD9_FOOTPRINT_DIR}/Capacitor_SMD.pretty") (options "") (descr ""))
+(lib (name "Diode_SMD") (type "KiCad") (uri "${KICAD9_FOOTPRINT_DIR}/Diode_SMD.pretty") (options "") (descr ""))
+(lib (name "Package_SO") (type "KiCad") (uri "${KICAD9_FOOTPRINT_DIR}/Package_SO.pretty") (options "") (descr ""))
+(lib (name "Package_SON") (type "KiCad") (uri "${KICAD9_FOOTPRINT_DIR}/Package_SON.pretty") (options "") (descr ""))
+(lib (name "Resistor_SMD") (type "KiCad") (uri "${KICAD9_FOOTPRINT_DIR}/Resistor_SMD.pretty") (options "") (descr ""))
+(lib (name "FlyingChess") (type "KiCad") (uri "${KIPRJMOD}/FlyingChess.pretty") (options "") (descr "Reviewed project land patterns"))
+(lib (name "Package_DFN_QFN") (type "KiCad") (uri "${KICAD9_FOOTPRINT_DIR}/Package_DFN_QFN.pretty") (options "") (descr ""))
+(lib (name "Crystal") (type "KiCad") (uri "${KICAD9_FOOTPRINT_DIR}/Crystal.pretty") (options "") (descr ""))
+)

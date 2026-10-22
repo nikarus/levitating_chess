@@ -1,0 +1,248 @@
+{
+    "status": "schematic_based_partial_power_and_inductive_return_envelope",
+    "channels": 8,
+    "driver_packages": 4,
+    "converter_packages": 1,
+    "operating_bus_V": 24.0,
+    "operating_bus_ceiling_V": 25.200000000000003,
+    "inductance_upper_H": 0.00010315066420846904,
+    "simultaneous_disabled_coil_energy_bound_J": 0.017432462251231268,
+    "local_nominal_motor_capacitance_F": 3.76e-05,
+    "lossless_bus_voltage_after_disable_from_nominal_V": 38.771879376484215,
+    "minimum_effective_capacitance_from_nominal_F": 0.0005905305640660979,
+    "local_nominal_capacitance_passes_operating_envelope": false,
+    "driver_typical_awake_no_load_W": 0.5760000000000001,
+    "no_load_modes": {
+        "all_awake_converting": {
+            "driver_VM_W": 0.8639999999999999,
+            "analog_5V_W": 0.098,
+            "partial_no_load_W": 0.9619999999999999
+        },
+        "drivers_asleep_ADC_standby": {
+            "driver_VM_W": 0.000768,
+            "analog_5V_W": 0.040499999999999994,
+            "partial_no_load_W": 0.04126799999999999
+        },
+        "drivers_asleep_ADC_power_down": {
+            "driver_VM_W": 0.000768,
+            "analog_5V_W": 0.018099999999999998,
+            "partial_no_load_W": 0.018868
+        }
+    },
+    "area_equivalent_installed_channels": 5680.473372781065,
+    "area_equivalent_whole_board_partial_no_load_W": {
+        "all_awake_converting": 683.076923076923,
+        "drivers_asleep_ADC_standby": 29.30272189349112,
+        "drivers_asleep_ADC_power_down": 13.397396449704143
+    },
+    "wake_waits_s": {
+        "driver": 0.0012,
+        "driver_cold_start": 0.0013,
+        "ADC_from_standby": 2e-05,
+        "ADC_from_power_down": 0.015
+    },
+    "continuous_all_channel_coil_copper_loss_W": 115.12012572417413,
+    "disabled_return": {
+        "trials": [
+            {
+                "bulk_count": 0,
+                "bulk_MPN": null,
+                "assumed_capacitance_F": 3.76e-05,
+                "initial_voltage_V": 24.0,
+                "assumed_capacitor_resistance_ohm": 0.0,
+                "decay_time_s": 1.8508091542095013e-05,
+                "final_capacitor_voltage_V": 37.391927761082215,
+                "maximum_terminal_voltage_V": 37.391927761082215,
+                "initial_return_current_A": 52.0,
+                "initial_coil_energy_J": 0.017432462251231268,
+                "capacitor_energy_increase_J": 0.015456537719771825,
+                "dissipated_energy_J": 0.001975924531459443,
+                "lossless_voltage_bound_V": 38.771879376484215,
+                "within_operating_voltage": false
+            },
+            {
+                "bulk_count": 0,
+                "bulk_MPN": null,
+                "assumed_capacitance_F": 3.76e-05,
+                "initial_voltage_V": 25.200000000000003,
+                "assumed_capacitor_resistance_ohm": 0.0,
+                "decay_time_s": 1.8035444541264777e-05,
+                "final_capacitor_voltage_V": 38.21354529609099,
+                "maximum_terminal_voltage_V": 38.21354529609099,
+                "initial_return_current_A": 52.0,
+                "initial_coil_energy_J": 0.017432462251231268,
+                "capacitor_energy_increase_J": 0.01551441882901228,
+                "dissipated_energy_J": 0.0019180434222189884,
+                "lossless_voltage_bound_V": 39.52592352348825,
+                "within_operating_voltage": false
+            },
+            {
+                "bulk_count": 1,
+                "bulk_MPN": "EEUFR1H102",
+                "assumed_capacitance_F": 0.0008,
+                "initial_voltage_V": 24.0,
+                "assumed_capacitor_resistance_ohm": 0.0,
+                "decay_time_s": 2.413312176917359e-05,
+                "final_capacitor_voltage_V": 24.772010415482676,
+                "maximum_terminal_voltage_V": 24.772010415482676,
+                "initial_return_current_A": 52.0,
+                "initial_coil_energy_J": 0.017432462251231268,
+                "capacitor_energy_increase_J": 0.015061000009912869,
+                "dissipated_energy_J": 0.002371462241318399,
+                "lossless_voltage_bound_V": 24.89138717765802,
+                "within_operating_voltage": true
+            },
+            {
+                "bulk_count": 1,
+                "bulk_MPN": "EEUFR1H102",
+                "assumed_capacitance_F": 0.0008,
+                "initial_voltage_V": 24.0,
+                "assumed_capacitor_resistance_ohm": 0.016,
+                "decay_time_s": 2.3798763508367334e-05,
+                "final_capacitor_voltage_V": 24.75760644374909,
+                "maximum_terminal_voltage_V": 24.977928375190967,
+                "initial_return_current_A": 52.0,
+                "initial_coil_energy_J": 0.017432462251231268,
+                "capacitor_energy_increase_J": 0.014775630729426576,
+                "dissipated_energy_J": 0.0026568315218046916,
+                "lossless_voltage_bound_V": 24.89138717765802,
+                "within_operating_voltage": true
+            },
+            {
+                "bulk_count": 1,
+                "bulk_MPN": "EEUFR1H102",
+                "assumed_capacitance_F": 0.0008,
+                "initial_voltage_V": 25.200000000000003,
+                "assumed_capacitor_resistance_ohm": 0.0,
+                "decay_time_s": 2.314996712469171e-05,
+                "final_capacitor_voltage_V": 25.94090791621155,
+                "maximum_terminal_voltage_V": 25.94090791621155,
+                "initial_return_current_A": 52.0,
+                "initial_coil_energy_J": 0.017432462251231268,
+                "capacitor_energy_increase_J": 0.015156281406946756,
+                "dissipated_energy_J": 0.0022761808442845113,
+                "lossless_voltage_bound_V": 26.050358071014653,
+                "within_operating_voltage": false
+            },
+            {
+                "bulk_count": 1,
+                "bulk_MPN": "EEUFR1H102",
+                "assumed_capacitance_F": 0.0008,
+                "initial_voltage_V": 25.200000000000003,
+                "assumed_capacitor_resistance_ohm": 0.016,
+                "decay_time_s": 2.284111562600266e-05,
+                "final_capacitor_voltage_V": 25.927608488457558,
+                "maximum_terminal_voltage_V": 26.15771040924829,
+                "initial_return_current_A": 52.0,
+                "initial_coil_energy_J": 0.017432462251231268,
+                "capacitor_energy_increase_J": 0.014880352772294509,
+                "dissipated_energy_J": 0.0025521094789367586,
+                "lossless_voltage_bound_V": 26.050358071014653,
+                "within_operating_voltage": false
+            },
+            {
+                "bulk_count": 2,
+                "bulk_MPN": "EEUFR1H102",
+                "assumed_capacitance_F": 0.0016,
+                "initial_voltage_V": 24.0,
+                "assumed_capacitor_resistance_ohm": 0.0,
+                "decay_time_s": 2.43616652373907e-05,
+                "final_capacitor_voltage_V": 24.388689372728034,
+                "maximum_terminal_voltage_V": 24.388689372728034,
+                "initial_return_current_A": 52.0,
+                "initial_coil_energy_J": 0.017432462251231268,
+                "capacitor_energy_increase_J": 0.015046535455533923,
+                "dissipated_energy_J": 0.002385926795697345,
+                "lossless_voltage_bound_V": 24.44975619130054,
+                "within_operating_voltage": true
+            },
+            {
+                "bulk_count": 2,
+                "bulk_MPN": "EEUFR1H102",
+                "assumed_capacitance_F": 0.0016,
+                "initial_voltage_V": 24.0,
+                "assumed_capacitor_resistance_ohm": 0.008,
+                "decay_time_s": 2.4188224397373492e-05,
+                "final_capacitor_voltage_V": 24.38498094305173,
+                "maximum_terminal_voltage_V": 24.493209273021126,
+                "initial_return_current_A": 52.0,
+                "initial_coil_energy_J": 0.017432462251231268,
+                "capacitor_energy_increase_J": 0.014901836474396806,
+                "dissipated_energy_J": 0.0025306257768344612,
+                "lossless_voltage_bound_V": 24.44975619130054,
+                "within_operating_voltage": true
+            },
+            {
+                "bulk_count": 2,
+                "bulk_MPN": "EEUFR1H102",
+                "assumed_capacitance_F": 0.0016,
+                "initial_voltage_V": 25.200000000000003,
+                "assumed_capacitor_resistance_ohm": 0.0,
+                "decay_time_s": 2.3351600081895267e-05,
+                "final_capacitor_voltage_V": 25.572824940233076,
+                "maximum_terminal_voltage_V": 25.572824940233076,
+                "initial_return_current_A": 52.0,
+                "initial_coil_energy_J": 0.017432462251231268,
+                "capacitor_energy_increase_J": 0.015143500339045296,
+                "dissipated_energy_J": 0.0022889619121859717,
+                "lossless_voltage_bound_V": 25.628706128363937,
+                "within_operating_voltage": false
+            },
+            {
+                "bulk_count": 2,
+                "bulk_MPN": "EEUFR1H102",
+                "assumed_capacitance_F": 0.0016,
+                "initial_voltage_V": 25.200000000000003,
+                "assumed_capacitor_resistance_ohm": 0.008,
+                "decay_time_s": 2.3191792546727718e-05,
+                "final_capacitor_voltage_V": 25.569407308092593,
+                "maximum_terminal_voltage_V": 25.682568814181725,
+                "initial_return_current_A": 52.0,
+                "initial_coil_energy_J": 0.017432462251231268,
+                "capacitor_energy_increase_J": 0.015003672069710957,
+                "dissipated_energy_J": 0.002428790181520311,
+                "lossless_voltage_bound_V": 25.628706128363937,
+                "within_operating_voltage": false
+            }
+        ],
+        "bulk_voltage_rating_V": 50.0,
+        "status": "piecewise_exact_disabled_inductive_return_screen_not_supply_qualification",
+        "limitations": [
+            "Identical stationary branches begin at the physical peak and maximum screened inductance. Both current polarities return energy through two body diodes. The branch is disconnected at its first zero-current crossing, preventing unphysical reverse current.",
+            "The matrix exponential solves the conducting RLC interval without time stepping. Coil/shunt/diode resistance and capacitor resistance dissipate energy; the independent lossless bound remains applicable.",
+            "The source is disconnected and cannot absorb energy. Motion-induced voltage, externally injected energy, wiring inductance, source dynamics, clamp action and switching-node ringing are absent.",
+            "Bulk cases use minimum nameplate capacitance and give no credit for local ceramics. The no-bulk case uses nominal local capacitance. Aging, temperature and frequency dependence still need qualification.",
+            "The nonzero capacitor-resistance case uses the published 100 kHz/20 C impedance as an exploratory constant resistance, not a broadband or cold-temperature ESR bound. Neither capacitor pulse-current capability nor lifetime is qualified.",
+            "A voltage pass for this isolated event does not qualify a complete supply. An initial bus at the operating ceiling leaves no regenerative headroom; source tolerance and an absorbing clamp remain necessary design decisions."
+        ]
+    },
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/supply.py": "c60683b00f9526044719781f1e98f12e71a27540435b92f8b85fd61296ddeaae",
+        "model.py": "461480583d3fb8c067b8dd8697a2b44bc745cb419ac70b30f3abe50a1181e374",
+        "methodology/electronics/current_loop.py": "c65490723601c968a5de9f7036eaa20b8e57e386502573e004254c1d7a8d3b3b",
+        "methodology/electronics/power_stage.py": "7d4ce36e0a4c72b6dce2f0257a11120a7aae559826caa9a26c9c2dbf6c425534",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757"
+    },
+    "input_sha256": {
+        "methodology/results/cad/electronics/control_group/summary.json": "f2f0dbc0b392ed4923d18d56cfc111a2181e6c0b97ef30e07366b47bd5c64dcb"
+    },
+    "complete_supply_or_thermal_qualification": false,
+    "sources": [
+        "https://www.ti.com/lit/ds/symlink/drv8962.pdf",
+        "https://www.ti.com/lit/ds/symlink/ads8698.pdf",
+        "https://www.ti.com/lit/ds/symlink/ina181.pdf",
+        "https://www.ti.com/lit/ds/symlink/ref50.pdf",
+        "https://na.industrial.panasonic.com/products/capacitors/aluminum-electrolytic-capacitors/aluminum-electrolytic-capacitors-radial-lead-type/series/83367/model/83735"
+    ],
+    "limitations": [
+        "Worst-case stored coil energy at the existing physical peak and inductance upper sensitivity bound, returned without dissipation or source absorption. Lossless energy conservation bounds this isolated inductive return, not externally supplied mechanical energy.",
+        "Local capacitance is nameplate capacitance, before DC bias, tolerance, temperature, ESR, ESL and distribution inductance. The calculation does not qualify a bulk capacitor or clamp circuit.",
+        "A capacitor alone cannot keep the bus below its operating ceiling if it starts at that ceiling. An explicit supply headroom and/or absorbing clamp is required; no supply is assumed to sink current.",
+        "No-load modes sum specified maximum driver VM, converter AVDD, amplifier and reference supply currents at their stated voltages. MCU, digital I/O, reference output load, watchdog, Hall sensing, other logic, conversion losses and output switching are excluded. These are partial scenarios, not whole-board upper bounds.",
+        "All-powered installed-channel scaling is area-equivalent, before edge and module rounding. Selective sleep and wake sequencing are required design functions, not implemented by this inventory calculation.",
+        "The all-channel copper-loss value is a continuous group stress envelope at cold resistance, not an actual chess workload. Full-board workload, hot resistance, driver losses, motion regeneration, bus wiring and thermal paths remain unresolved."
+    ]
+}

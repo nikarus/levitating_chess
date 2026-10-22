@@ -1,0 +1,412 @@
+{
+    "status": "ADS8698_manual_pipeline_and_register_protocol_screen",
+    "passed": true,
+    "initialization": [
+        {
+            "command_hex": "0701",
+            "reply_hex": "0000010000",
+            "write": true
+        },
+        {
+            "command_hex": "0600",
+            "reply_hex": "0000010000",
+            "write": false
+        },
+        {
+            "command_hex": "0B06",
+            "reply_hex": "0000060000",
+            "write": true
+        },
+        {
+            "command_hex": "0A00",
+            "reply_hex": "0000060000",
+            "write": false
+        },
+        {
+            "command_hex": "0D06",
+            "reply_hex": "0000060000",
+            "write": true
+        },
+        {
+            "command_hex": "0C00",
+            "reply_hex": "0000060000",
+            "write": false
+        },
+        {
+            "command_hex": "0F06",
+            "reply_hex": "0000060000",
+            "write": true
+        },
+        {
+            "command_hex": "0E00",
+            "reply_hex": "0000060000",
+            "write": false
+        },
+        {
+            "command_hex": "1106",
+            "reply_hex": "0000060000",
+            "write": true
+        },
+        {
+            "command_hex": "1000",
+            "reply_hex": "0000060000",
+            "write": false
+        },
+        {
+            "command_hex": "1306",
+            "reply_hex": "0000060000",
+            "write": true
+        },
+        {
+            "command_hex": "1200",
+            "reply_hex": "0000060000",
+            "write": false
+        },
+        {
+            "command_hex": "1506",
+            "reply_hex": "0000060000",
+            "write": true
+        },
+        {
+            "command_hex": "1400",
+            "reply_hex": "0000060000",
+            "write": false
+        },
+        {
+            "command_hex": "1706",
+            "reply_hex": "0000060000",
+            "write": true
+        },
+        {
+            "command_hex": "1600",
+            "reply_hex": "0000060000",
+            "write": false
+        },
+        {
+            "command_hex": "1906",
+            "reply_hex": "0000060000",
+            "write": true
+        },
+        {
+            "command_hex": "1800",
+            "reply_hex": "0000060000",
+            "write": false
+        }
+    ],
+    "discarded_priming_command_hex": "C000",
+    "frames": [
+        {
+            "sample_tick": 0,
+            "channel": 0,
+            "command_hex": "C000",
+            "received_hex": "0000000000",
+            "code": 0,
+            "next_selected_channel": 0
+        },
+        {
+            "sample_tick": 400,
+            "channel": 0,
+            "command_hex": "C400",
+            "received_hex": "0000FFFFC0",
+            "code": 262143,
+            "next_selected_channel": 1
+        },
+        {
+            "sample_tick": 800,
+            "channel": 1,
+            "command_hex": "C400",
+            "received_hex": "0000249244",
+            "code": 37449,
+            "next_selected_channel": 1
+        },
+        {
+            "sample_tick": 1200,
+            "channel": 1,
+            "command_hex": "C800",
+            "received_hex": "0000DB6D84",
+            "code": 224694,
+            "next_selected_channel": 2
+        },
+        {
+            "sample_tick": 1600,
+            "channel": 2,
+            "command_hex": "C800",
+            "received_hex": "0000492488",
+            "code": 74898,
+            "next_selected_channel": 2
+        },
+        {
+            "sample_tick": 2000,
+            "channel": 2,
+            "command_hex": "CC00",
+            "received_hex": "0000B6DB48",
+            "code": 187245,
+            "next_selected_channel": 3
+        },
+        {
+            "sample_tick": 2400,
+            "channel": 3,
+            "command_hex": "CC00",
+            "received_hex": "00006DB6CC",
+            "code": 112347,
+            "next_selected_channel": 3
+        },
+        {
+            "sample_tick": 2800,
+            "channel": 3,
+            "command_hex": "D000",
+            "received_hex": "000092490C",
+            "code": 149796,
+            "next_selected_channel": 4
+        },
+        {
+            "sample_tick": 3200,
+            "channel": 4,
+            "command_hex": "D000",
+            "received_hex": "0000924910",
+            "code": 149796,
+            "next_selected_channel": 4
+        },
+        {
+            "sample_tick": 3600,
+            "channel": 4,
+            "command_hex": "D400",
+            "received_hex": "00006DB6D0",
+            "code": 112347,
+            "next_selected_channel": 5
+        },
+        {
+            "sample_tick": 4000,
+            "channel": 5,
+            "command_hex": "D400",
+            "received_hex": "0000B6DB54",
+            "code": 187245,
+            "next_selected_channel": 5
+        },
+        {
+            "sample_tick": 4400,
+            "channel": 5,
+            "command_hex": "D800",
+            "received_hex": "0000492494",
+            "code": 74898,
+            "next_selected_channel": 6
+        },
+        {
+            "sample_tick": 4800,
+            "channel": 6,
+            "command_hex": "D800",
+            "received_hex": "0000DB6D98",
+            "code": 224694,
+            "next_selected_channel": 6
+        },
+        {
+            "sample_tick": 5200,
+            "channel": 6,
+            "command_hex": "DC00",
+            "received_hex": "0000249258",
+            "code": 37449,
+            "next_selected_channel": 7
+        },
+        {
+            "sample_tick": 5600,
+            "channel": 7,
+            "command_hex": "DC00",
+            "received_hex": "0000FFFFDC",
+            "code": 262143,
+            "next_selected_channel": 7
+        },
+        {
+            "sample_tick": 6000,
+            "channel": 7,
+            "command_hex": "C000",
+            "received_hex": "000000001C",
+            "code": 0,
+            "next_selected_channel": 0
+        }
+    ],
+    "schedule": {
+        "status": "integer_clock_controller_schedule_not_firmware_WCET_qualification",
+        "clock_Hz": 128000000.0,
+        "carrier_ticks": 800,
+        "pwm_TOP": 399,
+        "serial_clock_ticks": 8,
+        "frame_guard_ticks": 3,
+        "frame_ticks": 323,
+        "conversion_minimum_ticks": 256,
+        "allocated_compute_ticks": 128,
+        "maximum_compute_ticks_before_next_job_or_latch": 800,
+        "compute_utilization": 0.16,
+        "channels": [
+            {
+                "channel": 0,
+                "sample_ticks": [
+                    0,
+                    400
+                ],
+                "result_ready_ticks": 723,
+                "compute_ready_ticks": 851,
+                "latch_ticks": 1600
+            },
+            {
+                "channel": 1,
+                "sample_ticks": [
+                    800,
+                    1200
+                ],
+                "result_ready_ticks": 1523,
+                "compute_ready_ticks": 1651,
+                "latch_ticks": 2400
+            },
+            {
+                "channel": 2,
+                "sample_ticks": [
+                    1600,
+                    2000
+                ],
+                "result_ready_ticks": 2323,
+                "compute_ready_ticks": 2451,
+                "latch_ticks": 3200
+            },
+            {
+                "channel": 3,
+                "sample_ticks": [
+                    2400,
+                    2800
+                ],
+                "result_ready_ticks": 3123,
+                "compute_ready_ticks": 3251,
+                "latch_ticks": 4000
+            },
+            {
+                "channel": 4,
+                "sample_ticks": [
+                    3200,
+                    3600
+                ],
+                "result_ready_ticks": 3923,
+                "compute_ready_ticks": 4051,
+                "latch_ticks": 4800
+            },
+            {
+                "channel": 5,
+                "sample_ticks": [
+                    4000,
+                    4400
+                ],
+                "result_ready_ticks": 4723,
+                "compute_ready_ticks": 4851,
+                "latch_ticks": 5600
+            },
+            {
+                "channel": 6,
+                "sample_ticks": [
+                    4800,
+                    5200
+                ],
+                "result_ready_ticks": 5523,
+                "compute_ready_ticks": 5651,
+                "latch_ticks": 6400
+            },
+            {
+                "channel": 7,
+                "sample_ticks": [
+                    5600,
+                    6000
+                ],
+                "result_ready_ticks": 6323,
+                "compute_ready_ticks": 6451,
+                "latch_ticks": 7200
+            }
+        ],
+        "preserves_screened_actuation_phase": true,
+        "hardware_qualified": false,
+        "source": "https://datasheets.raspberrypi.com/rp2350/rp2350-datasheet.pdf",
+        "limitations": [
+            "RP2350-family clock and PWM candidate only; board-level clock tolerance, pin assignment, firmware and processor worst-case execution time are not qualified.",
+            "Phase-correct TOP and compare latches follow the datasheet; all PWM slices must be started synchronously. A carrier is assigned to each paired channel readout.",
+            "The SPI guard is rounded upward to whole system clocks. Conversion, transfer and compute precede the same carrier latch used by the analog control screen.",
+            "The allocated compute duration is a design assumption. The maximum cycle count is a scheduling deadline, not evidence that code meets it.",
+            "Shared command transport, fault handling, calibration and Hall sensing need separate timing/resource allocations."
+        ]
+    },
+    "hardware_qualified": false,
+    "source": "https://www.ti.com/lit/ds/symlink/ads8698.pdf",
+    "limitations": [
+        "Behavioral model of the used manual-conversion and configuration-register subset. Converter analog physics and register electrical timing are not simulated here.",
+        "CS falling samples the previously selected channel. The command in that frame chooses the next conversion. Both members of a pair must therefore be scheduled explicitly.",
+        "The host captures SDO on falling clocks: the conversion occupies capture clocks 17 through 34 and the channel tag follows. Configuration writes are echoed and independently read back before priming.",
+        "Channel tags reject wrong-channel frames but are not a CRC; corrupted conversion bits can remain undetected. Board signal integrity, PIO/DMA code, interrupt handling and execution time remain unqualified."
+    ],
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/acquisition.py": "ff87986c4150e4415ef95e576fd0963a20d311aa27b64b54a7285f90497dc1fb",
+        "methodology/electronics/logic.py": "79d95588390a7e08730748991a3b956894646bc8021ac2c99cab034f257bf010",
+        "model.py": "14c369d2622e2776cd74a979c6d855499c2abea013aad67aa702a7a46e087952",
+        "methodology/electronics/readout.py": "8a81ad47b637364d01284c24fdd84d330b4270e20cd7fd2e0d4ab52e0d0f04e8",
+        "methodology/electrical.py": "23b46a33113f8059459a005b5ff9f301c8daefd9839a54b160f935fe48e1ad27",
+        "methodology/electronics/power_stage.py": "7d4ce36e0a4c72b6dce2f0257a11120a7aae559826caa9a26c9c2dbf6c425534",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/qualification.py": "7d1232db4b9045a1ac7d244ffb71468b64d636953203c81daee2f92627a33f54",
+        "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757"
+    },
+    "recorded_input_sha256": {},
+    "pio_timing": {
+        "instruction_count": 13,
+        "first_falling_clock_tick": 5,
+        "last_falling_clock_tick": 317,
+        "cs_high_tick": 321,
+        "next_sample_tick": 400,
+        "serial_sample_after_clock_assignment_ticks": 2,
+        "rx_fifo_complete_tick": 322,
+        "allocated_frame_ticks": 323,
+        "datasheet_timing_available_s": [
+            3.90625e-08,
+            3.125e-08,
+            6.171875e-07,
+            3.125e-08,
+            3.125e-08,
+            9.765625e-07,
+            2.1484375e-06
+        ],
+        "datasheet_timing_minimum_s": [
+            3e-08,
+            1e-08,
+            3e-08,
+            5e-09,
+            5e-09,
+            8.25e-07,
+            1.175e-06
+        ],
+        "configuration": {
+            "shift_left": true,
+            "autopull": false,
+            "autopush": true,
+            "push_threshold": 32,
+            "initial_osr_command_shift": 16
+        },
+        "limitations": [
+            "Requires initial OSR preloading, empty ISR, prefetched TX data and continuous RX draining. FIFO stalls invalidate the timing and must inhibit regulation.",
+            "Checks instruction-space edge timing, not pad/PCB delay, input synchronizer timing, oscillator tolerance or initial phase synchronization to PWM.",
+            "Each complete frame produces one full RX word and one partial word; DMA/CPU must combine them before decoding. No compiled current-regulator execution time is established."
+        ]
+    },
+    "pio_assembler": {
+        "version": "pioasm version: 2.3.1",
+        "executable_sha256": "f7a9ab2271ea93266bf39f01d1f005309ca8c416b5e2a6a9f049437721b6488a",
+        "outputs": [
+            {
+                "format": "json",
+                "stdout": "",
+                "stderr": "",
+                "sha256": "51eafdaef1d6221807b55d486138814c590d19c954de5c2c94a2d658c6690ba3"
+            },
+            {
+                "format": "c-sdk",
+                "stdout": "",
+                "stderr": "",
+                "sha256": "9af04f7e014ac1fd481fa1f04021a8dba5d6b6d80666fef461d7b8d348390675"
+            }
+        ]
+    }
+}

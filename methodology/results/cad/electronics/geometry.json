@@ -1,0 +1,2872 @@
+{
+    "status": "Exploded CAD review; not a manufactured stack or selected production module",
+    "placement_source": "methodology/results/electronics/driver_placement/summary.json",
+    "parts": [
+        {
+            "label": "PCB1_substrate_UNROUTED",
+            "group": "PCB1",
+            "overlay": false,
+            "volume_mm3": 1557.5040000000001,
+            "minimum_mm": [
+                0.0,
+                -31.2,
+                -1.6
+            ],
+            "maximum_mm": [
+                31.2,
+                0.0,
+                0.0
+            ],
+            "color": [
+                0.1803922,
+                0.545098,
+                0.3411765
+            ]
+        },
+        {
+            "label": "PCB1_U1_DDV_CLEARANCE_ENVELOPE",
+            "group": "PCB1_driver_envelopes",
+            "overlay": false,
+            "volume_mm3": 140.43599999999998,
+            "minimum_mm": [
+                3.6499999999999995,
+                -14.85,
+                0.0
+            ],
+            "maximum_mm": [
+                11.95,
+                -0.75,
+                1.2
+            ],
+            "color": [
+                0.5764706,
+                0.4392157,
+                0.8588235
+            ]
+        },
+        {
+            "label": "PCB1_C1_GRM32ER71H475KA88L_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 19.050964954386377,
+            "minimum_mm": [
+                14.0,
+                -5.15,
+                0.0
+            ],
+            "maximum_mm": [
+                17.2,
+                -2.65,
+                2.5
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_R1_WSL2512R0200FEA18_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 11.097022294738709,
+            "minimum_mm": [
+                0.75,
+                -4.33,
+                -2.2000000000000006
+            ],
+            "maximum_mm": [
+                7.05,
+                -1.13,
+                -1.5999999999999996
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB1_U5_INA241A1DGKR_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 9.723179191806784,
+            "minimum_mm": [
+                9.25,
+                -4.230000100000001,
+                -2.9500001000000005
+            ],
+            "maximum_mm": [
+                14.149999999999999,
+                -1.2299998999999997,
+                -1.5999999999999996
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB1_C2_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211693,
+            "minimum_mm": [
+                1.15,
+                -6.796,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                2.75,
+                -5.9959999999999996,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C3_C0603C103K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211693,
+            "minimum_mm": [
+                5.05,
+                -6.796,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                6.6499999999999995,
+                -5.9959999999999996,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C4_C0603C103K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211697,
+            "minimum_mm": [
+                8.95,
+                -6.796,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                10.55,
+                -5.9959999999999996,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C5_C0805C105K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 2.8899330964914864,
+            "minimum_mm": [
+                12.65,
+                -7.021,
+                -2.8500000000000005
+            ],
+            "maximum_mm": [
+                14.65,
+                -5.771,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_R2_WSL2512R0200FEA18_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 11.097022294738709,
+            "minimum_mm": [
+                0.75,
+                -12.13,
+                -2.2000000000000006
+            ],
+            "maximum_mm": [
+                7.05,
+                -8.93,
+                -1.5999999999999996
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB1_U6_INA241A1DGKR_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 9.723179191806787,
+            "minimum_mm": [
+                9.25,
+                -12.0300001,
+                -2.9500001000000005
+            ],
+            "maximum_mm": [
+                14.149999999999999,
+                -9.029999900000002,
+                -1.5999999999999996
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB1_C6_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211691,
+            "minimum_mm": [
+                1.15,
+                -14.595999999999998,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                2.75,
+                -13.795999999999998,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C7_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.930363893421169,
+            "minimum_mm": [
+                5.05,
+                -14.595999999999998,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                6.6499999999999995,
+                -13.795999999999998,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C8_C0805C105K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 2.889933096491488,
+            "minimum_mm": [
+                8.75,
+                -14.820999999999998,
+                -2.8500000000000005
+            ],
+            "maximum_mm": [
+                10.75,
+                -13.570999999999998,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C9_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211693,
+            "minimum_mm": [
+                12.85,
+                -14.595999999999998,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                14.450000000000001,
+                -13.795999999999998,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_U2_DDV_CLEARANCE_ENVELOPE",
+            "group": "PCB1_driver_envelopes",
+            "overlay": false,
+            "volume_mm3": 140.43599999999998,
+            "minimum_mm": [
+                3.6499999999999995,
+                -30.45,
+                0.0
+            ],
+            "maximum_mm": [
+                11.95,
+                -16.35,
+                1.2
+            ],
+            "color": [
+                0.5764706,
+                0.4392157,
+                0.8588235
+            ]
+        },
+        {
+            "label": "PCB1_C10_GRM32ER71H475KA88L_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 19.050964954386384,
+            "minimum_mm": [
+                14.0,
+                -12.95,
+                0.0
+            ],
+            "maximum_mm": [
+                17.2,
+                -10.45,
+                2.5
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_R3_WSL2512R0200FEA18_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 11.097022294738712,
+            "minimum_mm": [
+                0.75,
+                -19.93,
+                -2.2000000000000006
+            ],
+            "maximum_mm": [
+                7.05,
+                -16.729999999999997,
+                -1.5999999999999996
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB1_U7_INA241A1DGKR_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 9.723179191806784,
+            "minimum_mm": [
+                9.25,
+                -19.8300001,
+                -2.9500001000000005
+            ],
+            "maximum_mm": [
+                14.149999999999999,
+                -16.829999899999997,
+                -1.5999999999999996
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB1_C11_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211693,
+            "minimum_mm": [
+                1.15,
+                -22.396,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                2.75,
+                -21.595999999999997,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C12_C0603C103K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211691,
+            "minimum_mm": [
+                5.05,
+                -22.396,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                6.6499999999999995,
+                -21.595999999999997,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C13_C0603C103K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211697,
+            "minimum_mm": [
+                8.95,
+                -22.396,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                10.55,
+                -21.595999999999997,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C14_C0805C105K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 2.8899330964914873,
+            "minimum_mm": [
+                12.65,
+                -22.621,
+                -2.8500000000000005
+            ],
+            "maximum_mm": [
+                14.65,
+                -21.371,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_R4_WSL2512R0200FEA18_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 11.097022294738712,
+            "minimum_mm": [
+                0.75,
+                -27.730000000000004,
+                -2.2000000000000006
+            ],
+            "maximum_mm": [
+                7.05,
+                -24.53,
+                -1.5999999999999996
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB1_U8_INA241A1DGKR_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 9.723179191806787,
+            "minimum_mm": [
+                9.25,
+                -27.630000100000004,
+                -2.9500001000000005
+            ],
+            "maximum_mm": [
+                14.149999999999999,
+                -24.6299999,
+                -1.5999999999999996
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB1_C15_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211693,
+            "minimum_mm": [
+                1.15,
+                -30.196,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                2.75,
+                -29.395999999999997,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C16_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211691,
+            "minimum_mm": [
+                5.05,
+                -30.196,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                6.6499999999999995,
+                -29.395999999999997,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C17_C0805C105K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 2.889933096491488,
+            "minimum_mm": [
+                8.75,
+                -30.421,
+                -2.8500000000000005
+            ],
+            "maximum_mm": [
+                10.75,
+                -29.171,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C18_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211694,
+            "minimum_mm": [
+                12.85,
+                -30.196,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                14.450000000000001,
+                -29.395999999999997,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_U3_DDV_CLEARANCE_ENVELOPE",
+            "group": "PCB1_driver_envelopes",
+            "overlay": false,
+            "volume_mm3": 140.43599999999998,
+            "minimum_mm": [
+                19.25,
+                -14.85,
+                0.0
+            ],
+            "maximum_mm": [
+                27.55,
+                -0.75,
+                1.2
+            ],
+            "color": [
+                0.5764706,
+                0.4392157,
+                0.8588235
+            ]
+        },
+        {
+            "label": "PCB1_C19_GRM32ER71H475KA88L_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 19.05096495438638,
+            "minimum_mm": [
+                14.0,
+                -20.75,
+                0.0
+            ],
+            "maximum_mm": [
+                17.2,
+                -18.25,
+                2.5
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_R5_WSL2512R0200FEA18_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 11.097022294738707,
+            "minimum_mm": [
+                16.35,
+                -4.33,
+                -2.2000000000000006
+            ],
+            "maximum_mm": [
+                22.65,
+                -1.13,
+                -1.5999999999999996
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB1_U9_INA241A1DGKR_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 9.72317919180678,
+            "minimum_mm": [
+                24.849999999999998,
+                -4.230000100000001,
+                -2.9500001000000005
+            ],
+            "maximum_mm": [
+                29.749999999999996,
+                -1.2299998999999997,
+                -1.5999999999999996
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB1_C20_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211698,
+            "minimum_mm": [
+                16.75,
+                -6.796,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                18.35,
+                -5.9959999999999996,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C21_C0603C103K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211698,
+            "minimum_mm": [
+                20.65,
+                -6.796,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                22.25,
+                -5.9959999999999996,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C22_C0603C103K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211695,
+            "minimum_mm": [
+                24.55,
+                -6.796,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                26.150000000000002,
+                -5.9959999999999996,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C23_C0805C105K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 2.8899330964914864,
+            "minimum_mm": [
+                28.25,
+                -7.021,
+                -2.8500000000000005
+            ],
+            "maximum_mm": [
+                30.25,
+                -5.771,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_R6_WSL2512R0200FEA18_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 11.097022294738707,
+            "minimum_mm": [
+                16.35,
+                -12.13,
+                -2.2000000000000006
+            ],
+            "maximum_mm": [
+                22.65,
+                -8.93,
+                -1.5999999999999996
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB1_U10_INA241A1DGKR_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 9.723179191806782,
+            "minimum_mm": [
+                24.849999999999998,
+                -12.0300001,
+                -2.9500001000000005
+            ],
+            "maximum_mm": [
+                29.749999999999996,
+                -9.029999900000002,
+                -1.5999999999999996
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB1_C24_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211694,
+            "minimum_mm": [
+                16.75,
+                -14.595999999999998,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                18.35,
+                -13.795999999999998,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C25_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211694,
+            "minimum_mm": [
+                20.65,
+                -14.595999999999998,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                22.25,
+                -13.795999999999998,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C26_C0805C105K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 2.8899330964914878,
+            "minimum_mm": [
+                24.35,
+                -14.820999999999998,
+                -2.8500000000000005
+            ],
+            "maximum_mm": [
+                26.35,
+                -13.570999999999998,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C27_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211695,
+            "minimum_mm": [
+                28.45,
+                -14.595999999999998,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                30.05,
+                -13.795999999999998,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_U4_DDV_CLEARANCE_ENVELOPE",
+            "group": "PCB1_driver_envelopes",
+            "overlay": false,
+            "volume_mm3": 140.43599999999998,
+            "minimum_mm": [
+                19.25,
+                -30.45,
+                0.0
+            ],
+            "maximum_mm": [
+                27.55,
+                -16.35,
+                1.2
+            ],
+            "color": [
+                0.5764706,
+                0.4392157,
+                0.8588235
+            ]
+        },
+        {
+            "label": "PCB1_C28_GRM32ER71H475KA88L_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 19.05096495438638,
+            "minimum_mm": [
+                14.0,
+                -28.55,
+                0.0
+            ],
+            "maximum_mm": [
+                17.2,
+                -26.05,
+                2.5
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_R7_WSL2512R0200FEA18_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 11.09702229473871,
+            "minimum_mm": [
+                16.35,
+                -19.93,
+                -2.2000000000000006
+            ],
+            "maximum_mm": [
+                22.65,
+                -16.729999999999997,
+                -1.5999999999999996
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB1_U11_INA241A1DGKR_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 9.72317919180678,
+            "minimum_mm": [
+                24.849999999999998,
+                -19.8300001,
+                -2.9500001000000005
+            ],
+            "maximum_mm": [
+                29.749999999999996,
+                -16.829999899999997,
+                -1.5999999999999996
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB1_C29_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211695,
+            "minimum_mm": [
+                16.75,
+                -22.396,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                18.35,
+                -21.595999999999997,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C30_C0603C103K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211695,
+            "minimum_mm": [
+                20.65,
+                -22.396,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                22.25,
+                -21.595999999999997,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C31_C0603C103K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211695,
+            "minimum_mm": [
+                24.55,
+                -22.396,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                26.150000000000002,
+                -21.595999999999997,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C32_C0805C105K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 2.8899330964914873,
+            "minimum_mm": [
+                28.25,
+                -22.621,
+                -2.8500000000000005
+            ],
+            "maximum_mm": [
+                30.25,
+                -21.371,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_R8_WSL2512R0200FEA18_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 11.09702229473871,
+            "minimum_mm": [
+                16.35,
+                -27.730000000000004,
+                -2.2000000000000006
+            ],
+            "maximum_mm": [
+                22.65,
+                -24.53,
+                -1.5999999999999996
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB1_U12_INA241A1DGKR_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 9.723179191806782,
+            "minimum_mm": [
+                24.849999999999998,
+                -27.630000100000004,
+                -2.9500001000000005
+            ],
+            "maximum_mm": [
+                29.749999999999996,
+                -24.6299999,
+                -1.5999999999999996
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB1_C33_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211695,
+            "minimum_mm": [
+                16.75,
+                -30.196,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                18.35,
+                -29.395999999999997,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C34_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211695,
+            "minimum_mm": [
+                20.65,
+                -30.196,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                22.25,
+                -29.395999999999997,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C35_C0805C105K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 2.8899330964914878,
+            "minimum_mm": [
+                24.35,
+                -30.421,
+                -2.8500000000000005
+            ],
+            "maximum_mm": [
+                26.35,
+                -29.171,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_C36_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211695,
+            "minimum_mm": [
+                28.45,
+                -30.196,
+                -2.4000000000000004
+            ],
+            "maximum_mm": [
+                30.05,
+                -29.395999999999997,
+                -1.5999999999999999
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB1_R9_RC0603FR-0710KL_LIBRARY_PACKAGE",
+            "group": "PCB1_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.537218760197631,
+            "minimum_mm": [
+                14.799999999999999,
+                -16.0,
+                -2.775557561563e-17
+            ],
+            "maximum_mm": [
+                16.400000000000002,
+                -15.2,
+                0.45
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB2_substrate_UNROUTED",
+            "group": "PCB2",
+            "overlay": false,
+            "volume_mm3": 1557.504,
+            "minimum_mm": [
+                0.0,
+                -31.2,
+                -8.2
+            ],
+            "maximum_mm": [
+                31.2,
+                0.0,
+                -6.6
+            ],
+            "color": [
+                0.1803922,
+                0.545098,
+                0.3411765
+            ]
+        },
+        {
+            "label": "PCB2_U1_DDV_CLEARANCE_ENVELOPE",
+            "group": "PCB2_driver_envelopes",
+            "overlay": false,
+            "volume_mm3": 140.436,
+            "minimum_mm": [
+                3.6499999999999995,
+                -14.85,
+                -6.6
+            ],
+            "maximum_mm": [
+                11.95,
+                -0.75,
+                -5.3999999999999995
+            ],
+            "color": [
+                0.5764706,
+                0.4392157,
+                0.8588235
+            ]
+        },
+        {
+            "label": "PCB2_C1_GRM32ER71H475KA88L_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 19.050964954386377,
+            "minimum_mm": [
+                14.0,
+                -5.15,
+                -6.6
+            ],
+            "maximum_mm": [
+                17.2,
+                -2.65,
+                -4.1
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_R1_WSL2512R0200FEA18_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 11.097022294738702,
+            "minimum_mm": [
+                0.75,
+                -4.33,
+                -8.8
+            ],
+            "maximum_mm": [
+                7.05,
+                -1.13,
+                -8.2
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB2_U5_INA241A1DGKR_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 9.723179191806784,
+            "minimum_mm": [
+                9.25,
+                -4.230000100000001,
+                -9.550000099999998
+            ],
+            "maximum_mm": [
+                14.149999999999999,
+                -1.2299998999999997,
+                -8.2
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB2_C2_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211693,
+            "minimum_mm": [
+                1.15,
+                -6.796,
+                -9.0
+            ],
+            "maximum_mm": [
+                2.75,
+                -5.9959999999999996,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C3_C0603C103K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211693,
+            "minimum_mm": [
+                5.05,
+                -6.796,
+                -9.0
+            ],
+            "maximum_mm": [
+                6.6499999999999995,
+                -5.9959999999999996,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C4_C0603C103K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211699,
+            "minimum_mm": [
+                8.95,
+                -6.796,
+                -9.0
+            ],
+            "maximum_mm": [
+                10.55,
+                -5.9959999999999996,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C5_C0805C105K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 2.8899330964914878,
+            "minimum_mm": [
+                12.65,
+                -7.021,
+                -9.45
+            ],
+            "maximum_mm": [
+                14.65,
+                -5.771,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_R2_WSL2512R0200FEA18_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 11.097022294738702,
+            "minimum_mm": [
+                0.75,
+                -12.13,
+                -8.8
+            ],
+            "maximum_mm": [
+                7.05,
+                -8.93,
+                -8.2
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB2_U6_INA241A1DGKR_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 9.723179191806787,
+            "minimum_mm": [
+                9.25,
+                -12.0300001,
+                -9.550000099999998
+            ],
+            "maximum_mm": [
+                14.149999999999999,
+                -9.029999900000002,
+                -8.2
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB2_C6_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211691,
+            "minimum_mm": [
+                1.15,
+                -14.595999999999998,
+                -9.0
+            ],
+            "maximum_mm": [
+                2.75,
+                -13.795999999999998,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C7_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.930363893421169,
+            "minimum_mm": [
+                5.05,
+                -14.595999999999998,
+                -9.0
+            ],
+            "maximum_mm": [
+                6.6499999999999995,
+                -13.795999999999998,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C8_C0805C105K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 2.8899330964914878,
+            "minimum_mm": [
+                8.75,
+                -14.820999999999998,
+                -9.45
+            ],
+            "maximum_mm": [
+                10.75,
+                -13.570999999999998,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C9_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211693,
+            "minimum_mm": [
+                12.85,
+                -14.595999999999998,
+                -9.0
+            ],
+            "maximum_mm": [
+                14.450000000000001,
+                -13.795999999999998,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_U2_DDV_CLEARANCE_ENVELOPE",
+            "group": "PCB2_driver_envelopes",
+            "overlay": false,
+            "volume_mm3": 140.436,
+            "minimum_mm": [
+                3.6499999999999995,
+                -30.45,
+                -6.6
+            ],
+            "maximum_mm": [
+                11.95,
+                -16.35,
+                -5.3999999999999995
+            ],
+            "color": [
+                0.5764706,
+                0.4392157,
+                0.8588235
+            ]
+        },
+        {
+            "label": "PCB2_C10_GRM32ER71H475KA88L_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 19.050964954386384,
+            "minimum_mm": [
+                14.0,
+                -12.95,
+                -6.6
+            ],
+            "maximum_mm": [
+                17.2,
+                -10.45,
+                -4.1
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_R3_WSL2512R0200FEA18_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 11.097022294738705,
+            "minimum_mm": [
+                0.75,
+                -19.93,
+                -8.8
+            ],
+            "maximum_mm": [
+                7.05,
+                -16.729999999999997,
+                -8.2
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB2_U7_INA241A1DGKR_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 9.723179191806784,
+            "minimum_mm": [
+                9.25,
+                -19.8300001,
+                -9.550000099999998
+            ],
+            "maximum_mm": [
+                14.149999999999999,
+                -16.829999899999997,
+                -8.2
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB2_C11_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211695,
+            "minimum_mm": [
+                1.15,
+                -22.396,
+                -9.0
+            ],
+            "maximum_mm": [
+                2.75,
+                -21.595999999999997,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C12_C0603C103K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211692,
+            "minimum_mm": [
+                5.05,
+                -22.396,
+                -9.0
+            ],
+            "maximum_mm": [
+                6.6499999999999995,
+                -21.595999999999997,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C13_C0603C103K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211698,
+            "minimum_mm": [
+                8.95,
+                -22.396,
+                -9.0
+            ],
+            "maximum_mm": [
+                10.55,
+                -21.595999999999997,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C14_C0805C105K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 2.8899330964914887,
+            "minimum_mm": [
+                12.65,
+                -22.621,
+                -9.45
+            ],
+            "maximum_mm": [
+                14.65,
+                -21.371,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_R4_WSL2512R0200FEA18_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 11.097022294738705,
+            "minimum_mm": [
+                0.75,
+                -27.730000000000004,
+                -8.8
+            ],
+            "maximum_mm": [
+                7.05,
+                -24.53,
+                -8.2
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB2_U8_INA241A1DGKR_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 9.723179191806786,
+            "minimum_mm": [
+                9.25,
+                -27.630000100000004,
+                -9.550000099999998
+            ],
+            "maximum_mm": [
+                14.149999999999999,
+                -24.6299999,
+                -8.2
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB2_C15_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211693,
+            "minimum_mm": [
+                1.15,
+                -30.196,
+                -9.0
+            ],
+            "maximum_mm": [
+                2.75,
+                -29.395999999999997,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C16_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211691,
+            "minimum_mm": [
+                5.05,
+                -30.196,
+                -9.0
+            ],
+            "maximum_mm": [
+                6.6499999999999995,
+                -29.395999999999997,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C17_C0805C105K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 2.8899330964914887,
+            "minimum_mm": [
+                8.75,
+                -30.421,
+                -9.45
+            ],
+            "maximum_mm": [
+                10.75,
+                -29.171,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C18_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211694,
+            "minimum_mm": [
+                12.85,
+                -30.196,
+                -9.0
+            ],
+            "maximum_mm": [
+                14.450000000000001,
+                -29.395999999999997,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_U3_DDV_CLEARANCE_ENVELOPE",
+            "group": "PCB2_driver_envelopes",
+            "overlay": false,
+            "volume_mm3": 140.436,
+            "minimum_mm": [
+                19.25,
+                -14.85,
+                -6.6
+            ],
+            "maximum_mm": [
+                27.55,
+                -0.75,
+                -5.3999999999999995
+            ],
+            "color": [
+                0.5764706,
+                0.4392157,
+                0.8588235
+            ]
+        },
+        {
+            "label": "PCB2_C19_GRM32ER71H475KA88L_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 19.05096495438638,
+            "minimum_mm": [
+                14.0,
+                -20.75,
+                -6.6
+            ],
+            "maximum_mm": [
+                17.2,
+                -18.25,
+                -4.1
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_R5_WSL2512R0200FEA18_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 11.097022294738702,
+            "minimum_mm": [
+                16.35,
+                -4.33,
+                -8.8
+            ],
+            "maximum_mm": [
+                22.65,
+                -1.13,
+                -8.2
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB2_U9_INA241A1DGKR_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 9.723179191806778,
+            "minimum_mm": [
+                24.849999999999998,
+                -4.230000100000001,
+                -9.550000099999998
+            ],
+            "maximum_mm": [
+                29.749999999999996,
+                -1.2299998999999997,
+                -8.2
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB2_C20_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211698,
+            "minimum_mm": [
+                16.75,
+                -6.796,
+                -9.0
+            ],
+            "maximum_mm": [
+                18.35,
+                -5.9959999999999996,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C21_C0603C103K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211698,
+            "minimum_mm": [
+                20.65,
+                -6.796,
+                -9.0
+            ],
+            "maximum_mm": [
+                22.25,
+                -5.9959999999999996,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C22_C0603C103K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211698,
+            "minimum_mm": [
+                24.55,
+                -6.796,
+                -9.0
+            ],
+            "maximum_mm": [
+                26.150000000000002,
+                -5.9959999999999996,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C23_C0805C105K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 2.8899330964914878,
+            "minimum_mm": [
+                28.25,
+                -7.021,
+                -9.45
+            ],
+            "maximum_mm": [
+                30.25,
+                -5.771,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_R6_WSL2512R0200FEA18_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 11.097022294738702,
+            "minimum_mm": [
+                16.35,
+                -12.13,
+                -8.8
+            ],
+            "maximum_mm": [
+                22.65,
+                -8.93,
+                -8.2
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB2_U10_INA241A1DGKR_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 9.723179191806782,
+            "minimum_mm": [
+                24.849999999999998,
+                -12.0300001,
+                -9.550000099999998
+            ],
+            "maximum_mm": [
+                29.749999999999996,
+                -9.029999900000002,
+                -8.2
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB2_C24_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211694,
+            "minimum_mm": [
+                16.75,
+                -14.595999999999998,
+                -9.0
+            ],
+            "maximum_mm": [
+                18.35,
+                -13.795999999999998,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C25_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211694,
+            "minimum_mm": [
+                20.65,
+                -14.595999999999998,
+                -9.0
+            ],
+            "maximum_mm": [
+                22.25,
+                -13.795999999999998,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C26_C0805C105K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 2.8899330964914878,
+            "minimum_mm": [
+                24.35,
+                -14.820999999999998,
+                -9.45
+            ],
+            "maximum_mm": [
+                26.35,
+                -13.570999999999998,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C27_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211695,
+            "minimum_mm": [
+                28.45,
+                -14.595999999999998,
+                -9.0
+            ],
+            "maximum_mm": [
+                30.05,
+                -13.795999999999998,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_U4_DDV_CLEARANCE_ENVELOPE",
+            "group": "PCB2_driver_envelopes",
+            "overlay": false,
+            "volume_mm3": 140.436,
+            "minimum_mm": [
+                19.25,
+                -30.45,
+                -6.6
+            ],
+            "maximum_mm": [
+                27.55,
+                -16.35,
+                -5.3999999999999995
+            ],
+            "color": [
+                0.5764706,
+                0.4392157,
+                0.8588235
+            ]
+        },
+        {
+            "label": "PCB2_C28_GRM32ER71H475KA88L_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 19.05096495438638,
+            "minimum_mm": [
+                14.0,
+                -28.55,
+                -6.6
+            ],
+            "maximum_mm": [
+                17.2,
+                -26.05,
+                -4.1
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_R7_WSL2512R0200FEA18_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 11.097022294738705,
+            "minimum_mm": [
+                16.35,
+                -19.93,
+                -8.8
+            ],
+            "maximum_mm": [
+                22.65,
+                -16.729999999999997,
+                -8.2
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB2_U11_INA241A1DGKR_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 9.72317919180678,
+            "minimum_mm": [
+                24.849999999999998,
+                -19.8300001,
+                -9.550000099999998
+            ],
+            "maximum_mm": [
+                29.749999999999996,
+                -16.829999899999997,
+                -8.2
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB2_C29_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211698,
+            "minimum_mm": [
+                16.75,
+                -22.396,
+                -9.0
+            ],
+            "maximum_mm": [
+                18.35,
+                -21.595999999999997,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C30_C0603C103K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211698,
+            "minimum_mm": [
+                20.65,
+                -22.396,
+                -9.0
+            ],
+            "maximum_mm": [
+                22.25,
+                -21.595999999999997,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C31_C0603C103K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211698,
+            "minimum_mm": [
+                24.55,
+                -22.396,
+                -9.0
+            ],
+            "maximum_mm": [
+                26.150000000000002,
+                -21.595999999999997,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C32_C0805C105K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 2.8899330964914887,
+            "minimum_mm": [
+                28.25,
+                -22.621,
+                -9.45
+            ],
+            "maximum_mm": [
+                30.25,
+                -21.371,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_R8_WSL2512R0200FEA18_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 11.097022294738705,
+            "minimum_mm": [
+                16.35,
+                -27.730000000000004,
+                -8.8
+            ],
+            "maximum_mm": [
+                22.65,
+                -24.53,
+                -8.2
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB2_U12_INA241A1DGKR_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 9.723179191806782,
+            "minimum_mm": [
+                24.849999999999998,
+                -27.630000100000004,
+                -9.550000099999998
+            ],
+            "maximum_mm": [
+                29.749999999999996,
+                -24.6299999,
+                -8.2
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "PCB2_C33_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211697,
+            "minimum_mm": [
+                16.75,
+                -30.196,
+                -9.0
+            ],
+            "maximum_mm": [
+                18.35,
+                -29.395999999999997,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C34_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211695,
+            "minimum_mm": [
+                20.65,
+                -30.196,
+                -9.0
+            ],
+            "maximum_mm": [
+                22.25,
+                -29.395999999999997,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C35_C0805C105K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 2.8899330964914887,
+            "minimum_mm": [
+                24.35,
+                -30.421,
+                -9.45
+            ],
+            "maximum_mm": [
+                26.35,
+                -29.171,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_C36_C0603C104K5RACTU_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.9303638934211698,
+            "minimum_mm": [
+                28.45,
+                -30.196,
+                -9.0
+            ],
+            "maximum_mm": [
+                30.05,
+                -29.395999999999997,
+                -8.2
+            ],
+            "color": [
+                0.8235294,
+                0.7058824,
+                0.5490196
+            ]
+        },
+        {
+            "label": "PCB2_R9_RC0603FR-0710KL_LIBRARY_PACKAGE",
+            "group": "PCB2_library_packages",
+            "overlay": false,
+            "volume_mm3": 0.5372187601976312,
+            "minimum_mm": [
+                14.799999999999999,
+                -16.0,
+                -6.6
+            ],
+            "maximum_mm": [
+                16.400000000000002,
+                -15.2,
+                -6.1499999999999995
+            ],
+            "color": [
+                0.4117647,
+                0.4117647,
+                0.4117647
+            ]
+        },
+        {
+            "label": "Coil_0_0_WINDING_ENVELOPE",
+            "group": "Single_layer_coils",
+            "overlay": false,
+            "volume_mm3": 119.18537261432104,
+            "minimum_mm": [
+                0.1499999999999999,
+                -7.65,
+                5.0
+            ],
+            "maximum_mm": [
+                7.65,
+                -0.1499999999999999,
+                9.298
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_1_0_WINDING_ENVELOPE",
+            "group": "Single_layer_coils",
+            "overlay": false,
+            "volume_mm3": 119.18537261432104,
+            "minimum_mm": [
+                7.949999999999999,
+                -7.65,
+                5.0
+            ],
+            "maximum_mm": [
+                15.45,
+                -0.1499999999999999,
+                9.298
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_2_0_WINDING_ENVELOPE",
+            "group": "Single_layer_coils",
+            "overlay": false,
+            "volume_mm3": 119.18537261432104,
+            "minimum_mm": [
+                15.75,
+                -7.65,
+                5.0
+            ],
+            "maximum_mm": [
+                23.25,
+                -0.1499999999999999,
+                9.298
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_3_0_WINDING_ENVELOPE",
+            "group": "Single_layer_coils",
+            "overlay": false,
+            "volume_mm3": 119.18537261432104,
+            "minimum_mm": [
+                23.55,
+                -7.65,
+                5.0
+            ],
+            "maximum_mm": [
+                31.05,
+                -0.1499999999999999,
+                9.298
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_0_1_WINDING_ENVELOPE",
+            "group": "Single_layer_coils",
+            "overlay": false,
+            "volume_mm3": 119.18537261432104,
+            "minimum_mm": [
+                0.1499999999999999,
+                -15.45,
+                5.0
+            ],
+            "maximum_mm": [
+                7.65,
+                -7.949999999999999,
+                9.298
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_1_1_WINDING_ENVELOPE",
+            "group": "Single_layer_coils",
+            "overlay": false,
+            "volume_mm3": 119.18537261432104,
+            "minimum_mm": [
+                7.949999999999999,
+                -15.45,
+                5.0
+            ],
+            "maximum_mm": [
+                15.45,
+                -7.949999999999999,
+                9.298
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_2_1_WINDING_ENVELOPE",
+            "group": "Single_layer_coils",
+            "overlay": false,
+            "volume_mm3": 119.18537261432101,
+            "minimum_mm": [
+                15.75,
+                -15.45,
+                5.0
+            ],
+            "maximum_mm": [
+                23.25,
+                -7.949999999999999,
+                9.298
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_3_1_WINDING_ENVELOPE",
+            "group": "Single_layer_coils",
+            "overlay": false,
+            "volume_mm3": 119.18537261432104,
+            "minimum_mm": [
+                23.55,
+                -15.45,
+                5.0
+            ],
+            "maximum_mm": [
+                31.05,
+                -7.949999999999999,
+                9.298
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_0_2_WINDING_ENVELOPE",
+            "group": "Single_layer_coils",
+            "overlay": false,
+            "volume_mm3": 119.18537261432104,
+            "minimum_mm": [
+                0.1499999999999999,
+                -23.25,
+                5.0
+            ],
+            "maximum_mm": [
+                7.65,
+                -15.75,
+                9.298
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_1_2_WINDING_ENVELOPE",
+            "group": "Single_layer_coils",
+            "overlay": false,
+            "volume_mm3": 119.18537261432107,
+            "minimum_mm": [
+                7.949999999999999,
+                -23.25,
+                5.0
+            ],
+            "maximum_mm": [
+                15.45,
+                -15.75,
+                9.298
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_2_2_WINDING_ENVELOPE",
+            "group": "Single_layer_coils",
+            "overlay": false,
+            "volume_mm3": 119.18537261432104,
+            "minimum_mm": [
+                15.75,
+                -23.25,
+                5.0
+            ],
+            "maximum_mm": [
+                23.25,
+                -15.75,
+                9.298
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_3_2_WINDING_ENVELOPE",
+            "group": "Single_layer_coils",
+            "overlay": false,
+            "volume_mm3": 119.18537261432104,
+            "minimum_mm": [
+                23.55,
+                -23.25,
+                5.0
+            ],
+            "maximum_mm": [
+                31.05,
+                -15.75,
+                9.298
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_0_3_WINDING_ENVELOPE",
+            "group": "Single_layer_coils",
+            "overlay": false,
+            "volume_mm3": 119.18537261432101,
+            "minimum_mm": [
+                0.1499999999999999,
+                -31.05,
+                5.0
+            ],
+            "maximum_mm": [
+                7.65,
+                -23.55,
+                9.298
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_1_3_WINDING_ENVELOPE",
+            "group": "Single_layer_coils",
+            "overlay": false,
+            "volume_mm3": 119.18537261432104,
+            "minimum_mm": [
+                7.949999999999999,
+                -31.05,
+                5.0
+            ],
+            "maximum_mm": [
+                15.45,
+                -23.55,
+                9.298
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_2_3_WINDING_ENVELOPE",
+            "group": "Single_layer_coils",
+            "overlay": false,
+            "volume_mm3": 119.18537261432107,
+            "minimum_mm": [
+                15.75,
+                -31.05,
+                5.0
+            ],
+            "maximum_mm": [
+                23.25,
+                -23.55,
+                9.298
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        },
+        {
+            "label": "Coil_3_3_WINDING_ENVELOPE",
+            "group": "Single_layer_coils",
+            "overlay": false,
+            "volume_mm3": 119.18537261432101,
+            "minimum_mm": [
+                23.55,
+                -31.05,
+                5.0
+            ],
+            "maximum_mm": [
+                31.05,
+                -23.55,
+                9.298
+            ],
+            "color": [
+                0.627451,
+                0.3215686,
+                0.1764706
+            ]
+        }
+    ],
+    "preview": {
+        "size": [
+            1600,
+            1000
+        ],
+        "transparency": 85,
+        "margin": 1.2,
+        "geometry_tolerance_mm": 0.001
+    },
+    "validation": {
+        "valid_solids": true,
+        "tested_volume_intersections": 0,
+        "maximum_overlap_mm3": 0,
+        "excluded_reference_envelopes": [
+            "King_clearance_envelope_NOT_material"
+        ]
+    },
+    "export": {
+        "file": "driver_assembly.step",
+        "solids": 132,
+        "bounding_box_error_mm": 0.0,
+        "volume_error_mm3": 5.820766091346741e-11
+    },
+    "scale": {
+        "study_patch_mm": 31.2,
+        "chess_square_mm": 60,
+        "playing_board_mm": 480,
+        "motor_area_mm": [
+            720,
+            480
+        ]
+    },
+    "package_models": {
+        "commit": "8975715167d1a76f9b44be155ac02326f704cdbb",
+        "models": [
+            {
+                "path": "Capacitor_SMD.3dshapes/C_0603_1608Metric.step",
+                "url": "https://gitlab.com/kicad/libraries/kicad-packages3D/-/raw/8975715167d1a76f9b44be155ac02326f704cdbb/Capacitor_SMD.3dshapes/C_0603_1608Metric.step",
+                "sha256": "4857b3dc717675bf1fb22edda622ac3b3ae03cf44d81eefaf3fa3ba3a86d84c1",
+                "bytes": 43450
+            },
+            {
+                "path": "Capacitor_SMD.3dshapes/C_0805_2012Metric.step",
+                "url": "https://gitlab.com/kicad/libraries/kicad-packages3D/-/raw/8975715167d1a76f9b44be155ac02326f704cdbb/Capacitor_SMD.3dshapes/C_0805_2012Metric.step",
+                "sha256": "9a669c1a2f1ea25b88b401acef6efeaa80a067bd7da9db6993de719a7fbe155c",
+                "bytes": 43618
+            },
+            {
+                "path": "Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+                "url": "https://gitlab.com/kicad/libraries/kicad-packages3D/-/raw/8975715167d1a76f9b44be155ac02326f704cdbb/Capacitor_SMD.3dshapes/C_1210_3225Metric.step",
+                "sha256": "f8510481c5044113cf49b0fa6dd54ddab9224508bd6808e1afab8ef0cefdefc9",
+                "bytes": 43502
+            },
+            {
+                "path": "Resistor_SMD.3dshapes/R_0603_1608Metric.step",
+                "url": "https://gitlab.com/kicad/libraries/kicad-packages3D/-/raw/8975715167d1a76f9b44be155ac02326f704cdbb/Resistor_SMD.3dshapes/R_0603_1608Metric.step",
+                "sha256": "1875571c326d0d9e96f36b4efeb8094068ef7619f0a449c781caf0b49c2e5861",
+                "bytes": 40618
+            },
+            {
+                "path": "Resistor_SMD.3dshapes/R_2512_6332Metric.step",
+                "url": "https://gitlab.com/kicad/libraries/kicad-packages3D/-/raw/8975715167d1a76f9b44be155ac02326f704cdbb/Resistor_SMD.3dshapes/R_2512_6332Metric.step",
+                "sha256": "76b2052a3c120193de7cdc0af99157b6f375e9a4af7721e3e3d012968c877f27",
+                "bytes": 40272
+            },
+            {
+                "path": "Package_SO.3dshapes/VSSOP-8_3x3mm_P0.65mm.step",
+                "url": "https://gitlab.com/kicad/libraries/kicad-packages3D/-/raw/8975715167d1a76f9b44be155ac02326f704cdbb/Package_SO.3dshapes/VSSOP-8_3x3mm_P0.65mm.step",
+                "sha256": "0af17c38f7022ea10ff245f82773c9b00d4163a407490c6b2d91869a0861df56",
+                "bytes": 125544
+            }
+        ]
+    },
+    "limitations": [
+        "PCB outlines, package placements and sides come from the recorded native KiCad placement.",
+        "KiCad library package models are generic package geometry, not manufacturer-qualified models of each exact MPN.",
+        "Purple driver solids are DDV package clearance envelopes, including leads, not detailed vendor geometry.",
+        "Copper winding envelopes reuse the existing rounded coil CAD; individual turns, terminations and supports are omitted.",
+        "Inter-layer gaps are exploded display spacing, not approved mechanical or thermal dimensions.",
+        "Production PCB dimensions, quantity, seam locations, mounting and cooling remain undecided.",
+        "No routing, connectors, shared control/sensing circuitry or thermal hardware is included."
+    ],
+    "driver_package_reference": "https://www.ti.com/lit/ds/symlink/tpa3251.pdf#page=40",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/cad/electronics.py": "4a96a2f9f3607d3d1f2d03402bcd32cf647eb5a7f68e651eb378200f7ae729a8",
+        "model.py": "9bffe3b11c734557e1c8eec37508a1024eeddc81dc24ad3e5b323d0ee3f43ff0",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/cad/assembly.py": "b581ae6204830eec8ccecc9398ae8afe9877592f7d26a4f4dba6d73d36279a47",
+        "methodology/cad/freecad_view.py": "939272044988c5bda4a9a1adc6fe2664a477a819c7703408f235992962f81489",
+        "methodology/results/electronics/driver_placement/summary.json": "c85fa98bc73dfeef1d5a21113f1c6fe5276388424c0c403a213e414252047bd0",
+        "methodology/electronics/driver_tile.kicad_pcb": "cfdaf343d581d32c61991b23f40db9b7274548e98f3ea4398d0aa96cc91feaea"
+    }
+}

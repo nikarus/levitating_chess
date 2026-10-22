@@ -2,6 +2,73 @@
 
 The single-layer square array is the current candidate for integrated CAD and simulation. It is not yet an adopted replacement for the stacked hardware targets. Quantitative settings belong in `Inputs` and `Fixed` in [model.py](../../model.py). Manufacturing and physical tests follow the completed virtual design review; the work sequence is in [NEXT_STEPS.md](../NEXT_STEPS.md).
 
+## Driver-count investigation
+
+This investigation uses a separate checkout from the flight work. The current square CAD and production simulator settings remain the reference; no new arrangement is adopted. [Study origin](../results/channel_layouts/origin.json) identifies the source checkout and inherited uncommitted files. Quantitative candidate settings live in `Inputs.channel_layout_candidates` and `Fixed`; the existing geometry and constrained current-allocation implementations are reused.
+
+The [current-window pilot](../results/channel_layouts/rated_pilot/summary.json) and [wider-support pilot](../results/channel_layouts/wider_support/summary.json) use the same round wire, rounded closed-turn field approximation and CAD-derived king mass/inertia for every candidate. Each samples eight phase points, a level king at the upper flight gap and one yaw; demands include gravity, lift reserve, horizontal acceleration and separate signed rotation torques. These are static authority screens, not closed-loop trials. They do not reproduce the production continuous conductor, and have no spatial/field refinement, tilted-pose, neighbour, sensing, transient-voltage or thermal qualification.
+
+| Arrangement | Installed channel-density change | Peak required current, wider window | Peak allocated copper loss, wider window |
+|---|---:|---:|---:|
+| Existing square geometry | reference | 1.73 A | 14.12 W |
+| Existing squares, wider spacing | −24.9% | 2.74 A | 28.15 W |
+| 10 mm squares | −42.7% | 2.39 A | 26.77 W |
+| 12.5 mm squares | −62.9% | 12.38 A; fails current budget | not evaluated |
+| Small rectangular parquet | +8.3% | 1.88 A | 18.33 W |
+| Larger rectangular parquet | −50.0% | 2.97 A | 48.18 W |
+| Adjacent square pairs, same circulation | −50.0% | 4.32 A | 165.63 W |
+| Adjacent square pairs, opposed circulation | −50.0% | 9.83 A; fails current budget | not evaluated |
+
+The current budget is unchanged, including its reserve. Peak required current minimizes the maximum branch current; copper loss is separately minimized within that budget and its peak may occur at a different sampled demand. These losses are instantaneous local demand results, not workload averages or temperature predictions. Channel density excludes board edges and is not a BOM percentage. All wider-window cases have full sampled six-axis plus midpoint-current rank; passing rank alone does not establish practical authority.
+
+The existing 45 mm active window leaves some reduced-channel arrangements with only six complete branches, insufficient for arbitrary six-axis control plus midpoint balance. A 60 mm window removes that particular deficiency. It also brings more distant coils into play: neighbour disturbance and simultaneous-reset feasibility must be checked before claiming a usable saving. The 10 mm square changes from failing the sampled current budget in the smaller window to passing it in the wider window. Enlarging the support window does not increase installed density, but may increase the number of simultaneously energized channels.
+
+Paired square windings form fixed adjacent dominoes, horizontal and vertical in alternating two-by-two tiles (basket weave, distinct from physical herringbone rectangles). Each series pair has one driver; opposite circulation reverses the second winding. The allocator balances driver branch currents at the midpoint, not signed winding currents. Incomplete pairs at the selection boundary stay off. Series mutual inductance, routing and actual circuit realization remain unqualified.
+
+The first pilot stopped during minimum-loss optimization outside the retained driver budget; its [failure log](../results/channel_layouts/pilot/failure.log) and source snapshot are preserved. The current screen reports excessive required current and does not optimize an out-of-budget power stage. The broader comparison below supersedes the initial favourable assessment of the 10 mm square. Wider spacing remains a candidate for refinement; larger parquet is secondary, while the tested fixed pairs have a substantial loss penalty. These results do not rule out other sizes, orientations or pair patterns.
+
+### Broader square-coil comparison
+
+The [pose comparison](../results/channel_layouts/pose_comparison/summary.json) evaluates both square sizes with a 60 mm support window. Each has 1,152 initial pose evaluations: eight phases, two flight heights, eight yaw angles over a full turn, and level plus eight rim-clearance-limited tilt directions. Dense phase slices and local angular/intermediate-height checks bring the total to 1,316 evaluations per design. These include repeated poses and do not exhaust the continuous domain. Turning requests use the CAD inertia rotated into world coordinates; the piece has zero angular velocity in these static calculations.
+
+| Geometry | Largest sampled minimum peak current | Largest feasible-demand copper loss | Reserved-current screen |
+|---|---:|---:|---|
+| Current 7.5 mm squares | 2.289 A | 29.66 W | Meets the budget at all sampled poses |
+| 10 mm squares | 5.203 A | 324.60 W | Exceeds the 4.95 A budget in some demands |
+
+Every sampled pose retains full six-axis plus midpoint-current rank. The larger coils' problem is inefficient force/torque production in particular poses, not a complete loss of mathematical controllability. Their required current remains below the provisional 5.5 A channel rating, but fails the retained reserve. Losses are separately optimized under the reserved budget; the table excludes infeasible demands, which stay flagged in the record. Even level-pose rotation raises the larger coils' sampled peak loss to 118.77 W, compared with 18.15 W for the current squares. The much smaller pilot sampled only one yaw and missed this dependence.
+
+Dense phase refinement raises the reference's largest loss by about 1.6% and does not raise the larger coil's sampled maximum. The additional local angular/height samples do not increase either global maximum. Finer winding discretization at the current- and loss-critical poses changes individual current demands by at most 0.72% and feasible losses by at most 3.96%, within the existing 5% screening tolerance; the budget classifications persist. At the larger coil's loss-critical pose, the refined peak is 312.24 W. These are local refinement checks, not a global error guarantee or the production simulator's tighter field-verification gate.
+
+This completes the first broader static comparison, in about 46 minutes. The 10 mm design is not selected for a coupled trial: its nominal channel-density saving is offset by a substantial pose-dependent loss penalty and inadequate current reserve. A less aggressive change in spacing or coil size should be screened before neighbour qualification. All existing limitations on continuous-conductor geometry, material uncertainty, thermal behaviour, contact, sensing and dynamics still apply.
+
+### Compact screening and layout parameters
+
+The [hard-pose collection](../results/channel_layouts/hard_poses.json) selects the worst-current and worst-feasible-loss poses from each design in the broader comparison, both over all recorded poses and over level poses separately. Identical poses are merged, retaining every selection reason. The file records the source report hash and the exact candidate, stage, row and demanding action for each origin. It is derived evidence, not a new parameter source or acceptance standard. Rebuild it with `methodology.coil_layouts --collect-hard-poses <source-report> --output <fresh-json-path>`; no magnetic calculation is needed for selection.
+
+At each selected pose, a candidate must be evaluated against all existing force/torque demands, not just the action that originally made that pose difficult. Positions are fractions of the candidate's repeating electrical cell in lattice coordinates; physical coordinates therefore change with pitch. Yaw and tilt-axis azimuth stay in world coordinates. Independent squares repeat at one pitch, parquet at its physical repeat, and the alternating paired-square wiring at its electrical repeat. A new geometry can have weaknesses elsewhere: this collection is a shared screening seed, not proof of continuous-domain coverage. Search finalists from multiple starting points for new weaknesses, add those cases to the common collection, and retain broader verification for the final shortlist.
+
+Use parameterized families rather than a separate implementation for every candidate. Keep three choices distinct: winding shape and dimensions; spatial arrangement and spacing; electrical grouping. Start with the implemented rounded squares and two-to-one rectangular parquet, varying dimensions and spacing while holding wire, turn packing and winding height fixed for a fair first comparison. Orientation and local grouping can then be varied within their supported families. The implemented sweep reads its sizes, spacings and square connection modes from `Inputs.channel_sweep_*`, reuses `Fixed.layout_screen_rotations_deg`, and evaluates the finite grid against the retained collection. `prototype_coils.round_wire_geometry` owns construction for both named and parameterized windings. The same pose solver handles independent coils and complete adjacent pairs, including their combined field and branch resistance. Each candidate stops at the first rank or reserved-current failure; failed-prefix maxima are not compared as full-screen maxima. All surviving candidates receive the entire collection. The report retains the nondominated trade-offs in channel density, required current and feasible-demand peak loss without inventing a thermal or cost acceptance threshold. Run `methodology.coil_layouts --sweep-channels <pose-collection> --output <fresh-directory>`; the report and source snapshot share that result directory. The initial grid can be refined around promising regions. Quantitative search settings belong in `Inputs`/`Fixed`, using the existing geometry owners. Arbitrary rectangle aspect ratios, racetrack/oval shapes and other lattice families require explicit placement and non-overlap support before inclusion; they are not current implemented candidates. No general-purpose geometry optimizer is needed at this stage.
+
+### Parameter sweep results
+
+The [parameter sweep](../results/channel_layouts/parameter_sweep/summary.json) screened 114 supported size/spacing/orientation/connection combinations in 440 seconds with three workers. Early rejection reduced the work to 381 pose evaluations: 37 designs completed the seven-pose screen, 59 failed the unchanged reserved-current budget and 18 failed augmented control rank. All winding envelopes passed fit/non-overlap checks. Passing the seed screen is not geometry qualification.
+
+For comparisons at the current square lattice orientation and nominal spacing:
+
+| Square winding / connection | Fewer installed channels per area | Peak required current | Peak feasible copper loss |
+|---|---:|---:|---:|
+| Current 7.5 mm independent | reference | 2.289 A | 29.66 W |
+| 8.25 mm independent | 16.8% | 2.596 A | 40.94 W |
+| 9 mm independent | 29.7% | 3.023 A | 66.59 W |
+| 7.5 mm same-circulation pairs | 50.0% | 3.821 A | 80.88 W |
+
+These are complete seed-screen maxima, not temperature or BOM predictions. The baseline reproduces the broader comparison's recorded maxima. Larger savings exist among seed survivors, but have substantial current/loss penalties or depend on orientation coverage. The report's nondominated candidates are only a screening trade-off set, not recommendations.
+
+An [orientation diagnostic](../results/channel_layouts/parameter_sweep/orientation_check.json) demonstrates that limitation directly. The 10 mm square at zero lattice rotation passes the original seven poses, but rigidly rotating the known failing coil/piece alignment to that lattice gives 5.203 A again, above the unchanged 4.95 A budget. Thus one of the 37 seed survivors is already rejected by a targeted follow-up. The diagnostic retains the transformed pose, all recomputed demands, source/input hashes and reproduction code. Relative coil/magnet alignment must be carried across lattice rotations in the next shared challenge set; raw rotation-dependent gains from this sweep are not established improvements.
+
+Prioritize moderate independent-square size changes for the next weakness search. Keep parquet and local pairing as comparison families rather than selecting them from these sparse results. Search phase, height and orientation from multiple starting points, carry known failures into the shared collection, and refine magnetics/continuous wiring only for survivors. Neighbour and simultaneous-reset checks remain necessary before a channel-density reduction becomes a practical cost reduction.
+
 ## Winding geometry
 
 The square candidate uses one plane of side-by-side coils. Each coil itself contains multiple axial layers of wire turns. Round wire permits rounded winding corners without the unresolved edgewise forming of the earlier flat-wire candidate.

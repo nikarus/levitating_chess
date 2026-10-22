@@ -1,0 +1,552 @@
+{
+    "status": "low_side_acquisition_diagnostic_not_hardware_qualification",
+    "candidate": "INA181A1IDBVR",
+    "vendor_model_verification_complete": false,
+    "current_readout_schematic_changed": false,
+    "bus_low_V": 22.799999999999997,
+    "command_limit_V": 18.0,
+    "shunt_ohm": 0.01,
+    "peak_shunt_drop_V": 0.065,
+    "recommended_driver_shunt_drop_limit_V": 0.3,
+    "signal_scale_V_per_A": 0.2,
+    "assumed_single_pole_time_to_existing_gain_fraction_s": 2.4092954255878673e-06,
+    "two_leg_total_shunt_loss_at_constant_peak_A_W": 0.4225,
+    "cost_one_amplifier_per_coil": {
+        "area_equivalent_channels": 5680.473372781065,
+        "production_boards": 100,
+        "area_equivalent_production_amplifiers": 568047.3372781065,
+        "amplifier_all_powered_quiescent_upper_W": 8.520710059171599,
+        "signal_scale_V_per_A": 0.2,
+        "price_observation_date": "2026-10-20",
+        "price_scenarios": [
+            {
+                "description": "TI INA181A1IDBVR LCSC C2058943",
+                "catalog_quantity": 1000,
+                "unit_USD": 0.2538,
+                "amplifier_only_USD_per_board": 1441.7041420118346,
+                "source": "https://www.lcsc.com/product-detail/C2058943.html"
+            }
+        ],
+        "limitations": [
+            "Area times existing independent-channel density, not a finalized edge count or module BOM.",
+            "Catalogue prices are extrapolated at their published tiers; no production-volume quotation or guaranteed discount exists.",
+            "Only amplifier IC cost is included; shunts, ADC/reference, bridge, control, assembly and cooling are additional.",
+            "One amplifier per coil is a normalization only; a low-side architecture may need additional sensing channels and shunts.",
+            "All-powered quiescent ceiling excludes shunts and dynamic losses; selective power gating and wake-up behaviour are not designed."
+        ]
+    },
+    "amplifier_only_cost_options": [
+        {
+            "amplifiers_per_coil": 1,
+            "shunts_per_coil": 1,
+            "unit_price_USD": 0.2538,
+            "area_equivalent_production_amplifiers": 568047.3372781065,
+            "amplifier_only_USD_per_board": 1441.7041420118346,
+            "all_powered_amplifier_quiescent_upper_W": 8.520710059171599
+        },
+        {
+            "amplifiers_per_coil": 2,
+            "shunts_per_coil": 2,
+            "unit_price_USD": 0.2538,
+            "area_equivalent_production_amplifiers": 1136094.674556213,
+            "amplifier_only_USD_per_board": 2883.4082840236692,
+            "all_powered_amplifier_quiescent_upper_W": 17.041420118343197
+        }
+    ],
+    "samples": [
+        {
+            "command_V": -18.0,
+            "leg": 0,
+            "high_duty": 0.10526315789473678,
+            "ideal_low_interval_s": 5.592105263157896e-06,
+            "settled_input_to_sample_s": 5.092105263157896e-06,
+            "sample_phase_s": 2.696052631578948e-06,
+            "assumed_single_pole_full_step_residue_fraction": 1.369986827376682e-05,
+            "assumed_single_pole_full_step_residue_at_peak_A": 8.904914377948432e-05
+        },
+        {
+            "command_V": -18.0,
+            "leg": 1,
+            "high_duty": 0.8947368421052633,
+            "ideal_low_interval_s": 6.578947368421045e-07,
+            "settled_input_to_sample_s": 1.5789473684210456e-07,
+            "sample_phase_s": 2.2894736842105227e-07,
+            "assumed_single_pole_full_step_residue_fraction": 0.7066437274176139,
+            "assumed_single_pole_full_step_residue_at_peak_A": 4.593184228214491
+        },
+        {
+            "command_V": 0.0,
+            "leg": 0,
+            "high_duty": 0.5,
+            "ideal_low_interval_s": 3.125e-06,
+            "settled_input_to_sample_s": 2.6250000000000003e-06,
+            "sample_phase_s": 1.4625e-06,
+            "assumed_single_pole_full_step_residue_fraction": 0.0031114186446225644,
+            "assumed_single_pole_full_step_residue_at_peak_A": 0.02022422119004667
+        },
+        {
+            "command_V": 0.0,
+            "leg": 1,
+            "high_duty": 0.5,
+            "ideal_low_interval_s": 3.125e-06,
+            "settled_input_to_sample_s": 2.6250000000000003e-06,
+            "sample_phase_s": 1.4625e-06,
+            "assumed_single_pole_full_step_residue_fraction": 0.0031114186446225644,
+            "assumed_single_pole_full_step_residue_at_peak_A": 0.02022422119004667
+        },
+        {
+            "command_V": 18.0,
+            "leg": 0,
+            "high_duty": 0.8947368421052633,
+            "ideal_low_interval_s": 6.578947368421045e-07,
+            "settled_input_to_sample_s": 1.5789473684210456e-07,
+            "sample_phase_s": 2.2894736842105227e-07,
+            "assumed_single_pole_full_step_residue_fraction": 0.7066437274176139,
+            "assumed_single_pole_full_step_residue_at_peak_A": 4.593184228214491
+        },
+        {
+            "command_V": 18.0,
+            "leg": 1,
+            "high_duty": 0.10526315789473678,
+            "ideal_low_interval_s": 5.592105263157896e-06,
+            "settled_input_to_sample_s": 5.092105263157896e-06,
+            "sample_phase_s": 2.696052631578948e-06,
+            "assumed_single_pole_full_step_residue_fraction": 1.369986827376682e-05,
+            "assumed_single_pole_full_step_residue_at_peak_A": 8.904914377948432e-05
+        }
+    ],
+    "datasheets": {
+        "INA241A1": "https://www.ti.com/lit/ds/symlink/ina241a.pdf",
+        "AD8410A": "https://www.analog.com/media/en/technical-documentation/data-sheets/ad8410a.pdf",
+        "MAX49925": "https://www.analog.com/media/en/technical-documentation/data-sheets/max49925.pdf",
+        "TPA132A1": "https://static.3peak.com/res/doc/ds/Datasheet_TPA132.pdf",
+        "INA181A1": "https://www.ti.com/lit/ds/symlink/ina181.pdf"
+    },
+    "driver_datasheet": "https://www.ti.com/lit/ds/symlink/drv8962.pdf",
+    "limitations": [
+        "A separate PGND shunt measures signed leg current when its low-side path conducts. Two shunts permit selecting the longer low-side interval; a common shunt under both legs cancels the recirculating current when both low sides conduct.",
+        "One fixed leg must tolerate all tested duties. Two legs do not lengthen the window at zero commanded voltage, where both duties are one half.",
+        "Imposed constant current pulses isolate acquisition settling, with the resistive output load from the vendor reference test. No coil ripple, actual bridge transistor/diode current, shunt inductance, ADC load, output filter, noise or closed-loop regulation is simulated.",
+        "Zero-dead-time cases are optimistic diagnostics; typical-dead-time cases delay the return of measurable current and are not a transistor-level prediction. Body-diode conduction can change that waveform. Timing limits and parasitics remain unqualified.",
+        "Sampling just before the next edge is duty dependent, not simultaneous at the regulator clock. Acquisition skew, ripple reconstruction and Hall alignment remain unmodeled.",
+        "Ideal DC correction is a diagnostic subtraction, not a selected calibration method. The entire residual-gain budget comparison leaves no allocation for shunt drift, gain uncertainty, ADC or reference errors; exceeding it rejects a simple settled-window interpretation, passing it is not qualification.",
+        "Vendor header covers gain, bandwidth, CMRR, PSRR, voltage noise, offset, input bias, quiescent current, startup and output impedance. This nominal model does not establish production variation or temperature corners.",
+        "Ordinary transient runs do not inject the vendor small-signal noise. Noise estimates remain in the separate analytical readout screen.",
+        "Cross-simulator equivalence to PSpice is not established. Source model, logs, DC curves and refinement traces are retained.",
+        "Amplifier cost excludes shunts, ADC/reference, calibration, assembly and cooling; actual module count and production price are unresolved."
+    ],
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/readout.py": "a74dc427562bb75f9cb89096f276985b7b1c0057d94ae759a3bb7cef07b5e0d4",
+        "model.py": "11028a51c636bbcbb6c588b542b89f24911965bb8f182f0d5cd8bd1748148d39",
+        "methodology/electrical.py": "23b46a33113f8059459a005b5ff9f301c8daefd9839a54b160f935fe48e1ad27",
+        "methodology/electronics/power_stage.py": "3fa14f2d6756047b5ffbf409ddd4af4920d80acc2d19e70e7ec2584c84ac3173",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757"
+    },
+    "vendor_sha256": "b21a12037058848645c9c0569555905686a85a77430ff612dfd87d96caee21a6",
+    "vendor_url": "https://www.ti.com/lit/zip/SBOMBB7",
+    "ngspice_version": "******\n** ngspice-45.2 : Circuit level simulation program\n** Compiled with KLU Direct Linear Solver\n** The U. C. Berkeley CAD Group\n** Copyright 1985-1994, Regents of the University of California.\n** Copyright 2001-2025, The ngspice team.\n** Please get your ngspice manual from https://ngspice.sourceforge.io/docs.html\n** Please file your bug-reports at http://ngspice.sourceforge.net/bugrep.html\n** Creation Date: Fri Sep 12 11:58:13 UTC 2025\n******\n",
+    "compatibility": "ngspice ps, klu; unchanged TI PSpice model",
+    "trials": [
+        {
+            "high_duty": 0.10526315789473678,
+            "imposed_shunt_current_A": -6.5,
+            "assumed_deadtime_s": 0.0,
+            "ideal_low_interval_s": 5.592105263157896e-06,
+            "settled_input_to_sample_s": 5.392105263157896e-06,
+            "sample_phase_s": 2.696052631578948e-06,
+            "sample_time_s": 4.644605263157895e-05,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "sample_A": -6.496731646947343,
+                    "sample_error_A": 0.003268353052656714,
+                    "dc_error_A": 0.002579319241869271,
+                    "switching_residue_after_ideal_dc_correction_A": 0.0006890338107874427,
+                    "previous_cycle_sample_difference_A": 1.0360262011843702e-05,
+                    "max_dc_error_A": 0.004233268458006201
+                },
+                {
+                    "refinement": 2,
+                    "sample_A": -6.496731669905688,
+                    "sample_error_A": 0.003268330094312155,
+                    "dc_error_A": 0.002579319241869271,
+                    "switching_residue_after_ideal_dc_correction_A": 0.000689010852442884,
+                    "previous_cycle_sample_difference_A": 1.0360755949179179e-05,
+                    "max_dc_error_A": 0.004233268458006201
+                }
+            ],
+            "waveform_refinement_difference_A": 0.00012429254979662296,
+            "refinement_pass": false,
+            "cycle_settled": true,
+            "within_entire_existing_gain_budget": true
+        },
+        {
+            "high_duty": 0.10526315789473678,
+            "imposed_shunt_current_A": 6.5,
+            "assumed_deadtime_s": 0.0,
+            "ideal_low_interval_s": 5.592105263157896e-06,
+            "settled_input_to_sample_s": 5.392105263157896e-06,
+            "sample_phase_s": 2.696052631578948e-06,
+            "sample_time_s": 4.644605263157895e-05,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "sample_A": 6.502783327581687,
+                    "sample_error_A": 0.0027833275816870895,
+                    "dc_error_A": 0.0022084217057392053,
+                    "switching_residue_after_ideal_dc_correction_A": 0.0005749058759478842,
+                    "previous_cycle_sample_difference_A": -1.0393041468326203e-05,
+                    "max_dc_error_A": 13.001268301024915
+                },
+                {
+                    "refinement": 2,
+                    "sample_A": 6.50278335220847,
+                    "sample_error_A": 0.002783352208470369,
+                    "dc_error_A": 0.0022084217057392053,
+                    "switching_residue_after_ideal_dc_correction_A": 0.0005749305027311635,
+                    "previous_cycle_sample_difference_A": -1.0393174375344927e-05,
+                    "max_dc_error_A": 13.001268301024915
+                }
+            ],
+            "waveform_refinement_difference_A": 0.0001513876157561711,
+            "refinement_pass": false,
+            "cycle_settled": true,
+            "within_entire_existing_gain_budget": true
+        },
+        {
+            "high_duty": 0.10526315789473678,
+            "imposed_shunt_current_A": -6.5,
+            "assumed_deadtime_s": 3e-07,
+            "ideal_low_interval_s": 5.592105263157896e-06,
+            "settled_input_to_sample_s": 5.092105263157896e-06,
+            "sample_phase_s": 2.696052631578948e-06,
+            "sample_time_s": 4.644605263157895e-05,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "sample_A": -6.497236198641158,
+                    "sample_error_A": 0.002763801358842244,
+                    "dc_error_A": 0.002579319241869271,
+                    "switching_residue_after_ideal_dc_correction_A": 0.00018448211697297268,
+                    "previous_cycle_sample_difference_A": 9.761754728110361e-06,
+                    "max_dc_error_A": 0.004233268458006201
+                },
+                {
+                    "refinement": 2,
+                    "sample_A": -6.497236235847016,
+                    "sample_error_A": 0.002763764152984294,
+                    "dc_error_A": 0.002579319241869271,
+                    "switching_residue_after_ideal_dc_correction_A": 0.0001844449111150226,
+                    "previous_cycle_sample_difference_A": 9.7627904853681e-06,
+                    "max_dc_error_A": 0.004233268458006201
+                }
+            ],
+            "waveform_refinement_difference_A": 0.0001540489752240859,
+            "refinement_pass": false,
+            "cycle_settled": true,
+            "within_entire_existing_gain_budget": true
+        },
+        {
+            "high_duty": 0.10526315789473678,
+            "imposed_shunt_current_A": 6.5,
+            "assumed_deadtime_s": 3e-07,
+            "ideal_low_interval_s": 5.592105263157896e-06,
+            "settled_input_to_sample_s": 5.092105263157896e-06,
+            "sample_phase_s": 2.696052631578948e-06,
+            "sample_time_s": 4.644605263157895e-05,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "sample_A": 6.503287882231776,
+                    "sample_error_A": 0.003287882231775896,
+                    "dc_error_A": 0.0022084217057392053,
+                    "switching_residue_after_ideal_dc_correction_A": 0.0010794605260366907,
+                    "previous_cycle_sample_difference_A": -9.795674487556028e-06,
+                    "max_dc_error_A": 13.001268301024915
+                },
+                {
+                    "refinement": 2,
+                    "sample_A": 6.503287918640034,
+                    "sample_error_A": 0.003287918640033638,
+                    "dc_error_A": 0.0022084217057392053,
+                    "switching_residue_after_ideal_dc_correction_A": 0.0010794969342944327,
+                    "previous_cycle_sample_difference_A": -9.794665797535629e-06,
+                    "max_dc_error_A": 13.001268301024915
+                }
+            ],
+            "waveform_refinement_difference_A": 0.00017076504368773726,
+            "refinement_pass": false,
+            "cycle_settled": true,
+            "within_entire_existing_gain_budget": true
+        },
+        {
+            "high_duty": 0.5,
+            "imposed_shunt_current_A": -6.5,
+            "assumed_deadtime_s": 0.0,
+            "ideal_low_interval_s": 3.125e-06,
+            "settled_input_to_sample_s": 2.9250000000000004e-06,
+            "sample_phase_s": 1.4625e-06,
+            "sample_time_s": 4.52125e-05,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "sample_A": -6.519830822422576,
+                    "sample_error_A": -0.019830822422576055,
+                    "dc_error_A": 0.002579319241869271,
+                    "switching_residue_after_ideal_dc_correction_A": -0.022410141664445327,
+                    "previous_cycle_sample_difference_A": 5.512364163351435e-06,
+                    "max_dc_error_A": 0.004233268458006201
+                },
+                {
+                    "refinement": 2,
+                    "sample_A": -6.519830081826258,
+                    "sample_error_A": -0.019830081826257562,
+                    "dc_error_A": 0.002579319241869271,
+                    "switching_residue_after_ideal_dc_correction_A": -0.022409401068126833,
+                    "previous_cycle_sample_difference_A": 5.5027502732230005e-06,
+                    "max_dc_error_A": 0.004233268458006201
+                }
+            ],
+            "waveform_refinement_difference_A": 0.00015191523692514863,
+            "refinement_pass": false,
+            "cycle_settled": true,
+            "within_entire_existing_gain_budget": true
+        },
+        {
+            "high_duty": 0.5,
+            "imposed_shunt_current_A": 6.5,
+            "assumed_deadtime_s": 0.0,
+            "ideal_low_interval_s": 3.125e-06,
+            "settled_input_to_sample_s": 2.9250000000000004e-06,
+            "sample_phase_s": 1.4625e-06,
+            "sample_time_s": 4.52125e-05,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "sample_A": 6.525882529576927,
+                    "sample_error_A": 0.025882529576927382,
+                    "dc_error_A": 0.0022084217057392053,
+                    "switching_residue_after_ideal_dc_correction_A": 0.023674107871188177,
+                    "previous_cycle_sample_difference_A": -5.536486463064705e-06,
+                    "max_dc_error_A": 13.001268301024915
+                },
+                {
+                    "refinement": 2,
+                    "sample_A": 6.525881732588175,
+                    "sample_error_A": 0.025881732588175055,
+                    "dc_error_A": 0.0022084217057392053,
+                    "switching_residue_after_ideal_dc_correction_A": 0.02367331088243585,
+                    "previous_cycle_sample_difference_A": -5.535275728441036e-06,
+                    "max_dc_error_A": 13.001268301024915
+                }
+            ],
+            "waveform_refinement_difference_A": 0.00018447903897111928,
+            "refinement_pass": false,
+            "cycle_settled": true,
+            "within_entire_existing_gain_budget": true
+        },
+        {
+            "high_duty": 0.5,
+            "imposed_shunt_current_A": -6.5,
+            "assumed_deadtime_s": 3e-07,
+            "ideal_low_interval_s": 3.125e-06,
+            "settled_input_to_sample_s": 2.6250000000000003e-06,
+            "sample_phase_s": 1.4625e-06,
+            "sample_time_s": 4.52125e-05,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "sample_A": -6.523275429927073,
+                    "sample_error_A": -0.023275429927073432,
+                    "dc_error_A": 0.002579319241869271,
+                    "switching_residue_after_ideal_dc_correction_A": -0.025854749168942703,
+                    "previous_cycle_sample_difference_A": 4.89258715141716e-06,
+                    "max_dc_error_A": 0.004233268458006201
+                },
+                {
+                    "refinement": 2,
+                    "sample_A": -6.523273997992485,
+                    "sample_error_A": -0.023273997992484752,
+                    "dc_error_A": 0.002579319241869271,
+                    "switching_residue_after_ideal_dc_correction_A": -0.025853317234354023,
+                    "previous_cycle_sample_difference_A": 4.89841839801386e-06,
+                    "max_dc_error_A": 0.004233268458006201
+                }
+            ],
+            "waveform_refinement_difference_A": 0.0001615114664330619,
+            "refinement_pass": false,
+            "cycle_settled": true,
+            "within_entire_existing_gain_budget": true
+        },
+        {
+            "high_duty": 0.5,
+            "imposed_shunt_current_A": 6.5,
+            "assumed_deadtime_s": 3e-07,
+            "ideal_low_interval_s": 3.125e-06,
+            "settled_input_to_sample_s": 2.6250000000000003e-06,
+            "sample_phase_s": 1.4625e-06,
+            "sample_time_s": 4.52125e-05,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "sample_A": 6.52932718483783,
+                    "sample_error_A": 0.02932718483782981,
+                    "dc_error_A": 0.0022084217057392053,
+                    "switching_residue_after_ideal_dc_correction_A": 0.027118763132090606,
+                    "previous_cycle_sample_difference_A": -4.917103524348931e-06,
+                    "max_dc_error_A": 13.001268301024915
+                },
+                {
+                    "refinement": 2,
+                    "sample_A": 6.529325693684964,
+                    "sample_error_A": 0.02932569368496374,
+                    "dc_error_A": 0.0022084217057392053,
+                    "switching_residue_after_ideal_dc_correction_A": 0.027117271979224533,
+                    "previous_cycle_sample_difference_A": -4.9282853513688e-06,
+                    "max_dc_error_A": 13.001268301024915
+                }
+            ],
+            "waveform_refinement_difference_A": 0.00016668290473731417,
+            "refinement_pass": false,
+            "cycle_settled": true,
+            "within_entire_existing_gain_budget": true
+        },
+        {
+            "high_duty": 0.8947368421052633,
+            "imposed_shunt_current_A": -6.5,
+            "assumed_deadtime_s": 0.0,
+            "ideal_low_interval_s": 6.578947368421045e-07,
+            "settled_input_to_sample_s": 4.5789473684210455e-07,
+            "sample_phase_s": 2.2894736842105227e-07,
+            "sample_time_s": 4.3978947368421055e-05,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "sample_A": -4.125958454265475,
+                    "sample_error_A": 2.374041545734525,
+                    "dc_error_A": 0.002579319241869271,
+                    "switching_residue_after_ideal_dc_correction_A": 2.371462226492656,
+                    "previous_cycle_sample_difference_A": 9.293478862915094e-06,
+                    "max_dc_error_A": 0.004233268458006201
+                },
+                {
+                    "refinement": 2,
+                    "sample_A": -4.125965937671316,
+                    "sample_error_A": 2.3740340623286844,
+                    "dc_error_A": 0.002579319241869271,
+                    "switching_residue_after_ideal_dc_correction_A": 2.371454743086815,
+                    "previous_cycle_sample_difference_A": 1.7392505018420934e-06,
+                    "max_dc_error_A": 0.004233268458006201
+                }
+            ],
+            "waveform_refinement_difference_A": 0.00012479797485998034,
+            "refinement_pass": false,
+            "cycle_settled": true,
+            "within_entire_existing_gain_budget": false
+        },
+        {
+            "high_duty": 0.8947368421052633,
+            "imposed_shunt_current_A": 6.5,
+            "assumed_deadtime_s": 0.0,
+            "ideal_low_interval_s": 6.578947368421045e-07,
+            "settled_input_to_sample_s": 4.5789473684210455e-07,
+            "sample_phase_s": 2.2894736842105227e-07,
+            "sample_time_s": 4.3978947368421055e-05,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "sample_A": 4.132033233981728,
+                    "sample_error_A": -2.367966766018272,
+                    "dc_error_A": 0.0022084217057392053,
+                    "switching_residue_after_ideal_dc_correction_A": -2.370175187724011,
+                    "previous_cycle_sample_difference_A": 7.380340791840467e-07,
+                    "max_dc_error_A": 13.001268301024915
+                },
+                {
+                    "refinement": 2,
+                    "sample_A": 4.1320211904334245,
+                    "sample_error_A": -2.3679788095665755,
+                    "dc_error_A": 0.0022084217057392053,
+                    "switching_residue_after_ideal_dc_correction_A": -2.3701872312723147,
+                    "previous_cycle_sample_difference_A": -2.2045357237487906e-06,
+                    "max_dc_error_A": 13.001268301024915
+                }
+            ],
+            "waveform_refinement_difference_A": 0.00015289530374928972,
+            "refinement_pass": false,
+            "cycle_settled": true,
+            "within_entire_existing_gain_budget": false
+        },
+        {
+            "high_duty": 0.8947368421052633,
+            "imposed_shunt_current_A": -6.5,
+            "assumed_deadtime_s": 3e-07,
+            "ideal_low_interval_s": 6.578947368421045e-07,
+            "settled_input_to_sample_s": 1.5789473684210456e-07,
+            "sample_phase_s": 2.2894736842105227e-07,
+            "sample_time_s": 4.3978947368421055e-05,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "sample_A": -2.0492109764856723,
+                    "sample_error_A": 4.450789023514328,
+                    "dc_error_A": 0.002579319241869271,
+                    "switching_residue_after_ideal_dc_correction_A": 4.448209704272458,
+                    "previous_cycle_sample_difference_A": 2.1958243863196003e-06,
+                    "max_dc_error_A": 0.004233268458006201
+                },
+                {
+                    "refinement": 2,
+                    "sample_A": -2.0492286781012607,
+                    "sample_error_A": 4.450771321898739,
+                    "dc_error_A": 0.002579319241869271,
+                    "switching_residue_after_ideal_dc_correction_A": 4.44819200265687,
+                    "previous_cycle_sample_difference_A": 2.6000019075489433e-06,
+                    "max_dc_error_A": 0.004233268458006201
+                }
+            ],
+            "waveform_refinement_difference_A": 8.444730789936017e-05,
+            "refinement_pass": true,
+            "cycle_settled": true,
+            "within_entire_existing_gain_budget": false
+        },
+        {
+            "high_duty": 0.8947368421052633,
+            "imposed_shunt_current_A": 6.5,
+            "assumed_deadtime_s": 3e-07,
+            "ideal_low_interval_s": 6.578947368421045e-07,
+            "settled_input_to_sample_s": 1.5789473684210456e-07,
+            "sample_phase_s": 2.2894736842105227e-07,
+            "sample_time_s": 4.3978947368421055e-05,
+            "checks": [
+                {
+                    "refinement": 1,
+                    "sample_A": 2.055291792121711,
+                    "sample_error_A": -4.444708207878289,
+                    "dc_error_A": 0.0022084217057392053,
+                    "switching_residue_after_ideal_dc_correction_A": -4.446916629584028,
+                    "previous_cycle_sample_difference_A": 1.6180673803933843e-05,
+                    "max_dc_error_A": 13.001268301024915
+                },
+                {
+                    "refinement": 2,
+                    "sample_A": 2.0552918548189134,
+                    "sample_error_A": -4.444708145181087,
+                    "dc_error_A": 0.0022084217057392053,
+                    "switching_residue_after_ideal_dc_correction_A": -4.446916566886825,
+                    "previous_cycle_sample_difference_A": -6.584803946552142e-08,
+                    "max_dc_error_A": 13.001268301024915
+                }
+            ],
+            "waveform_refinement_difference_A": 0.00011739022213319572,
+            "refinement_pass": false,
+            "cycle_settled": true,
+            "within_entire_existing_gain_budget": false
+        }
+    ],
+    "hardware_qualified": false
+}

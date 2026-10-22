@@ -1,0 +1,1039 @@
+{
+    "status": "recorded_averaged_frozen_command_protection_screen",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/protection.py": "af56a3707b49fa2ca47f697e44e231192c7f3b989e071f28959447fbca7fbaf4",
+        "model.py": "3d1527cf04cc3ad5d02410cf63a75cb39c02a47b8ab83a6f82cdaef78cae38e6",
+        "methodology/qualification.py": "7d1232db4b9045a1ac7d244ffb71468b64d636953203c81daee2f92627a33f54",
+        "methodology/electronics/current_loop.py": "c65490723601c968a5de9f7036eaa20b8e57e386502573e004254c1d7a8d3b3b",
+        "methodology/electronics/logic.py": "a82a11375890637fdabf909a3dbf64fb3d4753e264b3449fe3fc221d6404e99f"
+    },
+    "input_sha256": {
+        "methodology/results/electronics/current_loop/compiled_regulator/current_control/summary.json": "185d80f94dafae07d2c24608aa9c20328575faed56fdcfd767c4783918d6f488",
+        "methodology/results/electronics/current_loop/compiled_regulator/current_control/traces.npz": "416880caf55b4a8b5d462cd4531508e7ddf09ea9f54d25eddc654bbf7aee484b"
+    },
+    "trial_count": 74,
+    "trials": [
+        {
+            "trace": "case_0_noise_0",
+            "configuration": {},
+            "reconstruction_error_A": 8.881784197001252e-16,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_0_noise_1",
+            "configuration": {},
+            "reconstruction_error_A": 1.7763568394002505e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_1_noise_0",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_1_noise_1",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_2_noise_0",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_2_noise_1",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_3_noise_0",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 5.329070518200751e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_3_noise_1",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 5.329070518200751e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_4_noise_0",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 5.329070518200751e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_4_noise_1",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 5.329070518200751e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_5_noise_0",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 5.329070518200751e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_5_noise_1",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 5.329070518200751e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_6_noise_0",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 5.329070518200751e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_6_noise_1",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 5.329070518200751e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_7_noise_0",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 1.7763568394002505e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_7_noise_1",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 1.7763568394002505e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_8_noise_0",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 1.7763568394002505e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_8_noise_1",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 1.7763568394002505e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_9_noise_0",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 8.881784197001252e-16,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_9_noise_1",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 1.7763568394002505e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_10_noise_0",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 1.7763568394002505e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_10_noise_1",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 1.7763568394002505e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_11_noise_0",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 1.7763568394002505e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_11_noise_1",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 8.881784197001252e-16,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_12_noise_0",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 1.7763568394002505e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_12_noise_1",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 1.7763568394002505e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_13_noise_0",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 12,
+            "minimum_hold_after_missed_update_s": 6.0659849260680304e-05,
+            "row": 88,
+            "missed_update_time_s": 0.0044631,
+            "current_at_missed_update_A": -6.134323491931396,
+            "stale_effective_voltage_V": -4.142399787902832,
+            "resistance_ohm": 0.5867029988602237,
+            "inductance_H": 0.00010315066420846904,
+            "ripple_bound_A": 0.0954305207799158,
+            "average_current_limit_A": 6.4045694792200845,
+            "interval_has_following_recorded_update": true
+        },
+        {
+            "trace": "case_13_noise_1",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 12,
+            "minimum_hold_after_missed_update_s": 1.1672618963546928e-05,
+            "row": 89,
+            "missed_update_time_s": 0.004513100000000001,
+            "current_at_missed_update_A": -6.373585066731056,
+            "stale_effective_voltage_V": -4.02239990234375,
+            "resistance_ohm": 0.5867029988602237,
+            "inductance_H": 0.00010315066420846904,
+            "ripple_bound_A": 0.0954305207799158,
+            "average_current_limit_A": 6.4045694792200845,
+            "interval_has_following_recorded_update": true
+        },
+        {
+            "trace": "case_14_noise_0",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 11,
+            "minimum_hold_after_missed_update_s": 6.026709914213651e-05,
+            "row": 88,
+            "missed_update_time_s": 0.0044631,
+            "current_at_missed_update_A": -6.13639009940566,
+            "stale_effective_voltage_V": -4.142399787902832,
+            "resistance_ohm": 0.5867029988602237,
+            "inductance_H": 0.00010315066420846904,
+            "ripple_bound_A": 0.0954305207799158,
+            "average_current_limit_A": 6.4045694792200845,
+            "interval_has_following_recorded_update": true
+        },
+        {
+            "trace": "case_14_noise_1",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 11,
+            "minimum_hold_after_missed_update_s": 5.2338627110635264e-05,
+            "row": 88,
+            "missed_update_time_s": 0.0044631,
+            "current_at_missed_update_A": -6.177136605300495,
+            "stale_effective_voltage_V": -4.142399787902832,
+            "resistance_ohm": 0.5867029988602237,
+            "inductance_H": 0.00010315066420846904,
+            "ripple_bound_A": 0.0954305207799158,
+            "average_current_limit_A": 6.4045694792200845,
+            "interval_has_following_recorded_update": true
+        },
+        {
+            "trace": "case_15_noise_0",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 11,
+            "minimum_hold_after_missed_update_s": 0.00013220080672988958,
+            "row": 87,
+            "missed_update_time_s": 0.0044131000000000005,
+            "current_at_missed_update_A": -5.439935670277582,
+            "stale_effective_voltage_V": -4.262399673461914,
+            "resistance_ohm": 0.5867029988602237,
+            "inductance_H": 0.00010315066420846904,
+            "ripple_bound_A": 0.0954305207799158,
+            "average_current_limit_A": 6.4045694792200845,
+            "interval_has_following_recorded_update": true
+        },
+        {
+            "trace": "case_15_noise_1",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 11,
+            "minimum_hold_after_missed_update_s": 0.00013140630383939533,
+            "row": 87,
+            "missed_update_time_s": 0.0044131000000000005,
+            "current_at_missed_update_A": -5.448164536241001,
+            "stale_effective_voltage_V": -4.262399673461914,
+            "resistance_ohm": 0.5867029988602237,
+            "inductance_H": 0.00010315066420846904,
+            "ripple_bound_A": 0.0954305207799158,
+            "average_current_limit_A": 6.4045694792200845,
+            "interval_has_following_recorded_update": true
+        },
+        {
+            "trace": "case_16_noise_0",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 10,
+            "minimum_hold_after_missed_update_s": 0.0001324786020077375,
+            "row": 87,
+            "missed_update_time_s": 0.0044131000000000005,
+            "current_at_missed_update_A": -5.437049689512178,
+            "stale_effective_voltage_V": -4.262399673461914,
+            "resistance_ohm": 0.5867029988602237,
+            "inductance_H": 0.00010315066420846904,
+            "ripple_bound_A": 0.0954305207799158,
+            "average_current_limit_A": 6.4045694792200845,
+            "interval_has_following_recorded_update": true
+        },
+        {
+            "trace": "case_16_noise_1",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 9,
+            "minimum_hold_after_missed_update_s": 0.0001309831235185732,
+            "row": 87,
+            "missed_update_time_s": 0.0044131000000000005,
+            "current_at_missed_update_A": -5.452532366476635,
+            "stale_effective_voltage_V": -4.262399673461914,
+            "resistance_ohm": 0.5867029988602237,
+            "inductance_H": 0.00010315066420846904,
+            "ripple_bound_A": 0.0954305207799158,
+            "average_current_limit_A": 6.4045694792200845,
+            "interval_has_following_recorded_update": true
+        },
+        {
+            "trace": "case_17_noise_0",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 8,
+            "minimum_hold_after_missed_update_s": 0.00018102353442353507,
+            "row": 87,
+            "missed_update_time_s": 0.0044131000000000005,
+            "current_at_missed_update_A": -5.223925878716779,
+            "stale_effective_voltage_V": -4.142399787902832,
+            "resistance_ohm": 0.5867029988602237,
+            "inductance_H": 0.00010315066420846904,
+            "ripple_bound_A": 0.0954305207799158,
+            "average_current_limit_A": 6.4045694792200845,
+            "interval_has_following_recorded_update": true
+        },
+        {
+            "trace": "case_17_noise_1",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 6,
+            "minimum_hold_after_missed_update_s": 0.0001751345853357488,
+            "row": 88,
+            "missed_update_time_s": 0.0044631,
+            "current_at_missed_update_A": -5.633722647693437,
+            "stale_effective_voltage_V": -4.02239990234375,
+            "resistance_ohm": 0.5867029988602237,
+            "inductance_H": 0.00010315066420846904,
+            "ripple_bound_A": 0.0954305207799158,
+            "average_current_limit_A": 6.4045694792200845,
+            "interval_has_following_recorded_update": true
+        },
+        {
+            "trace": "case_18_noise_0",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 6,
+            "minimum_hold_after_missed_update_s": 0.00023315714871049284,
+            "row": 86,
+            "missed_update_time_s": 0.004363100000000001,
+            "current_at_missed_update_A": -4.589989347286803,
+            "stale_effective_voltage_V": -4.142399787902832,
+            "resistance_ohm": 0.5867029988602237,
+            "inductance_H": 0.00010315066420846904,
+            "ripple_bound_A": 0.0954305207799158,
+            "average_current_limit_A": 6.4045694792200845,
+            "interval_has_following_recorded_update": true
+        },
+        {
+            "trace": "case_18_noise_1",
+            "configuration": {
+                "resistance_factor": 1.0,
+                "inductance_factor": 2,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 6,
+            "minimum_hold_after_missed_update_s": 0.00017877415397018042,
+            "row": 87,
+            "missed_update_time_s": 0.0044131000000000005,
+            "current_at_missed_update_A": -5.247273125470382,
+            "stale_effective_voltage_V": -4.142399787902832,
+            "resistance_ohm": 0.5867029988602237,
+            "inductance_H": 0.00010315066420846904,
+            "ripple_bound_A": 0.0954305207799158,
+            "average_current_limit_A": 6.4045694792200845,
+            "interval_has_following_recorded_update": true
+        },
+        {
+            "trace": "case_19_noise_0",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 1.7763568394002505e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_19_noise_1",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 1.7763568394002505e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_20_noise_0",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 1.7763568394002505e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_20_noise_1",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 1.7763568394002505e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_21_noise_0",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 5.329070518200751e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_21_noise_1",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 5.329070518200751e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_22_noise_0",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 5.329070518200751e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_22_noise_1",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 5.329070518200751e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_23_noise_0",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 5.329070518200751e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_23_noise_1",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 5.329070518200751e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_24_noise_0",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 5.329070518200751e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_24_noise_1",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 0.5,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 5.329070518200751e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_25_noise_0",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 4.440892098500626e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_25_noise_1",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_26_noise_0",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 4.440892098500626e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_26_noise_1",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_27_noise_0",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_27_noise_1",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_28_noise_0",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_28_noise_1",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_29_noise_0",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_29_noise_1",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_30_noise_0",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_30_noise_1",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 1.0,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_31_noise_0",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 4.440892098500626e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_31_noise_1",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 0.8,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 4.440892098500626e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_32_noise_0",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 3.552713678800501e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_32_noise_1",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 0.8,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 4.440892098500626e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_33_noise_0",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 7.105427357601002e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_33_noise_1",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 1.0,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 7.105427357601002e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_34_noise_0",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 6.217248937900877e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_34_noise_1",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 1.0,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 7.105427357601002e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_35_noise_0",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 7.105427357601002e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_35_noise_1",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 1.2,
+                "gain": 0.995
+            },
+            "reconstruction_error_A": 7.105427357601002e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_36_noise_0",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 6.217248937900877e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        },
+        {
+            "trace": "case_36_noise_1",
+            "configuration": {
+                "resistance_factor": 1.5,
+                "inductance_factor": 2,
+                "filter_factor": 1.2,
+                "gain": 1.005
+            },
+            "reconstruction_error_A": 7.105427357601002e-15,
+            "finite_crossing_intervals": 0,
+            "minimum_hold_after_missed_update_s": null
+        }
+    ],
+    "limiting_case": {
+        "trace": "case_13_noise_1",
+        "configuration": {
+            "resistance_factor": 1.0,
+            "inductance_factor": 2,
+            "filter_factor": 0.8,
+            "gain": 0.995
+        },
+        "reconstruction_error_A": 3.552713678800501e-15,
+        "finite_crossing_intervals": 12,
+        "minimum_hold_after_missed_update_s": 1.1672618963546928e-05,
+        "row": 89,
+        "missed_update_time_s": 0.004513100000000001,
+        "current_at_missed_update_A": -6.373585066731056,
+        "stale_effective_voltage_V": -4.02239990234375,
+        "resistance_ohm": 0.5867029988602237,
+        "inductance_H": 0.00010315066420846904,
+        "ripple_bound_A": 0.0954305207799158,
+        "average_current_limit_A": 6.4045694792200845,
+        "interval_has_following_recorded_update": true
+    },
+    "group_successful_update_interval_s": 6.25e-06,
+    "typical_driver_enable_delay_s": 2e-06,
+    "maximum_remaining_detection_and_gating_time_s": 9.672618963546929e-06,
+    "per_channel_periodic_watchdog_is_fast_enough": false,
+    "group_periodic_watchdog_has_nominal_timing_room": true,
+    "hardware_protection_qualified": false,
+    "limitations": [
+        "Exact RL continuation of recorded effective averaged voltage with the existing conservative ripple reserve. It is not a resolved switching fault or manufacturer protection model.",
+        "A CPU failure may leave the last valid voltage active after its next expected replacement. The minimum is over every recorded held-voltage interval; monotonic RL motion makes the endpoint the shortest remaining crossing time.",
+        "The diagnostic covers stale valid commands only. Corrupt PWM, rail faults, shoot-through, frozen high outputs, back-EMF, coupling and pending command corruption require separate protection.",
+        "No existing watchdog or circuit is assumed. Heartbeats must be tied to successful validated control updates, not free-running peripherals. A group heartbeat cannot detect one skipped coil unless the complete sequence is validated.",
+        "The EN propagation delay is a typical datasheet value, not a guaranteed shutdown bound. Detection, component tolerance, gate delay and commutation still need qualification.",
+        "Tested resistance/filter factors are exploratory sensitivities. This screen does not establish exhaustive operating-corner or fault coverage."
+    ]
+}

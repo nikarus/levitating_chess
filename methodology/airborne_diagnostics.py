@@ -1761,6 +1761,275 @@ def replay_recorded_controller(folder, native_folder, cache_folder, output):
 
 
 
+def angular_feedback_terms(pose, angular_velocity, reference):
+    from methodology import qualification
+    error = (Rotation.from_euler('xyz', pose[3:]) * Rotation.from_euler('xyz', reference[3:]).inv()).as_rotvec()
+    return (qualification.pose_correction(error, np.zeros(3), np.zeros(3)),
+        qualification.pose_correction(np.zeros(3), angular_velocity, np.zeros(3)))
+
+
+def settling_feedback_diagnosis(folder, field_folder, library, output):
+    from zipfile import ZipFile, ZIP_DEFLATED
+    from methodology.coil_field import CoilFieldCache
+    from methodology.joint_airborne import JointAirborneSimulation
+    from methodology.magnetic_spline import native_evaluation
+    if output.exists():
+        raise ValueError('Preserve existing settling feedback evidence')
+    report = verify_recorded_batch(folder)
+    final = json.loads((folder / 'checkpoint.json').read_text())
+    evidence = json.loads((folder / 'evidence.json').read_text())
+    if final['source_sha256'] != report['source_sha256'] or final['trace'] != report['trace']:
+        raise ValueError('Settling replay report and checkpoint differ')
+    if hashlib.sha256((folder / 'dense.npz').read_bytes()).hexdigest() != evidence['dense_sha256']:
+        raise ValueError('Settling replay dense recording changed')
+    cache = CoilFieldCache.load(field_folder / 'atlas.npz')
+    if cache.identity != evidence['atlas_identity']:
+        raise ValueError('Settling replay cache differs')
+    trajectory = recorded_dense_trajectory(folder / 'dense.npz', 'physical')
+    sources = dict(report['source_sha256'], **source_fingerprints(__file__))
+    result = dict(scope='Recorded sensor/controller replay and angular acceleration attribution; no new physical trajectory',
+        status='running', source_sha256=sources, input_sha256=source_fingerprints(*[folder / name for name in
+            ('summary.json', 'checkpoint.json', 'initial_checkpoint.json', 'evidence.json', 'dense.npz', 'sources.zip')],
+            field_folder / 'atlas.npz', library, library.with_suffix('.json')), packets=[], commands=[],
+        limitations=['Truth is used only for diagnostic scoring and component isolation.',
+            'Command mapping, quantization and delivery contributions use the same recorded physical pose and force matrix.',
+            'Component RMS values are correlated and cannot be summed as independent percentages.',
+            'Recorded nominal acceleration inputs are held fixed; this is not a corrected closed-loop experiment.'])
+    output.mkdir(parents=True)
+    with ZipFile(output / 'sources.zip', 'x', compression=ZIP_DEFLATED) as archive:
+        for name in sources:
+            archive.write(name, name)
+    started = perf_counter()
+    with native_evaluation(cache, library):
+        simulation = JointAirborneSimulation.from_checkpoint(folder / 'initial_checkpoint.json', atlas=cache)
+        tracker, controller, drivers = simulation.tracker, simulation.controller, simulation.drivers
+        tracker.acceleration_times = final['acceleration_times']
+        tracker.accelerations = [np.array(value) for value in final['accelerations']]
+        readouts = [electrical.CurrentReadings(simulation.identities, np.array(row['sample_times_s']),
+            np.array(row['adc_codes']), row['available_time_s']) for row in final['readouts']]
+        traces = {row['time_s']: row for row in final['trace']}
+        next_scan = 0
+        pose_exact = True
+        command_error = 0.
+        for now in final['field_times']:
+            if next_scan < len(evidence['scans']):
+                scan = evidence['scans'][next_scan]
+                if now >= sensing.hall_available_time(scan['start_s'], len(simulation.fields.points)):
+                    frame = simulation.sensors.encode_signal(np.array(scan['samples_T']), scan['start_s'])
+                    available = [reading for reading in readouts if reading.available_time_s <= frame.available_time_s]
+                    history = electrical.CurrentReadings(simulation.identities, np.concatenate([row.sample_times_s for row in available]),
+                        np.vstack([row.adc_codes for row in available]), available[-1].available_time_s)
+                    midpoint = float(frame.sample_times_s.mean())
+                    prediction = tracker.propagate(midpoint)
+                    consumed = tracker.consume(frame, history, now)
+                    if not consumed['valid']:
+                        raise ValueError('Settling sensor replay lost tracking')
+                    result['packets'].append(dict(time_s=now, midpoint_s=midpoint, fitted_pose=consumed['estimate']['pose'],
+                        predicted_pose=prediction[0].tolist(), predicted_velocity=prediction[1].tolist(),
+                        position=tracker.position.tolist(), velocity=tracker.velocity.tolist(), disturbance=tracker.disturbance.tolist()))
+                    next_scan += 1
+            estimate = tracker.predict(now)
+            if not estimate['valid']:
+                raise ValueError('Settling observer replay prediction unavailable')
+            if now not in traces:
+                continue
+            pose_exact &= np.array_equal(estimate['pose'], traces[now]['estimated_pose'])
+            reference = simulation.reference_state(now)
+            allocation = controller.command(estimate, *reference)
+            if not allocation['accepted']:
+                raise ValueError('Settling controller replay allocation rejected')
+            drivers.set_command(allocation['currents'])
+            command_error = max(command_error, float(np.max(np.abs(drivers.command
+                - recorded_filter_command(trajectory, now, simulation.dynamics.command_filter)))))
+            state = trajectory(now)
+            rotation = Rotation.from_quat(state[3:7], scalar_first=True)
+            pose = np.r_[state[:3] - [0, 0, simulation.plant.geometry.center_of_mass_height], rotation.as_euler('xyz')]
+            velocity = rotation.apply(state[10:13])
+            estimated_velocity = airborne.euler_rates_to_world(np.array(estimate['pose']), np.array(estimate['velocity'])[3:])
+            true_p, true_d = angular_feedback_terms(pose, velocity - reference[1][3:], reference[0])
+            estimated_p, estimated_d = angular_feedback_terms(estimate['pose'], estimated_velocity - reference[1][3:], reference[0])
+            desired = reference[2][3:] + estimated_p + estimated_d
+            simulation.dynamics.set_stage(now, state[:simulation.dynamics.work.stop])
+            matrix = simulation.dynamics.force_matrix(simulation.dynamics.plant)
+            inertia = rotation.as_matrix() @ np.diag(simulation.plant.geometry.inertias) @ rotation.as_matrix().T
+            gyro = np.cross(velocity, inertia @ velocity)
+            def acceleration(currents):
+                return np.linalg.solve(inertia, (matrix @ currents)[3:] - gyro)
+            allocated = acceleration(allocation['currents'])
+            quantized = acceleration(drivers.command)
+            actual = acceleration(state[simulation.dynamics.current])
+            terms = dict(ideal_feedback=reference[2][3:] + true_p + true_d,
+                pose_estimation=estimated_p - true_p, velocity_estimation=estimated_d - true_d,
+                allocation_mapping=allocated - desired, command_quantization=quantized - allocated,
+                current_delivery=actual - quantized)
+            result['commands'].append(dict(time_s=now, pose=pose.tolist(), estimate=estimate,
+                angular_velocity_world_rad_per_s=velocity.tolist(), estimated_angular_velocity_world_rad_per_s=estimated_velocity.tolist(),
+                desired_acceleration_rad_per_s2=desired.tolist(), actual_acceleration_rad_per_s2=actual.tolist(),
+                terms_rad_per_s2={key: value.tolist() for key, value in terms.items()},
+                command_A=allocation['currents'].tolist(), quantized_command_A=drivers.command.tolist(),
+                actual_current_A=state[simulation.dynamics.current].tolist(),
+                decomposition_error=float(np.max(np.abs(sum(terms.values()) - actual)))))
+        checks = dict(pose_exact=bool(pose_exact), command_error_A=command_error,
+            command_reproduced=command_error <= Fixed.motion_verification_tolerance,
+            tracker_exact=all(np.array_equal(getattr(tracker, key), final['tracker'][key]) for key in airborne.TRACKER_ARRAY_STATE),
+            noise_exact=simulation.sensors.random.bit_generator.state == final['sensors']['random'],
+            scans_complete=next_scan == len(evidence['scans']),
+            commands_complete=len(result['commands']) == len(traces),
+            decomposition_exact=max(row['decomposition_error'] for row in result['commands']) <= Fixed.motion_verification_tolerance)
+        result['replay_checks'] = checks
+        result['windows'] = {}
+        for label, start in (('hold', Fixed.airborne_motion_start + Fixed.airborne_motion_duration),
+                ('settling', evidence['settling']['start_s'])):
+            rows = [row for row in result['commands'] if row['time_s'] >= start]
+            metrics = {}
+            for name in rows[0]['terms_rad_per_s2']:
+                values = np.array([row['terms_rad_per_s2'][name] for row in rows])
+                metrics[name] = dict(rms_rad_per_s2=float(np.sqrt(np.mean(np.sum(values ** 2, axis=1)))),
+                    peak_rad_per_s2=float(np.max(np.linalg.norm(values, axis=1))))
+            errors = np.array([np.array(row['estimated_angular_velocity_world_rad_per_s']) - row['angular_velocity_world_rad_per_s'] for row in rows])
+            result['windows'][label] = dict(start_s=start, end_s=rows[-1]['time_s'], contributions=metrics,
+                angular_velocity_error_rms_rad_per_s=float(np.sqrt(np.mean(np.sum(errors ** 2, axis=1)))))
+    result.update(status='reproduced' if all(value for key, value in checks.items() if key != 'command_error_A') else 'replay_mismatch',
+        elapsed_s=perf_counter() - started)
+    airborne_verification.save_summary(output / 'summary.json', result)
+    return result
+
+
+def settling_sensor_diagnosis(folder, replay_folder, field_folder, library, output, observer_screen=False):
+    from zipfile import ZipFile, ZIP_DEFLATED
+    from methodology.coil_field import CoilFieldCache
+    from methodology.joint_airborne import JointAirborneSimulation
+    from methodology.magnetic_spline import native_evaluation
+    if output.exists():
+        raise ValueError('Preserve existing settling sensor evidence')
+    report = verify_recorded_batch(folder)
+    replay = verify_recorded_archive(replay_folder)
+    if replay['status'] != 'reproduced':
+        raise ValueError('Sensor isolation requires a reproduced controller replay')
+    for name, digest in replay['input_sha256'].items():
+        if hashlib.sha256(Path(name).read_bytes()).hexdigest() != digest:
+            raise ValueError('Controller replay input changed: ' + name)
+    final = json.loads((folder / 'checkpoint.json').read_text())
+    evidence = json.loads((folder / 'evidence.json').read_text())
+    cache = CoilFieldCache.load(field_folder / 'atlas.npz')
+    trajectory = recorded_dense_trajectory(folder / 'dense.npz', 'physical')
+    source = dict(report['source_sha256'], **source_fingerprints(__file__))
+    result = dict(status='running', scope='Sensor/observer isolation on the unchanged recorded physical trajectory',
+        source_sha256=source, input_sha256=dict(replay['input_sha256'], **source_fingerprints(replay_folder / 'summary.json')),
+        cases={}, packets=[], coil_reference_error_T=None, observer_screen=observer_screen,
+        limitations=['Truth-assisted sensor substitutions are diagnostic only and are never applied to the flight controller.',
+            'All cases retain the same acquired initial observer state and recorded nominal acceleration inputs.',
+            'Analog Hall removes post-release additive noise and quantization together; calibration and fit weights remain unchanged.',
+            'Exact coil subtraction removes current-readout, coil-map calibration and reconstruction errors together.',
+            'Exact pose measurements retain acquisition/delivery timing but bypass Hall fitting.',
+            'Error reduction on a fixed physical record does not prove improved closed-loop settling.'])
+    output.mkdir(parents=True)
+    with ZipFile(output / 'sources.zip', 'x', compression=ZIP_DEFLATED) as archive:
+        for name in source:
+            archive.write(name, name)
+    started = perf_counter()
+    with native_evaluation(cache, library):
+        simulation = JointAirborneSimulation.from_checkpoint(folder / 'initial_checkpoint.json', atlas=cache)
+        simulation.tracker.acceleration_times = final['acceleration_times']
+        simulation.tracker.accelerations = [np.array(value) for value in final['accelerations']]
+        names = ('recorded', 'analog_hall', 'exact_coil', 'analog_hall_exact_coil', 'exact_pose')
+        ratios = dict.fromkeys(names, Fixed.pose_observer_frequency_ratio)
+        if observer_screen:
+            ratios = {('recorded' if ratio == Fixed.pose_observer_frequency_ratio else 'observer_' + str(ratio)): ratio
+                for ratio in Fixed.pose_observer_ratio_candidates}
+            if 'recorded' not in ratios:
+                raise ValueError('Observer screen requires the baseline ratio for exact replay')
+            names = tuple(ratios)
+        trackers = {name: deepcopy(simulation.tracker) for name in names}
+        result['cases'] = {name: dict(observer_frequency_ratio=ratios[name], trace=[]) for name in names}
+        reads = [electrical.CurrentReadings(simulation.identities, np.array(row['sample_times_s']),
+            np.array(row['adc_codes']), row['available_time_s']) for row in final['readouts']]
+        packets = {row['time_s']: scan for row, scan in zip(replay['packets'], evidence['scans'])}
+        commands = {row['time_s']: row for row in replay['commands']}
+        correction = sensing.measured_coil_fields
+        indices = [simulation.fields.identities.index(identity) for identity in simulation.identities]
+        coil_map = simulation.sensors.gain[:, None] * simulation.sensors.actual_coil_field[:, indices]
+        def signal(times):
+            return coil_map @ trajectory(times)[simulation.dynamics.current]
+        def true_pose(time):
+            state = trajectory(time)
+            rotation = Rotation.from_quat(state[3:7], scalar_first=True)
+            return np.r_[state[:3] - [0, 0, simulation.plant.geometry.center_of_mass_height], rotation.as_euler('xyz')]
+        baseline_exact = True
+        for now in sorted(packets.keys() | commands.keys()):
+            if now in packets:
+                scan = packets[now]
+                frame = simulation.sensors.encode_signal(np.array(scan['samples_T']), scan['start_s'])
+                available = [reading for reading in reads if reading.available_time_s <= frame.available_time_s]
+                history = electrical.CurrentReadings(simulation.identities, np.concatenate([row.sample_times_s for row in available]),
+                    np.vstack([row.adc_codes for row in available]), available[-1].available_time_s)
+                decoded = ((frame.adc_codes + .5) * sensing.hall_readout()[2]
+                    - Fixed.hall_supply_voltage / 2 / Fixed.hall_sensitivity).mean(axis=1)
+                analog = np.array(scan['samples_T']).mean(axis=1)
+                nominal, magnitude, uncertainty = correction(simulation.fields, history, frame)
+                if not observer_screen:
+                    references = [filtered_recorded_scan(trajectory, scan['start_s'], len(simulation.fields.points), order, signal)
+                        for order in Fixed.coupling_flux_orders[-2:]]
+                    error = float(np.max(np.abs(references[0] - references[-1])))
+                    previous = result['coil_reference_error_T']
+                    result['coil_reference_error_T'] = error if previous is None else max(error, previous)
+                    if error > Fixed.atlas_field_tolerance * Fixed.coupling_relative_tolerance:
+                        raise ValueError('Independent coil subtraction quadrature did not converge')
+                    exact = references[-1].mean(axis=1)
+                    result['packets'].append(dict(time_s=now, hall_noise_and_quantization_T=(decoded - analog).tolist(),
+                        coil_subtraction_error_T=(nominal - exact).tolist()))
+                for name, tracker in trackers.items():
+                    def corrected(field_model, measured, packet):
+                        value = exact if name in ('exact_coil', 'analog_hall_exact_coil') else nominal
+                        if name in ('analog_hall', 'analog_hall_exact_coil'):
+                            value = value + decoded - analog
+                        return value, magnitude, uncertainty
+                    if name == 'exact_pose':
+                        def exact_pose(packet, measured, prediction):
+                            return dict(accepted=True, reason='diagnostic_exact_pose', pose=true_pose(float(packet.sample_times_s.mean())).tolist())
+                        with patch.object(tracker.estimator, 'estimate', exact_pose):
+                            consumed = tracker.consume(frame, history, now)
+                    else:
+                        with patch.object(sensing, 'measured_coil_fields', corrected), patch.object(Fixed, 'pose_observer_frequency_ratio', ratios[name]):
+                            consumed = tracker.consume(frame, history, now)
+                    if not consumed['valid']:
+                        raise ValueError('Settling sensor counterfactual lost tracking: ' + name)
+            if now in commands:
+                baseline = commands[now]
+                for name, tracker in trackers.items():
+                    estimate = tracker.predict(now)
+                    if not estimate['valid']:
+                        raise ValueError('Settling sensor counterfactual prediction unavailable: ' + name)
+                    velocity = airborne.euler_rates_to_world(np.array(estimate['pose']), np.array(estimate['velocity'])[3:])
+                    result['cases'][name]['trace'].append(dict(time_s=now, estimate=estimate,
+                        angular_velocity_world_rad_per_s=velocity.tolist()))
+                    if name == 'recorded':
+                        baseline_exact &= estimate == baseline['estimate']
+        result['baseline_exact'] = bool(baseline_exact)
+        result['noise_exact'] = simulation.sensors.random.bit_generator.state == final['sensors']['random']
+        for name, case in result['cases'].items():
+            case['windows'] = {}
+            for label, start in (('full', 0.), ('hold', Fixed.airborne_motion_start + Fixed.airborne_motion_duration),
+                    ('settling', evidence['settling']['start_s'])):
+                rows = [row for row in case['trace'] if row['time_s'] >= start]
+                error = np.array([np.array(row['angular_velocity_world_rad_per_s'])
+                    - commands[row['time_s']]['angular_velocity_world_rad_per_s'] for row in rows])
+                pose_error = np.array([(Rotation.from_euler('xyz', row['estimate']['pose'][3:])
+                    * Rotation.from_euler('xyz', commands[row['time_s']]['pose'][3:]).inv()).magnitude() for row in rows])
+                position_error = np.array([np.linalg.norm(np.array(row['estimate']['pose'][:3])
+                    - commands[row['time_s']]['pose'][:3]) for row in rows])
+                case['windows'][label] = dict(angular_velocity_error_rms_rad_per_s=float(np.sqrt(np.mean(np.sum(error ** 2, axis=1)))),
+                    angular_velocity_error_peak_rad_per_s=float(np.max(np.linalg.norm(error, axis=1))),
+                    orientation_error_rms_rad=float(np.sqrt(np.mean(pose_error ** 2))),
+                    position_error_peak_m=float(np.max(position_error)), orientation_error_peak_rad=float(np.max(pose_error)),
+                    pose_limits_met=bool(np.max(position_error) <= Fixed.qualification_position_error
+                        and np.max(pose_error) <= Fixed.qualification_angle_error))
+    result.update(status='reproduced' if result['baseline_exact'] and result['noise_exact'] else 'replay_mismatch',
+        elapsed_s=perf_counter() - started)
+    airborne_verification.save_summary(output / 'summary.json', result)
+    return result
+
+
 def recorded_controller_response(folder, replay_folder, native_folder, output):
     from zipfile import ZipFile, ZIP_DEFLATED
     from methodology import magnetic_atlas, magnetic_spline

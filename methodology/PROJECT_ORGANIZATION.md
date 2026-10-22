@@ -9,6 +9,7 @@ methodology/
   results/      retained evidence and generated review artifacts
     cad/        current CAD exports
   cad/          geometry source and related tooling
+  electronics/  circuit design, native EDA sources and related tooling
 ```
 
 Shared calculation code lives directly under `methodology/`. Add a subsystem folder only when substantial work needs its own home. Keep related source, dependencies and checks together, with generated output separate. Avoid empty folders and elaborate structures created for hypothetical work. The active shared Python environment is under `cad/`, beside its complete dependency lock; do not create parallel environments for each investigation.

@@ -1,0 +1,15 @@
+{
+  "scope": "Read-only snapshot of current tracked source for isolated coil-channel study; no running results copied",
+  "origin": "/home/arseniy/projects/flying_chess",
+  "base_commit": "2b0ecd2161eaacc75351782071eff0210a10b3da",
+  "copied_uncommitted_sha256": {
+    "methodology/NEXT_STEPS.md": "2a5d22c7c26e8935ff2bdb0c3a4d3cb4b5794e3f9076b2637824a8f2b3a12e77",
+    "methodology/airborne_diagnostics.py": "e3a1ec2b81b65e3685ce5ade0f349351201bb065e025ae9796501a68f92d45e1",
+    "methodology/docs/MODELING_APPROACH.md": "6155abc23b3167b53eb4d2ed548cea9c271d05b5a945ae194c0ef76b9fa09863",
+    "methodology/docs/SIMULATOR.md": "d5083e34e31733549f58ed47cad937d04c54b1e22a03fb4790db166bc4cede2e",
+    "methodology/docs/SINGLE_PIECE_TESTS.md": "4762d67b4cf3633b8133e1f874d4142cad423a238b3b55ca55756808caeece52",
+    "methodology/local_motion.py": "41d84116a9969f09d5d1190c8a5ce7f9176dedd477cc5a1bbf8e75c8eef2168d",
+    "methodology/tests/test_airborne.py": "4753118d7c054ffb6b8b9322871bda70b91dabf5fe2066861e4ceddc776d2b1d",
+    "model.py": "dcdf9a8967a4dbd91b77f96290f47c2a598001675722ac44d0a9a56652c44ffd"
+  }
+}

@@ -1,0 +1,153 @@
+************************************************************************************************
+* AD8410A Spice Macro-model
+* Function: Wide Input Voltage Range, High Bandwidth Current-Sense Amplifier with PWM Rejection
+************************************************************************************************
+* Revision History: 
+* 022023-HG
+* Copyright 2023 by Analog Devices
+*
+* Refer to http://www.analog.com/Analog_Root/static/techSupport/designTools/spicemodels/license
+* for License Statement. Use of this model indicates your acceptance
+* of the terms and provisions in the License Staement.
+*
+* Tested on LTSpice
+*
+* Not modeled: Temperature Drift, Distortion, Overload Recovery, PSRR
+*              Parameter variations with supply and load are not modeled
+*
+* Modeled:
+*   Most parameters are modelled at VS=5V, VREF1=5V, VREF2=0V
+*   Initial Gain = 20dB, Vos, Ibias, Open Loop Gain, Slew Rate, Noise Density
+*   Quiescent and dynamic supply currents, CMRR, VREF Divider REF1 and REF2
+*   Common-Mode step response - model limitation: symmetrical response only and cannot go below 10mVp
+*   Voltage Noise flatband up to 100kHz only
+*
+* Node Assignments:
+* Node names begin with the letter N and numeric nodes correspond to the AD8410A pin numbers.
+* Pin 4 = NC
+*              -IN 
+*               | GND 
+*               | | REF2 
+*               | | | OUT 
+*               | | | | VS 
+*               | | | | | REF1 
+*               | | | | | | +IN 
+.SUBCKT AD8410A 1 2 3 5 6 7 8
+*
+************************
+* Supply
+************************
+Isupply 6 2 7.8E-3
+EVSx VSx 2 6 2 1
+*
+************************
+* Input Stage
+************************
+V10 N014 2 79.3
+V11 2 N009 19.3
+D10 N009 8 D
+D12 8 N014 D
+D13 N009 1 D
+D14 1 N014 D
+D15 N018 8 Ddiff
+D16 N019 1 Ddiff
+D17 N018 1 D
+D18 N019 8 D
+D19 N020 N022 D
+D20 N020 8 D
+D21 N003 N001 D
+D22 N003 1 D
+V12 N022 2 -5
+R8 N020 2 40E3
+V13 N001 2 -5
+R9 2 N003 40E3
+V4 N023 2 1.5
+D1 N023 N021 D
+D2 8 N021 D
+BIbiasP N021 2 I=IF(V(2,0)<=0&V(7,0)<=0, 0e-6, 110e-6)
+BIbiasN N004 2 I=IF(V(2,0)<=0&V(7,0)<=0, 0e-6, 110e-6)
+D3 N002 N004 D
+D4 1 N004 D
+V5 N002 2 1.5
+R3 1 2 562E3
+R4 2 8 562E3
+G1 2 VSL_INN 1 2 1
+G2 2 VSL_INP 8 2 1
+R2 VSL_INN 2 1
+R5 VSL_INP 2 1
+*
+************************
+* Offset Voltage
+************************
+Vos N006 Vsl_inn 0E-6
+*
+************************
+* CMRR
+************************
+RCM_INN N007 N006 30000.505
+RCM_INP INPx Vsl_outp 30000
+LCM_INN N007 INNx 0.098E-3
+*
+************************
+* CM Step Response
+************************
+BSL1 2 VSL_OUTP I=limit((1*V(VSL_INP, VSL_OUTP)), 0.4, -0.4)
+C4 VSL_OUTP 2 1E-15
+R10 VSL_OUTP 2 10E9
+*
+************************
+* Resistor Network
+************************
+R1 2 OUTx 1E12
+R_INN_OUT OUTx INNx 600E3
+R_INP_REF INPx REFMID 569988.7
+R_REF1 7 REFMID 60E3
+R_REF2 3 REFMID 60E3
+*
+************************
+* Noise
+************************
+D9 N013 N012 DN
+D11 N011 N010 DN
+H1 N008 OUTx Vn1 707.1067812
+Vn1 N010 2 0
+Vn2 N011 2 0.65
+Vn3 N012 2 0
+Vn4 N013 2 0.65
+H2 N008 VX Vn3 707.1067812
+*
+************************
+* Slew Rate
+************************
+BSL2 2 VY I=limit((1*V(VX, VY)), 0.0085, -0.0086)
+C3 VY 2 1E-9
+R11 VY 2 1E9
+*
+************************
+* Output Stage
+************************
+G5 2 OUTx INPx INNx 100
+G3 2 VZ VY VO 0.3
+R6 VZ 2 100E9
+C1 VZ 2 0.91E-9
+D5 N015 VZ D
+D6 VZ N016 D
+V6 2 N015 150
+V7 2 N016 -150
+G4 2 VO VZ 2 7m
+R7 VO 2 5
+C2 VO 2 20n
+D7 N017 VO D
+D8 VO N005 D
+V8 N017 2 0.8403
+V9 VSx N005 0.7763
+Rout 5 VO 0.2
+*
+************************
+* Model Declarations
+************************
+.model D D(IS=1E-14)
+.model DN D(IS=5.45E-12 KF=5.34E-16)
+.model Ddiff D(IS=1e-14 BV=19.3 )
+*
+.ends AD8410A

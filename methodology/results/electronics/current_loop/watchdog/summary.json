@@ -1,0 +1,70 @@
+{
+    "status": "hardware_watchdog_logic_and_recorded_timing_screen",
+    "timing": {
+        "nominal_timeout_s": 8.176e-06,
+        "minimum_timeout_s": 7.68677971936e-06,
+        "maximum_timeout_s": 8.67713859936e-06,
+        "resistor_fractional_envelope": 0.01656499999999994,
+        "divider_ratio_interval": [
+            0.09181913726925035,
+            0.09749644245786729
+        ],
+        "divider_leakage_ratio_bound": 0.00029945311590664976,
+        "divider_code_pass": true,
+        "typical_startup_s": 0.000511,
+        "logic_shutdown_delay_bound_s": 1.55e-08,
+        "sources": [
+            "https://www.analog.com/media/en/technical-documentation/data-sheets/LTC6993-6993-1-6993-2-6993-3-6993-4.pdf",
+            "https://www.ti.com/lit/ds/symlink/sn74lvc1g11.pdf",
+            "https://www.ti.com/lit/ds/symlink/sn74lvc1g74.pdf",
+            "https://www.ti.com/lit/ds/symlink/sn74lvc2g08.pdf"
+        ],
+        "scope": "Datasheet timing-resistor/divider tolerance and logic propagation screen; timer output loading, jitter, trigger delay, supply ramp and resistor aging are not qualified"
+    },
+    "trials": [
+        {
+            "timeout_s": 7.68677971936e-06,
+            "startup_off": true,
+            "armed": true,
+            "maintained": true,
+            "missing_pulse_disabled": true,
+            "no_automatic_rearm": true,
+            "explicit_rearm": true,
+            "driver_fault_latched": true,
+            "fault_clear_does_not_rearm": true
+        },
+        {
+            "timeout_s": 8.67713859936e-06,
+            "startup_off": true,
+            "armed": true,
+            "maintained": true,
+            "missing_pulse_disabled": true,
+            "no_automatic_rearm": true,
+            "explicit_rearm": true,
+            "driver_fault_latched": true,
+            "fault_clear_does_not_rearm": true
+        }
+    ],
+    "heartbeat_interval_s": 6.25e-06,
+    "allowed_heartbeat_interval_variation_s": 1.4367797193599993e-06,
+    "shutdown_after_last_pulse_using_maximum_driver_delay_s": 1.0692638599359999e-05,
+    "recorded_current_limit_margin_s": 9.799803641869294e-07,
+    "passed": true,
+    "hardware_protection_qualified": false,
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/protection.py": "ad7c60721a7297e2d3af90495e10c27a518b20025accc2c2896a6319e8d26a7a",
+        "model.py": "975ba3b1490b5bdae6a2a865c18cdb552362b780c9b577603bf8750d0174330b"
+    },
+    "input_sha256": {
+        "methodology/results/electronics/current_loop/frozen_command/summary.json": "9d41d262f815be9f584cb305836bc6598bb5536dd0f367c6f977161a70d1d820"
+    },
+    "limitations": [
+        "Behavioural timer/AND/asynchronous-latch model, not a transistor or pad-level simulation. Logic results omit propagation; the separate timing calculation adds datasheet logic bounds.",
+        "Only successfully validated, sequential channel commits may trigger the heartbeat. Silent missed channels, bad PWM values and a heartbeat peripheral running by itself are outside this hardware timer protection.",
+        "DRV8962 enable delay uses its specified maximum. Remaining timing margin must cover timer jitter/output loading, trigger recognition and PCB effects; it cannot establish a fault-current guarantee.",
+        "POWER_FAULT_N must be driven by independent rail supervision; its source remains unfinished. This logic does not limit arbitrary excess current or a stuck-on bridge.",
+        "Explicit arming requires clear recovery/setup time and a valid clock pulse. Coincident asynchronous fault/arm edges and supply ramps need implementation-level verification.",
+        "Recorded RL timing evidence retains its own source identity; adding protection does not rerun or requalify the earlier current trajectories."
+    ]
+}

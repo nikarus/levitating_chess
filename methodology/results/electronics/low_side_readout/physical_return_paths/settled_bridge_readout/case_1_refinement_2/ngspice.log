@@ -1,0 +1,128 @@
+
+Note: Compatibility modes selected: ps
+
+
+Circuit: physical shunt waveform replay into unchanged ti ina181; input loading reported separately
+
+Reducing trtol to 1 for xspice 'A' devices
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using KLU as Direct Linear Solver
+Operating point simulation skipped by 'uic',
+  now using transient initial conditions.
+ Reference value :  3.05328e-07
+ Reference value :  2.30939e-06
+ Reference value :  2.75347e-06
+ Reference value :  4.42583e-06
+ Reference value :  5.68950e-06
+ Reference value :  6.41495e-06
+ Reference value :  8.38730e-06
+ Reference value :  8.83846e-06
+ Reference value :  1.06111e-05
+ Reference value :  1.19387e-05
+ Reference value :  1.23122e-05
+ Reference value :  1.41357e-05
+ Reference value :  1.50646e-05
+ Reference value :  1.61531e-05
+ Reference value :  1.78880e-05
+ Reference value :  1.81916e-05
+ Reference value :  1.93971e-05
+ Reference value :  2.11052e-05
+ Reference value :  2.13547e-05
+ Reference value :  2.30135e-05
+ Reference value :  2.44377e-05
+ Reference value :  2.44640e-05
+ Reference value :  2.60216e-05
+ Reference value :  2.75625e-05
+ Reference value :  2.76836e-05
+ Reference value :  2.93389e-05
+ Reference value :  3.06877e-05
+ Reference value :  3.07031e-05
+ Reference value :  3.21233e-05
+ Reference value :  3.36305e-05
+ Reference value :  3.38190e-05
+ Reference value :  3.51837e-05
+ Reference value :  3.67267e-05
+ Reference value :  3.69412e-05
+ Reference value :  3.72144e-05
+ Reference value :  3.87462e-05
+ Reference value :  4.00625e-05
+ Reference value :  4.01495e-05
+ Reference value :  4.16658e-05
+ Reference value :  4.31598e-05
+ Reference value :  4.31915e-05
+ Reference value :  4.41112e-05
+ Reference value :  4.55956e-05
+ Reference value :  4.63136e-05
+ Reference value :  4.67804e-05
+ Reference value :  4.82292e-05
+ Reference value :  4.94376e-05
+ Reference value :  4.94420e-05
+ Reference value :  5.04822e-05
+ Reference value :  5.19411e-05
+ Reference value :  5.25641e-05
+ Reference value :  5.31944e-05
+ Reference value :  5.45807e-05
+ Reference value :  5.56878e-05
+ Reference value :  5.56924e-05
+ Reference value :  5.67567e-05
+ Reference value :  5.81554e-05
+ Reference value :  5.88137e-05
+ Reference value :  5.93102e-05
+ Reference value :  6.06865e-05
+ Reference value :  6.19375e-05
+ Reference value :  6.19414e-05
+ Reference value :  6.26772e-05
+ Reference value :  6.39763e-05
+ Reference value :  6.50626e-05
+ Reference value :  6.50780e-05
+ Reference value :  6.62255e-05
+ Reference value :  6.74935e-05
+ Reference value :  6.81889e-05
+ Reference value :  6.81965e-05
+ Reference value :  6.92760e-05
+ Reference value :  7.05444e-05
+ Reference value :  7.13130e-05
+ Reference value :  7.14039e-05
+ Reference value :  7.26204e-05
+ Reference value :  7.38628e-05
+ Reference value :  7.44389e-05
+ Reference value :  7.44441e-05
+ Reference value :  7.54466e-05
+ Reference value :  7.66380e-05
+ Reference value :  7.75626e-05
+ Reference value :  7.75683e-05
+ Reference value :  7.85301e-05
+ Reference value :  7.96761e-05
+ Reference value :  8.06875e-05
+ Reference value :  8.06910e-05
+ Reference value :  8.10842e-05
+ Reference value :  8.22243e-05
+ Reference value :  8.34038e-05
+ Reference value :  8.38137e-05
+ Reference value :  8.40828e-05
+ Reference value :  8.52266e-05
+ Reference value :  8.63313e-05
+ Reference value :  8.69386e-05
+ Reference value :  8.69421e-05
+ Reference value :  8.77098e-05
+ Reference value :  8.88451e-05
+ Reference value :  8.99048e-05
+ Reference value :  9.00648e-05
+ Reference value :  9.04915e-05
+ Reference value :  9.15962e-05
+ Reference value :  9.27098e-05
+ Reference value :  9.31889e-05
+ Reference value :  9.31922e-05
+ Reference value :  9.38698e-05
+ Reference value :  9.48976e-05
+ Reference value :  9.59782e-05
+ Reference value :  9.63136e-05
+ Reference value :  9.63912e-05
+ Reference value :  9.73946e-05
+ Reference value :  9.84593e-05
+ Reference value :  9.94371e-05
+ Reference value :  9.94404e-05
+ Reference value :  9.94434e-05
+No. of Data Rows : 176183
+ngspice-45.2 done

@@ -1,0 +1,77 @@
+{
+    "status": "SAR_precision_throughput_and_catalog_cost_reference_not_circuit_qualification",
+    "part": "ADS8698IDBTR",
+    "datasheet": "https://www.ti.com/lit/ds/symlink/ads8698.pdf",
+    "nominal_current_quantum_A": 0.00019531249999999998,
+    "required_current_quantum_A": 0.0001983642578125,
+    "nominal_quantum_pass": true,
+    "typical_analog_input_bandwidth_Hz": 15000.0,
+    "total_converter_throughput_Hz": 500000.0,
+    "burst_options": [
+        {
+            "samples_per_coil_per_update": 2,
+            "within_burst_sample_spacing_s": 3.125e-06,
+            "converter_minimum_period_s": 2e-06,
+            "burst_spacing_possible": true,
+            "aggregate_required_conversions_per_s": 320000,
+            "aggregate_rate_possible": true
+        },
+        {
+            "samples_per_coil_per_update": 4,
+            "within_burst_sample_spacing_s": 1.5625e-06,
+            "converter_minimum_period_s": 2e-06,
+            "burst_spacing_possible": false,
+            "aggregate_required_conversions_per_s": 640000,
+            "aggregate_rate_possible": false
+        },
+        {
+            "samples_per_coil_per_update": 16,
+            "within_burst_sample_spacing_s": 3.90625e-07,
+            "converter_minimum_period_s": 2e-06,
+            "burst_spacing_possible": false,
+            "aggregate_required_conversions_per_s": 2560000,
+            "aggregate_rate_possible": false
+        }
+    ],
+    "sequential_one_carrier_burst_per_channel_schedule": {
+        "duration_s": 5e-05,
+        "regulator_period_s": 5e-05,
+        "oldest_channel_additional_age_if_all_updates_simultaneous_s": 4.375e-05,
+        "needs_staggered_regulation_or_explicit_sample_age": true
+    },
+    "production_volume": {
+        "boards": 100,
+        "area_equivalent_amplifiers": 568047.3372781065,
+        "area_equivalent_ADC_chips": 71005.91715976331
+    },
+    "catalog_reference": {
+        "observation_date": "2026-10-20",
+        "quantity": 100,
+        "chip_USD": 13.1351,
+        "source": "https://www.lcsc.com/product-image/C2926478.html?whichImg=sch",
+        "ADC_only_USD_per_coil": 1.6418875,
+        "amplifier_and_ADC_only_USD_per_board": 10768.402366863906
+    },
+    "hardware_qualified": false,
+    "limitations": [
+        "Nominal code spacing and aggregate throughput are necessary conditions, not noise, accuracy, channel-settling, SPI scheduling or control-stability verification.",
+        "Two conversions per carrier fit the throughput ceiling; four do not. A staggered eight-channel schedule requires per-coil update phases or modeled extra sample age, unlike the existing simultaneous instantaneous-feedback interface.",
+        "The internal analog filter contributes delay. Its small-signal bandwidth alone does not establish its group delay or transient response.",
+        "Neither this converter nor oversampling removes bias caused by coil-ripple interaction with bridge-leg timing.",
+        "The price is a published 100-piece tier for a technical comparison, not the production-volume price and not a replacement for the cheaper ADS131M08 cost reference. No RFQ has been sent.",
+        "Area-equivalent quantities exclude final module rounding, spares and yield. A complete acquisition BOM still needs shunts, filtering/bias, clock/supply support, local control, interconnect, PCB and assembly."
+    ],
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/acquisition.py": "66cb917076ce64ed92d6f6fca19e10469614d9207e3862f7800d00f029595432",
+        "model.py": "e670ea19b0ca98f35a60d1beef3192dacd9f4206f6017306f4db7f8d817f2e1c",
+        "methodology/electronics/readout.py": "a9909ac3e230f13794fc2b1597ca83671e2fce1c4f8f02fcca4718473addaea9",
+        "methodology/electrical.py": "23b46a33113f8059459a005b5ff9f301c8daefd9839a54b160f935fe48e1ad27",
+        "methodology/electronics/power_stage.py": "3fa14f2d6756047b5ffbf409ddd4af4920d80acc2d19e70e7ec2584c84ac3173",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757"
+    },
+    "recorded_input_sha256": {}
+}

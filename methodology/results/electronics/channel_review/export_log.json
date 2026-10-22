@@ -1,0 +1,55 @@
+[
+    {
+        "command": [
+            "sch",
+            "export",
+            "netlist",
+            "--format",
+            "kicadxml",
+            "-o",
+            "methodology/results/electronics/channel_review/netlist.xml"
+        ],
+        "stdout": "",
+        "stderr": "09:49:47: Error: schema file '/usr/share/kicad/schemas/api.v1.schema.json' not found\n"
+    },
+    {
+        "command": [
+            "sch",
+            "export",
+            "pdf",
+            "-o",
+            "methodology/results/electronics/channel_review/channel.pdf"
+        ],
+        "stdout": "Plotted to 'methodology/results/electronics/channel_review/channel.pdf'.\nDone.\n",
+        "stderr": "09:49:47: Error: schema file '/usr/share/kicad/schemas/api.v1.schema.json' not found\n"
+    },
+    {
+        "command": [
+            "sch",
+            "export",
+            "bom",
+            "--fields",
+            "Reference,Value,MPN,Footprint,${QUANTITY},ModelParameter",
+            "--labels",
+            "References,Value,MPN,Footprint,Quantity,ModelParameter",
+            "--group-by",
+            "MPN,Value,Footprint,ModelParameter",
+            "-o",
+            "methodology/results/electronics/channel_review/bom.csv"
+        ],
+        "stdout": "Wrote bill of materials to 'methodology/results/electronics/channel_review/bom.csv'.\n",
+        "stderr": "09:49:48: Error: schema file '/usr/share/kicad/schemas/api.v1.schema.json' not found\n"
+    },
+    {
+        "command": [
+            "sch",
+            "erc",
+            "--format",
+            "json",
+            "-o",
+            "methodology/results/electronics/channel_review/erc.json"
+        ],
+        "stdout": "Found 5 violations\nSaved ERC Report to methodology/results/electronics/channel_review/erc.json\n",
+        "stderr": "09:49:48: Error: schema file '/usr/share/kicad/schemas/api.v1.schema.json' not found\n"
+    }
+]

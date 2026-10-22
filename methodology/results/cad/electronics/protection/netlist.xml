@@ -1,0 +1,1112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design>
+    <source>/home/arseniy/.codex/worktrees/coil-channel-study/flying_chess/methodology/electronics/protection.kicad_sch</source>
+    <date>2026-10-21T22:05:17+0200</date>
+    <tool>Eeschema 9.0.8+dfsg-1</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title>Independent current-control enable protection - DRAFT</title>
+        <company/>
+        <rev>working</rev>
+        <date/>
+        <source>protection.kicad_sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+        <comment number="5" value=""/>
+        <comment number="6" value=""/>
+        <comment number="7" value=""/>
+        <comment number="8" value=""/>
+        <comment number="9" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="C70">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>bfc67103-500b-5a46-ad7e-d72bd4a4dbcc</tstamps>
+    </comp>
+    <comp ref="C71">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>e14057cc-b0d9-5f44-829c-11662bd90c89</tstamps>
+    </comp>
+    <comp ref="C72">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>69868204-7317-57a6-8646-f57046181de1</tstamps>
+    </comp>
+    <comp ref="C73">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>4c3b5f63-61dd-5bed-a118-3d215e08f23d</tstamps>
+    </comp>
+    <comp ref="C74">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>c3134318-d47d-5ecf-81f5-6b032807fc55</tstamps>
+    </comp>
+    <comp ref="C75">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>fab56ab8-1c26-5d8f-a916-a06412c0a2ad</tstamps>
+    </comp>
+    <comp ref="C76">
+      <value>1e-07</value>
+      <footprint>Capacitor_SMD:C_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">GRM155R71E104KE14D</field>
+        <field name="ModelParameter">electronics_logic_bypass_capacitance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Capacitor_SMD:C_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <property name="MPN" value="GRM155R71E104KE14D"/>
+      <property name="ModelParameter" value="electronics_logic_bypass_capacitance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="cap capacitor"/>
+      <property name="ki_fp_filters" value="C_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>d5137d6b-c74f-5f54-8dff-c2d1ab05985e</tstamps>
+    </comp>
+    <comp ref="R40">
+      <value>51100.0</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0402FR-0751K1L</field>
+        <field name="ModelParameter">electronics_watchdog_set_resistance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0402FR-0751K1L"/>
+      <property name="ModelParameter" value="electronics_watchdog_set_resistance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>1f5a9a29-db8a-5385-b495-75422395b091</tstamps>
+    </comp>
+    <comp ref="R41">
+      <value>976000.0</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0402FR-07976KL</field>
+        <field name="ModelParameter">electronics_watchdog_divider_top</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0402FR-07976KL"/>
+      <property name="ModelParameter" value="electronics_watchdog_divider_top"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>51a47eb9-50ad-53fd-b039-d91ade2495a4</tstamps>
+    </comp>
+    <comp ref="R42">
+      <value>102000.0</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0402FR-07102KL</field>
+        <field name="ModelParameter">electronics_watchdog_divider_bottom</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0402FR-07102KL"/>
+      <property name="ModelParameter" value="electronics_watchdog_divider_bottom"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>e927dc3e-17d3-580c-a73f-c9d397f1c996</tstamps>
+    </comp>
+    <comp ref="R43">
+      <value>10000.0</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0402FR-0710KL</field>
+        <field name="ModelParameter">electronics_logic_pull_resistance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0402FR-0710KL"/>
+      <property name="ModelParameter" value="electronics_logic_pull_resistance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f1f315d5-406d-580c-aec0-5b7a741052a6</tstamps>
+    </comp>
+    <comp ref="R44">
+      <value>10000.0</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0402FR-0710KL</field>
+        <field name="ModelParameter">electronics_logic_pull_resistance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0402FR-0710KL"/>
+      <property name="ModelParameter" value="electronics_logic_pull_resistance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>2a332107-a538-51e4-bdcc-33274bdf9466</tstamps>
+    </comp>
+    <comp ref="R45">
+      <value>10000.0</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0402FR-0710KL</field>
+        <field name="ModelParameter">electronics_logic_pull_resistance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0402FR-0710KL"/>
+      <property name="ModelParameter" value="electronics_logic_pull_resistance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>0671586c-638e-5a89-8946-f47c37a19086</tstamps>
+    </comp>
+    <comp ref="R46">
+      <value>10000.0</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0402FR-0710KL</field>
+        <field name="ModelParameter">electronics_logic_pull_resistance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0402FR-0710KL"/>
+      <property name="ModelParameter" value="electronics_logic_pull_resistance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>8d64f4f9-a88b-5679-b98e-5efc50974b49</tstamps>
+    </comp>
+    <comp ref="R47">
+      <value>10000.0</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0402FR-0710KL</field>
+        <field name="ModelParameter">electronics_logic_pull_resistance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0402FR-0710KL"/>
+      <property name="ModelParameter" value="electronics_logic_pull_resistance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>e1d4466a-2ef6-5685-93c1-434e6d20bd33</tstamps>
+    </comp>
+    <comp ref="R48">
+      <value>10000.0</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0402FR-0710KL</field>
+        <field name="ModelParameter">electronics_logic_pull_resistance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0402FR-0710KL"/>
+      <property name="ModelParameter" value="electronics_logic_pull_resistance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>305790e1-169b-5e53-9ddd-d553a9e2b4db</tstamps>
+    </comp>
+    <comp ref="R49">
+      <value>10000.0</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0402FR-0710KL</field>
+        <field name="ModelParameter">electronics_logic_pull_resistance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0402FR-0710KL"/>
+      <property name="ModelParameter" value="electronics_logic_pull_resistance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>608d00d0-95df-5ed9-bdd6-894810d9f9ae</tstamps>
+    </comp>
+    <comp ref="R50">
+      <value>10000.0</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0402FR-0710KL</field>
+        <field name="ModelParameter">electronics_logic_pull_resistance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0402FR-0710KL"/>
+      <property name="ModelParameter" value="electronics_logic_pull_resistance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f4a5c47e-39f3-5161-a338-fa3630ad0614</tstamps>
+    </comp>
+    <comp ref="R51">
+      <value>10000.0</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0402FR-0710KL</field>
+        <field name="ModelParameter">electronics_logic_pull_resistance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0402FR-0710KL"/>
+      <property name="ModelParameter" value="electronics_logic_pull_resistance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>75c540a0-cb9d-5c39-8bda-fad20f3d996d</tstamps>
+    </comp>
+    <comp ref="R52">
+      <value>10000.0</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0402FR-0710KL</field>
+        <field name="ModelParameter">electronics_logic_pull_resistance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0402FR-0710KL"/>
+      <property name="ModelParameter" value="electronics_logic_pull_resistance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>de913906-4f92-59c9-a9bd-b3d51e23c5ae</tstamps>
+    </comp>
+    <comp ref="R53">
+      <value>10000.0</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0402FR-0710KL</field>
+        <field name="ModelParameter">electronics_logic_pull_resistance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0402FR-0710KL"/>
+      <property name="ModelParameter" value="electronics_logic_pull_resistance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a5bed189-c486-5c19-a0b1-8d3bd989edb8</tstamps>
+    </comp>
+    <comp ref="R54">
+      <value>10000.0</value>
+      <footprint>Resistor_SMD:R_0402_1005Metric</footprint>
+      <datasheet>~</datasheet>
+      <fields>
+        <field name="MPN">RC0402FR-0710KL</field>
+        <field name="ModelParameter">electronics_logic_pull_resistance</field>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Resistor_SMD:R_0402_1005Metric</field>
+        <field name="Datasheet">~</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Device" part="R" description="Resistor"/>
+      <property name="MPN" value="RC0402FR-0710KL"/>
+      <property name="ModelParameter" value="electronics_logic_pull_resistance"/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="R res resistor"/>
+      <property name="ki_fp_filters" value="R_*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>cff9055c-fed7-500d-84c0-e752ed3ebd73</tstamps>
+    </comp>
+    <comp ref="U30">
+      <value>LTC6993xS6-2</value>
+      <footprint>Package_TO_SOT_SMD:TSOT-23-6</footprint>
+      <datasheet>https://www.analog.com/media/en/technical-documentation/data-sheets/69931234fc.pdf</datasheet>
+      <fields>
+        <field name="MPN">LTC6993IS6-2#TRMPBF</field>
+        <field name="ModelParameter"/>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels">8</field>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Package_TO_SOT_SMD:TSOT-23-6</field>
+        <field name="Datasheet">https://www.analog.com/media/en/technical-documentation/data-sheets/69931234fc.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="Timer" part="LTC6993xS6-2" description="TimerBlox Monostable Pulse Generator (One Shot), Rising-edge input, retriggerable, TSOT-23-6"/>
+      <property name="MPN" value="LTC6993IS6-2#TRMPBF"/>
+      <property name="ModelParameter" value=""/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value="8"/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="Timer TimerBlox monostable pulse"/>
+      <property name="ki_fp_filters" value="TSOT*23*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>d55de25f-9f1e-5d71-8276-30a49e4b1fd7</tstamps>
+    </comp>
+    <comp ref="U31">
+      <value>74LVC1G11</value>
+      <footprint>Package_TO_SOT_SMD:SOT-23-6</footprint>
+      <datasheet>http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf</datasheet>
+      <fields>
+        <field name="MPN">SN74LVC1G11DBVR</field>
+        <field name="ModelParameter"/>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Package_TO_SOT_SMD:SOT-23-6</field>
+        <field name="Datasheet">http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="74xGxx" part="74LVC1G11" description="Single AND 3-Input Gate, Low-Voltage CMOS"/>
+      <property name="MPN" value="SN74LVC1G11DBVR"/>
+      <property name="ModelParameter" value=""/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="Single Gate AND triple LVC CMOS"/>
+      <property name="ki_fp_filters" value="SOT* SG-*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>6674cd5c-588d-5448-b036-1b55b21b1d47</tstamps>
+    </comp>
+    <comp ref="U32">
+      <value>SN74LVC1G74</value>
+      <footprint>Package_SO:VSSOP-8_2.3x2mm_P0.5mm</footprint>
+      <datasheet>https://www.ti.com/lit/ds/symlink/sn74lvc1g74.pdf</datasheet>
+      <fields>
+        <field name="MPN">SN74LVC1G74DCUR</field>
+        <field name="ModelParameter"/>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Package_SO:VSSOP-8_2.3x2mm_P0.5mm</field>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/sn74lvc1g74.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="FlyingChess" part="SN74LVC1G74" description="Single positive-edge D flip-flop, asynchronous active-low preset and clear; TI DCU pinout"/>
+      <property name="MPN" value="SN74LVC1G74DCUR"/>
+      <property name="ModelParameter" value=""/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="Single D Flip-Flop D CMOS"/>
+      <property name="ki_fp_filters" value="SSOP* VSSOP*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>b80dbf44-5512-5834-9969-94b5adcac66a</tstamps>
+    </comp>
+    <comp ref="U33">
+      <value>74LVC2G08</value>
+      <footprint>Package_SO:VSSOP-8_2.3x2mm_P0.5mm</footprint>
+      <datasheet>http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf</datasheet>
+      <fields>
+        <field name="MPN">SN74LVC2G08DCUR</field>
+        <field name="ModelParameter"/>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Package_SO:VSSOP-8_2.3x2mm_P0.5mm</field>
+        <field name="Datasheet">http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="74xGxx" part="74LVC2G08" description="Dual AND Gate, Low-Voltage CMOS"/>
+      <property name="MPN" value="SN74LVC2G08DCUR"/>
+      <property name="ModelParameter" value=""/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="Dual Gate AND LVC CMOS"/>
+      <property name="ki_fp_filters" value="SSOP* VSSOP*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>f5e64a64-1d21-5d0f-88ea-01312d8de03d 3c6ef659-1cc8-5425-9d2c-e5a579bf5ddc 2c73acd7-a3e6-5f84-8ede-f75bebc506a1</tstamps>
+    </comp>
+    <comp ref="U34">
+      <value>74LVC2G08</value>
+      <footprint>Package_SO:VSSOP-8_2.3x2mm_P0.5mm</footprint>
+      <datasheet>http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf</datasheet>
+      <fields>
+        <field name="MPN">SN74LVC2G08DCUR</field>
+        <field name="ModelParameter"/>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Package_SO:VSSOP-8_2.3x2mm_P0.5mm</field>
+        <field name="Datasheet">http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="74xGxx" part="74LVC2G08" description="Dual AND Gate, Low-Voltage CMOS"/>
+      <property name="MPN" value="SN74LVC2G08DCUR"/>
+      <property name="ModelParameter" value=""/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="Dual Gate AND LVC CMOS"/>
+      <property name="ki_fp_filters" value="SSOP* VSSOP*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>9fdb465e-0719-5cf4-8d9a-41d99f582cc2 05005a0e-50cd-52b9-bebe-7010fd2cb9e2 035da30f-d3c1-522f-9afe-7fd18b0fda98</tstamps>
+    </comp>
+    <comp ref="U35">
+      <value>74LVC2G08</value>
+      <footprint>Package_SO:VSSOP-8_2.3x2mm_P0.5mm</footprint>
+      <datasheet>http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf</datasheet>
+      <fields>
+        <field name="MPN">SN74LVC2G08DCUR</field>
+        <field name="ModelParameter"/>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Package_SO:VSSOP-8_2.3x2mm_P0.5mm</field>
+        <field name="Datasheet">http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="74xGxx" part="74LVC2G08" description="Dual AND Gate, Low-Voltage CMOS"/>
+      <property name="MPN" value="SN74LVC2G08DCUR"/>
+      <property name="ModelParameter" value=""/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="Dual Gate AND LVC CMOS"/>
+      <property name="ki_fp_filters" value="SSOP* VSSOP*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>a66dddfe-f520-52dd-948e-91f78bac9d57 ba452f41-f03c-5195-96b7-621646a5f5bc 36e4ce63-c7a1-5e90-bb16-c718042e147c</tstamps>
+    </comp>
+    <comp ref="U36">
+      <value>74LVC2G08</value>
+      <footprint>Package_SO:VSSOP-8_2.3x2mm_P0.5mm</footprint>
+      <datasheet>http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf</datasheet>
+      <fields>
+        <field name="MPN">SN74LVC2G08DCUR</field>
+        <field name="ModelParameter"/>
+        <field name="ModelDivisor">1</field>
+        <field name="CoilChannels"/>
+        <field name="DesignStatus">Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete</field>
+        <field name="Footprint">Package_SO:VSSOP-8_2.3x2mm_P0.5mm</field>
+        <field name="Datasheet">http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf</field>
+        <field name="Description"/>
+      </fields>
+      <libsource lib="74xGxx" part="74LVC2G08" description="Dual AND Gate, Low-Voltage CMOS"/>
+      <property name="MPN" value="SN74LVC2G08DCUR"/>
+      <property name="ModelParameter" value=""/>
+      <property name="ModelDivisor" value="1"/>
+      <property name="CoilChannels" value=""/>
+      <property name="DesignStatus" value="Missing-pulse and reported-fault shutdown candidate; current limiting, rail supervision, timing bounds and PCB validation incomplete"/>
+      <property name="Sheetname" value=""/>
+      <property name="Sheetfile" value="protection.kicad_sch"/>
+      <property name="ki_keywords" value="Dual Gate AND LVC CMOS"/>
+      <property name="ki_fp_filters" value="SSOP* VSSOP*"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamps>d2e2d9c7-8370-5b6e-9164-6993e7300e4a 430d1811-fa11-5915-bfa7-81ce2240b46f 26e12e71-8271-55ac-aaf7-c590e8ce5224</tstamps>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="74xGxx" part="74LVC1G11">
+      <description>Single AND 3-Input Gate, Low-Voltage CMOS</description>
+      <docs>http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf</docs>
+      <footprints>
+        <fp>SOT*</fp>
+        <fp>SG-*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">74LVC1G11</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf</field>
+        <field name="Description">Single AND 3-Input Gate, Low-Voltage CMOS</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="input"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="" type="input"/>
+        <pin num="4" name="" type="output"/>
+        <pin num="5" name="VCC" type="power_in"/>
+        <pin num="6" name="" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="74xGxx" part="74LVC2G08">
+      <description>Dual AND Gate, Low-Voltage CMOS</description>
+      <docs>http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf</docs>
+      <footprints>
+        <fp>SSOP*</fp>
+        <fp>VSSOP*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">74LVC2G08</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf</field>
+        <field name="Description">Dual AND Gate, Low-Voltage CMOS</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="input"/>
+        <pin num="2" name="" type="input"/>
+        <pin num="3" name="" type="output"/>
+        <pin num="4" name="GND" type="power_in"/>
+        <pin num="5" name="" type="input"/>
+        <pin num="6" name="" type="input"/>
+        <pin num="7" name="" type="output"/>
+        <pin num="8" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="C">
+      <description>Unpolarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Unpolarized capacitor</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="R">
+      <description>Resistor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">~</field>
+        <field name="Description">Resistor</field>
+      </fields>
+      <pins>
+        <pin num="1" name="" type="passive"/>
+        <pin num="2" name="" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="FlyingChess" part="SN74LVC1G74">
+      <description>Single positive-edge D flip-flop, asynchronous active-low preset and clear; TI DCU pinout</description>
+      <docs>https://www.ti.com/lit/ds/symlink/sn74lvc1g74.pdf</docs>
+      <footprints>
+        <fp>SSOP*</fp>
+        <fp>VSSOP*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">SN74LVC1G74</field>
+        <field name="Footprint"/>
+        <field name="Datasheet">https://www.ti.com/lit/ds/symlink/sn74lvc1g74.pdf</field>
+        <field name="Description">Single positive-edge D flip-flop, asynchronous active-low preset and clear; TI DCU pinout</field>
+      </fields>
+      <pins>
+        <pin num="1" name="C" type="input"/>
+        <pin num="2" name="D" type="input"/>
+        <pin num="3" name="~{Q}" type="output"/>
+        <pin num="4" name="GND" type="power_in"/>
+        <pin num="5" name="Q" type="output"/>
+        <pin num="6" name="~{CLR}" type="input"/>
+        <pin num="7" name="~{PRE}" type="input"/>
+        <pin num="8" name="VCC" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="Timer" part="LTC6993xS6-2">
+      <description>TimerBlox Monostable Pulse Generator (One Shot), Rising-edge input, retriggerable, TSOT-23-6</description>
+      <docs>https://www.analog.com/media/en/technical-documentation/data-sheets/69931234fc.pdf</docs>
+      <footprints>
+        <fp>TSOT*23*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">LTC6993xS6-2</field>
+        <field name="Footprint">Package_TO_SOT_SMD:TSOT-23-6</field>
+        <field name="Datasheet">https://www.analog.com/media/en/technical-documentation/data-sheets/69931234fc.pdf</field>
+        <field name="Description">TimerBlox Monostable Pulse Generator (One Shot), Rising-edge input, retriggerable, TSOT-23-6</field>
+      </fields>
+      <pins>
+        <pin num="1" name="TRIG" type="input"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="SET" type="passive"/>
+        <pin num="4" name="DIV" type="input"/>
+        <pin num="5" name="V+" type="power_in"/>
+        <pin num="6" name="OUT" type="output"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="74xGxx">
+      <uri>/home/arseniy/.local/share/flying-chess-tools/root/usr/share/kicad/symbols/74xGxx.kicad_sym</uri>
+    </library>
+    <library logical="Device">
+      <uri>/home/arseniy/.local/share/flying-chess-tools/root/usr/share/kicad/symbols/Device.kicad_sym</uri>
+    </library>
+    <library logical="FlyingChess">
+      <uri>/home/arseniy/.codex/worktrees/coil-channel-study/flying_chess/methodology/electronics/FlyingChess.kicad_sym</uri>
+    </library>
+    <library logical="Timer">
+      <uri>/home/arseniy/.local/share/flying-chess-tools/root/usr/share/kicad/symbols/Timer.kicad_sym</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="/ARM_REQUEST" class="Default">
+      <node ref="R43" pin="1" pintype="passive"/>
+      <node ref="U32" pin="1" pinfunction="C" pintype="input"/>
+    </net>
+    <net code="2" name="/CLEAR_N" class="Default">
+      <node ref="R46" pin="1" pintype="passive"/>
+      <node ref="U31" pin="4" pintype="output"/>
+      <node ref="U32" pin="6" pinfunction="~{CLR}" pintype="input"/>
+    </net>
+    <net code="3" name="/ENABLE_0" class="Default">
+      <node ref="U33" pin="7" pintype="output"/>
+    </net>
+    <net code="4" name="/ENABLE_1" class="Default">
+      <node ref="U33" pin="3" pintype="output"/>
+    </net>
+    <net code="5" name="/ENABLE_2" class="Default">
+      <node ref="U34" pin="7" pintype="output"/>
+    </net>
+    <net code="6" name="/ENABLE_3" class="Default">
+      <node ref="U34" pin="3" pintype="output"/>
+    </net>
+    <net code="7" name="/ENABLE_4" class="Default">
+      <node ref="U35" pin="7" pintype="output"/>
+    </net>
+    <net code="8" name="/ENABLE_5" class="Default">
+      <node ref="U35" pin="3" pintype="output"/>
+    </net>
+    <net code="9" name="/ENABLE_6" class="Default">
+      <node ref="U36" pin="7" pintype="output"/>
+    </net>
+    <net code="10" name="/ENABLE_7" class="Default">
+      <node ref="U36" pin="3" pintype="output"/>
+    </net>
+    <net code="11" name="/ENABLE_REQUEST_0" class="Default">
+      <node ref="R47" pin="1" pintype="passive"/>
+      <node ref="U33" pin="1" pintype="input"/>
+    </net>
+    <net code="12" name="/ENABLE_REQUEST_1" class="Default">
+      <node ref="R48" pin="1" pintype="passive"/>
+      <node ref="U33" pin="5" pintype="input"/>
+    </net>
+    <net code="13" name="/ENABLE_REQUEST_2" class="Default">
+      <node ref="R49" pin="1" pintype="passive"/>
+      <node ref="U34" pin="1" pintype="input"/>
+    </net>
+    <net code="14" name="/ENABLE_REQUEST_3" class="Default">
+      <node ref="R50" pin="1" pintype="passive"/>
+      <node ref="U34" pin="5" pintype="input"/>
+    </net>
+    <net code="15" name="/ENABLE_REQUEST_4" class="Default">
+      <node ref="R51" pin="1" pintype="passive"/>
+      <node ref="U35" pin="1" pintype="input"/>
+    </net>
+    <net code="16" name="/ENABLE_REQUEST_5" class="Default">
+      <node ref="R52" pin="1" pintype="passive"/>
+      <node ref="U35" pin="5" pintype="input"/>
+    </net>
+    <net code="17" name="/ENABLE_REQUEST_6" class="Default">
+      <node ref="R53" pin="1" pintype="passive"/>
+      <node ref="U36" pin="1" pintype="input"/>
+    </net>
+    <net code="18" name="/ENABLE_REQUEST_7" class="Default">
+      <node ref="R54" pin="1" pintype="passive"/>
+      <node ref="U36" pin="5" pintype="input"/>
+    </net>
+    <net code="19" name="/FAULT_N" class="Default">
+      <node ref="U31" pin="3" pintype="input"/>
+    </net>
+    <net code="20" name="/GND" class="Default">
+      <node ref="C70" pin="2" pintype="passive"/>
+      <node ref="C71" pin="2" pintype="passive"/>
+      <node ref="C72" pin="2" pintype="passive"/>
+      <node ref="C73" pin="2" pintype="passive"/>
+      <node ref="C74" pin="2" pintype="passive"/>
+      <node ref="C75" pin="2" pintype="passive"/>
+      <node ref="C76" pin="2" pintype="passive"/>
+      <node ref="R40" pin="2" pintype="passive"/>
+      <node ref="R42" pin="2" pintype="passive"/>
+      <node ref="R43" pin="2" pintype="passive"/>
+      <node ref="R44" pin="2" pintype="passive"/>
+      <node ref="R45" pin="2" pintype="passive"/>
+      <node ref="R46" pin="2" pintype="passive"/>
+      <node ref="R47" pin="2" pintype="passive"/>
+      <node ref="R48" pin="2" pintype="passive"/>
+      <node ref="R49" pin="2" pintype="passive"/>
+      <node ref="R50" pin="2" pintype="passive"/>
+      <node ref="R51" pin="2" pintype="passive"/>
+      <node ref="R52" pin="2" pintype="passive"/>
+      <node ref="R53" pin="2" pintype="passive"/>
+      <node ref="R54" pin="2" pintype="passive"/>
+      <node ref="U30" pin="2" pinfunction="GND" pintype="power_in"/>
+      <node ref="U31" pin="2" pinfunction="GND" pintype="power_in"/>
+      <node ref="U32" pin="4" pinfunction="GND" pintype="power_in"/>
+      <node ref="U33" pin="4" pinfunction="GND" pintype="power_in"/>
+      <node ref="U34" pin="4" pinfunction="GND" pintype="power_in"/>
+      <node ref="U35" pin="4" pinfunction="GND" pintype="power_in"/>
+      <node ref="U36" pin="4" pinfunction="GND" pintype="power_in"/>
+    </net>
+    <net code="21" name="/POWER_FAULT_N" class="Default">
+      <node ref="R45" pin="1" pintype="passive"/>
+      <node ref="U31" pin="6" pintype="input"/>
+    </net>
+    <net code="22" name="/SAFE_OK" class="Default">
+      <node ref="U32" pin="5" pinfunction="Q" pintype="output"/>
+      <node ref="U33" pin="2" pintype="input"/>
+      <node ref="U33" pin="6" pintype="input"/>
+      <node ref="U34" pin="2" pintype="input"/>
+      <node ref="U34" pin="6" pintype="input"/>
+      <node ref="U35" pin="2" pintype="input"/>
+      <node ref="U35" pin="6" pintype="input"/>
+      <node ref="U36" pin="2" pintype="input"/>
+      <node ref="U36" pin="6" pintype="input"/>
+    </net>
+    <net code="23" name="/V_LOGIC" class="Default">
+      <node ref="C70" pin="1" pintype="passive"/>
+      <node ref="C71" pin="1" pintype="passive"/>
+      <node ref="C72" pin="1" pintype="passive"/>
+      <node ref="C73" pin="1" pintype="passive"/>
+      <node ref="C74" pin="1" pintype="passive"/>
+      <node ref="C75" pin="1" pintype="passive"/>
+      <node ref="C76" pin="1" pintype="passive"/>
+      <node ref="R41" pin="1" pintype="passive"/>
+      <node ref="U30" pin="5" pinfunction="V+" pintype="power_in"/>
+      <node ref="U31" pin="5" pinfunction="VCC" pintype="power_in"/>
+      <node ref="U32" pin="2" pinfunction="D" pintype="input"/>
+      <node ref="U32" pin="7" pinfunction="~{PRE}" pintype="input"/>
+      <node ref="U32" pin="8" pinfunction="VCC" pintype="power_in"/>
+      <node ref="U33" pin="8" pinfunction="VCC" pintype="power_in"/>
+      <node ref="U34" pin="8" pinfunction="VCC" pintype="power_in"/>
+      <node ref="U35" pin="8" pinfunction="VCC" pintype="power_in"/>
+      <node ref="U36" pin="8" pinfunction="VCC" pintype="power_in"/>
+    </net>
+    <net code="24" name="/WATCHDOG_DIV" class="Default">
+      <node ref="R41" pin="2" pintype="passive"/>
+      <node ref="R42" pin="1" pintype="passive"/>
+      <node ref="U30" pin="4" pinfunction="DIV" pintype="input"/>
+    </net>
+    <net code="25" name="/WATCHDOG_OK" class="Default">
+      <node ref="U30" pin="6" pinfunction="OUT" pintype="output"/>
+      <node ref="U31" pin="1" pintype="input"/>
+    </net>
+    <net code="26" name="/WATCHDOG_PULSE" class="Default">
+      <node ref="R44" pin="1" pintype="passive"/>
+      <node ref="U30" pin="1" pinfunction="TRIG" pintype="input"/>
+    </net>
+    <net code="27" name="/WATCHDOG_SET" class="Default">
+      <node ref="R40" pin="1" pintype="passive"/>
+      <node ref="U30" pin="3" pinfunction="SET" pintype="passive"/>
+    </net>
+    <net code="28" name="unconnected-(U32-~{Q}-Pad3)" class="Default">
+      <node ref="U32" pin="3" pinfunction="~{Q}" pintype="output+no_connect"/>
+    </net>
+  </nets>
+</export>

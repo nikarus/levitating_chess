@@ -1,0 +1,180 @@
+{
+    "status": "sourcing_and_analytical_shortlist_not_hardware_selection",
+    "candidates": [
+        {
+            "name": "AD8410A",
+            "cost": {
+                "area_equivalent_channels": 5680.473372781065,
+                "production_boards": 100,
+                "area_equivalent_production_amplifiers": 568047.3372781065,
+                "amplifier_all_powered_quiescent_upper_W": 306.7455621301776,
+                "signal_scale_V_per_A": 0.2,
+                "price_observation_date": "2026-10-20",
+                "price_scenarios": [
+                    {
+                        "description": "AD8410A family starting price",
+                        "catalog_quantity": 1000,
+                        "unit_USD": 1.68,
+                        "amplifier_only_USD_per_board": 9543.195266272189,
+                        "source": "https://www.analog.com/en/products/ad8410a.html"
+                    },
+                    {
+                        "description": "AD8410AWBRMZ-RL DigiKey reel",
+                        "catalog_quantity": 3000,
+                        "unit_USD": 2.34335,
+                        "amplifier_only_USD_per_board": 13311.33727810651,
+                        "source": "https://www.digikey.com/en/products/detail/analog-devices-inc/AD8410AWBRMZ-RL/21333813"
+                    }
+                ],
+                "limitations": [
+                    "Area times existing independent-channel density, not a finalized edge count or module BOM.",
+                    "Catalogue prices are extrapolated at their published tiers; no production-volume quotation or guaranteed discount exists.",
+                    "Only amplifier IC cost is included; shunts, ADC/reference, bridge, control, assembly and cooling are additional.",
+                    "One amplifier per coil is a normalization only; a low-side architecture may need additional sensing channels and shunts.",
+                    "All-powered quiescent ceiling excludes shunts and dynamic losses; selective power gating and wake-up behaviour are not designed."
+                ]
+            },
+            "signal_screen": {
+                "name": "AD8410A",
+                "gain_V_per_V": 20.0,
+                "shunt_ohm": 0.01,
+                "sensitivity_V_per_A": 0.2,
+                "nominal_output_range_V": [
+                    1.2,
+                    3.8
+                ],
+                "ideal_supply_rail_check": true,
+                "peak_shunt_loss_W": 0.4225,
+                "amplifier_quiescent_upper_W": 0.054000000000000006,
+                "full_supply_adc_quantum_A": 0.0003814697265625,
+                "minimum_ideal_full_supply_adc_bits": 17,
+                "typical_white_noise_only_max_ENBW_Hz": 69252.07756232686,
+                "corresponding_single_pole_cutoff_Hz": 44087.24185371061,
+                "total_readout_qualified": false
+            },
+            "datasheet": "https://www.analog.com/media/en/technical-documentation/data-sheets/ad8410a.pdf"
+        },
+        {
+            "name": "TPA132A1",
+            "cost": {
+                "area_equivalent_channels": 5680.473372781065,
+                "production_boards": 100,
+                "area_equivalent_production_amplifiers": 568047.3372781065,
+                "amplifier_all_powered_quiescent_upper_W": 113.60946745562131,
+                "signal_scale_V_per_A": 0.2,
+                "price_observation_date": "2026-10-20",
+                "price_scenarios": [
+                    {
+                        "description": "3PEAK TPA132A1-TS1R-S LCSC C44859266",
+                        "catalog_quantity": 1000,
+                        "unit_USD": 0.8091,
+                        "amplifier_only_USD_per_board": 4596.071005917161,
+                        "source": "https://www.lcsc.com/product-detail/C44859266.html"
+                    }
+                ],
+                "limitations": [
+                    "Area times existing independent-channel density, not a finalized edge count or module BOM.",
+                    "Catalogue prices are extrapolated at their published tiers; no production-volume quotation or guaranteed discount exists.",
+                    "Only amplifier IC cost is included; shunts, ADC/reference, bridge, control, assembly and cooling are additional.",
+                    "One amplifier per coil is a normalization only; a low-side architecture may need additional sensing channels and shunts.",
+                    "All-powered quiescent ceiling excludes shunts and dynamic losses; selective power gating and wake-up behaviour are not designed."
+                ]
+            },
+            "signal_screen": {
+                "name": "TPA132A1",
+                "gain_V_per_V": 20.0,
+                "shunt_ohm": 0.01,
+                "sensitivity_V_per_A": 0.2,
+                "nominal_output_range_V": [
+                    1.2,
+                    3.8
+                ],
+                "ideal_supply_rail_check": true,
+                "peak_shunt_loss_W": 0.4225,
+                "amplifier_quiescent_upper_W": 0.02,
+                "full_supply_adc_quantum_A": 0.0003814697265625,
+                "minimum_ideal_full_supply_adc_bits": 17,
+                "typical_white_noise_only_max_ENBW_Hz": 15625.000000000004,
+                "corresponding_single_pole_cutoff_Hz": 9947.18394324346,
+                "total_readout_qualified": false
+            },
+            "datasheet": "https://static.3peak.com/res/doc/ds/Datasheet_TPA132.pdf"
+        },
+        {
+            "name": "INA181A1",
+            "cost": {
+                "area_equivalent_channels": 5680.473372781065,
+                "production_boards": 100,
+                "area_equivalent_production_amplifiers": 568047.3372781065,
+                "amplifier_all_powered_quiescent_upper_W": 8.520710059171599,
+                "signal_scale_V_per_A": 0.2,
+                "price_observation_date": "2026-10-20",
+                "price_scenarios": [
+                    {
+                        "description": "TI INA181A1IDBVR LCSC C2058943",
+                        "catalog_quantity": 1000,
+                        "unit_USD": 0.2538,
+                        "amplifier_only_USD_per_board": 1441.7041420118346,
+                        "source": "https://www.lcsc.com/product-detail/C2058943.html"
+                    }
+                ],
+                "limitations": [
+                    "Area times existing independent-channel density, not a finalized edge count or module BOM.",
+                    "Catalogue prices are extrapolated at their published tiers; no production-volume quotation or guaranteed discount exists.",
+                    "Only amplifier IC cost is included; shunts, ADC/reference, bridge, control, assembly and cooling are additional.",
+                    "One amplifier per coil is a normalization only; a low-side architecture may need additional sensing channels and shunts.",
+                    "All-powered quiescent ceiling excludes shunts and dynamic losses; selective power gating and wake-up behaviour are not designed."
+                ]
+            },
+            "signal_screen": {
+                "name": "INA181A1",
+                "gain_V_per_V": 20.0,
+                "shunt_ohm": 0.01,
+                "sensitivity_V_per_A": 0.2,
+                "nominal_output_range_V": [
+                    1.2,
+                    3.8
+                ],
+                "ideal_supply_rail_check": true,
+                "peak_shunt_loss_W": 0.4225,
+                "amplifier_quiescent_upper_W": 0.0014999999999999998,
+                "full_supply_adc_quantum_A": 0.0003814697265625,
+                "minimum_ideal_full_supply_adc_bits": 17,
+                "typical_white_noise_only_max_ENBW_Hz": 62500.000000000015,
+                "corresponding_single_pole_cutoff_Hz": 39788.73577297384,
+                "total_readout_qualified": false
+            },
+            "datasheet": "https://www.ti.com/lit/ds/symlink/ina181.pdf"
+        }
+    ],
+    "limitations": [
+        "Ideal centered unipolar leg timing; finite edge times, dead time, parasitics and movement are not simulated here.",
+        "Meeting an edge-spacing condition does not establish sampling accuracy; violating it removes that documented rejection condition, not all amplifier functionality.",
+        "Noise uses typical spot input-noise densities as white-noise estimates and assigns the entire existing RMS budget to the amplifier. Flicker, spectral variation, reference, ADC, shunt noise, aliasing and PWM residue require separate analysis.",
+        "The illustrative single-pole noise bandwidth is not a selected filter or a verified delay budget.",
+        "ADC bits assume a full-supply input span and ideal quantization. A narrower converter range changes this calculation; bits alone do not establish accuracy or noise.",
+        "Output checks only screen ideal supply rails; actual output swing, gain/offset variation and ADC loading remain unqualified.",
+        "Shunt alternatives are screening cases only; no schematic, controller or flight setting has been changed.",
+        "INA181A1 is a low-side architecture candidate, not a qualified replacement on the switching coil terminal; nominal gain requires calibration against the existing residual-error budget.",
+        "INA241A vendor macro-model omits enhanced PWM rejection. This screen does not execute or qualify manufacturer circuit models."
+    ],
+    "sourcing_scope": [
+        "Use the configured production-board count times installed demand for quotation; do not equate the published catalogue break with the production-order price.",
+        "No supplier quotation has been requested or received; catalogue stock is not a volume-supply commitment.",
+        "JLCPCB C45341909 lists TPA132A1-SO1R-S for assembly but exposed no usable price; catalogue search redirected to sign-in. No JLCPCB price is assumed.",
+        "The LCSC TPA price is for TSSOP-8, not the SOP-8 JLCPCB listing; package pinouts differ.",
+        "TI INA181A1IDBVR is distinct from listings with a third-party manufacturer and similar name.",
+        "Manufacturer datasheets support a technical shortlist, not an assertion of acceptable PWM residue, sampled noise, delay or complete BOM savings."
+    ],
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/readout.py": "2385da80703b09ab4b09a827a5e29722a5621c58d41bb683602b99d9a391a4e1",
+        "model.py": "442f37a88faff9cff4c60c70233852f433798272b6d9702b57f0649ff0cdef5e",
+        "methodology/electrical.py": "23b46a33113f8059459a005b5ff9f301c8daefd9839a54b160f935fe48e1ad27",
+        "methodology/electronics/power_stage.py": "3fa14f2d6756047b5ffbf409ddd4af4920d80acc2d19e70e7ec2584c84ac3173",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757"
+    }
+}

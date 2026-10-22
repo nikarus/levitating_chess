@@ -1,0 +1,1047 @@
+{
+    "status": "physical_bridge_recorded_SAR_acquisition_screen_not_loaded_circuit_validation",
+    "converter": "ADS8698IDBTR",
+    "nominal_code_A": 0.00019531249999999998,
+    "numerical_limit_A": 0.0001,
+    "candidates": [
+        {
+            "cutoff_per_pole_Hz": 8000.0,
+            "poles": 1,
+            "samples_per_carrier": 1,
+            "calibration": {
+                "gain": 1.000871839727843,
+                "offset_A": -8.47913513961629e-05,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 3.355186211254811e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -23.84560835461275,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.00700815976752267,
+                    "calibrated_phase_max_error_A": 0.011777601101841562,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 0.011812297016783546,
+                    "vendor_refinement_max_difference_A": 3.744390575377565e-07,
+                    "resampling_refinement_max_difference_A": 1.0012016105065413e-08
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 2.9400492588814153e-05,
+                    "calibrated_phase_max_error_A": 5.5361738679343246e-05,
+                    "calibrated_fixed_phase_error_A": 5.5352628326752554e-05,
+                    "quantized_calibrated_phase_max_error_A": 1.2854276139593606e-05,
+                    "vendor_refinement_max_difference_A": 2.1116892467972712e-07,
+                    "resampling_refinement_max_difference_A": 2.1988414573216489e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.0036492181151799308,
+                    "calibrated_phase_max_error_A": 0.005889118953852357,
+                    "calibrated_fixed_phase_error_A": 5.941995889546803e-05,
+                    "quantized_calibrated_phase_max_error_A": 0.005898162644812022,
+                    "vendor_refinement_max_difference_A": 7.4336874611447e-07,
+                    "resampling_refinement_max_difference_A": 2.9800663270407313e-08
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.0071797423753334755,
+                    "calibrated_phase_max_error_A": 0.011779590374263016,
+                    "calibrated_fixed_phase_error_A": -8.881784197001252e-16,
+                    "quantized_calibrated_phase_max_error_A": 0.011827798087314711,
+                    "vendor_refinement_max_difference_A": 5.763020789473217e-07,
+                    "resampling_refinement_max_difference_A": 8.289418040874352e-09
+                }
+            ]
+        },
+        {
+            "cutoff_per_pole_Hz": 8000.0,
+            "poles": 1,
+            "samples_per_carrier": 2,
+            "calibration": {
+                "gain": 0.9998807332851773,
+                "offset_A": -8.476860584050172e-05,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 3.511436211254811e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -24.970608354612754,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.000582448914843603,
+                    "calibrated_phase_max_error_A": 2.4960862300638098e-05,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 5.75807152625174e-05,
+                    "vendor_refinement_max_difference_A": 3.481008201688951e-07,
+                    "resampling_refinement_max_difference_A": 9.953005530860537e-09
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 2.939631268860262e-05,
+                    "calibrated_phase_max_error_A": 5.539297035611538e-05,
+                    "calibrated_fixed_phase_error_A": 5.538073822230174e-05,
+                    "quantized_calibrated_phase_max_error_A": 1.2889765305124037e-05,
+                    "vendor_refinement_max_difference_A": 2.1116409377290387e-07,
+                    "resampling_refinement_max_difference_A": 2.1893181242039973e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.00039441337250734065,
+                    "calibrated_phase_max_error_A": 1.927556788672291e-05,
+                    "calibrated_fixed_phase_error_A": 1.7770008111206437e-05,
+                    "quantized_calibrated_phase_max_error_A": 6.55369392790206e-05,
+                    "vendor_refinement_max_difference_A": 7.266239547831788e-07,
+                    "resampling_refinement_max_difference_A": 2.9793987721404847e-08
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.0007415114582220994,
+                    "calibrated_phase_max_error_A": 1.4486161989069046e-05,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 5.5659232129912084e-05,
+                    "vendor_refinement_max_difference_A": 5.504219116048148e-07,
+                    "resampling_refinement_max_difference_A": 8.200732537488875e-09
+                }
+            ]
+        },
+        {
+            "cutoff_per_pole_Hz": 8000.0,
+            "poles": 2,
+            "samples_per_carrier": 1,
+            "calibration": {
+                "gain": 0.9999150557479102,
+                "offset_A": -8.250674806209446e-05,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 5.3446229999035025e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -37.88185182253923,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.0008882208376874701,
+                    "calibrated_phase_max_error_A": 0.0005133404279566989,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 0.00041799742317305544,
+                    "vendor_refinement_max_difference_A": 3.491304561009656e-07,
+                    "resampling_refinement_max_difference_A": 9.953740054413629e-09
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 2.9388476939192005e-05,
+                    "calibrated_phase_max_error_A": 5.312341965165223e-05,
+                    "calibrated_fixed_phase_error_A": 5.312310048999557e-05,
+                    "quantized_calibrated_phase_max_error_A": 1.5151372805640433e-05,
+                    "vendor_refinement_max_difference_A": 2.1112444422425507e-07,
+                    "resampling_refinement_max_difference_A": 2.1889080230043075e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.0005510459285589242,
+                    "calibrated_phase_max_error_A": 0.00024156227341309844,
+                    "calibrated_fixed_phase_error_A": 1.8224001101074805e-05,
+                    "quantized_calibrated_phase_max_error_A": 0.00022378452552418437,
+                    "vendor_refinement_max_difference_A": 7.27198166572407e-07,
+                    "resampling_refinement_max_difference_A": 2.9788841171551894e-08
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.0010531691007535926,
+                    "calibrated_phase_max_error_A": 0.000513276056398837,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 0.00043809268703576265,
+                    "vendor_refinement_max_difference_A": 5.510490126425793e-07,
+                    "resampling_refinement_max_difference_A": 8.204222190499877e-09
+                }
+            ]
+        },
+        {
+            "cutoff_per_pole_Hz": 8000.0,
+            "poles": 2,
+            "samples_per_carrier": 2,
+            "calibration": {
+                "gain": 0.9998792098126149,
+                "offset_A": -8.250122081410183e-05,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 5.500872999903503e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -39.00685182253923,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.0005686083216271953,
+                    "calibrated_phase_max_error_A": 6.459783437051669e-07,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 6.805345975813282e-05,
+                    "vendor_refinement_max_difference_A": 3.4780057411865073e-07,
+                    "resampling_refinement_max_difference_A": 9.950559487492683e-09
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 2.9388309459420227e-05,
+                    "calibrated_phase_max_error_A": 5.311966349888231e-05,
+                    "calibrated_fixed_phase_error_A": 5.31194042167203e-05,
+                    "quantized_calibrated_phase_max_error_A": 1.5157443881158284e-05,
+                    "vendor_refinement_max_difference_A": 2.1112400785862706e-07,
+                    "resampling_refinement_max_difference_A": 2.188353125079823e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.00038953389381157777,
+                    "calibrated_phase_max_error_A": 1.601353380609183e-05,
+                    "calibrated_fixed_phase_error_A": 1.5977550935630802e-05,
+                    "quantized_calibrated_phase_max_error_A": 6.734106391492745e-05,
+                    "vendor_refinement_max_difference_A": 7.263483299269069e-07,
+                    "resampling_refinement_max_difference_A": 2.978835134115343e-08
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.0007333234382507214,
+                    "calibrated_phase_max_error_A": 3.5985160096174695e-07,
+                    "calibrated_fixed_phase_error_A": -8.881784197001252e-16,
+                    "quantized_calibrated_phase_max_error_A": 4.972199359798424e-05,
+                    "vendor_refinement_max_difference_A": 5.497399726550611e-07,
+                    "resampling_refinement_max_difference_A": 8.199607215431115e-09
+                }
+            ]
+        },
+        {
+            "cutoff_per_pole_Hz": 8000.0,
+            "poles": 3,
+            "samples_per_carrier": 1,
+            "calibration": {
+                "gain": 0.9998768827420776,
+                "offset_A": -8.243859779533125e-05,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 7.334059788552195e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -51.918095290465715,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.0005842600305170365,
+                    "calibrated_phase_max_error_A": 2.83370417273332e-05,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 1.701904447948266e-05,
+                    "vendor_refinement_max_difference_A": 3.4785809521764577e-07,
+                    "resampling_refinement_max_difference_A": 9.950659851654109e-09
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 2.938815203883407e-05,
+                    "calibrated_phase_max_error_A": 5.3057001487158416e-05,
+                    "calibrated_fixed_phase_error_A": 5.3056981102608214e-05,
+                    "quantized_calibrated_phase_max_error_A": 1.5220109886277884e-05,
+                    "vendor_refinement_max_difference_A": 2.1112299511145944e-07,
+                    "resampling_refinement_max_difference_A": 2.1883576359029615e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.0003975013923671611,
+                    "calibrated_phase_max_error_A": 3.0134082524391204e-05,
+                    "calibrated_fixed_phase_error_A": 1.5836124080070846e-05,
+                    "quantized_calibrated_phase_max_error_A": 7.34980109249328e-05,
+                    "vendor_refinement_max_difference_A": 7.263825039238725e-07,
+                    "resampling_refinement_max_difference_A": 2.978823099297756e-08
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.000749135141846935,
+                    "calibrated_phase_max_error_A": 2.8336960459895977e-05,
+                    "calibrated_fixed_phase_error_A": 8.881784197001252e-16,
+                    "quantized_calibrated_phase_max_error_A": 3.7251782504021946e-05,
+                    "vendor_refinement_max_difference_A": 5.497854953517844e-07,
+                    "resampling_refinement_max_difference_A": 8.199806167397128e-09
+                }
+            ]
+        },
+        {
+            "cutoff_per_pole_Hz": 8000.0,
+            "poles": 3,
+            "samples_per_carrier": 2,
+            "calibration": {
+                "gain": 0.9998791698585862,
+                "offset_A": -8.243863776336013e-05,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 7.490309788552195e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -53.043095290465715,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.0005682431347864281,
+                    "calibrated_phase_max_error_A": 1.5736585368131273e-08,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 2.93368169028696e-05,
+                    "vendor_refinement_max_difference_A": 3.4779209556745627e-07,
+                    "resampling_refinement_max_difference_A": 9.950501755895402e-09
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 2.9388147324437853e-05,
+                    "calibrated_phase_max_error_A": 5.305690983279696e-05,
+                    "calibrated_fixed_phase_error_A": 5.305690920869027e-05,
+                    "quantized_calibrated_phase_max_error_A": 1.5220035100383468e-05,
+                    "vendor_refinement_max_difference_A": 2.1112297597410525e-07,
+                    "resampling_refinement_max_difference_A": 2.188329110611566e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.0003894091138842981,
+                    "calibrated_phase_max_error_A": 1.5933495666864417e-05,
+                    "calibrated_fixed_phase_error_A": 1.592812549278122e-05,
+                    "quantized_calibrated_phase_max_error_A": 6.738525847005405e-05,
+                    "vendor_refinement_max_difference_A": 7.263404735446954e-07,
+                    "resampling_refinement_max_difference_A": 2.9788208344427858e-08
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.0007331178492364643,
+                    "calibrated_phase_max_error_A": 8.834761366927069e-09,
+                    "calibrated_fixed_phase_error_A": 8.881784197001252e-16,
+                    "quantized_calibrated_phase_max_error_A": 4.9569405355498475e-05,
+                    "vendor_refinement_max_difference_A": 5.497209079052823e-07,
+                    "resampling_refinement_max_difference_A": 8.199579681900104e-09
+                }
+            ]
+        },
+        {
+            "cutoff_per_pole_Hz": 16000.0,
+            "poles": 1,
+            "samples_per_carrier": 1,
+            "calibration": {
+                "gain": 1.0017883735985786,
+                "offset_A": -8.700640281844585e-05,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 2.360467816930465e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -16.93438123558807,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.013394476047484893,
+                    "calibrated_phase_max_error_A": 0.02307074077186222,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 0.02316429584469848,
+                    "vendor_refinement_max_difference_A": 4.009104683788678e-07,
+                    "resampling_refinement_max_difference_A": 1.007306771327876e-08
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 2.9412829354100474e-05,
+                    "calibrated_phase_max_error_A": 5.7529199594866315e-05,
+                    "calibrated_fixed_phase_error_A": 5.751078903236924e-05,
+                    "quantized_calibrated_phase_max_error_A": 1.0631419171721624e-05,
+                    "vendor_refinement_max_difference_A": 2.1121397082067778e-07,
+                    "resampling_refinement_max_difference_A": 2.2092784474745286e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.006880657701804793,
+                    "calibrated_phase_max_error_A": 0.01155208160950627,
+                    "calibrated_fixed_phase_error_A": 9.80764760205588e-05,
+                    "quantized_calibrated_phase_max_error_A": 0.011454867453717377,
+                    "vendor_refinement_max_difference_A": 7.602728486766352e-07,
+                    "resampling_refinement_max_difference_A": 2.981257951617522e-08
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.01357192054747891,
+                    "calibrated_phase_max_error_A": 0.023074148119905047,
+                    "calibrated_fixed_phase_error_A": -8.881784197001252e-16,
+                    "quantized_calibrated_phase_max_error_A": 0.02298038736946051,
+                    "vendor_refinement_max_difference_A": 6.026674999048964e-07,
+                    "resampling_refinement_max_difference_A": 8.378598259639602e-09
+                }
+            ]
+        },
+        {
+            "cutoff_per_pole_Hz": 16000.0,
+            "poles": 1,
+            "samples_per_carrier": 2,
+            "calibration": {
+                "gain": 0.9998822159169836,
+                "offset_A": -8.697201803720134e-05,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 2.5167178169304652e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -18.05938123558807,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.0005966325819555252,
+                    "calibrated_phase_max_error_A": 4.933485187041953e-05,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 5.0275812489175564e-05,
+                    "vendor_refinement_max_difference_A": 3.4840752149989385e-07,
+                    "resampling_refinement_max_difference_A": 9.955500424041475e-09
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 2.9404514832941783e-05,
+                    "calibrated_phase_max_error_A": 5.7602446920073725e-05,
+                    "calibrated_fixed_phase_error_A": 5.7578184465367335e-05,
+                    "quantized_calibrated_phase_max_error_A": 1.0686074438806167e-05,
+                    "vendor_refinement_max_difference_A": 2.1120489803231978e-07,
+                    "resampling_refinement_max_difference_A": 2.1902920928649821e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.0003994097988675449,
+                    "calibrated_phase_max_error_A": 2.2699168351625332e-05,
+                    "calibrated_fixed_phase_error_A": 1.9511939656879917e-05,
+                    "quantized_calibrated_phase_max_error_A": 6.377799442125465e-05,
+                    "vendor_refinement_max_difference_A": 7.269052106906315e-07,
+                    "resampling_refinement_max_difference_A": 2.9799730238977418e-08
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.0007498915252774907,
+                    "calibrated_phase_max_error_A": 2.8648524740049197e-05,
+                    "calibrated_fixed_phase_error_A": 1.7763568394002505e-15,
+                    "quantized_calibrated_phase_max_error_A": 6.144047961864629e-05,
+                    "vendor_refinement_max_difference_A": 5.511197747054553e-07,
+                    "resampling_refinement_max_difference_A": 8.201876511293449e-09
+                }
+            ]
+        },
+        {
+            "cutoff_per_pole_Hz": 16000.0,
+            "poles": 2,
+            "samples_per_carrier": 1,
+            "calibration": {
+                "gain": 1.000039730866076,
+                "offset_A": -8.27180995131016e-05,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 3.355186211254811e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -24.059397584489865,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.0018390062528101936,
+                    "calibrated_phase_max_error_A": 0.0021355930074689056,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 0.0020660379498842474,
+                    "vendor_refinement_max_difference_A": 3.531086498753666e-07,
+                    "resampling_refinement_max_difference_A": 9.96330395963696e-09
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 2.9389504474012287e-05,
+                    "calibrated_phase_max_error_A": 5.3328995433409375e-05,
+                    "calibrated_fixed_phase_error_A": 5.332781344516441e-05,
+                    "quantized_calibrated_phase_max_error_A": 1.4938140900124154e-05,
+                    "vendor_refinement_max_difference_A": 2.111288799557003e-07,
+                    "resampling_refinement_max_difference_A": 2.1906101373719996e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.0010313955482694759,
+                    "calibrated_phase_max_error_A": 0.0010548087553869934,
+                    "calibrated_fixed_phase_error_A": 2.577794444302839e-05,
+                    "quantized_calibrated_phase_max_error_A": 0.001142616909210581,
+                    "vendor_refinement_max_difference_A": 7.297486432911171e-07,
+                    "resampling_refinement_max_difference_A": 2.979071878073114e-08
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.002004235709599733,
+                    "calibrated_phase_max_error_A": 0.002135385867956252,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 0.0020857067499360227,
+                    "vendor_refinement_max_difference_A": 5.550033028711709e-07,
+                    "resampling_refinement_max_difference_A": 8.218020042249918e-09
+                }
+            ]
+        },
+        {
+            "cutoff_per_pole_Hz": 16000.0,
+            "poles": 2,
+            "samples_per_carrier": 2,
+            "calibration": {
+                "gain": 0.9998793340549843,
+                "offset_A": -8.2695839248359e-05,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 3.511436211254811e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -25.184397584489865,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.0005697260761010625,
+                    "calibrated_phase_max_error_A": 2.627644176023125e-06,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 6.718967475460857e-05,
+                    "vendor_refinement_max_difference_A": 3.4782643609787556e-07,
+                    "resampling_refinement_max_difference_A": 9.950735346819783e-09
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 2.9388810229484576e-05,
+                    "calibrated_phase_max_error_A": 5.33148018525475e-05,
+                    "calibrated_fixed_phase_error_A": 5.3313740924644435e-05,
+                    "quantized_calibrated_phase_max_error_A": 1.4962800076898339e-05,
+                    "vendor_refinement_max_difference_A": 2.1112717529476872e-07,
+                    "resampling_refinement_max_difference_A": 2.1884269695138085e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.00038991649147668284,
+                    "calibrated_phase_max_error_A": 1.625775626168391e-05,
+                    "calibrated_fixed_phase_error_A": 1.613123937937999e-05,
+                    "quantized_calibrated_phase_max_error_A": 6.72036431983436e-05,
+                    "vendor_refinement_max_difference_A": 7.263722934247596e-07,
+                    "resampling_refinement_max_difference_A": 2.978879010129276e-08
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.000733954451187735,
+                    "calibrated_phase_max_error_A": 1.4654320814599942e-06,
+                    "calibrated_fixed_phase_error_A": 1.7763568394002505e-15,
+                    "quantized_calibrated_phase_max_error_A": 5.019647885706746e-05,
+                    "vendor_refinement_max_difference_A": 5.497981794277962e-07,
+                    "resampling_refinement_max_difference_A": 8.199688927845727e-09
+                }
+            ]
+        },
+        {
+            "cutoff_per_pole_Hz": 16000.0,
+            "poles": 3,
+            "samples_per_carrier": 1,
+            "calibration": {
+                "gain": 0.9998635061110428,
+                "offset_A": -8.242932681579163e-05,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 4.349904605579157e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -31.184413933391667,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.0006949769186403998,
+                    "calibrated_phase_max_error_A": 0.00021103594642823964,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 0.0002503730937943871,
+                    "vendor_refinement_max_difference_A": 3.4831604356355683e-07,
+                    "resampling_refinement_max_difference_A": 9.951767410143475e-09
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 2.9388219042402628e-05,
+                    "calibrated_phase_max_error_A": 5.304853932240634e-05,
+                    "calibrated_fixed_phase_error_A": 5.304838370299988e-05,
+                    "quantized_calibrated_phase_max_error_A": 1.5229585745198016e-05,
+                    "vendor_refinement_max_difference_A": 2.111233119901442e-07,
+                    "resampling_refinement_max_difference_A": 2.1885589329440633e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.0004534271014176028,
+                    "calibrated_phase_max_error_A": 0.00012177991821493706,
+                    "calibrated_fixed_phase_error_A": 1.5335002573557688e-05,
+                    "quantized_calibrated_phase_max_error_A": 0.00010924111490284716,
+                    "vendor_refinement_max_difference_A": 7.266746786527278e-07,
+                    "resampling_refinement_max_difference_A": 2.9788417510445697e-08
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.000859830694824204,
+                    "calibrated_phase_max_error_A": 0.0002110321927020209,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 0.00023012140405231918,
+                    "vendor_refinement_max_difference_A": 5.502358879638791e-07,
+                    "resampling_refinement_max_difference_A": 8.201380019556836e-09
+                }
+            ]
+        },
+        {
+            "cutoff_per_pole_Hz": 16000.0,
+            "poles": 3,
+            "samples_per_carrier": 2,
+            "calibration": {
+                "gain": 0.9998791639202123,
+                "offset_A": -8.242931048663138e-05,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 4.5061546055791575e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -32.30941393339167,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.0005683093866997169,
+                    "calibrated_phase_max_error_A": 1.2136767857384712e-07,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 6.837254557634509e-05,
+                    "vendor_refinement_max_difference_A": 3.477935708318114e-07,
+                    "resampling_refinement_max_difference_A": 9.9505106376796e-09
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 2.9388175628236635e-05,
+                    "calibrated_phase_max_error_A": 5.304761243343072e-05,
+                    "calibrated_fixed_phase_error_A": 5.30476061049105e-05,
+                    "quantized_calibrated_phase_max_error_A": 1.5229363594709699e-05,
+                    "vendor_refinement_max_difference_A": 2.1112315269749743e-07,
+                    "resampling_refinement_max_difference_A": 2.1883329482806808e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.00038943146743841695,
+                    "calibrated_phase_max_error_A": 1.5962184199747043e-05,
+                    "calibrated_fixed_phase_error_A": 1.5920777696631916e-05,
+                    "quantized_calibrated_phase_max_error_A": 6.739180156367652e-05,
+                    "vendor_refinement_max_difference_A": 7.263418293490531e-07,
+                    "resampling_refinement_max_difference_A": 2.978823321342361e-08
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.0007331543582020927,
+                    "calibrated_phase_max_error_A": 6.811122954530902e-08,
+                    "calibrated_fixed_phase_error_A": -8.881784197001252e-16,
+                    "quantized_calibrated_phase_max_error_A": 4.9546751689000246e-05,
+                    "vendor_refinement_max_difference_A": 5.497242812069203e-07,
+                    "resampling_refinement_max_difference_A": 8.199583234613783e-09
+                }
+            ]
+        },
+        {
+            "cutoff_per_pole_Hz": 32000.0,
+            "poles": 1,
+            "samples_per_carrier": 1,
+            "calibration": {
+                "gain": 1.0033491073738656,
+                "offset_A": -9.09969286739809e-05,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 1.863108619768292e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -13.385699261683625,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.025821407990989975,
+                    "calibrated_phase_max_error_A": 0.04380088945282701,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 0.04377246259816836,
+                    "vendor_refinement_max_difference_A": 4.5261172498811675e-07,
+                    "resampling_refinement_max_difference_A": 1.0192208854675755e-08
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 2.9437199020877723e-05,
+                    "calibrated_phase_max_error_A": 6.14314802791451e-05,
+                    "calibrated_fixed_phase_error_A": 6.139390676193293e-05,
+                    "quantized_calibrated_phase_max_error_A": 6.637676884259014e-06,
+                    "vendor_refinement_max_difference_A": 2.1130089957230625e-07,
+                    "resampling_refinement_max_difference_A": 2.229692925755642e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.013163601227274224,
+                    "calibrated_phase_max_error_A": 0.021948950088743313,
+                    "calibrated_fixed_phase_error_A": 0.00015936641895253345,
+                    "quantized_calibrated_phase_max_error_A": 0.022013714150461716,
+                    "vendor_refinement_max_difference_A": 7.932552943401561e-07,
+                    "resampling_refinement_max_difference_A": 2.9834544168494403e-08
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.026007366603677085,
+                    "calibrated_phase_max_error_A": 0.04380480690615318,
+                    "calibrated_fixed_phase_error_A": 1.7763568394002505e-15,
+                    "quantized_calibrated_phase_max_error_A": 0.043775530470188784,
+                    "vendor_refinement_max_difference_A": 6.540344035244061e-07,
+                    "resampling_refinement_max_difference_A": 8.552854424692669e-09
+                }
+            ]
+        },
+        {
+            "cutoff_per_pole_Hz": 32000.0,
+            "poles": 1,
+            "samples_per_carrier": 2,
+            "calibration": {
+                "gain": 0.999884921664256,
+                "offset_A": -9.09722170785443e-05,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 2.019358619768292e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -14.510699261683625,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.0006248072563650453,
+                    "calibrated_phase_max_error_A": 9.608561091933865e-05,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 0.00016651614132712211,
+                    "vendor_refinement_max_difference_A": 3.4901230883122025e-07,
+                    "resampling_refinement_max_difference_A": 9.960436919698168e-09
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 2.94209465586006e-05,
+                    "calibrated_phase_max_error_A": 6.161464544071204e-05,
+                    "calibrated_fixed_phase_error_A": 6.156704650983737e-05,
+                    "quantized_calibrated_phase_max_error_A": 6.68538609266961e-06,
+                    "vendor_refinement_max_difference_A": 2.1128521238214921e-07,
+                    "resampling_refinement_max_difference_A": 2.1921849014541555e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.0004093338549036041,
+                    "calibrated_phase_max_error_A": 2.976062705428717e-05,
+                    "calibrated_fixed_phase_error_A": 2.2674719728499326e-05,
+                    "quantized_calibrated_phase_max_error_A": 6.054705193081489e-05,
+                    "vendor_refinement_max_difference_A": 7.274587843220104e-07,
+                    "resampling_refinement_max_difference_A": 2.9811054069739384e-08
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.0007665345210652319,
+                    "calibrated_phase_max_error_A": 5.586498746623647e-05,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 7.201194235140207e-05,
+                    "vendor_refinement_max_difference_A": 5.525003583528587e-07,
+                    "resampling_refinement_max_difference_A": 8.204120049981611e-09
+                }
+            ]
+        },
+        {
+            "cutoff_per_pole_Hz": 32000.0,
+            "poles": 2,
+            "samples_per_carrier": 1,
+            "calibration": {
+                "gain": 1.0006225496151255,
+                "offset_A": -8.362762060531992e-05,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 2.360467816930465e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -16.962033636680975,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.005508315816959097,
+                    "calibrated_phase_max_error_A": 0.008938851957631222,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 0.008910939449337185,
+                    "vendor_refinement_max_difference_A": 3.6844609319075516e-07,
+                    "resampling_refinement_max_difference_A": 9.99973615023464e-09
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 2.939370899211378e-05,
+                    "calibrated_phase_max_error_A": 5.4209910129289244e-05,
+                    "calibrated_fixed_phase_error_A": 5.420590589077984e-05,
+                    "quantized_calibrated_phase_max_error_A": 1.4020485205819089e-05,
+                    "vendor_refinement_max_difference_A": 2.1114604673849662e-07,
+                    "resampling_refinement_max_difference_A": 2.1970481344461964e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.0028856771700596084,
+                    "calibrated_phase_max_error_A": 0.0044629171060210915,
+                    "calibrated_fixed_phase_error_A": 5.8751451193828075e-05,
+                    "quantized_calibrated_phase_max_error_A": 0.004454265013108305,
+                    "vendor_refinement_max_difference_A": 7.395806940202476e-07,
+                    "resampling_refinement_max_difference_A": 2.9797816214482964e-08
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.005675093567772294,
+                    "calibrated_phase_max_error_A": 0.00893836841432627,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 0.008928772937999874,
+                    "vendor_refinement_max_difference_A": 5.702711733945875e-07,
+                    "resampling_refinement_max_difference_A": 8.271097584611198e-09
+                }
+            ]
+        },
+        {
+            "cutoff_per_pole_Hz": 32000.0,
+            "poles": 2,
+            "samples_per_carrier": 2,
+            "calibration": {
+                "gain": 0.9998798734120834,
+                "offset_A": -8.354125625587017e-05,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 2.5167178169304652e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -18.087033636680978,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.0005741322541688021,
+                    "calibrated_phase_max_error_A": 1.0784693570187187e-05,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 6.343929512997448e-05,
+                    "vendor_refinement_max_difference_A": 3.4792787317883267e-07,
+                    "resampling_refinement_max_difference_A": 9.951438784128186e-09
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 2.9390819458487623e-05,
+                    "calibrated_phase_max_error_A": 5.4162255932264206e-05,
+                    "calibrated_fixed_phase_error_A": 5.4157848744139806e-05,
+                    "quantized_calibrated_phase_max_error_A": 1.4117273429178468e-05,
+                    "vendor_refinement_max_difference_A": 2.1113974386257456e-07,
+                    "resampling_refinement_max_difference_A": 2.188721393050195e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.0003914298494258617,
+                    "calibrated_phase_max_error_A": 1.7176773055460615e-05,
+                    "calibrated_fixed_phase_error_A": 1.6798705300136163e-05,
+                    "quantized_calibrated_phase_max_error_A": 6.660762266053055e-05,
+                    "vendor_refinement_max_difference_A": 7.264663040018604e-07,
+                    "resampling_refinement_max_difference_A": 2.9790528710549324e-08
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.0007364554186102268,
+                    "calibrated_phase_max_error_A": 6.0259999035139344e-06,
+                    "calibrated_fixed_phase_error_A": -1.7763568394002505e-15,
+                    "quantized_calibrated_phase_max_error_A": 5.22557525020062e-05,
+                    "vendor_refinement_max_difference_A": 5.500267121760771e-07,
+                    "resampling_refinement_max_difference_A": 8.200021994753115e-09
+                }
+            ]
+        },
+        {
+            "cutoff_per_pole_Hz": 32000.0,
+            "poles": 3,
+            "samples_per_carrier": 1,
+            "calibration": {
+                "gain": 0.9998032195717824,
+                "offset_A": -8.237541723676856e-05,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 2.8578270140926382e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -20.538368011678326,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.001537877755449557,
+                    "calibrated_phase_max_error_A": 0.0013786270576279236,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 0.0013565570206699462,
+                    "vendor_refinement_max_difference_A": 3.518127869028831e-07,
+                    "resampling_refinement_max_difference_A": 9.960229974126378e-09
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 2.9388813612648452e-05,
+                    "calibrated_phase_max_error_A": 5.299855432610575e-05,
+                    "calibrated_fixed_phase_error_A": 5.2997492680042096e-05,
+                    "quantized_calibrated_phase_max_error_A": 1.528442421917726e-05,
+                    "vendor_refinement_max_difference_A": 2.1112585688038335e-07,
+                    "resampling_refinement_max_difference_A": 2.1900941581042238e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.0008791857655250368,
+                    "calibrated_phase_max_error_A": 0.0007086183261248991,
+                    "calibrated_fixed_phase_error_A": 1.379273210044829e-05,
+                    "quantized_calibrated_phase_max_error_A": 0.0006610317313993086,
+                    "vendor_refinement_max_difference_A": 7.289076839889219e-07,
+                    "resampling_refinement_max_difference_A": 2.978988833390872e-08
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.0017026636865820066,
+                    "calibrated_phase_max_error_A": 0.0013785339332512692,
+                    "calibrated_fixed_phase_error_A": 8.881784197001252e-16,
+                    "quantized_calibrated_phase_max_error_A": 0.0013361956539830189,
+                    "vendor_refinement_max_difference_A": 5.536813025841525e-07,
+                    "resampling_refinement_max_difference_A": 8.213412172608514e-09
+                }
+            ]
+        },
+        {
+            "cutoff_per_pole_Hz": 32000.0,
+            "poles": 3,
+            "samples_per_carrier": 2,
+            "calibration": {
+                "gain": 0.9998791268362307,
+                "offset_A": -8.237034175984093e-05,
+                "reference_current_A": [
+                    -5.385070229681743,
+                    5.385060023367785
+                ],
+                "sample_phase_fraction": 0.0,
+                "method": "One two-point fit shared by all trials and all screened phases; ideal known-current calibration references."
+            },
+            "low_frequency_group_delay_without_conversion_s": 3.014077014092638e-05,
+            "loop_bandwidth_phase_without_conversion_deg": -21.663368011678322,
+            "numerical_pass": true,
+            "trials": [
+                {
+                    "actual_mean_A": -5.385070229681743,
+                    "uncalibrated_phase_max_error_A": 0.0005688327747348509,
+                    "calibrated_phase_max_error_A": 8.884914981521774e-07,
+                    "calibrated_fixed_phase_error_A": 0.0,
+                    "quantized_calibrated_phase_max_error_A": 6.863124795408737e-05,
+                    "vendor_refinement_max_difference_A": 3.478052921224162e-07,
+                    "resampling_refinement_max_difference_A": 9.950586132845274e-09
+                },
+                {
+                    "actual_mean_A": 5.838976117928145e-10,
+                    "uncalibrated_phase_max_error_A": 2.9388399527071647e-05,
+                    "calibrated_phase_max_error_A": 5.298888108511424e-05,
+                    "calibrated_fixed_phase_error_A": 5.298880653388423e-05,
+                    "quantized_calibrated_phase_max_error_A": 1.5288340014910436e-05,
+                    "vendor_refinement_max_difference_A": 2.1112455519857142e-07,
+                    "resampling_refinement_max_difference_A": 2.1883635776357986e-10
+                },
+                {
+                    "actual_mean_A": 2.672310613440789,
+                    "uncalibrated_phase_max_error_A": 0.00038960808628463184,
+                    "calibrated_phase_max_error_A": 1.6177313522991454e-05,
+                    "calibrated_fixed_phase_error_A": 1.587437032046779e-05,
+                    "quantized_calibrated_phase_max_error_A": 6.743194010505604e-05,
+                    "vendor_refinement_max_difference_A": 7.263526033973733e-07,
+                    "resampling_refinement_max_difference_A": 2.9788428168586734e-08
+                },
+                {
+                    "actual_mean_A": 5.385060023367785,
+                    "uncalibrated_phase_max_error_A": 0.0007334429013585719,
+                    "calibrated_phase_max_error_A": 4.981733852105208e-07,
+                    "calibrated_fixed_phase_error_A": -8.881784197001252e-16,
+                    "quantized_calibrated_phase_max_error_A": 4.940600577452159e-05,
+                    "vendor_refinement_max_difference_A": 5.497510118246396e-07,
+                    "resampling_refinement_max_difference_A": 8.199616097215312e-09
+                }
+            ]
+        }
+    ],
+    "hardware_qualified": false,
+    "limitations": [
+        "Recorded physical bridge and unchanged vendor amplifier signals, with ideal external RC filtering. The filter has not yet loaded the amplifier output.",
+        "The ADC internal filter uses equal real poles matching its published typical order and -3 dB bandwidth. This is a screening approximation, not a vendor dynamic model or a guaranteed timing bound.",
+        "The same two-point gain/offset correction is applied to every current and phase. Reference-current accuracy, calibration implementation, temperature drift and component tolerances remain unqualified.",
+        "Quantization uses the selected nominal input span. ADC noise, reference error, INL/DNL, loading, communication and current-loop stability are not qualified.",
+        "Only the saved periodic currents are tested; this does not qualify changing-current distortion or arbitrary switching patterns."
+    ],
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/acquisition.py": "62794a12e09c018f3d144094db23786f90ee0d6492595292f85365e5bcefb054",
+        "model.py": "098e0b9e4b299e605b80772a6e69ed358868a964dbd805bbe654a4327b72f8aa",
+        "methodology/electronics/readout.py": "4412a23cdc31f78040d16439ffb3044331ae0e91d2995ca8077ea838054ae662",
+        "methodology/electrical.py": "23b46a33113f8059459a005b5ff9f301c8daefd9839a54b160f935fe48e1ad27",
+        "methodology/electronics/power_stage.py": "7c9969db433177cf7dc029d4c4b851afb557e9bcbbf25e38ad63c20b0810a6d5",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+        "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757"
+    },
+    "recorded_input_sha256": {
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/summary.json": "c6cad2bc846b24efb84b664cd7e1f14d9eca6576ecf0095da5dcf38f385e915f",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_0_refinement_1/transient.dat": "0f02c63207a00099c86c0c136f6de41dfb7d238a3f4b70e45759d847bf854484",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_0_refinement_2/transient.dat": "9b75558978f394b0609fa7b02ce0348d50301552e0bdf4960e9a0ae4bf4664a3",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_1_refinement_1/transient.dat": "dce1d770385359af19bc70ba4b37229734633325297409c86509313a136817b3",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_1_refinement_2/transient.dat": "18b0bc2ed606159fa1dd9e0cfeab4a9bd33d9b1c6833345ede4141af5e26556e",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_2_refinement_1/transient.dat": "aa7d8a42fc6bbef0021dc6769535dcd824ba455fc3843824629fcc39d5b43452",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_2_refinement_2/transient.dat": "bed8eadc6485d9e2f33e68b0c86acdf981017af0e9b353688af569e886957ed1",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_3_refinement_1/transient.dat": "6a22138dcdd6a5eed6b839132541b15d0f4e893937f1d64268b8c1932b13cf77",
+        "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_3_refinement_2/transient.dat": "89e69e219bbc7983276dad94ea266e7fa921df0a2a58863243dd7f9c5581d643"
+    }
+}

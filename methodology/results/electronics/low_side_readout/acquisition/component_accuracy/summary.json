@@ -1,0 +1,46 @@
+{
+    "status": "component_accuracy_allocation_not_calibration_or_thermal_qualification",
+    "uncalibrated_static_gain_bound_fraction": 0.0205,
+    "uncalibrated_zero_error_bound_A": 0.075,
+    "existing_gain_allowance_fraction": 0.005,
+    "calibration_gain_allocation_fraction": 0.001,
+    "gain_drift_per_K": 0.000134,
+    "maximum_common_temperature_change_from_calibration_K": 29.850746268656717,
+    "offset_drift_terms_A_per_K": {
+        "amplifier_input": 0.00019999999999999998,
+        "adc_offset": 0.00015360000000000002,
+        "adc_gain_at_zero_bias": 9.999999999999999e-05,
+        "bias_reference": 7.5e-05
+    },
+    "offset_drift_at_gain_temperature_boundary_A": 0.015779104477611938,
+    "adc_endpoint_INL_bound_A": 0.0009765625,
+    "existing_offset_allowance_A": 0.05,
+    "offset_remaining_for_calibration_model_error_and_other_sources_A": 0.033244333022388065,
+    "hardware_qualified": false,
+    "sources": [
+        "https://www.vishay.com/docs/30100/wsl.pdf",
+        "https://www.ti.com/lit/ds/symlink/ina181.pdf",
+        "https://www.ti.com/lit/ds/symlink/ads8698.pdf",
+        "https://www.ti.com/lit/ds/symlink/ref50.pdf"
+    ],
+    "limitations": [
+        "Absolute worst-case sums for the static mean-current gain model. This is a thermal/calibration design constraint, not proof that the component temperatures meet it.",
+        "Each component temperature change is bounded by the reported common envelope; opposing shunt mismatch, switching bias, parasitic inductance and thermal EMF require separate waveform analysis.",
+        "ADC system gain/offset specifications use the internal reference per the datasheet. Do not add its separate reference drift again; gain drift also shifts the biased zero-current code.",
+        "Calibration gain accuracy is an allocated requirement, not an achieved measurement. Calibration-reference error, hysteresis, aging, supply/reference loading and model discrepancy must fit remaining allocations.",
+        "Repeated zero calibration can remove offset change after supplies settle but cannot remove gain drift. Temperature compensation requires characterized coefficients and representative component temperature sensing."
+    ],
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/acquisition.py": "a1d4aaf5c99f85c8c7688d9e7760051433033cb209d6d4b55f09ecb3ace25787",
+        "model.py": "8054ae2adcbd7b7ec648b6ee5e27fd97fe3ca9cf431e440172295952d004b850",
+        "methodology/electronics/readout.py": "8a81ad47b637364d01284c24fdd84d330b4270e20cd7fd2e0d4ab52e0d0f04e8",
+        "methodology/electrical.py": "23b46a33113f8059459a005b5ff9f301c8daefd9839a54b160f935fe48e1ad27",
+        "methodology/electronics/power_stage.py": "5fa392cff0fbf00704978dc3ebc99ecac6eebb07d76eb5d7cba0ef937ed12e41",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+        "methodology/qualification.py": "7d1232db4b9045a1ac7d244ffb71468b64d636953203c81daee2f92627a33f54",
+        "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757"
+    },
+    "recorded_input_sha256": {}
+}

@@ -1,5 +1,6 @@
 import ast
 import json
+import re
 from pathlib import Path
 from types import SimpleNamespace
 import unittest
@@ -18,7 +19,8 @@ class ModelMigrationTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         folder = Path(design.__file__).parent
-        paths = (Path(model.__file__), Path(levitation_sim.__file__), *folder.glob('*.py'), *folder.joinpath('cad').glob('*.py'))
+        paths = (Path(model.__file__), Path(levitation_sim.__file__), *folder.glob('*.py'),
+                 *folder.joinpath('cad').glob('*.py'), *folder.joinpath('electronics').glob('*.py'))
         cls.production_sources = {path: ast.parse(path.read_text()) for path in paths}
 
     def setUp(self):
@@ -184,6 +186,10 @@ class ModelMigrationTests(unittest.TestCase):
         sources = list(self.production_sources.values())
         attribute_reads = {node.attr for source in sources for node in ast.walk(source)
                            if isinstance(node, ast.Attribute) and isinstance(node.ctx, ast.Load)}
+        attribute_reads.update(node.id for definition in sources[0].body if isinstance(definition, ast.ClassDef)
+                               for node in ast.walk(definition) if isinstance(node, ast.Name) and isinstance(node.ctx, ast.Load))
+        for schematic in Path(design.__file__).parent.joinpath('electronics').glob('*.kicad_sch'):
+            attribute_reads.update(re.findall(r'\(property\s+"ModelParameter"\s+"([a-zA-Z_][a-zA-Z_0-9]*)"', schematic.read_text()))
         for definition in sources[0].body:
             if isinstance(definition, ast.ClassDef) and definition.name in ("Inputs", "Fixed", "Constants"):
                 for assignment in definition.body:

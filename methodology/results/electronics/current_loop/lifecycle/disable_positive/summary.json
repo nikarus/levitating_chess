@@ -1,0 +1,96 @@
+{
+    "status": "resolved_switching_bridge_with_sampled_regulator_and_reduced_readout",
+    "source_sha256": {
+        "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+        "methodology/electronics/switching_loop.py": "2afcdcc6d7ec57b2f61302c47e9abb4d50ec9cd84816a74e9d6882e4bb4591bb",
+        "model.py": "2d964daf2be6fdc568f93175a09830cd5f9bc5ef9f43468e116328ff51e440bc",
+        "methodology/qualification.py": "7d1232db4b9045a1ac7d244ffb71468b64d636953203c81daee2f92627a33f54",
+        "methodology/electronics/acquisition.py": "85dc1ebeb49263ca4cafc1294b55306431fbe3f64d443ac99f8b5ea6b31002b9",
+        "methodology/electronics/current_loop.py": "d9fdf5d50d34592bb5aecbce23e28b57380ca7083f9e42e0c0395f5613e75773",
+        "methodology/electronics/power_stage.py": "5fa392cff0fbf00704978dc3ebc99ecac6eebb07d76eb5d7cba0ef937ed12e41",
+        "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+        "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe"
+    },
+    "trials": [
+        {
+            "refinement": 1,
+            "stopped": false,
+            "completed_time_s": 0.0020000000000000005,
+            "commanded_current_A": 0.0,
+            "bridge_enabled": false,
+            "settled_period_means_A": [
+                9.044291446826868e-13,
+                -3.930904705100313e-11,
+                1.328101694495419e-11,
+                1.0932884532414545e-11,
+                -9.04390243366538e-12,
+                -1.1844647887070103e-12,
+                3.986467517173512e-12,
+                -9.14857889083199e-13,
+                -1.2586334937444986e-12,
+                7.983819382853185e-13
+            ],
+            "plateau_error_A": 3.930904705100313e-11,
+            "plateau_tracking_pass": true,
+            "final_mean_tracking_allowance_A": 0.17750000000000002,
+            "final_mean_tracking_pass": true,
+            "peak_current_A": 5.489977989698395,
+            "final_regulator_period_mean_A": 7.983819382700128e-13,
+            "initial_mean_A": 5.385060023367785,
+            "initial_plant_path": "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_3_refinement_1/plant.npz",
+            "initial_plant_sha256": "25de53c2a420601c3b2c7eb34a037d44a3f5cb465110fbc80b033ef1926bf1de",
+            "controller_samples": 40,
+            "native_points": 315139
+        },
+        {
+            "refinement": 2,
+            "stopped": false,
+            "completed_time_s": 0.0020000000000000005,
+            "commanded_current_A": 0.0,
+            "bridge_enabled": false,
+            "settled_period_means_A": [
+                9.181607615226e-13,
+                -3.9516242086132674e-11,
+                1.3348623939368815e-11,
+                1.0994234974147085e-11,
+                -9.093374250684934e-12,
+                -1.1921927558801834e-12,
+                4.00950498377866e-12,
+                -9.198202537034063e-13,
+                -1.266326346328074e-12,
+                8.03129134351277e-13
+            ],
+            "plateau_error_A": 3.9516242086132674e-11,
+            "plateau_tracking_pass": true,
+            "final_mean_tracking_allowance_A": 0.17750000000000002,
+            "final_mean_tracking_pass": true,
+            "peak_current_A": 5.489978008867179,
+            "final_regulator_period_mean_A": 8.031291343359301e-13,
+            "initial_mean_A": 5.385060023367785,
+            "initial_plant_path": "methodology/results/electronics/low_side_readout/physical_return_paths/settled_bridge_readout/case_3_refinement_2/plant.npz",
+            "initial_plant_sha256": "0bb55aa46120c98cf4e56407763ca24ce1fc64461c1cb4668b039dacf897edc3",
+            "controller_samples": 40,
+            "native_points": 457907
+        }
+    ],
+    "peak_current_refinement_difference_A": 8.445318430236326e-06,
+    "peak_analog_sensor_refinement_difference_A": 1.6993141951360258e-06,
+    "peak_sampled_feedback_difference_A": 0.0,
+    "numerical_pass": true,
+    "lifecycle_scenario": [
+        1.0,
+        0.0,
+        false
+    ],
+    "plateau_tracking_pass": true,
+    "final_mean_tracking_pass": true,
+    "hardware_qualified": false,
+    "limitations": [
+        "Physical bridge circuit and passive output filter are resolved with a stiff integrator and exact derivatives. The amplifier and ADC internal response remain reduced typical-bandwidth models.",
+        "Controller receives only quantized, filtered, delayed sensing with the existing noise budget; actual coil current is used only for plant integration and diagnostics.",
+        "Initial bridge comes from a verified powered periodic state. Electronic states use the corresponding periodic reduced-model response; the integral starts at its known holding command minus dead-time and nominal resistive feedforward. Enable tests begin after supplies and bias settle; they do not qualify cold power-on. Disabled gates turn off after the modeled propagation delay, with diode and capacitor paths retained.",
+        "Dead-time feedforward uses the smoothed requested current at actuation and typical timing/diode estimates; this is a prediction to avoid delayed-sign correction, not a true-current measurement. Reference feedforward supplies nominal R*i+L*di/dt; feedback compares the measured signal with the nominally filtered paired reference. Saturation and anti-windup remain inside the shared regulator.",
+        "Two-point load correction removes the known nominal resistor-divider gain and bias only. Manufacturer-model replay must verify the reduced readout during this reversal.",
+        "No amplifier input loading feedback, guaranteed timing/temperature bounds, shared supply dynamics, EMI, back-EMF, mutual coupling or fault lifecycle is qualified."
+    ]
+}

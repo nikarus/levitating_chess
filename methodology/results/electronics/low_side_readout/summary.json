@@ -1,0 +1,58 @@
+{
+    "status": "vendor_model_compatibility_blocked_not_component_failure",
+    "original_run": {
+        "status": "manually_terminated_after_stalling_at_first_edge",
+        "log": "case_0_refinement_1/ngspice.log",
+        "last_reported_time_s": 2.79606e-06,
+        "source_sha256": {
+            "methodology/__init__.py": "f888a97f1999b05779270be84d58e5e5d9d44373b5058f73490168e3af780fe5",
+            "methodology/electronics/readout.py": "bb088ae528c465cc59bd15a29342247f62c2b4c62db556c43a388a828a3e760a",
+            "model.py": "6254a7696a7059270ea8b407efcab5386ac2d4ba6be4525597b45a5393ab18ea",
+            "methodology/electrical.py": "23b46a33113f8059459a005b5ff9f301c8daefd9839a54b160f935fe48e1ad27",
+            "methodology/electronics/power_stage.py": "3fa14f2d6756047b5ffbf409ddd4af4920d80acc2d19e70e7ec2584c84ac3173",
+            "methodology/design.py": "a7b5d2a7f5b841956eaec8d1a38917e482cb823bfa6962fa92ff2c773bdd34cc",
+            "methodology/prototype_coils.py": "190b15fd584aa2cca41b6712f7464d35a869d573134f89e6f1e32b913358d6fe",
+            "methodology/qualification.py": "cab97b0cfec6f10853f716b4bb4c7329a2a49af0f3dbc50adfffbb756c5f6061",
+            "methodology/coil_layouts.py": "9971d40ec4362445da5a66b03a3060a1701ad9d8bfb081287b3a49b559241757"
+        },
+        "vendor_sha256": "b21a12037058848645c9c0569555905686a85a77430ff612dfd87d96caee21a6",
+        "vendor_url": "https://www.ti.com/lit/zip/SBOMBB7"
+    },
+    "bounded_diagnostics": [
+        {
+            "case": "gear",
+            "completed": false,
+            "failure": "transient_aborted_timestep_too_small",
+            "last_simulated_time_s": 6.43974e-10,
+            "vendor_sha256": "b21a12037058848645c9c0569555905686a85a77430ff612dfd87d96caee21a6",
+            "vendor_url": "https://www.ti.com/lit/zip/SBOMBB7"
+        },
+        {
+            "case": "gear-tolerance",
+            "completed": false,
+            "failure": "transient_aborted_timestep_too_small",
+            "last_simulated_time_s": 3.03988e-06,
+            "vendor_sha256": "b21a12037058848645c9c0569555905686a85a77430ff612dfd87d96caee21a6",
+            "vendor_url": "https://www.ti.com/lit/zip/SBOMBB7"
+        },
+        {
+            "case": "loaded",
+            "completed": false,
+            "failure": "transient_aborted_timestep_too_small",
+            "last_simulated_time_s": 2.82438e-06,
+            "vendor_sha256": "b21a12037058848645c9c0569555905686a85a77430ff612dfd87d96caee21a6",
+            "vendor_url": "https://www.ti.com/lit/zip/SBOMBB7"
+        },
+        {
+            "case": "tina-check",
+            "completed": false,
+            "failure": "transient_aborted_timestep_too_small",
+            "last_simulated_time_s": 9.07358e-06,
+            "vendor_sha256": "ad55697f56474a0dd914097170e72df970db8093fede3337843786770d75f10c",
+            "vendor_url": "https://www.ti.com/lit/zip/SBOMAD3"
+        }
+    ],
+    "diagnostic_archive": "compatibility_checks.zip",
+    "hardware_qualified": false,
+    "conclusion": "No complete vendor transient was obtained. No sampled-current accuracy, one-versus-two amplifier choice or component rejection follows from these failed numerical tests. Exact models, netlists, compatibility settings, output and logs are retained. The separate architecture screen is analytical only."
+}
